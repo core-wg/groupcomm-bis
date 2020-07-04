@@ -74,6 +74,7 @@ informative:
   I-D.ietf-ace-key-groupcomm-oscore:
   I-D.tiloca-core-oscore-discovery:
   I-D.ietf-core-resource-directory:
+  I-D.tiloca-ace-oscore-gm-admin:
   I-D.ietf-core-coap-pubsub:
   I-D.ietf-tls-dtls13:
   RFC5246:
@@ -221,12 +222,14 @@ OLD TEXT
 A security group is identified by a Group Identifier (Gid) specific to the chosen security solution, for example a key identifier. The "NoSec" security group is typically identified by the absence of any Gid or any security-related data structures in the CoAP message.
 -->
 
-### Group Creation and Membership ###
+### Group Creation and Membership ### {#sssec-group-creation}
 To create a CoAP group, a configuring entity defines an IP multicast address (or hostname) for the group and optionally a UDP port number in case it differs from the default CoAP port 5683. Then, it configures one or more devices as listeners to that IP multicast address, with a CoAP endpoint listening on the group's associated UDP port. These endpoints/devices are the group members. The configuring entity can be, for example, a local application with pre-configuration, a user, a software developer, a cloud service, or a local commissioning tool. Also, the devices sending CoAP requests to the group in the role of CoAP client need to be configured with the same information, even though they are not necessarily group members. One way to configure a client is to supply it with a CoAP Group URI. The IETF does not define a mandatory, standardized protocol to accomplish CoAP group creation. {{RFC7390}} defines an experimental protocol for configuration of group membership for unsecured group communication, based on JSON-formatted configuration resources.
 
 To create an application group, a configuring entity may configure a resource (name) or set of resources on a CoAP endpoint, such that a request sent by a configured CoAP client with a configured URI path will be processed by one or more CoAP servers that have the same URI path configured - i.e. the application group members.
 
-To create a security group, selected CoAP endpoints are configured with the same security material in case communication is secured within the group. The part of the process that involves secure distribution of group keys MAY use standardized communication with a Group Manager as defined in {{chap-oscore}}. For unsecure group communication using the "NoSec" security group, any CoAP endpoint may become a group member at any time: there is no (central) configuring entity that needs to provide the security material for this group. This means that group creation and membership cannot be tightly controlled for the "NoSec" group.
+To create a security group, a configuring entity defines a set of group properties including the crytpographic algorithms and parameters used in the group, as well as additional information relevant throughout the group life-cycle, including the group name and description. This task MAY be entrusted to a dedicated administrator, that interacts with a Group Manager as defined in {{chap-oscore}}. After that, security material to protect group communications has to be generated, as compatible with the specified group configuration.
+
+To participate in a security group, CoAP endpoints have to be configured with the group security material used to protect communications in the associated application/CoAP groups. The part of the process that involves secure distribution of group security material MAY use standardized communication with a Group Manager as defined in {{chap-oscore}}. For unsecure group communication using the "NoSec" security group, any CoAP endpoint may become a group member at any time: there is no (central) configuring entity that needs to provide the security material for this group. This means that group creation and membership cannot be tightly controlled for the "NoSec" group.
 
 The configuration of groups and membership may be performed at different moments in the life-cycle of a device; for example during product (software) creation, in the factory, at a reseller, on-site during first deployment, or on-site during a system reconfiguration operation.
 
@@ -246,7 +249,7 @@ Maintenance of a group includes any necessary operations to cope with changes in
 
 For unsecured group communication (see {{chap-unsecured-groupcomm}}), addition/removal of CoAP group members is simply done by configuring these devices to start/stop listening to the group IP multicast address on the group's UDP port.
 
-For secured group communication (see {{chap-oscore}}), the protocol Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} is mandatory to implement. When using Group OSCORE, CoAP endpoints participating in group communication are also members of a corresponding OSCORE security group, and thus share a common set of cryptographic material. Additional related maintenance operations are discussed in {{chap-sec-group-maintenance}}.
+For secured group communication (see {{chap-oscore}}), the protocol Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} is mandatory to implement. When using Group OSCORE, CoAP endpoints participating in group communication are also members of a corresponding OSCORE security group, and thus share common security material. Additional related maintenance operations are discussed in {{chap-sec-group-maintenance}}.
 
 ## CoAP Usage ## {#sec-coap-usage}
 
@@ -458,6 +461,8 @@ The first method, namely group mode, relies on digital signatures. That is, send
 The second method, namely pairwise mode, relies on a symmetric key, which is derived from a pairwise shared secret computed from the asymmetric keys of the message sender and recipient. This method is intended for one-to-one messages sent in the group, such as all responses as individually sent by servers, as well as requests addressed to an individual server.
 
 A Group Manager is responsible for one or multiple OSCORE groups. In particular, the Group Manager acts as repository of public keys of group members; manages, renews and provides keying material in the group; and handles the join process of new group members.
+
+As defined in {{I-D.tiloca-ace-oscore-gm-admin}}, an administrator entity can interact with the Group Manager to create OSCORE groups and specify their configuration (see {{sssec-group-creation}}). During the lifetime of the OSCORE group, the administrator can further interact with the Group Manager, in order to possibly update the group configuration and eventually delete the group.
 
 As recommended in {{I-D.ietf-core-oscore-groupcomm}}, a CoAP endpoint can join an OSCORE group by using the method described in {{I-D.ietf-ace-key-groupcomm-oscore}} and based on the ACE framework for Authentication and Authorization in constrained environments {{I-D.ietf-ace-oauth-authz}}.
 
