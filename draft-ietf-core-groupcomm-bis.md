@@ -76,10 +76,7 @@ informative:
   I-D.ietf-core-resource-directory:
   I-D.tiloca-ace-oscore-gm-admin:
   I-D.ietf-core-coap-pubsub:
-  I-D.ietf-tls-dtls13:
-  RFC5246:
   RFC6092:
-  RFC6347:
   RFC6550:
   RFC6636:
   RFC7258:
@@ -88,7 +85,6 @@ informative:
   RFC7731:
   RFC7967:
   RFC8323:
-  RFC8446:
   RFC8710:
   Californium:
     author:
@@ -147,9 +143,9 @@ Three types of groups and their mutual relations are defined in this section: Co
 
 A CoAP group is defined as a set of CoAP endpoints, where each endpoint is configured to receive CoAP multicast messages that are sent to the group's associated IP multicast address and UDP port. An endpoint may be a member of multiple CoAP groups by subscribing to multiple IP multicast groups. Group membership(s) of an endpoint may dynamically change over time. A device sending a CoAP multicast message to a group is not necessarily itself a member of this group: it is a member only if it also has a CoAP endpoint listening to the group's associated IP multicast address and UDP port. A CoAP group can be encoded within a Group URI, i.e. a CoAP URI that has the "coap" scheme and includes in the authority part either an IP multicast address or a group hostname (e.g., a Group Fully Qualified Domain Name (FQDN)) that can be resolved to an IP multicast address. A Group URI also contains an optional UDP port number in the authority part. Group URIs follow the regular CoAP URI syntax (see Section 6 of {{RFC7252}}).
 
-Besides CoAP groups, that have relevance at the level of IP networks and CoAP endpoints, there are also application groups. An application group is a set of CoAP server endpoints that share a common set of CoAP resources. An endpoint may be a member of multiple application groups. An application group has relevance at the application level -- for example an application group could denote all lights in an office room or all sensors in a hallway. There can be a one-to-one or a one-to-many relation between a CoAP group and application group(s). An application group is optionally identified explicitly in the path component or query component of a Group URI. If not explicitly identified, the application group is specified implicitly in a Group URI by choice of CoAP group and resource path.
+Besides CoAP groups, that have relevance at the level of IP networks and CoAP endpoints, there are also application groups. An application group is a set of CoAP server endpoints that share a common set of CoAP resources. An endpoint may be a member of multiple application groups. An application group has relevance at the application level -- for example an application group could denote all lights in an office room or all sensors in a hallway. A client endpoint that sends a group communication message to an application group is not necessarily itself a member of this application group. There can be a one-to-one or a one-to-many relation between a CoAP group and application group(s). An application group is optionally identified explicitly in the path component or query component of a Group URI. If not explicitly identified, the application group is specified implicitly in a Group URI by choice of CoAP group and resource path.
 
-For secure group communication, a security group is required. A security group is a group of endpoints that share the same security material, such that they can mutually exchange secured messages and verify secured messages. An endpoint may be a member of multiple security groups. There can be a one-to-one or a one-to-many relation between security groups and CoAP groups. Also, there can be a one-to-one or a one-to-many relation between security groups and application groups. Any two application groups associated to the same security group do not share any resource. A special security group named "NoSec" identifies group communication without any security at the transport layer and/or application layer.
+For secure group communication, a security group is required. A security group is a group of endpoints that share the same security material, such that they can mutually exchange secured messages and verify secured messages. So, a client endpoint needs to be a member of a security group in order to send a valid secured group communication message to this group. An endpoint may be a member of multiple security groups. There can be a one-to-one or a one-to-many relation between security groups and CoAP groups. Also, there can be a one-to-one or a one-to-many relation between security groups and application groups. A special security group named "NoSec" identifies group communication without any security at the transport layer and/or application layer.
 
 Using the above group type definitions, a CoAP group communication message sent by an endpoint can be represented as a tuple that contains one instance of each group type:
 
@@ -235,9 +231,9 @@ The configuration of groups and membership may be performed at different moments
 
 ### Group Discovery ###
 
-It is possible for CoAP endpoints to discover application groups as well as CoAP groups, by using the RD-Groups usage pattern of the CoRE Resource Directory (RD), as defined in Appendix A of {{I-D.ietf-core-resource-directory}}.
+It is possible for CoAP endpoints to discover application groups as well as CoAP groups, by using the RD-Groups usage pattern of the CoRE Resource Directory (RD), as defined in Appendix A of {{I-D.ietf-core-resource-directory}}. In particular, an application group can be registered to the RD, specifying the reference IP multicast address, hence its associated CoAP group. The registration is typically performed by a Commissioning Tool. Later on, CoAP endpoints can discover the registered application groups and related CoAP group, by using the lookup interface of the RD.
 
-In particular, an application group can be registered to the RD, specifying the reference IP multicast address, hence its associated CoAP group. The registration is typically performed by a Commissioning Tool. Later on, CoAP endpoints can discover the registered application groups and related CoAP group, by using the lookup interface of the RD.
+CoAP endpoints can also discover application groups by performing a multicast discovery query using the /.well-known/core resource. Such a request may be sent to a known CoAP group multicast address associated to application group(s), or to the All CoAP Nodes multicast address.
 
 When secure communication is provided with Group OSCORE (see {{chap-oscore}}), the approach described in {{I-D.tiloca-core-oscore-discovery}} and also based on the RD can be used, in order to discover the security group to join.
 
@@ -258,7 +254,7 @@ A CoAP client is an endpoint able to transmit CoAP requests and receive CoAP res
 
 All CoAP requests that are sent via IP multicast MUST be Non-confirmable (Section 8.1 of {{RFC7252}}).  The Message ID in an IP multicast CoAP message is used for optional message deduplication by both clients and servers, as detailed in Section 4.5 of {{RFC7252}}.
 
-A server sends back a unicast response to the CoAP group request - but the server MAY suppress the response if the server chooses so and if permitted by the rules in this document. The unicast responses received by the CoAP client may be a mixture of success (e.g., 2.05 Content) and failure (e.g., 4.04 Not Found) codes, depending on the individual server processing results.
+A server sends back a unicast response to the CoAP group request - but the server MAY suppress the response for various reasons (Section 8.2 of {{RFC7252}}). This document adds the requirement that a server SHOULD suppress the response in case of error or in case there is nothing useful to respond, unless the application requires such a response to be made. The unicast responses received by the CoAP client may be a mixture of success (e.g., 2.05 Content) and failure (e.g., 4.04 Not Found) codes, depending on the individual server processing results.
 
 The CoAP No-Response Option {{RFC7967}} can be used by a client to influence the default response suppression on the server side. It is RECOMMENDED for a server to implement this option only on selected resources where it is useful in the application context. If the Option is supported on a resource, it MUST override the default response suppression of that resource.
 
@@ -272,9 +268,7 @@ The CoAP client can distinguish the origin of multiple server responses by the s
 
 While processing a response, the source endpoint of the response is not exactly matched to the destination endpoint of the request, since for a multicast request these will never match. This is specified in Section 8.2 of {{RFC7252}}. In case a single client has sent multiple group requests and concurrent CoAP transactions are ongoing, the responses received by that client are matched to a request using the Token value. Due to UDP level multiplexing, the UDP destination port of the response MUST match to the client endpoint's UDP port value, i.e. to the UDP source port of the client's request.
 
-For multicast CoAP requests, there are additional constraints on the reuse of Token values at the client, compared to the unicast case. In the unicast case, receiving a response usually frees up its Token value, since no more responses to the same request will follow. Therefore, such value would become available for reuse. Note that {{I-D.ietf-core-echo-request-tag}} updates the Token processing of {{RFC7252}}, so that clients do not use Tokens in a way that risk associating responses with a wrong request. This holds especially when using a security protocol that does not provide bindings between requests and responses, e.g. DTLS {{RFC6347}}{{I-D.ietf-tls-dtls13}} and TLS {{RFC5246}}{{RFC8446}}. In such a case, a client should not reuse a (freed up) Token value within a secure connection, until this has been rekeyed.
-
-However, for multicast CoAP, the number of responses is not bound a priori. Therefore, the client cannot use the reception of a response as a trigger to "free up" a Token value for reuse. Moreover, reusing a Token value too early could lead to incorrect response/request matching on the client, and would be a protocol error.  Therefore, the time between reuse of Token values used in multicast requests MUST be greater than:
+For multicast CoAP requests, there are additional constraints on the reuse of Token values at the client, compared to the unicast case defined in {{RFC7252}} and updated by {{I-D.ietf-core-echo-request-tag}}. Since for multicast CoAP the number of responses is not bound a priori, the client cannot use the reception of a response as a trigger to "free up" a Token value for reuse. Reusing a Token value too early could lead to incorrect response/request matching on the client, and would be a protocol error.  Therefore, the time between reuse of Token values used in multicast requests MUST be greater than:
 
 ~~~~~~~~~~~
 MIN_TOKEN_REUSE_TIME = (NON_LIFETIME + MAX_LATENCY +
@@ -318,7 +312,7 @@ A method based on this approach and addressing the issues raised above is define
 
 An alternative solution is for the proxy to collect all the individual (unicast) responses to a CoAP group request and then send back only a single (aggregated) response to the client. However, this solution brings up new issues:
 
-* The proxy does not know how many members there are in the group or how many group members will actually respond. Also, the proxy does not know for how long to collect responses before sending back the aggregated response to the client. A CoAP client that is not using a Proxy might face the same problems in collecting responses to a multicast request. However, the client itself would typically have application-specific rules or knowledge on how to handle this situation, while an application-agnostic CoAP Proxy would typically not have this knowledge.
+* The proxy does not know how many members there are in the group or how many group members will actually respond. Also, the proxy does not know for how long to collect responses before sending back the aggregated response to the client. A CoAP client that is not using a Proxy might face the same problems in collecting responses to a multicast request. However, the client itself would typically have application-specific rules or knowledge on how to handle this situation, while an application-agnostic CoAP Proxy would typically not have this knowledge. For example, a CoAP client could monitor incoming responses and use this information to decide how long to continue collecting responses - which is something a proxy cannot do.
 
 * There is no default format defined in CoAP for aggregation of multiple responses into a single response. Such a format could be standardized based on, for example, the multipart content-format {{RFC8710}}.
 
@@ -349,7 +343,7 @@ Additional guidelines to reduce congestion risks defined in this document are as
 
 * A server MAY minimize the payload size of a response to a multicast GET (e.g., on "/.well-known/core") by using CoAP block-wise transfers {{RFC7959}} in case the payload is long, returning only a first block of the CoRE Link Format description.  For this reason, a CoAP client sending an IP multicast CoAP request to "/.well-known/core" SHOULD support block-wise transfers. See also {{sec-block-wise}}.
 
-* A client SHOULD use CoAP group communication with the smallest possible IP multicast scope that fulfills the application needs. As an example, site-local scope is always preferred over global scope IP multicast if this fulfills the application needs. Similarly, realm-local scope is always preferred over site-local scope if this fulfills the application needs.
+* A client SHOULD be configured to use CoAP groups with the smallest possible IP multicast scope that fulfills the application needs. As an example, site-local scope is always preferred over global scope IP multicast if this fulfills the application needs. Similarly, realm-local scope is always preferred over site-local scope if this fulfills the application needs.
 
 ### Observing Resources ### {#sec-observe}
 The CoAP Observe Option {{RFC7641}} is a protocol extension of CoAP, that allows a CoAP client to retrieve a representation of a resource and automatically keep this representation up-to-date over a longer period of time. The client gets notified when the representation has changed. {{RFC7641}} does not mention whether the Observe Option can be combined with CoAP multicast. This section updates {{RFC7641}} with the use of the Observe Option in a CoAP multicast GET request and defines normative behavior for both client and server.
@@ -367,6 +361,8 @@ Before repeating a request as specified above, the client SHOULD wait for at lea
 A server that receives a legitimate GET request with the Observe Option, for which request processing is successful, SHOULD respond to this request and not suppress it, because the client is obviously interested in the resource representation. A server that adds a client to the list of observers for a resource due to an Observe request MUST respond to this request and not suppress it.
 
 A server SHOULD have a mechanism to verify liveness of its observing clients and the continued interest of these clients in receiving the observe notifications. This can be implemented by sending notifications occassionally using a Confirmable message. See Section 4.5 of {{RFC7641}} for details. This requirement overrides the regular behavior of sending Non-Confirmable notifications in response to a Non-Confirmable request.
+
+A client can apply the unicast cancellation methods of Section 3.6 of {{RFC7641}} to an ongoing multicast observe request. This can be used to remove specific observed servers, or even all servers. In addition a client MAY explicitly deregister to the entire group by sending a multicast GET request that includes the Token value of the observation to be cancelled and includes an Observe Option with the value set to 1 (deregister). In case not all servers in the CoAP group received this deregistration request, either the unicast cancellation methods can be used or the multicast deregistration request MAY be repeated upon receiving another observe response from a server.
 
 For observing a group of servers through a CoAP-to-CoAP proxy or HTTP-CoAP proxy, the limitations stated in {{sec-proxy}} apply.
 
