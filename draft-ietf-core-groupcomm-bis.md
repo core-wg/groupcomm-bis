@@ -644,6 +644,26 @@ In some cases a whole network, or subnet of multiple IP devices, or a specific t
 ## Software Update ##
 Multicast can be useful to efficiently distribute new software (firmware, image, application, etc.) to a group of multiple devices. In this case, the group is defined in terms of device type: all devices in the target group are known to be capable of installing and running the new software. The software is distributed as a series of smaller blocks that are collected by all devices and stored in memory. All devices in the target group are usually responsible for integrity verification of the received software; which can be done per-block or for the entire software image once all blocks have been received. Due to the inherent unreliability of CoAP multicast, there needs to be a backup mechanism (e.g. implemented using CoAP unicast) by which a device can individually request missing blocks of a whole software image/entity. Prior to multicast software update, the group of recipients can be separately notified that there is new software available and coming, using the above network-wide or group notification.
 
+# Document Updates # {#sec-document-updates}
+
+RFC EDITOR: PLEASE REMOVE THIS SECTION.
+
+## Version -00 to -01 ## {#sec-00-01}
+
+* Clarifications on group memberships for the different group types.
+
+* Simplified description of Token reusage, compared to the unicast case.
+
+* More details on the rationale for response suppression.
+
+* Clarifications of creation and management of security groups.
+
+* Both the group mode and pairwise mode of Group OSCORE are considered.
+
+* Updated security considerations.
+
+* Editorial improvements.
+
 # Acknowledgments # {#acknowledgements}
 {: numbered="no"}
 
