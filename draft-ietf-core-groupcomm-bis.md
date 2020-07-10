@@ -658,6 +658,12 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 * Clarifications of creation and management of security groups.
 
+* Clients more knowledgeable than proxies about stopping receiving responses.
+
+* Cancellation of group observations.
+
+* Clarification on multicast scope to use.
+
 * Both the group mode and pairwise mode of Group OSCORE are considered.
 
 * Updated security considerations.
