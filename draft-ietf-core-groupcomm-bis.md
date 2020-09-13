@@ -145,6 +145,14 @@ Using the above group type definitions, a CoAP group communication message sent 
 
     (application group, CoAP group, security group)
 
+A special note is appropriate about the possible relation between security groups and application groups.
+
+On one hand, multiple application groups may use the same security group. Thus, the same group security material is used to protect the messages targeting any of those application groups. In this case, a CoAP endpoint is supposed to know the exact application group to refer to for each message, based on, e.g., the used server port number, the targeted resource, or the content and structure of the message payload.
+
+On the other hand, a single application group may use multiple security groups. Thus, different messages targeting the resources of the application group can be protected with different security material. This can be convenient, for example, if the security groups differ with respect to the crytpographic algorithms and related parameters they use. In this case, a CoAP client can join just one of the security groups, based on what it supports and prefers, while a CoAP server in the application group would rather have to join all of them.
+
+Beyond this particular case, applications should be greatly careful in associating a same application group to multiple security groups. In particular, it is NOT RECOMMENDED using different security groups to reflect different access policies for resources in a same application group. That is, being a member of a security group actually grants access only to exchanged secure messages, while access to resources in the application group belongs to a separate security domain, and has to be separately enforced by leveraging the resource properties or through dedicated access control credentials assessed by separate means.
+
 {{fig-group-relation}} summarizes the relations between the different types of groups described above in UML class diagram notation. The items in square brackets are optionally defined.
 
 ~~~~~~~~~~~
