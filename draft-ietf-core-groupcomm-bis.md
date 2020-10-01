@@ -361,7 +361,7 @@ A server SHOULD have a mechanism to verify liveness of its observing clients and
 
 A client can use the unicast cancellation methods of Section 3.6 of {{RFC7641}} and stop the ongoing observation of a particular resource on members of a CoAP group. This can be used to remove specific observed servers, or even all servers in the group. In addition, a client MAY explicitly deregister from all those servers at once, by sending a multicast GET or FETCH request that includes the Token value of the observation to be cancelled and includes an Observe Option with the value set to 1 (deregister). In case not all the servers in the CoAP group received this deregistration request, either the unicast cancellation methods can be used or the multicast deregistration request MAY be repeated upon receiving another observe response from a server.
 
-For observing a group of servers through a CoAP-to-CoAP proxy or HTTP-CoAP proxy, the limitations stated in {{sec-proxy}} apply.
+For observing a group of servers through a CoAP-to-CoAP proxy, the limitations stated in {{sec-proxy}} apply. The method defined in {{I-D.tiloca-core-groupcomm-proxy}} enables group communication through proxies and addresses those limitations.
 
 ### Block-Wise Transfer ### {#sec-block-wise}
 
