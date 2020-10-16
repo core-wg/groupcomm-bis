@@ -136,12 +136,16 @@ The general operation of group communication, both unsecured and secured, is spe
 ## Group Definition ## {#sec-groupdef}
 Three types of groups and their mutual relations are defined in this section: CoAP group, application group, and security group.
 
+### CoAP Group ## {#sec-groupdef-coapgroup}
 A CoAP group is defined as a set of CoAP endpoints, where each endpoint is configured to receive CoAP multicast messages that are sent to the group's associated IP multicast address and UDP port. An endpoint may be a member of multiple CoAP groups by subscribing to multiple IP multicast groups and/or listening on multiple UDP ports. Group membership(s) of an endpoint may dynamically change over time. A device sending a CoAP multicast message to a CoAP group is not necessarily itself a member of this CoAP group: it is a member only if it also has a CoAP endpoint listening on the group's associated IP multicast address and UDP port. A CoAP group can be encoded within a Group URI. This is defined as a CoAP URI that has the "coap" scheme and includes in the authority part either an IP multicast address or a group hostname (e.g., a Group Fully Qualified Domain Name (FQDN)) that can be resolved to an IP multicast address. A Group URI also contains an optional UDP port number in the authority part. Group URIs follow the regular CoAP URI syntax (see Section 6 of {{RFC7252}}).
 
+### Application Group ## {#sec-groupdef-applicationgroup}
 Besides CoAP groups, that have relevance at the level of IP networks and CoAP endpoints, there are also application groups. An application group is a set of CoAP server endpoints that share a common set of CoAP resources. An endpoint may be a member of multiple application groups. An application group has relevance at the application level -- for example an application group could denote all lights in an office room or all sensors in a hallway. A client endpoint that sends a group communication message to an application group is not necessarily itself a member of this application group. There can be a one-to-one or a one-to-many relation between a CoAP group and application group(s). An application group identifier is optionally encoded explicitly in the CoAP request. If not explicitly encoded, the application group is implicitly derived by the receiver, based on information in the CoAP request. See {{sec-groupnaming}} for more details on identifying the application group.
 
+### Security Group ## {#sec-groupdef-securitygroup}
 For secure group communication, a security group is required. A security group is a group of endpoints that each store group security material, such that they can mutually exchange secured messages and verify secured messages. So, a client endpoint needs to be a member of a security group in order to send a valid secured group communication message to this group. An endpoint may be a member of multiple security groups. There can be a one-to-one or a one-to-many relation between security groups and CoAP groups. Also, there can be a one-to-one or a one-to-many relation between security groups and application groups. A special security group named "NoSec" identifies group communication without any security at the transport layer and/or application layer.
 
+### Relations Between Group Types ## {#sec-groupdef-grouprelations}
 Using the above group type definitions, a CoAP group communication message sent by an endpoint can be represented as a tuple that contains one instance of each group type:
 
     (application group, CoAP group, security group)
@@ -161,9 +165,9 @@ Beyond this particular case, applications should be greatly careful in associati
 |   Application group    |                 |    CoAP group    |
 |........................|                 |..................|
 |                        |                 |                  |
-| URI path / resource(s) +-----------------+ IP mcast address |
-| [ URI query string ]   |  1...N       1  | UDP port         |
-| [ group name ]         |                 |                  |
+| [ group name/          +-----------------+ IP mcast address |
+|   identifier ]         |  1...N       1  | UDP port         |
+|                        |                 |                  |
 |                        |                 |                  |
 +-------------+----------+                 +---------+--------+
               |  1...N                               |  1...N
