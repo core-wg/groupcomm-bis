@@ -670,6 +670,22 @@ Multicast can be useful to efficiently distribute new software (firmware, image,
 
 RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
+## Version -01 to -02 ## {#sec-01-02}
+
+* Clarified relation between security groups and application groups.
+
+* Considered also FETCH for requests over IP multicast.
+
+* More details on Observe re-registration.
+
+* More details on Proxy intermediaries.
+
+* More details on servers changing port number in the response.
+
+* Usage of the Uri-Host Option to indicate an application group.
+
+* Response suppression based on classes of error codes.
+
 ## Version -00 to -01 ## {#sec-00-01}
 
 * Clarifications on group memberships for the different group types.
