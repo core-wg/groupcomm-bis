@@ -7,8 +7,8 @@ Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                    C. Wang
 Updates: 7252, 7641 (if approved)                           InterDigital
 Intended status: Standards Track                               M. Tiloca
-Expires: 17 July 2021                                            RISE AB
-                                                         13 January 2021
+Expires: 24 July 2021                                            RISE AB
+                                                         20 January 2021
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Dijk, et al.              Expires 17 July 2021                  [Page 1]
+Dijk, et al.              Expires 24 July 2021                  [Page 1]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -63,7 +63,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 July 2021.
+   This Internet-Draft will expire on 24 July 2021.
 
 Copyright Notice
 
@@ -84,60 +84,60 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   4
      1.1.  Scope . . . . . . . . . . . . . . . . . . . . . . . . . .   5
      1.2.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   5
-   2.  General Group Communication Operation . . . . . . . . . . . .   5
-     2.1.  Group Definition  . . . . . . . . . . . . . . . . . . . .   6
+   2.  Group Definition and Group Configuration  . . . . . . . . . .   5
+     2.1.  Group Definition  . . . . . . . . . . . . . . . . . . . .   5
        2.1.1.  CoAP Group  . . . . . . . . . . . . . . . . . . . . .   6
        2.1.2.  Application Group . . . . . . . . . . . . . . . . . .   6
-       2.1.3.  Security Group  . . . . . . . . . . . . . . . . . . .   7
+       2.1.3.  Security Group  . . . . . . . . . . . . . . . . . . .   6
        2.1.4.  Relations Between Group Types . . . . . . . . . . . .   7
      2.2.  Group Configuration . . . . . . . . . . . . . . . . . . .   9
        2.2.1.  Group Naming  . . . . . . . . . . . . . . . . . . . .   9
-       2.2.2.  Group Creation and Membership . . . . . . . . . . . .  11
-       2.2.3.  Group Discovery . . . . . . . . . . . . . . . . . . .  12
-       2.2.4.  Group Maintenance . . . . . . . . . . . . . . . . . .  13
-     2.3.  CoAP Usage  . . . . . . . . . . . . . . . . . . . . . . .  13
-       2.3.1.  Request/Response Model  . . . . . . . . . . . . . . .  13
-       2.3.2.  Port and URI Path Selection . . . . . . . . . . . . .  16
-       2.3.3.  Proxy Operation . . . . . . . . . . . . . . . . . . .  17
-       2.3.4.  Congestion Control  . . . . . . . . . . . . . . . . .  19
-       2.3.5.  Observing Resources . . . . . . . . . . . . . . . . .  20
-       2.3.6.  Block-Wise Transfer . . . . . . . . . . . . . . . . .  22
-     2.4.  Transport . . . . . . . . . . . . . . . . . . . . . . . .  23
-       2.4.1.  UDP/IPv6 Multicast Transport  . . . . . . . . . . . .  23
-       2.4.2.  UDP/IPv4 Multicast Transport  . . . . . . . . . . . .  23
-       2.4.3.  6LoWPAN . . . . . . . . . . . . . . . . . . . . . . .  24
+       2.2.2.  Group Creation and Membership . . . . . . . . . . . .  10
+       2.2.3.  Group Discovery . . . . . . . . . . . . . . . . . . .  11
+       2.2.4.  Group Maintenance . . . . . . . . . . . . . . . . . .  12
+   3.  CoAP Usage in Group Communication . . . . . . . . . . . . . .  13
+     3.1.  Request/Response Model  . . . . . . . . . . . . . . . . .  13
+     3.2.  Port and URI Path Selection . . . . . . . . . . . . . . .  16
+     3.3.  Proxy Operation . . . . . . . . . . . . . . . . . . . . .  17
+     3.4.  Congestion Control  . . . . . . . . . . . . . . . . . . .  19
+     3.5.  Observing Resources . . . . . . . . . . . . . . . . . . .  20
+     3.6.  Block-Wise Transfer . . . . . . . . . . . . . . . . . . .  22
+     3.7.  Transport . . . . . . . . . . . . . . . . . . . . . . . .  23
+       3.7.1.  UDP/IPv6 Multicast Transport  . . . . . . . . . . . .  23
+       3.7.2.  UDP/IPv4 Multicast Transport  . . . . . . . . . . . .  23
+       3.7.3.  6LoWPAN . . . . . . . . . . . . . . . . . . . . . . .  24
 
 
 
-Dijk, et al.              Expires 17 July 2021                  [Page 2]
+Dijk, et al.              Expires 24 July 2021                  [Page 2]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
 
-     2.5.  Interworking with Other Protocols . . . . . . . . . . . .  24
-       2.5.1.  MLD/MLDv2/IGMP/IGMPv3 . . . . . . . . . . . . . . . .  24
-       2.5.2.  RPL . . . . . . . . . . . . . . . . . . . . . . . . .  25
-       2.5.3.  MPL . . . . . . . . . . . . . . . . . . . . . . . . .  25
-   3.  Unsecured Group Communication . . . . . . . . . . . . . . . .  26
-   4.  Secured Group Communication using Group OSCORE  . . . . . . .  26
-     4.1.  Secure Group Maintenance  . . . . . . . . . . . . . . . .  28
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  29
-     5.1.  CoAP NoSec Mode . . . . . . . . . . . . . . . . . . . . .  29
-     5.2.  Group OSCORE  . . . . . . . . . . . . . . . . . . . . . .  29
-       5.2.1.  Group Key Management  . . . . . . . . . . . . . . . .  30
-       5.2.2.  Source Authentication . . . . . . . . . . . . . . . .  30
-       5.2.3.  Countering Attacks  . . . . . . . . . . . . . . . . .  31
-     5.3.  Replay of Non Confirmable Messages  . . . . . . . . . . .  32
-     5.4.  Use of CoAP No-Response Option  . . . . . . . . . . . . .  33
-     5.5.  6LoWPAN . . . . . . . . . . . . . . . . . . . . . . . . .  33
-     5.6.  Wi-Fi . . . . . . . . . . . . . . . . . . . . . . . . . .  34
-     5.7.  Monitoring  . . . . . . . . . . . . . . . . . . . . . . .  34
-       5.7.1.  General Monitoring  . . . . . . . . . . . . . . . . .  34
-       5.7.2.  Pervasive Monitoring  . . . . . . . . . . . . . . . .  35
-   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  35
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  35
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .  35
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .  38
+     3.8.  Interworking with Other Protocols . . . . . . . . . . . .  24
+       3.8.1.  MLD/MLDv2/IGMP/IGMPv3 . . . . . . . . . . . . . . . .  24
+       3.8.2.  RPL . . . . . . . . . . . . . . . . . . . . . . . . .  25
+       3.8.3.  MPL . . . . . . . . . . . . . . . . . . . . . . . . .  25
+   4.  Unsecured Group Communication . . . . . . . . . . . . . . . .  26
+   5.  Secured Group Communication using Group OSCORE  . . . . . . .  26
+     5.1.  Secure Group Maintenance  . . . . . . . . . . . . . . . .  28
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  29
+     6.1.  CoAP NoSec Mode . . . . . . . . . . . . . . . . . . . . .  29
+     6.2.  Group OSCORE  . . . . . . . . . . . . . . . . . . . . . .  29
+       6.2.1.  Group Key Management  . . . . . . . . . . . . . . . .  30
+       6.2.2.  Source Authentication . . . . . . . . . . . . . . . .  30
+       6.2.3.  Countering Attacks  . . . . . . . . . . . . . . . . .  31
+     6.3.  Replay of Non Confirmable Messages  . . . . . . . . . . .  32
+     6.4.  Use of CoAP No-Response Option  . . . . . . . . . . . . .  33
+     6.5.  6LoWPAN . . . . . . . . . . . . . . . . . . . . . . . . .  33
+     6.6.  Wi-Fi . . . . . . . . . . . . . . . . . . . . . . . . . .  34
+     6.7.  Monitoring  . . . . . . . . . . . . . . . . . . . . . . .  34
+       6.7.1.  General Monitoring  . . . . . . . . . . . . . . . . .  34
+       6.7.2.  Pervasive Monitoring  . . . . . . . . . . . . . . . .  35
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  35
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  35
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  35
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  37
    Appendix A.  Use Cases  . . . . . . . . . . . . . . . . . . . . .  40
      A.1.  Discovery . . . . . . . . . . . . . . . . . . . . . . . .  40
        A.1.1.  Distributed Device Discovery  . . . . . . . . . . . .  41
@@ -165,7 +165,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                  [Page 3]
+Dijk, et al.              Expires 24 July 2021                  [Page 3]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -195,8 +195,8 @@ Internet-Draft        Group Communication for CoAP          January 2021
    on Object Security for Constrained Restful Environments (OSCORE)
    [RFC8613].  This method provides end-to-end application-layer
    security protection of CoAP messages, by using CBOR Object Signing
-   and Encryption (COSE) [I-D.ietf-cbor-7049bis][I-D.ietf-cose-rfc8152bi
-   s-struct][I-D.ietf-cose-rfc8152bis-algs].
+   and Encryption (COSE)
+   [I-D.ietf-cose-rfc8152bis-struct][I-D.ietf-cose-rfc8152bis-algs].
 
    All guidelines in [RFC7390] are updated by this document, which
    replaces and obsoletes [RFC7390].  Furthermore, this document updates
@@ -221,7 +221,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                  [Page 4]
+Dijk, et al.              Expires 24 July 2021                  [Page 4]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -259,33 +259,28 @@ Internet-Draft        Group Communication for CoAP          January 2021
    counters or parameters stored in a device that are required to
    participate in secure group communication with other devices.
 
-2.  General Group Communication Operation
+2.  Group Definition and Group Configuration
 
-   The general operation of group communication, both unsecured and
-   secured, is specified in this section.  First, different group types
-   are defined in Section 2.1.  Group configuration, including group
-   creation and maintenance by an application, user or commissioning
-   entity is considered next in Section 2.2.  Then the use of CoAP for
-   group communication including support for protocol extensions (block-
-   wise transfer, Observe) follows in Section 2.3.  How CoAP group
-   messages are carried over various transport layers is the subject of
-   Section 2.4.  Finally, Section 2.5 covers the interworking of CoAP
-   group communication with other protocols that may operate in the same
-   network.
-
-
-
-
-
-Dijk, et al.              Expires 17 July 2021                  [Page 5]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
+   In the following, different group types are first defined in
+   Section 2.1.  Then, Group configuration, including group creation and
+   maintenance by an application, user or commissioning entity is
+   considered in Section 2.2.
 
 2.1.  Group Definition
 
    Three types of groups and their mutual relations are defined in this
    section: CoAP group, application group, and security group.
+
+
+
+
+
+
+
+Dijk, et al.              Expires 24 July 2021                  [Page 5]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
 
 2.1.1.  CoAP Group
 
@@ -325,19 +320,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    request.  See Section 2.2.1 for more details on identifying the
    application group.
 
-
-
-
-
-
-
-
-
-Dijk, et al.              Expires 17 July 2021                  [Page 6]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
 2.1.3.  Security Group
 
    For secure group communication, a security group is required.  A
@@ -348,6 +330,14 @@ Internet-Draft        Group Communication for CoAP          January 2021
    communication message to this group.  An endpoint may be a member of
    multiple security groups.  There can be a one-to-one or a one-to-many
    relation between security groups and CoAP groups.  Also, there can be
+
+
+
+Dijk, et al.              Expires 24 July 2021                  [Page 6]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    a one-to-one or a one-to-many relation between security groups and
    application groups.  A special security group named "NoSec"
    identifies group communication without any security at the transport
@@ -386,14 +376,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    in associating a same application group to multiple security groups.
    In particular, it is NOT RECOMMENDED using different security groups
    to reflect different access policies for resources in a same
-
-
-
-Dijk, et al.              Expires 17 July 2021                  [Page 7]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
    application group.  That is, being a member of a security group
    actually grants access only to exchanged secure messages, while
    access to resources in the application group belongs to a separate
@@ -404,6 +386,13 @@ Internet-Draft        Group Communication for CoAP          January 2021
    Figure 1 summarizes the relations between the different types of
    groups described above in UML class diagram notation.  The items in
    square brackets are optionally defined.
+
+
+
+Dijk, et al.              Expires 24 July 2021                  [Page 7]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
 
      +------------------------+                 +------------------+
      |   Application group    |                 |    CoAP group    |
@@ -445,7 +434,18 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                  [Page 8]
+
+
+
+
+
+
+
+
+
+
+
+Dijk, et al.              Expires 24 July 2021                  [Page 8]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -473,6 +473,9 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 2.2.  Group Configuration
 
+   The following defines how groups of different types are named,
+   created, discovered and maintained.
+
 2.2.1.  Group Naming
 
    A CoAP group is identified and named by the authority component in
@@ -495,17 +498,17 @@ Internet-Draft        Group Communication for CoAP          January 2021
    component of a Group URI.  It may also be encoded using the Uri-Host
    Option [RFC7252] in case application group members implement a
    virtual CoAP server specific to that application group.  The
-   application group can then be identified by the value of the Uri-Host
-   Option and each virtual server serves one specific application group.
-   However, encoding the application group in the Uri-Host Option is not
 
 
 
-Dijk, et al.              Expires 17 July 2021                  [Page 9]
+Dijk, et al.              Expires 24 July 2021                  [Page 9]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
 
+   application group can then be identified by the value of the Uri-Host
+   Option and each virtual server serves one specific application group.
+   However, encoding the application group in the Uri-Host Option is not
    the preferred method because in this case the application group
    cannot be encoded in a Group URI, and also the Uri-Host Option is
    being used for another purpose than encoding the host part of a URI
@@ -535,33 +538,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    characterized by the absence of any security group name, identifier,
    or security-related data structures in the CoAP message.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Dijk, et al.              Expires 17 July 2021                 [Page 10]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
 2.2.2.  Group Creation and Membership
 
    To create a CoAP group, a configuring entity defines an IP multicast
@@ -578,6 +554,14 @@ Internet-Draft        Group Communication for CoAP          January 2021
    One way to configure a client is to supply it with a CoAP Group URI.
    The IETF does not define a mandatory, standardized protocol to
    accomplish CoAP group creation.  [RFC7390] defines an experimental
+
+
+
+Dijk, et al.              Expires 24 July 2021                 [Page 10]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    protocol for configuration of group membership for unsecured group
    communication, based on JSON-formatted configuration resources.  For
    IPv6 CoAP groups, common multicast address ranges that are used to
@@ -596,34 +580,16 @@ Internet-Draft        Group Communication for CoAP          January 2021
    relevant throughout the group life-cycle, such as the security group
    name and description.  This task MAY be entrusted to a dedicated
    administrator, that interacts with a Group Manager as defined in
-   Section 4.  After that, further security material to protect group
+   Section 5.  After that, further security material to protect group
    communications have to be generated, as compatible with the specified
    group configuration.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Dijk, et al.              Expires 17 July 2021                 [Page 11]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
    To participate in a security group, CoAP endpoints have to be
    configured with the group security material used to protect
    communications in the associated application/CoAP groups.  The part
    of the process that involves secure distribution of group security
    material MAY use standardized communication with a Group Manager as
-   defined in Section 4.  For unsecure group communication using the
+   defined in Section 5.  For unsecure group communication using the
    "NoSec" security group, any CoAP endpoint may become a group member
    at any time: there is no (central) configuring entity that needs to
    provide the security material for this group.  This means that group
@@ -644,6 +610,14 @@ Internet-Draft        Group Communication for CoAP          January 2021
    [I-D.ietf-core-resource-directory].  In particular, an application
    group can be registered to the RD, specifying the reference IP
    multicast address, hence its associated CoAP group.  The registration
+
+
+
+Dijk, et al.              Expires 24 July 2021                 [Page 11]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    is typically performed by a Commissioning Tool.  Later on, CoAP
    endpoints can discover the registered application groups and related
    CoAP group, by using the lookup interface of the RD.
@@ -655,7 +629,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    multicast address.
 
    When secure communication is provided with Group OSCORE (see
-   Section 4), the approach described in
+   Section 5), the approach described in
    [I-D.tiloca-core-oscore-discovery] and also based on the RD can be
    used, in order to discover the security group to join.
 
@@ -667,13 +641,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    groups, by using the lookup interface of the RD, and then join the
    security group through the respective Group Manager.
 
-
-
-Dijk, et al.              Expires 17 July 2021                 [Page 12]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
 2.2.4.  Group Maintenance
 
    Maintenance of a group includes any necessary operations to cope with
@@ -683,21 +650,43 @@ Internet-Draft        Group Communication for CoAP          January 2021
    renaming of application groups, splitting of groups, or merging of
    groups.
 
-   For unsecured group communication (see Section 3), addition/removal
+   For unsecured group communication (see Section 4), addition/removal
    of CoAP group members is simply done by configuring these devices to
    start/stop listening to the group IP multicast address on the group's
    UDP port.
 
-   For secured group communication (see Section 4), the protocol Group
+   For secured group communication (see Section 5), the protocol Group
    OSCORE [I-D.ietf-core-oscore-groupcomm] is mandatory to implement.
    When using Group OSCORE, CoAP endpoints participating in group
    communication are also members of a corresponding OSCORE security
    group, and thus share common security material.  Additional related
-   maintenance operations are discussed in Section 4.1.
+   maintenance operations are discussed in Section 5.1.
 
-2.3.  CoAP Usage
 
-2.3.1.  Request/Response Model
+
+
+
+
+
+
+Dijk, et al.              Expires 24 July 2021                 [Page 12]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
+3.  CoAP Usage in Group Communication
+
+   This section specifies the usage of CoAP in group communication, both
+   unsecured and secured.  This includes additional support for protocol
+   extensions, such as Observe (see Section 3.5) and block-wise transfer
+   (see Section 3.6).
+
+   How CoAP group messages are carried over various transport layers is
+   the subject of Section 3.7.  Finally, Section 3.8 covers the
+   interworking of CoAP group communication with other protocols that
+   may operate in the same network.
+
+3.1.  Request/Response Model
 
    A CoAP client is an endpoint able to transmit CoAP requests and
    receive CoAP responses.  Since the underlying UDP transport supports
@@ -722,14 +711,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    mixture of success (e.g., 2.05 Content) and failure (e.g., 4.04 Not
    Found) codes, depending on the individual server processing results.
 
-
-
-
-Dijk, et al.              Expires 17 July 2021                 [Page 13]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
    The CoAP No-Response Option [RFC7967] can be used by a client to
    influence the default response suppression on the server side.  It is
    RECOMMENDED for a server to support this option only on selected
@@ -741,6 +722,14 @@ Internet-Draft        Group Communication for CoAP          January 2021
    consistently, as follows: if a request on a resource produces a
    particular Response Code and this response is not suppressed, then
    another request on the same resource that produces a response of the
+
+
+
+Dijk, et al.              Expires 24 July 2021                 [Page 13]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    same Response Code class is also not suppressed.  For example, if a
    4.05 Method Not Allowed error response code is suppressed by default
    on a resource, then a 4.15 Unsupported Content-Format error response
@@ -773,7 +762,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    CoAP response and/or any other available application-specific source
    identifiers contained in the CoAP response, such as an application-
    level unique ID associated to the server.  If secure communication is
-   provided with Group OSCORE (see Section 4), additional security-
+   provided with Group OSCORE (see Section 5), additional security-
    related identifiers enable the client to retrieve the right security
    material for decrypting each response and authenticating its source.
 
@@ -781,7 +770,18 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 14]
+
+
+
+
+
+
+
+
+
+
+
+Dijk, et al.              Expires 24 July 2021                 [Page 14]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -833,11 +833,11 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
    When securing Group CoAP communications with Group OSCORE
    [I-D.ietf-core-oscore-groupcomm], secure binding between requests and
-   responses is ensured (see Section 4).  Thus, a client may reuse a
+   responses is ensured (see Section 5).  Thus, a client may reuse a
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 15]
+Dijk, et al.              Expires 24 July 2021                 [Page 15]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -877,7 +877,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    process only one of those responses, such as the most recent one from
    that server, e.g. when this can trigger a change of state.
 
-2.3.2.  Port and URI Path Selection
+3.2.  Port and URI Path Selection
 
    A server that is a member of a CoAP group listens for CoAP messages
    on the group's IP multicast address, usually on the CoAP default UDP
@@ -893,7 +893,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 16]
+Dijk, et al.              Expires 24 July 2021                 [Page 16]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -917,9 +917,9 @@ Internet-Draft        Group Communication for CoAP          January 2021
    For a CoAP server node that supports resource discovery as defined in
    Section 2.4 of [RFC7252], the default port 5683 MUST be supported
    (see Section 7.1 of [RFC7252]) for the "All CoAP Nodes" multicast
-   group as detailed in Section 2.4.
+   group as detailed in Section 3.7.
 
-2.3.3.  Proxy Operation
+3.3.  Proxy Operation
 
    CoAP enables a client to request a forward-proxy to process a CoAP
    request on its behalf, as described in Section 5.7.2 and 8.2.2 of
@@ -949,7 +949,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 17]
+Dijk, et al.              Expires 24 July 2021                 [Page 17]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1005,7 +1005,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 18]
+Dijk, et al.              Expires 24 July 2021                 [Page 18]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1016,7 +1016,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    servers by other means such as application-specific information in
    the response payload.
 
-2.3.4.  Congestion Control
+3.4.  Congestion Control
 
    CoAP group requests may result in a multitude of responses from
    different nodes, potentially causing congestion.  Therefore, both the
@@ -1061,7 +1061,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 19]
+Dijk, et al.              Expires 24 July 2021                 [Page 19]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1077,7 +1077,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
       returning only a first block of the CoRE Link Format description.
       For this reason, a CoAP client sending an IP multicast CoAP
       request to "/.well-known/core" SHOULD support block-wise
-      transfers.  See also Section 2.3.6.
+      transfers.  See also Section 3.6.
 
    *  A client SHOULD be configured to use CoAP groups with the smallest
       possible IP multicast scope that fulfills the application needs.
@@ -1086,7 +1086,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
       Similarly, realm-local scope is always preferred over site-local
       scope if this fulfills the application needs.
 
-2.3.5.  Observing Resources
+3.5.  Observing Resources
 
    The CoAP Observe Option [RFC7641] is a protocol extension of CoAP,
    that allows a CoAP client to retrieve a representation of a resource
@@ -1106,7 +1106,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    members that do not have this particular resource or do not allow the
    GET or FETCH method on it will either respond with an error status --
    4.04 Not Found or 4.05 Method Not Allowed, respectively -- or will
-   silently suppress the response following the rules of Section 2.3.1,
+   silently suppress the response following the rules of Section 3.1,
    depending on server-specific configuration.
 
    A client that sends a multicast GET or FETCH request with the Observe
@@ -1117,7 +1117,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 20]
+Dijk, et al.              Expires 24 July 2021                 [Page 20]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1173,7 +1173,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 21]
+Dijk, et al.              Expires 24 July 2021                 [Page 21]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1200,11 +1200,11 @@ Internet-Draft        Group Communication for CoAP          January 2021
    response from a server.
 
    For observing a group of servers through a CoAP-to-CoAP proxy, the
-   limitations stated in Section 2.3.3 apply.  The method defined in
+   limitations stated in Section 3.3 apply.  The method defined in
    [I-D.tiloca-core-groupcomm-proxy] enables group communication through
    proxies and addresses those limitations.
 
-2.3.6.  Block-Wise Transfer
+3.6.  Block-Wise Transfer
 
    Section 2.8 of [RFC7959] specifies how a client can use block-wise
    transfer (Block2 Option) in a multicast GET request to limit the size
@@ -1229,7 +1229,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 22]
+Dijk, et al.              Expires 24 July 2021                 [Page 22]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1238,18 +1238,18 @@ Internet-Draft        Group Communication for CoAP          January 2021
    missing blocks or missing confirmations), and potential diverging
    block size preferences of different members of the CoAP group.
 
-2.4.  Transport
+3.7.  Transport
 
    In this document only UDP is considered as a transport protocol, both
    over IPv4 and IPv6.  Therefore, [RFC8323] (CoAP over TCP, TLS, and
    WebSockets) is not in scope as a transport for group communication.
 
-2.4.1.  UDP/IPv6 Multicast Transport
+3.7.1.  UDP/IPv6 Multicast Transport
 
    CoAP group communication can use UDP over IPv6 as a transport
    protocol, provided that IPv6 multicast is enabled.  IPv6 multicast
    MAY be supported in a network only for a limited scope.  For example,
-   Section 2.5.2 describes the potential limited support of RPL for
+   Section 3.8.2 describes the potential limited support of RPL for
    multicast, depending on how the protocol is configured.
 
    For a CoAP server node that supports resource discovery as defined in
@@ -1258,14 +1258,14 @@ Internet-Draft        Group Communication for CoAP          January 2021
    multicast group.  An IPv6 CoAP server SHOULD support the "All CoAP
    Nodes" groups with at least link-local (2), admin-local (4) and site-
    local (5) scopes.  An IPv6 CoAP server on a 6LoWPAN node (see
-   Section 2.4.3) SHOULD also support the realm-local (3) scope.
+   Section 3.7.3) SHOULD also support the realm-local (3) scope.
 
    Note that a client sending an IPv6 multicast CoAP message to a port
    that is not supported by the server will not receive an ICMPv6 Port
    Unreachable error message from that server, because the server does
    not send it in this case, per Section 2.4 of [RFC4443].
 
-2.4.2.  UDP/IPv4 Multicast Transport
+3.7.2.  UDP/IPv4 Multicast Transport
 
    CoAP group communication can use UDP over IPv4 as a transport
    protocol, provided that IPv4 multicast is enabled.  For a CoAP server
@@ -1285,12 +1285,12 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 23]
+Dijk, et al.              Expires 24 July 2021                 [Page 23]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
 
-2.4.3.  6LoWPAN
+3.7.3.  6LoWPAN
 
    In 6LoWPAN [RFC4944] networks, IPv6 packets (up to 1280 bytes) may be
    fragmented into smaller IEEE 802.15.4 MAC frames (up to 127 bytes),
@@ -1310,12 +1310,12 @@ Internet-Draft        Group Communication for CoAP          January 2021
    group does not propagate beyond the 6LoWPAN network segment where the
    request originated.  For example, a multicast discovery request can
    be sent to the realm-local "All CoAP Nodes" IPv6 multicast group (see
-   Section 2.4.1) in order to discover only CoAP servers on the local
+   Section 3.7.1) in order to discover only CoAP servers on the local
    6LoWPAN network.
 
-2.5.  Interworking with Other Protocols
+3.8.  Interworking with Other Protocols
 
-2.5.1.  MLD/MLDv2/IGMP/IGMPv3
+3.8.1.  MLD/MLDv2/IGMP/IGMPv3
 
    CoAP nodes that are IP hosts (i.e., not IP routers) are generally
    unaware of the specific IP multicast routing/forwarding protocol
@@ -1329,7 +1329,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    group to subscribe to its multicast IPv6 address, on IPv6 networks
    that support it.  CoAP server nodes then act in the role of MLD
    Multicast Address Listener.  Constrained IPv6 networks that implement
-   either RPL (see Section 2.5.2) or MPL (see Section 2.5.3) typically
+   either RPL (see Section 3.8.2) or MPL (see Section 3.8.3) typically
    do not support MLD as they have their own mechanisms defined.
 
    The IGMPv3 protocol [RFC3376] is the standard IPv4 method to signal
@@ -1341,7 +1341,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 24]
+Dijk, et al.              Expires 24 July 2021                 [Page 24]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1350,7 +1350,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    wireless networks may be useful when implementing MLD in constrained
    networks.
 
-2.5.2.  RPL
+3.8.2.  RPL
 
    RPL [RFC6550] is an IPv6 based routing protocol suitable for low-
    power, lossy networks (LLNs).  In such a context, CoAP is often used
@@ -1385,7 +1385,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    to avoid congestion of the resource-constrained network segment, due
    to IP multicast traffic from the high-speed backbone IP network.
 
-2.5.3.  MPL
+3.8.3.  MPL
 
    The Multicast Protocol for Low-Power and Lossy Networks (MPL)
    [RFC7731] can be used for propagation of IPv6 multicast packets
@@ -1397,7 +1397,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 25]
+Dijk, et al.              Expires 24 July 2021                 [Page 25]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1420,7 +1420,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
       Forwarder.  This could be a protocol offering features similar to
       MLDv2.
 
-3.  Unsecured Group Communication
+4.  Unsecured Group Communication
 
    CoAP group communication can operate in CoAP NoSec (No Security)
    mode, without using application-layer and transport-layer security
@@ -1428,9 +1428,9 @@ Internet-Draft        Group Communication for CoAP          January 2021
    Section 9 of [RFC7252].  The conceptual "NoSec" security group as
    defined in Section 2.1 is used for unsecured group communication.
    Before using this mode of operation, the security implications
-   (Section 5.1) must be well understood.
+   (Section 6.1) must be well understood.
 
-4.  Secured Group Communication using Group OSCORE
+5.  Secured Group Communication using Group OSCORE
 
    The application-layer protocol Object Security for Constrained
    RESTful Environments (OSCORE) [RFC8613] provides end-to-end
@@ -1453,7 +1453,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 26]
+Dijk, et al.              Expires 24 July 2021                 [Page 26]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1509,7 +1509,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 27]
+Dijk, et al.              Expires 24 July 2021                 [Page 27]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1537,11 +1537,11 @@ Internet-Draft        Group Communication for CoAP          January 2021
    *  All further CoAP endpoints configured only as CoAP clients, that
       send (multicast) CoAP requests to the CoAP group.
 
-4.1.  Secure Group Maintenance
+5.1.  Secure Group Maintenance
 
    Additional key management operations on the OSCORE group are
    required, depending also on the security requirements of the
-   application (see Section 5.2).  That is:
+   application (see Section 6.2).  That is:
 
    *  Adding new members to a CoAP group or enabling new client-only
       endpoints to interact with that group require also that each of
@@ -1565,7 +1565,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 28]
+Dijk, et al.              Expires 24 July 2021                 [Page 28]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1576,12 +1576,12 @@ Internet-Draft        Group Communication for CoAP          January 2021
    them according to the approach described in
    [I-D.ietf-ace-key-groupcomm-oscore].
 
-5.  Security Considerations
+6.  Security Considerations
 
    This section provides security considerations for CoAP group
    communication using IP multicast.
 
-5.1.  CoAP NoSec Mode
+6.1.  CoAP NoSec Mode
 
    CoAP group communication, if not protected, is vulnerable to all the
    attacks mentioned in Section 11 of [RFC7252] for IP multicast.
@@ -1603,7 +1603,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    configured any mutual security relations at the time the discovery
    takes place.
 
-5.2.  Group OSCORE
+6.2.  Group OSCORE
 
    Group OSCORE provides end-to-end application-level security.  This
    has many desirable properties, including maintaining security
@@ -1621,12 +1621,12 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 29]
+Dijk, et al.              Expires 24 July 2021                 [Page 29]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
 
-5.2.1.  Group Key Management
+6.2.1.  Group Key Management
 
    A key management scheme for secure revocation and renewal of group
    security material, namely group rekeying, should be adopted in OSCORE
@@ -1660,7 +1660,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    recently left nodes would preserve access to group communications
    protected with the retained security material.
 
-5.2.2.  Source Authentication
+6.2.2.  Source Authentication
 
    Both the group mode and the pairwise mode of Group OSCORE ensure
    source authentication of messages exchanged by CoAP endpoints through
@@ -1677,7 +1677,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 30]
+Dijk, et al.              Expires 24 July 2021                 [Page 30]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1689,7 +1689,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    a CoAP endpoint receiving a message secured with the group mode of
    Group OSCORE SHOULD always verify the countersignature.
 
-5.2.3.  Countering Attacks
+6.2.3.  Countering Attacks
 
    As discussed below, Group OSCORE addresses a number of security
    attacks mentioned in Section 11 of [RFC7252], with particular
@@ -1733,7 +1733,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 31]
+Dijk, et al.              Expires 24 July 2021                 [Page 31]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1778,7 +1778,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
       symmetric key, which is in turn derived from the asymmetric keys
       of the sender and recipient CoAP endpoints (in the pairwise mode).
 
-5.3.  Replay of Non Confirmable Messages
+6.3.  Replay of Non Confirmable Messages
 
    Since all requests sent over IP multicast are Non-confirmable, a
    client might not be able to know if an adversary has actually
@@ -1789,7 +1789,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 32]
+Dijk, et al.              Expires 24 July 2021                 [Page 32]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1811,10 +1811,10 @@ Internet-Draft        Group Communication for CoAP          January 2021
    option for CoAP described in [I-D.ietf-core-echo-request-tag], in
    order to (re-)synchronize with the client's sequence number.
 
-5.4.  Use of CoAP No-Response Option
+6.4.  Use of CoAP No-Response Option
 
    When CoAP group communication is used in CoAP NoSec (No Security)
-   mode (see Section 3), the CoAP No-Response Option [RFC7967] could be
+   mode (see Section 4), the CoAP No-Response Option [RFC7967] could be
    misused by a malicious client to evoke as much responses from servers
    to a multicast request as possible, by using the value '0' -
    Interested in all responses.  This even overrides the default
@@ -1829,7 +1829,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    compared to the default rules but not to reduce the classes of
    responses suppressed.
 
-5.5.  6LoWPAN
+6.5.  6LoWPAN
 
    In a 6LoWPAN network, a multicast IPv6 packet may be fragmented prior
    to transmission.  A 6LoWPAN Router that forwards a fragmented packet
@@ -1845,7 +1845,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 33]
+Dijk, et al.              Expires 24 July 2021                 [Page 33]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1863,7 +1863,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    all multicast packet for which there is no known multicast listener
    on the 6LoWPAN network.
 
-5.6.  Wi-Fi
+6.6.  Wi-Fi
 
    In a home automation scenario using Wi-Fi, Wi-Fi security should be
    enabled to prevent rogue nodes from joining.  The Customer Premises
@@ -1875,9 +1875,9 @@ Internet-Draft        Group Communication for CoAP          January 2021
    smaller.  For site-local scope, the CPE will be an appropriate
    multicast scope boundary point.
 
-5.7.  Monitoring
+6.7.  Monitoring
 
-5.7.1.  General Monitoring
+6.7.1.  General Monitoring
 
    CoAP group communication can be used to control a set of related
    devices: for example, simultaneously turn on all the lights in a
@@ -1901,12 +1901,12 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 34]
+Dijk, et al.              Expires 24 July 2021                 [Page 34]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
 
-5.7.2.  Pervasive Monitoring
+6.7.2.  Pervasive Monitoring
 
    A key additional threat consideration for group communication is
    pervasive monitoring [RFC7258].  CoAP group communication solutions
@@ -1935,32 +1935,13 @@ Internet-Draft        Group Communication for CoAP          January 2021
    attacker may still attempt to capture this traffic and perform an
    off-line attack in the future.
 
-6.  IANA Considerations
+7.  IANA Considerations
 
    This document has no actions for IANA.
 
-7.  References
+8.  References
 
-7.1.  Normative References
-
-   [I-D.ietf-cbor-7049bis]
-              Bormann, C. and P. Hoffman, "Concise Binary Object
-              Representation (CBOR)", Work in Progress, Internet-Draft,
-              draft-ietf-cbor-7049bis-16, 30 September 2020,
-              <http://www.ietf.org/internet-drafts/draft-ietf-cbor-
-              7049bis-16.txt>.
-
-
-
-
-
-
-
-
-Dijk, et al.              Expires 17 July 2021                 [Page 35]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
+8.1.  Normative References
 
    [I-D.ietf-core-echo-request-tag]
               Amsuess, C., Mattsson, J., and G. Selander, "CoAP: Echo,
@@ -1968,6 +1949,18 @@ Internet-Draft        Group Communication for CoAP          January 2021
               Internet-Draft, draft-ietf-core-echo-request-tag-11, 2
               November 2020, <http://www.ietf.org/internet-drafts/draft-
               ietf-core-echo-request-tag-11.txt>.
+
+
+
+
+
+
+
+
+Dijk, et al.              Expires 24 July 2021                 [Page 35]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
 
    [I-D.ietf-core-oscore-groupcomm]
               Tiloca, M., Selander, G., Palombini, F., and J. Park,
@@ -2010,19 +2003,20 @@ Internet-Draft        Group Communication for CoAP          January 2021
               DOI 10.17487/RFC3810, June 2004,
               <https://www.rfc-editor.org/info/rfc3810>.
 
-
-
-
-Dijk, et al.              Expires 17 July 2021                 [Page 36]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
    [RFC4443]  Conta, A., Deering, S., and M. Gupta, Ed., "Internet
               Control Message Protocol (ICMPv6) for the Internet
               Protocol Version 6 (IPv6) Specification", STD 89,
               RFC 4443, DOI 10.17487/RFC4443, March 2006,
               <https://www.rfc-editor.org/info/rfc4443>.
+
+
+
+
+
+Dijk, et al.              Expires 24 July 2021                 [Page 36]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
 
    [RFC4944]  Montenegro, G., Kushalnagar, N., Hui, J., and D. Culler,
               "Transmission of IPv6 Packets over IEEE 802.15.4
@@ -2063,23 +2057,22 @@ Internet-Draft        Group Communication for CoAP          January 2021
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
-
-
-
-
-
-
-Dijk, et al.              Expires 17 July 2021                 [Page 37]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
    [RFC8613]  Selander, G., Mattsson, J., Palombini, F., and L. Seitz,
               "Object Security for Constrained RESTful Environments
               (OSCORE)", RFC 8613, DOI 10.17487/RFC8613, July 2019,
               <https://www.rfc-editor.org/info/rfc8613>.
 
-7.2.  Informative References
+8.2.  Informative References
+
+
+
+
+
+
+Dijk, et al.              Expires 24 July 2021                 [Page 37]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
 
    [Californium]
               Eclipse Foundation, "Eclipse Californium", March 2019,
@@ -2122,20 +2115,20 @@ Internet-Draft        Group Communication for CoAP          January 2021
               <http://www.ietf.org/internet-drafts/draft-ietf-core-coap-
               pubsub-09.txt>.
 
-
-
-
-Dijk, et al.              Expires 17 July 2021                 [Page 38]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
    [I-D.ietf-core-resource-directory]
               Amsuess, C., Shelby, Z., Koster, M., Bormann, C., and P.
               Stok, "CoRE Resource Directory", Work in Progress,
               Internet-Draft, draft-ietf-core-resource-directory-26, 2
               November 2020, <http://www.ietf.org/internet-drafts/draft-
               ietf-core-resource-directory-26.txt>.
+
+
+
+
+Dijk, et al.              Expires 24 July 2021                 [Page 38]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
 
    [I-D.tiloca-core-groupcomm-proxy]
               Tiloca, M. and E. Dijk, "Proxy Operations for CoAP Group
@@ -2179,17 +2172,19 @@ Internet-Draft        Group Communication for CoAP          January 2021
               DOI 10.17487/RFC7346, August 2014,
               <https://www.rfc-editor.org/info/rfc7346>.
 
-
-
-Dijk, et al.              Expires 17 July 2021                 [Page 39]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
    [RFC7390]  Rahman, A., Ed. and E. Dijk, Ed., "Group Communication for
               the Constrained Application Protocol (CoAP)", RFC 7390,
               DOI 10.17487/RFC7390, October 2014,
               <https://www.rfc-editor.org/info/rfc7390>.
+
+
+
+
+
+Dijk, et al.              Expires 24 July 2021                 [Page 39]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
 
    [RFC7731]  Hui, J. and R. Kelsey, "Multicast Protocol for Low-Power
               and Lossy Networks (MPL)", RFC 7731, DOI 10.17487/RFC7731,
@@ -2237,7 +2232,12 @@ A.1.  Discovery
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 40]
+
+
+
+
+
+Dijk, et al.              Expires 24 July 2021                 [Page 40]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2293,7 +2293,7 @@ A.1.3.  Directory Discovery
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 41]
+Dijk, et al.              Expires 24 July 2021                 [Page 41]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2349,7 +2349,7 @@ A.2.3.  Network-wide Query
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 42]
+Dijk, et al.              Expires 24 July 2021                 [Page 42]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2405,7 +2405,7 @@ B.1.  Version -01 to -02
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 43]
+Dijk, et al.              Expires 24 July 2021                 [Page 43]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2461,7 +2461,7 @@ Authors' Addresses
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 44]
+Dijk, et al.              Expires 24 July 2021                 [Page 44]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2517,4 +2517,4 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 17 July 2021                 [Page 45]
+Dijk, et al.              Expires 24 July 2021                 [Page 45]
