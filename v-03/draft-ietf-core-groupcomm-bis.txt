@@ -1010,6 +1010,19 @@ Dijk, et al.              Expires 24 July 2021                 [Page 18]
 Internet-Draft        Group Communication for CoAP          January 2021
 
 
+   *  The proxy does not know how many members there are in the CoAP
+      group or how many group members will actually respond.  Also, the
+      proxy does not know for how long to collect responses before it
+      stops forwarding them to the client.  A CoAP client that is not
+      using a Proxy might face the same problems in collecting responses
+      to a multicast request.  However, the client itself would
+      typically have application-specific rules or knowledge on how to
+      handle this situation, while an application-agnostic CoAP Proxy
+      would typically not have this knowledge.  For example, a CoAP
+      client could monitor incoming responses and use this information
+      to decide how long to continue collecting responses - which is
+      something a proxy cannot do.
+
    A method based on this approach and addressing the issues raised
    above is defined in [I-D.tiloca-core-groupcomm-proxy].
 
@@ -1018,18 +1031,10 @@ Internet-Draft        Group Communication for CoAP          January 2021
    back only a single (aggregated) response to the client.  However,
    this solution brings up new issues:
 
-   *  The proxy does not know how many members there are in the CoAP
-      group or how many group members will actually respond.  Also, the
-      proxy does not know for how long to collect responses before
-      sending back the aggregated response to the client.  A CoAP client
-      that is not using a Proxy might face the same problems in
-      collecting responses to a multicast request.  However, the client
-      itself would typically have application-specific rules or
-      knowledge on how to handle this situation, while an application-
-      agnostic CoAP Proxy would typically not have this knowledge.  For
-      example, a CoAP client could monitor incoming responses and use
-      this information to decide how long to continue collecting
-      responses - which is something a proxy cannot do.
+   *  Like for the approach discussed above, the proxy does not know for
+      how long to collect responses before sending back the aggregated
+      response to the client.  Analogous considerations apply to this
+      approach too, both on the client and proxy side.
 
    *  There is no default format defined in CoAP for aggregation of
       multiple responses into a single response.  Such a format could be
@@ -1053,11 +1058,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    receive this format, and needs to be able to decode it into the
    responses of multiple CoAP servers.  Also, the IP source address of
    each CoAP response cannot be determined anymore from the
-   "application/http" response.  The HTTP client still identify the CoAP
-   servers by other means such as application-specific information in
-   the response payload.
-
-
 
 
 
@@ -1065,6 +1065,10 @@ Dijk, et al.              Expires 24 July 2021                 [Page 19]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
+
+   "application/http" response.  The HTTP client still identify the CoAP
+   servers by other means such as application-specific information in
+   the response payload.
 
 3.4.1.  Caching
 
@@ -1110,10 +1114,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
       Unit (MTU) size, so that it fits into a single link-layer frame in
       case IPv6 over Low-Power Wireless Personal Area Networks (6LoWPAN)
       (see Section 4 of [RFC4944]) is used.
-
-
-
-
 
 
 
