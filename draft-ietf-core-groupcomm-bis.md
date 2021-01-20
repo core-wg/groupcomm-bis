@@ -76,6 +76,7 @@ informative:
   I-D.ietf-core-resource-directory:
   I-D.ietf-ace-oscore-gm-admin:
   I-D.ietf-core-coap-pubsub:
+  I-D.amsuess-core-cachable-oscore:
   RFC6092:
   RFC6550:
   RFC6636:
@@ -305,7 +306,7 @@ Furthermore, building on what defined in Section 8.2.1 of {{RFC7252}}:
 
    * A client sending a GET or FETCH group request over multicast MAY update a cache with the responses from the servers in the CoAP group. Then, the client uses both cached-still-fresh and new responses as the result of the group request.
    
-   * A client sending a GET or FETCH group request over multicast MAY use a response received from a server to satisfy a subsequent request sent intended to that server on the related unicast request URI. The unicast request URI is obtained by replacing the authority part of the request URI with the transport-layer source address of the response message.
+   * A client sending a GET or FETCH group request over multicast MAY use a response received from a server, to satisfy a subsequent sent request intended to that server on the related unicast request URI. In particular, the unicast request URI is obtained by replacing the authority part of the request URI with the transport-layer source address of the response message.
 
    * A cache MAY revalidate a response by making a GET or FETCH request on the
    related unicast request URI.
@@ -359,7 +360,55 @@ The operation of HTTP-to-CoAP proxies for multicast CoAP requests is specified i
 
 ### Caching ### {#sec-proxy-caching}
 
-TBD
+A proxy that supports forwarding of group requests maintains the following two types of cache entry.
+
+* The first type, namely "individual" cache entry, is associated to one server and stores one response from that server, regardless whether it is a reply to a unicast request or to a group request.
+
+   A hit to this entry would be produced by a matching request intended to that server, i.e. to the corresponding unicast URI.
+   
+   When the response is a reply to a unicast request to the server, the unicast URI is the same target URI used for the request.
+   
+   When the response is a reply to a group request to the CoAP group, the unicast URI is obtained by replacing the authority part of the group URI in the group request with the transport-layer source address and port number of the response message.
+
+* The second type, namely "aggregated" cache entry, is associated to the CoAP group, and stores all the responses that: the proxy has received as a reply to a group request to that group; and that have been also forwarded back to the client that sent the group request.
+
+   A hit to this entry would be produced by a matching group request intended to the CoAP group, i.e. to the corresponding group URI.
+
+When forwarding a group request to a CoAP group using the request's group URI, the proxy handles its cache entries as follows. The same applies if the proxy spontaneously re-sends a group request to the CoAP group, in order to refresh an aggregated cache entry after its expiration or invalidation.
+
+1. For each response to the group request which is received and also forwarded back to the client:
+
+   * The proxy creates or refreshes the individual cache entry associated to the origin server and for that response. That is, the response is stored in the individual cache entry, and the lifetime of the cache entry is set to the lifetime of the response, as indicated by the Max-Age option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of {{RFC7252}}). This cache entry becomes immediately usable to serve requests from client.
+   
+   * The proxy adds the response to a temporary list L.
+
+2. After stopping to forward the received responses back to the client:
+
+   * The proxy creates an aggregated cache entry associated to the group for that group request, if not existing yet. In case of an existing entry to be refreshed, the proxy deletes all the responses stored in the entry.
+   
+   * The proxy stores all the responses from the list L in the aggregated cache entry.
+   
+   * The proxy sets the lifetime of the cache entry to the smallest lifetime among all the responses stored in the entry, determined in the same way defined at step 1 above.
+   
+   * The proxy sets the aggregated cache entry as usable to serve group requests from clients.
+
+When forwarding a request to an individual server using the associated unicast URI, the proxy handles its cache entries as follows. The same applies if the proxy spontaneously re-sends a unicast request to a single server, in order to refresh an individual cache entry after its expiration or invalidation.
+
+1. The proxy creates or refreshes the individual cache entry associated to the origin server and for that response. That is, the response is stored in the cache entry, and the lifetime of the cache entry is set to the lifetime of the response, as indicated by the Max-Age option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of {{RFC7252}}). This cache entry becomes immediately usable to serve requests from clients.
+
+2. The proxy checks whether it has a non expired and valid aggregated cache entry, such that a hit would be produced by a group request analogous to the forwarded unicast request.
+
+   That is, such group request would be intended to the group URI of the CoAP group associated to the aggregated cache entry, rather than intended to the unicast URI of the forwarded request.
+
+3. If an aggregated cache entry is found at the previous step:
+
+   * The proxy stores the received response in the cache entry, possibly replacing an already stored instance of that response from that origin server.
+   
+   * The proxy sets as new lifetime of the aggregated cache entry the minimum between the current lifetime of the cache entry and the lifetime of the just stored response, as indicated by the Max-Age option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of {{RFC7252}}).
+
+Note that a proxy sitting on a router can monitor network control messages, hence learning when a new server has joined a CoAP group and is listening to the multicast IP address of that CoAP group. This information would guide the proxy in refreshing an aggregated cache entry, by sending a request to the CoAP group over the group URI before the entry expires, and thus storing also a response from the latest joined server.
+
+As further discussed in {{chap-sec-group-caching}}, additional means are required to enable cachability of responses at the proxy when communications in the group are secured with Group OSCORE {{I-D.ietf-core-oscore-groupcomm}}.
 
 ## Congestion Control ## {#sec-congestion}
 CoAP group requests may result in a multitude of responses from different nodes, potentially causing congestion. Therefore, both the sending of IP multicast requests and the sending of the unicast CoAP responses to these multicast requests should be conservatively controlled.
@@ -522,6 +571,22 @@ Additional key management operations on the OSCORE group are required, depending
 * In case forward security is needed, removing members from a CoAP group or stopping client-only endpoints from interacting with that group requires removing such members/endpoints from the corresponding OSCORE group. To this end, new cryptographic material is generated and securely distributed only to the remaining members/endpoints. This ensures that only the members/endpoints intended to remain are able to continue participating in secure group communication, while the evicted ones are not able to.
 
 The key management operations mentioned above are entrusted to the Group Manager responsible for the OSCORE group {{I-D.ietf-core-oscore-groupcomm}}, and it is RECOMMENDED to perform them according to the approach described in {{I-D.ietf-ace-key-groupcomm-oscore}}.
+
+## Caching of Responses at Proxies # {#chap-sec-group-caching}
+
+When using Group OSCORE to protect communications end-to-end between a client and multiple servers in the group, it is normally not possible for an intermediary proxy to cache protected responses.
+
+In fact, when starting from the same plain CoAP message, different clients generate different protected requests to send on the wire. This prevents different clients to generate possible cache hits, and thus makes response cachability at the proxy pointless.
+
+For group application scenarios that require secure communication, it is still possible to achieve cachability of responses at proxies, by using the approach defined in {{I-D.amsuess-core-cachable-oscore}} and based on Deterministic Requests. This requires the clients sending group requests and all the servers in the CoAP group to have already joined the correct OSCORE group.
+
+Starting from the same plain CoAP request, this allows different clients in the OSCORE group to deterministically generate a same request protected with Group OSCORE, which is sent to the proxy for being forwarded to the CoAP group. The proxy can now effectively cache the resulting responses from the servers in the CoAP group, since the same plain CoAP request will result again in the same Deterministic Request and thus will produce a cache hit.
+
+With enabled cachability of responses at the proxy, the same as defined in {{sec-proxy-caching}} applies, with respect to cache entries and their lifetimes.
+
+### Validation of Responses # {#chap-sec-group-caching-validation}
+
+TBD
 
 # Security Considerations # {#chap-security-considerations}
 
