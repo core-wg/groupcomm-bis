@@ -297,6 +297,33 @@ When this happens, the client normally processes at the CoAP layer each of those
 
 Then, the application is in a better position to decide what to do, depending on the available context information. For instance, it might accept and process all the responses from the same server, even if they are not Observe notifications (i.e., they do not include an Observe option). Alternatively, the application might accept and process only one of those responses, such as the most recent one from that server, e.g. when this can trigger a change of state.
 
+## Caching ## {#sec-caching}
+
+CoAP endpoints that are members of a CoAP group MAY cache responses as intended in Section 5.6 of {{RFC7252}}. In particular, the same rules apply for the set of request options used as "Cache-Key".
+
+Furthermore, building on what defined in Section 8.2.1 of {{RFC7252}}:
+
+   * A client sending a GET or FETCH group request over multicast MAY update a cache with the responses from the servers in the CoAP group. Then, the client uses both cached-still-fresh and new responses as the result of the group request.
+   
+   * A client sending a GET or FETCH group request over multicast MAY use a response received from a server to satisfy a subsequent request sent intended to that server on the related unicast request URI. The unicast request URI is obtained by replacing the authority part of the request URI with the transport-layer source address of the response message.
+
+   * A cache MAY revalidate a response by making a GET or FETCH request on the
+   related unicast request URI.
+   
+Note that, in the presence of proxies, this requires the client to distinguish the different responses to the same group request, as well as the different origin servers. This in turn requires additional means to provide the client with information about the origin server of each response, as discussed in {{sec-proxy-caching}}.
+
+The following defines the freshness model and validation model to use for cached responses, hence updating the models defined in Section 5.6.1 and Section 5.6.2 of {{RFC7252}}, respectively.
+
+### Freshness Model ## {#sec-caching-freshness}
+
+For caching at endpoints, the same freshness model relying on the Max-Age option and defined in Section 5.6.1 of {{RFC7252}} applies.
+
+For caching at proxies, the freshness model defined in {{sec-proxy-caching}} of this specification applies.
+
+### Validation Model ## {#sec-caching-validation}
+
+TBD
+
 ## Port and URI Path Selection ##
 A server that is a member of a CoAP group listens for CoAP messages on the group's IP multicast address, usually on the CoAP default UDP port 5683, or another non-default UDP port if configured. Regardless of the method for selecting the port number, the same port number MUST be used across all CoAP servers that are members of a CoAP group and across all CoAP clients performing the requests to that group. The URI Path used in the request is preferably a path that is known to be supported across all group members. However there are valid use cases where a request is known to be successful for a subset of the CoAP group, for example only members of a specific application group, while those group members for which the request is unsuccessful (for example because they are outside the application group) either ignore the multicast request or respond with an error status code.
 
@@ -327,6 +354,10 @@ An alternative solution is for the proxy to collect all the individual (unicast)
 Due to the above issues, it is RECOMMENDED that a CoAP Proxy only processes a group URI request if it is explicitly enabled to do so. The default response (if the function is not explicitly enabled) to a group URI request is 5.01 (Not Implemented). Furthermore, a proxy SHOULD be explicitly configured (e.g. by white-listing and/or client authentication) to allow proxied CoAP multicast requests only from specific client(s).
 
 The operation of HTTP-to-CoAP proxies for multicast CoAP requests is specified in Section 8.4 and 10.1 of {{RFC8075}}. In this case, the "application/http" media type is used to let the proxy return multiple CoAP responses -- each translated to a HTTP response -- back to the HTTP client. Of course, in this case the HTTP client sending a group URI to the proxy needs to be aware that it is going to receive this format, and needs to be able to decode it into the responses of multiple CoAP servers. Also, the IP source address of each CoAP response cannot be determined anymore from the "application/http" response. The HTTP client still identify the CoAP servers by other means such as application-specific information in the response payload.
+
+### Caching ### {#sec-proxy-caching}
+
+TBD
 
 ## Congestion Control ## {#sec-congestion}
 CoAP group requests may result in a multitude of responses from different nodes, potentially causing congestion. Therefore, both the sending of IP multicast requests and the sending of the unicast CoAP responses to these multicast requests should be conservatively controlled.
