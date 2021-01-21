@@ -7,8 +7,8 @@ Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                    C. Wang
 Updates: 7252, 7641 (if approved)                           InterDigital
 Intended status: Standards Track                               M. Tiloca
-Expires: 24 July 2021                                            RISE AB
-                                                         20 January 2021
+Expires: 25 July 2021                                            RISE AB
+                                                         21 January 2021
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Dijk, et al.              Expires 24 July 2021                  [Page 1]
+Dijk, et al.              Expires 25 July 2021                  [Page 1]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -63,7 +63,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 July 2021.
+   This Internet-Draft will expire on 25 July 2021.
 
 Copyright Notice
 
@@ -100,72 +100,72 @@ Table of Contents
      3.2.  Caching . . . . . . . . . . . . . . . . . . . . . . . . .  16
        3.2.1.  Freshness Model . . . . . . . . . . . . . . . . . . .  17
        3.2.2.  Validation Model  . . . . . . . . . . . . . . . . . .  17
-     3.3.  Port and URI Path Selection . . . . . . . . . . . . . . .  17
-     3.4.  Proxy Operation . . . . . . . . . . . . . . . . . . . . .  18
-       3.4.1.  Caching . . . . . . . . . . . . . . . . . . . . . . .  20
-     3.5.  Congestion Control  . . . . . . . . . . . . . . . . . . .  22
-     3.6.  Observing Resources . . . . . . . . . . . . . . . . . . .  24
-     3.7.  Block-Wise Transfer . . . . . . . . . . . . . . . . . . .  26
+     3.3.  Port and URI Path Selection . . . . . . . . . . . . . . .  21
+     3.4.  Proxy Operation . . . . . . . . . . . . . . . . . . . . .  22
+       3.4.1.  Caching . . . . . . . . . . . . . . . . . . . . . . .  24
+     3.5.  Congestion Control  . . . . . . . . . . . . . . . . . . .  26
+     3.6.  Observing Resources . . . . . . . . . . . . . . . . . . .  28
+     3.7.  Block-Wise Transfer . . . . . . . . . . . . . . . . . . .  30
 
 
 
-Dijk, et al.              Expires 24 July 2021                  [Page 2]
+Dijk, et al.              Expires 25 July 2021                  [Page 2]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
 
-     3.8.  Transport . . . . . . . . . . . . . . . . . . . . . . . .  26
-       3.8.1.  UDP/IPv6 Multicast Transport  . . . . . . . . . . . .  26
-       3.8.2.  UDP/IPv4 Multicast Transport  . . . . . . . . . . . .  27
-       3.8.3.  6LoWPAN . . . . . . . . . . . . . . . . . . . . . . .  27
-     3.9.  Interworking with Other Protocols . . . . . . . . . . . .  27
-       3.9.1.  MLD/MLDv2/IGMP/IGMPv3 . . . . . . . . . . . . . . . .  28
-       3.9.2.  RPL . . . . . . . . . . . . . . . . . . . . . . . . .  28
-       3.9.3.  MPL . . . . . . . . . . . . . . . . . . . . . . . . .  29
-   4.  Unsecured Group Communication . . . . . . . . . . . . . . . .  30
-   5.  Secured Group Communication using Group OSCORE  . . . . . . .  30
-     5.1.  Secure Group Maintenance  . . . . . . . . . . . . . . . .  32
-     5.2.  Caching of Responses at Proxies . . . . . . . . . . . . .  32
-       5.2.1.  Validation of Responses . . . . . . . . . . . . . . .  33
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  33
-     6.1.  CoAP NoSec Mode . . . . . . . . . . . . . . . . . . . . .  33
-     6.2.  Group OSCORE  . . . . . . . . . . . . . . . . . . . . . .  34
-       6.2.1.  Group Key Management  . . . . . . . . . . . . . . . .  34
-       6.2.2.  Source Authentication . . . . . . . . . . . . . . . .  35
-       6.2.3.  Countering Attacks  . . . . . . . . . . . . . . . . .  35
-     6.3.  Replay of Non Confirmable Messages  . . . . . . . . . . .  37
-     6.4.  Use of CoAP No-Response Option  . . . . . . . . . . . . .  38
-     6.5.  6LoWPAN . . . . . . . . . . . . . . . . . . . . . . . . .  38
-     6.6.  Wi-Fi . . . . . . . . . . . . . . . . . . . . . . . . . .  39
-     6.7.  Monitoring  . . . . . . . . . . . . . . . . . . . . . . .  39
-       6.7.1.  General Monitoring  . . . . . . . . . . . . . . . . .  39
-       6.7.2.  Pervasive Monitoring  . . . . . . . . . . . . . . . .  39
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  40
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  40
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  40
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  42
-   Appendix A.  Use Cases  . . . . . . . . . . . . . . . . . . . . .  45
-     A.1.  Discovery . . . . . . . . . . . . . . . . . . . . . . . .  45
-       A.1.1.  Distributed Device Discovery  . . . . . . . . . . . .  46
-       A.1.2.  Distributed Service Discovery . . . . . . . . . . . .  46
-       A.1.3.  Directory Discovery . . . . . . . . . . . . . . . . .  46
-     A.2.  Operational Phase . . . . . . . . . . . . . . . . . . . .  47
-       A.2.1.  Actuator Group Control  . . . . . . . . . . . . . . .  47
-       A.2.2.  Device Group Status Request . . . . . . . . . . . . .  47
-       A.2.3.  Network-wide Query  . . . . . . . . . . . . . . . . .  47
-       A.2.4.  Network-wide / Group Notification . . . . . . . . . .  48
-     A.3.  Software Update . . . . . . . . . . . . . . . . . . . . .  48
-   Appendix B.  Document Updates . . . . . . . . . . . . . . . . . .  48
-     B.1.  Version -01 to -02  . . . . . . . . . . . . . . . . . . .  48
-     B.2.  Version -00 to -01  . . . . . . . . . . . . . . . . . . .  49
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  49
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  49
+     3.8.  Transport . . . . . . . . . . . . . . . . . . . . . . . .  30
+       3.8.1.  UDP/IPv6 Multicast Transport  . . . . . . . . . . . .  30
+       3.8.2.  UDP/IPv4 Multicast Transport  . . . . . . . . . . . .  31
+       3.8.3.  6LoWPAN . . . . . . . . . . . . . . . . . . . . . . .  31
+     3.9.  Interworking with Other Protocols . . . . . . . . . . . .  31
+       3.9.1.  MLD/MLDv2/IGMP/IGMPv3 . . . . . . . . . . . . . . . .  32
+       3.9.2.  RPL . . . . . . . . . . . . . . . . . . . . . . . . .  32
+       3.9.3.  MPL . . . . . . . . . . . . . . . . . . . . . . . . .  33
+   4.  Unsecured Group Communication . . . . . . . . . . . . . . . .  34
+   5.  Secured Group Communication using Group OSCORE  . . . . . . .  34
+     5.1.  Secure Group Maintenance  . . . . . . . . . . . . . . . .  36
+     5.2.  Caching of Responses at Proxies . . . . . . . . . . . . .  36
+       5.2.1.  Validation of Responses . . . . . . . . . . . . . . .  37
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  37
+     6.1.  CoAP NoSec Mode . . . . . . . . . . . . . . . . . . . . .  37
+     6.2.  Group OSCORE  . . . . . . . . . . . . . . . . . . . . . .  38
+       6.2.1.  Group Key Management  . . . . . . . . . . . . . . . .  38
+       6.2.2.  Source Authentication . . . . . . . . . . . . . . . .  39
+       6.2.3.  Countering Attacks  . . . . . . . . . . . . . . . . .  39
+     6.3.  Replay of Non Confirmable Messages  . . . . . . . . . . .  41
+     6.4.  Use of CoAP No-Response Option  . . . . . . . . . . . . .  42
+     6.5.  6LoWPAN . . . . . . . . . . . . . . . . . . . . . . . . .  42
+     6.6.  Wi-Fi . . . . . . . . . . . . . . . . . . . . . . . . . .  43
+     6.7.  Monitoring  . . . . . . . . . . . . . . . . . . . . . . .  43
+       6.7.1.  General Monitoring  . . . . . . . . . . . . . . . . .  43
+       6.7.2.  Pervasive Monitoring  . . . . . . . . . . . . . . . .  43
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  44
+     7.1.  CoAP Option Numbers Registry  . . . . . . . . . . . . . .  44
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  44
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  44
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  47
+   Appendix A.  Use Cases  . . . . . . . . . . . . . . . . . . . . .  50
+     A.1.  Discovery . . . . . . . . . . . . . . . . . . . . . . . .  50
+       A.1.1.  Distributed Device Discovery  . . . . . . . . . . . .  50
+       A.1.2.  Distributed Service Discovery . . . . . . . . . . . .  51
+       A.1.3.  Directory Discovery . . . . . . . . . . . . . . . . .  51
+     A.2.  Operational Phase . . . . . . . . . . . . . . . . . . . .  51
+       A.2.1.  Actuator Group Control  . . . . . . . . . . . . . . .  51
+       A.2.2.  Device Group Status Request . . . . . . . . . . . . .  52
+       A.2.3.  Network-wide Query  . . . . . . . . . . . . . . . . .  52
+       A.2.4.  Network-wide / Group Notification . . . . . . . . . .  52
+     A.3.  Software Update . . . . . . . . . . . . . . . . . . . . .  52
+   Appendix B.  Document Updates . . . . . . . . . . . . . . . . . .  53
+     B.1.  Version -01 to -02  . . . . . . . . . . . . . . . . . . .  53
+     B.2.  Version -00 to -01  . . . . . . . . . . . . . . . . . . .  53
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  54
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  54
 
 
 
 
-
-Dijk, et al.              Expires 24 July 2021                  [Page 3]
+Dijk, et al.              Expires 25 July 2021                  [Page 3]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -221,7 +221,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                  [Page 4]
+Dijk, et al.              Expires 25 July 2021                  [Page 4]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -277,7 +277,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                  [Page 5]
+Dijk, et al.              Expires 25 July 2021                  [Page 5]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -333,7 +333,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                  [Page 6]
+Dijk, et al.              Expires 25 July 2021                  [Page 6]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -389,7 +389,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                  [Page 7]
+Dijk, et al.              Expires 25 July 2021                  [Page 7]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -445,7 +445,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                  [Page 8]
+Dijk, et al.              Expires 25 July 2021                  [Page 8]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -501,7 +501,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                  [Page 9]
+Dijk, et al.              Expires 25 July 2021                  [Page 9]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -557,7 +557,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 10]
+Dijk, et al.              Expires 25 July 2021                 [Page 10]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -613,7 +613,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 11]
+Dijk, et al.              Expires 25 July 2021                 [Page 11]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -669,7 +669,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 12]
+Dijk, et al.              Expires 25 July 2021                 [Page 12]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -725,7 +725,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 13]
+Dijk, et al.              Expires 25 July 2021                 [Page 13]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -781,7 +781,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 14]
+Dijk, et al.              Expires 25 July 2021                 [Page 14]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -837,7 +837,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 15]
+Dijk, et al.              Expires 25 July 2021                 [Page 15]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -893,7 +893,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 16]
+Dijk, et al.              Expires 25 July 2021                 [Page 16]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -928,7 +928,238 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 3.2.2.  Validation Model
 
-   TBD
+   Section 5.6.2 of [RFC7252] defines a model to "validate" or
+   "revalidate" responses stored in cache, hence enabling the
+   suppression of responses that the client already has.
+
+   This relies on the ETag option defined in Section 5.10.6 of
+   [RFC7252], with its usage limited to exchanges between a CoAP client
+   and one CoAP server.  That is Section 8.2.1 of [RFC7252] explicitly
+   forbids using an ETag option in group requests sent over multicast,
+   and leaves a mechanism to suppress responses for further study.
+
+   This section provides such a model to "validate" or "revalidate"
+   responses that the client already has as replies to a group request.
+   In particular, the group request can indicate entity-tag values
+   separately for each CoAP server from which the client wishes to get a
+   response revalidation, together with addressing information
+   identifying that server.
+
+
+
+
+
+Dijk, et al.              Expires 25 July 2021                 [Page 17]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
+   To this end, this specification defines the new Multi-ETag option.
+   Operations related to this validation model and using the new option
+   are defined in Section 3.2.2.2 for the client side, and in
+   Section 3.2.2.3 for the server side.
+
+   The Multi-ETag option has the properties summarized in Figure 3,
+   which extends Table 4 of [RFC7252].  The Multi-ETag option is
+   elective, safe to forward, part of the cache key, and repeatable.
+
+   The option is intended only for group requests, as directly sent to a
+   CoAP group or to a Forward-Proxy that forwards it to the CoAP group
+   (see Section 3.4).
+
+     +------+---+---+---+---+------------+--------+--------+---------+
+     | No.  | C | U | N | R | Name       | Format | Length | Default |
+     +------+---+---+---+---+------------+--------+--------+---------+
+     |      |   |   |   |   |            |        |        |         |
+     | TBD1 |   |   |   | x | Multi-ETag |  (*)   |  any   | (none)  |
+     |      |   |   |   |   |            |        |        |         |
+     +------+---+---+---+---+------------+--------+--------+---------+
+                C=Critical, U=Unsafe, N=NoCacheKey, R=Repeatable
+
+     (*) See below.
+
+                      Figure 3: The Multi-ETag Option.
+
+   The Multi-ETag option has the same properties of the ETag option
+   defined in Section 5.10.6 of [RFC7252], but it differs as to the
+   format and length of its value, as well as about the reason for its
+   repeatability.
+
+   That is, each occurrence of the Multi-ETag option is intended to
+   exactly one of the servers in the CoAP group, from which the client
+   wishes to get a response revalidation.  Then, the option value is set
+   to a CBOR sequence [RFC8742] composed of (1+M) elements, where:
+
+   *  The first element specifies the addressing information of the
+      corresponding server, encoded as defined in Section 3.2.2.1.
+
+      This mirrors the format of the Multicast-Signaling option defined
+      in Section 3 of [I-D.tiloca-core-groupcomm-proxy].  Thus, in the
+      presence of a forward proxy supporting the mechanism defined in
+      [I-D.tiloca-core-groupcomm-proxy], the client can seamlessly use
+      the server addressing information obtained from the proxy, when
+      this forwards back a response to a group request from that server.
+
+
+
+
+
+
+Dijk, et al.              Expires 25 July 2021                 [Page 18]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
+   *  The following M elements are CBOR byte strings, each of which has
+      as value an entity-tag value that the client wants to try against
+      the corresponding server.
+
+      The entity-tag values included in the Multi-ETag option are
+      subject to the same considerations for the entity-tag values used
+      in an ETag option (see Section 5.10.6 of [RFC7252]).
+
+   The Multi-ETag option is of class E in terms of OSCORE processing
+   (see Section 4.1 of [RFC8613]).
+
+3.2.2.1.  Encoding of Server Addressing Information
+
+   The first element of the CBOR sequence in the Multi-ETag option value
+   is set to the byte serialization of the CBOR array 'tp_info' defined
+   in Section 2.2.1 of
+   [I-D.tiloca-core-observe-multicast-notifications], including only the
+   set of elements 'srv_addr'.
+
+   In turn, the set includes the integer 'tp_id' identifying the used
+   transport protocol, and further elements whose number, format and
+   encoding depend on the value of 'tp_id'.
+
+   When the Multi-ETag option is used in group requests transported over
+   UDP as in this specification, the 'tp_info' array includes the
+   following elements, encoded as defined in Section 2.2.1.1 of
+   [I-D.tiloca-core-observe-multicast-notifications].
+
+   *  'tp_id': the CBOR integer with value 1 ("UDP"), from the "Value"
+      column of the "Transport Protocol Identifiers" Registry defined in
+      Section 14.4 of [I-D.tiloca-core-observe-multicast-notifications]
+
+   *  'srv_host': a CBOR byte string, with value the unicast IP address
+      of the server.  This element is tagged and identified by the CBOR
+      tag 260 "Network Address (IPv4 or IPv6 or MAC Address)".
+
+   *  'srv_port': as a CBOR unsigned integer of the CBOR simple value
+      Null.  If it is a CBOR integer, it has as value the destination
+      port number where to send individual requests intended to the
+      server.  This element MAY be present.  If not included, the
+      default port number 5683 is assumed.
+
+   The CDDL notation [RFC8610] provided below describes the 'tp_info'
+   CBOR array using the format above.
+
+
+
+
+
+
+
+Dijk, et al.              Expires 25 July 2021                 [Page 19]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
+   tp_info = [
+          tp_id : 1,             ; UDP as transport protocol
+       srv_host : #6.260(bstr),  ; IP address where to reach the server
+       srv_port : uint / null    ; Port number where to reach the server
+   ]
+
+3.2.2.2.  Processing on the Client Side
+
+   Similar to what defined in Section 5.6.2 of [RFC7252], the client may
+   have one or more stored responses for a GET or FETCH group request
+   sent to the CoAP group, but cannot use any of them (e.g. because they
+   are not fresh).
+
+   In that case, the client can send a GET or FETCH group request, in
+   order to give the origin servers an opportunity both to select a
+   stored response to be used, and to update its freshness.  As in
+   [RFC7252], this process is known as "validating" or "revalidating"
+   the stored response.
+
+   When sending such a group request, the endpoint SHOULD include one
+   Multi-ETag option for each server it wishes to revalidate the
+   corresponding response with.  As defined in Section 3.2.2, the Multi-
+   ETag option can include multiple entity-tag values, each of which
+   applicable to a stored response from the corresponding server for
+   that group request.
+
+   Specifically, in the same GET or FETCH group request:
+
+   *  The client MUST NOT include both one or more ETag options together
+      with one or more Multi-ETag options.
+
+   *  The client MUST include only one Multi-ETag option for each server
+      it wishes to get a response revalidation.
+
+   *  The client SHOULD limit the number of Multi-ETag options, hence
+      the humber of servers as intended target of the revalidation
+      process, and SHOULD rather spread revalidation with different sets
+      of servers over different group requests.  Also, the client SHOULD
+      limit the number of entity-tag values specified in each Multi-ETag
+      option, preferably indicating only one entity-tag value.
+
+      This allows for limiting the overall size of the group request.
+      As a guideline, the server addressing information can be 9-24
+      bytes in size, while each entity-tag value can be 1-8 bytes in
+      size.  Thus, a single Multi-ETag option can be up to (24 + 8 * M)
+      bytes in size, where M is the number of entity-tag values it
+      includes.
+
+
+
+
+Dijk, et al.              Expires 25 July 2021                 [Page 20]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
+   A 2.03 (Valid) response indicates that the stored response identified
+   by the entity-tag given in the response's ETag option can be reused,
+   after updating it as described in Section 5.9.1.3 of [RFC7252].  In
+   effect, the client can determine if any of the stored representations
+   from that server is current, without needing to transfer them again.
+
+   Any other Response Code indicates that none of the stored responses
+   from that server and nominated in the Multi-ETag option of the group
+   request is suitable.  Instead, the response SHOULD be used to satisfy
+   the request and MAY replace the stored response.
+
+3.2.2.3.  Processing on the Server Side
+
+   If a GET or FETCH request includes both one or more ETag options
+   together with one or more Multi-ETag options, then the server MUST
+   ignore all the included ETag and Multi-ETag options.
+
+   The server MUST ignore any Multi-ETag option which is malformed, or
+   included in a request that is neither GET nor FETCH, or which
+   specifies addressing information not matching with its own endpoint.
+
+   The server considers only its pertaining Multi-ETag option, i.e.
+   specifying addressing information associated to its own endpoint.
+   The server MUST ignore any pertaining Multi-ETag option that occurs
+   more than once.
+
+   If the pertaining Multi-ETag option specifies the CBOR simple value
+   Null for the 'srv_port' element of 'tp_info' (see Section 3.2.2.1),
+   the server MUST assume the default port number 5683.
+
+   Then, the server can issue a 2.03 (Valid) response in place of a 2.05
+   (Content) response, if one of the entity-tag values from the
+   pertaining Multi-ETag option is the entity-tag for the current
+   resource representation, i.e. it is valid.  The 2.03 (Valid) response
+   echoes this specific entity-tag as value of an ETag option.
+
+   The inclusion of an ETag option in responses works as defined in
+   Section 5.6.10.1 of [RFC7252].
 
 3.3.  Port and URI Path Selection
 
@@ -939,6 +1170,14 @@ Internet-Draft        Group Communication for CoAP          January 2021
    MUST be used across all CoAP servers that are members of a CoAP group
    and across all CoAP clients performing the requests to that group.
    The URI Path used in the request is preferably a path that is known
+
+
+
+Dijk, et al.              Expires 25 July 2021                 [Page 21]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    to be supported across all group members.  However there are valid
    use cases where a request is known to be successful for a subset of
    the CoAP group, for example only members of a specific application
@@ -946,13 +1185,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    unsuccessful (for example because they are outside the application
    group) either ignore the multicast request or respond with an error
    status code.
-
-
-
-Dijk, et al.              Expires 24 July 2021                 [Page 17]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
    One way to create multiple CoAP groups is using different UDP ports
    with the same IP multicast address, in case the devices' network
@@ -994,21 +1226,20 @@ Internet-Draft        Group Communication for CoAP          January 2021
       the CoAP client component is aware that the forward-proxy is going
       to execute a CoAP group URI request.
 
+
+
+
+Dijk, et al.              Expires 25 July 2021                 [Page 22]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    *  Each individual CoAP response received by the client will appear
       to originate (based on its IP source address) from the CoAP Proxy,
       and not from the server that produced the response.  This makes it
       impossible for the client to identify the server that produced
       each response, unless the server identity is contained as a part
       of the response payload or inside a CoAP Option in the response.
-
-
-
-
-
-Dijk, et al.              Expires 24 July 2021                 [Page 18]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
    *  The proxy does not know how many members there are in the CoAP
       group or how many group members will actually respond.  Also, the
@@ -1049,6 +1280,16 @@ Internet-Draft        Group Communication for CoAP          January 2021
    authentication) to allow proxied CoAP multicast requests only from
    specific client(s).
 
+
+
+
+
+
+Dijk, et al.              Expires 25 July 2021                 [Page 23]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    The operation of HTTP-to-CoAP proxies for multicast CoAP requests is
    specified in Section 8.4 and 10.1 of [RFC8075].  In this case, the
    "application/http" media type is used to let the proxy return
@@ -1058,14 +1299,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    receive this format, and needs to be able to decode it into the
    responses of multiple CoAP servers.  Also, the IP source address of
    each CoAP response cannot be determined anymore from the
-
-
-
-Dijk, et al.              Expires 24 July 2021                 [Page 19]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
    "application/http" response.  The HTTP client still identify the CoAP
    servers by other means such as application-specific information in
    the response payload.
@@ -1105,22 +1338,16 @@ Internet-Draft        Group Communication for CoAP          January 2021
    CoAP group, in order to refresh an aggregated cache entry after its
    expiration or invalidation.
 
-   1.  For each response to the group request which is received and also
-       forwarded back to the client:
 
 
 
-
-
-
-
-
-
-
-Dijk, et al.              Expires 24 July 2021                 [Page 20]
+Dijk, et al.              Expires 25 July 2021                 [Page 24]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
+
+   1.  For each response to the group request which is received and also
+       forwarded back to the client:
 
        *  The proxy creates or refreshes the individual cache entry
           associated to the origin server and for that response.  That
@@ -1166,17 +1393,18 @@ Internet-Draft        Group Communication for CoAP          January 2021
        This cache entry becomes immediately usable to serve requests
        from clients.
 
-   2.  The proxy checks whether it has a non expired and valid
-       aggregated cache entry, such that a hit would be produced by a
-       group request analogous to the forwarded unicast request.
 
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 21]
+Dijk, et al.              Expires 25 July 2021                 [Page 25]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
+
+   2.  The proxy checks whether it has a non expired and valid
+       aggregated cache entry, such that a hit would be produced by a
+       group request analogous to the forwarded unicast request.
 
        That is, such group request would be intended to the group URI of
        the CoAP group associated to the aggregated cache entry, rather
@@ -1222,17 +1450,17 @@ Internet-Draft        Group Communication for CoAP          January 2021
       there is nothing useful to respond to, e.g., error or empty
       response (see Section 8.2 of [RFC7252]).
 
-   *  A server should limit the support for IP multicast requests to
-      specific resources where multicast operation is required
-      (Section 11.3 of [RFC7252]).
 
 
 
-
-Dijk, et al.              Expires 24 July 2021                 [Page 22]
+Dijk, et al.              Expires 25 July 2021                 [Page 26]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
+
+   *  A server should limit the support for IP multicast requests to
+      specific resources where multicast operation is required
+      (Section 11.3 of [RFC7252]).
 
    *  An IP multicast request MUST be Non-confirmable (Section 8.1 of
       [RFC7252]).
@@ -1281,11 +1509,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-
-
-
-
-Dijk, et al.              Expires 24 July 2021                 [Page 23]
+Dijk, et al.              Expires 25 July 2021                 [Page 27]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1341,7 +1565,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 24]
+Dijk, et al.              Expires 25 July 2021                 [Page 28]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1397,7 +1621,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 25]
+Dijk, et al.              Expires 25 July 2021                 [Page 29]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1453,7 +1677,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 26]
+Dijk, et al.              Expires 25 July 2021                 [Page 30]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1509,7 +1733,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 27]
+Dijk, et al.              Expires 25 July 2021                 [Page 31]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1565,7 +1789,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 28]
+Dijk, et al.              Expires 25 July 2021                 [Page 32]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1621,7 +1845,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 29]
+Dijk, et al.              Expires 25 July 2021                 [Page 33]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1677,7 +1901,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 30]
+Dijk, et al.              Expires 25 July 2021                 [Page 34]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1733,7 +1957,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 31]
+Dijk, et al.              Expires 25 July 2021                 [Page 35]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1789,7 +2013,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 32]
+Dijk, et al.              Expires 25 July 2021                 [Page 36]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1797,9 +2021,12 @@ Internet-Draft        Group Communication for CoAP          January 2021
    For group application scenarios that require secure communication, it
    is still possible to achieve cachability of responses at proxies, by
    using the approach defined in [I-D.amsuess-core-cachable-oscore] and
-   based on Deterministic Requests.  This requires the clients sending
-   group requests and all the servers in the CoAP group to have already
-   joined the correct OSCORE group.
+   based on Deterministic Requests protected with the pairwise mode of
+   Group OSCORE.  This approach is limited to group requests that are
+   safe to process and do not yield side effects at the server.  As for
+   any protected group request, it requires the clients and all the
+   servers in the CoAP group to have already joined the correct OSCORE
+   group.
 
    Starting from the same plain CoAP request, this allows different
    clients in the OSCORE group to deterministically generate a same
@@ -1842,10 +2069,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-
-
-
-Dijk, et al.              Expires 24 July 2021                 [Page 33]
+Dijk, et al.              Expires 25 July 2021                 [Page 37]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1901,7 +2125,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 34]
+Dijk, et al.              Expires 25 July 2021                 [Page 38]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -1957,7 +2181,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 35]
+Dijk, et al.              Expires 25 July 2021                 [Page 39]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2013,7 +2237,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 36]
+Dijk, et al.              Expires 25 July 2021                 [Page 40]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2069,7 +2293,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 37]
+Dijk, et al.              Expires 25 July 2021                 [Page 41]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2125,7 +2349,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 38]
+Dijk, et al.              Expires 25 July 2021                 [Page 42]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2181,7 +2405,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 24 July 2021                 [Page 39]
+Dijk, et al.              Expires 25 July 2021                 [Page 43]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2201,7 +2425,19 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 7.  IANA Considerations
 
-   This document has no actions for IANA.
+   This document has the following actions for IANA.
+
+7.1.  CoAP Option Numbers Registry
+
+   IANA is asked to enter the following option numbers to the "CoAP
+   Option Numbers" registry defined in [RFC7252] within the "CoRE
+   Parameters" registry.
+
+                +--------+-------------+-----------------+
+                | Number |    Name     |    Reference    |
+                +--------+-------------+-----------------+
+                |  TBD1  |  Multi-ETag | [This document] |
+                +--------+-------------+-----------------+
 
 8.  References
 
@@ -2221,6 +2457,15 @@ Internet-Draft        Group Communication for CoAP          January 2021
               groupcomm-10, 2 November 2020, <http://www.ietf.org/
               internet-drafts/draft-ietf-core-oscore-groupcomm-10.txt>.
 
+
+
+
+
+Dijk, et al.              Expires 25 July 2021                 [Page 44]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    [I-D.ietf-cose-rfc8152bis-algs]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Initial Algorithms", Work in Progress, Internet-Draft,
@@ -2235,12 +2480,13 @@ Internet-Draft        Group Communication for CoAP          January 2021
               <http://www.ietf.org/internet-drafts/draft-ietf-cose-
               rfc8152bis-struct-14.txt>.
 
-
-
-Dijk, et al.              Expires 24 July 2021                 [Page 40]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
+   [I-D.tiloca-core-observe-multicast-notifications]
+              Tiloca, M., Hoeglund, R., Amsuess, C., and F. Palombini,
+              "Observe Notifications as CoAP Multicast Responses", Work
+              in Progress, Internet-Draft, draft-tiloca-core-observe-
+              multicast-notifications-04, 2 November 2020,
+              <http://www.ietf.org/internet-drafts/draft-tiloca-core-
+              observe-multicast-notifications-04.txt>.
 
    [RFC1122]  Braden, R., Ed., "Requirements for Internet Hosts -
               Communication Layers", STD 3, RFC 1122,
@@ -2268,6 +2514,14 @@ Internet-Draft        Group Communication for CoAP          January 2021
               RFC 4443, DOI 10.17487/RFC4443, March 2006,
               <https://www.rfc-editor.org/info/rfc4443>.
 
+
+
+
+Dijk, et al.              Expires 25 July 2021                 [Page 45]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    [RFC4944]  Montenegro, G., Kushalnagar, N., Hui, J., and D. Culler,
               "Transmission of IPv6 Packets over IEEE 802.15.4
               Networks", RFC 4944, DOI 10.17487/RFC4944, September 2007,
@@ -2286,17 +2540,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
               Application Protocol (CoAP)", RFC 7641,
               DOI 10.17487/RFC7641, September 2015,
               <https://www.rfc-editor.org/info/rfc7641>.
-
-
-
-
-
-
-
-Dijk, et al.              Expires 24 July 2021                 [Page 41]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
    [RFC7959]  Bormann, C. and Z. Shelby, Ed., "Block-Wise Transfers in
               the Constrained Application Protocol (CoAP)", RFC 7959,
@@ -2318,10 +2561,31 @@ Internet-Draft        Group Communication for CoAP          January 2021
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
+   [RFC8610]  Birkholz, H., Vigano, C., and C. Bormann, "Concise Data
+              Definition Language (CDDL): A Notational Convention to
+              Express Concise Binary Object Representation (CBOR) and
+              JSON Data Structures", RFC 8610, DOI 10.17487/RFC8610,
+              June 2019, <https://www.rfc-editor.org/info/rfc8610>.
+
+
+
+
+
+
+
+Dijk, et al.              Expires 25 July 2021                 [Page 46]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    [RFC8613]  Selander, G., Mattsson, J., Palombini, F., and L. Seitz,
               "Object Security for Constrained RESTful Environments
               (OSCORE)", RFC 8613, DOI 10.17487/RFC8613, July 2019,
               <https://www.rfc-editor.org/info/rfc8613>.
+
+   [RFC8742]  Bormann, C., "Concise Binary Object Representation (CBOR)
+              Sequences", RFC 8742, DOI 10.17487/RFC8742, February 2020,
+              <https://www.rfc-editor.org/info/rfc8742>.
 
 8.2.  Informative References
 
@@ -2341,19 +2605,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
               oscore-00, 13 July 2020, <http://www.ietf.org/internet-
               drafts/draft-amsuess-core-cachable-oscore-00.txt>.
 
-
-
-
-
-
-
-
-
-Dijk, et al.              Expires 24 July 2021                 [Page 42]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
    [I-D.ietf-ace-key-groupcomm-oscore]
               Tiloca, M., Park, J., and F. Palombini, "Key Management
               for OSCORE Groups in ACE", Work in Progress, Internet-
@@ -2369,6 +2620,19 @@ Internet-Draft        Group Communication for CoAP          January 2021
               draft-ietf-ace-oauth-authz-36, 16 November 2020,
               <http://www.ietf.org/internet-drafts/draft-ietf-ace-oauth-
               authz-36.txt>.
+
+
+
+
+
+
+
+
+
+Dijk, et al.              Expires 25 July 2021                 [Page 47]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
 
    [I-D.ietf-ace-oscore-gm-admin]
               Tiloca, M., Hoeglund, R., Stok, P., Palombini, F., and K.
@@ -2402,14 +2666,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    [I-D.tiloca-core-oscore-discovery]
               Tiloca, M., Amsuess, C., and P. Stok, "Discovery of OSCORE
               Groups with the CoRE Resource Directory", Work in
-
-
-
-Dijk, et al.              Expires 24 July 2021                 [Page 43]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
               Progress, Internet-Draft, draft-tiloca-core-oscore-
               discovery-07, 2 November 2020, <http://www.ietf.org/
               internet-drafts/draft-tiloca-core-oscore-discovery-
@@ -2420,6 +2676,19 @@ Internet-Draft        Group Communication for CoAP          January 2021
               Providing Residential IPv6 Internet Service", RFC 6092,
               DOI 10.17487/RFC6092, January 2011,
               <https://www.rfc-editor.org/info/rfc6092>.
+
+
+
+
+
+
+
+
+
+Dijk, et al.              Expires 25 July 2021                 [Page 48]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
 
    [RFC6550]  Winter, T., Ed., Thubert, P., Ed., Brandt, A., Hui, J.,
               Kelsey, R., Levis, P., Pister, K., Struik, R., Vasseur,
@@ -2456,16 +2725,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
               No Server Response", RFC 7967, DOI 10.17487/RFC7967,
               August 2016, <https://www.rfc-editor.org/info/rfc7967>.
 
-
-
-
-
-
-Dijk, et al.              Expires 24 July 2021                 [Page 44]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
    [RFC8323]  Bormann, C., Lemay, S., Tschofenig, H., Hartke, K.,
               Silverajan, B., and B. Raymor, Ed., "CoAP (Constrained
               Application Protocol) over TCP, TLS, and WebSockets",
@@ -2476,6 +2735,16 @@ Internet-Draft        Group Communication for CoAP          January 2021
               Content-Format for the Constrained Application Protocol
               (CoAP)", RFC 8710, DOI 10.17487/RFC8710, February 2020,
               <https://www.rfc-editor.org/info/rfc8710>.
+
+
+
+
+
+
+Dijk, et al.              Expires 25 July 2021                 [Page 49]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
 
 Appendix A.  Use Cases
 
@@ -2501,27 +2770,6 @@ A.1.  Discovery
    [I-D.ietf-core-resource-directory]; and there may be other types of
    directories that can be used with CoAP.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Dijk, et al.              Expires 24 July 2021                 [Page 45]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
 A.1.1.  Distributed Device Discovery
 
    Device discovery is the discovery and identification of networked
@@ -2545,6 +2793,14 @@ A.1.1.  Distributed Device Discovery
    [RFC6690] to find these particular resources.  Also, a multicast GET
    request to /.well-known/core can be used to discover all CoAP
    devices.
+
+
+
+
+Dijk, et al.              Expires 25 July 2021                 [Page 50]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
 
 A.1.2.  Distributed Service Discovery
 
@@ -2570,14 +2826,6 @@ A.1.3.  Directory Discovery
    Resource Directory using CoAP group communication.  As defined in
    [I-D.ietf-core-resource-directory], a resource directory is a web
    entity that stores information about web resources and implements
-
-
-
-Dijk, et al.              Expires 24 July 2021                 [Page 46]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
    REST interfaces for registration and lookup of those resources.  For
    example, a device can register itself to a resource directory to let
    it be found by other devices and/or applications.
@@ -2601,6 +2849,14 @@ A.2.1.  Actuator Group Control
    lighting, or audio alert/Public Address systems.  Sections 3.4 and
    3.5 of [RFC7390] show examples of lighting control of a group of
    6LoWPAN-connected lights.
+
+
+
+
+Dijk, et al.              Expires 25 July 2021                 [Page 51]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
 
 A.2.2.  Device Group Status Request
 
@@ -2627,13 +2883,6 @@ A.2.3.  Network-wide Query
    network - except that the query is not about services offered by the
    device, but rather specific operational data is requested.
 
-
-
-Dijk, et al.              Expires 24 July 2021                 [Page 47]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
 A.2.4.  Network-wide / Group Notification
 
    In some cases a whole network, or subnet of multiple IP devices, or a
@@ -2657,6 +2906,14 @@ A.3.  Software Update
    running the new software.  The software is distributed as a series of
    smaller blocks that are collected by all devices and stored in
    memory.  All devices in the target group are usually responsible for
+
+
+
+Dijk, et al.              Expires 25 July 2021                 [Page 52]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    integrity verification of the received software; which can be done
    per-block or for the entire software image once all blocks have been
    received.  Due to the inherent unreliability of CoAP multicast, there
@@ -2683,13 +2940,6 @@ B.1.  Version -01 to -02
 
    *  More details on servers changing port number in the response.
 
-
-
-Dijk, et al.              Expires 24 July 2021                 [Page 48]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
    *  Usage of the Uri-Host Option to indicate an application group.
 
    *  Response suppression based on classes of error codes.
@@ -2711,6 +2961,14 @@ B.2.  Version -00 to -01
    *  Cancellation of group observations.
 
    *  Clarification on multicast scope to use.
+
+
+
+
+Dijk, et al.              Expires 25 July 2021                 [Page 53]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
 
    *  Both the group mode and pairwise mode of Group OSCORE are
       considered.
@@ -2739,13 +2997,6 @@ Authors' Addresses
    Email: esko.dijk@iotconsultancy.nl
 
 
-
-
-Dijk, et al.              Expires 24 July 2021                 [Page 49]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
    Chonggang Wang
    InterDigital
    1001 E Hector St, Suite 300
@@ -2770,31 +3021,4 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Dijk, et al.              Expires 24 July 2021                 [Page 50]
+Dijk, et al.              Expires 25 July 2021                 [Page 54]
