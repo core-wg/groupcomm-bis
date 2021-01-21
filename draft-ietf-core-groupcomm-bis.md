@@ -839,7 +839,7 @@ IANA is asked to enter the following option numbers to the "CoAP Option Numbers"
 +--------+-------------+-----------------+
 | Number |    Name     |    Reference    |
 +--------+-------------+-----------------+
-|  TBD   |  Multi-ETag | [This document] |
+|  TBD1  |  Multi-ETag | [This document] |
 +--------+-------------+-----------------+
 ~~~~~~~~~~~
 {: artwork-align="center"}
