@@ -679,7 +679,7 @@ When using Group OSCORE to protect communications end-to-end between a client an
 
 In fact, when starting from the same plain CoAP message, different clients generate different protected requests to send on the wire. This prevents different clients to generate possible cache hits, and thus makes response cachability at the proxy pointless.
 
-For group application scenarios that require secure communication, it is still possible to achieve cachability of responses at proxies, by using the approach defined in {{I-D.amsuess-core-cachable-oscore}} and based on Deterministic Requests. This requires the clients sending group requests and all the servers in the CoAP group to have already joined the correct OSCORE group.
+For group application scenarios that require secure communication, it is still possible to achieve cachability of responses at proxies, by using the approach defined in {{I-D.amsuess-core-cachable-oscore}} and based on Deterministic Requests protected with the pairwise mode of Group OSCORE. This approach is limited to group requests that are safe to process and do not yield side effects at the server. As for any protected group request, it requires the clients and all the servers in the CoAP group to have already joined the correct OSCORE group.
 
 Starting from the same plain CoAP request, this allows different clients in the OSCORE group to deterministically generate a same request protected with Group OSCORE, which is sent to the proxy for being forwarded to the CoAP group. The proxy can now effectively cache the resulting responses from the servers in the CoAP group, since the same plain CoAP request will result again in the same Deterministic Request and thus will produce a cache hit.
 
