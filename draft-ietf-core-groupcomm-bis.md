@@ -509,7 +509,47 @@ When forwarding a request to an individual server using the associated unicast U
 
 Note that a proxy sitting on a router can monitor network control messages, hence learning when a new server has joined a CoAP group and is listening to the multicast IP address of that CoAP group. This information would guide the proxy in refreshing an aggregated cache entry, by sending a request to the CoAP group over the group URI before the entry expires, and thus storing also a response from the latest joined server.
 
+Following the expiration or invalidation of a cache entry, as well as if wishing to refresh a cache entry, the proxy can directly interact with the servers in the CoAP group. To this end, it takes the role of a CoAP client as defined in {{sec-caching}}. In particular, the proxy can perform revalidation of responses to group requests by using the Multi-ETag option, as defined in {{sec-caching-validation}}.
+
 As further discussed in {{chap-sec-group-caching}}, additional means are required to enable cachability of responses at the proxy when communications in the group are secured with Group OSCORE {{I-D.ietf-core-oscore-groupcomm}}.
+
+#### Validation of Responses to a Group Request ### {#sec-proxy-caching-valid}
+
+A client can revalidate the full set of responses to a group request from the corresponding aggregated cache entry at the proxy. To this end, this specification defines the new Group-ETag option.
+
+The Group-ETag option has the properties summarized in {{fig-response-group-etag-option}}, which extends Table 4 of {{RFC7252}}. The Group-ETag option is elective, safe to forward, part of the cache key, and repeatable.
+
+The option is intended for group requests sent to a Forward-Proxy, as well as for the associated responses retrieved from the corresponding aggregated cache entry at the proxy.
+
+~~~~~~~~~~~
++------+---+---+---+---+------------+--------+--------+---------+
+| No.  | C | U | N | R | Name       | Format | Length | Default |
++------+---+---+---+---+------------+--------+--------+---------+
+|      |   |   |   |   |            |        |        |         |
+| TBD2 |   |   |   | x | Group-ETag | opaque |  1-8   | (none)  |
+|      |   |   |   |   |            |        |        |         |
++------+---+---+---+---+------------+--------+--------+---------+
+           C=Critical, U=Unsafe, N=NoCacheKey, R=Repeatable
+~~~~~~~~~~~
+{: #fig-response-group-etag-option title="The Group-ETag Option." artwork-align="center"}
+
+The Group-ETag option has the same properties of the ETag option defined in Section 5.10.6 of {{RFC7252}}.
+
+The Group-ETag option is of class U in terms of OSCORE processing (see Section 4.1 of {{RFC8613}}).
+
+When providing 2.05 (Content) responses to a GET or FETCH group request from an aggregated cache entry, the proxy can include one Group-ETag option, specifying the current entity-tag value associated to that cache entry. Each of such responses MUST NOT include more than one Group-ETag option.
+
+If the proxy supports this form of response revalidation, it MUST update the current entity-tag value associated to an aggregated cache entry, every time a response is added to the that cache entry or replaces an already included response.
+
+When sending a GET or FETCH group request to the proxy, as asking to forward it to a CoAP group, the client can include one or more Group-ETag option. Each option specifies one entity-tag value, as applicable to the aggregated cache entry for that group request.
+
+In case the group request hits an aggregated cache entry and its current entity-tag value matches with one of the entity-tag value specified in the Group-ETag option(s), then the proxy replies with a single 2.03 (Valid) response. This response has no payload and MUST include one Group-ETag option, specifying the current entity-tag value of the aggregated cache entry.
+
+That is, the 2.03 (Valid) response from the proxy indicates that the stored responses idenfied by the entity-tag given in the response's Group-ETag option can be reused, after updating each of them as described in Section 5.9.1.3 of {{RFC7252}}. In effect, the client can determine if any of the stored set of representations from the aggregated cache entry at the proxy is current, without needing to transfer them again.
+
+Note that, if a client triggers the forwarding of a group request (i.e., there is no hit of an aggregated cache entry), this will result in a new aggregated cache entry created at the proxy. Then, the client cannot obtain an entity-tag value through a Group-ETag option in any of the responses forwarded back by the proxy.
+
+In fact, the proxy will have an assigned entity-tag value to provide only after forwarding all responses back to that client, after the new aggreagated cache entry is eventually created. However, when following group requests from the same client or different clients are served from the aggregated cache entry, the returned responses can instead include a Group-ETag option, specifying the current entity-tag for the aggregated cache entry.
 
 ## Congestion Control ## {#sec-congestion}
 CoAP group requests may result in a multitude of responses from different nodes, potentially causing congestion. Therefore, both the sending of IP multicast requests and the sending of the unicast CoAP responses to these multicast requests should be conservatively controlled.
@@ -685,9 +725,17 @@ Starting from the same plain CoAP request, this allows different clients in the 
 
 With enabled cachability of responses at the proxy, the same as defined in {{sec-proxy-caching}} applies, with respect to cache entries and their lifetimes.
 
+Note that different Deterministic Requests result in different cache entries at the proxy. This includes the case where different plain group requests differ only in their set of Multi-ETag options.
+
+That is, even though the servers would produce the same plain CoAP responses in reply to the different Deterministic Requests, those will result in different protected responses to the respective Deterministic Request, and hence in different cache entries at the proxy.
+
+Thus, given a plain group request, a client needs to reuse the same set of Multi-ETag options, in order to send that group request as a Deterministic Request that can actually produce a cache hit at the proxy. However, while this would prevent the caching at the proxy to be inefficient and unnecessarily redundant, it would also limit the flexibility of end-to-end response revalidation for a client.
+
 ### Validation of Responses # {#chap-sec-group-caching-validation}
 
-TBD
+When directly interacting with the servers in the CoAP group to refresh its cache entries, the proxy cannot rely on response revalidation anymore. In fact, responses protected with Group OSCORE never have an outer code 2.03 (Valid). Response revalidation remains possible end-to-end between the client and the servers in the group, by means of the inner ETag or Multi-ETag option.
+
+Finally, it is still possible for a client to revalidate responses to a group request from an aggregated cache entry at the proxy, by using the outer Group-ETag option as defined in {{sec-proxy-caching-valid}}.
 
 # Security Considerations # {#chap-security-considerations}
 
@@ -841,6 +889,8 @@ IANA is asked to enter the following option numbers to the "CoAP Option Numbers"
 +--------+-------------+-----------------+
 |  TBD1  |  Multi-ETag | [This document] |
 +--------+-------------+-----------------+
+|  TBD2  |  Group-ETag | [This document] |
++--------+-------------+-----------------+
 ~~~~~~~~~~~
 {: artwork-align="center"}
 
@@ -889,6 +939,18 @@ Multicast can be useful to efficiently distribute new software (firmware, image,
 # Document Updates # {#sec-document-updates}
 
 RFC EDITOR: PLEASE REMOVE THIS SECTION.
+
+## Version -02 to -03 ## {#sec-02-03}
+
+* Multiple responses from same server handled at the application.
+
+* Clarifications about issues with forwarding proxies.
+
+* Caching of responses at proxies.
+
+* Client-Server response revalidation, with Multi-ETag option.
+
+* Client-Proxy response revalidation, with the Group-ETag option.
 
 ## Version -01 to -02 ## {#sec-01-02}
 
