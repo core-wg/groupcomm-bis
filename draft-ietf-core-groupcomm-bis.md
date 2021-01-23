@@ -465,11 +465,13 @@ The operation of HTTP-to-CoAP proxies for multicast CoAP requests is specified i
 
 ### Reverse-Proxies ### {#sec-proxy-reverse}
 
-CoAP enables the use of a reverse proxy, as an endpoint that stands in for one or more other server(s), and satisfies requests on behalf of these, doing any necessary translations (see Section 5.7.3 of {{RFC7252}}).
+CoAP enables the use of a reverse-proxy, as an endpoint that stands in for one or more other server(s), and satisfies requests on behalf of these, doing any necessary translations (see Section 5.7.3 of {{RFC7252}}).
 
-In a group communication scenario, a reverse proxy can rely on its configuration and/or on information in a request from a client, in order to determine that the request has to be forwarded to a group of servers over IP multicast.
+In a group communication scenario, a reverse-proxy can rely on its configuration and/or on information in a request from a client, in order to determine that the request has to be forwarded to a group of servers over IP multicast.
 
-For a reverse proxy that forwards a request to a group of servers over IP multicast, the same as defined in Section 5.7.3 of {{RFC7252}} hold, with the following additions.
+Furthermore, the reverse-proxy can actually stand in for (and thus prevent to directly reach) only the whole set of servers in the group, or only each of those individual servers, or both things.
+
+For a reverse-proxy that forwards a request to a group of servers over IP multicast, the same as defined in Section 5.7.3 of {{RFC7252}} hold, with the following additions.
 
 * The same issues defined in {{sec-proxy-forward}} for a forward proxy apply and have to be addressed, e.g. using the method defined in {{I-D.tiloca-core-groupcomm-proxy}}.
 
@@ -481,7 +483,7 @@ For a reverse proxy that forwards a request to a group of servers over IP multic
    
       This enables the client to preserve the Token value used for the request beyond the reception of a first response forwarded back by the proxy (see {{sec-request-response}}).
 
-   If the proxy cannot successfuly verify both these conditions, it MUST NOT forward the request to the group of servers and it MUST send a 4.00 (Bad Request) error response to the client. The error response SHOULD provide the client with an indication that the proxy is in fact a reverse proxy requiring the information above.
+   If the proxy cannot successfuly verify both these conditions, it MUST NOT forward the request to the group of servers and it MUST send a 4.00 (Bad Request) error response to the client. The error response SHOULD provide the client with an indication that the proxy is in fact a reverse-proxy requiring the information above.
 
    This signaling between the client and the proxy can also be achieved by using the method defined in {{I-D.tiloca-core-groupcomm-proxy}}.
 
