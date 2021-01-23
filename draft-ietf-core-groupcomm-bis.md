@@ -336,7 +336,7 @@ To this end, this specification defines the new Multi-ETag option. Operations re
 
 The Multi-ETag option has the properties summarized in {{fig-response-multi-etag-option}}, which extends Table 4 of {{RFC7252}}. The Multi-ETag option is elective, safe to forward, part of the cache key, and repeatable.
 
-The option is intended only for group requests, as directly sent to a CoAP group or to a Forward-Proxy that forwards it to the CoAP group (see {{sec-proxy}}).
+The option is intended only for group requests, as directly sent to a CoAP group or to a proxy that forwards it to the CoAP group (see {{sec-proxy}}).
 
 ~~~~~~~~~~~
 +------+---+---+---+---+------------+--------+--------+---------+
@@ -437,6 +437,10 @@ For a CoAP server node that supports resource discovery as defined in Section 2.
 
 ## Proxy Operation ## {#sec-proxy}
 
+This section defines how proxies operate in a group communication scenario. In particular, {{sec-proxy-forward}} defines operations of forward-proxies, {{sec-proxy-forward}} defines operations of reverse-proxies, and {{sec-proxy-caching}} defines operations of proxies that employ a cache for responses to group requests.
+
+### Forward-Proxies ### {#sec-proxy-forward}
+
 CoAP enables a client to request a forward-proxy to process a CoAP request on its behalf, as described in Section 5.7.2 and 8.2.2 of {{RFC7252}}. For this purpose, the client specifies either the request group URI as a string in the Proxy-URI option or it uses the Proxy-Scheme option with the group URI constructed from the usual Uri-* options. The forward-proxy then resolves the group URI to a destination CoAP group, multicasts the CoAP request, receives the responses and forwards all the individual (unicast) responses back to the client.
 
 However, there are certain issues and limitations with this approach:
@@ -459,9 +463,31 @@ Due to the above issues, it is RECOMMENDED that a CoAP Proxy only processes a gr
 
 The operation of HTTP-to-CoAP proxies for multicast CoAP requests is specified in Section 8.4 and 10.1 of {{RFC8075}}. In this case, the "application/http" media type is used to let the proxy return multiple CoAP responses -- each translated to a HTTP response -- back to the HTTP client. Of course, in this case the HTTP client sending a group URI to the proxy needs to be aware that it is going to receive this format, and needs to be able to decode it into the responses of multiple CoAP servers. Also, the IP source address of each CoAP response cannot be determined anymore from the "application/http" response. The HTTP client still identify the CoAP servers by other means such as application-specific information in the response payload.
 
+### Reverse-Proxies ### {#sec-proxy-reverse}
+
+CoAP enables the use of a reverse proxy, as an endpoint that stands in for one or more other server(s), and satisfies requests on behalf of these, doing any necessary translations (see Section 5.7.3 of {{RFC7252}}).
+
+In a group communication scenario, a reverse proxy can rely on its configuration and/or on information in a request from a client, in order to determine that the request has to be forwarded to a group of servers over IP multicast.
+
+For a reverse proxy that forwards a request to a group of servers over IP multicast, the same as defined in Section 5.7.3 of {{RFC7252}} hold, with the following additions.
+
+* The same issues defined in {{sec-proxy-forward}} for a forward proxy apply and have to be addressed, e.g. using the method defined in {{I-D.tiloca-core-groupcomm-proxy}}.
+
+* Before forwarding a request to a group of servers over IP multicast, the proxy MUST ensure that:
+
+   - The client that has sent the request is aware of communicating to a reverse-proxy.
+   
+   - The client thas has sent the request has expressed the maximum amount of time during which it will accept responses to the request as forwarded back by the proxy.
+   
+      This enables the client to preserve the Token value used for the request beyond the reception of a first response forwarded back by the proxy (see {{sec-request-response}}).
+
+   If the proxy cannot successfuly verify both these conditions, it MUST NOT forward the request to the group of servers and it MUST send a 4.00 (Bad Request) error response to the client. The error response SHOULD provide the client with an indication that the proxy is in fact a reverse proxy requiring the information above.
+
+   This signaling between the client and the proxy can also be achieved by using the method defined in {{I-D.tiloca-core-groupcomm-proxy}}.
+
 ### Caching ### {#sec-proxy-caching}
 
-A proxy that supports forwarding of group requests maintains the following two types of cache entry.
+A proxy that supports forwarding of group requests and that employs a cache maintains the following two types of cache entry.
 
 * The first type, namely "individual" cache entry, is associated to one server and stores one response from that server, regardless whether it is a reply to a unicast request or to a group request.
 
@@ -944,7 +970,9 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 * Multiple responses from same server handled at the application.
 
-* Clarifications about issues with forwarding proxies.
+* Clarifications about issues with forward-proxies.
+
+* Operations for reverse-proxies.
 
 * Caching of responses at proxies.
 
