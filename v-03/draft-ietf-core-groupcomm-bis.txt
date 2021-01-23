@@ -102,10 +102,10 @@ Table of Contents
        3.2.2.  Validation Model  . . . . . . . . . . . . . . . . . .  17
      3.3.  Port and URI Path Selection . . . . . . . . . . . . . . .  21
      3.4.  Proxy Operation . . . . . . . . . . . . . . . . . . . . .  22
-       3.4.1.  Caching . . . . . . . . . . . . . . . . . . . . . . .  24
-     3.5.  Congestion Control  . . . . . . . . . . . . . . . . . . .  28
-     3.6.  Observing Resources . . . . . . . . . . . . . . . . . . .  29
-     3.7.  Block-Wise Transfer . . . . . . . . . . . . . . . . . . .  31
+       3.4.1.  Forward-Proxies . . . . . . . . . . . . . . . . . . .  22
+       3.4.2.  Reverse-Proxies . . . . . . . . . . . . . . . . . . .  24
+       3.4.3.  Caching . . . . . . . . . . . . . . . . . . . . . . .  25
+     3.5.  Congestion Control  . . . . . . . . . . . . . . . . . . .  29
 
 
 
@@ -114,54 +114,54 @@ Dijk, et al.              Expires 27 July 2021                  [Page 2]
 Internet-Draft        Group Communication for CoAP          January 2021
 
 
-     3.8.  Transport . . . . . . . . . . . . . . . . . . . . . . . .  32
-       3.8.1.  UDP/IPv6 Multicast Transport  . . . . . . . . . . . .  32
-       3.8.2.  UDP/IPv4 Multicast Transport  . . . . . . . . . . . .  33
-       3.8.3.  6LoWPAN . . . . . . . . . . . . . . . . . . . . . . .  33
-     3.9.  Interworking with Other Protocols . . . . . . . . . . . .  33
-       3.9.1.  MLD/MLDv2/IGMP/IGMPv3 . . . . . . . . . . . . . . . .  33
-       3.9.2.  RPL . . . . . . . . . . . . . . . . . . . . . . . . .  34
-       3.9.3.  MPL . . . . . . . . . . . . . . . . . . . . . . . . .  35
-   4.  Unsecured Group Communication . . . . . . . . . . . . . . . .  35
-   5.  Secured Group Communication using Group OSCORE  . . . . . . .  36
-     5.1.  Secure Group Maintenance  . . . . . . . . . . . . . . . .  37
-     5.2.  Caching of Responses at Proxies . . . . . . . . . . . . .  38
-       5.2.1.  Validation of Responses . . . . . . . . . . . . . . .  39
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  39
-     6.1.  CoAP NoSec Mode . . . . . . . . . . . . . . . . . . . . .  40
-     6.2.  Group OSCORE  . . . . . . . . . . . . . . . . . . . . . .  40
-       6.2.1.  Group Key Management  . . . . . . . . . . . . . . . .  40
-       6.2.2.  Source Authentication . . . . . . . . . . . . . . . .  41
-       6.2.3.  Countering Attacks  . . . . . . . . . . . . . . . . .  42
-     6.3.  Replay of Non Confirmable Messages  . . . . . . . . . . .  43
-     6.4.  Use of CoAP No-Response Option  . . . . . . . . . . . . .  44
-     6.5.  6LoWPAN . . . . . . . . . . . . . . . . . . . . . . . . .  44
-     6.6.  Wi-Fi . . . . . . . . . . . . . . . . . . . . . . . . . .  45
-     6.7.  Monitoring  . . . . . . . . . . . . . . . . . . . . . . .  45
-       6.7.1.  General Monitoring  . . . . . . . . . . . . . . . . .  45
-       6.7.2.  Pervasive Monitoring  . . . . . . . . . . . . . . . .  46
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  46
-     7.1.  CoAP Option Numbers Registry  . . . . . . . . . . . . . .  46
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  46
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  47
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  49
-   Appendix A.  Use Cases  . . . . . . . . . . . . . . . . . . . . .  52
-     A.1.  Discovery . . . . . . . . . . . . . . . . . . . . . . . .  52
-       A.1.1.  Distributed Device Discovery  . . . . . . . . . . . .  52
-       A.1.2.  Distributed Service Discovery . . . . . . . . . . . .  53
-       A.1.3.  Directory Discovery . . . . . . . . . . . . . . . . .  53
-     A.2.  Operational Phase . . . . . . . . . . . . . . . . . . . .  53
-       A.2.1.  Actuator Group Control  . . . . . . . . . . . . . . .  54
-       A.2.2.  Device Group Status Request . . . . . . . . . . . . .  54
-       A.2.3.  Network-wide Query  . . . . . . . . . . . . . . . . .  54
-       A.2.4.  Network-wide / Group Notification . . . . . . . . . .  54
-     A.3.  Software Update . . . . . . . . . . . . . . . . . . . . .  55
-   Appendix B.  Document Updates . . . . . . . . . . . . . . . . . .  55
-     B.1.  Version -02 to -03  . . . . . . . . . . . . . . . . . . .  55
-     B.2.  Version -01 to -02  . . . . . . . . . . . . . . . . . . .  55
-     B.3.  Version -00 to -01  . . . . . . . . . . . . . . . . . . .  56
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  56
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  56
+     3.6.  Observing Resources . . . . . . . . . . . . . . . . . . .  31
+     3.7.  Block-Wise Transfer . . . . . . . . . . . . . . . . . . .  33
+     3.8.  Transport . . . . . . . . . . . . . . . . . . . . . . . .  33
+       3.8.1.  UDP/IPv6 Multicast Transport  . . . . . . . . . . . .  33
+       3.8.2.  UDP/IPv4 Multicast Transport  . . . . . . . . . . . .  34
+       3.8.3.  6LoWPAN . . . . . . . . . . . . . . . . . . . . . . .  34
+     3.9.  Interworking with Other Protocols . . . . . . . . . . . .  34
+       3.9.1.  MLD/MLDv2/IGMP/IGMPv3 . . . . . . . . . . . . . . . .  35
+       3.9.2.  RPL . . . . . . . . . . . . . . . . . . . . . . . . .  35
+       3.9.3.  MPL . . . . . . . . . . . . . . . . . . . . . . . . .  36
+   4.  Unsecured Group Communication . . . . . . . . . . . . . . . .  37
+   5.  Secured Group Communication using Group OSCORE  . . . . . . .  37
+     5.1.  Secure Group Maintenance  . . . . . . . . . . . . . . . .  39
+     5.2.  Caching of Responses at Proxies . . . . . . . . . . . . .  39
+       5.2.1.  Validation of Responses . . . . . . . . . . . . . . .  40
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  41
+     6.1.  CoAP NoSec Mode . . . . . . . . . . . . . . . . . . . . .  41
+     6.2.  Group OSCORE  . . . . . . . . . . . . . . . . . . . . . .  41
+       6.2.1.  Group Key Management  . . . . . . . . . . . . . . . .  42
+       6.2.2.  Source Authentication . . . . . . . . . . . . . . . .  42
+       6.2.3.  Countering Attacks  . . . . . . . . . . . . . . . . .  43
+     6.3.  Replay of Non Confirmable Messages  . . . . . . . . . . .  44
+     6.4.  Use of CoAP No-Response Option  . . . . . . . . . . . . .  45
+     6.5.  6LoWPAN . . . . . . . . . . . . . . . . . . . . . . . . .  45
+     6.6.  Wi-Fi . . . . . . . . . . . . . . . . . . . . . . . . . .  46
+     6.7.  Monitoring  . . . . . . . . . . . . . . . . . . . . . . .  46
+       6.7.1.  General Monitoring  . . . . . . . . . . . . . . . . .  46
+       6.7.2.  Pervasive Monitoring  . . . . . . . . . . . . . . . .  47
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  47
+     7.1.  CoAP Option Numbers Registry  . . . . . . . . . . . . . .  47
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  47
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  48
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  50
+   Appendix A.  Use Cases  . . . . . . . . . . . . . . . . . . . . .  53
+     A.1.  Discovery . . . . . . . . . . . . . . . . . . . . . . . .  53
+       A.1.1.  Distributed Device Discovery  . . . . . . . . . . . .  53
+       A.1.2.  Distributed Service Discovery . . . . . . . . . . . .  54
+       A.1.3.  Directory Discovery . . . . . . . . . . . . . . . . .  54
+     A.2.  Operational Phase . . . . . . . . . . . . . . . . . . . .  54
+       A.2.1.  Actuator Group Control  . . . . . . . . . . . . . . .  55
+       A.2.2.  Device Group Status Request . . . . . . . . . . . . .  55
+       A.2.3.  Network-wide Query  . . . . . . . . . . . . . . . . .  55
+       A.2.4.  Network-wide / Group Notification . . . . . . . . . .  55
+     A.3.  Software Update . . . . . . . . . . . . . . . . . . . . .  56
+   Appendix B.  Document Updates . . . . . . . . . . . . . . . . . .  56
+     B.1.  Version -02 to -03  . . . . . . . . . . . . . . . . . . .  56
+     B.2.  Version -01 to -02  . . . . . . . . . . . . . . . . . . .  56
+     B.3.  Version -00 to -01  . . . . . . . . . . . . . . . . . . .  57
 
 
 
@@ -169,6 +169,9 @@ Dijk, et al.              Expires 27 July 2021                  [Page 3]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
+
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  57
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  57
 
 1.  Introduction
 
@@ -209,9 +212,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    appendices are informative.  For additional background about use
    cases for CoAP group communication in resource-constrained devices
    and networks, see Appendix A.
-
-
-
 
 
 
@@ -912,7 +912,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    distinguish the different responses to the same group request, as
    well as the different origin servers.  This in turn requires
    additional means to provide the client with information about the
-   origin server of each response, as discussed in Section 3.4.1.
+   origin server of each response, as discussed in Section 3.4.3.
 
    The following defines the freshness model and validation model to use
    for cached responses, hence updating the models defined in
@@ -923,7 +923,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    For caching at endpoints, the same freshness model relying on the
    Max-Age option and defined in Section 5.6.1 of [RFC7252] applies.
 
-   For caching at proxies, the freshness model defined in Section 3.4.1
+   For caching at proxies, the freshness model defined in Section 3.4.3
    of this specification applies.
 
 3.2.2.  Validation Model
@@ -964,8 +964,8 @@ Internet-Draft        Group Communication for CoAP          January 2021
    elective, safe to forward, part of the cache key, and repeatable.
 
    The option is intended only for group requests, as directly sent to a
-   CoAP group or to a Forward-Proxy that forwards it to the CoAP group
-   (see Section 3.4).
+   CoAP group or to a proxy that forwards it to the CoAP group (see
+   Section 3.4).
 
      +------+---+---+---+---+------------+--------+--------+---------+
      | No.  | C | U | N | R | Name       | Format | Length | Default |
@@ -1205,6 +1205,14 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 3.4.  Proxy Operation
 
+   This section defines how proxies operate in a group communication
+   scenario.  In particular, Section 3.4.1 defines operations of
+   forward-proxies, Section 3.4.1 defines operations of reverse-proxies,
+   and Section 3.4.3 defines operations of proxies that employ a cache
+   for responses to group requests.
+
+3.4.1.  Forward-Proxies
+
    CoAP enables a client to request a forward-proxy to process a CoAP
    request on its behalf, as described in Section 5.7.2 and 8.2.2 of
    [RFC7252].  For this purpose, the client specifies either the request
@@ -1217,14 +1225,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
    However, there are certain issues and limitations with this approach:
 
-   *  The CoAP client component that sent a unicast CoAP request to the
-      proxy may be expecting only one (unicast) response, as usual for a
-      CoAP unicast request.  Instead, it receives multiple (unicast)
-      responses, potentially leading to fault conditions in the
-      component or to discarding any received responses following the
-      first one.  This issue may occur even if the application calling
-      the CoAP client component is aware that the forward-proxy is going
-      to execute a CoAP group URI request.
 
 
 
@@ -1233,6 +1233,15 @@ Dijk, et al.              Expires 27 July 2021                 [Page 22]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
+
+   *  The CoAP client component that sent a unicast CoAP request to the
+      proxy may be expecting only one (unicast) response, as usual for a
+      CoAP unicast request.  Instead, it receives multiple (unicast)
+      responses, potentially leading to fault conditions in the
+      component or to discarding any received responses following the
+      first one.  This issue may occur even if the application calling
+      the CoAP client component is aware that the forward-proxy is going
+      to execute a CoAP group URI request.
 
    *  Each individual CoAP response received by the client will appear
       to originate (based on its IP source address) from the CoAP Proxy,
@@ -1272,15 +1281,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
       standardized based on, for example, the multipart content-format
       [RFC8710].
 
-   Due to the above issues, it is RECOMMENDED that a CoAP Proxy only
-   processes a group URI request if it is explicitly enabled to do so.
-   The default response (if the function is not explicitly enabled) to a
-   group URI request is 5.01 (Not Implemented).  Furthermore, a proxy
-   SHOULD be explicitly configured (e.g. by white-listing and/or client
-   authentication) to allow proxied CoAP multicast requests only from
-   specific client(s).
-
-
 
 
 
@@ -1289,6 +1289,14 @@ Dijk, et al.              Expires 27 July 2021                 [Page 23]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
+
+   Due to the above issues, it is RECOMMENDED that a CoAP Proxy only
+   processes a group URI request if it is explicitly enabled to do so.
+   The default response (if the function is not explicitly enabled) to a
+   group URI request is 5.01 (Not Implemented).  Furthermore, a proxy
+   SHOULD be explicitly configured (e.g. by white-listing and/or client
+   authentication) to allow proxied CoAP multicast requests only from
+   specific client(s).
 
    The operation of HTTP-to-CoAP proxies for multicast CoAP requests is
    specified in Section 8.4 and 10.1 of [RFC8075].  In this case, the
@@ -1303,10 +1311,63 @@ Internet-Draft        Group Communication for CoAP          January 2021
    servers by other means such as application-specific information in
    the response payload.
 
-3.4.1.  Caching
+3.4.2.  Reverse-Proxies
 
-   A proxy that supports forwarding of group requests maintains the
-   following two types of cache entry.
+   CoAP enables the use of a reverse proxy, as an endpoint that stands
+   in for one or more other server(s), and satisfies requests on behalf
+   of these, doing any necessary translations (see Section 5.7.3 of
+   [RFC7252]).
+
+   In a group communication scenario, a reverse proxy can rely on its
+   configuration and/or on information in a request from a client, in
+   order to determine that the request has to be forwarded to a group of
+   servers over IP multicast.
+
+   For a reverse proxy that forwards a request to a group of servers
+   over IP multicast, the same as defined in Section 5.7.3 of [RFC7252]
+   hold, with the following additions.
+
+   *  The same issues defined in Section 3.4.1 for a forward proxy apply
+      and have to be addressed, e.g. using the method defined in
+      [I-D.tiloca-core-groupcomm-proxy].
+
+   *  Before forwarding a request to a group of servers over IP
+      multicast, the proxy MUST ensure that:
+
+      -  The client that has sent the request is aware of communicating
+         to a reverse-proxy.
+
+
+
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 24]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
+      -  The client thas has sent the request has expressed the maximum
+         amount of time during which it will accept responses to the
+         request as forwarded back by the proxy.
+
+         This enables the client to preserve the Token value used for
+         the request beyond the reception of a first response forwarded
+         back by the proxy (see Section 3.1).
+
+      If the proxy cannot successfuly verify both these conditions, it
+      MUST NOT forward the request to the group of servers and it MUST
+      send a 4.00 (Bad Request) error response to the client.  The error
+      response SHOULD provide the client with an indication that the
+      proxy is in fact a reverse proxy requiring the information above.
+
+      This signaling between the client and the proxy can also be
+      achieved by using the method defined in
+      [I-D.tiloca-core-groupcomm-proxy].
+
+3.4.3.  Caching
+
+   A proxy that supports forwarding of group requests and that employs a
+   cache maintains the following two types of cache entry.
 
    *  The first type, namely "individual" cache entry, is associated to
       one server and stores one response from that server, regardless
@@ -1332,19 +1393,20 @@ Internet-Draft        Group Communication for CoAP          January 2021
       A hit to this entry would be produced by a matching group request
       intended to the CoAP group, i.e. to the corresponding group URI.
 
+
+
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 25]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    When forwarding a group request to a CoAP group using the request's
    group URI, the proxy handles its cache entries as follows.  The same
    applies if the proxy spontaneously re-sends a group request to the
    CoAP group, in order to refresh an aggregated cache entry after its
    expiration or invalidation.
-
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 24]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
    1.  For each response to the group request which is received and also
        forwarded back to the client:
@@ -1388,19 +1450,18 @@ Internet-Draft        Group Communication for CoAP          January 2021
        associated to the origin server and for that response.  That is,
        the response is stored in the cache entry, and the lifetime of
        the cache entry is set to the lifetime of the response, as
+
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 26]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
        indicated by the Max-Age option if present, or as the default
        value of 60 seconds otherwise (see Section 5.6.1 of [RFC7252]).
        This cache entry becomes immediately usable to serve requests
        from clients.
-
-
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 25]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
    2.  The proxy checks whether it has a non expired and valid
        aggregated cache entry, such that a hit would be produced by a
@@ -1442,21 +1503,22 @@ Internet-Draft        Group Communication for CoAP          January 2021
    the group are secured with Group OSCORE
    [I-D.ietf-core-oscore-groupcomm].
 
-3.4.1.1.  Validation of Responses to a Group Request
+
+
+
+
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 27]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
+3.4.3.1.  Validation of Responses to a Group Request
 
    A client can revalidate the full set of responses to a group request
    from the corresponding aggregated cache entry at the proxy.  To this
    end, this specification defines the new Group-ETag option.
-
-
-
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 26]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
    The Group-ETag option has the properties summarized in Figure 4,
    which extends Table 4 of [RFC7252].  The Group-ETag option is
@@ -1499,20 +1561,21 @@ Internet-Draft        Group Communication for CoAP          January 2021
    ETag option.  Each option specifies one entity-tag value, as
    applicable to the aggregated cache entry for that group request.
 
+
+
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 28]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    In case the group request hits an aggregated cache entry and its
    current entity-tag value matches with one of the entity-tag value
    specified in the Group-ETag option(s), then the proxy replies with a
    single 2.03 (Valid) response.  This response has no payload and MUST
    include one Group-ETag option, specifying the current entity-tag
    value of the aggregated cache entry.
-
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 27]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
    That is, the 2.03 (Valid) response from the proxy indicates that the
    stored responses idenfied by the entity-tag given in the response's
@@ -1555,20 +1618,19 @@ Internet-Draft        Group Communication for CoAP          January 2021
       specific resources where multicast operation is required
       (Section 11.3 of [RFC7252]).
 
+
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 29]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    *  An IP multicast request MUST be Non-confirmable (Section 8.1 of
       [RFC7252]).
 
    *  A response to an IP multicast request SHOULD be Non-confirmable
       (Section 5.2.3 of [RFC7252]).
-
-
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 28]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
    *  A server does not respond immediately to an IP multicast request
       and should first wait for a time that is randomly picked within a
@@ -1606,6 +1668,20 @@ Internet-Draft        Group Communication for CoAP          January 2021
       Similarly, realm-local scope is always preferred over site-local
       scope if this fulfills the application needs.
 
+
+
+
+
+
+
+
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 30]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
 3.6.  Observing Resources
 
    The CoAP Observe Option [RFC7641] is a protocol extension of CoAP,
@@ -1614,17 +1690,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    period of time.  The client gets notified when the representation has
    changed.  [RFC7641] does not mention whether the Observe Option can
    be combined with CoAP multicast.
-
-
-
-
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 29]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
    This section updates [RFC7641] with the use of the Observe Option in
    a CoAP multicast GET request, and defines normative behavior for both
@@ -1666,21 +1731,19 @@ Internet-Draft        Group Communication for CoAP          January 2021
    always uses a Message ID that differs from the initial multicast
    message.
 
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 31]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    Furthermore, consistently with Section 3.3.1 of [RFC7641] and
    following its guidelines, a client MAY at any time send a new
    multicast GET or FETCH request with the same Token value and same
    Observe Option value as the original request.  This allows the client
    to verify that it has an up-to-date representation of an observed
    resource and/or to re-register its interest to observe a resource.
-
-
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 30]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
    In the above client behaviors, the Token value is kept identical to
    the initial request to avoid that a client is included in more than
@@ -1723,6 +1786,14 @@ Internet-Draft        Group Communication for CoAP          January 2021
    [I-D.tiloca-core-groupcomm-proxy] enables group communication through
    proxies and addresses those limitations.
 
+
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 32]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
 3.7.  Block-Wise Transfer
 
    Section 2.8 of [RFC7959] specifies how a client can use block-wise
@@ -1730,13 +1801,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    of the initial response of each server.  Consistently with
    Section 2.5 of [RFC8132], the same can be done with a multicast FETCH
    request.
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 31]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
    The client has to use unicast for any further request, separately
    addressing each different server, in order to retrieve more blocks of
@@ -1778,21 +1842,18 @@ Internet-Draft        Group Communication for CoAP          January 2021
    local (5) scopes.  An IPv6 CoAP server on a 6LoWPAN node (see
    Section 3.8.3) SHOULD also support the realm-local (3) scope.
 
+
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 33]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    Note that a client sending an IPv6 multicast CoAP message to a port
    that is not supported by the server will not receive an ICMPv6 Port
    Unreachable error message from that server, because the server does
    not send it in this case, per Section 2.4 of [RFC4443].
-
-
-
-
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 32]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
 3.8.2.  UDP/IPv4 Multicast Transport
 
@@ -1832,6 +1893,19 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 3.9.  Interworking with Other Protocols
 
+
+
+
+
+
+
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 34]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
 3.9.1.  MLD/MLDv2/IGMP/IGMPv3
 
    CoAP nodes that are IP hosts (i.e., not IP routers) are generally
@@ -1840,15 +1914,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    specific (CoAP) multicast group, it requires a way to signal to IP
    multicast routers which IP multicast address(es) it needs to listen
    to.
-
-
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 33]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
    The MLDv2 protocol [RFC3810] is the standard IPv6 method to achieve
    this; therefore, this method SHOULD be used by members of a CoAP
@@ -1887,6 +1952,16 @@ Internet-Draft        Group Communication for CoAP          January 2021
    this.  It requires the RPL mode of operation to be 3 (Storing mode
    with multicast support).
 
+
+
+
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 35]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    In this mode, RPL DAO can be used by a CoAP node that is either an
    RPL router or RPL Leaf Node, to advertise its CoAP group membership
    to parent RPL routers.  Then, RPL will route any IP multicast CoAP
@@ -1898,14 +1973,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    is also the root of the RPL Destination-Oriented Directed Acyclic
    Graph (DODAG).  This is useful because the edge router then learns
    which IP multicast traffic it needs to pass through from the backbone
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 34]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
    network into the LLN subnet.  In LLNs, such ingress filtering helps
    to avoid congestion of the resource-constrained network segment, due
    to IP multicast traffic from the high-speed backbone IP network.
@@ -1937,6 +2004,20 @@ Internet-Draft        Group Communication for CoAP          January 2021
       Forwarder.  This could be a protocol offering features similar to
       MLDv2.
 
+
+
+
+
+
+
+
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 36]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
 4.  Unsecured Group Communication
 
    CoAP group communication can operate in CoAP NoSec (No Security)
@@ -1946,21 +2027,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    defined in Section 2.1 is used for unsecured group communication.
    Before using this mode of operation, the security implications
    (Section 6.1) must be well understood.
-
-
-
-
-
-
-
-
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 35]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
 5.  Secured Group Communication using Group OSCORE
 
@@ -1996,6 +2062,18 @@ Internet-Draft        Group Communication for CoAP          January 2021
    members of an OSCORE group, while fulfilling the same security
    requirements.
 
+
+
+
+
+
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 37]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    In particular, Group OSCORE protects CoAP requests sent over IP
    multicast by a CoAP client, as well as multiple corresponding CoAP
    responses sent over IP unicast by different CoAP servers.  However,
@@ -2009,14 +2087,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    The first method, namely group mode, relies on digital signatures.
    That is, sender devices sign their outgoing messages using their own
    private key, and embed the signature in the protected CoAP message.
-
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 36]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
    The second method, namely pairwise mode, relies on a symmetric key,
    which is derived from a pairwise shared secret computed from the
@@ -2053,6 +2123,13 @@ Internet-Draft        Group Communication for CoAP          January 2021
    group as defined in Section 2.1 and using secure group communication
    is associated to an OSCORE security group, which includes:
 
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 38]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    *  All members of the CoAP group, i.e. the CoAP endpoints configured
       (also) as CoAP servers and listening to the group's multicast IP
       address.
@@ -2065,14 +2142,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    Additional key management operations on the OSCORE group are
    required, depending also on the security requirements of the
    application (see Section 6.2).  That is:
-
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 37]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
    *  Adding new members to a CoAP group or enabling new client-only
       endpoints to interact with that group require also that each of
@@ -2110,6 +2179,13 @@ Internet-Draft        Group Communication for CoAP          January 2021
    This prevents different clients to generate possible cache hits, and
    thus makes response cachability at the proxy pointless.
 
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 39]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    For group application scenarios that require secure communication, it
    is still possible to achieve cachability of responses at proxies, by
    using the approach defined in [I-D.amsuess-core-cachable-oscore] and
@@ -2120,16 +2196,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    servers in the CoAP group to have already joined the correct OSCORE
    group.
 
-
-
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 38]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
-
    Starting from the same plain CoAP request, this allows different
    clients in the OSCORE group to deterministically generate a same
    request protected with Group OSCORE, which is sent to the proxy for
@@ -2139,7 +2205,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
    Deterministic Request and thus will produce a cache hit.
 
    With enabled cachability of responses at the proxy, the same as
-   defined in Section 3.4.1 applies, with respect to cache entries and
+   defined in Section 3.4.3 applies, with respect to cache entries and
    their lifetimes.
 
    Note that different Deterministic Requests result in different cache
@@ -2168,23 +2234,22 @@ Internet-Draft        Group Communication for CoAP          January 2021
    possible end-to-end between the client and the servers in the group,
    by means of the inner ETag or Multi-ETag option.
 
+
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 40]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    Finally, it is still possible for a client to revalidate responses to
    a group request from an aggregated cache entry at the proxy, by using
-   the outer Group-ETag option as defined in Section 3.4.1.1.
+   the outer Group-ETag option as defined in Section 3.4.3.1.
 
 6.  Security Considerations
 
    This section provides security considerations for CoAP group
    communication using IP multicast.
-
-
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 39]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
 6.1.  CoAP NoSec Mode
 
@@ -2224,6 +2289,15 @@ Internet-Draft        Group Communication for CoAP          January 2021
    from Section 10 of [I-D.ietf-core-oscore-groupcomm] hold for this
    specification.
 
+
+
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 41]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
 6.2.1.  Group Key Management
 
    A key management scheme for secure revocation and renewal of group
@@ -2231,16 +2305,6 @@ Internet-Draft        Group Communication for CoAP          January 2021
    groups.  In particular, the key management scheme should preserve
    backward and forward security in the OSCORE group, if the application
    requires so (see Section 3.1 of [I-D.ietf-core-oscore-groupcomm]).
-
-
-
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 40]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
    Group policies should also take into account the time that the key
    management scheme requires to rekey the group, on one hand, and the
@@ -2283,20 +2347,19 @@ Internet-Draft        Group Communication for CoAP          January 2021
    message has actually been originated by a specific and identified
    member of the OSCORE group.
 
+
+
+Dijk, et al.              Expires 27 July 2021                 [Page 42]
+
+Internet-Draft        Group Communication for CoAP          January 2021
+
+
    Appendix F of [I-D.ietf-core-oscore-groupcomm] discusses a number of
    cases where a recipient CoAP endpoint may skip the verification of
    countersignatures in messages protected with the group mode, possibly
    on a per-message basis.  However, this is NOT RECOMMENDED.  That is,
    a CoAP endpoint receiving a message secured with the group mode of
    Group OSCORE SHOULD always verify the countersignature.
-
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 41]
-
-Internet-Draft        Group Communication for CoAP          January 2021
-
 
 6.2.3.  Countering Attacks
 
@@ -2342,14 +2405,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-
-
-
-
-
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 42]
+Dijk, et al.              Expires 27 July 2021                 [Page 43]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2405,7 +2461,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 27 July 2021                 [Page 43]
+Dijk, et al.              Expires 27 July 2021                 [Page 44]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2461,7 +2517,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 27 July 2021                 [Page 44]
+Dijk, et al.              Expires 27 July 2021                 [Page 45]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2517,7 +2573,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 27 July 2021                 [Page 45]
+Dijk, et al.              Expires 27 July 2021                 [Page 46]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2573,7 +2629,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 27 July 2021                 [Page 46]
+Dijk, et al.              Expires 27 July 2021                 [Page 47]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2629,7 +2685,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 27 July 2021                 [Page 47]
+Dijk, et al.              Expires 27 July 2021                 [Page 48]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2685,7 +2741,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 27 July 2021                 [Page 48]
+Dijk, et al.              Expires 27 July 2021                 [Page 49]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2741,7 +2797,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 27 July 2021                 [Page 49]
+Dijk, et al.              Expires 27 July 2021                 [Page 50]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2797,7 +2853,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 27 July 2021                 [Page 50]
+Dijk, et al.              Expires 27 July 2021                 [Page 51]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2853,7 +2909,7 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 27 July 2021                 [Page 51]
+Dijk, et al.              Expires 27 July 2021                 [Page 52]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2909,7 +2965,7 @@ A.1.1.  Distributed Device Discovery
 
 
 
-Dijk, et al.              Expires 27 July 2021                 [Page 52]
+Dijk, et al.              Expires 27 July 2021                 [Page 53]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -2965,7 +3021,7 @@ A.2.  Operational Phase
 
 
 
-Dijk, et al.              Expires 27 July 2021                 [Page 53]
+Dijk, et al.              Expires 27 July 2021                 [Page 54]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -3021,7 +3077,7 @@ A.2.4.  Network-wide / Group Notification
 
 
 
-Dijk, et al.              Expires 27 July 2021                 [Page 54]
+Dijk, et al.              Expires 27 July 2021                 [Page 55]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -3053,7 +3109,9 @@ B.1.  Version -02 to -03
 
    *  Multiple responses from same server handled at the application.
 
-   *  Clarifications about issues with forwarding proxies.
+   *  Clarifications about issues with forward-proxies.
+
+   *  Operations for reverse-proxies.
 
    *  Caching of responses at proxies.
 
@@ -3073,14 +3131,14 @@ B.2.  Version -01 to -02
 
    *  More details on servers changing port number in the response.
 
-   *  Usage of the Uri-Host Option to indicate an application group.
 
 
-
-Dijk, et al.              Expires 27 July 2021                 [Page 55]
+Dijk, et al.              Expires 27 July 2021                 [Page 56]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
+
+   *  Usage of the Uri-Host Option to indicate an application group.
 
    *  Response suppression based on classes of error codes.
 
@@ -3131,9 +3189,7 @@ Authors' Addresses
 
 
 
-
-
-Dijk, et al.              Expires 27 July 2021                 [Page 56]
+Dijk, et al.              Expires 27 July 2021                 [Page 57]
 
 Internet-Draft        Group Communication for CoAP          January 2021
 
@@ -3189,4 +3245,4 @@ Internet-Draft        Group Communication for CoAP          January 2021
 
 
 
-Dijk, et al.              Expires 27 July 2021                 [Page 57]
+Dijk, et al.              Expires 27 July 2021                 [Page 58]
