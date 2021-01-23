@@ -469,7 +469,7 @@ CoAP enables the use of a reverse-proxy, as an endpoint that stands in for one o
 
 In a group communication scenario, a reverse-proxy can rely on its configuration and/or on information in a request from a client, in order to determine that the request has to be forwarded to a group of servers over IP multicast.
 
-Furthermore, the reverse-proxy can actually stand in for (and thus prevent to directly reach) only the whole set of servers in the group, or only each of those individual servers, or both things.
+Furthermore, the reverse-proxy can actually stand in for (and thus prevent to directly reach) only the whole set of servers in the group, or also each of those individual servers (e.g. if acting as firewall).
 
 For a reverse-proxy that forwards a request to a group of servers over IP multicast, the same as defined in Section 5.7.3 of {{RFC7252}} hold, with the following additions.
 
