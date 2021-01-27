@@ -105,7 +105,7 @@ informative:
 
 --- abstract
 
-This document specifies the use of the Constrained Application Protocol (CoAP) for group communication, using UDP/IP multicast as the underlying data transport. Both unsecured and secured CoAP group communication are specified. Security is achieved by use of the Group Object Security for Constrained RESTful Environments (Group OSCORE) protocol. The target application area of this specification is any group communication use cases that involve resource-constrained networks. The most common of such use cases are also discussed. This document replaces {{RFC7390}} and updates {{RFC7252}} and {{RFC7641}}.
+This document specifies the use of the Constrained Application Protocol (CoAP) for group communication, using UDP/IP multicast as the underlying data transport. Both unsecured and secured CoAP group communication are specified. Security is achieved by use of the Group Object Security for Constrained RESTful Environments (Group OSCORE) protocol. The target application area of this specification is any group communication use cases that involve resource-constrained networks. The most common of such use cases are also discussed. This document replaces {{RFC7390}}, while it updates {{RFC7252}} and {{RFC7641}}.
 
 --- middle
 
@@ -116,7 +116,7 @@ One-to-many group communication can be achieved in CoAP, by a client using UDP/I
 
 Both unsecured and secured CoAP group communication over UDP/IP multicast are specified in this document. Security is achieved by using Group Object Security for Constrained RESTful Environments (Group OSCORE) {{I-D.ietf-core-oscore-groupcomm}}, which in turn builds on Object Security for Constrained Restful Environments (OSCORE) {{RFC8613}}. This method provides end-to-end application-layer security protection of CoAP messages, by using CBOR Object Signing and Encryption (COSE) {{I-D.ietf-cose-rfc8152bis-struct}}{{I-D.ietf-cose-rfc8152bis-algs}}.
 
-All guidelines in {{RFC7390}} are updated by this document, which replaces and obsoletes {{RFC7390}}. Furthermore, this document updates {{RFC7252}}, by specifying a group request/response model and by adding security for CoAP group communication. Finally, this document also updates {{RFC7641}}, by adding the multicast usage of CoAP Observe for both the GET and FETCH methods.
+All guidelines in {{RFC7390}} are updated by this document, which replaces and obsoletes {{RFC7390}}. Furthermore, this document updates {{RFC7252}}, by specifying: a group request/response model; cachability of responses to group requests at proxies; a response validation model for responses to group requests; the use of Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} to achieve security for CoAP group communication. Finally, this document also updates {{RFC7641}}, by adding the multicast usage of CoAP Observe for both the GET and FETCH methods.
 
 All sections in the body of this document are normative, while appendices are informative. For additional background about use cases for CoAP group communication in resource-constrained devices and networks, see {{appendix-usecases}}.
 
