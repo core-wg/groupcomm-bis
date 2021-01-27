@@ -577,7 +577,7 @@ That is, the 2.03 (Valid) response from the proxy indicates that the stored resp
 
 Note that, if a client triggers the forwarding of a group request (i.e., there is no hit of an aggregated cache entry), this will result in a new aggregated cache entry created at the proxy. Then, the client cannot obtain an entity-tag value through a Group-ETag option in any of the responses forwarded back by the proxy.
 
-In fact, the proxy will have an assigned entity-tag value to provide only after forwarding all responses back to that client, after the new aggreagated cache entry is eventually created. However, when following group requests from the same client or different clients are served from the aggregated cache entry, the returned responses can instead include a Group-ETag option, specifying the current entity-tag for the aggregated cache entry.
+In fact, the proxy will have an assigned entity-tag value to provide only after forwarding all responses back to that client, after the new aggregated cache entry is eventually created. However, when following group requests from the same client or different clients are served from the aggregated cache entry, the returned responses can instead include a Group-ETag option, specifying the current entity-tag for the aggregated cache entry.
 
 ## Congestion Control ## {#sec-congestion}
 CoAP group requests may result in a multitude of responses from different nodes, potentially causing congestion. Therefore, both the sending of IP multicast requests and the sending of the unicast CoAP responses to these multicast requests should be conservatively controlled.
@@ -761,9 +761,9 @@ Thus, given a plain group request, a client needs to reuse the same set of Multi
 
 ### Validation of Responses # {#chap-sec-group-caching-validation}
 
-When directly interacting with the servers in the CoAP group to refresh its cache entries, the proxy cannot rely on response revalidation anymore. In fact, responses protected with Group OSCORE never have an outer code 2.03 (Valid). Response revalidation remains possible end-to-end between the client and the servers in the group, by means of the inner ETag or Multi-ETag option.
+When directly interacting with the servers in the CoAP group to refresh its cache entries, the proxy cannot rely on response revalidation anymore. In fact, responses protected with Group OSCORE cannot have 2.03 (Valid) as Outer Code. Response revalidation remains possible end-to-end between the client and the servers in the group, by means of the inner ETag or Multi-ETag option.
 
-Finally, it is still possible for a client to revalidate responses to a group request from an aggregated cache entry at the proxy, by using the outer Group-ETag option as defined in {{sec-proxy-caching-valid}}.
+Finally, it is not possible for a client to revalidate responses to a group request from an aggregated cache entry at the proxy, by using the outer Group-ETag option as defined in {{sec-proxy-caching-valid}}. In fact, that would require the proxy to reply with an unprotected 2.03 (Valid) response. However, success responses have to be protected with Group OSCORE, and more generally cannot have 2.03 (Valid) as Outer Code.
 
 # Security Considerations # {#chap-security-considerations}
 
