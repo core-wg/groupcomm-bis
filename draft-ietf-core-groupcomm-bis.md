@@ -1023,7 +1023,7 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 # Acknowledgments # {#acknowledgements}
 {: numbered="no"}
 
-The authors sincerely thank Christian Amsuess, Thomas Fossati, Rikard Hoeglund and Jim Schaad for their comments and feedback.
+The authors sincerely thank Christian Amsuess, Carsten Bormann, Thomas Fossati, Rikard Hoeglund and Jim Schaad for their comments and feedback.
 
 The work on this document has been partly supported by VINNOVA and the Celtic-Next project CRITISEC; and by the H2020 project SIFIS-Home (Grant agreement 952652).
 
