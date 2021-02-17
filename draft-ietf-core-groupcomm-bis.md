@@ -116,7 +116,7 @@ One-to-many group communication can be achieved in CoAP, by a client using UDP/I
 
 Both unsecured and secured CoAP group communication over UDP/IP multicast are specified in this document. Security is achieved by using Group Object Security for Constrained RESTful Environments (Group OSCORE) {{I-D.ietf-core-oscore-groupcomm}}, which in turn builds on Object Security for Constrained Restful Environments (OSCORE) {{RFC8613}}. This method provides end-to-end application-layer security protection of CoAP messages, by using CBOR Object Signing and Encryption (COSE) {{I-D.ietf-cose-rfc8152bis-struct}}{{I-D.ietf-cose-rfc8152bis-algs}}.
 
-All guidelines in {{RFC7390}} are updated by this document, which replaces and obsoletes {{RFC7390}}. Furthermore, this document updates {{RFC7252}}, by specifying: a group request/response model; cachability of responses to group requests at proxies; a response validation model for responses to group requests; the use of Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} to achieve security for CoAP group communication. Finally, this document also updates {{RFC7641}}, by adding the multicast usage of CoAP Observe for both the GET and FETCH methods.
+All guidelines in {{RFC7390}} are updated by this document, which replaces and obsoletes {{RFC7390}}. Furthermore, this document updates {{RFC7252}}, by specifying: a group request/response model; cachability of responses to group requests at proxies; a response validation model for responses to group requests; and the use of Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} to achieve security for CoAP group communication. Finally, this document also updates {{RFC7641}}, by defining the multicast usage of the CoAP Observe Option for both the GET and FETCH methods.
 
 All sections in the body of this document are normative, while appendices are informative. For additional background about use cases for CoAP group communication in resource-constrained devices and networks, see {{appendix-usecases}}.
 
@@ -270,7 +270,7 @@ All CoAP requests that are sent via IP multicast MUST be Non-confirmable (Sectio
 
 A server sends back a unicast response to the CoAP group request - but the server MAY suppress the response for various reasons (Section 8.2 of {{RFC7252}}). This document adds the requirement that a server SHOULD suppress the response in case of error or in case there is nothing useful to respond, unless the application related to a particular resource requires such a response to be made for that resource. The unicast responses received by the CoAP client may be a mixture of success (e.g., 2.05 Content) and failure (e.g., 4.04 Not Found) codes, depending on the individual server processing results.
 
-The CoAP No-Response Option {{RFC7967}} can be used by a client to influence the default response suppression on the server side. It is RECOMMENDED for a server to support this option only on selected resources where it is useful in the application context. If the Option is supported on a resource, it MUST override the default response suppression of that resource.
+The CoAP No-Response Option {{RFC7967}} can be used by a client to influence the default response suppression on the server side. It is RECOMMENDED for a server to support this option only on selected resources where it is useful in the application context. If the option is supported on a resource, it MUST override the default response suppression of that resource.
 
 Any default response suppression by a server SHOULD be performed consistently, as follows: if a request on a resource produces a particular Response Code and this response is not suppressed, then another request on the same resource that produces a response of the same Response Code class is also not suppressed. For example, if a 4.05 Method Not Allowed error response code is suppressed by default on a resource, then a 4.15 Unsupported Content-Format error response code is also suppressed by default for that resource.
 
@@ -320,7 +320,7 @@ The following defines the freshness model and validation model to use for cached
 
 ### Freshness Model ## {#sec-caching-freshness}
 
-For caching at endpoints, the same freshness model relying on the Max-Age option and defined in Section 5.6.1 of {{RFC7252}} applies.
+For caching at endpoints, the same freshness model relying on the Max-Age Option and defined in Section 5.6.1 of {{RFC7252}} applies.
 
 For caching at proxies, the freshness model defined in {{sec-proxy-caching}} of this specification applies.
 
@@ -328,13 +328,13 @@ For caching at proxies, the freshness model defined in {{sec-proxy-caching}} of 
 
 Section 5.6.2 of {{RFC7252}} defines a model to "validate" or "revalidate" responses stored in cache, hence enabling the suppression of responses that the client already has.
 
-This relies on the ETag option defined in Section 5.10.6 of {{RFC7252}}, with its usage limited to exchanges between a CoAP client and one CoAP server. That is Section 8.2.1 of {{RFC7252}} explicitly forbids using an ETag option in group requests sent over multicast, and leaves a mechanism to suppress responses for further study.
+This relies on the ETag Option defined in Section 5.10.6 of {{RFC7252}}, with its usage limited to exchanges between a CoAP client and one CoAP server. That is Section 8.2.1 of {{RFC7252}} explicitly forbids using an ETag Option in group requests sent over multicast, and leaves a mechanism to suppress responses for further study.
 
 This section provides such a model to "validate" or "revalidate" responses that the client already has as replies to a group request. In particular, the group request can indicate entity-tag values separately for each CoAP server from which the client wishes to get a response revalidation, together with addressing information identifying that server.
 
-To this end, this specification defines the new Multi-ETag option. Operations related to this validation model and using the new option are defined in {{sec-caching-validation-client}} for the client side, and in {{sec-caching-validation-server}} for the server side.
+To this end, this specification defines the new Multi-ETag Option. Operations related to this validation model and using the new option are defined in {{sec-caching-validation-client}} for the client side, and in {{sec-caching-validation-server}} for the server side.
 
-The Multi-ETag option has the properties summarized in {{fig-response-multi-etag-option}}, which extends Table 4 of {{RFC7252}}. The Multi-ETag option is elective, safe to forward, part of the cache key, and repeatable.
+The Multi-ETag Option has the properties summarized in {{fig-response-multi-etag-option}}, which extends Table 4 of {{RFC7252}}. The Multi-ETag Option is elective, safe to forward, part of the cache key, and repeatable.
 
 The option is intended only for group requests, as directly sent to a CoAP group or to a proxy that forwards it to the CoAP group (see {{sec-proxy}}).
 
@@ -352,9 +352,9 @@ The option is intended only for group requests, as directly sent to a CoAP group
 ~~~~~~~~~~~
 {: #fig-response-multi-etag-option title="The Multi-ETag Option." artwork-align="center"}
 
-The Multi-ETag option has the same properties of the ETag option defined in Section 5.10.6 of {{RFC7252}}, but it differs as to the format and length of its value, as well as about the reason for its repeatability.
+The Multi-ETag Option has the same properties of the ETag Option defined in Section 5.10.6 of {{RFC7252}}, but it differs as to the format and length of its value, as well as about the reason for its repeatability.
 
-That is, each occurrence of the Multi-ETag option is intended to exactly one of the servers in the CoAP group, from which the client wishes to get a response revalidation. Then, the option value is set to a CBOR sequence {{RFC8742}} composed of (1+M) elements, where:
+That is, each occurrence of the Multi-ETag Option is intended to exactly one of the servers in the CoAP group, from which the client wishes to get a response revalidation. Then, the option value is set to a CBOR sequence {{RFC8742}} composed of (1+M) elements, where:
 
 * The first element specifies the addressing information of the corresponding server, encoded as defined in {{sec-caching-validation-tpinfo}}.
 
@@ -362,17 +362,17 @@ That is, each occurrence of the Multi-ETag option is intended to exactly one of 
 
 * The following M elements are CBOR byte strings, each of which has as value an entity-tag value that the client wants to try against the corresponding server.
 
-   The entity-tag values included in the Multi-ETag option are subject to the same considerations for the entity-tag values used in an ETag option (see Section 5.10.6 of {{RFC7252}}).
+   The entity-tag values included in the Multi-ETag Option are subject to the same considerations for the entity-tag values used in an ETag Option (see Section 5.10.6 of {{RFC7252}}).
 
-The Multi-ETag option is of class E in terms of OSCORE processing (see Section 4.1 of {{RFC8613}}).
+The Multi-ETag Option is of class E in terms of OSCORE processing (see Section 4.1 of {{RFC8613}}).
 
 #### Encoding of Server Addressing Information ## {#sec-caching-validation-tpinfo}
 
-The first element of the CBOR sequence in the Multi-ETag option value is set to the byte serialization of the CBOR array 'tp_info' defined in Section 2.2.1 of {{I-D.tiloca-core-observe-multicast-notifications}}, including only the set of elements 'srv_addr'.
+The first element of the CBOR sequence in the Multi-ETag Option value is set to the byte serialization of the CBOR array 'tp_info' defined in Section 2.2.1 of {{I-D.tiloca-core-observe-multicast-notifications}}, including only the set of elements 'srv_addr'.
 
 In turn, the set includes the integer 'tp_id' identifying the used transport protocol, and further elements whose number, format and encoding depend on the value of 'tp_id'.
 
-When the Multi-ETag option is used in group requests transported over UDP as in this specification, the 'tp_info' array includes the following elements, encoded as defined in Section 2.2.1.1 of {{I-D.tiloca-core-observe-multicast-notifications}}.
+When the Multi-ETag Option is used in group requests transported over UDP as in this specification, the 'tp_info' array includes the following elements, encoded as defined in Section 2.2.1.1 of {{I-D.tiloca-core-observe-multicast-notifications}}.
 
 * 'tp_id': the CBOR integer with value 1 ("UDP"), from the "Value" column of the "Transport Protocol Identifiers" Registry defined in Section 14.4 of {{I-D.tiloca-core-observe-multicast-notifications}}
 
@@ -396,35 +396,35 @@ Similar to what defined in Section 5.6.2 of {{RFC7252}}, the client may have one
 
 In that case, the client can send a GET or FETCH group request, in order to give the origin servers an opportunity both to select a stored response to be used, and to update its freshness. As in {{RFC7252}}, this process is known as "validating" or "revalidating" the stored response.
 
-When sending such a group request, the endpoint SHOULD include one Multi-ETag option for each server it wishes to revalidate the corresponding response with. As defined in {{sec-caching-validation}}, the Multi-ETag option can include multiple entity-tag values, each of which applicable to a stored response from the corresponding server for that group request.
+When sending such a group request, the endpoint SHOULD include one Multi-ETag Option for each server it wishes to revalidate the corresponding response with. As defined in {{sec-caching-validation}}, the Multi-ETag Option can include multiple entity-tag values, each of which applicable to a stored response from the corresponding server for that group request.
 
 Specifically, in the same GET or FETCH group request:
 
 * The client MUST NOT include both one or more ETag options together with one or more Multi-ETag options.
 
-* The client MUST include only one Multi-ETag option for each server it wishes to get a response revalidation.
+* The client MUST include only one Multi-ETag Option for each server it wishes to get a response revalidation.
 
-* The client SHOULD limit the number of Multi-ETag options, hence the humber of servers as intended target of the revalidation process, and SHOULD rather spread revalidation with different sets of servers over different group requests. Also, the client SHOULD limit the number of entity-tag values specified in each Multi-ETag option, preferably indicating only one entity-tag value.
+* The client SHOULD limit the number of Multi-ETag options, hence the humber of servers as intended target of the revalidation process, and SHOULD rather spread revalidation with different sets of servers over different group requests. Also, the client SHOULD limit the number of entity-tag values specified in each Multi-ETag Option, preferably indicating only one entity-tag value.
   
-  This allows for limiting the overall size of the group request. As a guideline, the server addressing information can be 9-24 bytes in size, while each entity-tag value can be 1-8 bytes in size. Thus, a single Multi-ETag option can be up to (24 + 8 * M) bytes in size, where M is the number of entity-tag values it includes.
+  This allows for limiting the overall size of the group request. As a guideline, the server addressing information can be 9-24 bytes in size, while each entity-tag value can be 1-8 bytes in size. Thus, a single Multi-ETag Option can be up to (24 + 8 * M) bytes in size, where M is the number of entity-tag values it includes.
 
-A 2.03 (Valid) response indicates that the stored response identified by the entity-tag given in the response's ETag option can be reused, after updating it as described in Section 5.9.1.3 of {{RFC7252}}. In effect, the client can determine if any of the stored representations from that server is current, without needing to transfer them again.
+A 2.03 (Valid) response indicates that the stored response identified by the entity-tag given in the response's ETag Option can be reused, after updating it as described in Section 5.9.1.3 of {{RFC7252}}. In effect, the client can determine if any of the stored representations from that server is current, without needing to transfer them again.
 
-Any other Response Code indicates that none of the stored responses from that server and nominated in the Multi-ETag option of the group request is suitable.  Instead, the response SHOULD be used to satisfy the request and MAY replace the stored response.
+Any other Response Code indicates that none of the stored responses from that server and nominated in the Multi-ETag Option of the group request is suitable.  Instead, the response SHOULD be used to satisfy the request and MAY replace the stored response.
   
 #### Processing on the Server Side ## {#sec-caching-validation-server}
 
 If a GET or FETCH request includes both one or more ETag options together with one or more Multi-ETag options, then the server MUST ignore all the included ETag and Multi-ETag options.
 
-The server MUST ignore any Multi-ETag option which is malformed, or included in a request that is neither GET nor FETCH, or which specifies addressing information not matching with its own endpoint.
+The server MUST ignore any Multi-ETag Option which is malformed, or included in a request that is neither GET nor FETCH, or which specifies addressing information not matching with its own endpoint.
 
-The server considers only its pertaining Multi-ETag option, i.e. specifying addressing information associated to its own endpoint. The server MUST ignore any pertaining Multi-ETag option that occurs more than once.
+The server considers only its pertaining Multi-ETag Option, i.e. specifying addressing information associated to its own endpoint. The server MUST ignore any pertaining Multi-ETag Option that occurs more than once.
 
-If the pertaining Multi-ETag option specifies the CBOR simple value Null for the 'srv_port' element of 'tp_info' (see {{sec-caching-validation-tpinfo}}), the server MUST assume the default port number 5683.
+If the pertaining Multi-ETag Option specifies the CBOR simple value Null for the 'srv_port' element of 'tp_info' (see {{sec-caching-validation-tpinfo}}), the server MUST assume the default port number 5683.
 
-Then, the server can issue a 2.03 (Valid) response in place of a 2.05 (Content) response, if one of the entity-tag values from the pertaining Multi-ETag option is the entity-tag for the current resource representation, i.e. it is valid. The 2.03 (Valid) response echoes this specific entity-tag as value of an ETag option.
+Then, the server can issue a 2.03 (Valid) response in place of a 2.05 (Content) response, if one of the entity-tag values from the pertaining Multi-ETag Option is the entity-tag for the current resource representation, i.e. it is valid. The 2.03 (Valid) response echoes this specific entity-tag as value of an ETag Option.
 
-The inclusion of an ETag option in responses works as defined in Section 5.6.10.1 of {{RFC7252}}.
+The inclusion of an ETag Option in responses works as defined in Section 5.6.10.1 of {{RFC7252}}.
    
 ## Port and URI Path Selection ##
 A server that is a member of a CoAP group listens for CoAP messages on the group's IP multicast address, usually on the CoAP default UDP port 5683, or another non-default UDP port if configured. Regardless of the method for selecting the port number, the same port number MUST be used across all CoAP servers that are members of a CoAP group and across all CoAP clients performing the requests to that group. The URI Path used in the request is preferably a path that is known to be supported across all group members. However there are valid use cases where a request is known to be successful for a subset of the CoAP group, for example only members of a specific application group, while those group members for which the request is unsuccessful (for example because they are outside the application group) either ignore the multicast request or respond with an error status code.
@@ -441,13 +441,13 @@ This section defines how proxies operate in a group communication scenario. In p
 
 ### Forward-Proxies ### {#sec-proxy-forward}
 
-CoAP enables a client to request a forward-proxy to process a CoAP request on its behalf, as described in Section 5.7.2 and 8.2.2 of {{RFC7252}}. For this purpose, the client specifies either the request group URI as a string in the Proxy-URI option or it uses the Proxy-Scheme option with the group URI constructed from the usual Uri-* options. The forward-proxy then resolves the group URI to a destination CoAP group, multicasts the CoAP request, receives the responses and forwards all the individual (unicast) responses back to the client.
+CoAP enables a client to request a forward-proxy to process a CoAP request on its behalf, as described in Section 5.7.2 and 8.2.2 of {{RFC7252}}. For this purpose, the client specifies either the request group URI as a string in the Proxy-URI Option or it uses the Proxy-Scheme Option with the group URI constructed from the usual Uri-* options. The forward-proxy then resolves the group URI to a destination CoAP group, multicasts the CoAP request, receives the responses and forwards all the individual (unicast) responses back to the client.
 
 However, there are certain issues and limitations with this approach:
 
 * The CoAP client component that sent a unicast CoAP request to the proxy may be expecting only one (unicast) response, as usual for a CoAP unicast request. Instead, it receives multiple (unicast) responses, potentially leading to fault conditions in the component or to discarding any received responses following the first one. This issue may occur even if the application calling the CoAP client component is aware that the forward-proxy is going to execute a CoAP group URI request.
 
-* Each individual CoAP response received by the client will appear to originate (based on its IP source address) from the CoAP Proxy, and not from the server that produced the response.  This makes it impossible for the client to identify the server that produced each response, unless the server identity is contained as a part of the response payload or inside a CoAP Option in the response.
+* Each individual CoAP response received by the client will appear to originate (based on its IP source address) from the CoAP Proxy, and not from the server that produced the response.  This makes it impossible for the client to identify the server that produced each response, unless the server identity is contained as a part of the response payload or inside a CoAP option in the response.
 
 * The proxy does not know how many members there are in the CoAP group or how many group members will actually respond. Also, the proxy does not know for how long to collect responses before it stops forwarding them to the client. A CoAP client that is not using a Proxy might face the same problems in collecting responses to a multicast request. However, the client itself would typically have application-specific rules or knowledge on how to handle this situation, while an application-agnostic CoAP Proxy would typically not have this knowledge. For example, a CoAP client could monitor incoming responses and use this information to decide how long to continue collecting responses - which is something a proxy cannot do.
 
@@ -507,7 +507,7 @@ When forwarding a group request to a CoAP group using the request's group URI, t
 
 1. For each response to the group request which is received and also forwarded back to the client:
 
-   * The proxy creates or refreshes the individual cache entry associated to the origin server and for that response. That is, the response is stored in the individual cache entry, and the lifetime of the cache entry is set to the lifetime of the response, as indicated by the Max-Age option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of {{RFC7252}}). This cache entry becomes immediately usable to serve requests from client.
+   * The proxy creates or refreshes the individual cache entry associated to the origin server and for that response. That is, the response is stored in the individual cache entry, and the lifetime of the cache entry is set to the lifetime of the response, as indicated by the Max-Age Option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of {{RFC7252}}). This cache entry becomes immediately usable to serve requests from client.
    
    * The proxy adds the response to a temporary list L.
 
@@ -523,7 +523,7 @@ When forwarding a group request to a CoAP group using the request's group URI, t
 
 When forwarding a request to an individual server using the associated unicast URI, the proxy handles its cache entries as follows. The same applies if the proxy spontaneously re-sends a unicast request to a single server, in order to refresh an individual cache entry after its expiration or invalidation.
 
-1. The proxy creates or refreshes the individual cache entry associated to the origin server and for that response. That is, the response is stored in the cache entry, and the lifetime of the cache entry is set to the lifetime of the response, as indicated by the Max-Age option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of {{RFC7252}}). This cache entry becomes immediately usable to serve requests from clients.
+1. The proxy creates or refreshes the individual cache entry associated to the origin server and for that response. That is, the response is stored in the cache entry, and the lifetime of the cache entry is set to the lifetime of the response, as indicated by the Max-Age Option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of {{RFC7252}}). This cache entry becomes immediately usable to serve requests from clients.
 
 2. The proxy checks whether it has a non expired and valid aggregated cache entry, such that a hit would be produced by a group request analogous to the forwarded unicast request.
 
@@ -533,19 +533,19 @@ When forwarding a request to an individual server using the associated unicast U
 
    * The proxy stores the received response in the cache entry, possibly replacing an already stored instance of that response from that origin server.
    
-   * The proxy sets as new lifetime of the aggregated cache entry the minimum between the current lifetime of the cache entry and the lifetime of the just stored response, as indicated by the Max-Age option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of {{RFC7252}}).
+   * The proxy sets as new lifetime of the aggregated cache entry the minimum between the current lifetime of the cache entry and the lifetime of the just stored response, as indicated by the Max-Age Option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of {{RFC7252}}).
 
 Note that a proxy sitting on a router can monitor network control messages, hence learning when a new server has joined a CoAP group and is listening to the multicast IP address of that CoAP group. This information would guide the proxy in refreshing an aggregated cache entry, by sending a request to the CoAP group over the group URI before the entry expires, and thus storing also a response from the latest joined server.
 
-Following the expiration or invalidation of a cache entry, as well as if wishing to refresh a cache entry, the proxy can directly interact with the servers in the CoAP group. To this end, it takes the role of a CoAP client as defined in {{sec-caching}}. In particular, the proxy can perform revalidation of responses to group requests by using the Multi-ETag option, as defined in {{sec-caching-validation}}.
+Following the expiration or invalidation of a cache entry, as well as if wishing to refresh a cache entry, the proxy can directly interact with the servers in the CoAP group. To this end, it takes the role of a CoAP client as defined in {{sec-caching}}. In particular, the proxy can perform revalidation of responses to group requests by using the Multi-ETag Option, as defined in {{sec-caching-validation}}.
 
 As further discussed in {{chap-sec-group-caching}}, additional means are required to enable cachability of responses at the proxy when communications in the group are secured with Group OSCORE {{I-D.ietf-core-oscore-groupcomm}}.
 
 #### Validation of Responses to a Group Request ### {#sec-proxy-caching-valid}
 
-A client can revalidate the full set of responses to a group request from the corresponding aggregated cache entry at the proxy. To this end, this specification defines the new Group-ETag option.
+A client can revalidate the full set of responses to a group request from the corresponding aggregated cache entry at the proxy. To this end, this specification defines the new Group-ETag Option.
 
-The Group-ETag option has the properties summarized in {{fig-response-group-etag-option}}, which extends Table 4 of {{RFC7252}}. The Group-ETag option is elective, safe to forward, part of the cache key, and repeatable.
+The Group-ETag Option has the properties summarized in {{fig-response-group-etag-option}}, which extends Table 4 of {{RFC7252}}. The Group-ETag Option is elective, safe to forward, part of the cache key, and repeatable.
 
 The option is intended for group requests sent to a Forward-Proxy, as well as for the associated responses retrieved from the corresponding aggregated cache entry at the proxy.
 
@@ -561,23 +561,23 @@ The option is intended for group requests sent to a Forward-Proxy, as well as fo
 ~~~~~~~~~~~
 {: #fig-response-group-etag-option title="The Group-ETag Option." artwork-align="center"}
 
-The Group-ETag option has the same properties of the ETag option defined in Section 5.10.6 of {{RFC7252}}.
+The Group-ETag Option has the same properties of the ETag Option defined in Section 5.10.6 of {{RFC7252}}.
 
-The Group-ETag option is of class U in terms of OSCORE processing (see Section 4.1 of {{RFC8613}}).
+The Group-ETag Option is of class U in terms of OSCORE processing (see Section 4.1 of {{RFC8613}}).
 
-When providing 2.05 (Content) responses to a GET or FETCH group request from an aggregated cache entry, the proxy can include one Group-ETag option, specifying the current entity-tag value associated to that cache entry. Each of such responses MUST NOT include more than one Group-ETag option.
+When providing 2.05 (Content) responses to a GET or FETCH group request from an aggregated cache entry, the proxy can include one Group-ETag Option, specifying the current entity-tag value associated to that cache entry. Each of such responses MUST NOT include more than one Group-ETag Option.
 
 If the proxy supports this form of response revalidation, it MUST update the current entity-tag value associated to an aggregated cache entry, every time a response is added to the that cache entry or replaces an already included response.
 
-When sending a GET or FETCH group request to the proxy, as asking to forward it to a CoAP group, the client can include one or more Group-ETag option. Each option specifies one entity-tag value, as applicable to the aggregated cache entry for that group request.
+When sending a GET or FETCH group request to the proxy, as asking to forward it to a CoAP group, the client can include one or more Group-ETag Option. Each option specifies one entity-tag value, as applicable to the aggregated cache entry for that group request.
 
-In case the group request hits an aggregated cache entry and its current entity-tag value matches with one of the entity-tag value specified in the Group-ETag option(s), then the proxy replies with a single 2.03 (Valid) response. This response has no payload and MUST include one Group-ETag option, specifying the current entity-tag value of the aggregated cache entry.
+In case the group request hits an aggregated cache entry and its current entity-tag value matches with one of the entity-tag value specified in the Group-ETag option(s), then the proxy replies with a single 2.03 (Valid) response. This response has no payload and MUST include one Group-ETag Option, specifying the current entity-tag value of the aggregated cache entry.
 
-That is, the 2.03 (Valid) response from the proxy indicates that the stored responses idenfied by the entity-tag given in the response's Group-ETag option can be reused, after updating each of them as described in Section 5.9.1.3 of {{RFC7252}}. In effect, the client can determine if any of the stored set of representations from the aggregated cache entry at the proxy is current, without needing to transfer them again.
+That is, the 2.03 (Valid) response from the proxy indicates that the stored responses idenfied by the entity-tag given in the response's Group-ETag Option can be reused, after updating each of them as described in Section 5.9.1.3 of {{RFC7252}}. In effect, the client can determine if any of the stored set of representations from the aggregated cache entry at the proxy is current, without needing to transfer them again.
 
-Note that, if a client triggers the forwarding of a group request (i.e., there is no hit of an aggregated cache entry), this will result in a new aggregated cache entry created at the proxy. Then, the client cannot obtain an entity-tag value through a Group-ETag option in any of the responses forwarded back by the proxy.
+Note that, if a client triggers the forwarding of a group request (i.e., there is no hit of an aggregated cache entry), this will result in a new aggregated cache entry created at the proxy. Then, the client cannot obtain an entity-tag value through a Group-ETag Option in any of the responses forwarded back by the proxy.
 
-In fact, the proxy will have an assigned entity-tag value to provide only after forwarding all responses back to that client, after the new aggregated cache entry is eventually created. However, when following group requests from the same client or different clients are served from the aggregated cache entry, the returned responses can instead include a Group-ETag option, specifying the current entity-tag for the aggregated cache entry.
+In fact, the proxy will have an assigned entity-tag value to provide only after forwarding all responses back to that client, after the new aggregated cache entry is eventually created. However, when following group requests from the same client or different clients are served from the aggregated cache entry, the returned responses can instead include a Group-ETag Option, specifying the current entity-tag for the aggregated cache entry.
 
 ## Congestion Control ## {#sec-congestion}
 CoAP group requests may result in a multitude of responses from different nodes, potentially causing congestion. Therefore, both the sending of IP multicast requests and the sending of the unicast CoAP responses to these multicast requests should be conservatively controlled.
@@ -761,9 +761,9 @@ Thus, given a plain group request, a client needs to reuse the same set of Multi
 
 ### Validation of Responses # {#chap-sec-group-caching-validation}
 
-When directly interacting with the servers in the CoAP group to refresh its cache entries, the proxy cannot rely on response revalidation anymore. In fact, responses protected with Group OSCORE cannot have 2.03 (Valid) as Outer Code. Response revalidation remains possible end-to-end between the client and the servers in the group, by means of the inner ETag or Multi-ETag option.
+When directly interacting with the servers in the CoAP group to refresh its cache entries, the proxy cannot rely on response revalidation anymore. In fact, responses protected with Group OSCORE cannot have 2.03 (Valid) as Outer Code. Response revalidation remains possible end-to-end between the client and the servers in the group, by means of the inner ETag or Multi-ETag Option.
 
-Finally, it is not possible for a client to revalidate responses to a group request from an aggregated cache entry at the proxy, by using the outer Group-ETag option as defined in {{sec-proxy-caching-valid}}. In fact, that would require the proxy to reply with an unprotected 2.03 (Valid) response. However, success responses have to be protected with Group OSCORE, and more generally cannot have 2.03 (Valid) as Outer Code.
+Finally, it is not possible for a client to revalidate responses to a group request from an aggregated cache entry at the proxy, by using the outer Group-ETag Option as defined in {{sec-proxy-caching-valid}}. In fact, that would require the proxy to reply with an unprotected 2.03 (Valid) response. However, success responses have to be protected with Group OSCORE, and more generally cannot have 2.03 (Valid) as Outer Code.
 
 # Security Considerations # {#chap-security-considerations}
 
@@ -819,7 +819,7 @@ As discussed below, Group OSCORE addresses a number of security attacks mentione
 
     Within an OSCORE group, the shared symmetric-key security material strictly provides only group-level authentication (see Section 10.1 of {{I-D.ietf-core-oscore-groupcomm}}). However, source authentication of messages is also ensured, both in the group mode by means of countersignatures (see Sections 8.1 and 8.3 of {{I-D.ietf-core-oscore-groupcomm}}), and in the pairwise mode by using additionally derived pairwise keys (see Sections 9.1 and 9.3 of {{I-D.ietf-core-oscore-groupcomm}}). Thus, recipient endpoints can verify a message to be originated by the alleged, identifiable sender in the OSCORE group.
 
-    Note that the server may additionally rely on the Echo option for CoAP described in {{I-D.ietf-core-echo-request-tag}}, in order to verify the aliveness and reachability of the client sending a request from a particular IP address.
+    Note that the server may additionally rely on the Echo Option for CoAP described in {{I-D.ietf-core-echo-request-tag}}, in order to verify the aliveness and reachability of the client sending a request from a particular IP address.
 
 * Group OSCORE does not require group members to be equipped with a good source of entropy for generating security material (see Section 11.6 of {{RFC7252}}), and thus does not contribute to create an attack vector against such (constrained) CoAP endpoints. In particular, the symmetric keys used for message encryption and decryption are derived through the same HMAC-based HKDF scheme used for OSCORE (see Section 3.2 of {{RFC8613}}). Besides, the OSCORE Master Secret used in such derivation is securely generated by the Group Manager responsible for the OSCORE group, and securely provided to the CoAP endpoints when they join the group.
 
@@ -831,14 +831,14 @@ Since all requests sent over IP multicast are Non-confirmable, a client might no
 
 If Group OSCORE is used, such a replay attack on the servers is prevented, since a client protects every different request with a different Sequence Number value, which is in turn included as Partial IV in the protected message and takes part in the construction of the AEAD cipher nonce. Thus, a server would be able to detect the replayed request, by checking the conveyed Partial IV against its own replay window in the OSCORE Recipient Context associated to the client.
 
-This requires a server to have a synchronized, up to date view of the sequence number used by the client. If such synchronization is lost, e.g. due to a reboot, or suspected so, the server should use one of the methods described in Appendix E of {{I-D.ietf-core-oscore-groupcomm}}, such as the one based on the Echo option for CoAP described in {{I-D.ietf-core-echo-request-tag}}, in order to (re-)synchronize with the client's sequence number.
+This requires a server to have a synchronized, up to date view of the sequence number used by the client. If such synchronization is lost, e.g. due to a reboot, or suspected so, the server should use one of the methods described in Appendix E of {{I-D.ietf-core-oscore-groupcomm}}, such as the one based on the Echo Option for CoAP described in {{I-D.ietf-core-echo-request-tag}}, in order to (re-)synchronize with the client's sequence number.
 
 ## Use of CoAP No-Response Option ##
 
 When CoAP group communication is used in CoAP NoSec (No Security)
 mode (see {{chap-unsecured-groupcomm}}), the CoAP No-Response Option {{RFC7967}} could be misused by a malicious client to evoke as much responses from servers to a multicast request as possible, by using the value '0' - Interested in all responses. This even overrides the default behaviour of a CoAP server to suppress the response in case there is nothing of interest to respond with. Therefore, this option can be used to perform an amplification attack.
 
-A proposed mitigation is to only allow this Option to relax the standard suppression rules for a resource in case the Option is sent by an authenticated client. If sent by an unauthenticated client, the Option can be used to expand the classes of responses suppressed compared to the default rules but not to reduce the classes of responses suppressed.
+A proposed mitigation is to only allow this option to relax the standard suppression rules for a resource in case the option is sent by an authenticated client. If sent by an unauthenticated client, the option can be used to expand the classes of responses suppressed compared to the default rules but not to reduce the classes of responses suppressed.
 
 ## 6LoWPAN ##
 In a 6LoWPAN network, a multicast IPv6 packet may be fragmented prior to transmission. A 6LoWPAN Router that forwards a fragmented packet can have a relatively high impact on the occupation of the wireless channel and on the memory load of the local node due to packet buffer occupation. For example, the MPL {{RFC7731}} protocol requires an MPL Forwarder to store the packet for a longer duration, to allow multiple forwarding transmissions to neighboring Forwarders. If only one of the fragments is not received correctly by an MPL Forwarder, the receiver needs to discard all received fragments and it needs to receive all the packet fragments again on a future occasion.
@@ -978,9 +978,9 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 * Caching of responses at proxies.
 
-* Client-Server response revalidation, with Multi-ETag option.
+* Client-Server response revalidation, with Multi-ETag Option.
 
-* Client-Proxy response revalidation, with the Group-ETag option.
+* Client-Proxy response revalidation, with the Group-ETag Option.
 
 ## Version -01 to -02 ## {#sec-01-02}
 
