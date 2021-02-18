@@ -144,10 +144,10 @@ Three types of groups and their mutual relations are defined in this section: Co
 A CoAP group is defined as a set of CoAP endpoints, where each endpoint is configured to receive CoAP multicast messages that are sent to the group's associated IP multicast address and UDP port. An endpoint may be a member of multiple CoAP groups by subscribing to multiple IP multicast groups and/or listening on multiple UDP ports. Group membership(s) of an endpoint may dynamically change over time. A device sending a CoAP multicast message to a CoAP group is not necessarily itself a member of this CoAP group: it is a member only if it also has a CoAP endpoint listening on the group's associated IP multicast address and UDP port. A CoAP group can be encoded within a Group URI. This is defined as a CoAP URI that has the "coap" scheme and includes in the authority part either an IP multicast address or a group hostname (e.g., a Group Fully Qualified Domain Name (FQDN)) that can be resolved to an IP multicast address. A Group URI also contains an optional UDP port number in the authority part. Group URIs follow the regular CoAP URI syntax (see Section 6 of {{RFC7252}}).
 
 ### Application Group ## {#sec-groupdef-applicationgroup}
-Besides CoAP groups, that have relevance at the level of IP networks and CoAP endpoints, there are also application groups. An application group is a set of CoAP server endpoints that share a common set of CoAP resources. An endpoint may be a member of multiple application groups. An application group has relevance at the application level -- for example an application group could denote all lights in an office room or all sensors in a hallway. A client endpoint that sends a group communication message to an application group is not necessarily itself a member of this application group. There can be a one-to-one or a one-to-many relation between a CoAP group and application group(s). An application group identifier is optionally encoded explicitly in the CoAP request. If not explicitly encoded, the application group is implicitly derived by the receiver, based on information in the CoAP request. See {{sec-groupnaming}} for more details on identifying the application group.
+Besides CoAP groups, that have relevance at the level of IP networks and CoAP endpoints, there are also application groups. An application group is a set of CoAP server endpoints that share a common set of CoAP resources. An endpoint may be a member of multiple application groups. An application group has relevance at the application level -- for example an application group could denote all lights in an office room or all sensors in a hallway. A client endpoint that sends a group communication message to an application group is not necessarily itself a member of this application group. There can be a one-to-one or a one-to-many relation between a CoAP group and application group(s). An application group identifier is optionally encoded explicitly in the CoAP request, for example as a name in the URI path. If not explicitly encoded, the application group is implicitly derived by the receiver, based on information in the CoAP request. See {{sec-groupnaming}} for more details on identifying the application group.
 
 ### Security Group ## {#sec-groupdef-securitygroup}
-For secure group communication, a security group is required. A security group is a group of endpoints that each store group security material, such that they can mutually exchange secured messages and verify secured messages. So, a client endpoint needs to be a member of a security group in order to send a valid secured group communication message to this group. An endpoint may be a member of multiple security groups. There can be a one-to-one or a one-to-many relation between security groups and CoAP groups. Also, there can be a one-to-one or a one-to-many relation between security groups and application groups. A special security group named "NoSec" identifies group communication without any security at the transport layer and/or application layer.
+For secure group communication, a security group is required. A security group is a group of endpoints that each store group security material, such that they can mutually exchange secured messages and verify secured messages. So, a client endpoint needs to be a member of a security group in order to send a valid secured group communication message to this group. An endpoint may be a member of multiple security groups. There can be a one-to-one or a one-to-many relation between security groups and CoAP groups. Also, there can be a one-to-one or a one-to-many relation between security groups and application groups. A special security group named "NoSec" identifies group communication without any security at the transport layer nor at the CoAP layer.
 
 ### Relations Between Group Types ## {#sec-groupdef-grouprelations}
 Using the above group type definitions, a CoAP group communication message sent by an endpoint can be represented as a tuple that contains one instance of each group type:
@@ -156,60 +156,60 @@ Using the above group type definitions, a CoAP group communication message sent 
 
 A special note is appropriate about the possible relation between security groups and application groups.
 
-On one hand, multiple application groups may use the same security group. Thus, the same group security material is used to protect the messages targeting any of those application groups. In this case, a CoAP endpoint is supposed to know the exact application group to refer to for each message, based on, e.g., the used server port number, the targeted resource, or the content and structure of the message payload.
+On one hand, multiple application groups may use the same security group. Thus, the same group security material is used to protect the messages targeting any of those application groups. This has the benefit that typically less storage, configuration and updating are required for security material. In this case, a CoAP endpoint is supposed to know the exact application group to refer to for each message that is sent or received, based on, e.g., the used server port number, the targeted resource, or the content and structure of the message payload.
 
-On the other hand, a single application group may use multiple security groups. Thus, different messages targeting the resources of the application group can be protected with different security material. This can be convenient, for example, if the security groups differ with respect to the crytpographic algorithms and related parameters they use. In this case, a CoAP client can join just one of the security groups, based on what it supports and prefers, while a CoAP server in the application group would rather have to join all of them.
+On the other hand, a single application group may use multiple security groups. Thus, different messages targeting the resources of the application group can be protected with different security material. This can be convenient, for example, if the security groups differ with respect to the cryptographic algorithms and related parameters they use. In this case, a CoAP client can join just one of the security groups, based on what it supports and prefers, while a CoAP server in the application group would rather have to join all of them.
 
-Beyond this particular case, applications should be greatly careful in associating a same application group to multiple security groups. In particular, it is NOT RECOMMENDED using different security groups to reflect different access policies for resources in a same application group. That is, being a member of a security group actually grants access only to exchanged secure messages, while access to resources in the application group belongs to a separate security domain, and has to be separately enforced by leveraging the resource properties or through dedicated access control credentials assessed by separate means.
+Beyond this particular case, applications should be careful in associating a same application group to multiple security groups. In particular, it is NOT RECOMMENDED to use different security groups to reflect different access policies for resources in a same application group. That is, being a member of a security group actually grants access only to exchange secured messages and enables authentication of group members, while access control (authorization) to use resources in the application group belongs to a separate security domain. It has to be separately enforced by leveraging the resource properties or through dedicated access control credentials assessed by separate means.
 
-{{fig-group-relation}} summarizes the relations between the different types of groups described above in UML class diagram notation. The items in square brackets are optionally defined.
+{{fig-group-relation}} summarizes the relations between the different types of groups described above in UML class diagram notation. The class attributes in square brackets are optionally defined.
 
 ~~~~~~~~~~~
-+------------------------+                 +------------------+
-|   Application group    |                 |    CoAP group    |
-|........................|                 |..................|
-|                        |                 |                  |
-| [ group name/          +-----------------+ IP mcast address |
-|   identifier ]         |  1...N       1  | UDP port         |
-|                        |                 |                  |
-|                        |                 |                  |
-+-------------+----------+                 +---------+--------+
++------------------------+                 +--------------------+
+|   Application group    |                 |    CoAP group      |
+|........................|                 |....................|
+|                        |                 |                    |
+| [ - group name ]       +-----------------+ - IP mcast address |
+| [ - group identifier ] |  1...N       1  | - UDP port         |
+|                        |                 |                    |
+|                        |                 |                    |
++-------------+----------+                 +---------+----------+
               |  1...N                               |  1...N
               |                                      |
-              |                                      |                
+              |                                      |  
               |                                      |  1...N
-              |                           +----------+----------+
-              |                           |   Security group    |
-              |                           |.....................|
-              |                           |                     |
-              \---------------------------+ Security group name |
-                                   1...N  | Security material   |
-                                          |                     |
-                                          +---------------------+
+              |                           +----------+------------+
+              |                           |   Security group      |
+              |                           |.......................|
+              |                           |                       |
+              \---------------------------+ - Security group name |
+                                   1...N  | - Security material   |
+                                          |                       |
+                                          +-----------------------+
 ~~~~~~~~~~~
-{: #fig-group-relation title="Relation Among Different Group Types" artwork-align="center"}
+{: #fig-group-relation title="Relations Among Different Group Types" artwork-align="center"}
 
-{{fig-group-relation-example}} provides a deployment example of the relations between the different types of groups. It shows six CoAP servers (Srv1-Srv6) and their respective resources hosted (/resX). There are three application groups (1, 2, 3) and two security groups (1, 2). Security Group 1 is used by both Application Group 1 and 2. Three clients (Cli1, Cli2, Cli3) are configured with security material for Security Group 1. One cient (Cli4) is configured with security material for Security Group 2. All the shown application groups use the same CoAP group (not shown in the figure), i.e. one specific multicast IP address and UDP port on which all the shown resources are hosted for each server.
+{{fig-group-relation-example}} provides a deployment example of the relations between the different types of groups. It shows six CoAP servers (Srv1-Srv6) and their respective resources hosted (/resX). There are three application groups (1, 2, 3) and two security groups (1, 2). Security Group 1 is used by both Application Group 1 and 2. Three clients (Cli1, Cli2, Cli3) are configured with security material for Security Group 1. Two clients (Cli2, Cli4) are  configured with security material for Security Group 2. All the shown application groups use the same CoAP group (not shown in the figure), i.e. one specific multicast IP address and UDP port on which all the shown resources are hosted for each server.
 
 ~~~~~~~~~~~
- _________________________________    _________________________________
-/                                 \  /                                 \
-|        +---------------------+  |  |  +---------------------+        |
-|        | Application Group 1 |  |  |  | Application Group 3 |  Cli2  |
-|        |                     |  |  |  |                     |        |
-|  Cli1  | Srv1   Srv2   Srv3  |  |  |  | Srv5   Srv6         |  Cli4  |
-|        | /resA  /resA  /resA |  |  |  | /resC  /resC        |        |
-|  Cli2  +---------------------+  |  |  | /resD  /resD        |        |
-|                                 |  |  +---------------------+        |
-|  Cli3   Security Group 1        |  |                                 |
-|                                 |  |    Security Group 2             | 
-|        +---------------------+  |  \_________________________________/
-|        | Application Group 2 |  |
-|        |                     |  |
-|        | Srv1   Srv4         |  |
-|        | /resB  /resB        |  |
-|        +---------------------+  |
-\_________________________________/
+ ________________________________    _________________________________
+/                                \  /                                 \
+|       +---------------------+  |  |  +---------------------+        |
+|       | Application Group 1 |  |  |  | Application Group 3 |  Cli2  |
+|       |                     |  |  |  |                     |        |
+| Cli1  | Srv1   Srv2   Srv3  |  |  |  | Srv5   Srv6         |  Cli4  |
+|       | /resA  /resA  /resA |  |  |  | /resC  /resC        |        |
+| Cli2  +---------------------+  |  |  | /resD  /resD        |        |
+|                                |  |  +---------------------+        |
+| Cli3     Security Group 1      |  |                                 |
+|                                |  |        Security Group 2         |
+|       +---------------------+  |  \_________________________________/
+|       | Application Group 2 |  |
+|       |                     |  |
+|       | Srv1   Srv4         |  |
+|       | /resB  /resB        |  |
+|       +---------------------+  |
+\________________________________/
 ~~~~~~~~~~~
 {: #fig-group-relation-example title="Deployment Example of Different Group Types" artwork-align="center"}
 
@@ -222,7 +222,7 @@ The following defines how groups of different types are named, created, discover
 A CoAP group is identified and named by the authority component in the Group URI, which includes host (possibly an IP multicast address literal) and an optional UDP port number. It is recommended to configure an endpoint with an IP multicast address literal, instead of a hostname, when configuring a CoAP group membership. This is because DNS infrastructure may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via DNS resolution - if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network. Some examples of hierarchical CoAP group FQDN naming (and scoping) for a building control application are shown in Section 2.2 of {{RFC7390}}.
 
 An application group can be named in many ways through different types of identifiers, such as numbers, URIs or other strings. An application group name or identifier, if explicitly encoded in a CoAP request, is typically included in the path component or in the query component of a Group URI. It may also be encoded using the Uri-Host Option {{RFC7252}} in case application group members implement a virtual CoAP server specific to that application group. The application group can then be identified by the value of the Uri-Host Option and each virtual server serves one specific application group. However, encoding the application group in the Uri-Host Option is not the preferred method because in this case the application group cannot be encoded in a Group URI, and also the Uri-Host Option is being used for another purpose than encoding the host part of a URI as intended by {{RFC7252}} -- which is potentially confusing.
-Appendix A of {{I-D.ietf-core-resource-directory}} shows an example registration of an application group into a Resource Directory, along with the CoAP group it uses and the resources supported by the application group. In this example an application group identifier is not explicitly encoded in the RD nor in CoAP requests made to the group, but it implicitly follows from the CoAP group used for the request. So there is a one-to-one binding between the CoAP group and the application group. The "NoSec" security group is used.
+Appendix A of {{I-D.ietf-core-resource-directory}} shows an example registration of an application group into a Resource Directory (RD), along with the CoAP group it uses and the resources supported by the application group. In this example an application group identifier is not explicitly encoded in the RD nor in CoAP requests made to the group, but it implicitly follows from the CoAP group used for the request. So there is a one-to-one binding between the CoAP group and the application group. The "NoSec" security group is used.
 
 A best practice for encoding application group into a Group URI is to use one URI path component to identify the application group and use the following URI paths component(s) to identify the resource within this application group. For example, /\<groupname\>/res1 or /base/\<groupname\>/res1/res2 conform to this practice. An application group identifier (like \<groupname\>) should be as short as possible when used in constrained networks.
 
@@ -233,9 +233,9 @@ To create a CoAP group, a configuring entity defines an IP multicast address (or
 
 To create an application group, a configuring entity may configure a resource (name) or set of resources on CoAP endpoints, such that a CoAP request with Group URI sent by a configured CoAP client will be processed by one or more CoAP servers that have the matching URI path configured. These servers are the application group members.
 
-To create a security group, a configuring entity defines an initial subset of the related security material. This comprises a set of group properties including the crytpographic algorithms and parameters used in the group, as well as additional information relevant throughout the group life-cycle, such as the security group name and description. This task MAY be entrusted to a dedicated administrator, that interacts with a Group Manager as defined in {{chap-oscore}}. After that, further security material to protect group communications have to be generated, as compatible with the specified group configuration.
+To create a security group, a configuring entity defines an initial subset of the related security material. This comprises a set of group properties including the cryptographic algorithms and parameters used in the group, as well as additional information relevant throughout the group life-cycle, such as the security group name and description. This task MAY be entrusted to a dedicated administrator, that interacts with a Group Manager as defined in {{chap-oscore}}. After that, further security materials to protect group communications have to be generated, compatible with the specified group configuration.
 
-To participate in a security group, CoAP endpoints have to be configured with the group security material used to protect communications in the associated application/CoAP groups. The part of the process that involves secure distribution of group security material MAY use standardized communication with a Group Manager as defined in {{chap-oscore}}. For unsecure group communication using the "NoSec" security group, any CoAP endpoint may become a group member at any time: there is no (central) configuring entity that needs to provide the security material for this group. This means that group creation and membership cannot be tightly controlled for the "NoSec" group.
+To participate in a security group, CoAP endpoints have to be configured with the group security material used to protect communications in the associated application/CoAP groups. The part of the process that involves secure distribution of group security material MAY use standardized communication with a Group Manager as defined in {{chap-oscore}}. For unsecure group communication using the "NoSec" security group, any CoAP endpoint may become a group member at any time: there is no configuring entity that needs to provide security material for this group, as there is no security material for it. This means that group creation and membership cannot be tightly controlled for the "NoSec" group.
 
 The configuration of groups and membership may be performed at different moments in the life-cycle of a device; for example during product (software) creation, in the factory, at a reseller, on-site during first deployment, or on-site during a system reconfiguration operation.
 
@@ -253,9 +253,9 @@ In particular, the responsible OSCORE Group Manager registers its own security g
 ### Group Maintenance ###
 Maintenance of a group includes any necessary operations to cope with changes in a system, such as: adding group members, removing group members, changing group security material, reconfiguration of UDP port and/or IP multicast address, reconfiguration of the Group URI, renaming of application groups, splitting of groups, or merging of groups.
 
-For unsecured group communication (see {{chap-unsecured-groupcomm}}), addition/removal of CoAP group members is simply done by configuring these devices to start/stop listening to the group IP multicast address on the group's UDP port.
+For unsecured group communication (see {{chap-unsecured-groupcomm}}) i.e. the "NoSec" security group, addition/removal of CoAP group members is simply done by configuring these devices to start/stop listening to the group IP multicast address on the group's UDP port.
 
-For secured group communication (see {{chap-oscore}}), the protocol Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} is mandatory to implement. When using Group OSCORE, CoAP endpoints participating in group communication are also members of a corresponding OSCORE security group, and thus share common security material. Additional related maintenance operations are discussed in {{chap-sec-group-maintenance}}.
+For secured group communication (see {{chap-oscore}}), the maintenance operations of the protocol Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} MUST be implemented. When using Group OSCORE, CoAP endpoints participating in group communication are also members of a corresponding OSCORE security group, and thus share common security material. Additional related maintenance operations are discussed in {{chap-sec-group-maintenance}}.
 
 # CoAP Usage in Group Communication # {#sec-coap-usage}
 
@@ -266,9 +266,9 @@ How CoAP group messages are carried over various transport layers is the subject
 ## Request/Response Model ## {#sec-request-response}
 A CoAP client is an endpoint able to transmit CoAP requests and receive CoAP responses. Since the underlying UDP transport supports multiplexing by means of UDP port number, there can be multiple independent CoAP clients operational on a single host. On each UDP port, an independent CoAP client can be hosted. Each independent CoAP client sends requests that use the associated endpoint's UDP port number as the UDP source port of the request.
 
-All CoAP requests that are sent via IP multicast MUST be Non-confirmable (Section 8.1 of {{RFC7252}}).  The Message ID in an IP multicast CoAP message is used for optional message deduplication by both clients and servers, as detailed in Section 4.5 of {{RFC7252}}.
+All CoAP requests that are sent via IP multicast MUST be Non-confirmable; see Section 8.1 of {{RFC7252}}.  The Message ID in an IP multicast CoAP message is used for optional message deduplication by both clients and servers, as detailed in Section 4.5 of {{RFC7252}}.
 
-A server sends back a unicast response to the CoAP group request - but the server MAY suppress the response for various reasons (Section 8.2 of {{RFC7252}}). This document adds the requirement that a server SHOULD suppress the response in case of error or in case there is nothing useful to respond, unless the application related to a particular resource requires such a response to be made for that resource. The unicast responses received by the CoAP client may be a mixture of success (e.g., 2.05 Content) and failure (e.g., 4.04 Not Found) codes, depending on the individual server processing results.
+A server sends back a unicast response to the CoAP group request - but the server MAY suppress the response for various reasons given in Section 8.2 of {{RFC7252}}. This document adds the requirement that a server SHOULD suppress the response in case of error or in case there is nothing useful to respond, unless the application related to a particular resource requires such a response to be made for that resource. The unicast responses received by the CoAP client may be a mixture of success (e.g., 2.05 Content) and failure (e.g., 4.04 Not Found) codes, depending on the individual server processing results.
 
 The CoAP No-Response Option {{RFC7967}} can be used by a client to influence the default response suppression on the server side. It is RECOMMENDED for a server to support this option only on selected resources where it is useful in the application context. If the option is supported on a resource, it MUST override the default response suppression of that resource.
 
@@ -276,51 +276,51 @@ Any default response suppression by a server SHOULD be performed consistently, a
 
 A CoAP client MAY repeat a multicast request using the same Token value and same Message ID value, in order to ensure that enough (or all) group members have been reached with the request. This is useful in case a number of group members did not respond to the initial request and the client suspects that the request did not reach these group members. However, in case one or more servers did receive the initial request but the response to that request was lost, this repeat does not help to retrieve the lost response(s) if the server(s) implement the optional Message ID based deduplication (Section 4.5 of {{RFC7252}}).
 
-A CoAP client MAY also repeat a multicast request using the same Token value and a different Message ID, in which case all servers that received the initial request will again process the repeated request since it appears within a new CoAP message. This is useful in case a client suspects that one or more response(s) to its original request were lost and the client needs to collect more, or even all, responses from group members, even if this comes at the cost of the overhead of certain group members responding twice (once to the original request, and once to the repeated request with different Message ID).
+A CoAP client MAY repeat a multicast request using the same Token value and a different Message ID, in which case all servers that received the initial request will again process the repeated request since it appears within a new CoAP message. This is useful in case a client suspects that one or more response(s) to its original request were lost and the client needs to collect more, or even all, responses from group members, even if this comes at the cost of the overhead of certain group members responding twice (once to the original request, and once to the repeated request with different Message ID).
 
-The CoAP client can distinguish the origin of multiple server responses by the source IP address of the UDP message containing the CoAP response and/or any other available application-specific source identifiers contained in the CoAP response, such as an application-level unique ID associated to the server. If secure communication is provided with Group OSCORE (see {{chap-oscore}}), additional security-related identifiers enable the client to retrieve the right security material for decrypting each response and authenticating its source.
+The CoAP client can distinguish the origin of multiple server responses by the source IP address of the UDP message containing the CoAP response and/or any other available application-specific source identifiers contained in the CoAP response payload or CoAP response options, such as an application-level unique ID associated to the server. If secure communication is provided with Group OSCORE (see {{chap-oscore}}), additional security-related identifiers in the CoAP response enable the client to retrieve the right security material for decrypting each response and authenticating its source.
 
-While processing a response, the source endpoint of the response is not matched to the destination endpoint of the request, since for a multicast request these will never match. This is specified in Section 8.2 of {{RFC7252}}. It implies also that a server MAY respond from a UDP port number that differs from the destination UDP port number of the request, yet a CoAP server normally SHOULD respond from the UDP port number that equals the destination port of the request -- following the convention for UDP-based protocols. In case a single client has sent multiple group requests and concurrent CoAP transactions are ongoing, the responses received by that client are matched to an active request using only the Token value. Due to UDP level multiplexing, the UDP destination port of the response MUST match to the client endpoint's UDP port value, i.e. to the UDP source port of the client's request.
+While processing a response on the client, the source endpoint of the response is not matched to the destination endpoint of the request, since for a multicast request these will never match. This is specified in Section 8.2 of {{RFC7252}}. It implies also that a server MAY respond from a UDP port number that differs from the destination UDP port number of the request, although a CoAP server normally SHOULD respond from the UDP port number that equals the destination port of the request -- following the convention for UDP-based protocols. In case a single client has sent multiple group requests and concurrent CoAP transactions are ongoing, the responses received by that client are matched to an active request using only the Token value. Due to UDP level multiplexing, the UDP destination port of the response MUST match to the client endpoint's UDP port value, i.e. to the UDP source port of the client's request.
 
-For multicast CoAP requests, there are additional constraints on the reuse of Token values at the client, compared to the unicast case defined in {{RFC7252}} and updated by {{I-D.ietf-core-echo-request-tag}}. Since for multicast CoAP the number of responses is not bound a priori, the client cannot use the reception of a response as a trigger to "free up" a Token value for reuse. Reusing a Token value too early could lead to incorrect response/request matching on the client, and would be a protocol error.  Therefore, the time between reuse of Token values used in multicast requests MUST be greater than:
+For multicast CoAP requests, there are additional constraints on the reuse of Token values at the client, compared to the unicast case defined in {{RFC7252}} and updated by {{I-D.ietf-core-echo-request-tag}}. Since for multicast CoAP the number of responses is not bound a priori, the client cannot use the reception of a response as a trigger to "free up" a Token value for reuse. Reusing a Token value too early could lead to incorrect response/request matching on the client, and would be a protocol error.  Therefore, the time between reuse of Token values for different multicast requests MUST be greater than:
 
 ~~~~~~~~~~~
 MIN_TOKEN_REUSE_TIME = (NON_LIFETIME + MAX_LATENCY +
                         MAX_SERVER_RESPONSE_DELAY)
 ~~~~~~~~~~~
 
-where NON_LIFETIME and MAX_LATENCY are defined in Section 4.8 of {{RFC7252}}.  This specification defines MAX_SERVER_RESPONSE_DELAY as in {{RFC7390}}, that is: the expected maximum response delay over all servers that the client can send a multicast request to.  This delay includes the maximum Leisure time period as defined in Section 8.2 of {{RFC7252}}. However, CoAP does not define a time limit for the server response delay.  Using the default CoAP parameters, the Token reuse time MUST be greater than 250 seconds plus MAX_SERVER_RESPONSE_DELAY.  A preferred solution to meet this requirement is to generate a new unique Token for every new multicast request, such that a Token value is never reused.  If a client has to reuse Token values for some reason, and also MAX_SERVER_RESPONSE_DELAY is unknown, then using MAX_SERVER_RESPONSE_DELAY = 250 seconds is a reasonable guideline. The time between Token reuses is in that case set to a value greater than 500 seconds.
+where NON_LIFETIME and MAX_LATENCY are defined in Section 4.8 of {{RFC7252}}.  This specification defines MAX_SERVER_RESPONSE_DELAY as in {{RFC7390}}, that is: the expected maximum response delay over all servers that the client can send a multicast request to.  This delay includes the maximum Leisure time period as defined in Section 8.2 of {{RFC7252}}. However, CoAP does not define a time limit for the server response delay.  Using the default CoAP parameters, the Token reuse time MUST be greater than 250 seconds plus MAX_SERVER_RESPONSE_DELAY.  A preferred solution to meet this requirement is to generate a new unique Token for every new multicast request, such that a Token value is never reused.  If a client has to reuse Token values for some reason, and also MAX_SERVER_RESPONSE_DELAY is unknown, then using MAX_SERVER_RESPONSE_DELAY = 250 seconds is a reasonable guideline. The time between Token reuses is in that case set to a value greater than MIN_TOKEN_REUSE_TIME = 500 seconds.
 
-When securing Group CoAP communications with Group OSCORE {{I-D.ietf-core-oscore-groupcomm}}, secure binding between requests and responses is ensured (see {{chap-oscore}}). Thus, a client may reuse a Token value after it has been freed up, as discussed above for the multicast case and considering a reuse time greater than MIN_TOKEN_REUSE_TIME. If an alternative security protocol for Group CoAP is defined in the future and it does not ensure secure binding between requests and responses, a client MUST follow the Token processing requirements for the unicast case discussed above, as defined in {{I-D.ietf-core-echo-request-tag}}.
+When securing CoAP group communication with Group OSCORE {{I-D.ietf-core-oscore-groupcomm}}, secure binding between requests and responses is ensured (see {{chap-oscore}}). Thus, a client may reuse a Token value after it has been freed up, as discussed above for the multicast case and considering a reuse time greater than MIN_TOKEN_REUSE_TIME. If an alternative security protocol for CoAP group communication is defined in the future which does not ensure secure binding between requests and responses, a client MUST follow the Token processing requirements as defined in {{I-D.ietf-core-echo-request-tag}}.
 
 Another method to more easily meet the above constraint is to instantiate multiple CoAP clients at multiple UDP ports on the same host. The Token values only have to be unique within the context of a single CoAP client, so using multiple clients can make it easier to meet the constraint.
 
-Since a client sending a multicast request with a Token T will accept multiple responses with the same Token T, it is possible that especially the same server sends multiple responses with the same Token T back to the client. For example, this server might not implement the optional CoAP message deduplication based on Message ID; or it might be acting out of specification as a malicious, compromised or faulty server.
+Since a client sending a multicast request with a Token T will accept multiple responses with the same Token T, it is possible in particular that the same server sends multiple responses with the same Token T back to the client. For example, this server might not implement the optional CoAP message deduplication based on Message ID; or it might be acting out of specification as a malicious, compromised or faulty server.
 
-When this happens, the client normally processes at the CoAP layer each of those responses to the same request coming from the same server. If the processing is successful, the client delivers the response to the application as usual.
+When this happens, the client normally processes at the CoAP layer each of those responses to the same request coming from the same server. If the processing a response is successful, the client delivers this response to the application as usual.
 
-Then, the application is in a better position to decide what to do, depending on the available context information. For instance, it might accept and process all the responses from the same server, even if they are not Observe notifications (i.e., they do not include an Observe option). Alternatively, the application might accept and process only one of those responses, such as the most recent one from that server, e.g. when this can trigger a change of state.
+Then, the application is in a better position to decide what to do, depending on the available context information. For instance, it might accept and process all the responses from the same server, even if they are not Observe notifications (i.e., they do not include an Observe option). Alternatively, the application might accept and process only one of those responses, such as the most recent one from that server, e.g. when this can trigger a change of state within the application.
 
 ## Caching ## {#sec-caching}
 
-CoAP endpoints that are members of a CoAP group MAY cache responses as intended in Section 5.6 of {{RFC7252}}. In particular, the same rules apply for the set of request options used as "Cache-Key".
+CoAP endpoints that are members of a CoAP group MAY cache responses on a group request as defined in Section 5.6 of {{RFC7252}}. In particular, these same rules apply to determine the set of request options used as "Cache-Key".
 
-Furthermore, building on what defined in Section 8.2.1 of {{RFC7252}}:
+Furthermore, building on what is defined in Section 8.2.1 of {{RFC7252}}:
 
    * A client sending a GET or FETCH group request over multicast MAY update a cache with the responses from the servers in the CoAP group. Then, the client uses both cached-still-fresh and new responses as the result of the group request.
    
-   * A client sending a GET or FETCH group request over multicast MAY use a response received from a server, to satisfy a subsequent sent request intended to that server on the related unicast request URI. In particular, the unicast request URI is obtained by replacing the authority part of the request URI with the transport-layer source address of the response message.
+   * A client sending a GET or FETCH group request over multicast MAY use a response received from a server, to satisfy a subsequent sent request intended to that server on the related unicast request URI. In particular, the unicast request URI is obtained by replacing the authority part of the request URI with the transport-layer source address of the cached response message.
 
-   * A cache MAY revalidate a response by making a GET or FETCH request on the
+   * A client MAY revalidate a cached response by making a GET or FETCH request on the
    related unicast request URI.
    
-Note that, in the presence of proxies, this requires the client to distinguish the different responses to the same group request, as well as the different origin servers. This in turn requires additional means to provide the client with information about the origin server of each response, as discussed in {{sec-proxy-caching}}.
+Note that, in the presence of proxies, doing any of the above (optional) unicast requests requires the client to distinguish the different responses to a group request, as well as distinguish the different origin servers that responded. This in turn requires additional means to provide the client with information about the origin server of each response, as discussed in {{sec-proxy-caching}}.
 
-The following defines the freshness model and validation model to use for cached responses, hence updating the models defined in Section 5.6.1 and Section 5.6.2 of {{RFC7252}}, respectively.
+The following subsections define the freshness model and validation model to use for cached responses, which update the models defined in Section 5.6.1 and Section 5.6.2 of {{RFC7252}}, respectively.
 
 ### Freshness Model ## {#sec-caching-freshness}
 
-For caching at endpoints, the same freshness model relying on the Max-Age Option and defined in Section 5.6.1 of {{RFC7252}} applies.
+For caching at endpoints, the same freshness model relying on the Max-Age Option as defined in Section 5.6.1 of {{RFC7252}} applies.
 
 For caching at proxies, the freshness model defined in {{sec-proxy-caching}} of this specification applies.
 
@@ -328,15 +328,15 @@ For caching at proxies, the freshness model defined in {{sec-proxy-caching}} of 
 
 Section 5.6.2 of {{RFC7252}} defines a model to "validate" or "revalidate" responses stored in cache, hence enabling the suppression of responses that the client already has.
 
-This relies on the ETag Option defined in Section 5.10.6 of {{RFC7252}}, with its usage limited to exchanges between a CoAP client and one CoAP server. That is Section 8.2.1 of {{RFC7252}} explicitly forbids using an ETag Option in group requests sent over multicast, and leaves a mechanism to suppress responses for further study.
+This relies on the ETag Option defined in Section 5.10.6 of {{RFC7252}}, with its usage limited to exchanges between a CoAP client and one CoAP server. That is, Section 8.2.1 of {{RFC7252}} explicitly forbids using an ETag Option in requests sent over multicast, and leaves a mechanism to suppress responses for that case for further study.
 
-This section provides such a model to "validate" or "revalidate" responses that the client already has as replies to a group request. In particular, the group request can indicate entity-tag values separately for each CoAP server from which the client wishes to get a response revalidation, together with addressing information identifying that server.
+This section provides such a model to "validate" or "revalidate" responses that the client already has cached. In particular, the group request can indicate entity-tag values separately for each CoAP server from which the client wishes to get a response revalidation, together with addressing information identifying that server.
 
 To this end, this specification defines the new Multi-ETag Option. Operations related to this validation model and using the new option are defined in {{sec-caching-validation-client}} for the client side, and in {{sec-caching-validation-server}} for the server side.
 
 The Multi-ETag Option has the properties summarized in {{fig-response-multi-etag-option}}, which extends Table 4 of {{RFC7252}}. The Multi-ETag Option is elective, safe to forward, part of the cache key, and repeatable.
 
-The option is intended only for group requests, as directly sent to a CoAP group or to a proxy that forwards it to the CoAP group (see {{sec-proxy}}).
+The option is intended only for group requests, as directly sent to a CoAP group or to a CoAP proxy that forwards it to the CoAP group (see {{sec-proxy}}).
 
 ~~~~~~~~~~~
 +------+---+---+---+---+------------+--------+--------+---------+
@@ -352,9 +352,9 @@ The option is intended only for group requests, as directly sent to a CoAP group
 ~~~~~~~~~~~
 {: #fig-response-multi-etag-option title="The Multi-ETag Option." artwork-align="center"}
 
-The Multi-ETag Option has the same properties of the ETag Option defined in Section 5.10.6 of {{RFC7252}}, but it differs as to the format and length of its value, as well as about the reason for its repeatability.
+The Multi-ETag Option has the same properties of the ETag Option defined in Section 5.10.6 of {{RFC7252}}, but it differs in the format and length, as well as having a different reason for its repeatability.
 
-That is, each occurrence of the Multi-ETag Option is intended to exactly one of the servers in the CoAP group, from which the client wishes to get a response revalidation. Then, the option value is set to a CBOR sequence {{RFC8742}} composed of (1+M) elements, where:
+Each occurrence of the Multi-ETag Option targets exactly one of the servers in the CoAP group, from which the client wishes to get a response revalidation. The option value is set to a CBOR sequence {{RFC8742}} composed of (1+M) elements, where:
 
 * The first element specifies the addressing information of the corresponding server, encoded as defined in {{sec-caching-validation-tpinfo}}.
 
@@ -378,7 +378,7 @@ When the Multi-ETag Option is used in group requests transported over UDP as in 
 
 * 'srv_host': a CBOR byte string, with value the unicast IP address of the server. This element is tagged and identified by the CBOR tag 260 "Network Address (IPv4 or IPv6 or MAC Address)".
 
-* 'srv_port': as a CBOR unsigned integer of the CBOR simple value Null. If it is a CBOR integer, it has as value the destination port number where to send individual requests intended to the server. This element MAY be present. If not included, the default port number 5683 is assumed.
+* 'srv_port': as a CBOR unsigned integer or the CBOR simple value Null. If it is a CBOR integer, it has as value the destination port number where to send individual requests intended to the server. This element MAY be present. If not included, the default port number 5683 is assumed.
 
 The CDDL notation {{RFC8610}} provided below describes the 'tp_info' CBOR array using the format above.
 
@@ -392,56 +392,58 @@ tp_info = [
 
 #### Processing on the Client Side ## {#sec-caching-validation-client}
 
-Similar to what defined in Section 5.6.2 of {{RFC7252}}, the client may have one or more stored responses for a GET or FETCH group request sent to the CoAP group, but cannot use any of them (e.g. because they are not fresh).
+Similar to what is defined in Section 5.6.2 of {{RFC7252}}, the client may have one or more stored responses for a GET or FETCH group request sent to the CoAP group, but cannot use any of them (e.g. because they are not fresh).
 
 In that case, the client can send a GET or FETCH group request, in order to give the origin servers an opportunity both to select a stored response to be used, and to update its freshness. As in {{RFC7252}}, this process is known as "validating" or "revalidating" the stored response.
 
-When sending such a group request, the endpoint SHOULD include one Multi-ETag Option for each server it wishes to revalidate the corresponding response with. As defined in {{sec-caching-validation}}, the Multi-ETag Option can include multiple entity-tag values, each of which applicable to a stored response from the corresponding server for that group request.
+When sending such a group request, the endpoint SHOULD include one Multi-ETag Option for each server it wishes to revalidate the corresponding response with. As defined in {{sec-caching-validation}}, the Multi-ETag Option can include multiple entity-tag values, each applicable to a stored response from the corresponding server for that group request.
 
 Specifically, in the same GET or FETCH group request:
 
-* The client MUST NOT include both one or more ETag options together with one or more Multi-ETag options.
+* The client MUST NOT include one or more ETag Option(s) together with one or more Multi-ETag Option(s).
 
-* The client MUST include only one Multi-ETag Option for each server it wishes to get a response revalidation.
+* The client MUST include only one Multi-ETag Option for each server it wishes to get a response revalidation from.
 
-* The client SHOULD limit the number of Multi-ETag options, hence the humber of servers as intended target of the revalidation process, and SHOULD rather spread revalidation with different sets of servers over different group requests. Also, the client SHOULD limit the number of entity-tag values specified in each Multi-ETag Option, preferably indicating only one entity-tag value.
+* The client SHOULD limit the number of Multi-ETag Options, hence limiting the number of servers as intended target of the revalidation process, and SHOULD rather spread revalidation with different sets of servers over different group requests. Also, the client SHOULD limit the number of entity-tag values specified in each Multi-ETag Option, preferably indicating only one entity-tag value.
   
   This allows for limiting the overall size of the group request. As a guideline, the server addressing information can be 9-24 bytes in size, while each entity-tag value can be 1-8 bytes in size. Thus, a single Multi-ETag Option can be up to (24 + 8 * M) bytes in size, where M is the number of entity-tag values it includes.
 
-A 2.03 (Valid) response indicates that the stored response identified by the entity-tag given in the response's ETag Option can be reused, after updating it as described in Section 5.9.1.3 of {{RFC7252}}. In effect, the client can determine if any of the stored representations from that server is current, without needing to transfer them again.
+A 2.03 (Valid) response indicates that the stored response identified by the entity-tag given in the response's ETag Option can be reused, after updating the stored response as described in Section 5.9.1.3 of {{RFC7252}}. So the client can determine if any one of the stored representations from that server is current, without need to transfer the current resource representation again.
 
-Any other Response Code indicates that none of the stored responses from that server and nominated in the Multi-ETag Option of the group request is suitable.  Instead, the response SHOULD be used to satisfy the request and MAY replace the stored response.
+Any other Response Code indicates that none of the stored responses from that server, identified in the Multi-ETag Option of the group request, are suitable.  Instead, such response SHOULD be used to satisfy the request and MAY replace the stored response.
   
 #### Processing on the Server Side ## {#sec-caching-validation-server}
 
-If a GET or FETCH request includes both one or more ETag options together with one or more Multi-ETag options, then the server MUST ignore all the included ETag and Multi-ETag options.
+If a GET or FETCH request includes both one or more ETag Options together with one or more Multi-ETag Options, then the server MUST ignore all the included ETag and Multi-ETag Options.
 
-The server MUST ignore any Multi-ETag Option which is malformed, or included in a request that is neither GET nor FETCH, or which specifies addressing information not matching with its own endpoint.
+The server MUST ignore any Multi-ETag Option which is malformed, or included in a request that is neither GET nor FETCH, or which specifies addressing information not matching with its own endpoint address.
 
 The server considers only its pertaining Multi-ETag Option, i.e. specifying addressing information associated to its own endpoint. The server MUST ignore any pertaining Multi-ETag Option that occurs more than once.
 
 If the pertaining Multi-ETag Option specifies the CBOR simple value Null for the 'srv_port' element of 'tp_info' (see {{sec-caching-validation-tpinfo}}), the server MUST assume the default port number 5683.
 
-Then, the server can issue a 2.03 (Valid) response in place of a 2.05 (Content) response, if one of the entity-tag values from the pertaining Multi-ETag Option is the entity-tag for the current resource representation, i.e. it is valid. The 2.03 (Valid) response echoes this specific entity-tag as value of an ETag Option.
+Then, the server can issue a 2.03 (Valid) response in place of a 2.05 (Content) response, if one of the entity-tag values from the pertaining Multi-ETag Option is the entity-tag for the current resource representation, i.e. it is valid. The 2.03 (Valid) response echoes this specific entity-tag within an ETag Option included in the response.
 
-The inclusion of an ETag Option in responses works as defined in Section 5.6.10.1 of {{RFC7252}}.
+The inclusion of an ETag Option in a response works as defined in Section 5.6.10.1 of {{RFC7252}}.
    
 ## Port and URI Path Selection ##
-A server that is a member of a CoAP group listens for CoAP messages on the group's IP multicast address, usually on the CoAP default UDP port 5683, or another non-default UDP port if configured. Regardless of the method for selecting the port number, the same port number MUST be used across all CoAP servers that are members of a CoAP group and across all CoAP clients performing the requests to that group. The URI Path used in the request is preferably a path that is known to be supported across all group members. However there are valid use cases where a request is known to be successful for a subset of the CoAP group, for example only members of a specific application group, while those group members for which the request is unsuccessful (for example because they are outside the application group) either ignore the multicast request or respond with an error status code.
+A server that is a member of a CoAP group listens for CoAP messages on the group's IP multicast address, usually on the CoAP default UDP port 5683, or another non-default UDP port if configured. Regardless of the method for selecting the port number, the same port number MUST be used across all CoAP servers that are members of a CoAP group and across all CoAP clients performing the requests to that group.
 
-One way to create multiple CoAP groups is using different UDP ports with the same IP multicast address, in case the devices' network stack only supports a limited number of multicast address subscriptions. However, it must be taken into account that this incurs additional processing overhead on each CoAP server participating in at least one of these groups: messages to groups that are not of interest to the node are only discarded at the higher transport (UDP) layer instead of directly at the network (IP) layer.
+The URI Path used in the request is preferably a path that is known to be supported across all group members. However there are valid use cases where a request is known to be successful only for a subset of the CoAP group, for example only members of a specific application group, while those group members for which the request is unsuccessful (for example because they are outside the application group) either ignore the multicast request or respond with an error status code.
 
-Port 5684 is reserved for DTLS-secured CoAP and MUST NOT be used for any CoAP group communication.
+One way to create multiple CoAP groups is using different UDP ports with the same IP multicast address, in case the devices' network stack only supports a limited number of multicast address subscriptions. However, it must be taken into account that this incurs additional processing overhead on each CoAP server participating in at least one of these groups: messages to groups that are not of interest to the node are only discarded at the higher transport (UDP) layer instead of directly at the network (IP) layer. Also, a constrained network may be additionally burdened in this case with multicast traffic that is eventually discarded at the UDP layer by most nodes.
+
+Port 5684 is reserved for DTLS-secured unicast CoAP and MUST NOT be used for any CoAP group communication.
 
 For a CoAP server node that supports resource discovery as defined in Section 2.4 of {{RFC7252}}, the default port 5683 MUST be supported (see Section 7.1 of {{RFC7252}}) for the "All CoAP Nodes" multicast group as detailed in {{sec-transport}}.
 
 ## Proxy Operation ## {#sec-proxy}
 
-This section defines how proxies operate in a group communication scenario. In particular, {{sec-proxy-forward}} defines operations of forward-proxies, {{sec-proxy-forward}} defines operations of reverse-proxies, and {{sec-proxy-caching}} defines operations of proxies that employ a cache for responses to group requests.
+This section defines how proxies operate in a group communication scenario. In particular, {{sec-proxy-forward}} defines operations of forward-proxies, {{sec-proxy-reverse}} defines operations of reverse-proxies, and {{sec-proxy-caching}} defines operations of proxies that employ a cache for responses to group requests.
 
 ### Forward-Proxies ### {#sec-proxy-forward}
 
-CoAP enables a client to request a forward-proxy to process a CoAP request on its behalf, as described in Section 5.7.2 and 8.2.2 of {{RFC7252}}. For this purpose, the client specifies either the request group URI as a string in the Proxy-URI Option or it uses the Proxy-Scheme Option with the group URI constructed from the usual Uri-* options. The forward-proxy then resolves the group URI to a destination CoAP group, multicasts the CoAP request, receives the responses and forwards all the individual (unicast) responses back to the client.
+CoAP enables a client to request a forward-proxy to process a CoAP request on its behalf, as described in Section 5.7.2 and 8.2.2 of {{RFC7252}}. For this purpose, the client specifies either the request group URI as a string in the Proxy-URI Option or it uses the Proxy-Scheme Option with the group URI constructed from the usual Uri-* Options. The forward-proxy then resolves the group URI to a destination CoAP group, multicasts the CoAP request, receives the responses and forwards all the individual (unicast) responses back to the client.
 
 However, there are certain issues and limitations with this approach:
 
@@ -451,7 +453,7 @@ However, there are certain issues and limitations with this approach:
 
 * The proxy does not know how many members there are in the CoAP group or how many group members will actually respond. Also, the proxy does not know for how long to collect responses before it stops forwarding them to the client. A CoAP client that is not using a Proxy might face the same problems in collecting responses to a multicast request. However, the client itself would typically have application-specific rules or knowledge on how to handle this situation, while an application-agnostic CoAP Proxy would typically not have this knowledge. For example, a CoAP client could monitor incoming responses and use this information to decide how long to continue collecting responses - which is something a proxy cannot do.
 
-A method based on this approach and addressing the issues raised above is defined in {{I-D.tiloca-core-groupcomm-proxy}}.
+A forward-proxying method using this approach and addressing the issues raised above is defined in {{I-D.tiloca-core-groupcomm-proxy}}.
 
 An alternative solution is for the proxy to collect all the individual (unicast) responses to a CoAP group request and then send back only a single (aggregated) response to the client. However, this solution brings up new issues:
 
@@ -459,7 +461,7 @@ An alternative solution is for the proxy to collect all the individual (unicast)
 
 * There is no default format defined in CoAP for aggregation of multiple responses into a single response. Such a format could be standardized based on, for example, the multipart content-format {{RFC8710}}.
 
-Due to the above issues, it is RECOMMENDED that a CoAP Proxy only processes a group URI request if it is explicitly enabled to do so. The default response (if the function is not explicitly enabled) to a group URI request is 5.01 (Not Implemented). Furthermore, a proxy SHOULD be explicitly configured (e.g. by white-listing and/or client authentication) to allow proxied CoAP multicast requests only from specific client(s).
+Due to the above issues, it is RECOMMENDED that a CoAP Proxy only processes a group URI request if it is explicitly enabled to do so. The default response (if the function is not explicitly enabled) to a group URI request is 5.01 Not Implemented. Furthermore, a proxy SHOULD be explicitly configured (e.g. by white-listing and/or client authentication) to allow proxied CoAP multicast requests only from specific client(s).
 
 The operation of HTTP-to-CoAP proxies for multicast CoAP requests is specified in Section 8.4 and 10.1 of {{RFC8075}}. In this case, the "application/http" media type is used to let the proxy return multiple CoAP responses -- each translated to a HTTP response -- back to the HTTP client. Of course, in this case the HTTP client sending a group URI to the proxy needs to be aware that it is going to receive this format, and needs to be able to decode it into the responses of multiple CoAP servers. Also, the IP source address of each CoAP response cannot be determined anymore from the "application/http" response. The HTTP client still identify the CoAP servers by other means such as application-specific information in the response payload.
 
@@ -471,7 +473,7 @@ In a group communication scenario, a reverse-proxy can rely on its configuration
 
 Furthermore, the reverse-proxy can actually stand in for (and thus prevent to directly reach) only the whole set of servers in the group, or also each of those individual servers (e.g. if acting as firewall).
 
-For a reverse-proxy that forwards a request to a group of servers over IP multicast, the same as defined in Section 5.7.3 of {{RFC7252}} hold, with the following additions.
+For a reverse-proxy that forwards a request to a group of servers over IP multicast, the same considerations as defined in Section 5.7.3 of {{RFC7252}} hold, with the following additions:
 
 * The same issues defined in {{sec-proxy-forward}} for a forward proxy apply and have to be addressed, e.g. using the method defined in {{I-D.tiloca-core-groupcomm-proxy}}.
 
@@ -491,23 +493,23 @@ For a reverse-proxy that forwards a request to a group of servers over IP multic
 
 A proxy that supports forwarding of group requests and that employs a cache maintains the following two types of cache entry.
 
-* The first type, namely "individual" cache entry, is associated to one server and stores one response from that server, regardless whether it is a reply to a unicast request or to a group request.
+* The first type, "individual" cache entry, is associated to one server and stores one response from that server, regardless whether it is a response to a unicast request or to a group request.
 
    A hit to this entry would be produced by a matching request intended to that server, i.e. to the corresponding unicast URI.
    
-   When the response is a reply to a unicast request to the server, the unicast URI is the same target URI used for the request.
+   When the response is a response to a unicast request to the server, the unicast URI is the same target URI used for the request.
    
-   When the response is a reply to a group request to the CoAP group, the unicast URI is obtained by replacing the authority part of the group URI in the group request with the transport-layer source address and port number of the response message.
+   When the response is a response to a group request to the CoAP group, the unicast URI is obtained by replacing the authority part of the group URI in the group request with the transport-layer source address and port number of the response message.
 
-* The second type, namely "aggregated" cache entry, is associated to the CoAP group, and stores all the responses that: the proxy has received as a reply to a group request to that group; and that have been also forwarded back to the client that sent the group request.
+* The second type, "aggregated" cache entry, is associated to the CoAP group, and stores all the responses that: the proxy has received as a response to a group request to that group; and that have been also forwarded back to the client that sent the group request.
 
    A hit to this entry would be produced by a matching group request intended to the CoAP group, i.e. to the corresponding group URI.
 
-When forwarding a group request to a CoAP group using the request's group URI, the proxy handles its cache entries as follows. The same applies if the proxy spontaneously re-sends a group request to the CoAP group, in order to refresh an aggregated cache entry after its expiration or invalidation.
+When forwarding a group request to a CoAP group using the request's group URI and processing the responses, the proxy handles its cache entries as follows. The same applies if the proxy spontaneously re-sends a group request to the CoAP group, in order to refresh an aggregated cache entry after its expiration or invalidation.
 
 1. For each response to the group request which is received and also forwarded back to the client:
 
-   * The proxy creates or refreshes the individual cache entry associated to the origin server and for that response. That is, the response is stored in the individual cache entry, and the lifetime of the cache entry is set to the lifetime of the response, as indicated by the Max-Age Option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of {{RFC7252}}). This cache entry becomes immediately usable to serve requests from client.
+   * The proxy creates or refreshes the individual cache entry associated to the origin server and for that response. That is, the response is stored in the individual cache entry, and the lifetime of the cache entry is set to the lifetime of the response, as indicated by the Max-Age Option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of {{RFC7252}}). This cache entry becomes immediately usable to serve requests from clients.
    
    * The proxy adds the response to a temporary list L.
 
@@ -517,25 +519,25 @@ When forwarding a group request to a CoAP group using the request's group URI, t
    
    * The proxy stores all the responses from the list L in the aggregated cache entry.
    
-   * The proxy sets the lifetime of the cache entry to the smallest lifetime among all the responses stored in the entry, determined in the same way defined at step 1 above.
+   * The proxy sets the lifetime of the cache entry to the smallest lifetime among all the responses stored in the entry, determined in the same way as defined in step 1 above.
    
    * The proxy sets the aggregated cache entry as usable to serve group requests from clients.
 
-When forwarding a request to an individual server using the associated unicast URI, the proxy handles its cache entries as follows. The same applies if the proxy spontaneously re-sends a unicast request to a single server, in order to refresh an individual cache entry after its expiration or invalidation.
+When forwarding a request to an individual server using the associated unicast URI and processing its response, the proxy handles its cache entries as follows. The same applies if the proxy spontaneously re-sends a unicast request to a single server, in order to refresh an individual cache entry after its expiration or invalidation.
 
 1. The proxy creates or refreshes the individual cache entry associated to the origin server and for that response. That is, the response is stored in the cache entry, and the lifetime of the cache entry is set to the lifetime of the response, as indicated by the Max-Age Option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of {{RFC7252}}). This cache entry becomes immediately usable to serve requests from clients.
 
-2. The proxy checks whether it has a non expired and valid aggregated cache entry, such that a hit would be produced by a group request analogous to the forwarded unicast request.
+2. The proxy checks whether it has a non-expired and valid aggregated cache entry, such that a hit would be produced by a group request analogous to the forwarded unicast request.
 
    That is, such group request would be intended to the group URI of the CoAP group associated to the aggregated cache entry, rather than intended to the unicast URI of the forwarded request.
 
 3. If an aggregated cache entry is found at the previous step:
 
-   * The proxy stores the received response in the cache entry, possibly replacing an already stored instance of that response from that origin server.
+   * The proxy stores the received response in the aggregated cache entry, possibly replacing an already stored instance of that response from that origin server.
    
-   * The proxy sets as new lifetime of the aggregated cache entry the minimum between the current lifetime of the cache entry and the lifetime of the just stored response, as indicated by the Max-Age Option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of {{RFC7252}}).
+   * The proxy sets as new lifetime of the aggregated cache entry the minimum value between the current lifetime of the cache entry and the lifetime of the just-stored response, as indicated by the Max-Age Option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of {{RFC7252}}).
 
-Note that a proxy sitting on a router can monitor network control messages, hence learning when a new server has joined a CoAP group and is listening to the multicast IP address of that CoAP group. This information would guide the proxy in refreshing an aggregated cache entry, by sending a request to the CoAP group over the group URI before the entry expires, and thus storing also a response from the latest joined server.
+Note that a proxy embedded in a router can monitor network control messages, hence learning when a new server has joined a CoAP group and is listening to the multicast IP address of that CoAP group. This information could be used to guide the proxy in refreshing an aggregated cache entry, by sending a request to the CoAP group over the group URI before the entry expires, and thus storing also a response from the newly joined server.
 
 Following the expiration or invalidation of a cache entry, as well as if wishing to refresh a cache entry, the proxy can directly interact with the servers in the CoAP group. To this end, it takes the role of a CoAP client as defined in {{sec-caching}}. In particular, the proxy can perform revalidation of responses to group requests by using the Multi-ETag Option, as defined in {{sec-caching-validation}}.
 
@@ -567,17 +569,17 @@ The Group-ETag Option is of class U in terms of OSCORE processing (see Section 4
 
 When providing 2.05 (Content) responses to a GET or FETCH group request from an aggregated cache entry, the proxy can include one Group-ETag Option, specifying the current entity-tag value associated to that cache entry. Each of such responses MUST NOT include more than one Group-ETag Option.
 
-If the proxy supports this form of response revalidation, it MUST update the current entity-tag value associated to an aggregated cache entry, every time a response is added to the that cache entry or replaces an already included response.
+If the proxy supports this form of response revalidation, it MUST update the current entity-tag value associated to an aggregated cache entry, every time a response is added to that cache entry or replaces an already included response.
 
-When sending a GET or FETCH group request to the proxy, as asking to forward it to a CoAP group, the client can include one or more Group-ETag Option. Each option specifies one entity-tag value, as applicable to the aggregated cache entry for that group request.
+When sending a GET or FETCH group request to the proxy, to be forwarded to a CoAP group, the client can include one or more Group-ETag Option(s). Each option specifies one entity-tag value, as applicable to the aggregated cache entry for that group request.
 
-In case the group request hits an aggregated cache entry and its current entity-tag value matches with one of the entity-tag value specified in the Group-ETag option(s), then the proxy replies with a single 2.03 (Valid) response. This response has no payload and MUST include one Group-ETag Option, specifying the current entity-tag value of the aggregated cache entry.
+In case the group request hits an aggregated cache entry and its current entity-tag value matches with one of the entity-tag value(s) specified in the Group-ETag option(s), then the proxy replies with a single 2.03 (Valid) response. This response has no payload and MUST include one Group-ETag Option, specifying the current entity-tag value of the aggregated cache entry.
 
-That is, the 2.03 (Valid) response from the proxy indicates that the stored responses idenfied by the entity-tag given in the response's Group-ETag Option can be reused, after updating each of them as described in Section 5.9.1.3 of {{RFC7252}}. In effect, the client can determine if any of the stored set of representations from the aggregated cache entry at the proxy is current, without needing to transfer them again.
+That is, the 2.03 (Valid) response from the proxy indicates that the stored responses idenfied by the entity-tag given in the response's Group-ETag Option can be reused, after updating each of them as described in Section 5.9.1.3 of {{RFC7252}}. In effect, the client can determine if any of the stored set of representations from the aggregated cache entry at the proxy is current, without needing to transfer any of them again.
 
-Note that, if a client triggers the forwarding of a group request (i.e., there is no hit of an aggregated cache entry), this will result in a new aggregated cache entry created at the proxy. Then, the client cannot obtain an entity-tag value through a Group-ETag Option in any of the responses forwarded back by the proxy.
+Note that, if a client triggers the proxy to perform forwarding of a group request (i.e., there is no hit of an aggregated cache entry), this will result in a new aggregated cache entry created at the proxy. Then, the client cannot obtain an entity-tag value through a Group-ETag Option in any of the responses forwarded back by the proxy.
 
-In fact, the proxy will have an assigned entity-tag value to provide only after forwarding all responses back to that client, after the new aggregated cache entry is eventually created. However, when following group requests from the same client or different clients are served from the aggregated cache entry, the returned responses can instead include a Group-ETag Option, specifying the current entity-tag for the aggregated cache entry.
+In fact, the proxy will only have an assigned entity-tag value to provide after all responses have been forwarded back to that client, which is the moment that the new aggregated cache entry is eventually created. However, when follow-up group requests from the same client or different clients are served from this aggregated cache entry, the proxy can include a Group-ETag Option in each returned response, specifying the current entity-tag for the aggregated cache entry.
 
 ## Congestion Control ## {#sec-congestion}
 CoAP group requests may result in a multitude of responses from different nodes, potentially causing congestion. Therefore, both the sending of IP multicast requests and the sending of the unicast CoAP responses to these multicast requests should be conservatively controlled.
@@ -596,7 +598,7 @@ CoAP {{RFC7252}} reduces IP multicast-specific congestion risks through the foll
 
 Additional guidelines to reduce congestion risks defined in this document are as follows:
 
-* A server in a constrained network should only support group communication with GET and FETCH for resources that are small. This can consist, for example, in having the payload of the response as limited to approximately 5% of the IP Maximum Transmit Unit (MTU) size, so that it fits into a single link-layer frame in case IPv6 over Low-Power Wireless Personal Area Networks (6LoWPAN) (see Section 4 of {{RFC4944}}) is used.
+* A server in a constrained network SHOULD only support group communication for resources that have a small representation (where the representation may be retrieved via a GET, FETCH or POST method in the request). For example, "small" can be defined as a response payload limited to approximately 5% of the IP Maximum Transmit Unit (MTU) size, so that it fits into a single link-layer frame in case IPv6 over Low-Power Wireless Personal Area Networks (6LoWPAN) (see Section 4 of {{RFC4944}}) is used on the constrained network.
 
 * A server SHOULD minimize the payload size of a response to a multicast GET or FETCH on "/.well-known/core" by using hierarchy in arranging link descriptions for the response. An example of this is given in Section 5 of {{RFC6690}}.
 
@@ -753,17 +755,17 @@ Starting from the same plain CoAP request, this allows different clients in the 
 
 With enabled cachability of responses at the proxy, the same as defined in {{sec-proxy-caching}} applies, with respect to cache entries and their lifetimes.
 
-Note that different Deterministic Requests result in different cache entries at the proxy. This includes the case where different plain group requests differ only in their set of Multi-ETag options.
+Note that different Deterministic Requests result in different cache entries at the proxy. This includes the case where different plain group requests differ only in their set of Multi-ETag Options.
 
 That is, even though the servers would produce the same plain CoAP responses in reply to the different Deterministic Requests, those will result in different protected responses to the respective Deterministic Request, and hence in different cache entries at the proxy.
 
-Thus, given a plain group request, a client needs to reuse the same set of Multi-ETag options, in order to send that group request as a Deterministic Request that can actually produce a cache hit at the proxy. However, while this would prevent the caching at the proxy to be inefficient and unnecessarily redundant, it would also limit the flexibility of end-to-end response revalidation for a client.
+Thus, given a plain group request, a client needs to reuse the same set of Multi-ETag Options, in order to send that group request as a Deterministic Request that can actually produce a cache hit at the proxy. However, while this would prevent the caching at the proxy to be inefficient and unnecessarily redundant, it would also limit the flexibility of end-to-end response revalidation for a client.
 
 ### Validation of Responses # {#chap-sec-group-caching-validation}
 
 When directly interacting with the servers in the CoAP group to refresh its cache entries, the proxy cannot rely on response revalidation anymore. In fact, responses protected with Group OSCORE cannot have 2.03 (Valid) as Outer Code. Response revalidation remains possible end-to-end between the client and the servers in the group, by means of the inner ETag or Multi-ETag Option.
 
-Finally, it is not possible for a client to revalidate responses to a group request from an aggregated cache entry at the proxy, by using the outer Group-ETag Option as defined in {{sec-proxy-caching-valid}}. In fact, that would require the proxy to reply with an unprotected 2.03 (Valid) response. However, success responses have to be protected with Group OSCORE, and more generally cannot have 2.03 (Valid) as Outer Code.
+Finally, it is not possible for a client to revalidate responses to a group request from an aggregated cache entry at the proxy, by using the outer Group-ETag Option as defined in {{sec-proxy-caching-valid}}. In fact, that would require the proxy to respond with an unprotected 2.03 (Valid) response. However, success responses have to be protected with Group OSCORE, and more generally cannot have 2.03 (Valid) as Outer Code.
 
 # Security Considerations # {#chap-security-considerations}
 
