@@ -297,13 +297,13 @@ Another method to more easily meet the above constraint is to instantiate multip
 
 Since a client sending a multicast request with a Token T will accept multiple responses with the same Token T, it is possible in particular that the same server sends multiple responses with the same Token T back to the client. For example, this server might not implement the optional CoAP message deduplication based on Message ID; or it might be acting out of specification as a malicious, compromised or faulty server.
 
-When this happens, the client normally processes at the CoAP layer each of those responses to the same request coming from the same server. If the processing a response is successful, the client delivers this response to the application as usual.
+When this happens, the client normally processes at the CoAP layer each of those responses to the same request coming from the same server. If the processing of a response is successful, the client delivers this response to the application as usual.
 
 Then, the application is in a better position to decide what to do, depending on the available context information. For instance, it might accept and process all the responses from the same server, even if they are not Observe notifications (i.e., they do not include an Observe option). Alternatively, the application might accept and process only one of those responses, such as the most recent one from that server, e.g. when this can trigger a change of state within the application.
 
 ## Caching ## {#sec-caching}
 
-CoAP endpoints that are members of a CoAP group MAY cache responses on a group request as defined in Section 5.6 of {{RFC7252}}. In particular, these same rules apply to determine the set of request options used as "Cache-Key".
+CoAP endpoints that are members of a CoAP group MAY cache responses to a group request as defined in Section 5.6 of {{RFC7252}}. In particular, these same rules apply to determine the set of request options used as "Cache-Key".
 
 Furthermore, building on what is defined in Section 8.2.1 of {{RFC7252}}:
 
@@ -314,7 +314,7 @@ Furthermore, building on what is defined in Section 8.2.1 of {{RFC7252}}:
    * A client MAY revalidate a cached response by making a GET or FETCH request on the
    related unicast request URI.
    
-Note that, in the presence of proxies, doing any of the above (optional) unicast requests requires the client to distinguish the different responses to a group request, as well as distinguish the different origin servers that responded. This in turn requires additional means to provide the client with information about the origin server of each response, as discussed in {{sec-proxy-caching}}.
+Note that, in the presence of proxies, doing any of the above (optional) unicast requests requires the client to distinguish the different responses to a group request, as well as to distinguish the different origin servers that responded. This in turn requires additional means to provide the client with information about the origin server of each response, as discussed in {{sec-proxy-caching}}.
 
 The following subsections define the freshness model and validation model to use for cached responses, which update the models defined in Section 5.6.1 and Section 5.6.2 of {{RFC7252}}, respectively.
 
