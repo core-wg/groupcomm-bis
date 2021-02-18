@@ -9,28 +9,28 @@
 <meta content="Chonggang Wang" name="author">
 <meta content="Marco Tiloca" name="author">
 <meta content="
-       This document specifies the use of the Constrained Application Protocol (CoAP) for group communication, using UDP/IP multicast as the underlying data transport. Both unsecured and secured CoAP group communication are specified. Security is achieved by use of the Group Object Security for Constrained RESTful Environments (Group OSCORE) protocol. The target application area of this specification is any group communication use cases that involve resource-constrained networks. The most common of such use cases are also discussed. This document replaces   and updates   and  . 
+       This document specifies the use of the Constrained Application Protocol (CoAP) for group communication, using UDP/IP multicast as the underlying data transport. Both unsecured and secured CoAP group communication are specified. Security is achieved by use of the Group Object Security for Constrained RESTful Environments (Group OSCORE) protocol. The target application area of this specification is any group communication use cases that involve resource-constrained devices or networks. This document replaces  , while it updates   and  . 
     " name="description">
 <meta content="xml2rfc 3.5.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-core-groupcomm-bis-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.5.0
-    Python 3.8.5
+    Python 3.8.7
     appdirs 1.4.4
     ConfigArgParse 1.2.3
     google-i18n-address 2.4.0
     html5lib 1.1
-    intervaltree 3.0.2
+    intervaltree 3.1.0
     Jinja2 2.11.2
     kitchen 1.2.6
-    lxml 4.5.0
-    pycountry 19.8.18
-    pyflakes 2.1.1
+    lxml 4.6.2
+    pycountry 20.7.3
+    pyflakes 2.2.0
     PyYAML 5.4.1
-    requests 2.22.0
-    setuptools 45.2.0
-    six 1.14.0
+    requests 2.25.1
+    setuptools 51.3.3
+    six 1.15.0
 -->
 <link href="draft-ietf-core-groupcomm-bis.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -820,11 +820,11 @@ address div.right {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Group Communication for CoAP</td>
-<td class="right">January 2021</td>
+<td class="right">February 2021</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Dijk, et al.</td>
-<td class="center">Expires 27 July 2021</td>
+<td class="center">Expires 22 August 2021</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -843,12 +843,12 @@ address div.right {
 <a href="https://www.rfc-editor.org/rfc/rfc7252" class="eref">7252</a>, <a href="https://www.rfc-editor.org/rfc/rfc7641" class="eref">7641</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2021-01-23" class="published">23 January 2021</time>
+<time datetime="2021-02-18" class="published">18 February 2021</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2021-07-27">27 July 2021</time></dd>
+<dd class="expires"><time datetime="2021-08-22">22 August 2021</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -869,7 +869,7 @@ address div.right {
 <h1 id="title">Group Communication for the Constrained Application Protocol (CoAP)</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document specifies the use of the Constrained Application Protocol (CoAP) for group communication, using UDP/IP multicast as the underlying data transport. Both unsecured and secured CoAP group communication are specified. Security is achieved by use of the Group Object Security for Constrained RESTful Environments (Group OSCORE) protocol. The target application area of this specification is any group communication use cases that involve resource-constrained networks. The most common of such use cases are also discussed. This document replaces <span>[<a href="#RFC7390" class="xref">RFC7390</a>]</span> and updates <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> and <span>[<a href="#RFC7641" class="xref">RFC7641</a>]</span>.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document specifies the use of the Constrained Application Protocol (CoAP) for group communication, using UDP/IP multicast as the underlying data transport. Both unsecured and secured CoAP group communication are specified. Security is achieved by use of the Group Object Security for Constrained RESTful Environments (Group OSCORE) protocol. The target application area of this specification is any group communication use cases that involve resource-constrained devices or networks. This document replaces <span>[<a href="#RFC7390" class="xref">RFC7390</a>]</span>, while it updates <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> and <span>[<a href="#RFC7641" class="xref">RFC7641</a>]</span>.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -901,7 +901,7 @@ address div.right {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 27 July 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 August 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -929,270 +929,270 @@ address div.right {
         <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
 <a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
         </h2>
-<nav class="toc"><ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.1">
+<nav class="toc"><ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.1">
             <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a><a href="#section-toc.1-1.1.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.1.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.1.2.1">
                 <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-scope" class="xref">Scope</a><a href="#section-toc.1-1.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.1.2.2">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.1.2.2">
                 <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="xref">1.2</a>.  <a href="#name-terminology" class="xref">Terminology</a><a href="#section-toc.1-1.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.2">
+          <li class="compact toc ulEmpty" id="section-toc.1-1.2">
             <p id="section-toc.1-1.2.1"><a href="#section-2" class="xref">2</a>.  <a href="#name-group-definition-and-group-" class="xref">Group Definition and Group Configuration</a><a href="#section-toc.1-1.2.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.2.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.2.2.1">
                 <p id="section-toc.1-1.2.2.1.1"><a href="#section-2.1" class="xref">2.1</a>.  <a href="#name-group-definition" class="xref">Group Definition</a><a href="#section-toc.1-1.2.2.1.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.2.2.1.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.2.2.1.2.1">
                     <p id="section-toc.1-1.2.2.1.2.1.1"><a href="#section-2.1.1" class="xref">2.1.1</a>.  <a href="#name-coap-group" class="xref">CoAP Group</a><a href="#section-toc.1-1.2.2.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.2.2.1.2.2">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.2.2.1.2.2">
                     <p id="section-toc.1-1.2.2.1.2.2.1"><a href="#section-2.1.2" class="xref">2.1.2</a>.  <a href="#name-application-group" class="xref">Application Group</a><a href="#section-toc.1-1.2.2.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.2.2.1.2.3">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.2.2.1.2.3">
                     <p id="section-toc.1-1.2.2.1.2.3.1"><a href="#section-2.1.3" class="xref">2.1.3</a>.  <a href="#name-security-group" class="xref">Security Group</a><a href="#section-toc.1-1.2.2.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.2.2.1.2.4">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.2.2.1.2.4">
                     <p id="section-toc.1-1.2.2.1.2.4.1"><a href="#section-2.1.4" class="xref">2.1.4</a>.  <a href="#name-relations-between-group-typ" class="xref">Relations Between Group Types</a><a href="#section-toc.1-1.2.2.1.2.4.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.2.2.2">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.2.2.2">
                 <p id="section-toc.1-1.2.2.2.1"><a href="#section-2.2" class="xref">2.2</a>.  <a href="#name-group-configuration" class="xref">Group Configuration</a><a href="#section-toc.1-1.2.2.2.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.2.2.2.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.2.2.2.2.1">
                     <p id="section-toc.1-1.2.2.2.2.1.1"><a href="#section-2.2.1" class="xref">2.2.1</a>.  <a href="#name-group-naming" class="xref">Group Naming</a><a href="#section-toc.1-1.2.2.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.2.2.2.2.2">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.2.2.2.2.2">
                     <p id="section-toc.1-1.2.2.2.2.2.1"><a href="#section-2.2.2" class="xref">2.2.2</a>.  <a href="#name-group-creation-and-membersh" class="xref">Group Creation and Membership</a><a href="#section-toc.1-1.2.2.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.2.2.2.2.3">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.2.2.2.2.3">
                     <p id="section-toc.1-1.2.2.2.2.3.1"><a href="#section-2.2.3" class="xref">2.2.3</a>.  <a href="#name-group-discovery" class="xref">Group Discovery</a><a href="#section-toc.1-1.2.2.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.2.2.2.2.4">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.2.2.2.2.4">
                     <p id="section-toc.1-1.2.2.2.2.4.1"><a href="#section-2.2.4" class="xref">2.2.4</a>.  <a href="#name-group-maintenance" class="xref">Group Maintenance</a><a href="#section-toc.1-1.2.2.2.2.4.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.3">
+          <li class="compact toc ulEmpty" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-coap-usage-in-group-communi" class="xref">CoAP Usage in Group Communication</a><a href="#section-toc.1-1.3.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.3.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.3.2.1">
                 <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-request-response-model" class="xref">Request/Response Model</a><a href="#section-toc.1-1.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.2">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.2">
                 <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-caching" class="xref">Caching</a><a href="#section-toc.1-1.3.2.2.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.3.2.2.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.3.2.2.2.1">
                     <p id="section-toc.1-1.3.2.2.2.1.1"><a href="#section-3.2.1" class="xref">3.2.1</a>.  <a href="#name-freshness-model" class="xref">Freshness Model</a><a href="#section-toc.1-1.3.2.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.2.2.2">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.2.2.2">
                     <p id="section-toc.1-1.3.2.2.2.2.1"><a href="#section-3.2.2" class="xref">3.2.2</a>.  <a href="#name-validation-model" class="xref">Validation Model</a><a href="#section-toc.1-1.3.2.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.3">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.3">
                 <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="xref">3.3</a>.  <a href="#name-port-and-uri-path-selection" class="xref">Port and URI Path Selection</a><a href="#section-toc.1-1.3.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.4">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.4">
                 <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="xref">3.4</a>.  <a href="#name-proxy-operation" class="xref">Proxy Operation</a><a href="#section-toc.1-1.3.2.4.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.3.2.4.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.3.2.4.2.1">
                     <p id="section-toc.1-1.3.2.4.2.1.1"><a href="#section-3.4.1" class="xref">3.4.1</a>.  <a href="#name-forward-proxies" class="xref">Forward-Proxies</a><a href="#section-toc.1-1.3.2.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.4.2.2">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.4.2.2">
                     <p id="section-toc.1-1.3.2.4.2.2.1"><a href="#section-3.4.2" class="xref">3.4.2</a>.  <a href="#name-reverse-proxies" class="xref">Reverse-Proxies</a><a href="#section-toc.1-1.3.2.4.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.4.2.3">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.4.2.3">
                     <p id="section-toc.1-1.3.2.4.2.3.1"><a href="#section-3.4.3" class="xref">3.4.3</a>.  <a href="#name-caching-2" class="xref">Caching</a><a href="#section-toc.1-1.3.2.4.2.3.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.5">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.5">
                 <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="xref">3.5</a>.  <a href="#name-congestion-control" class="xref">Congestion Control</a><a href="#section-toc.1-1.3.2.5.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.6">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.6">
                 <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="xref">3.6</a>.  <a href="#name-observing-resources" class="xref">Observing Resources</a><a href="#section-toc.1-1.3.2.6.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.7">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.7">
                 <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="xref">3.7</a>.  <a href="#name-block-wise-transfer" class="xref">Block-Wise Transfer</a><a href="#section-toc.1-1.3.2.7.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.8">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.8">
                 <p id="section-toc.1-1.3.2.8.1"><a href="#section-3.8" class="xref">3.8</a>.  <a href="#name-transport" class="xref">Transport</a><a href="#section-toc.1-1.3.2.8.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.3.2.8.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.3.2.8.2.1">
                     <p id="section-toc.1-1.3.2.8.2.1.1"><a href="#section-3.8.1" class="xref">3.8.1</a>.  <a href="#name-udp-ipv6-multicast-transpor" class="xref">UDP/IPv6 Multicast Transport</a><a href="#section-toc.1-1.3.2.8.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.8.2.2">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.8.2.2">
                     <p id="section-toc.1-1.3.2.8.2.2.1"><a href="#section-3.8.2" class="xref">3.8.2</a>.  <a href="#name-udp-ipv4-multicast-transpor" class="xref">UDP/IPv4 Multicast Transport</a><a href="#section-toc.1-1.3.2.8.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.8.2.3">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.8.2.3">
                     <p id="section-toc.1-1.3.2.8.2.3.1"><a href="#section-3.8.3" class="xref">3.8.3</a>.  <a href="#name-6lowpan" class="xref">6LoWPAN</a><a href="#section-toc.1-1.3.2.8.2.3.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.9">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.9">
                 <p id="section-toc.1-1.3.2.9.1"><a href="#section-3.9" class="xref">3.9</a>.  <a href="#name-interworking-with-other-pro" class="xref">Interworking with Other Protocols</a><a href="#section-toc.1-1.3.2.9.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.3.2.9.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.3.2.9.2.1">
                     <p id="section-toc.1-1.3.2.9.2.1.1"><a href="#section-3.9.1" class="xref">3.9.1</a>.  <a href="#name-mld-mldv2-igmp-igmpv3" class="xref">MLD/MLDv2/IGMP/IGMPv3</a><a href="#section-toc.1-1.3.2.9.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.9.2.2">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.9.2.2">
                     <p id="section-toc.1-1.3.2.9.2.2.1"><a href="#section-3.9.2" class="xref">3.9.2</a>.  <a href="#name-rpl" class="xref">RPL</a><a href="#section-toc.1-1.3.2.9.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.9.2.3">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.9.2.3">
                     <p id="section-toc.1-1.3.2.9.2.3.1"><a href="#section-3.9.3" class="xref">3.9.3</a>.  <a href="#name-mpl" class="xref">MPL</a><a href="#section-toc.1-1.3.2.9.2.3.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.4">
+          <li class="compact toc ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-unsecured-group-communicati" class="xref">Unsecured Group Communication</a><a href="#section-toc.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.5">
+          <li class="compact toc ulEmpty" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-secured-group-communication" class="xref">Secured Group Communication using Group OSCORE</a><a href="#section-toc.1-1.5.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.5.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.5.2.1">
                 <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="xref">5.1</a>.  <a href="#name-secure-group-maintenance" class="xref">Secure Group Maintenance</a><a href="#section-toc.1-1.5.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.5.2.2">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.5.2.2">
                 <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="xref">5.2</a>.  <a href="#name-caching-of-responses-at-pro" class="xref">Caching of Responses at Proxies</a><a href="#section-toc.1-1.5.2.2.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.5.2.2.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.5.2.2.2.1">
                     <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="xref">5.2.1</a>.  <a href="#name-validation-of-responses" class="xref">Validation of Responses</a><a href="#section-toc.1-1.5.2.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.6">
+          <li class="compact toc ulEmpty" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a><a href="#section-toc.1-1.6.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.6.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.6.2.1">
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="xref">6.1</a>.  <a href="#name-coap-nosec-mode" class="xref">CoAP NoSec Mode</a><a href="#section-toc.1-1.6.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.6.2.2">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.6.2.2">
                 <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="xref">6.2</a>.  <a href="#name-group-oscore" class="xref">Group OSCORE</a><a href="#section-toc.1-1.6.2.2.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.6.2.2.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.6.2.2.2.1">
                     <p id="section-toc.1-1.6.2.2.2.1.1"><a href="#section-6.2.1" class="xref">6.2.1</a>.  <a href="#name-group-key-management" class="xref">Group Key Management</a><a href="#section-toc.1-1.6.2.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.6.2.2.2.2">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.6.2.2.2.2">
                     <p id="section-toc.1-1.6.2.2.2.2.1"><a href="#section-6.2.2" class="xref">6.2.2</a>.  <a href="#name-source-authentication" class="xref">Source Authentication</a><a href="#section-toc.1-1.6.2.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.6.2.2.2.3">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.6.2.2.2.3">
                     <p id="section-toc.1-1.6.2.2.2.3.1"><a href="#section-6.2.3" class="xref">6.2.3</a>.  <a href="#name-countering-attacks" class="xref">Countering Attacks</a><a href="#section-toc.1-1.6.2.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.6.2.3">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.6.2.3">
                 <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="xref">6.3</a>.  <a href="#name-replay-of-non-confirmable-m" class="xref">Replay of Non Confirmable Messages</a><a href="#section-toc.1-1.6.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.6.2.4">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.6.2.4">
                 <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="xref">6.4</a>.  <a href="#name-use-of-coap-no-response-opt" class="xref">Use of CoAP No-Response Option</a><a href="#section-toc.1-1.6.2.4.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.6.2.5">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.6.2.5">
                 <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="xref">6.5</a>.  <a href="#name-6lowpan-2" class="xref">6LoWPAN</a><a href="#section-toc.1-1.6.2.5.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.6.2.6">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.6.2.6">
                 <p id="section-toc.1-1.6.2.6.1"><a href="#section-6.6" class="xref">6.6</a>.  <a href="#name-wi-fi" class="xref">Wi-Fi</a><a href="#section-toc.1-1.6.2.6.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.6.2.7">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.6.2.7">
                 <p id="section-toc.1-1.6.2.7.1"><a href="#section-6.7" class="xref">6.7</a>.  <a href="#name-monitoring" class="xref">Monitoring</a><a href="#section-toc.1-1.6.2.7.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.6.2.7.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.6.2.7.2.1">
                     <p id="section-toc.1-1.6.2.7.2.1.1"><a href="#section-6.7.1" class="xref">6.7.1</a>.  <a href="#name-general-monitoring" class="xref">General Monitoring</a><a href="#section-toc.1-1.6.2.7.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.6.2.7.2.2">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.6.2.7.2.2">
                     <p id="section-toc.1-1.6.2.7.2.2.1"><a href="#section-6.7.2" class="xref">6.7.2</a>.  <a href="#name-pervasive-monitoring" class="xref">Pervasive Monitoring</a><a href="#section-toc.1-1.6.2.7.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.7">
+          <li class="compact toc ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-iana-considerations" class="xref">IANA Considerations</a><a href="#section-toc.1-1.7.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.7.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.7.2.1">
                 <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="xref">7.1</a>.  <a href="#name-coap-option-numbers-registr" class="xref">CoAP Option Numbers Registry</a><a href="#section-toc.1-1.7.2.1.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.8">
+          <li class="compact toc ulEmpty" id="section-toc.1-1.8">
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-references" class="xref">References</a><a href="#section-toc.1-1.8.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.8.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.8.2.1">
                 <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="xref">8.1</a>.  <a href="#name-normative-references" class="xref">Normative References</a><a href="#section-toc.1-1.8.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.8.2.2">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.8.2.2">
                 <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="xref">8.2</a>.  <a href="#name-informative-references" class="xref">Informative References</a><a href="#section-toc.1-1.8.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.9">
+          <li class="compact toc ulEmpty" id="section-toc.1-1.9">
             <p id="section-toc.1-1.9.1"><a href="#section-appendix.a" class="xref">Appendix A</a>.  <a href="#name-use-cases" class="xref">Use Cases</a><a href="#section-toc.1-1.9.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.9.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.9.2.1">
                 <p id="section-toc.1-1.9.2.1.1"><a href="#section-a.1" class="xref">A.1</a>.  <a href="#name-discovery" class="xref">Discovery</a><a href="#section-toc.1-1.9.2.1.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.9.2.1.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.9.2.1.2.1">
                     <p id="section-toc.1-1.9.2.1.2.1.1"><a href="#section-a.1.1" class="xref">A.1.1</a>.  <a href="#name-distributed-device-discover" class="xref">Distributed Device Discovery</a><a href="#section-toc.1-1.9.2.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.9.2.1.2.2">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.9.2.1.2.2">
                     <p id="section-toc.1-1.9.2.1.2.2.1"><a href="#section-a.1.2" class="xref">A.1.2</a>.  <a href="#name-distributed-service-discove" class="xref">Distributed Service Discovery</a><a href="#section-toc.1-1.9.2.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.9.2.1.2.3">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.9.2.1.2.3">
                     <p id="section-toc.1-1.9.2.1.2.3.1"><a href="#section-a.1.3" class="xref">A.1.3</a>.  <a href="#name-directory-discovery" class="xref">Directory Discovery</a><a href="#section-toc.1-1.9.2.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.9.2.2">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.9.2.2">
                 <p id="section-toc.1-1.9.2.2.1"><a href="#section-a.2" class="xref">A.2</a>.  <a href="#name-operational-phase" class="xref">Operational Phase</a><a href="#section-toc.1-1.9.2.2.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.9.2.2.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.9.2.2.2.1">
                     <p id="section-toc.1-1.9.2.2.2.1.1"><a href="#section-a.2.1" class="xref">A.2.1</a>.  <a href="#name-actuator-group-control" class="xref">Actuator Group Control</a><a href="#section-toc.1-1.9.2.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.9.2.2.2.2">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.9.2.2.2.2">
                     <p id="section-toc.1-1.9.2.2.2.2.1"><a href="#section-a.2.2" class="xref">A.2.2</a>.  <a href="#name-device-group-status-request" class="xref">Device Group Status Request</a><a href="#section-toc.1-1.9.2.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.9.2.2.2.3">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.9.2.2.2.3">
                     <p id="section-toc.1-1.9.2.2.2.3.1"><a href="#section-a.2.3" class="xref">A.2.3</a>.  <a href="#name-network-wide-query" class="xref">Network-wide Query</a><a href="#section-toc.1-1.9.2.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.9.2.2.2.4">
+                  <li class="compact toc ulEmpty" id="section-toc.1-1.9.2.2.2.4">
                     <p id="section-toc.1-1.9.2.2.2.4.1"><a href="#section-a.2.4" class="xref">A.2.4</a>.  <a href="#name-network-wide-group-notifica" class="xref">Network-wide / Group Notification</a><a href="#section-toc.1-1.9.2.2.2.4.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.9.2.3">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.9.2.3">
                 <p id="section-toc.1-1.9.2.3.1"><a href="#section-a.3" class="xref">A.3</a>.  <a href="#name-software-update" class="xref">Software Update</a><a href="#section-toc.1-1.9.2.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.10">
+          <li class="compact toc ulEmpty" id="section-toc.1-1.10">
             <p id="section-toc.1-1.10.1"><a href="#section-appendix.b" class="xref">Appendix B</a>.  <a href="#name-document-updates" class="xref">Document Updates</a><a href="#section-toc.1-1.10.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.10.2.1">
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.10.2.1">
                 <p id="section-toc.1-1.10.2.1.1"><a href="#section-b.1" class="xref">B.1</a>.  <a href="#name-version-02-to-03" class="xref">Version -02 to -03</a><a href="#section-toc.1-1.10.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.10.2.2">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.10.2.2">
                 <p id="section-toc.1-1.10.2.2.1"><a href="#section-b.2" class="xref">B.2</a>.  <a href="#name-version-01-to-02" class="xref">Version -01 to -02</a><a href="#section-toc.1-1.10.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.10.2.3">
+              <li class="compact toc ulEmpty" id="section-toc.1-1.10.2.3">
                 <p id="section-toc.1-1.10.2.3.1"><a href="#section-b.3" class="xref">B.3</a>.  <a href="#name-version-00-to-01" class="xref">Version -00 to -01</a><a href="#section-toc.1-1.10.2.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.11">
+          <li class="compact toc ulEmpty" id="section-toc.1-1.11">
             <p id="section-toc.1-1.11.1"><a href="#section-appendix.c" class="xref"></a><a href="#name-acknowledgments" class="xref">Acknowledgments</a><a href="#section-toc.1-1.11.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.12">
+          <li class="compact toc ulEmpty" id="section-toc.1-1.12">
             <p id="section-toc.1-1.12.1"><a href="#section-appendix.d" class="xref"></a><a href="#name-authors-addresses" class="xref">Authors' Addresses</a><a href="#section-toc.1-1.12.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
@@ -1207,7 +1207,7 @@ address div.right {
 <p id="section-1-1">This document specifies group communication using the Constrained Application Protocol (CoAP) <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> together with UDP/IP multicast. CoAP is a RESTful communication protocol that is used in resource-constrained nodes, and in resource-constrained networks where packet sizes should be small. This area of use is summarized as Constrained RESTful Environments (CoRE).<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">One-to-many group communication can be achieved in CoAP, by a client using UDP/IP multicast data transport to send multicast CoAP request messages. In response, each server in the addressed group sends a response message back to the client over UDP/IP unicast. Notable CoAP implementations supporting group communication include the framework "Eclipse Californium" 2.0.x <span>[<a href="#Californium" class="xref">Californium</a>]</span> from the Eclipse Foundation and the "Implementation of CoAP Server &amp; Client in Go" <span>[<a href="#Go-OCF" class="xref">Go-OCF</a>]</span> from the Open Connectivity Foundation (OCF).<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">Both unsecured and secured CoAP group communication over UDP/IP multicast are specified in this document. Security is achieved by using Group Object Security for Constrained RESTful Environments (Group OSCORE) <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="xref">I-D.ietf-core-oscore-groupcomm</a>]</span>, which in turn builds on Object Security for Constrained Restful Environments (OSCORE) <span>[<a href="#RFC8613" class="xref">RFC8613</a>]</span>. This method provides end-to-end application-layer security protection of CoAP messages, by using CBOR Object Signing and Encryption (COSE) <span>[<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span><span>[<a href="#I-D.ietf-cose-rfc8152bis-algs" class="xref">I-D.ietf-cose-rfc8152bis-algs</a>]</span>.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">All guidelines in <span>[<a href="#RFC7390" class="xref">RFC7390</a>]</span> are updated by this document, which replaces and obsoletes <span>[<a href="#RFC7390" class="xref">RFC7390</a>]</span>. Furthermore, this document updates <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>, by specifying a group request/response model and by adding security for CoAP group communication. Finally, this document also updates <span>[<a href="#RFC7641" class="xref">RFC7641</a>]</span>, by adding the multicast usage of CoAP Observe for both the GET and FETCH methods.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-4">All guidelines in <span>[<a href="#RFC7390" class="xref">RFC7390</a>]</span> are updated by this document, which replaces and obsoletes <span>[<a href="#RFC7390" class="xref">RFC7390</a>]</span>. Furthermore, this document updates <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>, by specifying: a group request/response model; cachability of responses to group requests at proxies; a response validation model for responses to group requests; and the use of Group OSCORE <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="xref">I-D.ietf-core-oscore-groupcomm</a>]</span> to achieve security for CoAP group communication. Finally, this document also updates <span>[<a href="#RFC7641" class="xref">RFC7641</a>]</span>, by defining the multicast usage of the CoAP Observe Option for both the GET and FETCH methods.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">All sections in the body of this document are normative, while appendices are informative. For additional background about use cases for CoAP group communication in resource-constrained devices and networks, see <a href="#appendix-usecases" class="xref">Appendix A</a>.<a href="#section-1-5" class="pilcrow">¶</a></p>
 <div id="scope">
 <section id="section-1.1">
@@ -1256,7 +1256,7 @@ in this document are to be interpreted as described in BCP 14 <span>[<a href="#R
           <h4 id="name-application-group">
 <a href="#section-2.1.2" class="section-number selfRef">2.1.2. </a><a href="#name-application-group" class="section-name selfRef">Application Group</a>
           </h4>
-<p id="section-2.1.2-1">Besides CoAP groups, that have relevance at the level of IP networks and CoAP endpoints, there are also application groups. An application group is a set of CoAP server endpoints that share a common set of CoAP resources. An endpoint may be a member of multiple application groups. An application group has relevance at the application level -- for example an application group could denote all lights in an office room or all sensors in a hallway. A client endpoint that sends a group communication message to an application group is not necessarily itself a member of this application group. There can be a one-to-one or a one-to-many relation between a CoAP group and application group(s). An application group identifier is optionally encoded explicitly in the CoAP request. If not explicitly encoded, the application group is implicitly derived by the receiver, based on information in the CoAP request. See <a href="#sec-groupnaming" class="xref">Section 2.2.1</a> for more details on identifying the application group.<a href="#section-2.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.1.2-1">Besides CoAP groups, that have relevance at the level of IP networks and CoAP endpoints, there are also application groups. An application group is a set of CoAP server endpoints that share a common set of CoAP resources. An endpoint may be a member of multiple application groups. An application group has relevance at the application level -- for example an application group could denote all lights in an office room or all sensors in a hallway. A client endpoint that sends a group communication message to an application group is not necessarily itself a member of this application group. There can be a one-to-one or a one-to-many relation between a CoAP group and application group(s). An application group identifier is optionally encoded explicitly in the CoAP request, for example as a name in the URI path. If not explicitly encoded, the application group is implicitly derived by the receiver, based on information in the CoAP request. See <a href="#sec-groupnaming" class="xref">Section 2.2.1</a> for more details on identifying the application group.<a href="#section-2.1.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-groupdef-securitygroup">
@@ -1264,7 +1264,7 @@ in this document are to be interpreted as described in BCP 14 <span>[<a href="#R
           <h4 id="name-security-group">
 <a href="#section-2.1.3" class="section-number selfRef">2.1.3. </a><a href="#name-security-group" class="section-name selfRef">Security Group</a>
           </h4>
-<p id="section-2.1.3-1">For secure group communication, a security group is required. A security group is a group of endpoints that each store group security material, such that they can mutually exchange secured messages and verify secured messages. So, a client endpoint needs to be a member of a security group in order to send a valid secured group communication message to this group. An endpoint may be a member of multiple security groups. There can be a one-to-one or a one-to-many relation between security groups and CoAP groups. Also, there can be a one-to-one or a one-to-many relation between security groups and application groups. A special security group named "NoSec" identifies group communication without any security at the transport layer and/or application layer.<a href="#section-2.1.3-1" class="pilcrow">¶</a></p>
+<p id="section-2.1.3-1">For secure group communication, a security group is required. A security group is a group of endpoints that each store group security material, such that they can mutually exchange secured messages and verify secured messages. So, a client endpoint needs to be a member of a security group in order to send a valid secured group communication message to this group. An endpoint may be a member of multiple security groups. There can be a one-to-one or a one-to-many relation between security groups and CoAP groups. Also, there can be a one-to-one or a one-to-many relation between security groups and application groups. A special security group named "NoSec" identifies group communication without any security at the transport layer nor at the CoAP layer.<a href="#section-2.1.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-groupdef-grouprelations">
@@ -1279,64 +1279,64 @@ in this document are to be interpreted as described in BCP 14 <span>[<a href="#R
 </pre><a href="#section-2.1.4-2" class="pilcrow">¶</a>
 </div>
 <p id="section-2.1.4-3">A special note is appropriate about the possible relation between security groups and application groups.<a href="#section-2.1.4-3" class="pilcrow">¶</a></p>
-<p id="section-2.1.4-4">On one hand, multiple application groups may use the same security group. Thus, the same group security material is used to protect the messages targeting any of those application groups. In this case, a CoAP endpoint is supposed to know the exact application group to refer to for each message, based on, e.g., the used server port number, the targeted resource, or the content and structure of the message payload.<a href="#section-2.1.4-4" class="pilcrow">¶</a></p>
-<p id="section-2.1.4-5">On the other hand, a single application group may use multiple security groups. Thus, different messages targeting the resources of the application group can be protected with different security material. This can be convenient, for example, if the security groups differ with respect to the crytpographic algorithms and related parameters they use. In this case, a CoAP client can join just one of the security groups, based on what it supports and prefers, while a CoAP server in the application group would rather have to join all of them.<a href="#section-2.1.4-5" class="pilcrow">¶</a></p>
-<p id="section-2.1.4-6">Beyond this particular case, applications should be greatly careful in associating a same application group to multiple security groups. In particular, it is NOT RECOMMENDED using different security groups to reflect different access policies for resources in a same application group. That is, being a member of a security group actually grants access only to exchanged secure messages, while access to resources in the application group belongs to a separate security domain, and has to be separately enforced by leveraging the resource properties or through dedicated access control credentials assessed by separate means.<a href="#section-2.1.4-6" class="pilcrow">¶</a></p>
-<p id="section-2.1.4-7"><a href="#fig-group-relation" class="xref">Figure 1</a> summarizes the relations between the different types of groups described above in UML class diagram notation. The items in square brackets are optionally defined.<a href="#section-2.1.4-7" class="pilcrow">¶</a></p>
-<span id="name-relation-among-different-gr"></span><div id="fig-group-relation">
+<p id="section-2.1.4-4">On one hand, multiple application groups may use the same security group. Thus, the same group security material is used to protect the messages targeting any of those application groups. This has the benefit that typically less storage, configuration and updating are required for security material. In this case, a CoAP endpoint is supposed to know the exact application group to refer to for each message that is sent or received, based on, e.g., the used server port number, the targeted resource, or the content and structure of the message payload.<a href="#section-2.1.4-4" class="pilcrow">¶</a></p>
+<p id="section-2.1.4-5">On the other hand, a single application group may use multiple security groups. Thus, different messages targeting the resources of the application group can be protected with different security material. This can be convenient, for example, if the security groups differ with respect to the cryptographic algorithms and related parameters they use. In this case, a CoAP client can join just one of the security groups, based on what it supports and prefers, while a CoAP server in the application group would rather have to join all of them.<a href="#section-2.1.4-5" class="pilcrow">¶</a></p>
+<p id="section-2.1.4-6">Beyond this particular case, applications should be careful in associating a same application group to multiple security groups. In particular, it is NOT RECOMMENDED to use different security groups to reflect different access policies for resources in a same application group. That is, being a member of a security group actually grants access only to exchange secured messages and enables authentication of group members, while access control (authorization) to use resources in the application group belongs to a separate security domain. It has to be separately enforced by leveraging the resource properties or through dedicated access control credentials assessed by separate means.<a href="#section-2.1.4-6" class="pilcrow">¶</a></p>
+<p id="section-2.1.4-7"><a href="#fig-group-relation" class="xref">Figure 1</a> summarizes the relations between the different types of groups described above in UML class diagram notation. The class attributes in square brackets are optionally defined.<a href="#section-2.1.4-7" class="pilcrow">¶</a></p>
+<span id="name-relations-among-different-g"></span><div id="fig-group-relation">
 <figure id="figure-1">
             <div class="artwork art-text alignCenter" id="section-2.1.4-8.1">
 <pre>
-+------------------------+                 +------------------+
-|   Application group    |                 |    CoAP group    |
-|........................|                 |..................|
-|                        |                 |                  |
-| [ group name/          +-----------------+ IP mcast address |
-|   identifier ]         |  1...N       1  | UDP port         |
-|                        |                 |                  |
-|                        |                 |                  |
-+-------------+----------+                 +---------+--------+
++------------------------+                 +--------------------+
+|   Application group    |                 |    CoAP group      |
+|........................|                 |....................|
+|                        |                 |                    |
+| [ - group name ]       +-----------------+ - IP mcast address |
+| [ - group identifier ] |  1...N       1  | - UDP port         |
+|                        |                 |                    |
+|                        |                 |                    |
++-------------+----------+                 +---------+----------+
               |  1...N                               |  1...N
               |                                      |
               |                                      |
               |                                      |  1...N
-              |                           +----------+----------+
-              |                           |   Security group    |
-              |                           |.....................|
-              |                           |                     |
-              \---------------------------+ Security group name |
-                                   1...N  | Security material   |
-                                          |                     |
-                                          +---------------------+
+              |                           +----------+------------+
+              |                           |   Security group      |
+              |                           |.......................|
+              |                           |                       |
+              \---------------------------+ - Security group name |
+                                   1...N  | - Security material   |
+                                          |                       |
+                                          +-----------------------+
 </pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
-<a href="#name-relation-among-different-gr" class="selfRef">Relation Among Different Group Types</a>
+<a href="#name-relations-among-different-g" class="selfRef">Relations Among Different Group Types</a>
             </figcaption></figure>
 </div>
-<p id="section-2.1.4-9"><a href="#fig-group-relation-example" class="xref">Figure 2</a> provides a deployment example of the relations between the different types of groups. It shows six CoAP servers (Srv1-Srv6) and their respective resources hosted (/resX). There are three application groups (1, 2, 3) and two security groups (1, 2). Security Group 1 is used by both Application Group 1 and 2. Three clients (Cli1, Cli2, Cli3) are configured with security material for Security Group 1. One cient (Cli4) is configured with security material for Security Group 2. All the shown application groups use the same CoAP group (not shown in the figure), i.e. one specific multicast IP address and UDP port on which all the shown resources are hosted for each server.<a href="#section-2.1.4-9" class="pilcrow">¶</a></p>
+<p id="section-2.1.4-9"><a href="#fig-group-relation-example" class="xref">Figure 2</a> provides a deployment example of the relations between the different types of groups. It shows six CoAP servers (Srv1-Srv6) and their respective resources hosted (/resX). There are three application groups (1, 2, 3) and two security groups (1, 2). Security Group 1 is used by both Application Group 1 and 2. Three clients (Cli1, Cli2, Cli3) are configured with security material for Security Group 1. Two clients (Cli2, Cli4) are  configured with security material for Security Group 2. All the shown application groups use the same CoAP group (not shown in the figure), i.e. one specific multicast IP address and UDP port on which all the shown resources are hosted for each server.<a href="#section-2.1.4-9" class="pilcrow">¶</a></p>
 <span id="name-deployment-example-of-diffe"></span><div id="fig-group-relation-example">
 <figure id="figure-2">
             <div class="artwork art-text alignCenter" id="section-2.1.4-10.1">
 <pre>
- _________________________________    _________________________________
-/                                 \  /                                 \
-|        +---------------------+  |  |  +---------------------+        |
-|        | Application Group 1 |  |  |  | Application Group 3 |  Cli2  |
-|        |                     |  |  |  |                     |        |
-|  Cli1  | Srv1   Srv2   Srv3  |  |  |  | Srv5   Srv6         |  Cli4  |
-|        | /resA  /resA  /resA |  |  |  | /resC  /resC        |        |
-|  Cli2  +---------------------+  |  |  | /resD  /resD        |        |
-|                                 |  |  +---------------------+        |
-|  Cli3   Security Group 1        |  |                                 |
-|                                 |  |    Security Group 2             |
-|        +---------------------+  |  \_________________________________/
-|        | Application Group 2 |  |
-|        |                     |  |
-|        | Srv1   Srv4         |  |
-|        | /resB  /resB        |  |
-|        +---------------------+  |
-\_________________________________/
+ ________________________________    _________________________________
+/                                \  /                                 \
+|       +---------------------+  |  |  +---------------------+        |
+|       | Application Group 1 |  |  |  | Application Group 3 |  Cli2  |
+|       |                     |  |  |  |                     |        |
+| Cli1  | Srv1   Srv2   Srv3  |  |  |  | Srv5   Srv6         |  Cli4  |
+|       | /resA  /resA  /resA |  |  |  | /resC  /resC        |        |
+| Cli2  +---------------------+  |  |  | /resD  /resD        |        |
+|                                |  |  +---------------------+        |
+| Cli3     Security Group 1      |  |                                 |
+|                                |  |        Security Group 2         |
+|       +---------------------+  |  \_________________________________/
+|       | Application Group 2 |  |
+|       |                     |  |
+|       | Srv1   Srv4         |  |
+|       | /resB  /resB        |  |
+|       +---------------------+  |
+\________________________________/
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
@@ -1360,7 +1360,7 @@ in this document are to be interpreted as described in BCP 14 <span>[<a href="#R
           </h4>
 <p id="section-2.2.1-1">A CoAP group is identified and named by the authority component in the Group URI, which includes host (possibly an IP multicast address literal) and an optional UDP port number. It is recommended to configure an endpoint with an IP multicast address literal, instead of a hostname, when configuring a CoAP group membership. This is because DNS infrastructure may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via DNS resolution - if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network. Some examples of hierarchical CoAP group FQDN naming (and scoping) for a building control application are shown in Section 2.2 of <span>[<a href="#RFC7390" class="xref">RFC7390</a>]</span>.<a href="#section-2.2.1-1" class="pilcrow">¶</a></p>
 <p id="section-2.2.1-2">An application group can be named in many ways through different types of identifiers, such as numbers, URIs or other strings. An application group name or identifier, if explicitly encoded in a CoAP request, is typically included in the path component or in the query component of a Group URI. It may also be encoded using the Uri-Host Option <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> in case application group members implement a virtual CoAP server specific to that application group. The application group can then be identified by the value of the Uri-Host Option and each virtual server serves one specific application group. However, encoding the application group in the Uri-Host Option is not the preferred method because in this case the application group cannot be encoded in a Group URI, and also the Uri-Host Option is being used for another purpose than encoding the host part of a URI as intended by <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> -- which is potentially confusing.
-Appendix A of <span>[<a href="#I-D.ietf-core-resource-directory" class="xref">I-D.ietf-core-resource-directory</a>]</span> shows an example registration of an application group into a Resource Directory, along with the CoAP group it uses and the resources supported by the application group. In this example an application group identifier is not explicitly encoded in the RD nor in CoAP requests made to the group, but it implicitly follows from the CoAP group used for the request. So there is a one-to-one binding between the CoAP group and the application group. The "NoSec" security group is used.<a href="#section-2.2.1-2" class="pilcrow">¶</a></p>
+Appendix A of <span>[<a href="#I-D.ietf-core-resource-directory" class="xref">I-D.ietf-core-resource-directory</a>]</span> shows an example registration of an application group into a Resource Directory (RD), along with the CoAP group it uses and the resources supported by the application group. In this example an application group identifier is not explicitly encoded in the RD nor in CoAP requests made to the group, but it implicitly follows from the CoAP group used for the request. So there is a one-to-one binding between the CoAP group and the application group. The "NoSec" security group is used.<a href="#section-2.2.1-2" class="pilcrow">¶</a></p>
 <p id="section-2.2.1-3">A best practice for encoding application group into a Group URI is to use one URI path component to identify the application group and use the following URI paths component(s) to identify the resource within this application group. For example, /&lt;groupname&gt;/res1 or /base/&lt;groupname&gt;/res1/res2 conform to this practice. An application group identifier (like &lt;groupname&gt;) should be as short as possible when used in constrained networks.<a href="#section-2.2.1-3" class="pilcrow">¶</a></p>
 <p id="section-2.2.1-4">A security group is identified by a stable and invariant string used as group name, which is generally not related with other kinds of group identifiers, specific to the chosen security solution. The "NoSec" security group name MUST be only used to represent the case of group communication without any security. It is typically characterized by the absence of any security group name, identifier, or security-related data structures in the CoAP message.<a href="#section-2.2.1-4" class="pilcrow">¶</a></p>
 </section>
@@ -1372,8 +1372,8 @@ Appendix A of <span>[<a href="#I-D.ietf-core-resource-directory" class="xref">I-
           </h4>
 <p id="section-2.2.2-1">To create a CoAP group, a configuring entity defines an IP multicast address (or hostname) for the group and optionally a UDP port number in case it differs from the default CoAP port 5683. Then, it configures one or more devices as listeners to that IP multicast address, with a CoAP endpoint listening on the group's associated UDP port. These endpoints/devices are the group members. The configuring entity can be, for example, a local application with pre-configuration, a user, a software developer, a cloud service, or a local commissioning tool. Also, the devices sending CoAP requests to the group in the role of CoAP client need to be configured with the same information, even though they are not necessarily group members. One way to configure a client is to supply it with a CoAP Group URI. The IETF does not define a mandatory, standardized protocol to accomplish CoAP group creation. <span>[<a href="#RFC7390" class="xref">RFC7390</a>]</span> defines an experimental protocol for configuration of group membership for unsecured group communication, based on JSON-formatted configuration resources. For IPv6 CoAP groups, common multicast address ranges that are used to configure group addresses from are ff1x::/16 and ff3x::/16.<a href="#section-2.2.2-1" class="pilcrow">¶</a></p>
 <p id="section-2.2.2-2">To create an application group, a configuring entity may configure a resource (name) or set of resources on CoAP endpoints, such that a CoAP request with Group URI sent by a configured CoAP client will be processed by one or more CoAP servers that have the matching URI path configured. These servers are the application group members.<a href="#section-2.2.2-2" class="pilcrow">¶</a></p>
-<p id="section-2.2.2-3">To create a security group, a configuring entity defines an initial subset of the related security material. This comprises a set of group properties including the crytpographic algorithms and parameters used in the group, as well as additional information relevant throughout the group life-cycle, such as the security group name and description. This task MAY be entrusted to a dedicated administrator, that interacts with a Group Manager as defined in <a href="#chap-oscore" class="xref">Section 5</a>. After that, further security material to protect group communications have to be generated, as compatible with the specified group configuration.<a href="#section-2.2.2-3" class="pilcrow">¶</a></p>
-<p id="section-2.2.2-4">To participate in a security group, CoAP endpoints have to be configured with the group security material used to protect communications in the associated application/CoAP groups. The part of the process that involves secure distribution of group security material MAY use standardized communication with a Group Manager as defined in <a href="#chap-oscore" class="xref">Section 5</a>. For unsecure group communication using the "NoSec" security group, any CoAP endpoint may become a group member at any time: there is no (central) configuring entity that needs to provide the security material for this group. This means that group creation and membership cannot be tightly controlled for the "NoSec" group.<a href="#section-2.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-2.2.2-3">To create a security group, a configuring entity defines an initial subset of the related security material. This comprises a set of group properties including the cryptographic algorithms and parameters used in the group, as well as additional information relevant throughout the group life-cycle, such as the security group name and description. This task MAY be entrusted to a dedicated administrator, that interacts with a Group Manager as defined in <a href="#chap-oscore" class="xref">Section 5</a>. After that, further security materials to protect group communications have to be generated, compatible with the specified group configuration.<a href="#section-2.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-2.2.2-4">To participate in a security group, CoAP endpoints have to be configured with the group security material used to protect communications in the associated application/CoAP groups. The part of the process that involves secure distribution of group security material MAY use standardized communication with a Group Manager as defined in <a href="#chap-oscore" class="xref">Section 5</a>. For unsecure group communication using the "NoSec" security group, any CoAP endpoint may become a group member at any time: there is no configuring entity that needs to provide security material for this group, as there is no security material for it. This means that group creation and membership cannot be tightly controlled for the "NoSec" group.<a href="#section-2.2.2-4" class="pilcrow">¶</a></p>
 <p id="section-2.2.2-5">The configuration of groups and membership may be performed at different moments in the life-cycle of a device; for example during product (software) creation, in the factory, at a reseller, on-site during first deployment, or on-site during a system reconfiguration operation.<a href="#section-2.2.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1394,8 +1394,8 @@ Appendix A of <span>[<a href="#I-D.ietf-core-resource-directory" class="xref">I-
 <a href="#section-2.2.4" class="section-number selfRef">2.2.4. </a><a href="#name-group-maintenance" class="section-name selfRef">Group Maintenance</a>
           </h4>
 <p id="section-2.2.4-1">Maintenance of a group includes any necessary operations to cope with changes in a system, such as: adding group members, removing group members, changing group security material, reconfiguration of UDP port and/or IP multicast address, reconfiguration of the Group URI, renaming of application groups, splitting of groups, or merging of groups.<a href="#section-2.2.4-1" class="pilcrow">¶</a></p>
-<p id="section-2.2.4-2">For unsecured group communication (see <a href="#chap-unsecured-groupcomm" class="xref">Section 4</a>), addition/removal of CoAP group members is simply done by configuring these devices to start/stop listening to the group IP multicast address on the group's UDP port.<a href="#section-2.2.4-2" class="pilcrow">¶</a></p>
-<p id="section-2.2.4-3">For secured group communication (see <a href="#chap-oscore" class="xref">Section 5</a>), the protocol Group OSCORE <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="xref">I-D.ietf-core-oscore-groupcomm</a>]</span> is mandatory to implement. When using Group OSCORE, CoAP endpoints participating in group communication are also members of a corresponding OSCORE security group, and thus share common security material. Additional related maintenance operations are discussed in <a href="#chap-sec-group-maintenance" class="xref">Section 5.1</a>.<a href="#section-2.2.4-3" class="pilcrow">¶</a></p>
+<p id="section-2.2.4-2">For unsecured group communication (see <a href="#chap-unsecured-groupcomm" class="xref">Section 4</a>) i.e. the "NoSec" security group, addition/removal of CoAP group members is simply done by configuring these devices to start/stop listening to the group IP multicast address on the group's UDP port.<a href="#section-2.2.4-2" class="pilcrow">¶</a></p>
+<p id="section-2.2.4-3">For secured group communication (see <a href="#chap-oscore" class="xref">Section 5</a>), the maintenance operations of the protocol Group OSCORE <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="xref">I-D.ietf-core-oscore-groupcomm</a>]</span> MUST be implemented. When using Group OSCORE, CoAP endpoints participating in group communication are also members of a corresponding OSCORE security group, and thus share common security material. Additional related maintenance operations are discussed in <a href="#chap-sec-group-maintenance" class="xref">Section 5.1</a>.<a href="#section-2.2.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1415,27 +1415,27 @@ Appendix A of <span>[<a href="#I-D.ietf-core-resource-directory" class="xref">I-
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-request-response-model" class="section-name selfRef">Request/Response Model</a>
         </h3>
 <p id="section-3.1-1">A CoAP client is an endpoint able to transmit CoAP requests and receive CoAP responses. Since the underlying UDP transport supports multiplexing by means of UDP port number, there can be multiple independent CoAP clients operational on a single host. On each UDP port, an independent CoAP client can be hosted. Each independent CoAP client sends requests that use the associated endpoint's UDP port number as the UDP source port of the request.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.1-2">All CoAP requests that are sent via IP multicast MUST be Non-confirmable (Section 8.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>).  The Message ID in an IP multicast CoAP message is used for optional message deduplication by both clients and servers, as detailed in Section 4.5 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
-<p id="section-3.1-3">A server sends back a unicast response to the CoAP group request - but the server MAY suppress the response for various reasons (Section 8.2 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>). This document adds the requirement that a server SHOULD suppress the response in case of error or in case there is nothing useful to respond, unless the application related to a particular resource requires such a response to be made for that resource. The unicast responses received by the CoAP client may be a mixture of success (e.g., 2.05 Content) and failure (e.g., 4.04 Not Found) codes, depending on the individual server processing results.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
-<p id="section-3.1-4">The CoAP No-Response Option <span>[<a href="#RFC7967" class="xref">RFC7967</a>]</span> can be used by a client to influence the default response suppression on the server side. It is RECOMMENDED for a server to support this option only on selected resources where it is useful in the application context. If the Option is supported on a resource, it MUST override the default response suppression of that resource.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">All CoAP requests that are sent via IP multicast MUST be Non-confirmable; see Section 8.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>.  The Message ID in an IP multicast CoAP message is used for optional message deduplication by both clients and servers, as detailed in Section 4.5 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.1-3">A server sends back a unicast response to the CoAP group request - but the server MAY suppress the response for various reasons given in Section 8.2 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>. This document adds the requirement that a server SHOULD suppress the response in case of error or in case there is nothing useful to respond, unless the application related to a particular resource requires such a response to be made for that resource. The unicast responses received by the CoAP client may be a mixture of success (e.g., 2.05 Content) and failure (e.g., 4.04 Not Found) codes, depending on the individual server processing results.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.1-4">The CoAP No-Response Option <span>[<a href="#RFC7967" class="xref">RFC7967</a>]</span> can be used by a client to influence the default response suppression on the server side. It is RECOMMENDED for a server to support this option only on selected resources where it is useful in the application context. If the option is supported on a resource, it MUST override the default response suppression of that resource.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
 <p id="section-3.1-5">Any default response suppression by a server SHOULD be performed consistently, as follows: if a request on a resource produces a particular Response Code and this response is not suppressed, then another request on the same resource that produces a response of the same Response Code class is also not suppressed. For example, if a 4.05 Method Not Allowed error response code is suppressed by default on a resource, then a 4.15 Unsupported Content-Format error response code is also suppressed by default for that resource.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
 <p id="section-3.1-6">A CoAP client MAY repeat a multicast request using the same Token value and same Message ID value, in order to ensure that enough (or all) group members have been reached with the request. This is useful in case a number of group members did not respond to the initial request and the client suspects that the request did not reach these group members. However, in case one or more servers did receive the initial request but the response to that request was lost, this repeat does not help to retrieve the lost response(s) if the server(s) implement the optional Message ID based deduplication (Section 4.5 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>).<a href="#section-3.1-6" class="pilcrow">¶</a></p>
-<p id="section-3.1-7">A CoAP client MAY also repeat a multicast request using the same Token value and a different Message ID, in which case all servers that received the initial request will again process the repeated request since it appears within a new CoAP message. This is useful in case a client suspects that one or more response(s) to its original request were lost and the client needs to collect more, or even all, responses from group members, even if this comes at the cost of the overhead of certain group members responding twice (once to the original request, and once to the repeated request with different Message ID).<a href="#section-3.1-7" class="pilcrow">¶</a></p>
-<p id="section-3.1-8">The CoAP client can distinguish the origin of multiple server responses by the source IP address of the UDP message containing the CoAP response and/or any other available application-specific source identifiers contained in the CoAP response, such as an application-level unique ID associated to the server. If secure communication is provided with Group OSCORE (see <a href="#chap-oscore" class="xref">Section 5</a>), additional security-related identifiers enable the client to retrieve the right security material for decrypting each response and authenticating its source.<a href="#section-3.1-8" class="pilcrow">¶</a></p>
-<p id="section-3.1-9">While processing a response, the source endpoint of the response is not matched to the destination endpoint of the request, since for a multicast request these will never match. This is specified in Section 8.2 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>. It implies also that a server MAY respond from a UDP port number that differs from the destination UDP port number of the request, yet a CoAP server normally SHOULD respond from the UDP port number that equals the destination port of the request -- following the convention for UDP-based protocols. In case a single client has sent multiple group requests and concurrent CoAP transactions are ongoing, the responses received by that client are matched to an active request using only the Token value. Due to UDP level multiplexing, the UDP destination port of the response MUST match to the client endpoint's UDP port value, i.e. to the UDP source port of the client's request.<a href="#section-3.1-9" class="pilcrow">¶</a></p>
-<p id="section-3.1-10">For multicast CoAP requests, there are additional constraints on the reuse of Token values at the client, compared to the unicast case defined in <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> and updated by <span>[<a href="#I-D.ietf-core-echo-request-tag" class="xref">I-D.ietf-core-echo-request-tag</a>]</span>. Since for multicast CoAP the number of responses is not bound a priori, the client cannot use the reception of a response as a trigger to "free up" a Token value for reuse. Reusing a Token value too early could lead to incorrect response/request matching on the client, and would be a protocol error.  Therefore, the time between reuse of Token values used in multicast requests MUST be greater than:<a href="#section-3.1-10" class="pilcrow">¶</a></p>
+<p id="section-3.1-7">A CoAP client MAY repeat a multicast request using the same Token value and a different Message ID, in which case all servers that received the initial request will again process the repeated request since it appears within a new CoAP message. This is useful in case a client suspects that one or more response(s) to its original request were lost and the client needs to collect more, or even all, responses from group members, even if this comes at the cost of the overhead of certain group members responding twice (once to the original request, and once to the repeated request with different Message ID).<a href="#section-3.1-7" class="pilcrow">¶</a></p>
+<p id="section-3.1-8">The CoAP client can distinguish the origin of multiple server responses by the source IP address of the UDP message containing the CoAP response and/or any other available application-specific source identifiers contained in the CoAP response payload or CoAP response options, such as an application-level unique ID associated to the server. If secure communication is provided with Group OSCORE (see <a href="#chap-oscore" class="xref">Section 5</a>), additional security-related identifiers in the CoAP response enable the client to retrieve the right security material for decrypting each response and authenticating its source.<a href="#section-3.1-8" class="pilcrow">¶</a></p>
+<p id="section-3.1-9">While processing a response on the client, the source endpoint of the response is not matched to the destination endpoint of the request, since for a multicast request these will never match. This is specified in Section 8.2 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>. It implies also that a server MAY respond from a UDP port number that differs from the destination UDP port number of the request, although a CoAP server normally SHOULD respond from the UDP port number that equals the destination port of the request -- following the convention for UDP-based protocols. In case a single client has sent multiple group requests and concurrent CoAP transactions are ongoing, the responses received by that client are matched to an active request using only the Token value. Due to UDP level multiplexing, the UDP destination port of the response MUST match to the client endpoint's UDP port value, i.e. to the UDP source port of the client's request.<a href="#section-3.1-9" class="pilcrow">¶</a></p>
+<p id="section-3.1-10">For multicast CoAP requests, there are additional constraints on the reuse of Token values at the client, compared to the unicast case defined in <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> and updated by <span>[<a href="#I-D.ietf-core-echo-request-tag" class="xref">I-D.ietf-core-echo-request-tag</a>]</span>. Since for multicast CoAP the number of responses is not bound a priori, the client cannot use the reception of a response as a trigger to "free up" a Token value for reuse. Reusing a Token value too early could lead to incorrect response/request matching on the client, and would be a protocol error.  Therefore, the time between reuse of Token values for different multicast requests MUST be greater than:<a href="#section-3.1-10" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-3.1-11">
 <pre>
 MIN_TOKEN_REUSE_TIME = (NON_LIFETIME + MAX_LATENCY +
                         MAX_SERVER_RESPONSE_DELAY)
 </pre><a href="#section-3.1-11" class="pilcrow">¶</a>
 </div>
-<p id="section-3.1-12">where NON_LIFETIME and MAX_LATENCY are defined in Section 4.8 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>.  This specification defines MAX_SERVER_RESPONSE_DELAY as in <span>[<a href="#RFC7390" class="xref">RFC7390</a>]</span>, that is: the expected maximum response delay over all servers that the client can send a multicast request to.  This delay includes the maximum Leisure time period as defined in Section 8.2 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>. However, CoAP does not define a time limit for the server response delay.  Using the default CoAP parameters, the Token reuse time MUST be greater than 250 seconds plus MAX_SERVER_RESPONSE_DELAY.  A preferred solution to meet this requirement is to generate a new unique Token for every new multicast request, such that a Token value is never reused.  If a client has to reuse Token values for some reason, and also MAX_SERVER_RESPONSE_DELAY is unknown, then using MAX_SERVER_RESPONSE_DELAY = 250 seconds is a reasonable guideline. The time between Token reuses is in that case set to a value greater than 500 seconds.<a href="#section-3.1-12" class="pilcrow">¶</a></p>
-<p id="section-3.1-13">When securing Group CoAP communications with Group OSCORE <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="xref">I-D.ietf-core-oscore-groupcomm</a>]</span>, secure binding between requests and responses is ensured (see <a href="#chap-oscore" class="xref">Section 5</a>). Thus, a client may reuse a Token value after it has been freed up, as discussed above for the multicast case and considering a reuse time greater than MIN_TOKEN_REUSE_TIME. If an alternative security protocol for Group CoAP is defined in the future and it does not ensure secure binding between requests and responses, a client MUST follow the Token processing requirements for the unicast case discussed above, as defined in <span>[<a href="#I-D.ietf-core-echo-request-tag" class="xref">I-D.ietf-core-echo-request-tag</a>]</span>.<a href="#section-3.1-13" class="pilcrow">¶</a></p>
+<p id="section-3.1-12">where NON_LIFETIME and MAX_LATENCY are defined in Section 4.8 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>.  This specification defines MAX_SERVER_RESPONSE_DELAY as in <span>[<a href="#RFC7390" class="xref">RFC7390</a>]</span>, that is: the expected maximum response delay over all servers that the client can send a multicast request to.  This delay includes the maximum Leisure time period as defined in Section 8.2 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>. However, CoAP does not define a time limit for the server response delay.  Using the default CoAP parameters, the Token reuse time MUST be greater than 250 seconds plus MAX_SERVER_RESPONSE_DELAY.  A preferred solution to meet this requirement is to generate a new unique Token for every new multicast request, such that a Token value is never reused.  If a client has to reuse Token values for some reason, and also MAX_SERVER_RESPONSE_DELAY is unknown, then using MAX_SERVER_RESPONSE_DELAY = 250 seconds is a reasonable guideline. The time between Token reuses is in that case set to a value greater than MIN_TOKEN_REUSE_TIME = 500 seconds.<a href="#section-3.1-12" class="pilcrow">¶</a></p>
+<p id="section-3.1-13">When securing CoAP group communication with Group OSCORE <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="xref">I-D.ietf-core-oscore-groupcomm</a>]</span>, secure binding between requests and responses is ensured (see <a href="#chap-oscore" class="xref">Section 5</a>). Thus, a client may reuse a Token value after it has been freed up, as discussed above for the multicast case and considering a reuse time greater than MIN_TOKEN_REUSE_TIME. If an alternative security protocol for CoAP group communication is defined in the future which does not ensure secure binding between requests and responses, a client MUST follow the Token processing requirements as defined in <span>[<a href="#I-D.ietf-core-echo-request-tag" class="xref">I-D.ietf-core-echo-request-tag</a>]</span>.<a href="#section-3.1-13" class="pilcrow">¶</a></p>
 <p id="section-3.1-14">Another method to more easily meet the above constraint is to instantiate multiple CoAP clients at multiple UDP ports on the same host. The Token values only have to be unique within the context of a single CoAP client, so using multiple clients can make it easier to meet the constraint.<a href="#section-3.1-14" class="pilcrow">¶</a></p>
-<p id="section-3.1-15">Since a client sending a multicast request with a Token T will accept multiple responses with the same Token T, it is possible that especially the same server sends multiple responses with the same Token T back to the client. For example, this server might not implement the optional CoAP message deduplication based on Message ID; or it might be acting out of specification as a malicious, compromised or faulty server.<a href="#section-3.1-15" class="pilcrow">¶</a></p>
-<p id="section-3.1-16">When this happens, the client normally processes at the CoAP layer each of those responses to the same request coming from the same server. If the processing is successful, the client delivers the response to the application as usual.<a href="#section-3.1-16" class="pilcrow">¶</a></p>
-<p id="section-3.1-17">Then, the application is in a better position to decide what to do, depending on the available context information. For instance, it might accept and process all the responses from the same server, even if they are not Observe notifications (i.e., they do not include an Observe option). Alternatively, the application might accept and process only one of those responses, such as the most recent one from that server, e.g. when this can trigger a change of state.<a href="#section-3.1-17" class="pilcrow">¶</a></p>
+<p id="section-3.1-15">Since a client sending a multicast request with a Token T will accept multiple responses with the same Token T, it is possible in particular that the same server sends multiple responses with the same Token T back to the client. For example, this server might not implement the optional CoAP message deduplication based on Message ID; or it might be acting out of specification as a malicious, compromised or faulty server.<a href="#section-3.1-15" class="pilcrow">¶</a></p>
+<p id="section-3.1-16">When this happens, the client normally processes at the CoAP layer each of those responses to the same request coming from the same server. If the processing a response is successful, the client delivers this response to the application as usual.<a href="#section-3.1-16" class="pilcrow">¶</a></p>
+<p id="section-3.1-17">Then, the application is in a better position to decide what to do, depending on the available context information. For instance, it might accept and process all the responses from the same server, even if they are not Observe notifications (i.e., they do not include an Observe option). Alternatively, the application might accept and process only one of those responses, such as the most recent one from that server, e.g. when this can trigger a change of state within the application.<a href="#section-3.1-17" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-caching">
@@ -1443,25 +1443,25 @@ MIN_TOKEN_REUSE_TIME = (NON_LIFETIME + MAX_LATENCY +
         <h3 id="name-caching">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-caching" class="section-name selfRef">Caching</a>
         </h3>
-<p id="section-3.2-1">CoAP endpoints that are members of a CoAP group MAY cache responses as intended in Section 5.6 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>. In particular, the same rules apply for the set of request options used as "Cache-Key".<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.2-2">Furthermore, building on what defined in Section 8.2.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>:<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<p id="section-3.2-1">CoAP endpoints that are members of a CoAP group MAY cache responses on a group request as defined in Section 5.6 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>. In particular, these same rules apply to determine the set of request options used as "Cache-Key".<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">Furthermore, building on what is defined in Section 8.2.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>:<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-3.1">A client sending a GET or FETCH group request over multicast MAY update a cache with the responses from the servers in the CoAP group. Then, the client uses both cached-still-fresh and new responses as the result of the group request.<a href="#section-3.2-3.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-3.2-3.2">A client sending a GET or FETCH group request over multicast MAY use a response received from a server, to satisfy a subsequent sent request intended to that server on the related unicast request URI. In particular, the unicast request URI is obtained by replacing the authority part of the request URI with the transport-layer source address of the response message.<a href="#section-3.2-3.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.2-3.2">A client sending a GET or FETCH group request over multicast MAY use a response received from a server, to satisfy a subsequent sent request intended to that server on the related unicast request URI. In particular, the unicast request URI is obtained by replacing the authority part of the request URI with the transport-layer source address of the cached response message.<a href="#section-3.2-3.2" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-3.2-3.3">A cache MAY revalidate a response by making a GET or FETCH request on the
+          <li class="normal" id="section-3.2-3.3">A client MAY revalidate a cached response by making a GET or FETCH request on the
    related unicast request URI.<a href="#section-3.2-3.3" class="pilcrow">¶</a>
 </li>
         </ul>
-<p id="section-3.2-4">Note that, in the presence of proxies, this requires the client to distinguish the different responses to the same group request, as well as the different origin servers. This in turn requires additional means to provide the client with information about the origin server of each response, as discussed in <a href="#sec-proxy-caching" class="xref">Section 3.4.3</a>.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
-<p id="section-3.2-5">The following defines the freshness model and validation model to use for cached responses, hence updating the models defined in Section 5.6.1 and Section 5.6.2 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>, respectively.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
+<p id="section-3.2-4">Note that, in the presence of proxies, doing any of the above (optional) unicast requests requires the client to distinguish the different responses to a group request, as well as distinguish the different origin servers that responded. This in turn requires additional means to provide the client with information about the origin server of each response, as discussed in <a href="#sec-proxy-caching" class="xref">Section 3.4.3</a>.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2-5">The following subsections define the freshness model and validation model to use for cached responses, which update the models defined in Section 5.6.1 and Section 5.6.2 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>, respectively.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
 <div id="sec-caching-freshness">
 <section id="section-3.2.1">
           <h4 id="name-freshness-model">
 <a href="#section-3.2.1" class="section-number selfRef">3.2.1. </a><a href="#name-freshness-model" class="section-name selfRef">Freshness Model</a>
           </h4>
-<p id="section-3.2.1-1">For caching at endpoints, the same freshness model relying on the Max-Age option and defined in Section 5.6.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> applies.<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-1">For caching at endpoints, the same freshness model relying on the Max-Age Option as defined in Section 5.6.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> applies.<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.2.1-2">For caching at proxies, the freshness model defined in <a href="#sec-proxy-caching" class="xref">Section 3.4.3</a> of this specification applies.<a href="#section-3.2.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1471,11 +1471,11 @@ MIN_TOKEN_REUSE_TIME = (NON_LIFETIME + MAX_LATENCY +
 <a href="#section-3.2.2" class="section-number selfRef">3.2.2. </a><a href="#name-validation-model" class="section-name selfRef">Validation Model</a>
           </h4>
 <p id="section-3.2.2-1">Section 5.6.2 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> defines a model to "validate" or "revalidate" responses stored in cache, hence enabling the suppression of responses that the client already has.<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.2.2-2">This relies on the ETag option defined in Section 5.10.6 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>, with its usage limited to exchanges between a CoAP client and one CoAP server. That is Section 8.2.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> explicitly forbids using an ETag option in group requests sent over multicast, and leaves a mechanism to suppress responses for further study.<a href="#section-3.2.2-2" class="pilcrow">¶</a></p>
-<p id="section-3.2.2-3">This section provides such a model to "validate" or "revalidate" responses that the client already has as replies to a group request. In particular, the group request can indicate entity-tag values separately for each CoAP server from which the client wishes to get a response revalidation, together with addressing information identifying that server.<a href="#section-3.2.2-3" class="pilcrow">¶</a></p>
-<p id="section-3.2.2-4">To this end, this specification defines the new Multi-ETag option. Operations related to this validation model and using the new option are defined in <a href="#sec-caching-validation-client" class="xref">Section 3.2.2.2</a> for the client side, and in <a href="#sec-caching-validation-server" class="xref">Section 3.2.2.3</a> for the server side.<a href="#section-3.2.2-4" class="pilcrow">¶</a></p>
-<p id="section-3.2.2-5">The Multi-ETag option has the properties summarized in <a href="#fig-response-multi-etag-option" class="xref">Figure 3</a>, which extends Table 4 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>. The Multi-ETag option is elective, safe to forward, part of the cache key, and repeatable.<a href="#section-3.2.2-5" class="pilcrow">¶</a></p>
-<p id="section-3.2.2-6">The option is intended only for group requests, as directly sent to a CoAP group or to a proxy that forwards it to the CoAP group (see <a href="#sec-proxy" class="xref">Section 3.4</a>).<a href="#section-3.2.2-6" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-2">This relies on the ETag Option defined in Section 5.10.6 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>, with its usage limited to exchanges between a CoAP client and one CoAP server. That is, Section 8.2.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> explicitly forbids using an ETag Option in requests sent over multicast, and leaves a mechanism to suppress responses for that case for further study.<a href="#section-3.2.2-2" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-3">This section provides such a model to "validate" or "revalidate" responses that the client already has cached. In particular, the group request can indicate entity-tag values separately for each CoAP server from which the client wishes to get a response revalidation, together with addressing information identifying that server.<a href="#section-3.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-4">To this end, this specification defines the new Multi-ETag Option. Operations related to this validation model and using the new option are defined in <a href="#sec-caching-validation-client" class="xref">Section 3.2.2.2</a> for the client side, and in <a href="#sec-caching-validation-server" class="xref">Section 3.2.2.3</a> for the server side.<a href="#section-3.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-5">The Multi-ETag Option has the properties summarized in <a href="#fig-response-multi-etag-option" class="xref">Figure 3</a>, which extends Table 4 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>. The Multi-ETag Option is elective, safe to forward, part of the cache key, and repeatable.<a href="#section-3.2.2-5" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-6">The option is intended only for group requests, as directly sent to a CoAP group or to a CoAP proxy that forwards it to the CoAP group (see <a href="#sec-proxy" class="xref">Section 3.4</a>).<a href="#section-3.2.2-6" class="pilcrow">¶</a></p>
 <span id="name-the-multi-etag-option"></span><div id="fig-response-multi-etag-option">
 <figure id="figure-3">
             <div class="artwork art-text alignCenter" id="section-3.2.2-7.1">
@@ -1496,8 +1496,8 @@ MIN_TOKEN_REUSE_TIME = (NON_LIFETIME + MAX_LATENCY +
 <a href="#name-the-multi-etag-option" class="selfRef">The Multi-ETag Option.</a>
             </figcaption></figure>
 </div>
-<p id="section-3.2.2-8">The Multi-ETag option has the same properties of the ETag option defined in Section 5.10.6 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>, but it differs as to the format and length of its value, as well as about the reason for its repeatability.<a href="#section-3.2.2-8" class="pilcrow">¶</a></p>
-<p id="section-3.2.2-9">That is, each occurrence of the Multi-ETag option is intended to exactly one of the servers in the CoAP group, from which the client wishes to get a response revalidation. Then, the option value is set to a CBOR sequence <span>[<a href="#RFC8742" class="xref">RFC8742</a>]</span> composed of (1+M) elements, where:<a href="#section-3.2.2-9" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-8">The Multi-ETag Option has the same properties of the ETag Option defined in Section 5.10.6 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>, but it differs in the format and length, as well as having a different reason for its repeatability.<a href="#section-3.2.2-8" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-9">Each occurrence of the Multi-ETag Option targets exactly one of the servers in the CoAP group, from which the client wishes to get a response revalidation. The option value is set to a CBOR sequence <span>[<a href="#RFC8742" class="xref">RFC8742</a>]</span> composed of (1+M) elements, where:<a href="#section-3.2.2-9" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2.2-10.1">
               <p id="section-3.2.2-10.1.1">The first element specifies the addressing information of the corresponding server, encoded as defined in <a href="#sec-caching-validation-tpinfo" class="xref">Section 3.2.2.1</a>.<a href="#section-3.2.2-10.1.1" class="pilcrow">¶</a></p>
@@ -1507,24 +1507,24 @@ This mirrors the format of the Multicast-Signaling option defined in Section 3 o
             <li class="normal" id="section-3.2.2-10.2">
               <p id="section-3.2.2-10.2.1">The following M elements are CBOR byte strings, each of which has as value an entity-tag value that the client wants to try against the corresponding server.<a href="#section-3.2.2-10.2.1" class="pilcrow">¶</a></p>
 <p id="section-3.2.2-10.2.2">
-The entity-tag values included in the Multi-ETag option are subject to the same considerations for the entity-tag values used in an ETag option (see Section 5.10.6 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>).<a href="#section-3.2.2-10.2.2" class="pilcrow">¶</a></p>
+The entity-tag values included in the Multi-ETag Option are subject to the same considerations for the entity-tag values used in an ETag Option (see Section 5.10.6 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>).<a href="#section-3.2.2-10.2.2" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-3.2.2-11">The Multi-ETag option is of class E in terms of OSCORE processing (see Section 4.1 of <span>[<a href="#RFC8613" class="xref">RFC8613</a>]</span>).<a href="#section-3.2.2-11" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-11">The Multi-ETag Option is of class E in terms of OSCORE processing (see Section 4.1 of <span>[<a href="#RFC8613" class="xref">RFC8613</a>]</span>).<a href="#section-3.2.2-11" class="pilcrow">¶</a></p>
 <div id="sec-caching-validation-tpinfo">
 <section id="section-3.2.2.1">
             <h5 id="name-encoding-of-server-addressi">
 <a href="#section-3.2.2.1" class="section-number selfRef">3.2.2.1. </a><a href="#name-encoding-of-server-addressi" class="section-name selfRef">Encoding of Server Addressing Information</a>
             </h5>
-<p id="section-3.2.2.1-1">The first element of the CBOR sequence in the Multi-ETag option value is set to the byte serialization of the CBOR array 'tp_info' defined in Section 2.2.1 of <span>[<a href="#I-D.tiloca-core-observe-multicast-notifications" class="xref">I-D.tiloca-core-observe-multicast-notifications</a>]</span>, including only the set of elements 'srv_addr'.<a href="#section-3.2.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.2.1-1">The first element of the CBOR sequence in the Multi-ETag Option value is set to the byte serialization of the CBOR array 'tp_info' defined in Section 2.2.1 of <span>[<a href="#I-D.tiloca-core-observe-multicast-notifications" class="xref">I-D.tiloca-core-observe-multicast-notifications</a>]</span>, including only the set of elements 'srv_addr'.<a href="#section-3.2.2.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.2.2.1-2">In turn, the set includes the integer 'tp_id' identifying the used transport protocol, and further elements whose number, format and encoding depend on the value of 'tp_id'.<a href="#section-3.2.2.1-2" class="pilcrow">¶</a></p>
-<p id="section-3.2.2.1-3">When the Multi-ETag option is used in group requests transported over UDP as in this specification, the 'tp_info' array includes the following elements, encoded as defined in Section 2.2.1.1 of <span>[<a href="#I-D.tiloca-core-observe-multicast-notifications" class="xref">I-D.tiloca-core-observe-multicast-notifications</a>]</span>.<a href="#section-3.2.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.2.2.1-3">When the Multi-ETag Option is used in group requests transported over UDP as in this specification, the 'tp_info' array includes the following elements, encoded as defined in Section 2.2.1.1 of <span>[<a href="#I-D.tiloca-core-observe-multicast-notifications" class="xref">I-D.tiloca-core-observe-multicast-notifications</a>]</span>.<a href="#section-3.2.2.1-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2.2.1-4.1">'tp_id': the CBOR integer with value 1 ("UDP"), from the "Value" column of the "Transport Protocol Identifiers" Registry defined in Section 14.4 of <span>[<a href="#I-D.tiloca-core-observe-multicast-notifications" class="xref">I-D.tiloca-core-observe-multicast-notifications</a>]</span><a href="#section-3.2.2.1-4.1" class="pilcrow">¶</a>
 </li>
               <li class="normal" id="section-3.2.2.1-4.2">'srv_host': a CBOR byte string, with value the unicast IP address of the server. This element is tagged and identified by the CBOR tag 260 "Network Address (IPv4 or IPv6 or MAC Address)".<a href="#section-3.2.2.1-4.2" class="pilcrow">¶</a>
 </li>
-              <li class="normal" id="section-3.2.2.1-4.3">'srv_port': as a CBOR unsigned integer of the CBOR simple value Null. If it is a CBOR integer, it has as value the destination port number where to send individual requests intended to the server. This element MAY be present. If not included, the default port number 5683 is assumed.<a href="#section-3.2.2.1-4.3" class="pilcrow">¶</a>
+              <li class="normal" id="section-3.2.2.1-4.3">'srv_port': as a CBOR unsigned integer or the CBOR simple value Null. If it is a CBOR integer, it has as value the destination port number where to send individual requests intended to the server. This element MAY be present. If not included, the default port number 5683 is assumed.<a href="#section-3.2.2.1-4.3" class="pilcrow">¶</a>
 </li>
             </ul>
 <p id="section-3.2.2.1-5">The CDDL notation <span>[<a href="#RFC8610" class="xref">RFC8610</a>]</span> provided below describes the 'tp_info' CBOR array using the format above.<a href="#section-3.2.2.1-5" class="pilcrow">¶</a></p>
@@ -1544,23 +1544,23 @@ tp_info = [
             <h5 id="name-processing-on-the-client-si">
 <a href="#section-3.2.2.2" class="section-number selfRef">3.2.2.2. </a><a href="#name-processing-on-the-client-si" class="section-name selfRef">Processing on the Client Side</a>
             </h5>
-<p id="section-3.2.2.2-1">Similar to what defined in Section 5.6.2 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>, the client may have one or more stored responses for a GET or FETCH group request sent to the CoAP group, but cannot use any of them (e.g. because they are not fresh).<a href="#section-3.2.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.2.2-1">Similar to what is defined in Section 5.6.2 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>, the client may have one or more stored responses for a GET or FETCH group request sent to the CoAP group, but cannot use any of them (e.g. because they are not fresh).<a href="#section-3.2.2.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2.2.2-2">In that case, the client can send a GET or FETCH group request, in order to give the origin servers an opportunity both to select a stored response to be used, and to update its freshness. As in <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>, this process is known as "validating" or "revalidating" the stored response.<a href="#section-3.2.2.2-2" class="pilcrow">¶</a></p>
-<p id="section-3.2.2.2-3">When sending such a group request, the endpoint SHOULD include one Multi-ETag option for each server it wishes to revalidate the corresponding response with. As defined in <a href="#sec-caching-validation" class="xref">Section 3.2.2</a>, the Multi-ETag option can include multiple entity-tag values, each of which applicable to a stored response from the corresponding server for that group request.<a href="#section-3.2.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.2.2.2-3">When sending such a group request, the endpoint SHOULD include one Multi-ETag Option for each server it wishes to revalidate the corresponding response with. As defined in <a href="#sec-caching-validation" class="xref">Section 3.2.2</a>, the Multi-ETag Option can include multiple entity-tag values, each applicable to a stored response from the corresponding server for that group request.<a href="#section-3.2.2.2-3" class="pilcrow">¶</a></p>
 <p id="section-3.2.2.2-4">Specifically, in the same GET or FETCH group request:<a href="#section-3.2.2.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.2.2.2-5.1">The client MUST NOT include both one or more ETag options together with one or more Multi-ETag options.<a href="#section-3.2.2.2-5.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.2.2.2-5.1">The client MUST NOT include one or more ETag Option(s) together with one or more Multi-ETag Option(s).<a href="#section-3.2.2.2-5.1" class="pilcrow">¶</a>
 </li>
-              <li class="normal" id="section-3.2.2.2-5.2">The client MUST include only one Multi-ETag option for each server it wishes to get a response revalidation.<a href="#section-3.2.2.2-5.2" class="pilcrow">¶</a>
+              <li class="normal" id="section-3.2.2.2-5.2">The client MUST include only one Multi-ETag Option for each server it wishes to get a response revalidation from.<a href="#section-3.2.2.2-5.2" class="pilcrow">¶</a>
 </li>
               <li class="normal" id="section-3.2.2.2-5.3">
-                <p id="section-3.2.2.2-5.3.1">The client SHOULD limit the number of Multi-ETag options, hence the humber of servers as intended target of the revalidation process, and SHOULD rather spread revalidation with different sets of servers over different group requests. Also, the client SHOULD limit the number of entity-tag values specified in each Multi-ETag option, preferably indicating only one entity-tag value.<a href="#section-3.2.2.2-5.3.1" class="pilcrow">¶</a></p>
+                <p id="section-3.2.2.2-5.3.1">The client SHOULD limit the number of Multi-ETag Options, hence limiting the number of servers as intended target of the revalidation process, and SHOULD rather spread revalidation with different sets of servers over different group requests. Also, the client SHOULD limit the number of entity-tag values specified in each Multi-ETag Option, preferably indicating only one entity-tag value.<a href="#section-3.2.2.2-5.3.1" class="pilcrow">¶</a></p>
 <p id="section-3.2.2.2-5.3.2">
-This allows for limiting the overall size of the group request. As a guideline, the server addressing information can be 9-24 bytes in size, while each entity-tag value can be 1-8 bytes in size. Thus, a single Multi-ETag option can be up to (24 + 8 * M) bytes in size, where M is the number of entity-tag values it includes.<a href="#section-3.2.2.2-5.3.2" class="pilcrow">¶</a></p>
+This allows for limiting the overall size of the group request. As a guideline, the server addressing information can be 9-24 bytes in size, while each entity-tag value can be 1-8 bytes in size. Thus, a single Multi-ETag Option can be up to (24 + 8 * M) bytes in size, where M is the number of entity-tag values it includes.<a href="#section-3.2.2.2-5.3.2" class="pilcrow">¶</a></p>
 </li>
             </ul>
-<p id="section-3.2.2.2-6">A 2.03 (Valid) response indicates that the stored response identified by the entity-tag given in the response's ETag option can be reused, after updating it as described in Section 5.9.1.3 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>. In effect, the client can determine if any of the stored representations from that server is current, without needing to transfer them again.<a href="#section-3.2.2.2-6" class="pilcrow">¶</a></p>
-<p id="section-3.2.2.2-7">Any other Response Code indicates that none of the stored responses from that server and nominated in the Multi-ETag option of the group request is suitable.  Instead, the response SHOULD be used to satisfy the request and MAY replace the stored response.<a href="#section-3.2.2.2-7" class="pilcrow">¶</a></p>
+<p id="section-3.2.2.2-6">A 2.03 (Valid) response indicates that the stored response identified by the entity-tag given in the response's ETag Option can be reused, after updating the stored response as described in Section 5.9.1.3 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>. So the client can determine if any one of the stored representations from that server is current, without need to transfer the current resource representation again.<a href="#section-3.2.2.2-6" class="pilcrow">¶</a></p>
+<p id="section-3.2.2.2-7">Any other Response Code indicates that none of the stored responses from that server, identified in the Multi-ETag Option of the group request, are suitable.  Instead, such response SHOULD be used to satisfy the request and MAY replace the stored response.<a href="#section-3.2.2.2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-caching-validation-server">
@@ -1568,12 +1568,12 @@ This allows for limiting the overall size of the group request. As a guideline, 
             <h5 id="name-processing-on-the-server-si">
 <a href="#section-3.2.2.3" class="section-number selfRef">3.2.2.3. </a><a href="#name-processing-on-the-server-si" class="section-name selfRef">Processing on the Server Side</a>
             </h5>
-<p id="section-3.2.2.3-1">If a GET or FETCH request includes both one or more ETag options together with one or more Multi-ETag options, then the server MUST ignore all the included ETag and Multi-ETag options.<a href="#section-3.2.2.3-1" class="pilcrow">¶</a></p>
-<p id="section-3.2.2.3-2">The server MUST ignore any Multi-ETag option which is malformed, or included in a request that is neither GET nor FETCH, or which specifies addressing information not matching with its own endpoint.<a href="#section-3.2.2.3-2" class="pilcrow">¶</a></p>
-<p id="section-3.2.2.3-3">The server considers only its pertaining Multi-ETag option, i.e. specifying addressing information associated to its own endpoint. The server MUST ignore any pertaining Multi-ETag option that occurs more than once.<a href="#section-3.2.2.3-3" class="pilcrow">¶</a></p>
-<p id="section-3.2.2.3-4">If the pertaining Multi-ETag option specifies the CBOR simple value Null for the 'srv_port' element of 'tp_info' (see <a href="#sec-caching-validation-tpinfo" class="xref">Section 3.2.2.1</a>), the server MUST assume the default port number 5683.<a href="#section-3.2.2.3-4" class="pilcrow">¶</a></p>
-<p id="section-3.2.2.3-5">Then, the server can issue a 2.03 (Valid) response in place of a 2.05 (Content) response, if one of the entity-tag values from the pertaining Multi-ETag option is the entity-tag for the current resource representation, i.e. it is valid. The 2.03 (Valid) response echoes this specific entity-tag as value of an ETag option.<a href="#section-3.2.2.3-5" class="pilcrow">¶</a></p>
-<p id="section-3.2.2.3-6">The inclusion of an ETag option in responses works as defined in Section 5.6.10.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>.<a href="#section-3.2.2.3-6" class="pilcrow">¶</a></p>
+<p id="section-3.2.2.3-1">If a GET or FETCH request includes both one or more ETag Options together with one or more Multi-ETag Options, then the server MUST ignore all the included ETag and Multi-ETag Options.<a href="#section-3.2.2.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.2.3-2">The server MUST ignore any Multi-ETag Option which is malformed, or included in a request that is neither GET nor FETCH, or which specifies addressing information not matching with its own endpoint address.<a href="#section-3.2.2.3-2" class="pilcrow">¶</a></p>
+<p id="section-3.2.2.3-3">The server considers only its pertaining Multi-ETag Option, i.e. specifying addressing information associated to its own endpoint. The server MUST ignore any pertaining Multi-ETag Option that occurs more than once.<a href="#section-3.2.2.3-3" class="pilcrow">¶</a></p>
+<p id="section-3.2.2.3-4">If the pertaining Multi-ETag Option specifies the CBOR simple value Null for the 'srv_port' element of 'tp_info' (see <a href="#sec-caching-validation-tpinfo" class="xref">Section 3.2.2.1</a>), the server MUST assume the default port number 5683.<a href="#section-3.2.2.3-4" class="pilcrow">¶</a></p>
+<p id="section-3.2.2.3-5">Then, the server can issue a 2.03 (Valid) response in place of a 2.05 (Content) response, if one of the entity-tag values from the pertaining Multi-ETag Option is the entity-tag for the current resource representation, i.e. it is valid. The 2.03 (Valid) response echoes this specific entity-tag within an ETag Option included in the response.<a href="#section-3.2.2.3-5" class="pilcrow">¶</a></p>
+<p id="section-3.2.2.3-6">The inclusion of an ETag Option in a response works as defined in Section 5.6.10.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>.<a href="#section-3.2.2.3-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1585,10 +1585,11 @@ This allows for limiting the overall size of the group request. As a guideline, 
         <h3 id="name-port-and-uri-path-selection">
 <a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-port-and-uri-path-selection" class="section-name selfRef">Port and URI Path Selection</a>
         </h3>
-<p id="section-3.3-1">A server that is a member of a CoAP group listens for CoAP messages on the group's IP multicast address, usually on the CoAP default UDP port 5683, or another non-default UDP port if configured. Regardless of the method for selecting the port number, the same port number MUST be used across all CoAP servers that are members of a CoAP group and across all CoAP clients performing the requests to that group. The URI Path used in the request is preferably a path that is known to be supported across all group members. However there are valid use cases where a request is known to be successful for a subset of the CoAP group, for example only members of a specific application group, while those group members for which the request is unsuccessful (for example because they are outside the application group) either ignore the multicast request or respond with an error status code.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
-<p id="section-3.3-2">One way to create multiple CoAP groups is using different UDP ports with the same IP multicast address, in case the devices' network stack only supports a limited number of multicast address subscriptions. However, it must be taken into account that this incurs additional processing overhead on each CoAP server participating in at least one of these groups: messages to groups that are not of interest to the node are only discarded at the higher transport (UDP) layer instead of directly at the network (IP) layer.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
-<p id="section-3.3-3">Port 5684 is reserved for DTLS-secured CoAP and MUST NOT be used for any CoAP group communication.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
-<p id="section-3.3-4">For a CoAP server node that supports resource discovery as defined in Section 2.4 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>, the default port 5683 MUST be supported (see Section 7.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>) for the "All CoAP Nodes" multicast group as detailed in <a href="#sec-transport" class="xref">Section 3.8</a>.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
+<p id="section-3.3-1">A server that is a member of a CoAP group listens for CoAP messages on the group's IP multicast address, usually on the CoAP default UDP port 5683, or another non-default UDP port if configured. Regardless of the method for selecting the port number, the same port number MUST be used across all CoAP servers that are members of a CoAP group and across all CoAP clients performing the requests to that group.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-2">The URI Path used in the request is preferably a path that is known to be supported across all group members. However there are valid use cases where a request is known to be successful only for a subset of the CoAP group, for example only members of a specific application group, while those group members for which the request is unsuccessful (for example because they are outside the application group) either ignore the multicast request or respond with an error status code.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
+<p id="section-3.3-3">One way to create multiple CoAP groups is using different UDP ports with the same IP multicast address, in case the devices' network stack only supports a limited number of multicast address subscriptions. However, it must be taken into account that this incurs additional processing overhead on each CoAP server participating in at least one of these groups: messages to groups that are not of interest to the node are only discarded at the higher transport (UDP) layer instead of directly at the network (IP) layer. Also, a constrained network may be additionally burdened in this case with multicast traffic that is eventually discarded at the UDP layer by most nodes.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
+<p id="section-3.3-4">Port 5684 is reserved for DTLS-secured unicast CoAP and MUST NOT be used for any CoAP group communication.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
+<p id="section-3.3-5">For a CoAP server node that supports resource discovery as defined in Section 2.4 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>, the default port 5683 MUST be supported (see Section 7.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>) for the "All CoAP Nodes" multicast group as detailed in <a href="#sec-transport" class="xref">Section 3.8</a>.<a href="#section-3.3-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-proxy">
@@ -1596,23 +1597,23 @@ This allows for limiting the overall size of the group request. As a guideline, 
         <h3 id="name-proxy-operation">
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-proxy-operation" class="section-name selfRef">Proxy Operation</a>
         </h3>
-<p id="section-3.4-1">This section defines how proxies operate in a group communication scenario. In particular, <a href="#sec-proxy-forward" class="xref">Section 3.4.1</a> defines operations of forward-proxies, <a href="#sec-proxy-forward" class="xref">Section 3.4.1</a> defines operations of reverse-proxies, and <a href="#sec-proxy-caching" class="xref">Section 3.4.3</a> defines operations of proxies that employ a cache for responses to group requests.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.4-1">This section defines how proxies operate in a group communication scenario. In particular, <a href="#sec-proxy-forward" class="xref">Section 3.4.1</a> defines operations of forward-proxies, <a href="#sec-proxy-reverse" class="xref">Section 3.4.2</a> defines operations of reverse-proxies, and <a href="#sec-proxy-caching" class="xref">Section 3.4.3</a> defines operations of proxies that employ a cache for responses to group requests.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <div id="sec-proxy-forward">
 <section id="section-3.4.1">
           <h4 id="name-forward-proxies">
 <a href="#section-3.4.1" class="section-number selfRef">3.4.1. </a><a href="#name-forward-proxies" class="section-name selfRef">Forward-Proxies</a>
           </h4>
-<p id="section-3.4.1-1">CoAP enables a client to request a forward-proxy to process a CoAP request on its behalf, as described in Section 5.7.2 and 8.2.2 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>. For this purpose, the client specifies either the request group URI as a string in the Proxy-URI option or it uses the Proxy-Scheme option with the group URI constructed from the usual Uri-* options. The forward-proxy then resolves the group URI to a destination CoAP group, multicasts the CoAP request, receives the responses and forwards all the individual (unicast) responses back to the client.<a href="#section-3.4.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.4.1-1">CoAP enables a client to request a forward-proxy to process a CoAP request on its behalf, as described in Section 5.7.2 and 8.2.2 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>. For this purpose, the client specifies either the request group URI as a string in the Proxy-URI Option or it uses the Proxy-Scheme Option with the group URI constructed from the usual Uri-* Options. The forward-proxy then resolves the group URI to a destination CoAP group, multicasts the CoAP request, receives the responses and forwards all the individual (unicast) responses back to the client.<a href="#section-3.4.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.4.1-2">However, there are certain issues and limitations with this approach:<a href="#section-3.4.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.4.1-3.1">The CoAP client component that sent a unicast CoAP request to the proxy may be expecting only one (unicast) response, as usual for a CoAP unicast request. Instead, it receives multiple (unicast) responses, potentially leading to fault conditions in the component or to discarding any received responses following the first one. This issue may occur even if the application calling the CoAP client component is aware that the forward-proxy is going to execute a CoAP group URI request.<a href="#section-3.4.1-3.1" class="pilcrow">¶</a>
 </li>
-            <li class="normal" id="section-3.4.1-3.2">Each individual CoAP response received by the client will appear to originate (based on its IP source address) from the CoAP Proxy, and not from the server that produced the response.  This makes it impossible for the client to identify the server that produced each response, unless the server identity is contained as a part of the response payload or inside a CoAP Option in the response.<a href="#section-3.4.1-3.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-3.4.1-3.2">Each individual CoAP response received by the client will appear to originate (based on its IP source address) from the CoAP Proxy, and not from the server that produced the response.  This makes it impossible for the client to identify the server that produced each response, unless the server identity is contained as a part of the response payload or inside a CoAP option in the response.<a href="#section-3.4.1-3.2" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-3.4.1-3.3">The proxy does not know how many members there are in the CoAP group or how many group members will actually respond. Also, the proxy does not know for how long to collect responses before it stops forwarding them to the client. A CoAP client that is not using a Proxy might face the same problems in collecting responses to a multicast request. However, the client itself would typically have application-specific rules or knowledge on how to handle this situation, while an application-agnostic CoAP Proxy would typically not have this knowledge. For example, a CoAP client could monitor incoming responses and use this information to decide how long to continue collecting responses - which is something a proxy cannot do.<a href="#section-3.4.1-3.3" class="pilcrow">¶</a>
 </li>
           </ul>
-<p id="section-3.4.1-4">A method based on this approach and addressing the issues raised above is defined in <span>[<a href="#I-D.tiloca-core-groupcomm-proxy" class="xref">I-D.tiloca-core-groupcomm-proxy</a>]</span>.<a href="#section-3.4.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.4.1-4">A forward-proxying method using this approach and addressing the issues raised above is defined in <span>[<a href="#I-D.tiloca-core-groupcomm-proxy" class="xref">I-D.tiloca-core-groupcomm-proxy</a>]</span>.<a href="#section-3.4.1-4" class="pilcrow">¶</a></p>
 <p id="section-3.4.1-5">An alternative solution is for the proxy to collect all the individual (unicast) responses to a CoAP group request and then send back only a single (aggregated) response to the client. However, this solution brings up new issues:<a href="#section-3.4.1-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.4.1-6.1">Like for the approach discussed above, the proxy does not know for how long to collect responses before sending back the aggregated response to the client. Analogous considerations apply to this approach too, both on the client and proxy side.<a href="#section-3.4.1-6.1" class="pilcrow">¶</a>
@@ -1620,7 +1621,7 @@ This allows for limiting the overall size of the group request. As a guideline, 
             <li class="normal" id="section-3.4.1-6.2">There is no default format defined in CoAP for aggregation of multiple responses into a single response. Such a format could be standardized based on, for example, the multipart content-format <span>[<a href="#RFC8710" class="xref">RFC8710</a>]</span>.<a href="#section-3.4.1-6.2" class="pilcrow">¶</a>
 </li>
           </ul>
-<p id="section-3.4.1-7">Due to the above issues, it is RECOMMENDED that a CoAP Proxy only processes a group URI request if it is explicitly enabled to do so. The default response (if the function is not explicitly enabled) to a group URI request is 5.01 (Not Implemented). Furthermore, a proxy SHOULD be explicitly configured (e.g. by white-listing and/or client authentication) to allow proxied CoAP multicast requests only from specific client(s).<a href="#section-3.4.1-7" class="pilcrow">¶</a></p>
+<p id="section-3.4.1-7">Due to the above issues, it is RECOMMENDED that a CoAP Proxy only processes a group URI request if it is explicitly enabled to do so. The default response (if the function is not explicitly enabled) to a group URI request is 5.01 Not Implemented. Furthermore, a proxy SHOULD be explicitly configured (e.g. by white-listing and/or client authentication) to allow proxied CoAP multicast requests only from specific client(s).<a href="#section-3.4.1-7" class="pilcrow">¶</a></p>
 <p id="section-3.4.1-8">The operation of HTTP-to-CoAP proxies for multicast CoAP requests is specified in Section 8.4 and 10.1 of <span>[<a href="#RFC8075" class="xref">RFC8075</a>]</span>. In this case, the "application/http" media type is used to let the proxy return multiple CoAP responses -- each translated to a HTTP response -- back to the HTTP client. Of course, in this case the HTTP client sending a group URI to the proxy needs to be aware that it is going to receive this format, and needs to be able to decode it into the responses of multiple CoAP servers. Also, the IP source address of each CoAP response cannot be determined anymore from the "application/http" response. The HTTP client still identify the CoAP servers by other means such as application-specific information in the response payload.<a href="#section-3.4.1-8" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1632,7 +1633,7 @@ This allows for limiting the overall size of the group request. As a guideline, 
 <p id="section-3.4.2-1">CoAP enables the use of a reverse-proxy, as an endpoint that stands in for one or more other server(s), and satisfies requests on behalf of these, doing any necessary translations (see Section 5.7.3 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>).<a href="#section-3.4.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.4.2-2">In a group communication scenario, a reverse-proxy can rely on its configuration and/or on information in a request from a client, in order to determine that the request has to be forwarded to a group of servers over IP multicast.<a href="#section-3.4.2-2" class="pilcrow">¶</a></p>
 <p id="section-3.4.2-3">Furthermore, the reverse-proxy can actually stand in for (and thus prevent to directly reach) only the whole set of servers in the group, or also each of those individual servers (e.g. if acting as firewall).<a href="#section-3.4.2-3" class="pilcrow">¶</a></p>
-<p id="section-3.4.2-4">For a reverse-proxy that forwards a request to a group of servers over IP multicast, the same as defined in Section 5.7.3 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> hold, with the following additions.<a href="#section-3.4.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.4.2-4">For a reverse-proxy that forwards a request to a group of servers over IP multicast, the same considerations as defined in Section 5.7.3 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> hold, with the following additions:<a href="#section-3.4.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.4.2-5.1">The same issues defined in <a href="#sec-proxy-forward" class="xref">Section 3.4.1</a> for a forward proxy apply and have to be addressed, e.g. using the method defined in <span>[<a href="#I-D.tiloca-core-groupcomm-proxy" class="xref">I-D.tiloca-core-groupcomm-proxy</a>]</span>.<a href="#section-3.4.2-5.1" class="pilcrow">¶</a>
 </li>
@@ -1663,26 +1664,26 @@ This signaling between the client and the proxy can also be achieved by using th
 <p id="section-3.4.3-1">A proxy that supports forwarding of group requests and that employs a cache maintains the following two types of cache entry.<a href="#section-3.4.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.4.3-2.1">
-              <p id="section-3.4.3-2.1.1">The first type, namely "individual" cache entry, is associated to one server and stores one response from that server, regardless whether it is a reply to a unicast request or to a group request.<a href="#section-3.4.3-2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-3.4.3-2.1.1">The first type, "individual" cache entry, is associated to one server and stores one response from that server, regardless whether it is a response to a unicast request or to a group request.<a href="#section-3.4.3-2.1.1" class="pilcrow">¶</a></p>
 <p id="section-3.4.3-2.1.2">
 A hit to this entry would be produced by a matching request intended to that server, i.e. to the corresponding unicast URI.<a href="#section-3.4.3-2.1.2" class="pilcrow">¶</a></p>
 <p id="section-3.4.3-2.1.3">
-When the response is a reply to a unicast request to the server, the unicast URI is the same target URI used for the request.<a href="#section-3.4.3-2.1.3" class="pilcrow">¶</a></p>
+When the response is a response to a unicast request to the server, the unicast URI is the same target URI used for the request.<a href="#section-3.4.3-2.1.3" class="pilcrow">¶</a></p>
 <p id="section-3.4.3-2.1.4">
-When the response is a reply to a group request to the CoAP group, the unicast URI is obtained by replacing the authority part of the group URI in the group request with the transport-layer source address and port number of the response message.<a href="#section-3.4.3-2.1.4" class="pilcrow">¶</a></p>
+When the response is a response to a group request to the CoAP group, the unicast URI is obtained by replacing the authority part of the group URI in the group request with the transport-layer source address and port number of the response message.<a href="#section-3.4.3-2.1.4" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.4.3-2.2">
-              <p id="section-3.4.3-2.2.1">The second type, namely "aggregated" cache entry, is associated to the CoAP group, and stores all the responses that: the proxy has received as a reply to a group request to that group; and that have been also forwarded back to the client that sent the group request.<a href="#section-3.4.3-2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-3.4.3-2.2.1">The second type, "aggregated" cache entry, is associated to the CoAP group, and stores all the responses that: the proxy has received as a response to a group request to that group; and that have been also forwarded back to the client that sent the group request.<a href="#section-3.4.3-2.2.1" class="pilcrow">¶</a></p>
 <p id="section-3.4.3-2.2.2">
 A hit to this entry would be produced by a matching group request intended to the CoAP group, i.e. to the corresponding group URI.<a href="#section-3.4.3-2.2.2" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-3.4.3-3">When forwarding a group request to a CoAP group using the request's group URI, the proxy handles its cache entries as follows. The same applies if the proxy spontaneously re-sends a group request to the CoAP group, in order to refresh an aggregated cache entry after its expiration or invalidation.<a href="#section-3.4.3-3" class="pilcrow">¶</a></p>
+<p id="section-3.4.3-3">When forwarding a group request to a CoAP group using the request's group URI and processing the responses, the proxy handles its cache entries as follows. The same applies if the proxy spontaneously re-sends a group request to the CoAP group, in order to refresh an aggregated cache entry after its expiration or invalidation.<a href="#section-3.4.3-3" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3.4.3-4">
 <li id="section-3.4.3-4.1">
               <p id="section-3.4.3-4.1.1">For each response to the group request which is received and also forwarded back to the client:<a href="#section-3.4.3-4.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.4.3-4.1.2.1">The proxy creates or refreshes the individual cache entry associated to the origin server and for that response. That is, the response is stored in the individual cache entry, and the lifetime of the cache entry is set to the lifetime of the response, as indicated by the Max-Age option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>). This cache entry becomes immediately usable to serve requests from client.<a href="#section-3.4.3-4.1.2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.4.3-4.1.2.1">The proxy creates or refreshes the individual cache entry associated to the origin server and for that response. That is, the response is stored in the individual cache entry, and the lifetime of the cache entry is set to the lifetime of the response, as indicated by the Max-Age Option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>). This cache entry becomes immediately usable to serve requests from clients.<a href="#section-3.4.3-4.1.2.1" class="pilcrow">¶</a>
 </li>
                 <li class="normal" id="section-3.4.3-4.1.2.2">The proxy adds the response to a temporary list L.<a href="#section-3.4.3-4.1.2.2" class="pilcrow">¶</a>
 </li>
@@ -1695,42 +1696,42 @@ A hit to this entry would be produced by a matching group request intended to th
 </li>
                 <li class="normal" id="section-3.4.3-4.2.2.2">The proxy stores all the responses from the list L in the aggregated cache entry.<a href="#section-3.4.3-4.2.2.2" class="pilcrow">¶</a>
 </li>
-                <li class="normal" id="section-3.4.3-4.2.2.3">The proxy sets the lifetime of the cache entry to the smallest lifetime among all the responses stored in the entry, determined in the same way defined at step 1 above.<a href="#section-3.4.3-4.2.2.3" class="pilcrow">¶</a>
+                <li class="normal" id="section-3.4.3-4.2.2.3">The proxy sets the lifetime of the cache entry to the smallest lifetime among all the responses stored in the entry, determined in the same way as defined in step 1 above.<a href="#section-3.4.3-4.2.2.3" class="pilcrow">¶</a>
 </li>
                 <li class="normal" id="section-3.4.3-4.2.2.4">The proxy sets the aggregated cache entry as usable to serve group requests from clients.<a href="#section-3.4.3-4.2.2.4" class="pilcrow">¶</a>
 </li>
               </ul>
 </li>
           </ol>
-<p id="section-3.4.3-5">When forwarding a request to an individual server using the associated unicast URI, the proxy handles its cache entries as follows. The same applies if the proxy spontaneously re-sends a unicast request to a single server, in order to refresh an individual cache entry after its expiration or invalidation.<a href="#section-3.4.3-5" class="pilcrow">¶</a></p>
+<p id="section-3.4.3-5">When forwarding a request to an individual server using the associated unicast URI and processing its response, the proxy handles its cache entries as follows. The same applies if the proxy spontaneously re-sends a unicast request to a single server, in order to refresh an individual cache entry after its expiration or invalidation.<a href="#section-3.4.3-5" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3.4.3-6">
-<li id="section-3.4.3-6.1">The proxy creates or refreshes the individual cache entry associated to the origin server and for that response. That is, the response is stored in the cache entry, and the lifetime of the cache entry is set to the lifetime of the response, as indicated by the Max-Age option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>). This cache entry becomes immediately usable to serve requests from clients.<a href="#section-3.4.3-6.1" class="pilcrow">¶</a>
+<li id="section-3.4.3-6.1">The proxy creates or refreshes the individual cache entry associated to the origin server and for that response. That is, the response is stored in the cache entry, and the lifetime of the cache entry is set to the lifetime of the response, as indicated by the Max-Age Option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>). This cache entry becomes immediately usable to serve requests from clients.<a href="#section-3.4.3-6.1" class="pilcrow">¶</a>
 </li>
             <li id="section-3.4.3-6.2">
-              <p id="section-3.4.3-6.2.1">The proxy checks whether it has a non expired and valid aggregated cache entry, such that a hit would be produced by a group request analogous to the forwarded unicast request.<a href="#section-3.4.3-6.2.1" class="pilcrow">¶</a></p>
+              <p id="section-3.4.3-6.2.1">The proxy checks whether it has a non-expired and valid aggregated cache entry, such that a hit would be produced by a group request analogous to the forwarded unicast request.<a href="#section-3.4.3-6.2.1" class="pilcrow">¶</a></p>
 <p id="section-3.4.3-6.2.2">
 That is, such group request would be intended to the group URI of the CoAP group associated to the aggregated cache entry, rather than intended to the unicast URI of the forwarded request.<a href="#section-3.4.3-6.2.2" class="pilcrow">¶</a></p>
 </li>
             <li id="section-3.4.3-6.3">
               <p id="section-3.4.3-6.3.1">If an aggregated cache entry is found at the previous step:<a href="#section-3.4.3-6.3.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.4.3-6.3.2.1">The proxy stores the received response in the cache entry, possibly replacing an already stored instance of that response from that origin server.<a href="#section-3.4.3-6.3.2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.4.3-6.3.2.1">The proxy stores the received response in the aggregated cache entry, possibly replacing an already stored instance of that response from that origin server.<a href="#section-3.4.3-6.3.2.1" class="pilcrow">¶</a>
 </li>
-                <li class="normal" id="section-3.4.3-6.3.2.2">The proxy sets as new lifetime of the aggregated cache entry the minimum between the current lifetime of the cache entry and the lifetime of the just stored response, as indicated by the Max-Age option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>).<a href="#section-3.4.3-6.3.2.2" class="pilcrow">¶</a>
+                <li class="normal" id="section-3.4.3-6.3.2.2">The proxy sets as new lifetime of the aggregated cache entry the minimum value between the current lifetime of the cache entry and the lifetime of the just-stored response, as indicated by the Max-Age Option if present, or as the default value of 60 seconds otherwise (see Section 5.6.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>).<a href="#section-3.4.3-6.3.2.2" class="pilcrow">¶</a>
 </li>
               </ul>
 </li>
           </ol>
-<p id="section-3.4.3-7">Note that a proxy sitting on a router can monitor network control messages, hence learning when a new server has joined a CoAP group and is listening to the multicast IP address of that CoAP group. This information would guide the proxy in refreshing an aggregated cache entry, by sending a request to the CoAP group over the group URI before the entry expires, and thus storing also a response from the latest joined server.<a href="#section-3.4.3-7" class="pilcrow">¶</a></p>
-<p id="section-3.4.3-8">Following the expiration or invalidation of a cache entry, as well as if wishing to refresh a cache entry, the proxy can directly interact with the servers in the CoAP group. To this end, it takes the role of a CoAP client as defined in <a href="#sec-caching" class="xref">Section 3.2</a>. In particular, the proxy can perform revalidation of responses to group requests by using the Multi-ETag option, as defined in <a href="#sec-caching-validation" class="xref">Section 3.2.2</a>.<a href="#section-3.4.3-8" class="pilcrow">¶</a></p>
+<p id="section-3.4.3-7">Note that a proxy embedded in a router can monitor network control messages, hence learning when a new server has joined a CoAP group and is listening to the multicast IP address of that CoAP group. This information could be used to guide the proxy in refreshing an aggregated cache entry, by sending a request to the CoAP group over the group URI before the entry expires, and thus storing also a response from the newly joined server.<a href="#section-3.4.3-7" class="pilcrow">¶</a></p>
+<p id="section-3.4.3-8">Following the expiration or invalidation of a cache entry, as well as if wishing to refresh a cache entry, the proxy can directly interact with the servers in the CoAP group. To this end, it takes the role of a CoAP client as defined in <a href="#sec-caching" class="xref">Section 3.2</a>. In particular, the proxy can perform revalidation of responses to group requests by using the Multi-ETag Option, as defined in <a href="#sec-caching-validation" class="xref">Section 3.2.2</a>.<a href="#section-3.4.3-8" class="pilcrow">¶</a></p>
 <p id="section-3.4.3-9">As further discussed in <a href="#chap-sec-group-caching" class="xref">Section 5.2</a>, additional means are required to enable cachability of responses at the proxy when communications in the group are secured with Group OSCORE <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="xref">I-D.ietf-core-oscore-groupcomm</a>]</span>.<a href="#section-3.4.3-9" class="pilcrow">¶</a></p>
 <div id="sec-proxy-caching-valid">
 <section id="section-3.4.3.1">
             <h5 id="name-validation-of-responses-to-">
 <a href="#section-3.4.3.1" class="section-number selfRef">3.4.3.1. </a><a href="#name-validation-of-responses-to-" class="section-name selfRef">Validation of Responses to a Group Request</a>
             </h5>
-<p id="section-3.4.3.1-1">A client can revalidate the full set of responses to a group request from the corresponding aggregated cache entry at the proxy. To this end, this specification defines the new Group-ETag option.<a href="#section-3.4.3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.4.3.1-2">The Group-ETag option has the properties summarized in <a href="#fig-response-group-etag-option" class="xref">Figure 4</a>, which extends Table 4 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>. The Group-ETag option is elective, safe to forward, part of the cache key, and repeatable.<a href="#section-3.4.3.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.4.3.1-1">A client can revalidate the full set of responses to a group request from the corresponding aggregated cache entry at the proxy. To this end, this specification defines the new Group-ETag Option.<a href="#section-3.4.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.4.3.1-2">The Group-ETag Option has the properties summarized in <a href="#fig-response-group-etag-option" class="xref">Figure 4</a>, which extends Table 4 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>. The Group-ETag Option is elective, safe to forward, part of the cache key, and repeatable.<a href="#section-3.4.3.1-2" class="pilcrow">¶</a></p>
 <p id="section-3.4.3.1-3">The option is intended for group requests sent to a Forward-Proxy, as well as for the associated responses retrieved from the corresponding aggregated cache entry at the proxy.<a href="#section-3.4.3.1-3" class="pilcrow">¶</a></p>
 <span id="name-the-group-etag-option"></span><div id="fig-response-group-etag-option">
 <figure id="figure-4">
@@ -1750,15 +1751,15 @@ That is, such group request would be intended to the group URI of the CoAP group
 <a href="#name-the-group-etag-option" class="selfRef">The Group-ETag Option.</a>
               </figcaption></figure>
 </div>
-<p id="section-3.4.3.1-5">The Group-ETag option has the same properties of the ETag option defined in Section 5.10.6 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>.<a href="#section-3.4.3.1-5" class="pilcrow">¶</a></p>
-<p id="section-3.4.3.1-6">The Group-ETag option is of class U in terms of OSCORE processing (see Section 4.1 of <span>[<a href="#RFC8613" class="xref">RFC8613</a>]</span>).<a href="#section-3.4.3.1-6" class="pilcrow">¶</a></p>
-<p id="section-3.4.3.1-7">When providing 2.05 (Content) responses to a GET or FETCH group request from an aggregated cache entry, the proxy can include one Group-ETag option, specifying the current entity-tag value associated to that cache entry. Each of such responses MUST NOT include more than one Group-ETag option.<a href="#section-3.4.3.1-7" class="pilcrow">¶</a></p>
-<p id="section-3.4.3.1-8">If the proxy supports this form of response revalidation, it MUST update the current entity-tag value associated to an aggregated cache entry, every time a response is added to the that cache entry or replaces an already included response.<a href="#section-3.4.3.1-8" class="pilcrow">¶</a></p>
-<p id="section-3.4.3.1-9">When sending a GET or FETCH group request to the proxy, as asking to forward it to a CoAP group, the client can include one or more Group-ETag option. Each option specifies one entity-tag value, as applicable to the aggregated cache entry for that group request.<a href="#section-3.4.3.1-9" class="pilcrow">¶</a></p>
-<p id="section-3.4.3.1-10">In case the group request hits an aggregated cache entry and its current entity-tag value matches with one of the entity-tag value specified in the Group-ETag option(s), then the proxy replies with a single 2.03 (Valid) response. This response has no payload and MUST include one Group-ETag option, specifying the current entity-tag value of the aggregated cache entry.<a href="#section-3.4.3.1-10" class="pilcrow">¶</a></p>
-<p id="section-3.4.3.1-11">That is, the 2.03 (Valid) response from the proxy indicates that the stored responses idenfied by the entity-tag given in the response's Group-ETag option can be reused, after updating each of them as described in Section 5.9.1.3 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>. In effect, the client can determine if any of the stored set of representations from the aggregated cache entry at the proxy is current, without needing to transfer them again.<a href="#section-3.4.3.1-11" class="pilcrow">¶</a></p>
-<p id="section-3.4.3.1-12">Note that, if a client triggers the forwarding of a group request (i.e., there is no hit of an aggregated cache entry), this will result in a new aggregated cache entry created at the proxy. Then, the client cannot obtain an entity-tag value through a Group-ETag option in any of the responses forwarded back by the proxy.<a href="#section-3.4.3.1-12" class="pilcrow">¶</a></p>
-<p id="section-3.4.3.1-13">In fact, the proxy will have an assigned entity-tag value to provide only after forwarding all responses back to that client, after the new aggreagated cache entry is eventually created. However, when following group requests from the same client or different clients are served from the aggregated cache entry, the returned responses can instead include a Group-ETag option, specifying the current entity-tag for the aggregated cache entry.<a href="#section-3.4.3.1-13" class="pilcrow">¶</a></p>
+<p id="section-3.4.3.1-5">The Group-ETag Option has the same properties of the ETag Option defined in Section 5.10.6 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>.<a href="#section-3.4.3.1-5" class="pilcrow">¶</a></p>
+<p id="section-3.4.3.1-6">The Group-ETag Option is of class U in terms of OSCORE processing (see Section 4.1 of <span>[<a href="#RFC8613" class="xref">RFC8613</a>]</span>).<a href="#section-3.4.3.1-6" class="pilcrow">¶</a></p>
+<p id="section-3.4.3.1-7">When providing 2.05 (Content) responses to a GET or FETCH group request from an aggregated cache entry, the proxy can include one Group-ETag Option, specifying the current entity-tag value associated to that cache entry. Each of such responses MUST NOT include more than one Group-ETag Option.<a href="#section-3.4.3.1-7" class="pilcrow">¶</a></p>
+<p id="section-3.4.3.1-8">If the proxy supports this form of response revalidation, it MUST update the current entity-tag value associated to an aggregated cache entry, every time a response is added to that cache entry or replaces an already included response.<a href="#section-3.4.3.1-8" class="pilcrow">¶</a></p>
+<p id="section-3.4.3.1-9">When sending a GET or FETCH group request to the proxy, to be forwarded to a CoAP group, the client can include one or more Group-ETag Option(s). Each option specifies one entity-tag value, as applicable to the aggregated cache entry for that group request.<a href="#section-3.4.3.1-9" class="pilcrow">¶</a></p>
+<p id="section-3.4.3.1-10">In case the group request hits an aggregated cache entry and its current entity-tag value matches with one of the entity-tag value(s) specified in the Group-ETag option(s), then the proxy replies with a single 2.03 (Valid) response. This response has no payload and MUST include one Group-ETag Option, specifying the current entity-tag value of the aggregated cache entry.<a href="#section-3.4.3.1-10" class="pilcrow">¶</a></p>
+<p id="section-3.4.3.1-11">That is, the 2.03 (Valid) response from the proxy indicates that the stored responses idenfied by the entity-tag given in the response's Group-ETag Option can be reused, after updating each of them as described in Section 5.9.1.3 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>. In effect, the client can determine if any of the stored set of representations from the aggregated cache entry at the proxy is current, without needing to transfer any of them again.<a href="#section-3.4.3.1-11" class="pilcrow">¶</a></p>
+<p id="section-3.4.3.1-12">Note that, if a client triggers the proxy to perform forwarding of a group request (i.e., there is no hit of an aggregated cache entry), this will result in a new aggregated cache entry created at the proxy. Then, the client cannot obtain an entity-tag value through a Group-ETag Option in any of the responses forwarded back by the proxy.<a href="#section-3.4.3.1-12" class="pilcrow">¶</a></p>
+<p id="section-3.4.3.1-13">In fact, the proxy will only have an assigned entity-tag value to provide after all responses have been forwarded back to that client, which is the moment that the new aggregated cache entry is eventually created. However, when follow-up group requests from the same client or different clients are served from this aggregated cache entry, the proxy can include a Group-ETag Option in each returned response, specifying the current entity-tag for the aggregated cache entry.<a href="#section-3.4.3.1-13" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1786,7 +1787,7 @@ That is, such group request would be intended to the group URI of the CoAP group
         </ul>
 <p id="section-3.5-4">Additional guidelines to reduce congestion risks defined in this document are as follows:<a href="#section-3.5-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.5-5.1">A server in a constrained network should only support group communication with GET and FETCH for resources that are small. This can consist, for example, in having the payload of the response as limited to approximately 5% of the IP Maximum Transmit Unit (MTU) size, so that it fits into a single link-layer frame in case IPv6 over Low-Power Wireless Personal Area Networks (6LoWPAN) (see Section 4 of <span>[<a href="#RFC4944" class="xref">RFC4944</a>]</span>) is used.<a href="#section-3.5-5.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.5-5.1">A server in a constrained network SHOULD only support group communication for resources that have a small representation (where the representation may be retrieved via a GET, FETCH or POST method in the request). For example, "small" can be defined as a response payload limited to approximately 5% of the IP Maximum Transmit Unit (MTU) size, so that it fits into a single link-layer frame in case IPv6 over Low-Power Wireless Personal Area Networks (6LoWPAN) (see Section 4 of <span>[<a href="#RFC4944" class="xref">RFC4944</a>]</span>) is used on the constrained network.<a href="#section-3.5-5.1" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-3.5-5.2">A server SHOULD minimize the payload size of a response to a multicast GET or FETCH on "/.well-known/core" by using hierarchy in arranging link descriptions for the response. An example of this is given in Section 5 of <span>[<a href="#RFC6690" class="xref">RFC6690</a>]</span>.<a href="#section-3.5-5.2" class="pilcrow">¶</a>
 </li>
@@ -1969,16 +1970,16 @@ do not support MLD as they have their own mechanisms defined.<a href="#section-3
 <p id="section-5.2-3">For group application scenarios that require secure communication, it is still possible to achieve cachability of responses at proxies, by using the approach defined in <span>[<a href="#I-D.amsuess-core-cachable-oscore" class="xref">I-D.amsuess-core-cachable-oscore</a>]</span> and based on Deterministic Requests protected with the pairwise mode of Group OSCORE. This approach is limited to group requests that are safe to process and do not yield side effects at the server. As for any protected group request, it requires the clients and all the servers in the CoAP group to have already joined the correct OSCORE group.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <p id="section-5.2-4">Starting from the same plain CoAP request, this allows different clients in the OSCORE group to deterministically generate a same request protected with Group OSCORE, which is sent to the proxy for being forwarded to the CoAP group. The proxy can now effectively cache the resulting responses from the servers in the CoAP group, since the same plain CoAP request will result again in the same Deterministic Request and thus will produce a cache hit.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
 <p id="section-5.2-5">With enabled cachability of responses at the proxy, the same as defined in <a href="#sec-proxy-caching" class="xref">Section 3.4.3</a> applies, with respect to cache entries and their lifetimes.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
-<p id="section-5.2-6">Note that different Deterministic Requests result in different cache entries at the proxy. This includes the case where different plain group requests differ only in their set of Multi-ETag options.<a href="#section-5.2-6" class="pilcrow">¶</a></p>
+<p id="section-5.2-6">Note that different Deterministic Requests result in different cache entries at the proxy. This includes the case where different plain group requests differ only in their set of Multi-ETag Options.<a href="#section-5.2-6" class="pilcrow">¶</a></p>
 <p id="section-5.2-7">That is, even though the servers would produce the same plain CoAP responses in reply to the different Deterministic Requests, those will result in different protected responses to the respective Deterministic Request, and hence in different cache entries at the proxy.<a href="#section-5.2-7" class="pilcrow">¶</a></p>
-<p id="section-5.2-8">Thus, given a plain group request, a client needs to reuse the same set of Multi-ETag options, in order to send that group request as a Deterministic Request that can actually produce a cache hit at the proxy. However, while this would prevent the caching at the proxy to be inefficient and unnecessarily redundant, it would also limit the flexibility of end-to-end response revalidation for a client.<a href="#section-5.2-8" class="pilcrow">¶</a></p>
+<p id="section-5.2-8">Thus, given a plain group request, a client needs to reuse the same set of Multi-ETag Options, in order to send that group request as a Deterministic Request that can actually produce a cache hit at the proxy. However, while this would prevent the caching at the proxy to be inefficient and unnecessarily redundant, it would also limit the flexibility of end-to-end response revalidation for a client.<a href="#section-5.2-8" class="pilcrow">¶</a></p>
 <div id="chap-sec-group-caching-validation">
 <section id="section-5.2.1">
           <h4 id="name-validation-of-responses">
 <a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-validation-of-responses" class="section-name selfRef">Validation of Responses</a>
           </h4>
-<p id="section-5.2.1-1">When directly interacting with the servers in the CoAP group to refresh its cache entries, the proxy cannot rely on response revalidation anymore. In fact, responses protected with Group OSCORE never have an outer code 2.03 (Valid). Response revalidation remains possible end-to-end between the client and the servers in the group, by means of the inner ETag or Multi-ETag option.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.1-2">Finally, it is still possible for a client to revalidate responses to a group request from an aggregated cache entry at the proxy, by using the outer Group-ETag option as defined in <a href="#sec-proxy-caching-valid" class="xref">Section 3.4.3.1</a>.<a href="#section-5.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-1">When directly interacting with the servers in the CoAP group to refresh its cache entries, the proxy cannot rely on response revalidation anymore. In fact, responses protected with Group OSCORE cannot have 2.03 (Valid) as Outer Code. Response revalidation remains possible end-to-end between the client and the servers in the group, by means of the inner ETag or Multi-ETag Option.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-2">Finally, it is not possible for a client to revalidate responses to a group request from an aggregated cache entry at the proxy, by using the outer Group-ETag Option as defined in <a href="#sec-proxy-caching-valid" class="xref">Section 3.4.3.1</a>. In fact, that would require the proxy to respond with an unprotected 2.03 (Valid) response. However, success responses have to be protected with Group OSCORE, and more generally cannot have 2.03 (Valid) as Outer Code.<a href="#section-5.2.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2048,7 +2049,7 @@ do not support MLD as they have their own mechanisms defined.<a href="#section-3
 <p id="section-6.2.3-2.3.2">
 Within an OSCORE group, the shared symmetric-key security material strictly provides only group-level authentication (see Section 10.1 of <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="xref">I-D.ietf-core-oscore-groupcomm</a>]</span>). However, source authentication of messages is also ensured, both in the group mode by means of countersignatures (see Sections 8.1 and 8.3 of <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="xref">I-D.ietf-core-oscore-groupcomm</a>]</span>), and in the pairwise mode by using additionally derived pairwise keys (see Sections 9.1 and 9.3 of <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="xref">I-D.ietf-core-oscore-groupcomm</a>]</span>). Thus, recipient endpoints can verify a message to be originated by the alleged, identifiable sender in the OSCORE group.<a href="#section-6.2.3-2.3.2" class="pilcrow">¶</a></p>
 <p id="section-6.2.3-2.3.3">
-Note that the server may additionally rely on the Echo option for CoAP described in <span>[<a href="#I-D.ietf-core-echo-request-tag" class="xref">I-D.ietf-core-echo-request-tag</a>]</span>, in order to verify the aliveness and reachability of the client sending a request from a particular IP address.<a href="#section-6.2.3-2.3.3" class="pilcrow">¶</a></p>
+Note that the server may additionally rely on the Echo Option for CoAP described in <span>[<a href="#I-D.ietf-core-echo-request-tag" class="xref">I-D.ietf-core-echo-request-tag</a>]</span>, in order to verify the aliveness and reachability of the client sending a request from a particular IP address.<a href="#section-6.2.3-2.3.3" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-6.2.3-2.4">Group OSCORE does not require group members to be equipped with a good source of entropy for generating security material (see Section 11.6 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>), and thus does not contribute to create an attack vector against such (constrained) CoAP endpoints. In particular, the symmetric keys used for message encryption and decryption are derived through the same HMAC-based HKDF scheme used for OSCORE (see Section 3.2 of <span>[<a href="#RFC8613" class="xref">RFC8613</a>]</span>). Besides, the OSCORE Master Secret used in such derivation is securely generated by the Group Manager responsible for the OSCORE group, and securely provided to the CoAP endpoints when they join the group.<a href="#section-6.2.3-2.4" class="pilcrow">¶</a>
 </li>
@@ -2066,7 +2067,7 @@ Note that the server may additionally rely on the Echo option for CoAP described
         </h3>
 <p id="section-6.3-1">Since all requests sent over IP multicast are Non-confirmable, a client might not be able to know if an adversary has actually captured one of its trasmitted requests and later re-injected it in the group as a replay to the server nodes. In fact, even if the servers sent back responses to the replayed request, the client would not have a valid matching request anymore to suspect of the attack.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
 <p id="section-6.3-2">If Group OSCORE is used, such a replay attack on the servers is prevented, since a client protects every different request with a different Sequence Number value, which is in turn included as Partial IV in the protected message and takes part in the construction of the AEAD cipher nonce. Thus, a server would be able to detect the replayed request, by checking the conveyed Partial IV against its own replay window in the OSCORE Recipient Context associated to the client.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
-<p id="section-6.3-3">This requires a server to have a synchronized, up to date view of the sequence number used by the client. If such synchronization is lost, e.g. due to a reboot, or suspected so, the server should use one of the methods described in Appendix E of <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="xref">I-D.ietf-core-oscore-groupcomm</a>]</span>, such as the one based on the Echo option for CoAP described in <span>[<a href="#I-D.ietf-core-echo-request-tag" class="xref">I-D.ietf-core-echo-request-tag</a>]</span>, in order to (re-)synchronize with the client's sequence number.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
+<p id="section-6.3-3">This requires a server to have a synchronized, up to date view of the sequence number used by the client. If such synchronization is lost, e.g. due to a reboot, or suspected so, the server should use one of the methods described in Appendix E of <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="xref">I-D.ietf-core-oscore-groupcomm</a>]</span>, such as the one based on the Echo Option for CoAP described in <span>[<a href="#I-D.ietf-core-echo-request-tag" class="xref">I-D.ietf-core-echo-request-tag</a>]</span>, in order to (re-)synchronize with the client's sequence number.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="use-of-coap-no-response-option">
@@ -2076,7 +2077,7 @@ Note that the server may additionally rely on the Echo option for CoAP described
         </h3>
 <p id="section-6.4-1">When CoAP group communication is used in CoAP NoSec (No Security)
 mode (see <a href="#chap-unsecured-groupcomm" class="xref">Section 4</a>), the CoAP No-Response Option <span>[<a href="#RFC7967" class="xref">RFC7967</a>]</span> could be misused by a malicious client to evoke as much responses from servers to a multicast request as possible, by using the value '0' - Interested in all responses. This even overrides the default behaviour of a CoAP server to suppress the response in case there is nothing of interest to respond with. Therefore, this option can be used to perform an amplification attack.<a href="#section-6.4-1" class="pilcrow">¶</a></p>
-<p id="section-6.4-2">A proposed mitigation is to only allow this Option to relax the standard suppression rules for a resource in case the Option is sent by an authenticated client. If sent by an unauthenticated client, the Option can be used to expand the classes of responses suppressed compared to the default rules but not to reduce the classes of responses suppressed.<a href="#section-6.4-2" class="pilcrow">¶</a></p>
+<p id="section-6.4-2">A proposed mitigation is to only allow this option to relax the standard suppression rules for a resource in case the option is sent by an authenticated client. If sent by an unauthenticated client, the option can be used to expand the classes of responses suppressed compared to the default rules but not to reduce the classes of responses suppressed.<a href="#section-6.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="lowpan">
@@ -2485,9 +2486,9 @@ the network. Section 3.3 of <span>[<a href="#RFC7390" class="xref">RFC7390</a>]<
 </li>
           <li class="normal" id="section-b.1-1.4">Caching of responses at proxies.<a href="#section-b.1-1.4" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-b.1-1.5">Client-Server response revalidation, with Multi-ETag option.<a href="#section-b.1-1.5" class="pilcrow">¶</a>
+          <li class="normal" id="section-b.1-1.5">Client-Server response revalidation, with Multi-ETag Option.<a href="#section-b.1-1.5" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-b.1-1.6">Client-Proxy response revalidation, with the Group-ETag option.<a href="#section-b.1-1.6" class="pilcrow">¶</a>
+          <li class="normal" id="section-b.1-1.6">Client-Proxy response revalidation, with the Group-ETag Option.<a href="#section-b.1-1.6" class="pilcrow">¶</a>
 </li>
         </ul>
 </section>
@@ -2551,7 +2552,7 @@ the network. Section 3.3 of <span>[<a href="#RFC7390" class="xref">RFC7390</a>]<
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="section-appendix.c-1">The authors sincerely thank Christian Amsuess, Thomas Fossati, Rikard Hoeglund and Jim Schaad for their comments and feedback.<a href="#section-appendix.c-1" class="pilcrow">¶</a></p>
+<p id="section-appendix.c-1">The authors sincerely thank Christian Amsuess, Carsten Bormann, Thomas Fossati, Rikard Hoeglund and Jim Schaad for their comments and feedback.<a href="#section-appendix.c-1" class="pilcrow">¶</a></p>
 <p id="section-appendix.c-2">The work on this document has been partly supported by VINNOVA and the Celtic-Next project CRITISEC; and by the H2020 project SIFIS-Home (Grant agreement 952652).<a href="#section-appendix.c-2" class="pilcrow">¶</a></p>
 </section>
 </div>
