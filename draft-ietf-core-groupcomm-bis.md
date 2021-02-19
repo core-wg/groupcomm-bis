@@ -471,24 +471,21 @@ The operation of HTTP-to-CoAP proxies for multicast CoAP requests is specified i
 CoAP enables the use of a reverse-proxy, as an endpoint that stands in for one or more other server(s), and satisfies requests on behalf of these, doing any necessary translations (see Section 5.7.3 of {{RFC7252}}).
 
 In a group communication scenario, a reverse-proxy can rely on its configuration and/or on information in a request from a client, in order to determine that the request has to be forwarded to a group of servers over IP multicast.
+For example, specific resources on the reverse-proxy could be allocated each to a specific tuple (application group, CoAP group, security group). Or alternatively, elements of the tuple could be encoded as URI path segments. The URI path encodings for a reverse-proxy may also use a URI mapping template as described in Section 5.4 of {{RFC8075}}.
 
-Furthermore, the reverse-proxy can actually stand in for (and thus prevent to directly reach) only the whole set of servers in the group, or also each of those individual servers (e.g. if acting as firewall).
+Furthermore, the reverse-proxy can actually stand in for (and thus prevent to directly reach) only the whole set of servers in the group, or also for each of those individual servers (e.g. if acting as firewall).
 
 For a reverse-proxy that forwards a request to a group of servers over IP multicast, the same considerations as defined in Section 5.7.3 of {{RFC7252}} hold, with the following additions:
 
-* The same issues defined in {{sec-proxy-forward}} for a forward proxy apply and have to be addressed, e.g. using the method defined in {{I-D.tiloca-core-groupcomm-proxy}}.
+* The three issues and limitations defined in {{sec-proxy-forward}} for a forward proxy apply to a reverse-proxy as well, and have to be addressed, e.g. using the signaling method defined in {{I-D.tiloca-core-groupcomm-proxy}} or other means.
 
-* Before forwarding a request to a group of servers over IP multicast, the proxy MUST ensure that:
+* A reverse-proxy MAY have preconfigured time duration(s) that are used for the collecting of server responses and forwarding these back to the client. These duration(s) may be set as global configuration or resource-specific configurations. If there is such preconfiguration, then an explicit signaling of the time period in the client's request as defined in {{I-D.tiloca-core-groupcomm-proxy}} is not necessarily needed. 
 
-   - The client that has sent the request is aware of communicating to a reverse-proxy.
-   
-   - The client thas has sent the request has expressed the maximum amount of time during which it will accept responses to the request as forwarded back by the proxy.
-   
-      This enables the client to preserve the Token value used for the request beyond the reception of a first response forwarded back by the proxy (see {{sec-request-response}}).
+* A client accessing a reverse-proxy resource that triggers a CoAP group communication request SHOULD be aware that its unicast request may potentially trigger multiple responses with the same Token value, and be able to handle the multiple responses. In other words,the client needs to preserve the Token value used for the request also after the reception of the first response forwarded back by the proxy (see {{sec-request-response}}) and keep the request open to potential further responses with this Token. This requirement can be met by a combination of client implementation and proper proxied group communication configuration in the client.
 
-   If the proxy cannot successfuly verify both these conditions, it MUST NOT forward the request to the group of servers and it MUST send a 4.00 (Bad Request) error response to the client. The error response SHOULD provide the client with an indication that the proxy is in fact a reverse-proxy requiring the information above.
+* In case the same client re-uses a Token value in a valid new request to the reverse-proxy, while the reverse-proxy still has an ongoing group communication request (i.e. its time period for response collection has not ended yet) for this client with same Token value, the reverse-proxy MUST stop the ongoing request and associated response forwarding, it MUST NOT forward the new request to the group of servers, and it MUST send a 4.00 (Bad Request) error response to the client. The error response SHOULD provide the client with a diagnostic payload indicating that the resource is a reverse-proxy resource and that for this reason immediate Token re-use is not possible. If the reverse-proxy supports the signalling protocol of {{I-D.tiloca-core-groupcomm-proxy}} it can include a Multicast-Signaling Option in the error response to convey the reason for the error in a machine-readable way.
 
-   This signaling between the client and the proxy can also be achieved by using the method defined in {{I-D.tiloca-core-groupcomm-proxy}}.
+For the operation of HTTP-to-CoAP reverse proxies, see the last paragraph of {{sec-proxy-forward}} which applies also to this case.
 
 ### Caching ### {#sec-proxy-caching}
 
