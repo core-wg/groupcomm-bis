@@ -1309,7 +1309,7 @@ Internet-Draft        Group Communication for CoAP         February 2021
    processes a group URI request if it is explicitly enabled to do so.
    The default response (if the function is not explicitly enabled) to a
    group URI request is 5.01 Not Implemented.  Furthermore, a proxy
-   SHOULD be explicitly configured (e.g. by white-listing and/or client
+   SHOULD be explicitly configured (e.g. by allow-listing and/or client
    authentication) to allow proxied CoAP multicast requests only from
    specific client(s).
 
