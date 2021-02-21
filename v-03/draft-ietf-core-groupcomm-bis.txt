@@ -1346,10 +1346,10 @@ Dijk, et al.             Expires 25 August 2021                [Page 24]
 Internet-Draft        Group Communication for CoAP         February 2021
 
 
-   group and/or CoAP group.  Or alternatively, elements of the tuple
-   could be encoded as URI path segments.  The URI path encodings for a
-   reverse-proxy may also use a URI mapping template as described in
-   Section 5.4 of [RFC8075].
+   group and/or CoAP group.  Or alternatively, the application group
+   and/or CoAP group in question could be encoded as URI path segments.
+   The URI path encodings for a reverse-proxy may also use a URI mapping
+   template as described in Section 5.4 of [RFC8075].
 
    Furthermore, the reverse-proxy can actually stand in for (and thus
    prevent to directly reach) only the whole set of servers in the
