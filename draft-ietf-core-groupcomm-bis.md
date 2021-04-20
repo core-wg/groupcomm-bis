@@ -975,6 +975,10 @@ Multicast can be useful to efficiently distribute new software (firmware, image,
 
 RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
+## Version -03 to -04 ## {#sec-03-04}
+
+* Editorial improvements.
+
 ## Version -02 to -03 ## {#sec-02-03}
 
 * Multiple responses from same server handled at the application.
