@@ -617,6 +617,10 @@ CoAP group communication can operate in CoAP NoSec (No Security) mode, without u
 
 # Secured Group Communication using Group OSCORE # {#chap-oscore}
 
+This section defines how CoAP group communication can be secured. In particular, {{chap-group-oscore}} describes how the Group OSCORE security protocol {{I-D.ietf-core-oscore-groupcomm}} can be used to protect messages exchanged in a CoAP group, while {{chap-sec-group-maintenance}} provides guidance on required maintenance operations for OSCORE groups used as security groups.
+
+## Group OSCORE # {#chap-group-oscore}
+
 The application-layer protocol Object Security for Constrained RESTful Environments (OSCORE) {{RFC8613}} provides end-to-end encryption, integrity and replay protection of CoAP messages exchanged between two CoAP endpoints. These can act both as CoAP Client as well as CoAP Server, and share an OSCORE Security Context used to protect and verify exchanged messages. The use of OSCORE does not affect the URI scheme and OSCORE can therefore be used with any URI scheme defined for CoAP.
 
 OSCORE uses COSE {{I-D.ietf-cose-rfc8152bis-struct}}{{I-D.ietf-cose-rfc8152bis-algs}} to perform encryption operations and protect a CoAP message carried in a COSE object, by using an Authenticated Encryption with Associated Data (AEAD) algorithm. In particular, OSCORE takes as input an unprotected CoAP message and transforms it into a protected CoAP message transporting the COSE object.
