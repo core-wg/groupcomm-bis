@@ -80,7 +80,6 @@ informative:
   I-D.ietf-core-resource-directory:
   I-D.ietf-ace-oscore-gm-admin:
   I-D.ietf-core-coap-pubsub:
-  I-D.amsuess-core-cachable-oscore:
   RFC6092:
   RFC6550:
   RFC6636:
