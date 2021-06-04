@@ -308,125 +308,51 @@ CoAP endpoints that are members of a CoAP group MAY cache responses to a group r
 
 Furthermore, building on what is defined in {{Section 8.2.1 of RFC7252}}:
 
-   * A client sending a GET or FETCH group request over multicast MAY update a cache with the responses from the servers in the CoAP group. Then, the client uses both cached-still-fresh and new responses as the result of the group request.
-   
-   * A client sending a GET or FETCH group request over multicast MAY use a response received from a server, to satisfy a subsequent sent request intended to that server on the related unicast request URI. In particular, the unicast request URI is obtained by replacing the authority part of the request URI with the transport-layer source address of the cached response message.
+* A client sending a GET or FETCH group request over multicast MAY update a cache with the responses from the servers in the CoAP group. Then, the client uses both cached-still-fresh and new responses as the result of the group request.
 
-   * A client MAY revalidate a cached response by making a GET or FETCH request on the
-   related unicast request URI.
-   
+* A client sending a GET or FETCH group request over multicast MAY use a response received from a server, to satisfy a subsequent sent request intended to that server on the related unicast request URI. In particular, the unicast request URI is obtained by replacing the authority part of the request URI with the transport-layer source address of the cached response message.
+
+* A client MAY revalidate a cached response by making a GET or FETCH request on the related unicast request URI.
+
 Note that, in the presence of proxies, doing any of the above (optional) unicast requests requires the client to distinguish the different responses to a group request, as well as to distinguish the different origin servers that responded. This in turn requires additional means to provide the client with information about the origin server of each response, e.g. using the forward-proxying method defines in {{I-D.tiloca-core-groupcomm-proxy}}.
 
 The following subsections define the freshness model and validation model to use for cached responses, which update the models defined in {{Sections 5.6.1 and 5.6.2 of RFC7252}}, respectively.
 
-### Freshness Model ## {#sec-caching-freshness}
+### Freshness Model ### {#sec-caching-freshness}
 
-For caching at endpoints, the same freshness model relying on the Max-Age Option as defined in {{Section 5.6.1 of RFC7252}} applies.
+For caching at client endpoints, the same freshness model relying on the Max-Age Option as defined in {{Section 5.6.1 of RFC7252}} applies, and 
+the multicast caching rules of {{Section 8.2.1 of RFC7252}} apply except for the one discussed below. 
+
+In {{Section 8.2.1 of RFC7252}} it is stated that, regardless of the presence of cached responses to the group request, the client endpoint will always send out a new group request onto the network because new group members may have joined the group since the last group request to the same group/resource.
+So, a request is never served from cached responses only. This document updates {{RFC7252}} by adding the following exception case, where a client endpoint MAY serve a request by using cached responses only and not send out a new group request onto the network:
+
+* The client knows all current CoAP server group members; and for each group member the client's cache currently stores a fresh response.
+
+How the client in above case determines the current CoAP server group members is out of scope of this document. It may be for example via a group manager server, or by observing group join requests, or observing IGMP/MLD multicast group join messages, etc.
 
 For caching at proxies, the freshness model defined in {{I-D.tiloca-core-groupcomm-proxy}}  can be used.
 
-### Validation Model ## {#sec-caching-validation}
+### Validation Model ### {#sec-caching-validation}
 
-{{Section 5.6.2 of RFC7252}} defines a model to "validate" or "revalidate" responses stored in cache, hence enabling the suppression of responses that the client already has.
+For validation at client endpoints, the multicast validation rules in {{Section 8.2.1 of RFC7252}} apply, except for the last paragraph which states "A GET request to a multicast group MUST NOT contain an ETag option". 
+This document updates {{RFC7252}} by allowing a group request to contain ETag Options as specified below.
 
-This relies on the ETag Option defined in {{Section 5.10.6 of RFC7252}}, with its usage limited to exchanges between a CoAP client and one CoAP server. That is, {{Section 8.2.1 of RFC7252}} explicitly forbids using an ETag Option in requests sent over multicast, and leaves a mechanism to suppress responses for that case for further study.
+For validation at proxies, the validation model defined in {{I-D.tiloca-core-groupcomm-proxy}} can be used.
 
-This section provides such a model to "validate" or "revalidate" responses that the client already has cached. In particular, the group request can indicate entity-tag values separately for each CoAP server from which the client wishes to get a response revalidation, together with addressing information identifying that server.
+#### ETag Option in a Group Request/Response ####
+A client endpoint MAY include one or more ETag Options in a GET or FETCH group request to validate one or more stored responses it has cached. 
+In case two or more servers in the group have responded to a previous request to the same resource with an identical ETag value, it is the responsibility of the client to handle this case. In particular, if the client 
+wishes to validate, using a group request, a response from server 1 with an ETag value N, while it does not wish to validate a response from server 2 with the same ETag value N, there is no way to achieve this.
+In such cases of identical ETag values returned by two or more servers the client, by default, SHOULD NOT include an ETag Option in a group request containing that ETag value.
 
-To this end, this specification defines the new Multi-ETag Option. Operations related to this validation model and using the new option are defined in {{sec-caching-validation-client}} for the client side, and in {{sec-caching-validation-server}} for the server side.
+A server endpoint MUST process an ETag Option in a GET or FETCH group request in the same way it processes an ETag Option for a unicast request.
+A server endpoint that includes an ETag Option in a response to a group request SHOULD construct the ETag Option value in such a way that the value
+will be unique to this particular server with a high probability. This can be done for example by embedding a compact ID  of the server within the ETag value, where the ID is unique (or unique with a high probability) in scope of the group.
 
-The Multi-ETag Option has the properties summarized in {{fig-response-multi-etag-option}}, which extends Table 4 of {{RFC7252}}. The Multi-ETag Option is elective, safe to forward, part of the cache key, and repeatable.
+Note: a legacy CoAP server might treat an ETag Option in a multicast request as an unrecognized option per {{Sections 5.4 and 8.2.1 of RFC7252}}, causing it to ignore this (elective) ETag Option regardless of its value and process the request
+normally as if that ETag Option was not included.
 
-The option is intended only for group requests, as directly sent to a CoAP group or to a CoAP proxy that forwards it to the CoAP group (see {{sec-proxy}}).
 
-~~~~~~~~~~~
-+------+---+---+---+---+------------+--------+--------+---------+
-| No.  | C | U | N | R | Name       | Format | Length | Default |
-+------+---+---+---+---+------------+--------+--------+---------+
-|      |   |   |   |   |            |        |        |         |
-| TBD1 |   |   |   | x | Multi-ETag |  (*)   |  any   | (none)  |
-|      |   |   |   |   |            |        |        |         |
-+------+---+---+---+---+------------+--------+--------+---------+
-           C=Critical, U=Unsafe, N=NoCacheKey, R=Repeatable
-
-(*) See below.
-~~~~~~~~~~~
-{: #fig-response-multi-etag-option title="The Multi-ETag Option." artwork-align="center"}
-
-The Multi-ETag Option has the same properties of the ETag Option defined in {{Section 5.10.6 of RFC7252}}, but it differs in the format and length, as well as having a different reason for its repeatability.
-
-Each occurrence of the Multi-ETag Option targets exactly one of the servers in the CoAP group, from which the client wishes to get a response revalidation. The option value is set to a CBOR sequence {{RFC8742}} composed of (1+M) elements, where:
-
-* The first element specifies the addressing information of the corresponding server, encoded as defined in {{sec-caching-validation-tpinfo}}.
-
-   This mirrors the format of the Multicast-Signaling option defined in {{Section 3 of I-D.tiloca-core-groupcomm-proxy}}. Thus, in the presence of a forward proxy supporting the mechanism defined in {{I-D.tiloca-core-groupcomm-proxy}}, the client can seamlessly use the server addressing information obtained from the proxy, when this forwards back a response to a group request from that server.
-
-* The following M elements are CBOR byte strings, each of which has as value an entity-tag value that the client wants to try against the corresponding server.
-
-   The entity-tag values included in the Multi-ETag Option are subject to the same considerations for the entity-tag values used in an ETag Option (see {{Section 5.10.6 of RFC7252}}).
-
-The Multi-ETag Option is of class E in terms of OSCORE processing (see {{Section 4.1 of RFC8613}}).
-
-#### Encoding of Server Addressing Information ## {#sec-caching-validation-tpinfo}
-
-The first element of the CBOR sequence in the Multi-ETag Option value is set to the byte serialization of the CBOR array 'tp_info' defined in {{Section 2.2.1 of I-D.ietf-core-observe-multicast-notifications}}, including only the set of elements 'srv_addr'.
-
-In turn, the set includes the integer 'tp_id' identifying the used transport protocol, and further elements whose number, format and encoding depend on the value of 'tp_id'.
-
-When the Multi-ETag Option is used in group requests transported over UDP as in this specification, the 'tp_info' array includes the following elements, encoded as defined in {{Section 2.2.1.1 of I-D.ietf-core-observe-multicast-notifications}}.
-
-* 'tp_id': the CBOR integer with value 1 ("UDP"), from the "Value" column of the "Transport Protocol Identifiers" Registry defined in {{Section 14.4 of I-D.ietf-core-observe-multicast-notifications}}
-
-* 'srv_host': a CBOR byte string, with value the unicast IP address of the server. This element is tagged and identified by the CBOR tag 260 "Network Address (IPv4 or IPv6 or MAC Address)".
-
-* 'srv_port': as a CBOR unsigned integer or the CBOR simple value Null. If it is a CBOR integer, it has as value the destination port number where to send individual requests intended to the server. This element MAY be present. If not included, the default port number 5683 is assumed.
-
-The CDDL notation {{RFC8610}} provided below describes the 'tp_info' CBOR array using the format above.
-
-~~~~~~~~~~~
-tp_info = [
-       tp_id : 1,             ; UDP as transport protocol
-    srv_host : #6.260(bstr),  ; IP address where to reach the server
-    srv_port : uint / null    ; Port number where to reach the server
-]
-~~~~~~~~~~~
-
-#### Processing on the Client Side ## {#sec-caching-validation-client}
-
-Similar to what is defined in {{Section 5.6.2 of RFC7252}}, the client may have one or more stored responses for a GET or FETCH group request sent to the CoAP group, but cannot use any of them (e.g. because they are not fresh).
-
-In that case, the client can send a GET or FETCH group request, in order to give the origin servers an opportunity both to select a stored response to be used, and to update its freshness. As in {{RFC7252}}, this process is known as "validating" or "revalidating" the stored response.
-
-When sending such a group request, the endpoint SHOULD include one Multi-ETag Option for each server it wishes to revalidate the corresponding response with. As defined in {{sec-caching-validation}}, the Multi-ETag Option can include multiple entity-tag values, each applicable to a stored response from the corresponding server for that group request.
-
-Specifically, in the same GET or FETCH group request:
-
-* The client MUST NOT include one or more ETag Option(s) together with one or more Multi-ETag Option(s).
-
-* The client MUST include only one Multi-ETag Option for each server it wishes to get a response revalidation from.
-
-* The client SHOULD limit the number of Multi-ETag Options, hence limiting the number of servers as intended target of the revalidation process, and SHOULD rather spread revalidation with different sets of servers over different group requests. Also, the client SHOULD limit the number of entity-tag values specified in each Multi-ETag Option, preferably indicating only one entity-tag value.
-  
-  This allows for limiting the overall size of the group request. As a guideline, the server addressing information can be 9-24 bytes in size, while each entity-tag value can be 1-8 bytes in size. Thus, a single Multi-ETag Option can be up to (24 + 8 * M) bytes in size, where M is the number of entity-tag values it includes.
-
-A 2.03 (Valid) response indicates that the stored response identified by the entity-tag given in the response's ETag Option can be reused, after updating the stored response as described in {{Section 5.9.1.3 of RFC7252}}. So the client can determine if any one of the stored representations from that server is current, without need to transfer the current resource representation again.
-
-Any other Response Code indicates that none of the stored responses from that server, identified in the Multi-ETag Option of the group request, are suitable.  Instead, such response SHOULD be used to satisfy the request and MAY replace the stored response.
-  
-#### Processing on the Server Side ## {#sec-caching-validation-server}
-
-If a GET or FETCH request includes both one or more ETag Options together with one or more Multi-ETag Options, then the server MUST ignore all the included ETag and Multi-ETag Options.
-
-The server MUST ignore any Multi-ETag Option which is malformed, or included in a request that is neither GET nor FETCH, or which specifies addressing information not matching with its own endpoint address.
-
-The server considers only its pertaining Multi-ETag Option, i.e. specifying addressing information associated to its own endpoint. The server MUST ignore any pertaining Multi-ETag Option that occurs more than once.
-
-If the pertaining Multi-ETag Option specifies the CBOR simple value Null for the 'srv_port' element of 'tp_info' (see {{sec-caching-validation-tpinfo}}), the server MUST assume the default port number 5683.
-
-Then, the server can issue a 2.03 (Valid) response in place of a 2.05 (Content) response, if one of the entity-tag values from the pertaining Multi-ETag Option is the entity-tag for the current resource representation, i.e. it is valid. The 2.03 (Valid) response echoes this specific entity-tag within an ETag Option included in the response.
-
-The inclusion of an ETag Option in a response works as defined in {{Section 5.6.10.1 of RFC7252}}.
-   
 ## Port and URI Path Selection ##
 A server that is a member of a CoAP group listens for CoAP messages on the group's IP multicast address, usually on the CoAP default UDP port 5683, or another non-default UDP port if configured. Regardless of the method for selecting the port number, the same port number MUST be used across all CoAP servers that are members of a CoAP group and across all CoAP clients performing the requests to that group.
 
@@ -860,11 +786,114 @@ In some cases a whole network, or subnet of multiple IP devices, or a specific t
 ## Software Update ##
 Multicast can be useful to efficiently distribute new software (firmware, image, application, etc.) to a group of multiple devices. In this case, the group is defined in terms of device type: all devices in the target group are known to be capable of installing and running the new software. The software is distributed as a series of smaller blocks that are collected by all devices and stored in memory. All devices in the target group are usually responsible for integrity verification of the received software; which can be done per-block or for the entire software image once all blocks have been received. Due to the inherent unreliability of CoAP multicast, there needs to be a backup mechanism (e.g. implemented using CoAP unicast) by which a device can individually request missing blocks of a whole software image/entity. Prior to multicast software update, the group of recipients can be separately notified that there is new software available and coming, using the above network-wide or group notification.
 
+# Multi-ETag Option # 
+{{Section 8.2.1 of RFC7252}} explicitly forbids using an ETag Option in requests sent over multicast, and leaves a mechanism to suppress responses for that case for further study.
+This appendix provides such a model to "validate" or "revalidate" responses that the client already has cached. In particular, the group request can indicate entity-tag values separately for each CoAP server from which the client wishes to get a response revalidation, together with addressing information identifying that server. It uses a new CoAP option, the Multi-ETag Option. Operations related to this validation model and using the new option are defined in {{sec-caching-validation-client}} for the client side, and in {{sec-caching-validation-server}} for the server side.
+
+The Multi-ETag Option has the properties summarized in {{fig-response-multi-etag-option}}, which extends Table 4 of {{RFC7252}}. The Multi-ETag Option is elective, safe to forward, part of the cache key, and repeatable.
+
+The option is intended only for group requests, as directly sent to a CoAP group or to a CoAP proxy that forwards it to the CoAP group (see {{sec-proxy}}).
+
+~~~~~~~~~~~
++------+---+---+---+---+------------+--------+--------+---------+
+| No.  | C | U | N | R | Name       | Format | Length | Default |
++------+---+---+---+---+------------+--------+--------+---------+
+|      |   |   |   |   |            |        |        |         |
+| TBD1 |   |   |   | x | Multi-ETag |  (*)   |  any   | (none)  |
+|      |   |   |   |   |            |        |        |         |
++------+---+---+---+---+------------+--------+--------+---------+
+           C=Critical, U=Unsafe, N=NoCacheKey, R=Repeatable
+
+(*) See below.
+~~~~~~~~~~~
+{: #fig-response-multi-etag-option title="The Multi-ETag Option." artwork-align="center"}
+
+The Multi-ETag Option has the same properties of the ETag Option defined in {{Section 5.10.6 of RFC7252}}, but it differs in the format and length, as well as having a different reason for its repeatability.
+
+Each occurrence of the Multi-ETag Option targets exactly one of the servers in the CoAP group, from which the client wishes to get a response revalidation. The option value is set to a CBOR sequence {{RFC8742}} composed of (1+M) elements, where:
+
+* The first element specifies the addressing information of the corresponding server, encoded as defined in {{sec-caching-validation-tpinfo}}.
+
+   This mirrors the format of the Multicast-Signaling option defined in {{Section 3 of I-D.tiloca-core-groupcomm-proxy}}. Thus, in the presence of a forward proxy supporting the mechanism defined in {{I-D.tiloca-core-groupcomm-proxy}}, the client can seamlessly use the server addressing information obtained from the proxy, when this forwards back a response to a group request from that server.
+
+* The following M elements are CBOR byte strings, each of which has as value an entity-tag value that the client wants to try against the corresponding server.
+
+   The entity-tag values included in the Multi-ETag Option are subject to the same considerations for the entity-tag values used in an ETag Option (see {{Section 5.10.6 of RFC7252}}).
+
+The Multi-ETag Option is of class E in terms of OSCORE processing (see {{Section 4.1 of RFC8613}}).
+
+## Encoding of Server Addressing Information ## {#sec-caching-validation-tpinfo}
+
+The first element of the CBOR sequence in the Multi-ETag Option value is set to the byte serialization of the CBOR array 'tp_info' defined in {{Section 2.2.1 of I-D.ietf-core-observe-multicast-notifications}}, including only the set of elements 'srv_addr'.
+
+In turn, the set includes the integer 'tp_id' identifying the used transport protocol, and further elements whose number, format and encoding depend on the value of 'tp_id'.
+
+When the Multi-ETag Option is used in group requests transported over UDP as in this specification, the 'tp_info' array includes the following elements, encoded as defined in {{Section 2.2.1.1 of I-D.ietf-core-observe-multicast-notifications}}.
+
+* 'tp_id': the CBOR integer with value 1 ("UDP"), from the "Value" column of the "Transport Protocol Identifiers" Registry defined in {{Section 14.4 of I-D.ietf-core-observe-multicast-notifications}}
+
+* 'srv_host': a CBOR byte string, with value the unicast IP address of the server. This element is tagged and identified by the CBOR tag 260 "Network Address (IPv4 or IPv6 or MAC Address)".
+
+* 'srv_port': as a CBOR unsigned integer or the CBOR simple value Null. If it is a CBOR integer, it has as value the destination port number where to send individual requests intended to the server. This element MAY be present. If not included, the default port number 5683 is assumed.
+
+The CDDL notation {{RFC8610}} provided below describes the 'tp_info' CBOR array using the format above.
+
+~~~~~~~~~~~
+tp_info = [
+       tp_id : 1,             ; UDP as transport protocol
+    srv_host : #6.260(bstr),  ; IP address where to reach the server
+    srv_port : uint / null    ; Port number where to reach the server
+]
+~~~~~~~~~~~
+
+## Processing on the Client Side ## {#sec-caching-validation-client}
+
+Similar to what is defined in {{Section 5.6.2 of RFC7252}}, the client may have one or more stored responses for a GET or FETCH group request sent to the CoAP group, but cannot use any of them (e.g. because they are not fresh).
+
+In that case, the client can send a GET or FETCH group request, in order to give the origin servers an opportunity both to select a stored response to be used, and to update its freshness. As in {{RFC7252}}, this process is known as "validating" or "revalidating" the stored response.
+
+When sending such a group request, the endpoint SHOULD include one Multi-ETag Option for each server it wishes to revalidate the corresponding response with. As defined in {{sec-caching-validation}}, the Multi-ETag Option can include multiple entity-tag values, each applicable to a stored response from the corresponding server for that group request.
+
+Specifically, in the same GET or FETCH group request:
+
+* The client MUST NOT include one or more ETag Option(s) together with one or more Multi-ETag Option(s).
+
+* The client MUST include only one Multi-ETag Option for each server it wishes to get a response revalidation from.
+
+* The client SHOULD limit the number of Multi-ETag Options, hence limiting the number of servers as intended target of the revalidation process, and SHOULD rather spread revalidation with different sets of servers over different group requests. Also, the client SHOULD limit the number of entity-tag values specified in each Multi-ETag Option, preferably indicating only one entity-tag value.
+  
+  This allows for limiting the overall size of the group request. As a guideline, the server addressing information can be 9-24 bytes in size, while each entity-tag value can be 1-8 bytes in size. Thus, a single Multi-ETag Option can be up to (24 + 8 * M) bytes in size, where M is the number of entity-tag values it includes.
+
+A 2.03 (Valid) response indicates that the stored response identified by the entity-tag given in the response's ETag Option can be reused, after updating the stored response as described in {{Section 5.9.1.3 of RFC7252}}. So the client can determine if any one of the stored representations from that server is current, without need to transfer the current resource representation again.
+
+Any other Response Code indicates that none of the stored responses from that server, identified in the Multi-ETag Option of the group request, are suitable.  Instead, such response SHOULD be used to satisfy the request and MAY replace the stored response.
+  
+## Processing on the Server Side ## {#sec-caching-validation-server}
+
+If a GET or FETCH request includes both one or more ETag Options together with one or more Multi-ETag Options, then the server MUST ignore all the included ETag and Multi-ETag Options.
+
+The server MUST ignore any Multi-ETag Option which is malformed, or included in a request that is neither GET nor FETCH, or which specifies addressing information not matching with its own endpoint address.
+
+The server considers only its pertaining Multi-ETag Option, i.e. specifying addressing information associated to its own endpoint. The server MUST ignore any pertaining Multi-ETag Option that occurs more than once.
+
+If the pertaining Multi-ETag Option specifies the CBOR simple value Null for the 'srv_port' element of 'tp_info' (see {{sec-caching-validation-tpinfo}}), the server MUST assume the default port number 5683.
+
+Then, the server can issue a 2.03 (Valid) response in place of a 2.05 (Content) response, if one of the entity-tag values from the pertaining Multi-ETag Option is the entity-tag for the current resource representation, i.e. it is valid. The 2.03 (Valid) response echoes this specific entity-tag within an ETag Option included in the response.
+
+The inclusion of an ETag Option in a response works as defined in {{Section 5.6.10.1 of RFC7252}}.
+
+
 # Document Updates # {#sec-document-updates}
 
 RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 ## Version -03 to -04 ## {#sec-03-04}
+
+* Multi-ETag Option for response revalidation moved to appendix.
+
+* ETag Option usage added.
+
+* Q-Block Options added in the block-wise transfer section.
 
 * Caching at proxies moved to draft-tiloca-core-groupcomm-proxy.
 
