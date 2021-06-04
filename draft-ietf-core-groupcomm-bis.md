@@ -80,6 +80,7 @@ informative:
   I-D.ietf-core-resource-directory:
   I-D.ietf-ace-oscore-gm-admin:
   I-D.ietf-core-coap-pubsub:
+  I-D.ietf-core-new-block:
   RFC6092:
   RFC6550:
   RFC6636:
@@ -549,6 +550,8 @@ For observing a group of servers through a CoAP-to-CoAP proxy, the limitations s
 The client has to use unicast for any further request, separately addressing each different server, in order to retrieve more blocks of the resource from that server, if any. Also, a server (member of a targeted CoAP group) that needs to respond to a multicast request with a particularly large resource can use block-wise transfer (Block2 Option) at its own initiative, to limit the size of the initial response. Again, a client would have to use unicast for any further requests to retrieve more blocks of the resource.
 
 A solution for multicast block-wise transfer using the Block1 Option is not specified in {{RFC7959}} nor in the present document. Such a solution would be useful for multicast FETCH/PUT/POST/PATCH/iPATCH requests, to efficiently distribute a large request payload as multiple blocks to all members of a CoAP group. Multicast usage of Block1 is non-trivial due to potential message loss (leading to missing blocks or missing confirmations), and potential diverging block size preferences of different members of the CoAP group.
+
+{{I-D.ietf-core-new-block}} specifies an alternative method for CoAP block-wise transfer. It specifies that "servers MUST ignore multicast requests that contain the Q-Block2 Option".
 
 ## Transport ## {#sec-transport}
 In this document only UDP is considered as a transport protocol, both over IPv4 and IPv6. Therefore, {{RFC8323}} (CoAP over TCP, TLS, and WebSockets) is not in scope as a transport for group communication.
