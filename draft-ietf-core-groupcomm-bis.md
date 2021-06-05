@@ -324,11 +324,11 @@ For caching at client endpoints, the same freshness model relying on the Max-Age
 the multicast caching rules of {{Section 8.2.1 of RFC7252}} apply except for the one discussed below. 
 
 In {{Section 8.2.1 of RFC7252}} it is stated that, regardless of the presence of cached responses to the group request, the client endpoint will always send out a new group request onto the network because new group members may have joined the group since the last group request to the same group/resource.
-So, a request is never served from cached responses only. This document updates {{RFC7252}} by adding the following exception case, where a client endpoint MAY serve a request by using cached responses only and not send out a new group request onto the network:
+That is, a request is never served from cached responses only. This document updates {{RFC7252}} by adding the following exception case, where a client endpoint MAY serve a request by using cached responses only, and not send out a new group request onto the network:
 
-* The client knows all current CoAP server group members; and for each group member the client's cache currently stores a fresh response.
+* The client knows all current CoAP server group members; and, for each group member, the client's cache currently stores a fresh response.
 
-How the client in above case determines the current CoAP server group members is out of scope of this document. It may be for example via a group manager server, or by observing group join requests, or observing IGMP/MLD multicast group join messages, etc.
+How the client in the case above determines the current CoAP server group members is out of scope for this document. It may be, for example, via a group manager server, or by observing group join requests, or observing IGMP/MLD multicast group join messages, etc.
 
 For caching at proxies, the freshness model defined in {{I-D.tiloca-core-groupcomm-proxy}}  can be used.
 
