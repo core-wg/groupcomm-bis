@@ -324,11 +324,11 @@ For caching at client endpoints, the same freshness model relying on the Max-Age
 the multicast caching rules of {{Section 8.2.1 of RFC7252}} apply except for the one discussed below. 
 
 In {{Section 8.2.1 of RFC7252}} it is stated that, regardless of the presence of cached responses to the group request, the client endpoint will always send out a new group request onto the network because new group members may have joined the group since the last group request to the same group/resource.
-So, a request is never served from cached responses only. This document updates {{RFC7252}} by adding the following exception case, where a client endpoint MAY serve a request by using cached responses only and not send out a new group request onto the network:
+That is, a request is never served from cached responses only. This document updates {{RFC7252}} by adding the following exception case, where a client endpoint MAY serve a request by using cached responses only, and not send out a new group request onto the network:
 
-* The client knows all current CoAP server group members; and for each group member the client's cache currently stores a fresh response.
+* The client knows all current CoAP server group members; and, for each group member, the client's cache currently stores a fresh response.
 
-How the client in above case determines the current CoAP server group members is out of scope of this document. It may be for example via a group manager server, or by observing group join requests, or observing IGMP/MLD multicast group join messages, etc.
+How the client in the case above determines the current CoAP server group members is out of scope for this document. It may be, for example, via a group manager server, or by observing group join requests, or observing IGMP/MLD multicast group join messages, etc.
 
 For caching at proxies, the freshness model defined in {{I-D.tiloca-core-groupcomm-proxy}}  can be used.
 
@@ -343,14 +343,13 @@ For validation at proxies, the validation model defined in {{I-D.tiloca-core-gro
 A client endpoint MAY include one or more ETag Options in a GET or FETCH group request to validate one or more stored responses it has cached. 
 In case two or more servers in the group have responded to a previous request to the same resource with an identical ETag value, it is the responsibility of the client to handle this case. In particular, if the client 
 wishes to validate, using a group request, a response from server 1 with an ETag value N, while it does not wish to validate a response from server 2 with the same ETag value N, there is no way to achieve this.
-In such cases of identical ETag values returned by two or more servers the client, by default, SHOULD NOT include an ETag Option in a group request containing that ETag value.
+In such cases of identical ETag values returned by two or more servers, the client, by default, SHOULD NOT include an ETag Option in a group request containing that ETag value.
 
 A server endpoint MUST process an ETag Option in a GET or FETCH group request in the same way it processes an ETag Option for a unicast request.
 A server endpoint that includes an ETag Option in a response to a group request SHOULD construct the ETag Option value in such a way that the value
-will be unique to this particular server with a high probability. This can be done for example by embedding a compact ID  of the server within the ETag value, where the ID is unique (or unique with a high probability) in scope of the group.
+will be unique to this particular server with a high probability. This can be done, for example, by embedding a compact ID of the server within the ETag value, where the ID is unique (or unique with a high probability) in the scope of the group.
 
-Note: a legacy CoAP server might treat an ETag Option in a multicast request as an unrecognized option per {{Sections 5.4 and 8.2.1 of RFC7252}}, causing it to ignore this (elective) ETag Option regardless of its value and process the request
-normally as if that ETag Option was not included.
+Note: a legacy CoAP server might treat an ETag Option in a multicast request as an unrecognized option per {{Sections 5.4 and 8.2.1 of RFC7252}}, causing it to ignore this (elective) ETag Option regardless of its value, and process the request normally as if that ETag Option was not included.
 
 
 ## Port and URI Path Selection ##
