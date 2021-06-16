@@ -757,20 +757,7 @@ In a home automation scenario using Wi-Fi, Wi-Fi security
 
 # IANA Considerations # {#iana}
 
-This document has the following actions for IANA.
-
-## CoAP Option Numbers Registry ## {#iana-coap-options}
-
-IANA is asked to enter the following option numbers to the "CoAP Option Numbers" registry defined in {{RFC7252}} within the "CoRE Parameters" registry.
-
-~~~~~~~~~~~
-+--------+-------------+-----------------+
-| Number |    Name     |    Reference    |
-+--------+-------------+-----------------+
-|  TBD1  |  Multi-ETag | [This document] |
-+--------+-------------+-----------------+
-~~~~~~~~~~~
-{: artwork-align="center"}
+This document has no actions for IANA.
 
 --- back
 
@@ -818,6 +805,7 @@ Multicast can be useful to efficiently distribute new software (firmware, image,
 {{Section 8.2.1 of RFC7252}} explicitly forbids using an ETag Option in requests sent over multicast, and leaves a mechanism to suppress responses for that case for further study.
 This appendix provides such a model to "validate" or "revalidate" responses that the client already has cached. In particular, the group request can indicate entity-tag values separately for each CoAP server from which the client wishes to get a response revalidation, together with addressing information identifying that server. It uses a new CoAP option, the Multi-ETag Option. Operations related to this validation model and using the new option are defined in {{sec-caching-validation-client}} for the client side, and in {{sec-caching-validation-server}} for the server side.
 
+## Option Definition ## 
 The Multi-ETag Option has the properties summarized in {{fig-response-multi-etag-option}}, which extends Table 4 of {{RFC7252}}. The Multi-ETag Option is elective, safe to forward, part of the cache key, and repeatable.
 
 The option is intended only for group requests, as directly sent to a CoAP group or to a CoAP proxy that forwards it to the CoAP group (see {{sec-proxy}}).
@@ -910,6 +898,18 @@ Then, the server can issue a 2.03 (Valid) response in place of a 2.05 (Content) 
 
 The inclusion of an ETag Option in a response works as defined in {{Section 5.6.10.1 of RFC7252}}.
 
+## CoAP Option Numbers Registry ## {#iana-coap-options-multi-etag}
+
+IANA is asked to enter the following option numbers to the "CoAP Option Numbers" registry defined in {{RFC7252}} within the "CoRE Parameters" registry.
+
+~~~~~~~~~~~
++--------+-------------+-----------------+
+| Number |    Name     |    Reference    |
++--------+-------------+-----------------+
+|  TBD1  |  Multi-ETag | [This document] |
++--------+-------------+-----------------+
+~~~~~~~~~~~
+{: artwork-align="center"}
 
 # Document Updates # {#sec-document-updates}
 
