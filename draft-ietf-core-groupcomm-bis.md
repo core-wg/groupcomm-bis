@@ -378,6 +378,7 @@ For a CoAP server node that supports resource discovery as defined in {{Section 
 ## Proxy Operation ## {#sec-proxy}
 
 This section defines how proxies operate in a group communication scenario. In particular, {{sec-proxy-forward}} defines operations of forward-proxies, while {{sec-proxy-reverse}} defines operations of reverse-proxies.
+Security operations for a proxy are discussed later in {{chap-proxy-security}}.
 
 ### Forward-Proxies ### {#sec-proxy-forward}
 
@@ -610,6 +611,19 @@ As part of group maintenance operations (see {{sec-group-maintenance}}), additio
 * In case forward security is needed, removing members from a CoAP group or stopping client-only endpoints from interacting with that group requires removing such members/endpoints from the corresponding OSCORE group. To this end, new cryptographic material is generated and securely distributed only to the remaining members/endpoints. This ensures that only the members/endpoints intended to remain are able to continue participating in secure group communication, while the evicted ones are not able to.
 
 The key management operations mentioned above are entrusted to the Group Manager responsible for the OSCORE group {{I-D.ietf-core-oscore-groupcomm}}, and it is RECOMMENDED to perform them according to the approach described in {{I-D.ietf-ace-key-groupcomm-oscore}}.
+
+## Proxy Security # {#chap-proxy-security}
+
+Different solutions may be selected for secure group communication via a proxy depending on proxy type, use case and deployment requirements. In this section the options based on Group OSCORE are listed.
+
+For a client performing a group communication request via a forward-proxy, end-to-end security should be implemented. The client then creates a group request secured by Group OSCORE and unicasts this to the proxy. The proxy adapts the request from a forward-proxy request to a regular request and multicasts this adapted request to the indicated CoAP group. During the adaptation, the OSCORE security i.e. COSE signature on the request remains valid. The first leg of communication from client to proxy can optionally be protected with an additional protocol such as (D)TLS or unicast OSCORE.
+
+For a client performing a group communication request via a reverse-proxy, either end-to-end-security or hop-by-hop security can be implemented.
+The case of end-to-end security is the same as for the forward-proxy case.
+
+The case of hop-by-hop security is only possible if the proxy can be completely trusted and it is configured as a member of the OSCORE security group(s) that it needs to access, on behalf of clients. The first leg of communication from client to proxy is then protected using an existing CoAP unicast security method, such as (D)TLS or OSCORE. The second leg between proxy and servers is protected using Group OSCORE. This can be useful in applications where for example the origin client does not implement Group OSCORE, or the group management operations are confined to a particular network domain and the client is outside this domain.
+
+For all the above cases, more details on using Group OSCORE are defined in {{I-D.tiloca-core-groupcomm-proxy}}.
 
 # Security Considerations # {#chap-security-considerations}
 
