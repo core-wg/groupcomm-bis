@@ -967,6 +967,8 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 * Generalized transport protocols to include others than UDP/IP multicast; and security protocols other than Group OSCORE.
 
+* Overview of security cases with proxies.
+
 * Editorial improvements.
 
 ## Version -02 to -03 ## {#sec-02-03}
