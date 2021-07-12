@@ -681,7 +681,7 @@ As discussed below, Group OSCORE addresses a number of security attacks mentione
 
 * Group OSCORE limits the feasibility and impact of amplification attacks, see {{ssec-amplification}} of this document and {{Section 11.3 of RFC7252}}.
 
-   In fact, upon receiving a request over IP multicast as protected with Group OSCORE in group mode, a server is able to verify whether the request is fresh and originates from the alleged sender in the OSCORE group, by verifying the signature included in the request using the public key of that sender (see {{Section 8.2 of I-D.ietf-core-oscore-groupcomm}}). Furthermore, as also discussed in {{Section 8 of I-D.ietf-core-oscore-groupcomm}}, it is recommended that servers failing to decrypt and verify an incoming message do not send back any error message.
+   In fact, upon receiving a request over IP multicast as protected with Group OSCORE in group mode, a server is able to verify whether the request is not a replay and originates from the alleged sender in the OSCORE group, by verifying the signature included in the request using the public key of that sender (see {{Section 8.2 of I-D.ietf-core-oscore-groupcomm}}). Furthermore, as also discussed in {{Section 8 of I-D.ietf-core-oscore-groupcomm}}, it is recommended that servers failing to decrypt and verify an incoming message do not send back any error message.
 
    This limits an adversary to leveraging an intercepted group request protected with Group OSCORE, and then altering the source IP address to be the one of the intended amplification victim.
    
