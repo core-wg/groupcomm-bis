@@ -564,7 +564,9 @@ For security and performance reasons also other filtering criteria may be define
 
 CoAP group communication can operate in CoAP NoSec (No Security) mode, without using application-layer and transport-layer security mechanisms. The NoSec mode uses the "coap" scheme, and is defined in {{Section 9 of RFC7252}}. The conceptual "NoSec" security group as defined in {{sec-groupdef}} is used for unsecured group communication.
 
-Before using this mode of operation, the security implications ({{chap-security-considerations-nosec-mode}}) must be well understood, especially as to the risk and impact of amplification attacks (see {{ssec-amplification}}).
+It is NOT RECOMMENDED to use CoAP group communication in NoSec mode, even in case of non-sensitive and non-critical applications.
+
+Before possibly and exceptionally using the NoSec mode, the security implications in {{chap-security-considerations-nosec-mode}} must be very well considered and understood, especially as to the risk and impact of amplification attacks (see {{ssec-amplification}}).
 
 # Secured Group Communication using Group OSCORE # {#chap-oscore}
 
@@ -635,15 +637,15 @@ This section provides security considerations for CoAP group communication, in g
 
 ## CoAP NoSec Mode ## {#chap-security-considerations-nosec-mode}
 
-CoAP group communication, if not protected, is vulnerable to all the attacks mentioned in {{Section 11 of RFC7252}} for IP multicast.
+CoAP group communication, if not protected, is vulnerable to all the attacks mentioned in {{Section 11 of RFC7252}} for IP multicast. Moreover, if the NoSec mode is used, amplification attacks are especially feasible to perform and greatly effective in their impact {{I-D.mattsson-core-coap-attacks}}. 
 
-Thus, for sensitive and mission-critical applications (e.g., health monitoring systems and alarm monitoring systems), it is NOT RECOMMENDED to deploy CoAP group communication in NoSec mode.
+Therefore, even in case of non-sensitive and non-critical applications, it is generally NOT RECOMMENDED to use CoAP group communication in NoSec mode, also in order to prevent an easy proliferation of high-volume amplification attacks as further discussed in {{ssec-amplification}}.
 
-Without application-layer security, CoAP group communication SHOULD only be deployed in applications that are non-critical, and that do not involve or may have an impact on sensitive data and personal sphere. These include, e.g., read-only temperature sensors deployed in non-sensitive environments, where the client reads out the values but does not use the data to control actuators or to base an important decision on.
+Exceptionally, early discovery of devices and resources is a typical use case where NoSec mode is applied. In such a situation, the querying devices do not have yet configured any mutual security relations at the time they perform the discovery. Also, high-volume and harmful amplifications can be prevented through appropriate and conservative configurations, since only a few CoAP servers are expected to be configured for responding to the group requests sent for discovery (see {{ssec-amplification}}).
 
-Early discovery of devices and resources is a typical use case where NoSec mode is applied, since the devices involved do not have yet configured any mutual security relations at the time the discovery takes place.
+CoAP group communication in NoSec mode SHOULD NOT be deployed for sensitive and mission-critical applications (e.g., health monitoring systems and alarm monitoring systems).
 
-If NoSec mode is used, amplification attacks {{I-D.mattsson-core-coap-attacks}} are especially feasible to perform and effective in their impact. Therefore, in order to prevent an easy proliferation of high-volume amplification attacks, it is generally NOT RECOMMENDED to use CoAP group communication in NoSec mode, as further discussed in {{ssec-amplification}}.
+CoAP group communication without application-layer security SHOULD be deployed only in applications that are non-critical and that do not involve or may have an impact on sensitive data and personal sphere. These include, e.g., read-only temperature sensors deployed in non-sensitive environments, where the client reads out the values but does not use the data to control actuators or to base an important decision on.
 
 ## Group OSCORE ## {#chap-security-considerations-sec-mode}
 
@@ -681,19 +683,19 @@ As discussed below, Group OSCORE addresses a number of security attacks mentione
 
 * Group OSCORE limits the feasibility and impact of amplification attacks, see {{ssec-amplification}} of this document and {{Section 11.3 of RFC7252}}.
 
-   In fact, upon receiving a request over IP multicast as protected with Group OSCORE in group mode, a server is able to verify whether the request is not a replay and originates from the alleged sender in the OSCORE group, by verifying the signature included in the request using the public key of that sender (see {{Section 8.2 of I-D.ietf-core-oscore-groupcomm}}). Furthermore, as also discussed in {{Section 8 of I-D.ietf-core-oscore-groupcomm}}, it is recommended that servers failing to decrypt and verify an incoming message do not send back any error message.
+   In fact, upon receiving a group request protected with Group OSCORE in group mode, a server is able to verify whether the request is not a replay and originates from the alleged sender in the OSCORE group, by verifying the signature included in the request using the public key of that sender (see {{Section 8.2 of I-D.ietf-core-oscore-groupcomm}}). Furthermore, as also discussed in {{Section 8 of I-D.ietf-core-oscore-groupcomm}}, it is recommended that servers failing to decrypt and verify an incoming message do not send back any error message.
 
-   This limits an adversary to leveraging an intercepted group request protected with Group OSCORE, and then altering the source IP address to be the one of the intended amplification victim.
-   
-   As discussed in the next point, a server can also rely on the Echo Option for CoAP described in {{I-D.ietf-core-echo-request-tag}}, and possibly use it to assert that the alleged sender of the group request (i.e., the CoAP client associated to a certain public key) is indeed reachable at the claimed source address, especially if this differs from the one used in previous group requests from the same CoAP client. Although responses including the Echo Option do result in amplification, this is limited in volume compared to when all servers reply with a full-fledged response.
+   This limits an adversary to leveraging an intercepted group request protected with Group OSCORE, and then altering the source address to be the one of the intended amplification victim.
    
    Furthermore, the adversary needs to consider a group request that specifically targets a resource for which the CoAP servers are configured to respond. While this can be often correctly assumed or inferrable from the application context, it is not explicit from the group request itself, since Group OSCORE protects the Uri-Path and Uri-Query CoAP Options conveying the respective components of the target URI.
+   
+   As a further mitigation against amplification attacks, a server can also rely on the Echo Option for CoAP defined in {{I-D.ietf-core-echo-request-tag}} and include it in a response to a group request. By doing so, the server can assert that the alleged sender of the group request (i.e., the CoAP client associated to a certain public key) is indeed reachable at the claimed source address, especially if this differs from the one used in previous group requests from the same CoAP client. Although responses including the Echo Option do still result in amplification, this is limited in volume compared to when all servers reply with a full-fledged response.
 
 * Group OSCORE limits the impact of attacks based on IP spoofing also over IP multicast (see {{Section 11.4 of RFC7252}}). In fact, requests and corresponding responses sent in the OSCORE group can be correctly generated only by legitimate group members.
 
     Within an OSCORE group, the shared symmetric-key security material strictly provides only group-level authentication. However, source authentication of messages is also ensured, both in the group mode by means of signatures (see {{Sections 8.1 and 8.3 of I-D.ietf-core-oscore-groupcomm}}), and in the pairwise mode by using additionally derived pairwise keys (see {{Sections 9.3 and 9.5 of I-D.ietf-core-oscore-groupcomm}}). Thus, recipient endpoints can verify a message to be originated by the alleged, identifiable sender in the OSCORE group.
 
-    Note that the server may additionally rely on the Echo Option for CoAP described in {{I-D.ietf-core-echo-request-tag}}, in order to verify the aliveness and reachability of the client sending a request from a particular IP address.
+    As noted above, the server may additionally rely on the Echo Option for CoAP defined in {{I-D.ietf-core-echo-request-tag}}, in order to verify the aliveness and reachability of the client sending a request from a particular IP address.
 
 * Group OSCORE does not require group members to be equipped with a good source of entropy for generating security material (see {{Section 11.6 of RFC7252}}), and thus does not contribute to create an entropy-related attack vector against such (constrained) CoAP endpoints. In particular, the symmetric keys used for message encryption and decryption are derived through the same HMAC-based HKDF scheme used for OSCORE (see {{Section 3.2 of RFC8613}}). Besides, the OSCORE Master Secret used in such derivation is securely generated by the Group Manager responsible for the OSCORE group, and securely provided to the CoAP endpoints when they join the group.
 
@@ -701,19 +703,29 @@ As discussed below, Group OSCORE addresses a number of security attacks mentione
 
 ## Risk of Amplification ## {#ssec-amplification}
 
-{{Section 11.3 of RFC7252}} highlights that CoAP group requests may be used for accidentally or deliberately performing Denial of Service attacks, especially in the form of a high-volume amplification attack, by using all the servers in the CoAP group as attack vectors. Since potentially all the servers in the CoAP group may respond, the achieved amplification factor can be high, as multiple responses are sent and all are likely larger than the group request.
+{{Section 11.3 of RFC7252}} highlights that CoAP group requests may be used for accidentally or deliberately performing Denial of Service attacks, especially in the form of a high-volume amplification attack, by using all the servers in the CoAP group as attack vectors.
 
-{{Section 3 of I-D.mattsson-core-coap-attacks}} further discusses this attack, and notes how the amplification factor would become even higher when group communication is combined with resource observation {{RFC7641}}. That is, a single group request may result in multiple notification responses from each of the responding servers, throughout the observation lifetime.
+That is, following a group request sent to a CoAP group, each of the servers in the group may reply with a response which is likely larger in size than the group request. Thus, an attacker sending a single group request may achieve a high amplification factor, i.e., a high ratio between the size of the group request and the total size of the corresponding responses intended to the attack victim.
 
-Consistently with {{Section 11.3 of RFC7252}}, a CoAP server in a CoAP group SHOULD limit the support for CoAP group requests only to the group resources of the application group(s) using that CoAP group.
+Thus, consistently with {{Section 11.3 of RFC7252}}, a server in a CoAP group:
 
-It is especially easy to perform an amplification attack when NoSec mode is used. Therefore, in order to prevent an easy proliferation of high-volume amplification attacks, it is generally NOT RECOMMENDED to use CoAP group communication in NoSec mode.
+* SHOULD limit the support for CoAP group requests only to the group resources of the application group(s) using that CoAP group;
 
-Exceptions should be carefully limited to use cases and accesses to a group resource that have a specific, narrow and well understood scope, and where only a few CoAP servers (or ideally only one) would possibly respond to a group request.
+* SHOULD NOT accept group requests that can not be authenticated in some way;
 
-A relevant example is a CoAP client performing the discovery of hosts such as a group manager or a Resource Directory {{I-D.ietf-core-resource-directory}}, by probing for them through a group request sent to the CoAP group. This early, unprotected step is relevant for a CoAP client that does not know the address of such hosts in advance, and that does not have yet configured a mutual security relation with them. In this kind of deployments, such a discovery procedure does not result in a considerable and harmful amplification, since only the few CoAP servers object of discovery are going to respond to the group request targeting that specific resource. In particular, those hosts can be the only CoAP servers in that specific CoAP group (hence listening for group requests sent to that group), and/or the only CoAP servers explicitly configured to respond to group requests targeting specific group resources.
+* SHOULD NOT provide large amplification factors through its responses to a non-authenticated group request, and can possibly rely on CoAP block-wise transfers {{RFC7959}} to reduce the amount of amplification.
 
-In any other case, group communications MUST be secured using Group OSCORE {{I-D.ietf-core-oscore-groupcomm}}, see {{chap-oscore}}. As discussed in {{chap-security-considerations-sec-mode-attacks}}, this limits the feasibility and impact of amplification attacks.
+{{Section 3.1 of I-D.mattsson-core-coap-attacks}} further discusses amplification attacks, and also notes how the amplification factor would become even higher when CoAP group communication is combined with resource observation {{RFC7641}}. That is, a single group request may result in multiple notification responses from each of the responding servers, throughout the observation lifetime.
+
+Thus, consistently with {{Section 7 of RFC7641}}, a server in a CoAP group MUST strictly limit the number of notifications it sends between receiving acknowledgements that confirm the actual interest of the client in continuing the observation.
+
+Moreover, it is especially easy to perform an amplification attack when the NoSec mode is used. Therefore, even in case of non-sensitive and non-critical applications, it is generally NOT RECOMMENDED to use CoAP group communication in NoSec mode, in order to prevent an easy proliferation of high-volume amplification attacks.
+
+Exceptions should be carefully limited to use cases and accesses to a group resource that have a specific, narrow and well understood scope, and where only a few CoAP servers (or, ideally, only one) would possibly respond to a group request.
+
+A relevant exceptional example is a CoAP client performing the discovery of hosts such as a group manager or a Resource Directory {{I-D.ietf-core-resource-directory}}, by probing for them through a group request sent to the CoAP group. This early, unprotected step is relevant for a CoAP client that does not know the address of such hosts in advance, and that does not have yet configured a mutual security relation with them. In this kind of deployments, such a discovery procedure does not result in a considerable and harmful amplification, since only the few CoAP servers object of discovery are going to respond to the group request targeting that specific resource. In particular, those hosts can be the only CoAP servers in that specific CoAP group (hence listening for group requests sent to that group), and/or the only CoAP servers explicitly configured to respond to group requests targeting specific group resources.
+
+With the exception of such particular use cases, group communications MUST be secured using Group OSCORE {{I-D.ietf-core-oscore-groupcomm}}, see {{chap-oscore}}. As discussed in {{chap-security-considerations-sec-mode-attacks}}, this limits the feasibility and impact of amplification attacks.
 
 ## Replay of Non-Confirmable Messages ##
 
@@ -950,6 +962,12 @@ IANA is asked to enter the following option numbers to the "CoAP Option Numbers"
 # Document Updates # {#sec-document-updates}
 
 RFC EDITOR: PLEASE REMOVE THIS SECTION.
+
+## Version -04 to -05 ## {#sec-04-05}
+
+* Revised and extended text on the NoSec mode and amplification attacks.
+
+* Editorial improvements.
 
 ## Version -03 to -04 ## {#sec-03-04}
 
