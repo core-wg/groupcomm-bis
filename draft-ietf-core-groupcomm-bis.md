@@ -115,7 +115,7 @@ One-to-many group communication can be achieved in CoAP, by a client using UDP/I
 
 Both unsecured and secured CoAP group communication are specified in this document. Security is achieved by using Group Object Security for Constrained RESTful Environments (Group OSCORE) {{I-D.ietf-core-oscore-groupcomm}}, which in turn builds on Object Security for Constrained Restful Environments (OSCORE) {{RFC8613}}. This method provides end-to-end application-layer security protection of CoAP messages, by using CBOR Object Signing and Encryption (COSE) {{I-D.ietf-cose-rfc8152bis-struct}}{{I-D.ietf-cose-rfc8152bis-algs}}.
 
-All guidelines in {{RFC7390}} are updated by this document, which replaces and obsoletes {{RFC7390}}. Furthermore, this document updates {{RFC7252}}, by specifying: a group request/response model; a response validation model for responses to group requests; and the use of Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} to achieve security for CoAP group communication. Finally, this document also updates {{RFC7641}}, by defining the multicast usage of the CoAP Observe Option for both the GET and FETCH methods.
+This documents replaces and obsoletes {{RFC7390}}, while it updates both {{RFC7252}} and {{RFC7641}}. A summary of the changes and additions to these documents is provided in {{changes}}.
 
 All sections in the body of this document are normative, while appendices are informative. For additional background about use cases for CoAP group communication in resource-constrained devices and networks, see {{appendix-usecases}}.
 
@@ -133,6 +133,28 @@ in this document are to be interpreted as described in BCP 14 {{RFC2119}} {{RFC8
 This specification requires readers to be familiar with CoAP terminology {{RFC7252}}. Terminology related to group communication is defined in {{sec-groupdef}}.
 
 Furthermore, "Security material" refers to any security keys, counters or parameters stored in a device that are required to participate in secure group communication with other devices.
+
+## Changes to Other Documents ## {#changes}
+
+This document obsoletes and replaces {{RFC7390}} as follows.
+
+* It defines separate definitions for CoAP groups, application groups and security groups, together with high-level guidelines on their configuration (see {{chap-general-groupcomm}}).
+
+* It defines the use of Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} as the security protocol to protect group communication for CoAP, together with high-level guidelines on secure group maintenance (see {{chap-oscore}}).
+
+* It updates all the guidelines about using group communication for CoAP (see {{sec-coap-usage}}).
+
+* It strongly discourages unsecured group communication for CoAP based on the "NoSec" mode (see {{chap-unsecured-groupcomm}} and {{chap-security-considerations-nosec-mode}}) and highlights the risk of amplification attacks (see {{ssec-amplification}}).
+
+This document updates {{RFC7252}} as follows.
+
+* It updates the request/response model for group communication, as to response suppression (see {{sec-request-response-suppress}}) and token reuse time (see {{sec-token-reuse}}).
+
+* It updates the freshness model and validation model to use for cached responses (see {{sec-caching-freshness}} and {{sec-caching-validation}}).
+
+This document updates {{RFC7641}} as follows.
+
+* It defines the use of the CoAP Observe Option in group requests, for both the GET method and the FETCH method {{RFC8132}}, together with normative behavior for both CoAP clients and CoAP servers (see {{sec-observe}}).
 
 # Group Definition and Group Configuration # {#chap-general-groupcomm}
 
@@ -288,7 +310,7 @@ A CoAP client can distinguish the origin of multiple server responses by the sou
 
 While processing a response on the client, the source endpoint of the response is not matched to the destination endpoint of the request, since for a group request these will never match. This is specified in {{Section 8.2 of RFC7252}}, with reference to IP multicast. Also, when UDP transport is used, this implies that a server MAY respond from a UDP port number that differs from the destination UDP port number of the request, although a CoAP server normally SHOULD respond from the UDP port number that equals the destination port of the request -- following the convention for UDP-based protocols. In case a single client has sent multiple group requests and concurrent CoAP transactions are ongoing, the responses received by that client are matched to an active request using only the Token value. Due to UDP level multiplexing, the UDP destination port of the response MUST match to the client endpoint's UDP port value, i.e., to the UDP source port of the client's request.
 
-### Token Reuse ###
+### Token Reuse ### {#sec-token-reuse}
 For CoAP group requests, there are additional constraints on the reuse of Token values at the client, compared to the unicast case defined in {{RFC7252}} and updated by {{I-D.ietf-core-echo-request-tag}}. Since for CoAP group requests the number of responses is not bound a priori, the client cannot use the reception of a response as a trigger to "free up" a Token value for reuse. Reusing a Token value too early could lead to incorrect response/request matching on the client, and would be a protocol error.  Therefore, the time between reuse of Token values for different group requests MUST be greater than:
 
 ~~~~~~~~~~~
@@ -474,7 +496,7 @@ Before repeating a request as specified above, the client SHOULD wait for at lea
 
 A server that receives a GET or FETCH request with the Observe Option, for which request processing is successful, SHOULD respond to this request and not suppress the response. If a server adds a client (as a new entry) to the list of observers for a resource due to an Observe request, the server SHOULD respond to this request and SHOULD NOT suppress the response. An exception to the above is the overriding of response suppression according to a CoAP No-Response Option {{RFC7967}} specified by the client in the GET or FETCH request (see {{sec-request-response-suppress}}).
 
-A server SHOULD have a mechanism to verify liveness of its observing clients and the continued interest of these clients in receiving the observe notifications. This can be implemented by sending notifications occassionally using a Confirmable message. See {{Section 4.5 of RFC7641}} for details. This requirement overrides the regular behavior of sending Non-confirmable notifications in response to a Non-confirmable request.
+A server SHOULD have a mechanism to verify liveness of its observing clients and the continued interest of these clients in receiving the observe notifications. This can be implemented by sending notifications occasionally using a Confirmable message (see {{Section 4.5 of RFC7641}} for details). This requirement overrides the regular behavior of sending Non-confirmable notifications in response to a Non-confirmable request.
 
 A client can use the unicast cancellation methods of {{Section 3.6 of RFC7641}} and stop the ongoing observation of a particular resource on members of a CoAP group. This can be used to remove specific observed servers, or even all servers in the group (using serial unicast to each known group member). In addition, a client MAY explicitly deregister from all those servers at once, by sending a group/multicast GET or FETCH request that includes the Token value of the observation to be cancelled and includes an Observe Option with the value set to 1 (deregister). In case not all the servers in the CoAP group received this deregistration request, either the unicast cancellation methods can be used at a later point in time or the group/multicast deregistration request MAY be repeated upon receiving another observe response from a server.
 
@@ -855,6 +877,8 @@ Group communication can be useful to efficiently distribute new software (firmwa
 RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 ## Version -04 to -05 ## {#sec-04-05}
+
+* Clarified changes to other documents.
 
 * Revised and extended text on the NoSec mode and amplification attacks.
 
