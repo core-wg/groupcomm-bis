@@ -256,11 +256,9 @@ An application group can be named in many ways through different types of identi
 
 There are also methods to encode the application group name within the CoAP request even though it is not encoded within the Group URI. Examples of such methods are:
 
-* encode in a Uri-Host Option {{RFC7252}} which is added to the CoAP request by the client before sending it out. Each CoAP server that is part of the CoAP group, receiving this request, decodes the Uri-Host Option and treats it as an application group name. (It can also treat the application group name withint this Option as a "virtual CoAP server" specific to that application group, exactly in the same way that the Uri-Host Option was intended to allow support for multiple virtual servers. The net effect of both is the same.)
+* encode in a Uri-Host Option {{RFC7252}} which is added to the CoAP request by the client before sending it out. Each CoAP server that is part of the CoAP group, receiving this request, decodes the Uri-Host Option and treats it as an application group name. (It can also treat the application group name in this Option as a "virtual CoAP server" specific to that application group, exactly in the same way that the Uri-Host Option was intended to allow support for multiple virtual servers hosted on the same port. The net effect of both treatments is the same.)
 
-* encode in a new (custom/application-specific) CoAP Option which is added to the CoAP request by the client before sending it out. Each CoAP server that is part of the CoAP group, receiving this request, would by design know this Option, would decode it, and treat it as an application group name. 
-
-* encode in the UDP source port number of the CoAP request.
+* encode in a new (custom/application-specific) CoAP Option which is added to the CoAP request by the client before sending it out. Each CoAP server that is part of the CoAP group, receiving this request, would by design understand this Option, would decode it, and treat it as an application group name. 
 
 Finally, it is possible to not encode the application group name at all within the CoAP request. This yields the most compact representation on the wire. In this case, each CoAP server needs to determine the application group based on contextual information, such as client identity and/or target resource. For example, each application group on a server could have a unique set of resources that doesn't overlap with any resources of other application groups.
 
