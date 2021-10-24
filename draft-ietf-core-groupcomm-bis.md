@@ -907,6 +907,10 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 * Clarified relation between different group types.
 
+* Clarified discovery of application groups.
+
+* Discussed methods to express application group names in requests.
+
 * Revised and extended text on the NoSec mode and amplification attacks.
 
 * Rephrased backward/forward security as properties.
