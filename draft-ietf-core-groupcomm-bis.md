@@ -260,7 +260,7 @@ There are also methods to encode the application group name within the CoAP requ
 
 * encode in a new (custom/application-specific) CoAP Option which is added to the CoAP request by the client before sending it out. Each CoAP server that is part of the CoAP group, receiving this request, would by design understand this Option, would decode it, and treat it as an application group name. 
 
-Finally, it is possible to not encode the application group name at all within the CoAP request. This yields the most compact representation on the wire. In this case, each CoAP server needs to determine the application group based on contextual information, such as client identity and/or target resource. For example, each application group on a server could have a unique set of resources that doesn't overlap with any resources of other application groups.
+Finally, it is possible to not encode the application group name at all within the CoAP request. This yields the most compact representation on the wire. In this case, each CoAP server needs to determine the application group based on contextual information, such as client identity and/or target resource. For example, each application group on a server could have a unique set of resources that does not overlap with any resources of other application groups.
 
 Appendix A of {{I-D.ietf-core-resource-directory}} shows an example registration of an application group into a Resource Directory (RD), along with the CoAP group it uses and the resources supported by the application group. In this example an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry. The CoAP group is ff35:30:2001:db8:f1::8000:1 and the "NoSec" security group is used.
 
