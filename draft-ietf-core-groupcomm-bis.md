@@ -699,7 +699,7 @@ CoAP group communication without application-layer security SHOULD be deployed o
 
 Group OSCORE provides end-to-end application-level security. This has many desirable properties, including maintaining security assurances while forwarding traffic through intermediaries (proxies). Application-level security also tends to more cleanly separate security from the dynamics of group membership (e.g., the problem of distributing security keys across large groups with many members that come and go).
 
-For sensitive and mission-critical applications, CoAP group communication MUST be protected by using Group OSCORE as specified in {{I-D.ietf-core-oscore-groupcomm}}. The same security considerations from {{Section 10 of I-D.ietf-core-oscore-groupcomm}} hold for this specification.
+For sensitive and mission-critical applications, CoAP group communication MUST be protected by using Group OSCORE as specified in {{I-D.ietf-core-oscore-groupcomm}}. The same security considerations from {{Section 11 of I-D.ietf-core-oscore-groupcomm}} hold for this specification.
 
 ### Group Key Management ### {#chap-security-considerations-sec-mode-key-mgmt}
 
