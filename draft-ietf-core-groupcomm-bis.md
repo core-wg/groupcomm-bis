@@ -271,41 +271,130 @@ Examples of hierarchical CoAP group FQDN naming (and scoping) for a building con
 
 #### Application Groups ### {#sec-groupnaming-app}
 
-An application group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI or other types of string. The decision of whether and how exactly an application group name is encoded and transported is application specific. The following defines a number of possible methods to use.
+An application group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI or other types of string. The decision of whether and how exactly an application group name is encoded and transported is application specific.
+
+The following defines a number of possible methods to use. The shown examples consider a CoAP group identified by the group hostname grp.example.org. Its members are CoAP servers listening to the associated IP multicast address ff35:30:2001:db8:f1::8000:1 and port number 5685.
 
 An application group name can be explicitly encoded in a group URI. In such a case, it can be encoded within one of the following URI components.
 
-* URI path component - This is the most common and RECOMMENDED method to encode the application group name. An application group name, e.g., \<GROUPNAME\>, should be as short as possible when used in constrained networks.
+* URI path component - This is the most common and RECOMMENDED method to encode the application group name. When using this method in constrained networks, an application group name, e.g., \<GROUPNAME\>, should be as short as possible.
 
-   A best practice for doing so is to use a URI path component such that: i) it includes a path segment as delimiter with a designated value, e.g., "g", followed by ii) a path segment with value the name of the application group, followed by iii) the path segment(s) that identify the resource within this application group. For example, both g/\<GROUPNAME\>/res1 and /base/g/\<GROUPNAME\>/res1/res2 conform to this practice.
+   A best practice for doing so is to use a URI path component such that: i) it includes a path segment as delimiter with a designated value, e.g., "gp", followed by ii) a path segment with value the name of the application group, followed by iii) the path segment(s) that identify the resource within this application group. For example, both gp/\<GROUPNAME\>/res1 and /base/gp/\<GROUPNAME\>/res1/res2 conform to this practice. Just like application group names, the path segment used as delimited shoud be as short as possible in constrained networks.
    
-   A full-fledged example is provided in TBD
+   A full-fledged example is provided in {{fig-gname-path-example}}.
 
-* URI query component - This method can use the following formats.
+~~~~~~~~~~~
+ 
+   Application group name: gp1
+
+   Group URI: coap://grp.example.org:5685/gp/gp1/light?foo=bar
+
+   CoAP group request
+      Header: GET (T=NON, Code=0.01, MID=0x7d41)
+      Uri-Host: grp.example.org
+      Uri-Path: gp
+      Uri-Path: gp1
+      Uri-Path: light
+      Uri-Query: foo=bar
+~~~~~~~~~~~
+{: #fig-gname-path-example title="Example of application group name in URI path"}
+
+* URI query component - This method can use the following formats. In either case,    when using this method in constrained networks, an application group name, e.g., \<GROUPNAME\>, should be as short as possible.
 
    As a first alternative, the URI query component consists of only one parameter, which has no value and has the name of the application group as its own idenfier. That is, the query component ?\<GROUPNAME\> conforms to this format.
    
-   A full-fledged example is provided in TBD
+   A full-fledged example is provided in {{fig-gname-query1-example}}.
    
-   As a second alternative, the URI query component includes a query parameter as designated indicator, e.g., "g", with value the name of the application group. That is, assuming "g" to be used as designated indicator, both the query components ?g=\<GROUPNAME\> and ?param1=value1&g=\<GROUPNAME\> conform to this format.
-   
-   A full-fledged example is provided in TBD
+~~~~~~~~~~~
+ 
+   Application group name: gp1
 
+   Group URI: coap://grp.example.org:5685/light?gp1
+
+   CoAP group request
+      Header: GET (T=NON, Code=0.01, MID=0x7d41)
+      Uri-Host: grp.example.org
+      Uri-Path: light
+      Uri-Query: gp1
+~~~~~~~~~~~
+{: #fig-gname-query1-example title="Example of application group name in URI query (1/2)"}
+   
+   As a second alternative, the URI query component includes a query parameter as designated indicator, e.g., "gp", with value the name of the application group. That is, assuming "gp" to be used as designated indicator, both the query components ?gp=\<GROUPNAME\> and ?param1=value1&gp=\<GROUPNAME\> conform to this format.
+   
+   A full-fledged example is provided in {{fig-gname-query2-example}}.
+
+~~~~~~~~~~~
+ 
+   Application group name: gp1
+
+   Group URI: coap://grp.example.org:5685/light?foo=bar&gp=gp1
+
+   CoAP group request
+      Header: GET (T=NON, Code=0.01, MID=0x7d41)
+      Uri-Host: grp.example.org
+      Uri-Path: light
+      Uri-Query: foo=bar
+      Uri-Query: gp=gp1
+~~~~~~~~~~~
+{: #fig-gname-query2-example title="Example of application group name in URI query (2/2)"}
+   
 * URI authority component - If this method is used, the application group is identified by the authority component as a whole.
 
    In particular, the application group has the same name of the CoAP group expressed by the group URI (see {{sec-groupnaming-coap}}). Therefore, this method can only be used if there is a one-to-one mapping between CoAP groups and application groups (see {{sec-groupdef-grouprelations}}).
 
-   A full-fledged example is provided in TBD
-   
+   A full-fledged example is provided in {{fig-gname-auth-example}}.
+
+~~~~~~~~~~~
+ 
+   Application group name: grp.example.org:5685
+
+   Group URI: coap://grp.example.org:5685/light?foo=bar
+
+   CoAP group request
+      Header: GET (T=NON, Code=0.01, MID=0x7d41)
+      Uri-Host: grp.example.org
+      Uri-Path: light
+      Uri-Query: foo=bar
+~~~~~~~~~~~
+{: #fig-gname-auth-example title="Example of application group name in URI authority"}
+
 * URI host subcomponent - If this method is used, the application group is identified solely by the host subcomponent of the authority component.
 
    If the authority component does not include the port subcomponent, the application group has the same name of the CoAP group expressed by the group URI (see {{sec-groupnaming-coap}}). In such a case, this method can only be used if there is a one-to-one mapping between CoAP groups and application groups (see {{sec-groupdef-grouprelations}}).
 
-   A full-fledged example is provided in TBD
+   A full-fledged example is provided in {{fig-gname-host-example}}.
 
-* URI port subcomponent - By using this method, the application group is identified by the destination port number encoded in the port subcomponent of the authority component.
+~~~~~~~~~~~
+ 
+   Application group name: grp.example.org
 
-   A full-fledged example is provided in TBD
+   Group URI: coap://grp.example.org:5685/light?foo=bar
+
+   CoAP group request
+      Header: GET (T=NON, Code=0.01, MID=0x7d41)
+      Uri-Host: grp.example.org
+      Uri-Path: light
+      Uri-Query: foo=bar
+~~~~~~~~~~~
+{: #fig-gname-host-example title="Example of application group name in URI host"}
+
+* URI port subcomponent - By using this method, the application group is uniquely identified by the destination port number encoded in the port subcomponent of the authority component.
+
+   A full-fledged example is provided in {{fig-gname-post-example}}.
+
+~~~~~~~~~~~
+ 
+   Application group name: grp1, as inferable from port number 5685
+
+   Group URI: coap://grp.example.org:5685/light?foo=bar
+
+   CoAP group request
+      Header: GET(T=NON, Code=0.01, MID=0x7d41)
+      Uri-Host: grp.example.org
+      Uri-Path: light
+      Uri-Query: foo=bar
+~~~~~~~~~~~
+{: #fig-gname-post-example title="Example of application group name in URI port"}
 
 Alternatively, there are also methods to encode the application group name within the CoAP request, even though it is not encoded within the group URI. Examples of such methods are summarized below.
 
@@ -313,13 +402,42 @@ Alternatively, there are also methods to encode the application group name withi
 
    Upon receiving the request as a member of the targeted CoAP group, each CoAP server decodes the Uri-Host Option and treats the result as an application group name. The servers can also treat that group name as a "virtual CoAP server" specific to that application group. This is consistent with the Uri-Host Option allowing support for multiple virtual servers hosted on the same port number. The net effect of both treatments is the same.
    
-   A full-fledged example is provided in TBD
+   A full-fledged example is provided in {{fig-gname-uri-host-option-example}}.
+
+~~~~~~~~~~~
+ 
+   Application group name: grp1
+
+   Group URI: coap://[ff35:30:2001:db8:f1::8000:1]:5685/light?foo=bar
+
+   CoAP group request
+      Header: GET (T=NON, Code=0.01, MID=0x7d41)
+      Uri-Host: grp1
+      Uri-Path: light
+      Uri-Query: foo=bar
+~~~~~~~~~~~
+{: #fig-gname-uri-host-option-example title="Example of application group name in URI-Host Option"}
 
 * The application group name can be encoded in a new (custom, application-specific) CoAP Option, which the client adds to the CoAP request before sending it out.
 
    Upon receiving the request as a member of the targeted CoAP group, each CoAP server would, by design, understand this Option, decode it and treat the result as an application group name.
    
-   A full-fledged example is provided in TBD
+   A full-fledged example is provided in {{fig-gname-custom-option-example}}.
+
+~~~~~~~~~~~
+ 
+   Application group name: grp1
+
+   Group URI: coap://grp.example.org:5685/light?foo=bar
+
+   CoAP group request
+      Header: GET (T=NON, Code=0.01, MID=0x7d41)
+      Uri-Host: grp.example.org
+      Uri-Path: light
+      Uri-Query: foo=bar
+      App-Group-Name: grp1  // custom CoAP option
+~~~~~~~~~~~
+{: #fig-gname-custom-option-example title="Example of application group name in a custom CoAP Option"}
 
 Furthermore, it is possible to encode the application group name neither in the group URI nor within a CoAP request, thus yielding the most compact representation on the wire. In this case, each CoAP server needs to determine the right application group based on contextual information, such as the client identity and/or the target resource. For example, each application group on a server could support a unique set of resources, such that it does not overlap with the set of resources of any other application group.
 
@@ -967,6 +1085,18 @@ Group communication can be useful to efficiently distribute new software (firmwa
 # Document Updates # {#sec-document-updates}
 
 RFC EDITOR: PLEASE REMOVE THIS SECTION.
+
+## Version -05 to -06 ## {#sec-05-06}
+
+* Harmonized use of "group URI".
+
+* Revised methods to perform group naming.
+
+* Added examples of application group naming.
+
+* Clarifications about different group types.
+
+* Editorial improvements.
 
 ## Version -04 to -05 ## {#sec-04-05}
 
