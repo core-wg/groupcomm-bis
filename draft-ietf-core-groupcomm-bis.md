@@ -132,7 +132,11 @@ in this document are to be interpreted as described in BCP 14 {{RFC2119}} {{RFC8
 
 This specification requires readers to be familiar with CoAP terminology {{RFC7252}}. Terminology related to group communication is defined in {{sec-groupdef}}.
 
-Furthermore, "Security material" refers to any security keys, counters or parameters stored in a device that are required to participate in secure group communication with other devices.
+In addition, the following ters are extensively used.
+
+* Group URI - This is defined as a CoAP URI that has the "coap" scheme and includes in the authority part either an IP multicast address or a group hostname (e.g., a Group Fully Qualified Domain Name (FQDN)) that can be resolved to an IP multicast address. A group URI also contains an optional UDP port number in the authority part. Group URIs follow the regular CoAP URI syntax (see {{Section 6 of RFC7252}}).
+
+* Security material - This refers to any security keys, counters or parameters stored in a device that are required to participate in secure group communication with other devices.
 
 ## Changes to Other Documents ## {#changes}
 
@@ -164,13 +168,25 @@ In the following, different group types are first defined in {{sec-groupdef}}. T
 Three types of groups and their mutual relations are defined in this section: CoAP group, application group, and security group.
 
 ### CoAP Group ## {#sec-groupdef-coapgroup}
-A CoAP group is defined as a set of CoAP endpoints, where each endpoint is configured to receive CoAP group messages that are sent to the group's associated IP multicast address and UDP port. An endpoint may be a member of multiple CoAP groups by subscribing to multiple IP multicast groups and/or listening on multiple UDP ports. Group membership(s) of an endpoint may dynamically change over time. A device sending a CoAP group message to a CoAP group is not necessarily itself a member of this CoAP group: it is a member only if it also has a CoAP endpoint listening on the group's associated IP multicast address and UDP port. A CoAP group can be encoded within a Group URI. This is defined as a CoAP URI that has the "coap" scheme and includes in the authority part either an IP multicast address or a group hostname (e.g., a Group Fully Qualified Domain Name (FQDN)) that can be resolved to an IP multicast address. A Group URI also contains an optional UDP port number in the authority part. Group URIs follow the regular CoAP URI syntax (see {{Section 6 of RFC7252}}).
+A CoAP group is defined as a set of CoAP endpoints, where each endpoint is configured to receive CoAP group messages that are sent to the group's associated IP multicast address and UDP port. That is, CoAP groups have relevance at the level of IP networks and CoAP endpoints.
+
+An endpoint may be a member of multiple CoAP groups by subscribing to multiple IP multicast groups and/or listening on multiple UDP ports. Group membership(s) of an endpoint may dynamically change over time. A device sending a CoAP group message to a CoAP group is not necessarily itself a member of this CoAP group: it is a member only if it also has a CoAP endpoint listening on the group's associated IP multicast address and UDP port.
+
+A CoAP group is identified by information encoded within a group URI. Further details on identifying an application group are provided in {{sec-groupnaming-coap}}.
 
 ### Application Group ## {#sec-groupdef-applicationgroup}
-Besides CoAP groups, that have relevance at the level of IP networks and CoAP endpoints, there are also application groups. An application group is a set of CoAP server endpoints that share a common set of CoAP resources. An endpoint may be a member of multiple application groups. An application group has relevance at the application level -- for example an application group could denote all lights in an office room or all sensors in a hallway. A client endpoint that sends a group communication message to an application group is not necessarily itself a member of this application group. There can be a one-to-one or a one-to-many relation between a CoAP group and application group(s). An application group name is optionally encoded explicitly in the CoAP request, for example in the URI path. If not explicitly encoded, the application group is implicitly derived by the receiver, based on information in the CoAP request. See {{sec-groupnaming}} for more details on identifying the application group.
+An application group is a set of CoAP server endpoints that share a common set of CoAP resources. That is, an application group has relevance at the application level, for example an application group could denote all lights in an office room or all sensors in a hallway.
+
+An endpoint may be a member of multiple application groups. A client endpoint that sends a group communication message to an application group is not necessarily itself a member of this application group. There can be a one-to-one or a one-to-many relation between a CoAP group and application group(s). Such relations are discussed in more detail in {{sec-groupdef-grouprelations}}.
+
+An application group name may be explicitly encoded in the group URI of a CoAP request, for example in the URI path. If this is not the case, the application group is implicitly derived by the receiver, e.g., based on information in the CoAP request or other contextual information. Further details on identifying an application group are provided in {{sec-groupnaming-app}}.
 
 ### Security Group ## {#sec-groupdef-securitygroup}
-For secure group communication, a security group is required. A security group is a group of endpoints that each store group security material, such that they can mutually exchange secured messages and verify secured messages. So, a client endpoint needs to be a member of a security group in order to send a valid secured group communication message to this group. An endpoint may be a member of multiple security groups. There can be a many-to-many relation between security groups and CoAP groups, but often it is one-to-one. Also, there can be a many-to-many relation between security groups and application groups, but often it is one-to-one. A special security group named "NoSec" identifies group communication without any security at the transport layer nor at the CoAP layer.
+For secure group communication, a security group is required. A security group comprises endpoints storing shared group security material, such that they can use it to protect and verify mutually exchanged messages.
+
+That is, a client endpoint needs to be a member of a security group in order to send a valid secured group communication message to that group. An endpoint may be a member of multiple security groups. There can be a many-to-many relation between security groups and CoAP groups, but often it is one-to-one. Also, there can be a many-to-many relation between security groups and application groups, but often it is one-to-one. Such relations are discussed in more detail in {{sec-groupdef-grouprelations}}.
+
+A special security group named "NoSec" identifies group communication without any security at the transport layer nor at the CoAP layer. Further details on identifying a security group are provided in {{sec-groupnaming-sec}}.
 
 ### Relations Between Group Types ## {#sec-groupdef-grouprelations}
 Using the above group type definitions, a CoAP group communication message sent by an endpoint can be represented as a tuple that contains one instance of each group type:
@@ -247,7 +263,7 @@ Different types of group are named as specified below, separately for CoAP group
 
 #### CoAP Groups ### {#sec-groupnaming-coap}
 
-A CoAP group is identified and named by the authority component in the Group URI, which includes host (possibly an IP multicast address literal) and an optional UDP port number.
+A CoAP group is identified and named by the authority component in the group URI (see {{sec-groupdef-coapgroup}}), which includes the host component (possibly an IP multicast address literal) and an optional UDP port number.
 
 When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal, instead of a group hostname. This is because DNS infrastructure may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via DNS resolution, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.
 
@@ -255,9 +271,11 @@ Examples of hierarchical CoAP group FQDN naming (and scoping) for a building con
 
 #### Application Groups ### {#sec-groupnaming-app}
 
-An application group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI or other type of string. An application group name may be explicitly encoded in a CoAP Group URI, or it may be not included in the Group URI. This is an implementation-specific decision. If the application group name is explicitly encoded in a CoAP Group URI, it can be encoded within one of the 
+An application group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI or other types of string.
 
-* URI path component: this is the most common and RECOMMENDED method to encode the application group name. A best practice for encoding application group into a Group URI is to use one URI path component to identify the application group and use the following URI paths component(s) to identify the resource within this application group. For example, /\<groupname\>/res1 or /base/\<groupname\>/res1/res2 conform to this practice. An application group name (like \<groupname\>) should be as short as possible when used in constrained networks.
+An application group name may be explicitly encoded in a group URI, or it may be not included in the group URI. This is an implementation-specific decision. If the application group name is explicitly encoded in a CoAP group URI, it can be encoded within one of the 
+
+* URI path component: this is the most common and RECOMMENDED method to encode the application group name. A best practice for encoding application group into a group URI is to use one URI path component to identify the application group and use the following URI paths component(s) to identify the resource within this application group. For example, /\<groupname\>/res1 or /base/\<groupname\>/res1/res2 conform to this practice. An application group name (like \<groupname\>) should be as short as possible when used in constrained networks.
 
 * URI query component: using this method, the query may consist of the group name (?\<groupname\>) or it may be one parameter of the query (?g=\<groupname\> or ?param1=value1&gn=\<groupname\>). 
 
@@ -265,7 +283,7 @@ An application group can be named in many ways through different types of identi
 
 * URI port subcomponent: using this method, the application group is identified by a number that is encoded in some way in the destination port.
 
-There are also methods to encode the application group name within the CoAP request even though it is not encoded within the Group URI. Examples of such methods are:
+There are also methods to encode the application group name within the CoAP request even though it is not encoded within the group URI. Examples of such methods are:
 
 * encode in a Uri-Host Option {{RFC7252}} which is added to the CoAP request by the client before sending it out. Each CoAP server that is part of the CoAP group, receiving this request, decodes the Uri-Host Option and treats it as an application group name. (It can also treat the application group name in this Option as a "virtual CoAP server" specific to that application group, exactly in the same way that the Uri-Host Option was intended to allow support for multiple virtual servers hosted on the same port. The net effect of both treatments is the same.)
 
@@ -282,9 +300,9 @@ A security group is identified by a stable and invariant string used as group na
 The "NoSec" security group name MUST be only used to represent the case of group communication without any security. This typically results in CoAP messages that do not include any security group name, identifier, or security-related data structures.
 
 ### Group Creation and Membership ### {#sssec-group-creation}
-To create a CoAP group, a configuring entity defines an IP multicast address (or hostname) for the group and optionally a UDP port number in case it differs from the default CoAP port 5683. Then, it configures one or more devices as listeners to that IP multicast address, with a CoAP endpoint listening on the group's associated UDP port. These endpoints/devices are the group members. The configuring entity can be, for example, a local application with pre-configuration, a user, a software developer, a cloud service, or a local commissioning tool. Also, the devices sending CoAP requests to the group in the role of CoAP client need to be configured with the same information, even though they are not necessarily group members. One way to configure a client is to supply it with a CoAP Group URI. The IETF does not define a mandatory protocol to accomplish CoAP group creation. {{RFC7390}} defined an experimental protocol for configuration of group membership for unsecured group communication, based on JSON-formatted configuration resources. For IPv6 CoAP groups, common multicast address ranges that are used to configure group addresses from are ff1x::/16 and ff3x::/16.
+To create a CoAP group, a configuring entity defines an IP multicast address (or hostname) for the group and optionally a UDP port number in case it differs from the default CoAP port 5683. Then, it configures one or more devices as listeners to that IP multicast address, with a CoAP endpoint listening on the group's associated UDP port. These endpoints/devices are the group members. The configuring entity can be, for example, a local application with pre-configuration, a user, a software developer, a cloud service, or a local commissioning tool. Also, the devices sending CoAP requests to the group in the role of CoAP client need to be configured with the same information, even though they are not necessarily group members. One way to configure a client is to supply it with a group URI. The IETF does not define a mandatory protocol to accomplish CoAP group creation. {{RFC7390}} defined an experimental protocol for configuration of group membership for unsecured group communication, based on JSON-formatted configuration resources. For IPv6 CoAP groups, common multicast address ranges that are used to configure group addresses from are ff1x::/16 and ff3x::/16.
 
-To create an application group, a configuring entity may configure a resource (name) or set of resources on CoAP endpoints, such that a CoAP request with Group URI sent by a configured CoAP client will be processed by one or more CoAP servers that have the matching URI path configured. These servers are the application group members.
+To create an application group, a configuring entity may configure a resource (name) or a set of resources on CoAP endpoints, such that a CoAP request sent to a group URI by a configured CoAP client will be processed by one or more CoAP servers that have the matching URI path configured. These servers are the members of the application group.
 
 To create a security group, a configuring entity defines an initial subset of the related security material. This comprises a set of group properties including the cryptographic algorithms and parameters used in the group, as well as additional information relevant throughout the group life-cycle, such as the security group name and description. This task MAY be entrusted to a dedicated administrator, that interacts with a Group Manager as defined in {{chap-oscore}}. After that, further security materials to protect group communications have to be generated, compatible with the specified group configuration.
 
@@ -314,7 +332,7 @@ In particular, the responsible OSCORE Group Manager registers its own security g
 
 
 ### Group Maintenance ### {#sec-group-maintenance}
-Maintenance of a group includes any necessary operations to cope with changes in a system, such as: adding group members, removing group members, changing group security material, reconfiguration of UDP port and/or IP multicast address, reconfiguration of the Group URI, renaming of application groups, splitting of groups, or merging of groups.
+Maintenance of a group includes any necessary operations to cope with changes in a system, such as: adding group members, removing group members, changing group security material, reconfiguration of UDP port and/or IP multicast address, reconfiguration of the group URI, renaming of application groups, splitting of groups, or merging of groups.
 
 For unsecured group communication (see {{chap-unsecured-groupcomm}}) i.e., the "NoSec" security group, addition/removal of CoAP group members is simply done by configuring these devices to start/stop listening to the group IP multicast address on the group's UDP port.
 
@@ -441,11 +459,13 @@ Security operations for a proxy are discussed later in {{chap-proxy-security}}.
 
 ### Forward-Proxies ### {#sec-proxy-forward}
 
-CoAP enables a client to request a forward-proxy to process a CoAP request on its behalf, as described in {{Sections 5.7.2 and 8.2.2 of RFC7252}}. For this purpose, the client specifies either the request group URI as a string in the Proxy-URI Option or it uses the Proxy-Scheme Option with the group URI constructed from the usual Uri-* Options. The forward-proxy then resolves the group URI to a destination CoAP group, sends (e.g., multicasts) the CoAP group request, receives the responses and forwards all the individual (unicast) responses back to the client.
+CoAP enables a client to request a forward-proxy to process a CoAP request on its behalf, as described in {{Sections 5.7.2 and 8.2.2 of RFC7252}}.
+
+When intending to reach a CoAP group a the proxy, the client sends a unicast CoAP group request to the proxy. This request specifies the group URI where the request has to be forwarded to, either as a string in the Proxy-URI Option, or through the Proxy-Scheme Option with the group URI constructed from the usual Uri-* Options. Then, the forward-proxy resolves the group URI to a destination CoAP group, i.e., it sends (e.g., multicasts) the CoAP group request to the group URI, receives the responses and forwards all the individual (unicast) responses back to the client.
 
 However, there are certain issues and limitations with this approach:
 
-* The CoAP client component that sent a unicast CoAP request to the proxy may be expecting only one (unicast) response, as usual for a CoAP unicast request. Instead, it receives multiple (unicast) responses, potentially leading to fault conditions in the component or to discarding any received responses following the first one. This issue may occur even if the application calling the CoAP client component is aware that the forward-proxy is going to execute a CoAP group URI request.
+* The CoAP client component that has sent the unicast CoAP group request to the proxy may be expecting only one (unicast) response, as usual for a CoAP unicast request. Instead, it receives multiple (unicast) responses, potentially leading to fault conditions in the component or to discarding any received responses following the first one. This issue may occur even if the application calling the CoAP client component is aware that the forward-proxy is going to forward the CoAP group request to the group URI.
 
 * Each individual CoAP response received by the client will appear to originate (based on its IP source address) from the CoAP Proxy, and not from the server that produced the response.  This makes it impossible for the client to identify the server that produced each response, unless the server identity is contained as a part of the response payload or inside a CoAP option in the response.
 
@@ -459,7 +479,7 @@ An alternative solution is for the proxy to collect all the individual (unicast)
 
 * There is no default format defined in CoAP for aggregation of multiple responses into a single response. Such a format could be standardized based on, for example, the multipart content-format {{RFC8710}}.
 
-Due to the above issues, it is RECOMMENDED that a CoAP Proxy only processes a group URI request if it is explicitly enabled to do so. The default response (if the function is not explicitly enabled) to a group URI request is 5.01 Not Implemented. Furthermore, a proxy SHOULD be explicitly configured (e.g., by allow-listing and/or client authentication) to allow proxied CoAP group requests only from specific client(s).
+Due to the above issues, it is RECOMMENDED that a CoAP Proxy processes a request to be forwarded to a group URI only if it is explicitly enabled to do so. If such functionality is not explicitly enabled, the default response returned to the client is 5.01 Not Implemented. Furthermore, a proxy SHOULD be explicitly configured (e.g., by allow-listing and/or client authentication) to allow proxied CoAP group requests only from specific client(s).
 
 The operation of HTTP-to-CoAP proxies for multicast CoAP requests is specified in {{Sections 8.4 and 10.1 of RFC8075}}. In this case, the "application/http" media type is used to let the proxy return multiple CoAP responses -- each translated to a HTTP response -- back to the HTTP client. Of course, in this case the HTTP client sending a group URI to the proxy needs to be aware that it is going to receive this format, and needs to be able to decode it into the responses of multiple CoAP servers. Also, the IP source address of each CoAP response cannot be determined anymore from the "application/http" response. The HTTP client still identify the CoAP servers by other means such as application-specific information in the response payload.
 
