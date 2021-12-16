@@ -263,7 +263,7 @@ Different types of group are named as specified below, separately for CoAP group
 
 #### CoAP Groups ### {#sec-groupnaming-coap}
 
-A CoAP group is identified and named by the authority component in the group URI (see {{sec-groupdef-coapgroup}}), which includes the host component (possibly an IP multicast address literal) and an optional UDP port number.
+A CoAP group is identified and named by the authority component in the group URI (see {{sec-groupdef-coapgroup}}), which includes the host subcomponent (possibly an IP multicast address literal) and an optional UDP port number. Note that the two authority components \<HOSTNAME\> and \<HOSTNAME\>:5683 both identify the same CoAP group, whose members listen to the CoAP default port number 5683.
 
 When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal, instead of a group hostname. This is because DNS infrastructure may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via DNS resolution, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.
 
@@ -271,27 +271,59 @@ Examples of hierarchical CoAP group FQDN naming (and scoping) for a building con
 
 #### Application Groups ### {#sec-groupnaming-app}
 
-An application group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI or other types of string.
+An application group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI or other types of string. The decision of whether and how exactly an application group name is encoded and transported is application specific. The following defines a number of possible methods to use.
 
-An application group name may be explicitly encoded in a group URI, or it may be not included in the group URI. This is an implementation-specific decision. If the application group name is explicitly encoded in a CoAP group URI, it can be encoded within one of the 
+An application group name can be explicitly encoded in a group URI. In such a case, it can be encoded within one of the following URI components.
 
-* URI path component: this is the most common and RECOMMENDED method to encode the application group name. A best practice for encoding application group into a group URI is to use one URI path component to identify the application group and use the following URI paths component(s) to identify the resource within this application group. For example, /\<groupname\>/res1 or /base/\<groupname\>/res1/res2 conform to this practice. An application group name (like \<groupname\>) should be as short as possible when used in constrained networks.
+* URI path component - This is the most common and RECOMMENDED method to encode the application group name. An application group name, e.g., \<GROUPNAME\>, should be as short as possible when used in constrained networks.
 
-* URI query component: using this method, the query may consist of the group name (?\<groupname\>) or it may be one parameter of the query (?g=\<groupname\> or ?param1=value1&gn=\<groupname\>). 
+   A best practice for doing so is to use a URI path component such that: i) it includes a path segment as delimiter with a designated value, e.g., "g", followed by ii) a path segment with value the name of the application group, followed by iii) the path segment(s) that identify the resource within this application group. For example, both g/\<GROUPNAME\>/res1 and /base/g/\<GROUPNAME\>/res1/res2 conform to this practice.
+   
+   A full-fledged example is provided in TBD
 
-* URI host subcomponent: using this method, the application group becomes equal to the CoAP group. This can only be used if there is a one-to-one mapping between CoAP groups and application groups.
+* URI query component - This method can use the following formats.
 
-* URI port subcomponent: using this method, the application group is identified by a number that is encoded in some way in the destination port.
+   As a first alternative, the URI query component consists of only one parameter, which has no value and has the name of the application group as its own idenfier. That is, the query component ?\<GROUPNAME\> conforms to this format.
+   
+   A full-fledged example is provided in TBD
+   
+   As a second alternative, the URI query component includes a query parameter as designated indicator, e.g., "g", with value the name of the application group. That is, assuming "g" to be used as designated indicator, both the query components ?g=\<GROUPNAME\> and ?param1=value1&g=\<GROUPNAME\> conform to this format.
+   
+   A full-fledged example is provided in TBD
 
-There are also methods to encode the application group name within the CoAP request even though it is not encoded within the group URI. Examples of such methods are:
+* URI authority component - If this method is used, the application group is identified by the authority component as a whole.
 
-* encode in a Uri-Host Option {{RFC7252}} which is added to the CoAP request by the client before sending it out. Each CoAP server that is part of the CoAP group, receiving this request, decodes the Uri-Host Option and treats it as an application group name. (It can also treat the application group name in this Option as a "virtual CoAP server" specific to that application group, exactly in the same way that the Uri-Host Option was intended to allow support for multiple virtual servers hosted on the same port. The net effect of both treatments is the same.)
+   In particular, the application group has the same name of the CoAP group expressed by the group URI (see {{sec-groupnaming-coap}}). Therefore, this method can only be used if there is a one-to-one mapping between CoAP groups and application groups (see {{sec-groupdef-grouprelations}}).
 
-* encode in a new (custom/application-specific) CoAP Option which is added to the CoAP request by the client before sending it out. Each CoAP server that is part of the CoAP group, receiving this request, would by design understand this Option, would decode it, and treat it as an application group name. 
+   A full-fledged example is provided in TBD
+   
+* URI host subcomponent - If this method is used, the application group is identified solely by the host subcomponent of the authority component.
 
-Finally, it is possible to not encode the application group name at all within the CoAP request. This yields the most compact representation on the wire. In this case, each CoAP server needs to determine the application group based on contextual information, such as client identity and/or target resource. For example, each application group on a server could have a unique set of resources that does not overlap with any resources of other application groups.
+   If the authority component does not include the port subcomponent, the application group has the same name of the CoAP group expressed by the group URI (see {{sec-groupnaming-coap}}). In such a case, this method can only be used if there is a one-to-one mapping between CoAP groups and application groups (see {{sec-groupdef-grouprelations}}).
 
-Appendix A of {{I-D.ietf-core-resource-directory}} shows an example registration of an application group into a Resource Directory (RD), along with the CoAP group it uses and the resources supported by the application group. In this example an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry. The CoAP group is ff35:30:2001:db8:f1::8000:1 and the "NoSec" security group is used.
+   A full-fledged example is provided in TBD
+
+* URI port subcomponent - By using this method, the application group is identified by the destination port number encoded in the port subcomponent of the authority component.
+
+   A full-fledged example is provided in TBD
+
+Alternatively, there are also methods to encode the application group name within the CoAP request, even though it is not encoded within the group URI. Examples of such methods are summarized below.
+
+* The application group name can be encoded in a Uri-Host Option {{RFC7252}}, which the client adds to the CoAP request before sending it out.
+
+   Upon receiving the request as a member of the targeted CoAP group, each CoAP server decodes the Uri-Host Option and treats the result as an application group name. The servers can also treat that group name as a "virtual CoAP server" specific to that application group. This is consistent with the Uri-Host Option allowing support for multiple virtual servers hosted on the same port number. The net effect of both treatments is the same.
+   
+   A full-fledged example is provided in TBD
+
+* The application group name can be encoded in a new (custom, application-specific) CoAP Option, which the client adds to the CoAP request before sending it out.
+
+   Upon receiving the request as a member of the targeted CoAP group, each CoAP server would, by design, understand this Option, decode it and treat the result as an application group name.
+   
+   A full-fledged example is provided in TBD
+
+Furthermore, it is possible to encode the application group name neither in the group URI nor within a CoAP request, thus yielding the most compact representation on the wire. In this case, each CoAP server needs to determine the right application group based on contextual information, such as the client identity and/or the target resource. For example, each application group on a server could support a unique set of resources, such that it does not overlap with the set of resources of any other application group.
+
+Finally, Appendix A of {{I-D.ietf-core-resource-directory}} provides an example of application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources is supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry. At the same time, the CoAP group is ff35:30:2001:db8:f1::8000:1 and the "NoSec" security group is used.
 
 #### Security Groups ### {#sec-groupnaming-sec}
 
@@ -316,13 +348,13 @@ It is possible for CoAP endpoints to discover application groups as well as CoAP
 
 CoAP endpoints can also discover application groups and/or CoAP groups using a GET request on the /.well-known/core resource. Such a request may be sent to a known CoAP group multicast address that is associated to one or more application group(s), or to the All CoAP Nodes multicast address; and the request may be sent with or without a query component. These particular details of the request are selected depending on the intented discovery action of the client and on the particular encoding of group names in names and/or attributes of resources which is application-specific. The following types of request may typically be used:
 
-* Discovery of all application groups that are part of a CoAP group. For example, in case the application group name is encoded in the URI path as "/grp/\<groupname\>" then the discovery query may use URI "/.well-known/core?href=/grp/*" and it is sent to the IP multicast address of the CoAP group. The query matches any application group name. The result of this query is a list of resources at CoAP servers that are a member of at least one application group associated to the CoAP group. Each resource represents an application group membership at one CoAP server.
+* Discovery of all application groups that are part of a CoAP group. For example, in case the application group name is encoded in the URI path as "/grp/\<GROUPNAME\>" then the discovery query may use URI "/.well-known/core?href=/grp/*" and it is sent to the IP multicast address of the CoAP group. The query matches any application group name. The result of this query is a list of resources at CoAP servers that are a member of at least one application group associated to the CoAP group. Each resource represents an application group membership at one CoAP server.
 
-* Discovery of a particular application group with a known name. For example, in case the known application group name is "mygroup1" and is encoded in the URI path as "/grp/\<groupname\>" then the discovery query may use URI "/.well-known/core?href=/grp/mygroup1" and it is sent to the IPv6 All CoAP Nodes multicast address of a particular chosen scope (e.g. site-local, or realm-local). The result of this query is a list of resources at CoAP servers that are a member of "mygroup1". Each resource represents the membership of the responding server to the application group "mygroup1".
+* Discovery of a particular application group with a known name. For example, in case the known application group name is "mygroup1" and is encoded in the URI path as "/grp/\<GROUPNAME\>" then the discovery query may use URI "/.well-known/core?href=/grp/mygroup1" and it is sent to the IPv6 All CoAP Nodes multicast address of a particular chosen scope (e.g. site-local, or realm-local). The result of this query is a list of resources at CoAP servers that are a member of "mygroup1". Each resource represents the membership of the responding server to the application group "mygroup1".
 
-* Discovery of all application groups of a particular type. For example, in case the application group type is "mytype1" and is encoded as a resource type (rt) attribute of the application group resource, and the application group resource is "/grp/\<groupname\>" then the discovery query may use URI "/.well-known/core?rt=mytype1" and it is sent to the All CoAP Nodes multicast address. The query result is a list of resources at CoAP servers that have at least one application group of type "mytype1"; each server response identifies the membership to one or more application group(s) of type "mytype1" for that server. Each resource in the list represents one membership of a server to one application group of type "mytype1". 
+* Discovery of all application groups of a particular type. For example, in case the application group type is "mytype1" and is encoded as a resource type (rt) attribute of the application group resource, and the application group resource is "/grp/\<GROUPNAME\>" then the discovery query may use URI "/.well-known/core?rt=mytype1" and it is sent to the All CoAP Nodes multicast address. The query result is a list of resources at CoAP servers that have at least one application group of type "mytype1"; each server response identifies the membership to one or more application group(s) of type "mytype1" for that server. Each resource in the list represents one membership of a server to one application group of type "mytype1". 
 
-* Discovery of all application groups that are configured on the client's 6LoWPAN wireless mesh network. In the following example a request without query is used. So, the URI "/.well-known/core" is used and the request is sent to the IPv6 All CoAP Nodes multicast address of realm-local scope. Each CoAP server (including any application group members) will return a list of its resources, which in this example includes the resources used to encode the application group name. If each application group resource is known to be "/g/\<groupname\>" then the client marks each returned resource under the root resource "/g" as a discovered application group. Not using a query has the disadvantage that potentially a lot of response traffic will be generated on the mesh network, including responses from servers that are not a member of any application group. But it may be needed in particular use cases, e.g. if some of the CoAP servers do not support the optional link format query functionality (as mentioned in {{Section 4.1 of RFC6690}}).
+* Discovery of all application groups that are configured on the client's 6LoWPAN wireless mesh network. In the following example a request without query is used. So, the URI "/.well-known/core" is used and the request is sent to the IPv6 All CoAP Nodes multicast address of realm-local scope. Each CoAP server (including any application group members) will return a list of its resources, which in this example includes the resources used to encode the application group name. If each application group resource is known to be "/g/\<GROUPNAME\>" then the client marks each returned resource under the root resource "/g" as a discovered application group. Not using a query has the disadvantage that potentially a lot of response traffic will be generated on the mesh network, including responses from servers that are not a member of any application group. But it may be needed in particular use cases, e.g. if some of the CoAP servers do not support the optional link format query functionality (as mentioned in {{Section 4.1 of RFC6690}}).
 
 Note that all the above examples are application-specific; there is currently no standard way of encoding application group names or CoAP group names in CoAP resources and/or CoRE link attributes at the CoAP server. (The aforementioned registration and discovery of groups in the RD is only defined for use with an RD, not for discovery on CoAP servers without using an RD.)
 
