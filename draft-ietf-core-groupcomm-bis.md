@@ -242,7 +242,18 @@ Beyond this particular case, applications should be careful in associating a sam
 The following defines how groups of different types are named, created, discovered and maintained.
 
 ### Group Naming ### {#sec-groupnaming}
-A CoAP group is identified and named by the authority component in the Group URI, which includes host (possibly an IP multicast address literal) and an optional UDP port number. It is recommended to configure an endpoint with an IP multicast address literal, instead of a hostname, when configuring a CoAP group membership. This is because DNS infrastructure may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via DNS resolution - if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network. Some examples of hierarchical CoAP group FQDN naming (and scoping) for a building control application were shown in {{Section 2.2 of RFC7390}}.
+
+Different types of group are named as specified below, separately for CoAP groups, application groups and security groups.
+
+#### CoAP Groups ### {#sec-groupnaming-coap}
+
+A CoAP group is identified and named by the authority component in the Group URI, which includes host (possibly an IP multicast address literal) and an optional UDP port number.
+
+When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal, instead of a group hostname. This is because DNS infrastructure may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via DNS resolution, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.
+
+Examples of hierarchical CoAP group FQDN naming (and scoping) for a building control application were shown in {{Section 2.2 of RFC7390}}.
+
+#### Application Groups ### {#sec-groupnaming-app}
 
 An application group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI or other type of string. An application group name may be explicitly encoded in a CoAP Group URI, or it may be not included in the Group URI. This is an implementation-specific decision. If the application group name is explicitly encoded in a CoAP Group URI, it can be encoded within one of the 
 
@@ -264,7 +275,11 @@ Finally, it is possible to not encode the application group name at all within t
 
 Appendix A of {{I-D.ietf-core-resource-directory}} shows an example registration of an application group into a Resource Directory (RD), along with the CoAP group it uses and the resources supported by the application group. In this example an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry. The CoAP group is ff35:30:2001:db8:f1::8000:1 and the "NoSec" security group is used.
 
-A security group is identified by a stable and invariant string used as group name, which is generally not related with other kinds of group identifiers, specific to the chosen security solution. The "NoSec" security group name MUST be only used to represent the case of group communication without any security. It is typically characterized by the absence of any security group name, identifier, or security-related data structures in the CoAP message.
+#### Security Groups ### {#sec-groupnaming-sec}
+
+A security group is identified by a stable and invariant string used as group name. This is generally not related with other kinds of group identifiers that may be specific of the used security solution.
+
+The "NoSec" security group name MUST be only used to represent the case of group communication without any security. This typically results in CoAP messages that do not include any security group name, identifier, or security-related data structures.
 
 ### Group Creation and Membership ### {#sssec-group-creation}
 To create a CoAP group, a configuring entity defines an IP multicast address (or hostname) for the group and optionally a UDP port number in case it differs from the default CoAP port 5683. Then, it configures one or more devices as listeners to that IP multicast address, with a CoAP endpoint listening on the group's associated UDP port. These endpoints/devices are the group members. The configuring entity can be, for example, a local application with pre-configuration, a user, a software developer, a cloud service, or a local commissioning tool. Also, the devices sending CoAP requests to the group in the role of CoAP client need to be configured with the same information, even though they are not necessarily group members. One way to configure a client is to supply it with a CoAP Group URI. The IETF does not define a mandatory protocol to accomplish CoAP group creation. {{RFC7390}} defined an experimental protocol for configuration of group membership for unsecured group communication, based on JSON-formatted configuration resources. For IPv6 CoAP groups, common multicast address ranges that are used to configure group addresses from are ff1x::/16 and ff3x::/16.
