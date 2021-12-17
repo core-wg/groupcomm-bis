@@ -462,24 +462,69 @@ The configuration of groups and membership may be performed at different moments
 
 ### Group Discovery ###
 
-It is possible for CoAP endpoints to discover application groups as well as CoAP groups, by using the RD-Groups usage pattern of the CoRE Resource Directory (RD), as defined in Appendix A of {{I-D.ietf-core-resource-directory}}. In particular, an application group can be registered to the RD, specifying the reference IP multicast address of its associated CoAP group. The registration of groups is typically performed by a Commissioning Tool. Later on, CoAP endpoints can discover the registered application groups and related CoAP group(s), by using the lookup interface of the RD.
+The following describes how a CoAP endpoint can discover groups by different means, i.e., by using a Resource Directory or directly from the CoAP servers currently members of such groups.
 
-CoAP endpoints can also discover application groups and/or CoAP groups using a GET request on the /.well-known/core resource. Such a request may be sent to a known CoAP group multicast address that is associated to one or more application group(s), or to the All CoAP Nodes multicast address; and the request may be sent with or without a query component. These particular details of the request are selected depending on the intented discovery action of the client and on the particular encoding of group names in names and/or attributes of resources which is application-specific. The following types of request may typically be used:
+#### Discovery through a Resource Directory ### {#sssec-discovery-from-rd}
 
-* Discovery of all application groups that are part of a CoAP group. For example, in case the application group name is encoded in the URI path as "/grp/\<GROUPNAME\>" then the discovery query may use URI "/.well-known/core?href=/grp/*" and it is sent to the IP multicast address of the CoAP group. The query matches any application group name. The result of this query is a list of resources at CoAP servers that are a member of at least one application group associated to the CoAP group. Each resource represents an application group membership at one CoAP server.
+It is possible for CoAP endpoints to discover application groups as well as CoAP groups, by using the RD-Groups usage pattern of the CoRE Resource Directory (RD), as defined in Appendix A of {{I-D.ietf-core-resource-directory}}.
 
-* Discovery of a particular application group with a known name. For example, in case the known application group name is "mygroup1" and is encoded in the URI path as "/grp/\<GROUPNAME\>" then the discovery query may use URI "/.well-known/core?href=/grp/mygroup1" and it is sent to the IPv6 All CoAP Nodes multicast address of a particular chosen scope (e.g. site-local, or realm-local). The result of this query is a list of resources at CoAP servers that are a member of "mygroup1". Each resource represents the membership of the responding server to the application group "mygroup1".
-
-* Discovery of all application groups of a particular type. For example, in case the application group type is "mytype1" and is encoded as a resource type (rt) attribute of the application group resource, and the application group resource is "/grp/\<GROUPNAME\>" then the discovery query may use URI "/.well-known/core?rt=mytype1" and it is sent to the All CoAP Nodes multicast address. The query result is a list of resources at CoAP servers that have at least one application group of type "mytype1"; each server response identifies the membership to one or more application group(s) of type "mytype1" for that server. Each resource in the list represents one membership of a server to one application group of type "mytype1". 
-
-* Discovery of all application groups that are configured on the client's 6LoWPAN wireless mesh network. In the following example a request without query is used. So, the URI "/.well-known/core" is used and the request is sent to the IPv6 All CoAP Nodes multicast address of realm-local scope. Each CoAP server (including any application group members) will return a list of its resources, which in this example includes the resources used to encode the application group name. If each application group resource is known to be "/g/\<GROUPNAME\>" then the client marks each returned resource under the root resource "/g" as a discovered application group. Not using a query has the disadvantage that potentially a lot of response traffic will be generated on the mesh network, including responses from servers that are not a member of any application group. But it may be needed in particular use cases, e.g. if some of the CoAP servers do not support the optional link format query functionality (as mentioned in {{Section 4.1 of RFC6690}}).
-
-Note that all the above examples are application-specific; there is currently no standard way of encoding application group names or CoAP group names in CoAP resources and/or CoRE link attributes at the CoAP server. (The aforementioned registration and discovery of groups in the RD is only defined for use with an RD, not for discovery on CoAP servers without using an RD.)
+In particular, an application group can be registered to the RD, specifying the reference IP multicast address of its associated CoAP group. The registration of groups to the RD is typically performed by a Commissioning Tool. Later on, CoAP endpoints can discover the registered application groups and related CoAP group(s), by using the lookup interface of the RD.
 
 When secure communication is provided with Group OSCORE (see {{chap-oscore}}), the approach described in {{I-D.tiloca-core-oscore-discovery}} also based on the RD can be used, in order to discover the security group to join.
 
-In particular, the responsible OSCORE Group Manager registers its own security groups to the RD, as links to its own corresponding resources for joining the security groups {{I-D.ietf-ace-key-groupcomm-oscore}}. Later on, CoAP endpoints can discover the registered security groups and related application groups, by using the lookup interface of the RD, and then join the security group through the respective Group Manager.
+In particular, the responsible OSCORE Group Manager registers its security groups to the RD, as links to its own corresponding resources for joining the security groups {{I-D.ietf-ace-key-groupcomm-oscore}}. Later on, CoAP endpoints can discover the registered security groups and related application groups, by using the lookup interface of the RD, and then join the security group through the respective Group Manager.
 
+#### Discovery from the CoAP Servers ### {#sssec-discovery-from-servers}
+
+It is possible for CoAP endpoints to discover application groups and CoAP groups from the CoAP servers that are members of such groups, by using a GET request targeting the /.well-known/core resource.
+
+As shown below, such a GET request may be sent to the IP multicast address of an already known CoAP group associated to one or more application group(s); or to the All CoAP Nodes multicast address, thus targeting all reachable CoAP servers in any CoAP group. Also, the GET request may specify a query component, in order to filter the application groups of interest.
+
+These particular details concerning the GET request depend on the specific discovery action intended by the client and on application-specific means used to encode names of application groups and CoAP groups, e.g., in group URIs and/or CoRE target attributes used with resource links.
+
+The following provides examples of methods to discover application groups, building on the following assumptions. First, application group names are encoded in the path component of Group URIs (see {{sec-groupnaming-app}}), and the path segment used as designated delimiter has value "gp". Second, the IP multicast address associated to a CoAP group is encoded as value of the CoRE target attribute "coap-gp".
+
+* Discovery of all application groups that are part of a CoAP group. For example, in case the application group name is encoded in the URI path as "/grp/\<GROUPNAME\>" then the discovery query may use URI "/.well-known/core?href=/grp/*" and it is sent to the IP multicast address of the CoAP group. The query matches any application group name. The result of this query is a list of resources at CoAP servers that are a member of at least one application group associated to the CoAP group. Each resource represents an application group membership at one CoAP server.
+
+   A full-fledged example is provided in {{fig-app-gp-discovery-example1}}.
+
+~~~~~~~~~~~
+ 
+   TBD
+~~~~~~~~~~~
+{: #fig-app-gp-discovery-example1 title="Discovery of the resources and members of all application groups associated to a specified CoAP group"}
+
+* Discovery of a particular application group with a known name. For example, in case the known application group name is "mygroup1" and is encoded in the URI path as "/grp/\<GROUPNAME\>" then the discovery query may use URI "/.well-known/core?href=/grp/mygroup1" and it is sent to the IPv6 All CoAP Nodes multicast address of a particular chosen scope (e.g. site-local, or realm-local). The result of this query is a list of resources at CoAP servers that are a member of "mygroup1". Each resource represents the membership of the responding server to the application group "mygroup1".
+
+   A full-fledged example is provided in {{fig-app-gp-discovery-example2}}.
+
+~~~~~~~~~~~
+ 
+   TBD
+~~~~~~~~~~~
+{: #fig-app-gp-discovery-example2 title="Discovery of the resources and members of a specified application group, together with the associated CoAP group"}
+
+* Discovery of all application groups of a particular type. For example, in case the application group type is "mytype1" and is encoded as a resource type (rt) attribute of the application group resource, and the application group resource is "/grp/\<GROUPNAME\>" then the discovery query may use URI "/.well-known/core?rt=mytype1" and it is sent to the All CoAP Nodes multicast address. The query result is a list of resources at CoAP servers that have at least one application group of type "mytype1"; each server response identifies the membership to one or more application group(s) of type "mytype1" for that server. Each resource in the list represents one membership of a server to one application group of type "mytype1". 
+
+   A full-fledged example is provided in {{fig-app-gp-discovery-example3}}.
+
+~~~~~~~~~~~
+ 
+   TBD
+~~~~~~~~~~~
+{: #fig-app-gp-discovery-example3 title="Discovery of the resources and members of application groups of a specified type, together with the associated CoAP groups"}
+
+* Discovery of all application groups that are configured on the client's 6LoWPAN wireless mesh network. In the following example a request without query is used. So, the URI "/.well-known/core" is used and the request is sent to the IPv6 All CoAP Nodes multicast address of realm-local scope. Each CoAP server (including any application group members) will return a list of its resources, which in this example includes the resources used to encode the application group name. If each application group resource is known to be "/g/\<GROUPNAME\>" then the client marks each returned resource under the root resource "/g" as a discovered application group. Not using a query has the disadvantage that potentially a lot of response traffic will be generated on the mesh network, including responses from servers that are not a member of any application group. But it may be needed in particular use cases, e.g. if some of the CoAP servers do not support the optional link format query functionality (as mentioned in {{Section 4.1 of RFC6690}}).
+
+   A full-fledged example is provided in {{fig-app-gp-discovery-example4}}.
+
+~~~~~~~~~~~
+ 
+   TBD
+~~~~~~~~~~~
+{: #fig-app-gp-discovery-example4 title="Discovery of the resources and members of any application groups in the network, together with the associated CoAP groups"}
+
+Note that all the above examples are application-specific. That is, there is currently no standard way of encoding names of application groups and CoAP groups in group URIs and/or CoRE target attributes used with resource links. In particular, the discovery of groups through the RD mentioned in {{sssec-discovery-from-rd}} is only defined for use with an RD, i.e., not directly on CoAP servers without using an RD.
 
 ### Group Maintenance ### {#sec-group-maintenance}
 Maintenance of a group includes any necessary operations to cope with changes in a system, such as: adding group members, removing group members, changing group security material, reconfiguration of UDP port and/or IP multicast address, reconfiguration of the group URI, renaming of application groups, splitting of groups, or merging of groups.
