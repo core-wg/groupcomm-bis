@@ -1246,6 +1246,260 @@ In some cases a whole network, or subnet of multiple IP devices, or a specific t
 ## Software Update ##
 Group communication can be useful to efficiently distribute new software (firmware, image, application, etc.) to a group of multiple devices. In this case, the group is defined in terms of device type: all devices in the target group are known to be capable of installing and running the new software. The software is distributed as a series of smaller blocks that are collected by all devices and stored in memory. All devices in the target group are usually responsible for integrity verification of the received software; which can be done per-block or for the entire software image once all blocks have been received. Due to the inherent unreliability of CoAP multicast, there needs to be a backup mechanism (e.g., implemented using CoAP unicast) by which a device can individually request missing blocks of a whole software image/entity. Prior to a multicast software update, the group of recipients can be separately notified that there is new software available and coming, using the above network-wide or group notification.
 
+# Examples of Message Exchanges # {#sec-examples-exchanges}
+
+This section provide examples of different messages exchanges when CoAP is used with group communication. The examples consider:
+
+* A client with address ADDR_CLIENT and port PORT_CLIENT.
+
+* A CoAP group associated to the IP multicast address ADDR_GRP and port number PORT_GRP.
+
+* An application group "gp1" associated to the CoAP group above.
+
+* Three servers A, B and C, all of which are members of the CoAP group above and of the application group "gp1". Each server X (with X equal to A, B or C): listens to its own address ADDR_X and port number PORT_X; and listens to the address ADDR_GRP and port number PORT_GRP.
+
+In {{fig-exchange-example}}, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "temperature" in the application group "gp1". All servers reply with a 2.05 Content response, although the response from server B is lost. As source port number of their response, servers A and B use the destination source port number of the request, i.e, PORT_GRP. Instead, server C uses its own port number PORT_C.
+   
+~~~~~~~~~~~
+Client              A  B  C
+   |                |  |  |
+   |  GET           |  |  |
+   +-------+------->|  |  |  Source: ADDR_CLIENT:PORT_CLIENT
+   |        \       |  |  |  Destination: ADDR_GRP:PORT_GRP
+   |         `.------->|  |  Header: GET (T=NON, Code=0.01, MID=0x7d41)
+   |           `.   |  |  |  Token: 0x86
+   |             `------->|  Uri-Path: "gp"
+   |                |  |  |  Uri-Path: "gp1"
+   |                |  |  |  Uri-Path: "temperature"
+   |                |  |  |
+   |<---------------+  |  | Source: ADDR_A:PORT_GRP
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60b1)
+   |                |  |  | Token: 0x86
+   |                |  |  | Payload: "22.3 C"
+   |                |  |  |   
+   |   X---------------+  | Source: ADDR_B:PORT_GRP
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x01a0)
+   |                |  |  | Token: 0x86
+   |                |  |  | Payload: "20.9 C"
+   |                |  |  |
+   |                |  |  |
+   |<---------------------+ Source: ADDR_C:PORT_C
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 4.04 (T=NON, Code=4.04, MID=0x952a)
+   |                |  |  | Token: 0x86
+   |                |  |  | Payload: "21.0 C"
+   |                |  |  |
+~~~~~~~~~~~
+{: #fig-exchange-example title="Example of Non-confirmable group request, followed by Non-confirmable Responses"}
+
+In {{fig-exchange-example-observe}}, the client sends a Non-confirmable GET request to the CoAP group, targeting and requesting to observe the resource "temperature" in the application group "gp1". All servers reply with a 2.05 Content notification response. As source port number of their response, servers A and B use the destination source port number of the request, i.e, PORT_GRP. Instead, server C uses its own port number PORT_C. Some time later, all servers send a 2.05 Content notification response, wiht payload the new representation of the "temperature" resource.
+   
+~~~~~~~~~~~
+Client              A  B  C
+   |                |  |  |
+   |  GET           |  |  |
+   +-------+------->|  |  |  Source: ADDR_CLIENT:PORT_CLIENT
+   |        \       |  |  |  Destination: ADDR_GRP:PORT_GRP
+   |         `.------->|  |  Header: GET (T=NON, Code=0.01, MID=0x7d41)
+   |           `.   |  |  |  Token: 0x86
+   |             `------->|  Observe: 0 (register)
+   |                |  |  |  Uri-Path: "gp"
+   |                |  |  |  Uri-Path: "gp1"
+   |                |  |  |  Uri-Path: "temperature"
+   |                |  |  |
+   |<---------------+  |  | Source: ADDR_A:PORT_GRP
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60b1)
+   |                |  |  | Token: 0x86
+   |                |  |  | Observe: 3
+   |                |  |  | Payload: "22.3 C"
+   |                |  |  |   
+   |<------------------+  | Source: ADDR_B:PORT_GRP
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x01a0)
+   |                |  |  | Token: 0x86
+   |                |  |  | Observe: 13
+   |                |  |  | Payload: "20.9 C"
+   |                |  |  |
+   |<---------------------+ Source: ADDR_C:PORT_C
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 4.04 (T=NON, Code=4.04, MID=0x952a)
+   |                |  |  | Token: 0x86
+   |                |  |  | Observe: 23
+   |                |  |  | Payload: "21.0 C"
+   |                |  |  |
+   
+   // The temperature changes for all servers ...
+   
+   |                |  |  |
+   |<---------------+  |  | Source: ADDR_A:PORT_GRP
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60b2)
+   |                |  |  | Token: 0x86
+   |                |  |  | Observe: 7
+   |                |  |  | Payload: "32.3 C"
+   |                |  |  |   
+   |<------------------+  | Source: ADDR_B:PORT_GRP
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x01a1)
+   |                |  |  | Token: 0x86
+   |                |  |  | Observe: 18
+   |                |  |  | Payload: "30.9 C"
+   |                |  |  |
+   |<---------------------+ Source: ADDR_C:PORT_C
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 4.04 (T=NON, Code=4.04, MID=0x952b)
+   |                |  |  | Token: 0x86
+   |                |  |  | Observe: 29
+   |                |  |  | Payload: "31.0 C"
+   |                |  |  |
+~~~~~~~~~~~
+{: #fig-exchange-example-observe title="Example of Non-confirmable Observe group request, followed by Non-confirmable Responses as Observe notifications"}
+
+In {{fig-exchange-example-blockwise}}, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "log" in the application group "gp1", and requesting a blockwise transfer. All servers reply with a 2.05 Content response including the first block. As source port number of its response, each server uses its own port number. After obtaining the first block, the client requests the following blocks separately from each server, by means of unicast exchanges.
+   
+~~~~~~~~~~~
+Client              A  B  C
+   |                |  |  |
+   |  GET           |  |  |
+   +-------+------->|  |  |  Source: ADDR_CLIENT:PORT_CLIENT
+   |        \       |  |  |  Destination: ADDR_GRP:PORT_GRP
+   |         `.------->|  |  Header: GET (T=NON, Code=0.01, MID=0x7d41)
+   |           `.   |  |  |  Token: 0x86
+   |             `------->|  Uri-Path: "gp"
+   |                |  |  |  Uri-Path: "gp1"
+   |                |  |  |  Uri-Path: "log"
+   |                |  |  |  Block2: 0/0/64
+   |                |  |  |   
+   |<---------------+  |  | Source: ADDR_A:PORT_A
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60b1)
+   |                |  |  | Token: 0x86
+   |                |  |  | Block2: 0/1/64
+   |                |  |  | Payload: 0x0a00 ...
+   |                |  |  |   
+   |<------------------+  | Source: ADDR_B:PORT_B
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x01a0)
+   |                |  |  | Token: 0x86
+   |                |  |  | Block2: 0/1/64   
+   |                |  |  | Payload: 0x0b00 ...
+   |                |  |  |
+   |<---------------------+ Source: ADDR_C:PORT_C
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 4.04 (T=NON, Code=4.04, MID=0x952a)
+   |                |  |  | Token: 0x86
+   |                |  |  | Block2: 0/1/64
+   |                |  |  | Payload: 0x0c00 ...
+   |                |  |  |
+   |      GET       |  |  |
+   +--------------->|  |  |  Source: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  |  Destination: ADDR_A:PORT_A
+   |                |  |  |  Header: GET (T=NON, Code=0.01, MID=0x7d42)
+   |                |  |  |  Token: 0xa6
+   |                |  |  |  Uri-Path: "gp"
+   |                |  |  |  Uri-Path: "gp1"
+   |                |  |  |  Uri-Path: "log"
+   |                |  |  |  Block2: 1/0/64
+   |                |  |  |
+   |<---------------+  |  | Source: ADDR_A:PORT_A
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60b2)
+   |                |  |  | Token: 0xa6
+   |                |  |  | Block2: 1/1/64
+   |                |  |  | Payload: 0x0a01 ...
+   |                |  |  |
+   |      GET       |  |  |
+   +--------------->|  |  |  Source: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  |  Destination: ADDR_A:PORT_A
+   |                |  |  |  Header: GET (T=NON, Code=0.01, MID=0x7d43)
+   |                |  |  |  Token: 0xa7
+   |                |  |  |  Uri-Path: "gp"
+   |                |  |  |  Uri-Path: "gp1"
+   |                |  |  |  Uri-Path: "log"
+   |                |  |  |  Block2: 2/0/64
+   |                |  |  |
+   |<---------------+  |  | Source: ADDR_A:PORT_A
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60b3)
+   |                |  |  | Token: 0xa7
+   |                |  |  | Block2: 2/0/64
+   |                |  |  | Payload: 0x0a02 ...
+   |                |  |  |
+   |      GET       |  |  |
+   +------------------>|  |  Source: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  |  Destination: ADDR_B:PORT_B
+   |                |  |  |  Header: GET (T=NON, Code=0.01, MID=0x7d44)
+   |                |  |  |  Token: 0xb6
+   |                |  |  |  Uri-Path: "gp"
+   |                |  |  |  Uri-Path: "gp1"
+   |                |  |  |  Uri-Path: "log"
+   |                |  |  |  Block2: 1/0/64
+   |                |  |  |
+   |<------------------+  | Source: ADDR_B:PORT_B
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60a1)
+   |                |  |  | Token: 0xb6
+   |                |  |  | Block2: 1/1/64
+   |                |  |  | Payload: 0x0b01 ...
+   |                |  |  |
+   |      GET       |  |  |
+   +------------------>|  |  Source: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  |  Destination: ADDR_C:PORT_B
+   |                |  |  |  Header: GET (T=NON, Code=0.01, MID=0x7d45)
+   |                |  |  |  Token: 0xb7
+   |                |  |  |  Uri-Path: "gp"
+   |                |  |  |  Uri-Path: "gp1"
+   |                |  |  |  Uri-Path: "log"
+   |                |  |  |  Block2: 2/0/64
+   |                |  |  |
+   |<------------------+  | Source: ADDR_B:PORT_B
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60a2)
+   |                |  |  | Token: 0xb7
+   |                |  |  | Block2: 2/0/64
+   |                |  |  | Payload: 0x0b02 ...
+   |                |  |  |
+   |      GET       |  |  |
+   +--------------------->|  Source: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  |  Destination: ADDR_C:PORT_C
+   |                |  |  |  Header: GET (T=NON, Code=0.01, MID=0x7d46)
+   |                |  |  |  Token: 0xc6
+   |                |  |  |  Uri-Path: "gp"
+   |                |  |  |  Uri-Path: "gp1"
+   |                |  |  |  Uri-Path: "log"
+   |                |  |  |  Block2: 1/0/64
+   |                |  |  |
+   |<---------------------+ Source: ADDR_C:PORT_C
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x602b)
+   |                |  |  | Token: 0xc6
+   |                |  |  | Block2: 1/1/64
+   |                |  |  | Payload: 0x0c01 ...
+   |                |  |  |
+   |      GET       |  |  |
+   +--------------------->|  Source: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  |  Destination: ADDR_C:PORT_C
+   |                |  |  |  Header: GET (T=NON, Code=0.01, MID=0x7d47)
+   |                |  |  |  Token: 0xc7
+   |                |  |  |  Uri-Path: "gp"
+   |                |  |  |  Uri-Path: "gp1"
+   |                |  |  |  Uri-Path: "log"
+   |                |  |  |  Block2: 2/0/64
+   |                |  |  |
+   |<---------------------+ Source: ADDR_C:PORT_C
+   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x602c)
+   |                |  |  | Token: 0xc7
+   |                |  |  | Block2: 2/0/64
+   |                |  |  | Payload: 0x0c02 ...
+   |                |  |  |   
+
+~~~~~~~~~~~
+{: #fig-exchange-example-blockwise title="Example of Non-confirmable group request starting a blockwise transfer, followed by Non-confirmable Responses with the first block. The transfer continues over unicast exchanges"}
+
 # Document Updates # {#sec-document-updates}
 
 RFC EDITOR: PLEASE REMOVE THIS SECTION.
@@ -1253,6 +1507,8 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 ## Version -05 to -06 ## {#sec-05-06}
 
 * Harmonized use of "group URI".
+
+* Clarifications about different group types.
 
 * Revised methods to perform group naming.
 
@@ -1262,7 +1518,7 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 * Added examples of application/CoAP group discovery.
 
-* Clarifications about different group types.
+* Added examples with message exchanges.
 
 * Editorial improvements.
 
