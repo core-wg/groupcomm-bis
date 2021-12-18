@@ -478,17 +478,17 @@ In particular, the responsible OSCORE Group Manager registers its security group
 
 It is possible for CoAP endpoints to discover application groups and CoAP groups from the CoAP servers that are members of such groups, by using a GET request targeting the /.well-known/core resource.
 
-As shown below, such a GET request may be sent to the IP multicast address of an already known CoAP group associated to one or more application group(s); or to the All CoAP Nodes multicast address, thus targeting all reachable CoAP servers in any CoAP group. Also, the GET request may specify a query component, in order to filter the application groups of interest.
+As shown below, such a GET request may be sent to the IP multicast address of an already known CoAP group associated to one or more application group(s); or to the "All CoAP Nodes" multicast address, thus targeting all reachable CoAP servers in any CoAP group. Also, the GET request may specify a query component, in order to filter the application groups of interest.
 
 These particular details concerning the GET request depend on the specific discovery action intended by the client and on application-specific means used to encode names of application groups and CoAP groups, e.g., in group URIs and/or CoRE target attributes used with resource links.
 
-The following provides examples of methods to discover application groups, building on the following assumptions. First, application group names are encoded in the path component of Group URIs (see {{sec-groupnaming-app}}), and the path segment used as designated delimiter has value "gp". Second, the name of a CoAP group is encoded as value of the CoRE target attribute "coap-gp". Third, a CoAP group is used and is identified by the group hostname grp.example.org.
+The following provides examples of methods to discover application groups, building on the following assumptions. First, application group names are encoded in the path component of Group URIs (see {{sec-groupnaming-app}}), using the path segment "gp" as designated delimiter. Second, the name of a CoAP group is encoded as value of the CoRE target attribute "coap-gp". Third, a CoAP group is used and is identified by the group hostname grp.example.org.
 
 * A CoAP client can discover all the application groups associated to a specific CoAP group.
 
-   This is achieved by sending the GET request above to the IP multicast address of the CoAP group, and specifying a wildcard as group name in the URI query parameter "href". For example, the request can use a Group URI with path and query components "/.well-known/core?href=/gp/*", i.e., the query matches any application group name.
+   This is achieved by sending the GET request above to the IP multicast address of the CoAP group, and specifying a wildcard as group name in the URI query parameter "href". For example, the request can use a Group URI with path and query components "/.well-known/core?href=/gp/*", so that the query matches any application group name.
 
-   Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of the specified CoAP group and of at least one application group associated to the CoAP group. That is, the client gains knowledge of: i) the set of servers that are members of the specified CoAP group and of any of the associated application groups; ii) for each of those servers, the name of the application groups associated to the CoAP group of which that server is a member, and the resources it hosts within such application groups.
+   Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of the specified CoAP group and of at least one application group associated to the CoAP group. That is, the client gains knowledge of: i) the set of servers that are members of the specified CoAP group and of any of the associated application groups; ii) for each of those servers, the name of the application groups where the server is a member and that are associated to the CoAP group, as well as the resources that the server hosts within such application groups.
 
    A full-fledged example is provided in {{fig-app-gp-discovery-example1}}.
 
@@ -498,8 +498,8 @@ The following provides examples of methods to discover application groups, build
    Req: GET coap://grp.example.org:5685/.well-known/core?href=/gp/*
 
    // Response from server S1, as member of:
-   // - The CoAP group "coap://grp.example.org:5685"
-   // - The application group "gp1"
+   //   - The CoAP group "coap://grp.example.org:5685"
+   //   - The application group "gp1"
    Res: 2.05 Content
    Content-Format: 40
    Payload:
@@ -515,7 +515,7 @@ The following provides examples of methods to discover application groups, build
    <coap://[2001:ac7::cd]/gp/gp2/lights>;rt="light",
    <coap://[2001:ac7::cd]/gp/gp2/temp>;rt="temperature"
 ~~~~~~~~~~~
-{: #fig-app-gp-discovery-example1 title="Discovery of the resources and members of all application groups associated to a specified CoAP group"}
+{: #fig-app-gp-discovery-example1 title="Discovery of the resources and members of all application groups associated to a CoAP group"}
 
 * A CoAP client can discover the CoAP servers that are members of a specific application group, the resources that those servers host as members of the application group, and the CoAP group associated to the application group.
 
@@ -531,8 +531,8 @@ The following provides examples of methods to discover application groups, build
    Req: GET coap://[ff03::fd]/.well-known/core?href=/gp/gp1
 
    // CoAP response from server S1, as member of:
-   // - The CoAP group "coap://grp.example.org:5685"
-   // - The application group "gp1"
+   //   - The CoAP group "coap://grp.example.org:5685"
+   //   - The application group "gp1"
    Res: 2.05 Content
    Content-Format: 40
    Payload:
@@ -548,11 +548,11 @@ The following provides examples of methods to discover application groups, build
    <coap://[2001:ac7::cd]/gp/gp1/lights>;rt="light";
        coap-gp="coap://grp.example.org:5685"
 ~~~~~~~~~~~
-{: #fig-app-gp-discovery-example2 title="Discovery of the resources and members of a specified application group, together with the associated CoAP group"}
+{: #fig-app-gp-discovery-example2 title="Discovery of the resources and members of an application group, together with the associated CoAP group"}
 
 * A CoAP client can discover the CoAP servers that are members of any application group of a specific type, the resources that those servers host as members of those application groups, and the CoAP group associated to those application groups.
 
-   This is achieved by sending the GET request above to the "All CoAP Nodes" IP multicast address (see {{Section 12.8 of RFC7252}}), with a particular chosen scope (e.g., site-local or realm-local) if IPv6 is used. Also, the request can specifies the application group type of interest in the URI query component, e.g., as value of a query parameter "gtype". For example, the request can use a Group URI with path and query components "/.well-known/core?gtype=TypeA" to specify the application group type "TypeA".
+   This is achieved by sending the GET request above to the "All CoAP Nodes" IP multicast address (see {{Section 12.8 of RFC7252}}), with a particular chosen scope (e.g., site-local or realm-local) if IPv6 is used. Also, the request can specify the application group type of interest in the URI query component, e.g., as value of a query parameter "gtype". For example, the request can use a Group URI with path and query components "/.well-known/core?gtype=TypeA" to specify the application group type "TypeA".
 
    Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of any application group of the specified type and of the CoAP group associated to those application groups. That is, the client gains knowledge of: i) the set of servers that are members of the application groups of the specified type and of the associated CoAP group; ii) for each of those servers, the resources it hosts within each of those application groups.
 
@@ -565,8 +565,8 @@ The following provides examples of methods to discover application groups, build
    Req: GET coap://[ff03::fd]/.well-known/core?gtype=TypeA
 
    // Response from server S1, as member of:
-   // - The CoAP group "coap://grp.example.org:5685"
-   // - The application group "gp1" of type "TypeA"
+   //   - The CoAP group "coap://grp.example.org:5685"
+   //   - The application group "gp1" of type "TypeA"
    Res: 2.05 Content
    Content-Format: 40
    Payload:
@@ -574,8 +574,8 @@ The following provides examples of methods to discover application groups, build
        coap-gp="coap://grp.example.org:5685";gtype="TypeA",
 
    // Response from server S2, as member of:
-   // - The CoAP group "coap://grp.example.org:5685"
-   // - The application groups "gp1" and "gp2" of type "TypeA"
+   //   - The CoAP group "coap://grp.example.org:5685"
+   //   - The application groups "gp1" and "gp2" of type "TypeA"
    Res: 2.05 Content
    Content-Format: 40
    Payload:
@@ -586,15 +586,15 @@ The following provides examples of methods to discover application groups, build
    <coap://[2001:ac7::cd]/gp/gp2/temp>;rt="temperature";
        coap-gp="coap://grp.example.org:5685";gtype="TypeA",
 ~~~~~~~~~~~
-{: #fig-app-gp-discovery-example3 title="Discovery of the resources and members of application groups of a specified type, together with the associated CoAP groups"}
+{: #fig-app-gp-discovery-example3 title="Discovery of the resources and members of application groups of a specified type, and of the associated CoAP group"}
 
 * A CoAP client can discover the CoAP servers that are members of any application group configured in the whole 6LoWPAN wireless mesh network, the resources that those servers host as members of the application group, and the CoAP group associated to the application group.
 
    This is achieved by sending the GET request above targeting "/.well-known/core" without query component, to the "All CoAP Nodes" IP multicast address (see {{Section 12.8 of RFC7252}}), with a particular chosen scope (e.g., site-local or realm-local) if IPv6 is used. 
 
-   Through the corresponding responses, the query result in the list of all resources hosted by any server in the mesh network. The servers that are members of any application group will be recognizable, as their response provides a list of resources whose link's path component denote membership to an application group.
+   Through the corresponding responses, the query result is a list of resources hosted by any server in the mesh network. The servers that are members of any application group will be recognizable, as their response provides a list of resources whose link's path component includes the path segment "gp", thus denoting membership to an application group.
    
-   Since this method does not use query parameters to perform any filtering, it has the disadvantage that potentially a lot of response traffic will be generated on the mesh network, including responses from servers that are not a member of any application group. However, using this method may be needed in particular use cases, e.g., if some of the servers do not support the optional link format query functionality (as mentioned in {{Section 4.1 of RFC6690}}).
+   Since this method does not use query parameters to perform any filtering, it has the disadvantage that potentially a lot of response traffic will be generated on the mesh network, including responses from servers that are not a member of any application group. However, using this method may be needed in particular use cases, e.g., if some of the servers do not support the optional link format query functionality, as mentioned in {{Section 4.1 of RFC6690}}.
 
    A full-fledged example is provided in {{fig-app-gp-discovery-example4}}.
 
@@ -604,8 +604,8 @@ The following provides examples of methods to discover application groups, build
    Req: GET coap://[ff03::fd]/.well-known/core
 
    // Response from server S1, as member of:
-   // - The CoAP group "coap://grp.example.org:5685"
-   // - The application group "gp1"
+   //   - The CoAP group "coap://grp.example.org:5685"
+   //   - The application group "gp1"
    Res: 2.05 Content
    Content-Format: 40
    Payload:
@@ -614,8 +614,8 @@ The following provides examples of methods to discover application groups, build
    <coap://[2001:db8::ab]/door>;rt="lock"
 
    // Response from server S2, as member of:
-   // - The CoAP group "coap://grp.example.org:5685"
-   // - The application groups "gp1" and "gp2"
+   //   - The CoAP group "coap://grp.example.org:5685"
+   //   - The application groups "gp1" and "gp2"
    Res: 2.05 Content
    Content-Format: 40
    Payload:
@@ -633,7 +633,7 @@ The following provides examples of methods to discover application groups, build
    Payload:
    <coap://[2001:ff1::aa]/window>;rt="lock"
 ~~~~~~~~~~~
-{: #fig-app-gp-discovery-example4 title="Discovery of the resources and members of any application groups in the network, together with the associated CoAP groups"}
+{: #fig-app-gp-discovery-example4 title="Discovery of the resources and members of any application group, and of the associated CoAP group"}
 
 Note that all the above examples are application-specific. That is, there is currently no standard way of encoding names of application groups and CoAP groups in group URIs and/or CoRE target attributes used with resource links. In particular, the discovery of groups through the RD mentioned in {{sssec-discovery-from-rd}} is only defined for use with an RD, i.e., not directly on CoAP servers without using an RD.
 
@@ -1248,7 +1248,11 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 * Revised methods to perform group naming.
 
+* Revised methods to discover application groups and CoAP groups.
+
 * Added examples of application group naming.
+
+* Added examples of application/CoAP group discovery.
 
 * Clarifications about different group types.
 
