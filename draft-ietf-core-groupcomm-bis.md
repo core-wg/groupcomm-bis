@@ -132,7 +132,7 @@ in this document are to be interpreted as described in BCP 14 {{RFC2119}} {{RFC8
 
 This specification requires readers to be familiar with CoAP terminology {{RFC7252}}. Terminology related to group communication is defined in {{sec-groupdef}}.
 
-In addition, the following ters are extensively used.
+In addition, the following terms are extensively used.
 
 * Group URI - This is defined as a CoAP URI that has the "coap" scheme and includes in the authority part either an IP multicast address or a group hostname (e.g., a Group Fully Qualified Domain Name (FQDN)) that can be resolved to an IP multicast address. A group URI also contains an optional UDP port number in the authority part. Group URIs follow the regular CoAP URI syntax (see {{Section 6 of RFC7252}}).
 
@@ -170,21 +170,25 @@ Three types of groups and their mutual relations are defined in this section: Co
 ### CoAP Group ## {#sec-groupdef-coapgroup}
 A CoAP group is defined as a set of CoAP endpoints, where each endpoint is configured to receive CoAP group messages that are sent to the group's associated IP multicast address and UDP port. That is, CoAP groups have relevance at the level of IP networks and CoAP endpoints.
 
-An endpoint may be a member of multiple CoAP groups by subscribing to multiple IP multicast groups and/or listening on multiple UDP ports. Group membership(s) of an endpoint may dynamically change over time. A device sending a CoAP group message to a CoAP group is not necessarily itself a member of this CoAP group: it is a member only if it also has a CoAP endpoint listening on the group's associated IP multicast address and UDP port.
+An endpoint may be a member of multiple CoAP groups, by subscribing to multiple IP multicast addresses and/or listening on multiple UDP ports. Group membership(s) of an endpoint may dynamically change over time. A device sending a CoAP group message to a CoAP group is not necessarily itself a member of this CoAP group: it is a member only if it also has a CoAP endpoint listening on the group's associated IP multicast address and UDP port.
 
 A CoAP group is identified by information encoded within a group URI. Further details on identifying a CoAP group are provided in {{sec-groupnaming-coap}}.
 
 ### Application Group ## {#sec-groupdef-applicationgroup}
-An application group is a set of CoAP server endpoints that share a common set of CoAP resources. That is, an application group has relevance at the application level, for example an application group could denote all lights in an office room or all sensors in a hallway.
+An application group is a set of CoAP server endpoints that share a common set of CoAP resources. That is, an application group has relevance at the application level. For example, an application group could denote all lights in an office room or all sensors in a hallway.
 
-An endpoint may be a member of multiple application groups. A client endpoint that sends a group communication message to an application group is not necessarily itself a member of this application group. There can be a one-to-one or a one-to-many relation between a CoAP group and application group(s). Such relations are discussed in more detail in {{sec-groupdef-grouprelations}}.
+An endpoint may be a member of multiple application groups. A client endpoint that sends a group communication message to an application group is not necessarily itself a member of this application group.
 
-An application group name may be explicitly encoded in the group URI of a CoAP request, for example in the URI path. If this is not the case, the application group is implicitly derived by the receiver, e.g., based on information in the CoAP request or other contextual information. Further details on identifying an application group are provided in {{sec-groupnaming-app}}.
+There can be a one-to-one or a one-to-many relation between a CoAP group and application group(s). Such relations are discussed in more detail in {{sec-groupdef-grouprelations}}.
+
+An application group name may be explicitly encoded in the group URI of a CoAP request, for example in the URI path component. If this is not the case, the application group is implicitly derived by the receiver, e.g., based on information in the CoAP request or other contextual information. Further details on identifying an application group are provided in {{sec-groupnaming-app}}.
 
 ### Security Group ## {#sec-groupdef-securitygroup}
 For secure group communication, a security group is required. A security group comprises endpoints storing shared group security material, such that they can use it to protect and verify mutually exchanged messages.
 
-That is, a client endpoint needs to be a member of a security group in order to send a valid secured group communication message to that group. An endpoint may be a member of multiple security groups. There can be a many-to-many relation between security groups and CoAP groups, but often it is one-to-one. Also, there can be a many-to-many relation between security groups and application groups, but often it is one-to-one. Such relations are discussed in more detail in {{sec-groupdef-grouprelations}}.
+That is, a client endpoint needs to be a member of a security group in order to send a valid secured group communication message to that group. A server endpoint needs to be a member of a security group in order to receive and correctly verify a secured group communication message sent to that group. An endpoint may be a member of multiple security groups.
+
+There can be a many-to-many relation between security groups and CoAP groups, but often it is one-to-one. Also, there can be a many-to-many relation between security groups and application groups, but often it is one-to-one. Such relations are discussed in more detail in {{sec-groupdef-grouprelations}}.
 
 A special security group named "NoSec" identifies group communication without any security at the transport layer nor at the CoAP layer. Further details on identifying a security group are provided in {{sec-groupnaming-sec}}.
 
@@ -277,9 +281,9 @@ The following defines a number of possible methods to use. The shown examples co
 
 An application group name can be explicitly encoded in a group URI. In such a case, it can be encoded within one of the following URI components.
 
-* URI path component - This is the most common and RECOMMENDED method to encode the application group name. When using this method in constrained networks, an application group name, e.g., \<GROUPNAME\>, should be as short as possible.
+* URI path component - This is the most common and RECOMMENDED method to encode the application group name. When using this method in constrained networks, an application group name GROUPNAME should be as short as possible.
 
-   A best practice for doing so is to use a URI path component such that: i) it includes a path segment as delimiter with a designated value, e.g., "gp", followed by ii) a path segment with value the name of the application group, followed by iii) the path segment(s) that identify the resource within this application group. For example, both gp/\<GROUPNAME\>/res1 and /base/gp/\<GROUPNAME\>/res1/res2 conform to this practice. Just like application group names, the path segment used as delimited shoud be as short as possible in constrained networks.
+   A best practice for doing so is to use a URI path component such that: i) it includes a path segment as delimiter with a designated value, e.g., "gp", followed by ii) a path segment with value the name of the application group, followed by iii) the path segment(s) that identify the targeted resource within the application group. For example, both gp/GROUPNAME/res1 and /base/gp/GROUPNAME/res1/res2 conform to this practice. Just like application group names, the path segment used as delimiter shoud be as short as possible in constrained networks.
    
    A full-fledged example is provided in {{fig-gname-path-example}}.
 
@@ -299,12 +303,16 @@ An application group name can be explicitly encoded in a group URI. In such a ca
 ~~~~~~~~~~~
 {: #fig-gname-path-example title="Example of application group name in URI path"}
 
-* URI query component - This method can use the following formats. In either case,    when using this method in constrained networks, an application group name, e.g., \<GROUPNAME\>, should be as short as possible.
+* URI query component - This method can use the following formats. In either case,    when using this method in constrained networks, an application group name GROUPNAME should be as short as possible.
 
-   As a first alternative, the URI query component consists of only one parameter, which has no value and has the name of the application group as its own idenfier. That is, the query component ?\<GROUPNAME\> conforms to this format.
-   
-   A full-fledged example is provided in {{fig-gname-query1-example}}.
-   
+   - As a first alternative, the URI query component consists of only one parameter, which has no value and has the name of the application group as its own idenfier. That is, the query component ?GROUPNAME conforms to this format.
+
+      A full-fledged example is provided in {{fig-gname-query1-example}}.
+
+   - As a second alternative, the URI query component includes a query parameter as designated indicator, e.g., "gp", with value the name of the application group. That is, assuming "gp" to be used as designated indicator, both the query components ?gp=GROUPNAME and ?par1=v1&gp=GROUPNAME conform to this format.
+
+      A full-fledged example is provided in {{fig-gname-query2-example}}.
+
 ~~~~~~~~~~~
  
    Application group name: gp1
@@ -318,10 +326,6 @@ An application group name can be explicitly encoded in a group URI. In such a ca
       Uri-Query: gp1
 ~~~~~~~~~~~
 {: #fig-gname-query1-example title="Example of application group name in URI query (1/2)"}
-   
-   As a second alternative, the URI query component includes a query parameter as designated indicator, e.g., "gp", with value the name of the application group. That is, assuming "gp" to be used as designated indicator, both the query components ?gp=\<GROUPNAME\> and ?param1=value1&gp=\<GROUPNAME\> conform to this format.
-   
-   A full-fledged example is provided in {{fig-gname-query2-example}}.
 
 ~~~~~~~~~~~
  
@@ -340,7 +344,7 @@ An application group name can be explicitly encoded in a group URI. In such a ca
    
 * URI authority component - If this method is used, the application group is identified by the authority component as a whole.
 
-   In particular, the application group has the same name of the CoAP group expressed by the group URI (see {{sec-groupnaming-coap}}). Therefore, this method can only be used if there is a one-to-one mapping between CoAP groups and application groups (see {{sec-groupdef-grouprelations}}).
+   In particular, the application group has the same name of the CoAP group expressed by the group URI (see {{sec-groupnaming-coap}}). Thus, this method can only be used if there is a one-to-one mapping between CoAP groups and application groups (see {{sec-groupdef-grouprelations}}).
 
    A full-fledged example is provided in {{fig-gname-auth-example}}.
 
@@ -360,7 +364,7 @@ An application group name can be explicitly encoded in a group URI. In such a ca
 
 * URI host subcomponent - If this method is used, the application group is identified solely by the host subcomponent of the authority component.
 
-   If the authority component does not include the port subcomponent, the application group has the same name of the CoAP group expressed by the group URI (see {{sec-groupnaming-coap}}). In such a case, this method can only be used if there is a one-to-one mapping between CoAP groups and application groups (see {{sec-groupdef-grouprelations}}).
+   Since an application group can be associated to only one CoAP group (see {{sec-groupdef-grouprelations}}), using this method implies that any two CoAP groups cannot differ only by the port subcomponent of the URI authority component.
 
    A full-fledged example is provided in {{fig-gname-host-example}}.
 
@@ -379,6 +383,8 @@ An application group name can be explicitly encoded in a group URI. In such a ca
 {: #fig-gname-host-example title="Example of application group name in URI host"}
 
 * URI port subcomponent - By using this method, the application group is uniquely identified by the destination port number encoded in the port subcomponent of the authority component.
+
+   Since an application group can be associated to only one CoAP group (see {{sec-groupdef-grouprelations}}), using this method implies that any two CoAP groups cannot differ only by their host subcomponent of the URI authority component.
 
    A full-fledged example is provided in {{fig-gname-post-example}}.
 
@@ -441,7 +447,7 @@ Alternatively, there are also methods to encode the application group name withi
 
 Furthermore, it is possible to encode the application group name neither in the group URI nor within a CoAP request, thus yielding the most compact representation on the wire. In this case, each CoAP server needs to determine the right application group based on contextual information, such as the client identity and/or the target resource. For example, each application group on a server could support a unique set of resources, such that it does not overlap with the set of resources of any other application group.
 
-Finally, Appendix A of {{I-D.ietf-core-resource-directory}} provides an example of application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources is supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry. At the same time, the CoAP group is ff35:30:2001:db8:f1::8000:1 and the "NoSec" security group is used.
+Finally, Appendix A of {{I-D.ietf-core-resource-directory}} provides an example of application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources it supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry. At the same time, the CoAP group is ff35:30:2001:db8:f1::8000:1 and the "NoSec" security group is used.
 
 #### Security Groups ### {#sec-groupnaming-sec}
 
@@ -462,7 +468,7 @@ The configuration of groups and membership may be performed at different moments
 
 ### Group Discovery ###
 
-The following describes how a CoAP endpoint can discover groups by different means, i.e., by using a Resource Directory or directly from the CoAP servers currently members of such groups.
+The following describes how a CoAP endpoint can discover groups by different means, i.e., by using a Resource Directory or directly from the CoAP servers that are members of such groups.
 
 #### Discovery through a Resource Directory ### {#sssec-discovery-from-rd}
 
@@ -478,11 +484,11 @@ In particular, the responsible OSCORE Group Manager registers its security group
 
 It is possible for CoAP endpoints to discover application groups and CoAP groups from the CoAP servers that are members of such groups, by using a GET request targeting the /.well-known/core resource.
 
-As shown below, such a GET request may be sent to the IP multicast address of an already known CoAP group associated to one or more application group(s); or to the "All CoAP Nodes" multicast address, thus targeting all reachable CoAP servers in any CoAP group. Also, the GET request may specify a query component, in order to filter the application groups of interest.
+As shown below, such a GET request may be sent to the IP multicast address of an already known CoAP group associated to one or more application groups; or to the "All CoAP Nodes" multicast address, thus targeting all reachable CoAP servers in any CoAP group. Also, the GET request may specify a query component, in order to filter the application groups of interest.
 
 These particular details concerning the GET request depend on the specific discovery action intended by the client and on application-specific means used to encode names of application groups and CoAP groups, e.g., in group URIs and/or CoRE target attributes used with resource links.
 
-The following provides examples of methods to discover application groups, building on the following assumptions. First, application group names are encoded in the path component of Group URIs (see {{sec-groupnaming-app}}), using the path segment "gp" as designated delimiter. Second, the name of a CoAP group is encoded as value of the CoRE target attribute "coap-gp". Third, a CoAP group is used and is identified by the group hostname grp.example.org.
+The following provides examples of methods to discover application groups and CoAP groups, building on the following assumptions. First, application group names are encoded in the path component of Group URIs (see {{sec-groupnaming-app}}), using the path segment "gp" as designated delimiter. Second, the name of a CoAP group is encoded as value of a CoRE target attribute "coap-gp". Third, a CoAP group is used and is identified by the URI authority grp.example.org:5685.
 
 * A CoAP client can discover all the application groups associated to a specific CoAP group.
 
@@ -498,7 +504,7 @@ The following provides examples of methods to discover application groups, build
    Req: GET coap://grp.example.org:5685/.well-known/core?href=/gp/*
 
    // Response from server S1, as member of:
-   //   - The CoAP group "coap://grp.example.org:5685"
+   //   - The CoAP group "grp.example.org:5685"
    //   - The application group "gp1"
    Res: 2.05 Content
    Content-Format: 40
@@ -506,7 +512,7 @@ The following provides examples of methods to discover application groups, build
    <coap://[2001:db8::ab]/gp/gp1/lights>;rt="light"
 
    // Response from server S2, as member of:
-   // - The CoAP group "coap://grp.example.org:5685"
+   // - The CoAP group "grp.example.org:5685"
    // - The application groups "gp1" and "gp2"
    Res: 2.05 Content
    Content-Format: 40
@@ -531,22 +537,22 @@ The following provides examples of methods to discover application groups, build
    Req: GET coap://[ff03::fd]/.well-known/core?href=/gp/gp1
 
    // CoAP response from server S1, as member of:
-   //   - The CoAP group "coap://grp.example.org:5685"
+   //   - The CoAP group "grp.example.org:5685"
    //   - The application group "gp1"
    Res: 2.05 Content
    Content-Format: 40
    Payload:
    <coap://[2001:db8::ab]/gp/gp1/lights>;rt="light";
-       coap-gp="coap://grp.example.org:5685"
+       coap-gp="grp.example.org:5685"
 
    // CoAP response from server S2, as member of:
-   // - The CoAP group "coap://grp.example.org:5685"
+   // - The CoAP group "grp.example.org:5685"
    // - The application groups "gp1"
    Res: 2.05 Content
    Content-Format: 40
    Payload:
    <coap://[2001:ac7::cd]/gp/gp1/lights>;rt="light";
-       coap-gp="coap://grp.example.org:5685"
+       coap-gp="grp.example.org:5685"
 ~~~~~~~~~~~
 {: #fig-app-gp-discovery-example2 title="Discovery of the resources and members of an application group, together with the associated CoAP group"}
 
@@ -554,7 +560,7 @@ The following provides examples of methods to discover application groups, build
 
    This is achieved by sending the GET request above to the "All CoAP Nodes" IP multicast address (see {{Section 12.8 of RFC7252}}), with a particular chosen scope (e.g., site-local or realm-local) if IPv6 is used. Also, the request can specify the application group type of interest in the URI query component, e.g., as value of a query parameter "gtype". For example, the request can use a Group URI with path and query components "/.well-known/core?gtype=TypeA" to specify the application group type "TypeA".
 
-   Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of any application group of the specified type and of the CoAP group associated to those application groups. That is, the client gains knowledge of: i) the set of servers that are members of the application groups of the specified type and of the associated CoAP group; ii) for each of those servers, the resources it hosts within each of those application groups.
+   Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of any application group of the specified type and of the CoAP group associated to each of those application groups. That is, the client gains knowledge of: i) the set of servers that are members of the application groups of the specified type and of the associated CoAP group; ii) for each of those servers, the resources it hosts within each of those application groups.
 
    A full-fledged example is provided in {{fig-app-gp-discovery-example3}}.
 
@@ -565,26 +571,26 @@ The following provides examples of methods to discover application groups, build
    Req: GET coap://[ff03::fd]/.well-known/core?gtype=TypeA
 
    // Response from server S1, as member of:
-   //   - The CoAP group "coap://grp.example.org:5685"
+   //   - The CoAP group "grp.example.org:5685"
    //   - The application group "gp1" of type "TypeA"
    Res: 2.05 Content
    Content-Format: 40
    Payload:
    <coap://[2001:db8::ab]/gp/gp1/lights>;rt="light";
-       coap-gp="coap://grp.example.org:5685";gtype="TypeA",
+       coap-gp="grp.example.org:5685";gtype="TypeA"
 
    // Response from server S2, as member of:
-   //   - The CoAP group "coap://grp.example.org:5685"
+   //   - The CoAP group "grp.example.org:5685"
    //   - The application groups "gp1" and "gp2" of type "TypeA"
    Res: 2.05 Content
    Content-Format: 40
    Payload:
    <coap://[2001:ac7::cd]/gp/gp1/lights>;rt="light";
-       coap-gp="coap://grp.example.org:5685";gtype="TypeA",
+       coap-gp="grp.example.org:5685";gtype="TypeA",
    <coap://[2001:ac7::cd]/gp/gp2/lights>;rt="light";
-       coap-gp="coap://grp.example.org:5685";gtype="TypeA",
+       coap-gp="grp.example.org:5685";gtype="TypeA",
    <coap://[2001:ac7::cd]/gp/gp2/temp>;rt="temperature";
-       coap-gp="coap://grp.example.org:5685";gtype="TypeA",
+       coap-gp="grp.example.org:5685";gtype="TypeA"
 ~~~~~~~~~~~
 {: #fig-app-gp-discovery-example3 title="Discovery of the resources and members of application groups of a specified type, and of the associated CoAP group"}
 
@@ -604,27 +610,27 @@ The following provides examples of methods to discover application groups, build
    Req: GET coap://[ff03::fd]/.well-known/core
 
    // Response from server S1, as member of:
-   //   - The CoAP group "coap://grp.example.org:5685"
+   //   - The CoAP group "grp.example.org:5685"
    //   - The application group "gp1"
    Res: 2.05 Content
    Content-Format: 40
    Payload:
    <coap://[2001:db8::ab]/gp/gp1/lights>;rt="light";
-       coap-gp="coap://grp.example.org:5685",
+       coap-gp="grp.example.org:5685",
    <coap://[2001:db8::ab]/door>;rt="lock"
 
    // Response from server S2, as member of:
-   //   - The CoAP group "coap://grp.example.org:5685"
+   //   - The CoAP group "grp.example.org:5685"
    //   - The application groups "gp1" and "gp2"
    Res: 2.05 Content
    Content-Format: 40
    Payload:
    <coap://[2001:ac7::cd]/gp/gp1/lights>;rt="light";
-       coap-gp="coap://grp.example.org:5685",
+       coap-gp="grp.example.org:5685",
    <coap://[2001:ac7::cd]/gp/gp2/lights>;rt="light";
-       coap-gp="coap://grp.example.org:5685",
+       coap-gp="grp.example.org:5685",
    <coap://[2001:ac7::cd]/gp/gp2/temp>;rt="temperature";
-       coap-gp="coap://grp.example.org:5685",
+       coap-gp="grp.example.org:5685",
    <coap://[2001:ac7::cd]/window>;rt="lock"
 
    // Response from server S3, not a member of any group
@@ -635,7 +641,7 @@ The following provides examples of methods to discover application groups, build
 ~~~~~~~~~~~
 {: #fig-app-gp-discovery-example4 title="Discovery of the resources and members of any application group, and of the associated CoAP group"}
 
-Note that all the above examples are application-specific. That is, there is currently no standard way of encoding names of application groups and CoAP groups in group URIs and/or CoRE target attributes used with resource links. In particular, the discovery of groups through the RD mentioned in {{sssec-discovery-from-rd}} is only defined for use with an RD, i.e., not directly on CoAP servers without using an RD.
+Note that all the above examples are application-specific. That is, there is currently no standard way of encoding names of application groups and CoAP groups in group URIs and/or CoRE target attributes used with resource links. In particular, the discovery of groups through the RD mentioned in {{sssec-discovery-from-rd}} is only defined for use with an RD, i.e., not directly with CoAP servers as group members.
 
 ### Group Maintenance ### {#sec-group-maintenance}
 Maintenance of a group includes any necessary operations to cope with changes in a system, such as: adding group members, removing group members, changing group security material, reconfiguration of UDP port and/or IP multicast address, reconfiguration of the group URI, renaming of application groups, splitting of groups, or merging of groups.
@@ -775,7 +781,7 @@ Security operations for a proxy are discussed later in {{chap-proxy-security}}.
 
 CoAP enables a client to request a forward-proxy to process a CoAP request on its behalf, as described in {{Sections 5.7.2 and 8.2.2 of RFC7252}}.
 
-When intending to reach a CoAP group a the proxy, the client sends a unicast CoAP group request to the proxy. This request specifies the group URI where the request has to be forwarded to, either as a string in the Proxy-URI Option, or through the Proxy-Scheme Option with the group URI constructed from the usual Uri-* Options. Then, the forward-proxy resolves the group URI to a destination CoAP group, i.e., it sends (e.g., multicasts) the CoAP group request to the group URI, receives the responses and forwards all the individual (unicast) responses back to the client.
+When intending to reach a CoAP group through a proxy, the client sends a unicast CoAP group request to the proxy. This request specifies the group URI where the request has to be forwarded to, either as a string in the Proxy-URI Option, or through the Proxy-Scheme Option with the group URI constructed from the usual Uri-* Options. Then, the forward-proxy resolves the group URI to a destination CoAP group, i.e., it sends (e.g., multicasts) the CoAP group request to the group URI, receives the responses and forwards all the individual (unicast) responses back to the client.
 
 However, there are certain issues and limitations with this approach:
 
@@ -1248,7 +1254,7 @@ Group communication can be useful to efficiently distribute new software (firmwa
 
 # Examples of Message Exchanges # {#sec-examples-exchanges}
 
-This section provide examples of different messages exchanges when CoAP is used with group communication. The examples consider:
+This section provides examples of different message exchanges when CoAP is used with group communication. The examples consider:
 
 * A client with address ADDR_CLIENT and port PORT_CLIENT.
 
@@ -1258,7 +1264,7 @@ This section provide examples of different messages exchanges when CoAP is used 
 
 * Three servers A, B and C, all of which are members of the CoAP group above and of the application group "gp1". Each server X (with X equal to A, B or C): listens to its own address ADDR_X and port number PORT_X; and listens to the address ADDR_GRP and port number PORT_GRP.
 
-In {{fig-exchange-example}}, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "temperature" in the application group "gp1". All servers reply with a 2.05 Content response, although the response from server B is lost. As source port number of their response, servers A and B use the destination source port number of the request, i.e, PORT_GRP. Instead, server C uses its own port number PORT_C.
+In {{fig-exchange-example}}, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "temperature" in the application group "gp1". All servers reply with a 2.05 Content response, although the response from server B is lost. As source port number of their response, servers A and B use the destination port number of the request, i.e, PORT_GRP. Instead, server C uses its own port number PORT_C.
    
 ~~~~~~~~~~~
 Client              A  B  C
@@ -1294,7 +1300,7 @@ Client              A  B  C
 ~~~~~~~~~~~
 {: #fig-exchange-example title="Example of Non-confirmable group request, followed by Non-confirmable Responses"}
 
-In {{fig-exchange-example-observe}}, the client sends a Non-confirmable GET request to the CoAP group, targeting and requesting to observe the resource "temperature" in the application group "gp1". All servers reply with a 2.05 Content notification response. As source port number of their response, servers A and B use the destination source port number of the request, i.e, PORT_GRP. Instead, server C uses its own port number PORT_C. Some time later, all servers send a 2.05 Content notification response, wiht payload the new representation of the "temperature" resource.
+In {{fig-exchange-example-observe}}, the client sends a Non-confirmable GET request to the CoAP group, targeting and requesting to observe the resource "temperature" in the application group "gp1". All servers reply with a 2.05 Content notification response. As source port number of their response, servers A and B use the destination port number of the request, i.e, PORT_GRP. Instead, server C uses its own port number PORT_C. Some time later, all servers send a 2.05 Content notification response, with payload the new representation of the "temperature" resource.
    
 ~~~~~~~~~~~
 Client              A  B  C
@@ -1325,13 +1331,13 @@ Client              A  B  C
    |                |  |  |
    |<---------------------+ Source: ADDR_C:PORT_C
    |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
-   |                |  |  | Header: 4.04 (T=NON, Code=4.04, MID=0x952a)
+   |                |  |  | Header: 2.05 (T=NON, Code=4.04, MID=0x952a)
    |                |  |  | Token: 0x86
    |                |  |  | Observe: 23
    |                |  |  | Payload: "21.0 C"
    |                |  |  |
    
-   // The temperature changes for all servers ...
+   // The temperature changes ...
    
    |                |  |  |
    |<---------------+  |  | Source: ADDR_A:PORT_GRP
@@ -1350,7 +1356,7 @@ Client              A  B  C
    |                |  |  |
    |<---------------------+ Source: ADDR_C:PORT_C
    |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
-   |                |  |  | Header: 4.04 (T=NON, Code=4.04, MID=0x952b)
+   |                |  |  | Header: 2.05 (T=NON, Code=4.04, MID=0x952b)
    |                |  |  | Token: 0x86
    |                |  |  | Observe: 29
    |                |  |  | Payload: "31.0 C"
@@ -1389,7 +1395,7 @@ Client              A  B  C
    |                |  |  |
    |<---------------------+ Source: ADDR_C:PORT_C
    |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
-   |                |  |  | Header: 4.04 (T=NON, Code=4.04, MID=0x952a)
+   |                |  |  | Header: 2.05 (T=NON, Code=4.04, MID=0x952a)
    |                |  |  | Token: 0x86
    |                |  |  | Block2: 0/1/64
    |                |  |  | Payload: 0x0c00 ...
@@ -1397,7 +1403,7 @@ Client              A  B  C
    |      GET       |  |  |
    +--------------->|  |  |  Source: ADDR_CLIENT:PORT_CLIENT
    |                |  |  |  Destination: ADDR_A:PORT_A
-   |                |  |  |  Header: GET (T=NON, Code=0.01, MID=0x7d42)
+   |                |  |  |  Header: GET (T=CON, Code=0.01, MID=0x7d42)
    |                |  |  |  Token: 0xa6
    |                |  |  |  Uri-Path: "gp"
    |                |  |  |  Uri-Path: "gp1"
@@ -1406,7 +1412,7 @@ Client              A  B  C
    |                |  |  |
    |<---------------+  |  | Source: ADDR_A:PORT_A
    |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
-   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60b2)
+   |                |  |  | Header: 2.05 (T=ACK, Code=2.05, MID=0x7d42)
    |                |  |  | Token: 0xa6
    |                |  |  | Block2: 1/1/64
    |                |  |  | Payload: 0x0a01 ...
@@ -1414,7 +1420,7 @@ Client              A  B  C
    |      GET       |  |  |
    +--------------->|  |  |  Source: ADDR_CLIENT:PORT_CLIENT
    |                |  |  |  Destination: ADDR_A:PORT_A
-   |                |  |  |  Header: GET (T=NON, Code=0.01, MID=0x7d43)
+   |                |  |  |  Header: GET (T=CON, Code=0.01, MID=0x7d43)
    |                |  |  |  Token: 0xa7
    |                |  |  |  Uri-Path: "gp"
    |                |  |  |  Uri-Path: "gp1"
@@ -1423,7 +1429,7 @@ Client              A  B  C
    |                |  |  |
    |<---------------+  |  | Source: ADDR_A:PORT_A
    |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
-   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60b3)
+   |                |  |  | Header: 2.05 (T=ACK, Code=2.05, MID=0x7d43)
    |                |  |  | Token: 0xa7
    |                |  |  | Block2: 2/0/64
    |                |  |  | Payload: 0x0a02 ...
@@ -1431,7 +1437,7 @@ Client              A  B  C
    |      GET       |  |  |
    +------------------>|  |  Source: ADDR_CLIENT:PORT_CLIENT
    |                |  |  |  Destination: ADDR_B:PORT_B
-   |                |  |  |  Header: GET (T=NON, Code=0.01, MID=0x7d44)
+   |                |  |  |  Header: GET (T=CON, Code=0.01, MID=0x7d44)
    |                |  |  |  Token: 0xb6
    |                |  |  |  Uri-Path: "gp"
    |                |  |  |  Uri-Path: "gp1"
@@ -1440,7 +1446,7 @@ Client              A  B  C
    |                |  |  |
    |<------------------+  | Source: ADDR_B:PORT_B
    |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
-   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60a1)
+   |                |  |  | Header: 2.05 (T=ACK, Code=2.05, MID=0x7d44)
    |                |  |  | Token: 0xb6
    |                |  |  | Block2: 1/1/64
    |                |  |  | Payload: 0x0b01 ...
@@ -1448,7 +1454,7 @@ Client              A  B  C
    |      GET       |  |  |
    +------------------>|  |  Source: ADDR_CLIENT:PORT_CLIENT
    |                |  |  |  Destination: ADDR_C:PORT_B
-   |                |  |  |  Header: GET (T=NON, Code=0.01, MID=0x7d45)
+   |                |  |  |  Header: GET (T=CON, Code=0.01, MID=0x7d45)
    |                |  |  |  Token: 0xb7
    |                |  |  |  Uri-Path: "gp"
    |                |  |  |  Uri-Path: "gp1"
@@ -1457,7 +1463,7 @@ Client              A  B  C
    |                |  |  |
    |<------------------+  | Source: ADDR_B:PORT_B
    |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
-   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60a2)
+   |                |  |  | Header: 2.05 (T=ACK, Code=2.05, MID=0x7d45)
    |                |  |  | Token: 0xb7
    |                |  |  | Block2: 2/0/64
    |                |  |  | Payload: 0x0b02 ...
@@ -1465,7 +1471,7 @@ Client              A  B  C
    |      GET       |  |  |
    +--------------------->|  Source: ADDR_CLIENT:PORT_CLIENT
    |                |  |  |  Destination: ADDR_C:PORT_C
-   |                |  |  |  Header: GET (T=NON, Code=0.01, MID=0x7d46)
+   |                |  |  |  Header: GET (T=CON, Code=0.01, MID=0x7d46)
    |                |  |  |  Token: 0xc6
    |                |  |  |  Uri-Path: "gp"
    |                |  |  |  Uri-Path: "gp1"
@@ -1474,7 +1480,7 @@ Client              A  B  C
    |                |  |  |
    |<---------------------+ Source: ADDR_C:PORT_C
    |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
-   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x602b)
+   |                |  |  | Header: 2.05 (T=ACK, Code=2.05, MID=0x7d46)
    |                |  |  | Token: 0xc6
    |                |  |  | Block2: 1/1/64
    |                |  |  | Payload: 0x0c01 ...
@@ -1482,7 +1488,7 @@ Client              A  B  C
    |      GET       |  |  |
    +--------------------->|  Source: ADDR_CLIENT:PORT_CLIENT
    |                |  |  |  Destination: ADDR_C:PORT_C
-   |                |  |  |  Header: GET (T=NON, Code=0.01, MID=0x7d47)
+   |                |  |  |  Header: GET (T=CON, Code=0.01, MID=0x7d47)
    |                |  |  |  Token: 0xc7
    |                |  |  |  Uri-Path: "gp"
    |                |  |  |  Uri-Path: "gp1"
@@ -1491,7 +1497,7 @@ Client              A  B  C
    |                |  |  |
    |<---------------------+ Source: ADDR_C:PORT_C
    |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
-   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x602c)
+   |                |  |  | Header: 2.05 (T=ACK, Code=2.05, MID=0x7d47)
    |                |  |  | Token: 0xc7
    |                |  |  | Block2: 2/0/64
    |                |  |  | Payload: 0x0c02 ...
@@ -1518,7 +1524,7 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 * Added examples of application/CoAP group discovery.
 
-* Added examples with message exchanges.
+* Added examples of message exchanges.
 
 * Editorial improvements.
 
