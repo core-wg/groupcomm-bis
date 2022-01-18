@@ -1294,7 +1294,7 @@ This section provides examples of different message exchanges when CoAP is used 
 
 * An application group "gp1" associated to the CoAP group above.
 
-* Three servers A, B and C, all of which are members of the CoAP group above and of the application group "gp1". Each server X (with X equal to A, B or C): listens to its own address ADDR_X and port number PORT_X; and listens to the address ADDR_GRP and port number PORT_GRP.
+* Three servers A, B and C, all of which are members of the CoAP group above and of the application group "gp1". Each server X (with X equal to A, B or C): listens to its own address ADDR_X and port number PORT_X; and listens to the address ADDR_GRP and port number PORT_GRP. For each server its PORT_X may be different from PORT_GRP or may be equal to it, in general.
 
 In {{fig-exchange-example}}, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "temperature" in the application group "gp1". All servers reply with a 2.05 Content response, although the response from server B is lost. As source port number of their response, servers A and B use the destination port number of the request, i.e, PORT_GRP. Instead, server C uses its own port number PORT_C.
    
@@ -1325,7 +1325,7 @@ Client              A  B  C
    |                |  |  |
    |<---------------------+ Source: ADDR_C:PORT_C
    |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
-   |                |  |  | Header: 4.04 (T=NON, Code=4.04, MID=0x952a)
+   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x952a)
    |                |  |  | Token: 0x86
    |                |  |  | Payload: "21.0 C"
    |                |  |  |
@@ -1363,7 +1363,7 @@ Client              A  B  C
    |                |  |  |
    |<---------------------+ Source: ADDR_C:PORT_C
    |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
-   |                |  |  | Header: 2.05 (T=NON, Code=4.04, MID=0x952a)
+   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x952a)
    |                |  |  | Token: 0x86
    |                |  |  | Observe: 23
    |                |  |  | Payload: "21.0 C"
@@ -1388,7 +1388,7 @@ Client              A  B  C
    |                |  |  |
    |<---------------------+ Source: ADDR_C:PORT_C
    |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
-   |                |  |  | Header: 2.05 (T=NON, Code=4.04, MID=0x952b)
+   |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x952b)
    |                |  |  | Token: 0x86
    |                |  |  | Observe: 29
    |                |  |  | Payload: "31.0 C"
@@ -1536,7 +1536,7 @@ Client              A  B  C
    |                |  |  |   
 
 ~~~~~~~~~~~
-{: #fig-exchange-example-blockwise title="Example of Non-confirmable group request starting a blockwise transfer, followed by Non-confirmable Responses with the first block. The transfer continues over unicast exchanges"}
+{: #fig-exchange-example-blockwise title="Example of Non-confirmable group request starting a blockwise transfer, followed by Non-confirmable Responses with the first block. The transfer continues over confirmable unicast exchanges"}
 
 # Document Updates # {#sec-document-updates}
 
