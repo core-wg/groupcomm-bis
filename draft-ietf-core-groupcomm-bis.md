@@ -494,7 +494,7 @@ The following provides examples of methods to discover application groups and Co
 
 * A CoAP client can discover all the application groups associated to a specific CoAP group.
 
-   This is achieved by sending the GET request above to the IP multicast address of the CoAP group, and specifying a wildcarded name "g.*" as group name in the URI query parameter "rt". For example, the request can use a Group URI with path and query components "/.well-known/core?rt=g.*", so that the query matches any application group resource type. Alternatively, the request can use a Group URI with path and query components "/.well-known/core?href=/gp/*", so that the query matches any application group resource and also matches any sub-resources of it. 
+   This is achieved by sending the GET request above to the IP multicast address of the CoAP group, and specifying a wildcarded group type "g.*" as resource type in the URI query parameter "rt". For example, the request can use a Group URI with path and query components "/.well-known/core?rt=g.*", so that the query matches any application group resource type. Alternatively, the request can use a Group URI with path and query components "/.well-known/core?href=/gp/*", so that the query matches any application group resources and also matches any sub-resources of those. 
 
    Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of the specified CoAP group and have at least one application group associated to the CoAP group. That is, the client gains knowledge of: i) the set of servers that are members of the specified CoAP group and member of any of the associated application groups; ii) for each of those servers, the name of the application groups where the server is a member and that are associated to the CoAP group.
 
@@ -590,13 +590,13 @@ The following provides examples of methods to discover application groups and Co
    Content-Format: 40
    Payload:
    <coap://grp.example.org:5685/gp/gp1>;rt=g.temp,
-   <coap://grp.example.org:5685/gp/gp4>;rt=g.temp
+   <coap://grp.example.org:5685/gp/gp2>;rt=g.temp
 ~~~~~~~~~~~
 {: #fig-app-gp-discovery-example3 title="Discovery of members of application groups of a specified type, and of the associated CoAP group"}
 
 * A CoAP client can discover the CoAP servers that are members of any application group configured in the 6LoWPAN wireless mesh network of the client, the CoAP group associated to each application group, and optionally the resources that those servers host as members of the application group.
 
-   This is achieved by sending the GET request above with a query specifying a wildcarded group name in the URI query parameter for "rt". For example, a Group URI with path and query components "/.well-known/core?rt=g.*", so that the query matches any application group type.
+   This is achieved by sending the GET request above with a query specifying a wildcarded group type in the URI query parameter for "rt". For example, a Group URI with path and query components "/.well-known/core?rt=g.*", so that the query matches any application group type.
    The request is sent to the "All CoAP Nodes" IP multicast address (see {{Section 12.8 of RFC7252}}), with a particular chosen scope if IPv6 is used. In this example the scope is realm-local to address all servers in the current 6LoWPAN wireless mesh network of the client.
 
    Through the corresponding responses, the query result is a list of group resources hosted by any server in the mesh network. Each group resource denotes one application group membership of a server. The CoAP group per application group is obtained as the authority of each returned link.
@@ -640,12 +640,12 @@ The following provides examples of methods to discover application groups and Co
 
 Note that all the above examples are application-specific. That is, there is currently no standard way of encoding names of application groups and CoAP groups in group URIs and/or CoRE target attributes used with resource links. In particular, the discovery of groups through the RD mentioned in {{sssec-discovery-from-rd}} is only defined for use with an RD, i.e., not directly with CoAP servers as group members.
 
-For example, some applications may use the "rt" attribute on a parent resource to denote support for a particular REST API to access child resources, as detailed in the example in {{fig-app-gp-discovery-example5}}. In this example a custom Link Format attribute "gt" is used to denote the group type within the scope of the application/system.
+For example, some applications may use the "rt" attribute on a parent resource to denote support for a particular REST API to access child resources, as detailed in the example in {{fig-app-gp-discovery-example5}}. In this example a custom Link Format attribute "gpt" is used to denote the group type within the scope of the application/system. An alternative, shorter encoding (not shown in the figure) is to use only the value "1" for each "gpt" attribute, to denote that the resource is of type application group. In that case information about the semantics/API of the group resource is disclosed only via the "rt" attribute as shown in the figure.
 
 ~~~~~~~~~~~
 
    // Request to realm-local members of any application group
-   Req: GET coap://[ff03::fd]/.well-known/core?gt=*
+   Req: GET coap://[ff03::fd]/.well-known/core?gpt=*
 
    // Response from server S1, as member of:
    //   - The CoAP groups "grp.example.org:5685" and "grp2.example.org"
@@ -653,8 +653,8 @@ For example, some applications may use the "rt" attribute on a parent resource t
    Res: 2.05 Content
    Content-Format: 40
    Payload:
-   <coap://grp.example.org:5685/gp/gp1>;rt=oic.d.light;gt=light,
-   <coap://grp2.example.org/gp/gp5>;rt=oic.d.smartlock;gt=lock
+   <coap://grp.example.org:5685/gp/gp1>;rt=oic.d.light;gpt=light,
+   <coap://grp2.example.org/gp/gp5>;rt=oic.d.smartlock;gpt=lock
 
    // Response from server S2, as member of:
    //   - The CoAP group "grp.example.org:5685"
@@ -662,8 +662,8 @@ For example, some applications may use the "rt" attribute on a parent resource t
    Res: 2.05 Content
    Content-Format: 40
    Payload:
-   <coap://grp.example.org:5685/gp/gp1>;rt=oic.d.light;gt=light,
-   <coap://grp.example.org:5685/gp/gp2>;rt=oic.d.light;gt=light
+   <coap://grp.example.org:5685/gp/gp1>;rt=oic.d.light;gpt=light,
+   <coap://grp.example.org:5685/gp/gp2>;rt=oic.d.light;gpt=light
 
    // Response from server S3, as member of:
    //   - The CoAP group "grp2.example.org"
@@ -671,9 +671,9 @@ For example, some applications may use the "rt" attribute on a parent resource t
    Res: 2.05 Content
    Content-Format: 40
    Payload:
-   <coap://grp2.example.org/gp/gp5>;rt=oic.d.smartlock;gt=lock
+   <coap://grp2.example.org/gp/gp5>;rt=oic.d.smartlock;gpt=lock
 ~~~~~~~~~~~
-{: #fig-app-gp-discovery-example5 title="Example of using a 'gt' attribute to denote group type"}
+{: #fig-app-gp-discovery-example5 title="Example of using a custom 'gpt' link attribute to denote group type"}
 
 ### Group Maintenance ### {#sec-group-maintenance}
 Maintenance of a group includes any necessary operations to cope with changes in a system, such as: adding group members, removing group members, changing group security material, reconfiguration of UDP port and/or IP multicast address, reconfiguration of the group URI, renaming of application groups, splitting of groups, or merging of groups.
