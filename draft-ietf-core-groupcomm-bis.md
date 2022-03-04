@@ -134,7 +134,7 @@ This specification requires readers to be familiar with CoAP terminology {{RFC72
 
 In addition, the following terms are extensively used.
 
-* Group URI - This is defined as a CoAP URI that has the "coap" scheme and includes in the authority part either an IP multicast address or a group hostname (e.g., a Group Fully Qualified Domain Name (FQDN)) that can be resolved to an IP multicast address. A group URI also contains an optional UDP port number in the authority part. Group URIs follow the regular CoAP URI syntax (see {{Section 6 of RFC7252}}).
+* Group URI - This is defined as a CoAP URI that has the "coap" scheme and includes in the authority component either an IP multicast address or a group hostname (e.g., a Group Fully Qualified Domain Name (FQDN)) that can be resolved to an IP multicast address. A group URI also contains an optional UDP port number in the authority component. Group URIs follow the regular CoAP URI syntax (see {{Section 6 of RFC7252}}).
 
 * Security material - This refers to any security keys, counters or parameters stored in a device that are required to participate in secure group communication with other devices.
 
@@ -279,7 +279,7 @@ An application group can be named in many ways through different types of identi
 
 The following defines a number of possible methods to use. The shown examples consider a CoAP group identified by the group hostname grp.example.org. Its members are CoAP servers listening to the associated IP multicast address ff35:30:2001:db8:f1::8000:1 and port number 5685. 
 Note that a group hostname is used here to have better-readable examples: in practice, an implementation would likely use an IP address literal as the host component of the Group URI in order to reduce the size of the CoAP request. In particular, the Uri-Host Option can be 
-fully elided in this case. Also note that the Uri-Port Option does not appear in the examples, since the port number 5685 is already included in the UDP header of the CoAP request.
+fully elided in this case. Also note that the Uri-Port Option does not appear in the examples, since the port number 5685 is already included in the CoAP request's UDP header (which is not shown in the examples).
 
 An application group name can be explicitly encoded in a group URI. In such a case, it can be encoded within one of the following URI components.
 
@@ -287,7 +287,7 @@ An application group name can be explicitly encoded in a group URI. In such a ca
 
    A best practice for doing so is to use a URI path component such that: i) it includes a path segment as delimiter with a designated value, e.g., "gp", followed by ii) a path segment with value the name of the application group, followed by iii) the path segment(s) that identify the targeted resource within the application group. For example, both /gp/GROUPNAME/res1 and /base/gp/GROUPNAME/res1/res2 conform to this practice. Just like application group names, the path segment used as delimiter should be as short as possible in constrained networks.
    
-   A full-fledged example is provided in {{fig-gname-path-example}}.
+   A full-fledged example is provided in {{fig-gname-path-example}}. Another example of a compact CoAP request is provided in {{fig-gname-path-example-2}}, in which an IPv6 literal address and the default CoAP port 5683 are used in the authority component. Also the resource structure is different in this example.
 
 ~~~~~~~~~~~
  
@@ -303,7 +303,21 @@ An application group name can be explicitly encoded in a group URI. In such a ca
       Uri-Path: light
       Uri-Query: foo=bar
 ~~~~~~~~~~~
-{: #fig-gname-path-example title="Example of application group name in URI path"}
+{: #fig-gname-path-example title="Example of application group name in URI path 1/2"}
+
+~~~~~~~~~~~
+ 
+   Application group name: gp1
+
+   Group URI: coap://[ff35:30:2001:db8:f1::8000:1]/g/gp1/li
+
+   CoAP group request
+      Header: POST (T=NON, Code=0.02, MID=0x7d41)
+      Uri-Path: g
+      Uri-Path: gp1
+      Uri-Path: li
+~~~~~~~~~~~
+{: #fig-gname-path-example-2 title="Example of application group name in URI path 2/2"}
 
 * URI query component - This method can use the following formats. In either case,    when using this method in constrained networks, an application group name GROUPNAME should be as short as possible.
 
@@ -404,29 +418,9 @@ An application group name can be explicitly encoded in a group URI. In such a ca
 ~~~~~~~~~~~
 {: #fig-gname-post-example title="Example of application group name in URI port"}
 
-Alternatively, there are also methods to encode the application group name within the CoAP request, even though it is not encoded within the group URI. Examples of such methods are summarized below.
+Alternatively, there are also methods to encode the application group name within the CoAP request, even though it is not encoded within the group URI. An example of such method is summarized below.
 
-* The application group name can be encoded in a Uri-Host Option {{RFC7252}}, which the client adds to the CoAP request before sending it out.
-
-   Upon receiving the request as a member of the targeted CoAP group, each CoAP server decodes the Uri-Host Option and treats the result as an application group name. The servers can also treat that group name as a "virtual CoAP server" specific to that application group. This is consistent with the Uri-Host Option allowing support for multiple virtual servers hosted on the same port number. The net effect of both treatments is the same.
-   
-   A full-fledged example is provided in {{fig-gname-uri-host-option-example}}.
-
-~~~~~~~~~~~
- 
-   Application group name: grp1
-
-   Group URI: coap://[ff35:30:2001:db8:f1::8000:1]:5685/light?foo=bar
-
-   CoAP group request
-      Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp1
-      Uri-Path: light
-      Uri-Query: foo=bar
-~~~~~~~~~~~
-{: #fig-gname-uri-host-option-example title="Example of application group name in URI-Host Option"}
-
-* The application group name can be encoded in a new (custom, application-specific) CoAP Option, which the client adds to the CoAP request before sending it out.
+* The application group name can be encoded in a new (e.g. custom, application-specific) CoAP Option, which the client adds to the CoAP request before sending it out.
 
    Upon receiving the request as a member of the targeted CoAP group, each CoAP server would, by design, understand this Option, decode it and treat the result as an application group name.
    
@@ -443,9 +437,9 @@ Alternatively, there are also methods to encode the application group name withi
       Uri-Host: grp.example.org
       Uri-Path: light
       Uri-Query: foo=bar
-      App-Group-Name: grp1  // custom CoAP option
+      App-Group-Name: grp1  // new (e.g. custom) CoAP option
 ~~~~~~~~~~~
-{: #fig-gname-custom-option-example title="Example of application group name in a custom CoAP Option"}
+{: #fig-gname-custom-option-example title="Example of application group name in a new CoAP Option"}
 
 Furthermore, it is possible to encode the application group name neither in the group URI nor within a CoAP request, thus yielding the most compact representation on the wire. In this case, each CoAP server needs to determine the right application group based on contextual information, such as the client identity and/or the target resource. For example, each application group on a server could support a unique set of resources, such that it does not overlap with the set of resources of any other application group.
 
@@ -532,7 +526,7 @@ The following provides examples of methods to discover application groups and Co
 
    Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of the specified application group and for each application group the associated CoAP group. That is, the client gains knowledge of: i) the set of servers that are members of the specified application group and of the associated CoAP group; ii) for each of those servers, optionally the resources it hosts within the application group.
 
-   A full-fledged example is provided in {{fig-app-gp-discovery-example2}}. Note that the servers need to respond now with an absolute URI and not a relative URI like in the previous example, because the group resource "gp1" is hosted at the authority indicated by the CoAP group (grp.example.org:5685) and not by the authority that is serving the Link Format document (which is [ff03::fd]:5683).
+   A full-fledged example is provided in {{fig-app-gp-discovery-example2}}. Note that the servers need to respond now with an absolute URI and not a relative URI like in the previous example, because the group resource "gp1" is hosted at the authority indicated by the CoAP group (grp.example.org:5685) and not by the authority that is serving the Link Format document (which is \[ff03::fd\]:5683).
    
    If the client wishes to discover resources that a particular server hosts within a particular application group, it may use unicast discovery request(s) to this server.
 
@@ -749,7 +743,7 @@ Furthermore, building on what is defined in {{Section 8.2.1 of RFC7252}}:
 
 * A client sending a GET or FETCH group request MAY update a cache with the responses from the servers in the CoAP group. Then, the client uses both cached-still-fresh and new responses as the result of the group request.
 
-* A client sending a GET or FETCH group request MAY use a response received from a server, to satisfy a subsequent sent request intended to that server on the related unicast request URI. In particular, the unicast request URI is obtained by replacing the authority part of the request URI with the transport-layer source address of the cached response message.
+* A client sending a GET or FETCH group request MAY use a response received from a server, to satisfy a subsequent sent request intended to that server on the related unicast request URI. In particular, the unicast request URI is obtained by replacing the authority component of the request URI with the transport-layer source address of the cached response message.
 
 * A client MAY revalidate a cached response by making a GET or FETCH request on the related unicast request URI.
 
