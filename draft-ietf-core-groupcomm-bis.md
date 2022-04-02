@@ -483,7 +483,7 @@ The following provides examples of methods to discover application groups and Co
 
 * A CoAP client can discover all the application groups associated with a specific CoAP group.
 
-   This is achieved by sending the GET request above to the IP multicast address of the CoAP group, and specifying a wildcarded group type "g.*" as resource type in the URI query parameter "rt". For example, the request can use a Group URI with path and query components "/.well-known/core?rt=g.*", so that the query matches any application group resource type. Alternatively, the request can use a Group URI with path and query components "/.well-known/core?href=/gp/*", so that the query matches any application group resources and also matches any sub-resources of those. 
+   This is achieved by sending the GET request above to the IP multicast address of the CoAP group, and specifying a wildcarded group type "g.\*" as resource type in the URI query parameter "rt". For example, the request can use a Group URI with path and query components "/.well-known/core?rt=g.\*", so that the query matches any application group resource type. Alternatively, the request can use a Group URI with path and query components "/.well-known/core?href=/gp/\*", so that the query matches any application group resources and also matches any sub-resources of those. 
 
    Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of the specified CoAP group and have at least one application group associated with the CoAP group. That is, the client gains knowledge of: i) the set of servers that are members of the specified CoAP group and member of any of the associated application groups; ii) for each of those servers, the name of the application groups where the server is a member and that are associated with the CoAP group.
 
@@ -585,7 +585,7 @@ The following provides examples of methods to discover application groups and Co
 
 * A CoAP client can discover the CoAP servers that are members of any application group configured in the 6LoWPAN wireless mesh network of the client, the CoAP group associated with each application group, and optionally the resources that those servers host as members of the application group.
 
-   This is achieved by sending the GET request above with a query specifying a wildcarded group type in the URI query parameter for "rt". For example, a Group URI with path and query components "/.well-known/core?rt=g.*", so that the query matches any application group type.
+   This is achieved by sending the GET request above with a query specifying a wildcarded group type in the URI query parameter for "rt". For example, a Group URI with path and query components "/.well-known/core?rt=g.\*", so that the query matches any application group type.
    The request is sent to the "All CoAP Nodes" IP multicast address (see {{Section 12.8 of RFC7252}}), with a particular chosen scope if IPv6 is used. In this example the scope is realm-local to address all servers in the current 6LoWPAN wireless mesh network of the client.
 
    Through the corresponding responses, the query result is a list of group resources hosted by any server in the mesh network. Each group resource denotes one application group membership of a server. The CoAP group per application group is obtained as the authority of each returned link.
