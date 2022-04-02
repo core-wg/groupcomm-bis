@@ -1,24 +1,19 @@
 ---
+v: 3
+
 title: Group Communication for the Constrained Application Protocol (CoAP)
 abbrev: Group Communication for CoAP
 docname: draft-ietf-core-groupcomm-bis-latest
 
-# stand_alone: true
-
-ipr: trust200902
 area: Internet
 wg: CoRE Working Group
 kw: Internet-Draft
 cat: std
+submissiontype: IETF
 obsoletes: 7390
 updates: 7252, 7641
 
 coding: utf-8
-pi:    # can use array (if all yes) or hash here
-
-  toc: yes
-  sortrefs:   # defaults to yes
-  symrefs: yes
 
 author:
       -    
