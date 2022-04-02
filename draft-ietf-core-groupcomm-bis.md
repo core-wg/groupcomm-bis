@@ -202,7 +202,7 @@ Beyond this particular case, applications should be careful in associating a sam
 
 {{fig-group-relation}} summarizes the relations between the different types of groups described above in UML class diagram notation. The class attributes in square brackets are optionally defined.
 
-~~~~~~~~~~~
+~~~~~~~~~~~ aasvg
 +------------------------+                 +--------------------+
 |   Application group    |                 |    CoAP group      |
 |........................|                 |....................|
@@ -220,7 +220,7 @@ Beyond this particular case, applications should be careful in associating a sam
               |                           |   Security group      |
               |                           |.......................|
               |                           |                       |
-              \---------------------------+ - Security group name |
+              '---------------------------+ - Security group name |
                                    1...N  | - Security material   |
                                           |                       |
                                           +-----------------------+
@@ -229,9 +229,9 @@ Beyond this particular case, applications should be careful in associating a sam
 
 {{fig-group-relation-example}} provides a deployment example of the relations between the different types of groups. It shows six CoAP servers (Srv1-Srv6) and their respective resources hosted (/resX). There are three application groups (1, 2, 3) and two security groups (1, 2). Security Group 1 is used by both Application Group 1 and 2. Three clients (Cli1, Cli2, Cli3) are configured with security material for Security Group 1. Two clients (Cli2, Cli4) are  configured with security material for Security Group 2. All the shown application groups use the same CoAP group (not shown in the figure), i.e., one specific multicast IP address and UDP port number on which all the shown resources are hosted for each server.
 
-~~~~~~~~~~~
- ________________________________    _________________________________
-/                                \  /                                 \
+~~~~~~~~~~~ aasvg
+ .------------------------------.    .-------------------------------.
+|                                |  |                                 |
 |       +---------------------+  |  |  +---------------------+        |
 |       | Application Group 1 |  |  |  | Application Group 3 |  Cli2  |
 |       |                     |  |  |  |                     |        |
@@ -241,13 +241,13 @@ Beyond this particular case, applications should be careful in associating a sam
 |                                |  |  +---------------------+        |
 | Cli3     Security Group 1      |  |                                 |
 |                                |  |        Security Group 2         |
-|       +---------------------+  |  \_________________________________/
+|       +---------------------+  |   '-------------------------------'
 |       | Application Group 2 |  |
 |       |                     |  |
 |       | Srv1   Srv4         |  |
 |       | /resB  /resB        |  |
 |       +---------------------+  |
-\________________________________/
+ '------------------------------'
 ~~~~~~~~~~~
 {: #fig-group-relation-example title="Deployment Example of Different Group Types" artwork-align="center"}
 
