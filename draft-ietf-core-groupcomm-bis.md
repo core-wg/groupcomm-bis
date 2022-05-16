@@ -69,10 +69,8 @@ informative:
   I-D.ietf-ace-oauth-authz:
   I-D.ietf-ace-key-groupcomm-oscore:
   I-D.tiloca-core-oscore-discovery:
-  I-D.ietf-core-resource-directory:
   I-D.ietf-ace-oscore-gm-admin:
   I-D.ietf-core-coap-pubsub:
-  RFC9177:
   I-D.mattsson-t2trg-amplification-attacks:
   RFC6092:
   RFC6550:
@@ -84,6 +82,8 @@ informative:
   RFC7967:
   RFC8323:
   RFC8710:
+  RFC9176:
+  RFC9177:
   Californium:
     author:
       org: Eclipse Foundation
@@ -438,7 +438,7 @@ Alternatively, there are also methods to encode the application group name withi
 
 Furthermore, it is possible to encode the application group name neither in the group URI nor within a CoAP request, thus yielding the most compact representation on the wire. In this case, each CoAP server needs to determine the right application group based on contextual information, such as the client identity and/or the target resource. For example, each application group on a server could support a unique set of resources, such that it does not overlap with the set of resources of any other application group.
 
-Finally, Appendix A of {{I-D.ietf-core-resource-directory}} provides an example of an application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources it supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry. At the same time, the CoAP group is ff35:30:2001:db8:f1::8000:1 and the "NoSec" security group is used.
+Finally, Appendix A of {{RFC9176}} provides an example of an application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources it supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry. At the same time, the CoAP group is ff35:30:2001:db8:f1::8000:1 and the "NoSec" security group is used.
 
 #### Security Groups ### {#sec-groupnaming-sec}
 
@@ -463,7 +463,7 @@ The following describes how a CoAP endpoint can discover groups by different mea
 
 #### Discovery through a Resource Directory ### {#sssec-discovery-from-rd}
 
-It is possible for CoAP endpoints to discover application groups as well as CoAP groups, by using the RD-Groups usage pattern of the CoRE Resource Directory (RD), as defined in Appendix A of {{I-D.ietf-core-resource-directory}}.
+It is possible for CoAP endpoints to discover application groups as well as CoAP groups, by using the RD-Groups usage pattern of the CoRE Resource Directory (RD), as defined in Appendix A of {{RFC9176}}.
 
 In particular, an application group can be registered to the RD, specifying the reference IP multicast address of its associated CoAP group. The registration of groups to the RD is typically performed by a Commissioning Tool. Later on, CoAP endpoints can discover the registered application groups and related CoAP group(s), by using the lookup interface of the RD.
 
@@ -1016,7 +1016,7 @@ As defined in {{I-D.ietf-ace-oscore-gm-admin}}, an administrator entity can inte
 
 As recommended in {{I-D.ietf-core-oscore-groupcomm}}, a CoAP endpoint can join an OSCORE group by using the method described in {{I-D.ietf-ace-key-groupcomm-oscore}} and based on the ACE framework for Authentication and Authorization in constrained environments {{I-D.ietf-ace-oauth-authz}}.
 
-A CoAP endpoint can discover OSCORE groups and retrieve information to join them through their respective Group Managers by using the method described in {{I-D.tiloca-core-oscore-discovery}} and based on the CoRE Resource Directory {{I-D.ietf-core-resource-directory}}.
+A CoAP endpoint can discover OSCORE groups and retrieve information to join them through their respective Group Managers by using the method described in {{I-D.tiloca-core-oscore-discovery}} and based on the CoRE Resource Directory {{RFC9176}}.
 
 If security is required, CoAP group communication as described in this specification MUST use Group OSCORE. In particular, a CoAP group as defined in {{sec-groupdef}} and using secure group communication is associated with an OSCORE security group, which includes:
 
@@ -1147,7 +1147,7 @@ Moreover, it is especially easy to perform an amplification attack when the NoSe
 
 Exceptions should be carefully limited to use cases and accesses to a group resource that have a specific, narrow and well understood scope, and where only a few CoAP servers (or, ideally, only one) would possibly respond to a group request.
 
-A relevant exceptional example is a CoAP client performing the discovery of hosts such as a group manager or a Resource Directory {{I-D.ietf-core-resource-directory}}, by probing for them through a group request sent to the CoAP group. This early, unprotected step is relevant for a CoAP client that does not know the address of such hosts in advance, and that does not have yet configured a mutual security relation with them. In this kind of deployments, such a discovery procedure does not result in a considerable and harmful amplification, since only the few CoAP servers that are the object of discovery are going to respond to the group request targeting that specific resource. In particular, those hosts can be the only CoAP servers in that specific CoAP group (hence listening for group requests sent to that group), and/or the only CoAP servers explicitly configured to respond to group requests targeting specific group resources.
+A relevant exceptional example is a CoAP client performing the discovery of hosts such as a group manager or a Resource Directory {{RFC9176}}, by probing for them through a group request sent to the CoAP group. This early, unprotected step is relevant for a CoAP client that does not know the address of such hosts in advance, and that does not have yet configured a mutual security relation with them. In this kind of deployments, such a discovery procedure does not result in a considerable and harmful amplification, since only the few CoAP servers that are the object of discovery are going to respond to the group request targeting that specific resource. In particular, those hosts can be the only CoAP servers in that specific CoAP group (hence listening for group requests sent to that group), and/or the only CoAP servers explicitly configured to respond to group requests targeting specific group resources.
 
 With the exception of such particular use cases, group communications MUST be secured using Group OSCORE {{I-D.ietf-core-oscore-groupcomm}}, see {{chap-oscore}}. As discussed in {{chap-security-considerations-sec-mode-attacks}}, this limits the feasibility and impact of amplification attacks.
 
@@ -1238,7 +1238,7 @@ This document has no actions for IANA.
 To illustrate where and how CoAP-based group communication can be used, this section summarizes the most common use cases. These use cases include both secured and non-secured CoAP usage. Each subsection below covers one particular category of use cases for CoRE. Within each category, a use case may cover multiple application areas such as home IoT, commercial building IoT (sensing and control), industrial IoT/control, or environmental sensing.
 
 ## Discovery ##
-Discovery of physical devices in a network, or discovery of information entities hosted on network devices, are operations that are usually required in a system during the phases of setup or (re)configuration. When a discovery use case involves devices that need to interact without having been configured previously with a common security context, unsecured CoAP communication is typically used. Discovery may involve a request to a directory server, which provides services to aid clients in the discovery process. One particular type of directory server is the CoRE Resource Directory {{I-D.ietf-core-resource-directory}}; and there may be other types of directories that can be used with CoAP.
+Discovery of physical devices in a network, or discovery of information entities hosted on network devices, are operations that are usually required in a system during the phases of setup or (re)configuration. When a discovery use case involves devices that need to interact without having been configured previously with a common security context, unsecured CoAP communication is typically used. Discovery may involve a request to a directory server, which provides services to aid clients in the discovery process. One particular type of directory server is the CoRE Resource Directory {{RFC9176}}; and there may be other types of directories that can be used with CoAP.
 
 ### Distributed Device Discovery ### {#sec-uc-dd}
 Device discovery is the discovery and identification of networked devices -- optionally only devices of a particular class, type, model, or brand. Group communication is used for distributed device discovery, if a central directory server is not used. Typically in distributed device discovery, a multicast request is sent to a particular address (or address range) and multicast scope of interest, and any devices configured to be discoverable will respond back. For the alternative solution of centralized device discovery a central directory server is accessed through unicast, in which case group communication is not needed. This requires that the address of the central directory is either preconfigured in each device or configured during operation using a protocol.
@@ -1253,7 +1253,7 @@ In CoAP, services are represented as resources and service discovery is implemen
 ### Directory Discovery ### {#sec-uc-dirdiscovery}
 This use case is a specific subcase of Distributed Service Discovery ({{sec-uc-sd}}), in which a device needs to identify the location of a Directory on the network to which it
 can e.g., register its own offered services, or to which it can perform queries to identify and locate other devices/services it needs to access on
-the network. {{Section 3.3 of RFC7390}} showed an example of discovering a CoRE Resource Directory using CoAP group communication. As defined in {{I-D.ietf-core-resource-directory}}, a resource directory is a web entity that stores information about web resources and implements REST interfaces for registration and lookup of those resources. For example, a device can register itself to a resource directory to let it be found by other devices and/or applications.
+the network. {{Section 3.3 of RFC7390}} showed an example of discovering a CoRE Resource Directory using CoAP group communication. As defined in {{RFC9176}}, a resource directory is a web entity that stores information about web resources and implements REST interfaces for registration and lookup of those resources. For example, a device can register itself to a resource directory to let it be found by other devices and/or applications.
 
 ## Operational Phase ##
 Operational phase use cases describe those operations that occur most frequently in a networked system, during its operational lifetime and regular operation. Regular usage is when the applications on networked devices perform the tasks they were designed for and exchange of application-related data using group communication occurs. Processes like system reconfiguration, group changes, system/device setup, extra group security changes, etc. are not part of regular operation.
