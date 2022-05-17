@@ -1032,7 +1032,7 @@ As part of group maintenance operations (see {{sec-group-maintenance}}), additio
 
 * Adding new members to a CoAP group or enabling new client-only endpoints to interact with that group require also that each of such members/endpoints join the corresponding OSCORE group. When this happens, they are securely provided with the security material to use in that OSCORE group.
 
-   Applications may need backward security. That is, they may require that, after having joined an OSCORE group, a new group member cannot access messages exchanged in the group prior to its joining, even if it has recorded them.
+   Applications may need backward security. That is, they may require that, after having joined an OSCORE group, a new group member cannot read the cleartext of messages exchanged in the group prior to its joining, even if it has recorded them.
    
    In such a case, new security material to use in the OSCORE group has first to be generated and distributed to the current members of that group, before new endpoints are also provided with that new security material upon their joining.
 
