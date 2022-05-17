@@ -1204,7 +1204,7 @@ In a home automation scenario using Wi-Fi, Wi-Fi security
 
    A key additional threat consideration for group communication is
    pervasive monitoring {{RFC7258}}.  CoAP group communication solutions that are built on top
-   of IP multicast need to pay particular heed to these dangers.  This
+   of IP multicast need to pay particular attention to these dangers.  This
    is because IP multicast is easier to intercept compared to IP unicast.  Also, CoAP traffic is typically used for
    the Internet of Things.  This means that CoAP (multicast) group communication may be used for
    the control and monitoring of critical infrastructure (e.g., lights,
