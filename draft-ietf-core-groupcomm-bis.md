@@ -992,7 +992,7 @@ Before possibly and exceptionally using the NoSec mode, the security implication
 
 # Secured Group Communication using Group OSCORE # {#chap-oscore}
 
-This section defines how CoAP group communication can be secured. In particular, {{chap-group-oscore}} describes how the Group OSCORE security protocol {{I-D.ietf-core-oscore-groupcomm}} can be used to protect messages exchanged in a CoAP group, while {{chap-sec-group-maintenance}} provides guidance on required maintenance operations for OSCORE groups used as security groups.
+This section discusses how CoAP group communication can be secured. In particular, {{chap-group-oscore}} describes how the Group OSCORE security protocol {{I-D.ietf-core-oscore-groupcomm}} can be used to protect messages exchanged in a CoAP group, while {{chap-sec-group-maintenance}} provides guidance on required maintenance operations for OSCORE groups used as security groups.
 
 ## Group OSCORE # {#chap-group-oscore}
 
