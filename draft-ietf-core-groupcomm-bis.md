@@ -1291,13 +1291,13 @@ In {{fig-exchange-example}}, the client sends a Non-confirmable GET request to t
 Client              A  B  C
    |                |  |  |
    |  GET           |  |  |
-   +-------+------->|  |  |  Source: ADDR_CLIENT:PORT_CLIENT
-   |        \       |  |  |  Destination: ADDR_GRP:PORT_GRP
-   |         `.------->|  |  Header: GET (T=NON, Code=0.01, MID=0x7d41)
-   |           `.   |  |  |  Token: 0x86
-   |             `------->|  Uri-Path: "gp"
-   |                |  |  |  Uri-Path: "gp1"
-   |                |  |  |  Uri-Path: "temperature"
+   +-------+------->|  |  | Source: ADDR_CLIENT:PORT_CLIENT
+   |        \       |  |  | Destination: ADDR_GRP:PORT_GRP
+   |         `.------->|  | Header: GET (T=NON, Code=0.01, MID=0x7d41)
+   |           `.   |  |  | Token: 0x86
+   |             `------->| Uri-Path: "gp"
+   |                |  |  | Uri-Path: "gp1"
+   |                |  |  | Uri-Path: "temperature"
    |                |  |  |
    |<---------------+  |  | Source: ADDR_A:PORT_GRP
    |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
@@ -1327,14 +1327,14 @@ In {{fig-exchange-example-observe}}, the client sends a Non-confirmable GET requ
 Client              A  B  C
    |                |  |  |
    |  GET           |  |  |
-   +-------+------->|  |  |  Source: ADDR_CLIENT:PORT_CLIENT
-   |        \       |  |  |  Destination: ADDR_GRP:PORT_GRP
-   |         `.------->|  |  Header: GET (T=NON, Code=0.01, MID=0x7d41)
-   |           `.   |  |  |  Token: 0x86
-   |             `------->|  Observe: 0 (register)
-   |                |  |  |  Uri-Path: "gp"
-   |                |  |  |  Uri-Path: "gp1"
-   |                |  |  |  Uri-Path: "temperature"
+   +-------+------->|  |  | Source: ADDR_CLIENT:PORT_CLIENT
+   |        \       |  |  | Destination: ADDR_GRP:PORT_GRP
+   |         `.------->|  | Header: GET (T=NON, Code=0.01, MID=0x7d41)
+   |           `.   |  |  | Token: 0x86
+   |             `------->| Observe: 0 (register)
+   |                |  |  | Uri-Path: "gp"
+   |                |  |  | Uri-Path: "gp1"
+   |                |  |  | Uri-Path: "temperature"
    |                |  |  |
    |<---------------+  |  | Source: ADDR_A:PORT_GRP
    |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
@@ -1391,14 +1391,14 @@ In {{fig-exchange-example-blockwise}}, the client sends a Non-confirmable GET re
 Client              A  B  C
    |                |  |  |
    |  GET           |  |  |
-   +-------+------->|  |  |  Source: ADDR_CLIENT:PORT_CLIENT
-   |        \       |  |  |  Destination: ADDR_GRP:PORT_GRP
-   |         `.------->|  |  Header: GET (T=NON, Code=0.01, MID=0x7d41)
-   |           `.   |  |  |  Token: 0x86
-   |             `------->|  Uri-Path: "gp"
-   |                |  |  |  Uri-Path: "gp1"
-   |                |  |  |  Uri-Path: "log"
-   |                |  |  |  Block2: 0/0/64
+   +-------+------->|  |  | Source: ADDR_CLIENT:PORT_CLIENT
+   |        \       |  |  | Destination: ADDR_GRP:PORT_GRP
+   |         `.------->|  | Header: GET (T=NON, Code=0.01, MID=0x7d41)
+   |           `.   |  |  | Token: 0x86
+   |             `------->| Uri-Path: "gp"
+   |                |  |  | Uri-Path: "gp1"
+   |                |  |  | Uri-Path: "log"
+   |                |  |  | Block2: 0/0/64
    |                |  |  |   
    |<---------------+  |  | Source: ADDR_A:PORT_A
    |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
@@ -1531,6 +1531,10 @@ Client              A  B  C
 {:removeinrfc}
 
 RFC EDITOR: PLEASE REMOVE THIS SECTION.
+
+## Version -06 to -07 ## {#sec-06-07}
+
+* Editorial improvements.
 
 ## Version -05 to -06 ## {#sec-05-06}
 
