@@ -274,7 +274,7 @@ Examples of hierarchical CoAP group FQDN naming (and scoping) for a building con
 
 An application group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI or other types of string. The decision of whether and how exactly an application group name is encoded and transported is application specific.
 
-The following defines a number of possible methods to use. The shown examples consider a CoAP group identified by the group hostname grp.example.org. Its members are CoAP servers listening to the associated IP multicast address ff35:30:2001:db8:f1::8000:1 and port number 5685. 
+The following discusses a number of possible methods to use. The shown examples consider a CoAP group identified by the group hostname grp.example.org. Its members are CoAP servers listening to the associated IP multicast address ff35:30:2001:db8:f1::8000:1 and port number 5685. 
 Note that a group hostname is used here to have better-readable examples: in practice, an implementation would likely use an IP address literal as the host component of the Group URI in order to reduce the size of the CoAP request. In particular, the Uri-Host Option can be 
 fully elided in this case. Also note that the Uri-Port Option does not appear in the examples, since the port number 5685 is already included in the CoAP request's UDP header (which is not shown in the examples).
 
