@@ -501,7 +501,7 @@ The following provides examples of methods to discover application groups and Co
    // Response from server S1, as member of:
    //   - The CoAP group "grp.example.org:5685"
    //   - The application group "gp1"
-   Res: 2.05 Content
+   Res: 2.05 (Content)
    Content-Format: 40
    Payload:
    </gp/gp1>;rt=g.light
@@ -509,7 +509,7 @@ The following provides examples of methods to discover application groups and Co
    // Response from server S2, as member of:
    // - The CoAP group "grp.example.org:5685"
    // - The application groups "gp1" and "gp2"
-   Res: 2.05 Content
+   Res: 2.05 (Content)
    Content-Format: 40
    Payload:
    </gp/gp1>;rt=g.light,
@@ -535,7 +535,7 @@ The following provides examples of methods to discover application groups and Co
    // CoAP response from server S1, as member of:
    //   - The CoAP group "grp.example.org:5685"
    //   - The application group "gp1"
-   Res: 2.05 Content
+   Res: 2.05 (Content)
    Content-Format: 40
    Payload:
    <coap://grp.example.org:5685/gp/gp1>;rt=g.light
@@ -543,7 +543,7 @@ The following provides examples of methods to discover application groups and Co
    // CoAP response from server S2, as member of:
    // - The CoAP group "grp.example.org:5685"
    // - The application groups "gp1"
-   Res: 2.05 Content
+   Res: 2.05 (Content)
    Content-Format: 40
    Payload:
    <coap://grp.example.org:5685/gp/gp1>;rt=g.light
@@ -569,7 +569,7 @@ The following provides examples of methods to discover application groups and Co
    // Response from server S1, as member of:
    //   - The CoAP group "grp.example.org:5685"
    //   - The application group "gp1" of type "g.temp"
-   Res: 2.05 Content
+   Res: 2.05 (Content)
    Content-Format: 40
    Payload:
    <coap://grp.example.org:5685/gp/gp1>;rt=g.temp
@@ -577,7 +577,7 @@ The following provides examples of methods to discover application groups and Co
    // Response from server S2, as member of:
    //   - The CoAP group "grp.example.org:5685"
    //   - The application groups "gp1" and "gp2" of type "g.temp"
-   Res: 2.05 Content
+   Res: 2.05 (Content)
    Content-Format: 40
    Payload:
    <coap://grp.example.org:5685/gp/gp1>;rt=g.temp,
@@ -604,7 +604,7 @@ The following provides examples of methods to discover application groups and Co
    // Response from server S1, as member of:
    //   - The CoAP groups "grp.example.org:5685" and "grp2.example.org"
    //   - The application groups "gp1" and "gp5"
-   Res: 2.05 Content
+   Res: 2.05 (Content)
    Content-Format: 40
    Payload:
    <coap://grp.example.org:5685/gp/gp1>;rt=g.light,
@@ -613,7 +613,7 @@ The following provides examples of methods to discover application groups and Co
    // Response from server S2, as member of:
    //   - The CoAP group "grp.example.org:5685"
    //   - The application groups "gp1" and "gp2"
-   Res: 2.05 Content
+   Res: 2.05 (Content)
    Content-Format: 40
    Payload:
    <coap://grp.example.org:5685/gp/gp1>;rt=g.light,
@@ -622,7 +622,7 @@ The following provides examples of methods to discover application groups and Co
    // Response from server S3, as member of:
    //   - The CoAP group "grp2.example.org"
    //   - The application group "gp5"
-   Res: 2.05 Content
+   Res: 2.05 (Content)
    Content-Format: 40
    Payload:
    <coap://grp2.example.org/gp/gp5>;rt=g.lock
@@ -641,7 +641,7 @@ For example, some applications may use the "rt" attribute on a parent resource t
    // Response from server S1, as member of:
    //   - The CoAP groups "grp.example.org:5685" and "grp2.example.org"
    //   - The application groups "gp1" and "gp5"
-   Res: 2.05 Content
+   Res: 2.05 (Content)
    Content-Format: 40
    Payload:
    <coap://grp.example.org:5685/gp/gp1>;rt=oic.d.light;gpt=light,
@@ -650,7 +650,7 @@ For example, some applications may use the "rt" attribute on a parent resource t
    // Response from server S2, as member of:
    //   - The CoAP group "grp.example.org:5685"
    //   - The application groups "gp1" and "gp2"
-   Res: 2.05 Content
+   Res: 2.05 (Content)
    Content-Format: 40
    Payload:
    <coap://grp.example.org:5685/gp/gp1>;rt=oic.d.light;gpt=light,
@@ -659,7 +659,7 @@ For example, some applications may use the "rt" attribute on a parent resource t
    // Response from server S3, as member of:
    //   - The CoAP group "grp2.example.org"
    //   - The application group "gp5"
-   Res: 2.05 Content
+   Res: 2.05 (Content)
    Content-Format: 40
    Payload:
    <coap://grp2.example.org/gp/gp5>;rt=oic.d.smartlock;gpt=lock
@@ -684,14 +684,14 @@ How CoAP group messages are carried over various transport layers is the subject
 ### General ###
 A CoAP client is an endpoint able to transmit CoAP requests and receive CoAP responses. Since the underlying UDP transport supports multiplexing by means of UDP port number, there can be multiple independent CoAP clients operational on a single host. On each UDP port, an independent CoAP client can be hosted. Each independent CoAP client sends requests that use the associated endpoint's UDP port number as the UDP source port number of the request.
 
-All CoAP requests that are sent via IP multicast MUST be Non-confirmable, see {{Section 8.1 of RFC7252}}.  The Message ID in an IP multicast CoAP message is used for optional message deduplication by both clients and servers, as detailed in {{Section 4.5 of RFC7252}}. A server sends back a unicast response to a CoAP group request. The unicast responses received by the CoAP client may carry a mixture of success (e.g., 2.05 Content) and failure (e.g., 4.04 Not Found) response codes, depending on the individual server processing results.
+All CoAP requests that are sent via IP multicast MUST be Non-confirmable, see {{Section 8.1 of RFC7252}}.  The Message ID in an IP multicast CoAP message is used for optional message deduplication by both clients and servers, as detailed in {{Section 4.5 of RFC7252}}. A server sends back a unicast response to a CoAP group request. The unicast responses received by the CoAP client may carry a mixture of success (e.g., 2.05 (Content)) and failure (e.g., 4.04 (Not Found)) response codes, depending on the individual server processing results.
 
 ### Response Suppression ###  {#sec-request-response-suppress}
 A server MAY suppress its response for various reasons given in {{Section 8.2 of RFC7252}}. This document adds the requirement that a server SHOULD suppress the response in case of error or in case there is nothing useful to respond, unless the application related to a particular resource requires such a response to be made for that resource. 
 
 The CoAP No-Response Option {{RFC7967}} can be used by a client to influence the default response suppression on the server side. It is RECOMMENDED for a server to support this option only on selected resources where it is useful in the application context. If the option is supported on a resource, it MUST override the default response suppression of that resource.
 
-Any default response suppression by a server SHOULD be performed consistently, as follows: if a request on a resource produces a particular Response Code and this response is not suppressed, then another request on the same resource that produces a response of the same Response Code class is also not suppressed. For example, if a 4.05 Method Not Allowed error response code is suppressed by default on a resource, then a 4.15 Unsupported Content-Format error response code is also suppressed by default for that resource.
+Any default response suppression by a server SHOULD be performed consistently, as follows: if a request on a resource produces a particular Response Code and this response is not suppressed, then another request on the same resource that produces a response of the same Response Code class is also not suppressed. For example, if a 4.05 (Method Not Allowed) error response code is suppressed by default on a resource, then a 4.15 Unsupported Content-Format error response code is also suppressed by default for that resource.
 
 ### Repeating a Request ###
 A CoAP client MAY repeat a group request using the same Token value and same Message ID value, in order to ensure that enough (or all) group members have been reached with the request. This is useful in case a number of group members did not respond to the initial request and the client suspects that the request did not reach these group members. However, in case one or more servers did receive the initial request but the response to that request was lost, this repeat does not help to retrieve the lost response(s) if the server(s) implement the optional Message ID based deduplication ({{Section 4.5 of RFC7252}}).
@@ -848,7 +848,7 @@ For a reverse-proxy that sends a request to a group of servers, the consideratio
 
 * A client might re-use a Token value in a valid new request to the reverse-proxy, while the reverse-proxy still has an ongoing group communication request for this client with the same Token value (i.e., its time period for response collection has not ended yet).
 
-   If this happens, the reverse-proxy MUST stop the ongoing request and associated response forwarding, it MUST NOT forward the new request to the group of servers, and it MUST send a 4.00 Bad Request error response to the client. The diagnostic payload of the error response SHOULD indicate to the client that the resource is a reverse-proxy resource, and that for this reason immediate Token re-use is not possible.
+   If this happens, the reverse-proxy MUST stop the ongoing request and associated response forwarding, it MUST NOT forward the new request to the group of servers, and it MUST send a 4.00 (Bad Request) error response to the client. The diagnostic payload of the error response SHOULD indicate to the client that the resource is a reverse-proxy resource, and that for this reason immediate Token re-use is not possible.
 
    If the reverse-proxy supports the signalling protocol of {{I-D.tiloca-core-groupcomm-proxy}} it can include a Multicast-Signaling Option in the error response to convey the reason for the error in a machine-readable way.
 
@@ -885,7 +885,7 @@ The CoAP Observe Option {{RFC7641}} is a protocol extension of CoAP, which allow
 
 This section updates {{RFC7641}} with the use of the Observe Option in a CoAP GET group request, and defines normative behavior for both client and server. Consistent with {{Section 2.4 of RFC8132}}, the same rules apply when using the Observe Option in a CoAP FETCH group request.
 
-Multicast Observe is a useful way to start observing a particular resource on all members of a CoAP group at the same time. Group members that do not have this particular resource or do not allow the GET or FETCH method on it will either respond with an error status -- 4.04 Not Found or 4.05 Method Not Allowed, respectively -- or will silently suppress the response following the rules of {{sec-request-response-suppress}}, depending on server-specific configuration.
+Multicast Observe is a useful way to start observing a particular resource on all members of a CoAP group at the same time. Group members that do not have this particular resource or do not allow the GET or FETCH method on it will either respond with an error status -- 4.04 (Not Found) or 4.05 (Method Not Allowed), respectively -- or will silently suppress the response following the rules of {{sec-request-response-suppress}}, depending on server-specific configuration.
 
 A client that sends a group GET or FETCH request with the Observe Option MAY repeat this request using the same Token value and the same Observe Option value, in order to ensure that enough (or all) members of the CoAP group have been reached with the request. This is useful in case a number of group members did not respond to the initial request. The client MAY additionally use the same Message ID in the repeated request to avoid that group members that had already received the initial request would respond again. Note that using the same Message ID in a repeated request will not be helpful in case of loss of a response message, since the server that responded already will consider the repeated request as a duplicate message. On the other hand, if the client uses a different, fresh Message ID in the repeated request, then all the group members that receive this new message will typically respond again, which increases the network load.
 
@@ -1291,7 +1291,7 @@ This section provides examples of different message exchanges when CoAP is used 
 
 * Three servers A, B and C, all of which are members of the CoAP group above and of the application group "gp1". Each server X (with X equal to A, B or C): listens to its own address ADDR_X and port number PORT_X; and listens to the address ADDR_GRP and port number PORT_GRP. For each server its PORT_X may be different from PORT_GRP or may be equal to it, in general.
 
-In {{fig-exchange-example}}, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "temperature" in the application group "gp1". All servers reply with a 2.05 Content response, although the response from server B is lost. As source port number of their response, servers A and B use the destination port number of the request, i.e, PORT_GRP. Instead, server C uses its own port number PORT_C.
+In {{fig-exchange-example}}, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "temperature" in the application group "gp1". All servers reply with a 2.05 (Content) response, although the response from server B is lost. As source port number of their response, servers A and B use the destination port number of the request, i.e, PORT_GRP. Instead, server C uses its own port number PORT_C.
    
 ~~~~~~~~~~~
 Client              A  B  C
@@ -1327,7 +1327,7 @@ Client              A  B  C
 ~~~~~~~~~~~
 {: #fig-exchange-example title="Example of Non-confirmable group request, followed by Non-confirmable Responses"}
 
-In {{fig-exchange-example-observe}}, the client sends a Non-confirmable GET request to the CoAP group, targeting and requesting to observe the resource "temperature" in the application group "gp1". All servers reply with a 2.05 Content notification response. As source port number of their response, servers A and B use the destination port number of the request, i.e, PORT_GRP. Instead, server C uses its own port number PORT_C. Some time later, all servers send a 2.05 Content notification response, with the new representation of the "temperature" resource as payload.
+In {{fig-exchange-example-observe}}, the client sends a Non-confirmable GET request to the CoAP group, targeting and requesting to observe the resource "temperature" in the application group "gp1". All servers reply with a 2.05 (Content) notification response. As source port number of their response, servers A and B use the destination port number of the request, i.e, PORT_GRP. Instead, server C uses its own port number PORT_C. Some time later, all servers send a 2.05 (Content) notification response, with the new representation of the "temperature" resource as payload.
    
 ~~~~~~~~~~~
 Client              A  B  C
@@ -1391,7 +1391,7 @@ Client              A  B  C
 ~~~~~~~~~~~
 {: #fig-exchange-example-observe title="Example of Non-confirmable Observe group request, followed by Non-confirmable Responses as Observe notifications"}
 
-In {{fig-exchange-example-blockwise}}, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "log" in the application group "gp1", and requesting a blockwise transfer. All servers reply with a 2.05 Content response including the first block. As source port number of its response, each server uses its own port number. After obtaining the first block, the client requests the following blocks separately from each server, by means of unicast exchanges.
+In {{fig-exchange-example-blockwise}}, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "log" in the application group "gp1", and requesting a blockwise transfer. All servers reply with a 2.05 (Content) response including the first block. As source port number of its response, each server uses its own port number. After obtaining the first block, the client requests the following blocks separately from each server, by means of unicast exchanges.
    
 ~~~~~~~~~~~
 Client              A  B  C
