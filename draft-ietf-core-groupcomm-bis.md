@@ -834,7 +834,7 @@ In a group communication scenario, a reverse-proxy can rely on its configuration
 
 For example, specific resources on the reverse-proxy could be allocated, each to a specific application group and/or CoAP group. Or alternatively, the application group and/or CoAP group in question could be encoded as URI path segments. The URI path encodings for a reverse-proxy may also use a URI mapping template as described in {{Section 5.4 of RFC8075}}.
 
-Furthermore, the reverse-proxy can actually stand in for (and thus prevent directly reaching) only the whole set of servers in the group, or also for each of those individual servers (e.g., if acting as firewall).
+Furthermore, the reverse-proxy can actually stand in for (and thus prevent from directly reaching) only the whole set of servers in the group, or also for each of those individual servers (e.g., if acting as firewall).
 
 For a reverse-proxy that sends a request to a group of servers, the considerations as defined in {{Section 5.7.3 of RFC7252}} hold, with the following additions:
 
@@ -1091,7 +1091,7 @@ Group policies should also take into account the time that the key management sc
 
 That is, it may be desirable to not rekey the group upon every single membership change, in case members frequently joining and leaving, and at the same time a single group rekeying instance taking a non-negligible time to complete.
 
-In such a case, the Group Manager may cautiously consider to rekey the group, e.g., after a minimum number of nodes has joined or left the group within a pre-defined time interval, or according to communication patterns with predictable time intervals of network inactivity. This would prevent paralyzing communications in the group, when a slow rekeying scheme is used and frequently invoked.
+In such a case, the Group Manager may cautiously consider to rekey the group, e.g., after a minimum number of nodes has joined or left the group within a pre-defined time interval, or according to communication patterns with predictable time intervals of network inactivity. This would prevent from paralyzing communications in the group, when a slow rekeying scheme is used and frequently invoked.
 
 At the same time, the security implications of delaying the rekeying process have to be carefully considered and understood before employing such group policies.
 
