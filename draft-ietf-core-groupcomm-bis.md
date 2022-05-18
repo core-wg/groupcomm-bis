@@ -318,13 +318,9 @@ An application group name can be explicitly encoded in a group URI. In such a ca
 
 * URI query component -- This method can use the following formats. In either case,    when using this method in constrained networks, an application group name GROUPNAME should be as short as possible.
 
-   - As a first alternative, the URI query component consists of only one parameter, which has no value and has the name of the application group as its own identifier. That is, the query component ?GROUPNAME conforms to this format.
+   - As a first alternative, the URI query component consists of only one parameter, which has no value and has the name of the application group as its own identifier. That is, the query component ?GROUPNAME conforms to this format (see example in {{fig-gname-query1-example}}).
 
-      A full example is provided in {{fig-gname-query1-example}}.
-
-   - As a second alternative, the URI query component includes a query parameter as designated indicator, e.g., "gp", with value the name of the application group. That is, assuming "gp" to be used as designated indicator, both the query components ?gp=GROUPNAME and ?par1=v1&gp=GROUPNAME conform to this format.
-
-      A full example is provided in {{fig-gname-query2-example}}.
+   - As a second alternative, the URI query component includes a query parameter as designated indicator, e.g., "gp", with value the name of the application group. That is, assuming "gp" to be used as designated indicator, both the query components ?gp=GROUPNAME and ?par1=v1&gp=GROUPNAME conform to this format (see example in {{fig-gname-query2-example}}).
 
 ~~~~~~~~~~~
  
@@ -355,11 +351,9 @@ An application group name can be explicitly encoded in a group URI. In such a ca
 ~~~~~~~~~~~
 {: #fig-gname-query2-example title="Example of application group name in URI query (2/2)"}
    
-* URI authority component -- If this method is used, the application group is identified by the authority component as a whole.
+* URI authority component -- If this method is used, the application group is identified by the authority component as a whole (see example in {{fig-gname-auth-example}}).
 
    In particular, the application group has the same name of the CoAP group expressed by the group URI (see {{sec-groupnaming-coap}}). Thus, this method can only be used if there is a one-to-one mapping between CoAP groups and application groups (see {{sec-groupdef-grouprelations}}).
-
-   A full example is provided in {{fig-gname-auth-example}}.
 
 ~~~~~~~~~~~
  
@@ -375,11 +369,9 @@ An application group name can be explicitly encoded in a group URI. In such a ca
 ~~~~~~~~~~~
 {: #fig-gname-auth-example title="Example of application group name in URI authority"}
 
-* URI host subcomponent -- If this method is used, the application group is identified solely by the host subcomponent of the authority component.
+* URI host subcomponent -- If this method is used, the application group is identified solely by the host subcomponent of the authority component (see example in {{fig-gname-host-example}}).
 
    Since an application group can be associated with only one CoAP group (see {{sec-groupdef-grouprelations}}), using this method implies that any two CoAP groups cannot differ only by the port subcomponent of the URI authority component.
-
-   A full example is provided in {{fig-gname-host-example}}.
 
 ~~~~~~~~~~~
  
@@ -395,11 +387,9 @@ An application group name can be explicitly encoded in a group URI. In such a ca
 ~~~~~~~~~~~
 {: #fig-gname-host-example title="Example of application group name in URI host"}
 
-* URI port subcomponent -- By using this method, the application group is uniquely identified by the destination port number encoded in the port subcomponent of the authority component.
+* URI port subcomponent -- By using this method, the application group is uniquely identified by the destination port number encoded in the port subcomponent of the authority component (see example in {{fig-gname-post-example}}).
 
    Since an application group can be associated with only one CoAP group (see {{sec-groupdef-grouprelations}}), using this method implies that any two CoAP groups cannot differ only by their host subcomponent of the URI authority component.
-
-   A full example is provided in {{fig-gname-post-example}}.
 
 ~~~~~~~~~~~
  
@@ -417,11 +407,9 @@ An application group name can be explicitly encoded in a group URI. In such a ca
 
 Alternatively, there are also methods to encode the application group name within the CoAP request, even though it is not encoded within the group URI. An example of such a method is summarized below.
 
-* The application group name can be encoded in a new (e.g., custom, application-specific) CoAP Option, which the client adds to the CoAP request before sending it out.
+* The application group name can be encoded in a new (e.g., custom, application-specific) CoAP Option, which the client adds to the CoAP request before sending it out (see example in {{fig-gname-custom-option-example}}).
 
    Upon receiving the request as a member of the targeted CoAP group, each CoAP server would, by design, understand this Option, decode it and treat the result as an application group name.
-   
-   A full example is provided in {{fig-gname-custom-option-example}}.
 
 ~~~~~~~~~~~
  
