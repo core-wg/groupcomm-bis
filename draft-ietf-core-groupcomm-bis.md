@@ -783,7 +783,7 @@ Note: a legacy CoAP server might treat an ETag Option in a group request as an u
 
 
 ## URI Path Selection ##
-The URI Path used in a group request is preferably a path that is known to be supported across all group members. However, there are valid use cases where a group request is known to be successful only for a subset of the CoAP group, for example only members of a specific application group, while those group members for which the request is unsuccessful (for example because they are outside the application group) either ignore the group request or respond with an error status code.
+The URI Path used in a group request is preferably a path that is known to be supported across all group members. However, there are valid use cases where a group request is known to be successful only for a subset of the CoAP group, for example only members of a specific application group, while those group members for which the request is unsuccessful (for example because they are outside the application group) either ignore the group request or respond with an error status code (see also {{sec-request-response-suppress}} on response suppression).
 
 
 ## Port Selection for UDP Transport ##
