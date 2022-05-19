@@ -765,11 +765,11 @@ For validation at proxies, the validation model defined in {{I-D.tiloca-core-gro
 A client endpoint MAY include one or more ETag Options in a GET or FETCH group request to validate one or more stored responses it has cached. 
 In case two or more servers in the group have responded to a previous request to the same resource with an identical ETag value, it is the responsibility of the client to handle this case. In particular, if the client 
 wishes to validate, using a group request, a response from server 1 with an ETag value N, while it does not wish to validate a response from server 2 with the same ETag value N, there is no way to achieve this.
-In such cases of identical ETag values returned by two or more servers, the client, by default, SHOULD NOT include an ETag Option in a group request containing that ETag value.
+In such cases where an identical ETag value is returned by two or more servers, the client, by default, SHOULD NOT include an ETag Option containing that ETag value in a group request.
 
 A server endpoint MUST process an ETag Option in a GET or FETCH group request in the same way it processes an ETag Option for a unicast request.
 A server endpoint that includes an ETag Option in a response to a group request SHOULD construct the ETag Option value in such a way that the value
-will be unique to this particular server with a high probability. This can be done, for example, by embedding a compact ID of the server within the ETag value, where the ID is unique (or unique with a high probability) in the scope of the group.
+will be unique to this particular server with a high probability. This practically prevents a collision of the ETag values from different servers in the same application group, which in turn allows the client to effectively validate a particular response of an origin server. This can be accomplished, for example, by embedding a compact ID of the server within the ETag value, where the ID is unique (or unique with a high probability) in the scope of the group.
 
 Note: a legacy CoAP server might treat an ETag Option in a group request as an unrecognized option per {{Sections 5.4 and 8.2.1 of RFC7252}}, causing it to ignore this (elective) ETag Option regardless of its value, and process the request normally as if that ETag Option was not included.
 
@@ -1533,6 +1533,8 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 ## Version -06 to -07 ## {#sec-06-07}
 
 * Clarifications on response suppression.
+
+* Clarifications on response revalidation.
 
 * Revised list of references.
 
