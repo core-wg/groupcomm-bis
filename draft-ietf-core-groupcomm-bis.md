@@ -371,7 +371,7 @@ An application group name can be explicitly encoded in a group URI. In such a ca
 
 * URI host subcomponent -- If this method is used, the application group is identified solely by the host subcomponent of the authority component (see example in {{fig-gname-host-example}}).
 
-   Since an application group can be associated with only one CoAP group (see {{sec-groupdef-grouprelations}}), using this method implies that any two CoAP groups cannot differ only by the port subcomponent of the URI authority component.
+   Since an application group can be associated with only one CoAP group (see {{sec-groupdef-grouprelations}}), using this method implies that, given any two CoAP groups, the port subcomponent of the URI authority component MUST NOT be the only information distinguishing them.
 
 ~~~~~~~~~~~
  
