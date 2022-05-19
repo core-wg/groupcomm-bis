@@ -750,7 +750,7 @@ That is, a request is never served from cached responses only. This document upd
 
 * The client knows all current CoAP server group members; and, for each group member, the client's cache currently stores a fresh response.
 
-How the client in the case above determines the current CoAP server group members is out of scope for this document. It may be, for example, via a group manager server, or by observing group join requests, or observing IGMP/MLD multicast group join messages, etc.
+How the client in the case above determines the current CoAP server group members is out of scope for this document. It may be, for example, via a group manager server, or by monitoring group joining protocol exchanges.
 
 For caching at proxies, the freshness model defined in {{I-D.tiloca-core-groupcomm-proxy}}  can be used.
 
