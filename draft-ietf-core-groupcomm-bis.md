@@ -190,7 +190,7 @@ There can be a many-to-many relation between security groups and CoAP groups, bu
 A special security group named "NoSec" identifies group communication without any security at the transport layer nor at the CoAP layer. Further details on identifying a security group are provided in {{sec-groupnaming-sec}}.
 
 ### Relations Between Group Types ## {#sec-groupdef-grouprelations}
-Using the above group type definitions, a CoAP group communication message sent by an endpoint can be represented as a tuple that contains one instance of each group type:
+Using the above group type definitions, a CoAP group communication message sent by an endpoint can be associated with a tuple that contains one instance of each group type:
 
     (application group, CoAP group, security group)
 
