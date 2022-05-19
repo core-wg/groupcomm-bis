@@ -917,12 +917,7 @@ For a CoAP server node that supports resource discovery as defined in {{Section 
 
 Note that a client sending an IPv6 multicast CoAP message to a port number that is not supported by the server will not receive an ICMPv6 Port Unreachable error message from that server, because the server does not send it in this case, per {{Section 2.4 of RFC4443}}.
 
-### UDP/IPv4 Multicast Transport ###
-CoAP group communication can use UDP over IPv4 as a transport protocol, provided that IPv4 multicast is enabled. For a CoAP server node that supports resource discovery as defined in {{Section 2.4 of RFC7252}}, the default port number 5683 MUST be supported as per {{Sections 7.1 and 12.8 of RFC7252}}, for the "All CoAP Nodes" IPv4 multicast group.
-
-Note that a client sending an IPv4 multicast CoAP message to a port number that is not supported by the server will not receive an ICMP Port Unreachable error message from that server, because the server does not send it in this case, per {{Section 3.2.2 of RFC1122}}.
-
-### 6LoWPAN ### {#sec-6lowpan}
+### UDP/IPv6 Multicast Transport over 6LoWPAN ### {#sec-6lowpan}
 In 6LoWPAN {{RFC4944}} {{RFC6282}} networks, IPv6 packets (up to 1280 bytes) may be fragmented into smaller IEEE 802.15.4 MAC frames (up to 127 bytes), if the packet size requires this.
 
 Every 6LoWPAN IPv6 router that receives a multi-fragment packet reassembles the packet and refragments it upon transmission. Since the loss of a single fragment implies the loss of the entire IPv6 packet, the performance in terms of packet loss and throughput of multi-fragment multicast IPv6 packets is typically far worse than the performance of single-fragment IPv6 multicast packets. Moreover, unlike usually done for unicast packets, IEEE 802.15.4 radios cannot rely on acknowledgment frames to increase delivery reliability for multicast packets, thus further exacerbating the issue.
@@ -930,6 +925,11 @@ Every 6LoWPAN IPv6 router that receives a multi-fragment packet reassembles the 
 Due to the reasons above, a CoAP request sent over multicast in 6LoWPAN networks SHOULD be sized in such a way that it fits in a single IEEE 802.15.4 MAC frame, if possible.
 
 On 6LoWPAN networks, multicast groups can be defined with realm-local scope {{RFC7346}}. Such a realm-local group is restricted to the local 6LoWPAN network/subnet. In other words, a multicast request to that group does not propagate beyond the 6LoWPAN network segment where the request originated. For example, a multicast discovery request can be sent to the realm-local "All CoAP Nodes" IPv6 multicast group (see {{sec-udptransport}}) in order to discover only CoAP servers on the local 6LoWPAN network.
+
+### UDP/IPv4 Multicast Transport ###
+CoAP group communication can use UDP over IPv4 as a transport protocol, provided that IPv4 multicast is enabled. For a CoAP server node that supports resource discovery as defined in {{Section 2.4 of RFC7252}}, the default port number 5683 MUST be supported as per {{Sections 7.1 and 12.8 of RFC7252}}, for the "All CoAP Nodes" IPv4 multicast group.
+
+Note that a client sending an IPv4 multicast CoAP message to a port number that is not supported by the server will not receive an ICMP Port Unreachable error message from that server, because the server does not send it in this case, per {{Section 3.2.2 of RFC1122}}.
 
 ### Other Transports ###
 CoAP group communication may be used over transports other than UDP/IP multicast. For example broadcast, non-UDP multicast, geocast, serial unicast, etc. In such cases the particular considerations for UDP/IP multicast in this document may need to be applied to that particular transport. 
