@@ -436,7 +436,7 @@ Finally, Appendix A of {{RFC9176}} provides an example of an application group r
 
 A security group is identified by a stable and invariant string used as group name. This is generally not related to other kinds of group identifiers that may be specific of the used security solution.
 
-The name of a security group is not expected to be used in messages exchanged among its members, unless the application requires otherwise. At the same time, it can be used to identify the security group when performing a number of side tasks related to secure group communication, such as the following ones.
+The name of a security group is not expected to be used in messages exchanged among its members, unless the application requires otherwise. At the same time, it is useful to identify the security group when performing a number of side tasks related to secure group communication, such as the following ones.
 
 * An administrator may have to request for an authorization to configure security groups at an available Group Manager (see {{chap-oscore}}). During the authorization process, as well as during the interaction between the administrator and the Group Manager, the group name identifies the specific security group that the administrator wishes to configure and is authorized to.
 
