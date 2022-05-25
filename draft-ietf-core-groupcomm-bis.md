@@ -145,7 +145,7 @@ This document obsoletes and replaces {{RFC7390}} as follows.
 
 * It updates all the guidelines about using group communication for CoAP (see {{sec-coap-usage}}).
 
-* It strongly discourages unsecured group communication for CoAP based on the "NoSec" mode (see {{chap-unsecured-groupcomm}} and {{chap-security-considerations-nosec-mode}}) and highlights the risk of amplification attacks (see {{ssec-amplification}}).
+* It strongly discourages unsecured group communication for CoAP based on the CoAP NoSec (No Security) mode (see {{chap-unsecured-groupcomm}} and {{chap-security-considerations-nosec-mode}}) and highlights the risk of amplification attacks (see {{ssec-amplification}}).
 
 This document updates {{RFC7252}} as follows.
 
@@ -187,7 +187,9 @@ That is, a client endpoint needs to be a member of a security group in order to 
 
 There can be a many-to-many relation between security groups and CoAP groups, but often it is one-to-one. Also, there can be a many-to-many relation between security groups and application groups, but often it is one-to-one. Such relations are discussed in more detail in {{sec-groupdef-grouprelations}}.
 
-A special security group named "NoSec" identifies group communication without any security at the transport layer nor at the CoAP layer. Further details on identifying a security group are provided in {{sec-groupnaming-sec}}.
+Further details on identifying a security group are provided in {{sec-groupnaming-sec}}.
+
+If the NoSec mode is used, group communication does not rely on security at the transport layer nor at the CoAP layer, hence the communicating endpoints do not refer to a security group.
 
 ### Relations Between Group Types ## {#sec-groupdef-grouprelations}
 Using the above group type definitions, a CoAP group communication message sent by an endpoint can be associated with a tuple that contains one instance of each group type:
@@ -428,13 +430,13 @@ Alternatively, there are also methods to encode the application group name withi
 
 Furthermore, it is possible to encode the application group name neither in the group URI nor within a CoAP request, thus yielding the most compact representation on the wire. In this case, each CoAP server needs to determine the right application group based on contextual information, such as the client identity and/or the target resource. For example, each application group on a server could support a unique set of resources, such that it does not overlap with the set of resources of any other application group.
 
-Finally, Appendix A of {{RFC9176}} provides an example of an application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources it supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry. At the same time, the CoAP group is ff35:30:2001:db8:f1::8000:1 and the "NoSec" security group is used.
+Finally, Appendix A of {{RFC9176}} provides an example of an application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources it supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry, while the CoAP group ff35:30:2001:db8:f1::8000:1 is specified in the authority component of the URI encoded in the "base" attribute.
 
 #### Security Groups ### {#sec-groupnaming-sec}
 
-A security group is identified by a stable and invariant string used as group name. This is generally not related with other kinds of group identifiers that may be specific of the used security solution.
+A security group is identified by a stable and invariant string used as group name. This is generally not related to other kinds of group identifiers that may be specific of the used security solution.
 
-The "NoSec" security group name MUST be only used to represent the case of group communication without any security. This typically results in CoAP messages that do not include any security group name, identifier, or security-related data structures.
+It is discouraged to use "NoSec" and any of its lowercase/uppercase combinations as name of a security group. Indications that endpoints can use the NoSec mode MUST NOT rely on setting up and advertising a pseudo security group with name "NoSec" or any of its lowercase/uppercase combinations.
 
 ### Group Creation and Membership ### {#sssec-group-creation}
 To create a CoAP group, a configuring entity defines an IP multicast address (or hostname) for the group and optionally a UDP port number in case it differs from the default CoAP port number 5683. Then, it configures one or more devices as listeners to that IP multicast address, with a CoAP endpoint listening on the group's associated UDP port. These endpoints/devices are the group members.
@@ -447,7 +449,9 @@ To create an application group, a configuring entity may configure a resource (n
 
 To create a security group, a configuring entity defines an initial subset of the related security material. This comprises a set of group properties including the cryptographic algorithms and parameters used in the group, as well as additional information relevant throughout the group life-cycle, such as the security group name and description. This task MAY be entrusted to a dedicated administrator, that interacts with a Group Manager as defined in {{chap-oscore}}. After that, further security materials to protect group communications have to be generated, compatible with the specified group configuration.
 
-To participate in a security group, CoAP endpoints have to be configured with the group security material used to protect communications in the associated application/CoAP groups. The part of the process that involves secure distribution of group security material MAY use standardized communication with a Group Manager as defined in {{chap-oscore}}. For unsecure group communication using the "NoSec" security group, any CoAP endpoint may become a group member at any time: there is no configuring entity that needs to provide security material for this group, as there is no security material for it. This means that group creation and membership cannot be tightly controlled for the "NoSec" group.
+To participate in a security group, CoAP endpoints have to be configured with the group security material used to protect communications in the associated application/CoAP groups. The part of the process that involves secure distribution of group security material MAY use standardized communication with a Group Manager as defined in {{chap-oscore}}.
+
+For unsecure group communication using the NoSec mode, there is no security material to be provided, hence there is no security group for CoAP endpoints to participate in.
 
 The configuration of groups and membership may be performed at different moments in the life-cycle of a device. For example, it can occur during product (software) creation, in the factory, at a reseller, on-site during first deployment, or on-site during a system reconfiguration operation.
 
@@ -661,9 +665,9 @@ For example, some applications may use the "rt" attribute on a parent resource t
 ### Group Maintenance ### {#sec-group-maintenance}
 Maintenance of a group includes any necessary operations to cope with changes in a system, such as: adding group members, removing group members, changing group security material, reconfiguration of UDP port number and/or IP multicast address, reconfiguration of the group URI, renaming of application groups, splitting of groups, or merging of groups.
 
-For unsecured group communication (see {{chap-unsecured-groupcomm}}), i.e., the "NoSec" security group, addition/removal of CoAP group members is simply done by configuring these devices to start/stop listening to the group IP multicast address on the group's UDP port.
+For unsecured group communication (see {{chap-unsecured-groupcomm}}), i.e., when the NoSec mode is used, addition/removal of CoAP group members is simply done by configuring these devices to start/stop listening to the group IP multicast address on the group's UDP port.
 
-For secured group communication (see {{chap-oscore}}), the maintenance operations of the protocol Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} MUST be implemented. When using Group OSCORE, CoAP endpoints participating in group communication are also members of a corresponding OSCORE security group, and thus share common security material. Additional related maintenance operations are discussed in {{chap-sec-group-maintenance}}.
+For secured group communication (see {{chap-oscore}}), the maintenance operations of the protocol Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} MUST be implemented as well. When using Group OSCORE, CoAP endpoints participating in group communication are also members of a corresponding OSCORE security group, and thus share common security material. Additional related maintenance operations are discussed in {{chap-sec-group-maintenance}}.
 
 # CoAP Usage in Group Communication # {#sec-coap-usage}
 
@@ -986,7 +990,9 @@ For security and performance reasons also other filtering criteria may be define
 
 # Unsecured Group Communication # {#chap-unsecured-groupcomm}
 
-CoAP group communication can operate in CoAP NoSec (No Security) mode, without using application-layer and transport-layer security mechanisms. The NoSec mode uses the "coap" scheme, and is defined in {{Section 9 of RFC7252}}. The conceptual "NoSec" security group as defined in {{sec-groupdef}} is used for unsecured group communication.
+CoAP group communication can operate in CoAP NoSec (No Security) mode, without using application-layer and transport-layer security mechanisms. The NoSec mode uses the "coap" scheme, and is defined in {{Section 9 of RFC7252}}.
+
+The NoSec mode does not require and does not make use of a security group. Indications that endpoints can use the NoSec mode MUST NOT rely on setting up and advertising a pseudo security group with name NoSec or any of its lowercase/uppercase combinations.
 
 It is NOT RECOMMENDED to use CoAP group communication in NoSec mode, even in case of non-sensitive and non-critical applications.
 
@@ -1538,11 +1544,13 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 ## Version -06 to -07 ## {#sec-06-07}
 
-* Clarifications on response suppression.
+* Clarified response suppression.
 
-* Clarifications on response revalidation.
+* Clarified response revalidation.
 
-* Clarifications on limitations and peculiarities when using proxies.
+* Clarified limitations and peculiarities when using proxies.
+
+* Clarified use of the CoAP NoSec mode.
 
 * Revised list of references.
 
