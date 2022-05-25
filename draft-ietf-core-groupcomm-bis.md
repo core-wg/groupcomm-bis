@@ -436,6 +436,14 @@ Finally, Appendix A of {{RFC9176}} provides an example of an application group r
 
 A security group is identified by a stable and invariant string used as group name. This is generally not related to other kinds of group identifiers that may be specific of the used security solution.
 
+The name of a security group is not expected to be used in messages exchanged among its members, unless the application requires otherwise. At the same time, it can be used to identify the security group when performing a number of side tasks related to secure group communication, such as the following ones.
+
+* An administrator may have to request for an authorization to configure security groups at an available Group Manager (see {{chap-oscore}}). During the authorization process, as well as during the interaction between the administrator and the Group Manager, the group name identifies the specific security group that the administrator wishes to configure and is authorized to.
+
+* A CoAP endpoint may have to request for an authorization to join a specific security group through the respective Group Manager, and thus obtain the required group security material (see {{chap-oscore}}). During the authorization process, as well as during the interaction between the CoAP endpoint and the Group Manager, the group name identifies the specific security group that the CoAP endpoint wishes to join and is authorized to.
+
+* A CoAP endpoint may first need to discover the specific security groups to join through the respective Group Manager (see {{sssec-discovery-from-rd}}). Results from the discovery process include the name of the security groups to join, together with additional information such as a pointer to the respective Group Manager.
+
 It is discouraged to use "NoSec" and any of its lowercase/uppercase combinations as name of a security group. Indications that endpoints can use the NoSec mode MUST NOT rely on setting up and advertising a pseudo security group with name "NoSec" or any of its lowercase/uppercase combinations.
 
 ### Group Creation and Membership ### {#sssec-group-creation}
@@ -467,7 +475,7 @@ In particular, an application group can be registered to the RD, specifying the 
 
 When secure communication is provided with Group OSCORE (see {{chap-oscore}}), the approach described in {{I-D.tiloca-core-oscore-discovery}} also based on the RD can be used, in order to discover the security group to join.
 
-In particular, the responsible OSCORE Group Manager registers its security groups to the RD, as links to its own corresponding resources for joining the security groups {{I-D.ietf-ace-key-groupcomm-oscore}}. Later on, CoAP endpoints can discover the registered security groups and related application groups, by using the lookup interface of the RD, and then join the security group through the respective Group Manager.
+In particular, the responsible OSCORE Group Manager registers its security groups to the RD, as links to its own corresponding resources for joining the security groups {{I-D.ietf-ace-key-groupcomm-oscore}}. Later on, CoAP endpoints can discover the names of the registered security groups and related application groups, by using the lookup interface of the RD, and then join the security group through the respective Group Manager.
 
 #### Discovery from the CoAP Servers ### {#sssec-discovery-from-servers}
 
@@ -1543,6 +1551,8 @@ Client              A  B  C
 RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 ## Version -06 to -07 ## {#sec-06-07}
+
+* Clarified use of security group names.
 
 * Clarified response suppression.
 
