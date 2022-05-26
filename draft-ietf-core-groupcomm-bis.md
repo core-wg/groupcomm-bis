@@ -844,7 +844,7 @@ In a group communication scenario, a reverse-proxy can rely on its configuration
 
 For example, specific resources on the reverse-proxy could be allocated, each to a specific application group and/or CoAP group. Or alternatively, the application group and/or CoAP group in question could be encoded as URI path segments. The URI path encodings for a reverse-proxy may also use a URI mapping template as described in {{Section 5.4 of RFC8075}}.
 
-The reverse-proxy practically stands in for a CoAP group, thus preventing the client from reaching the group as a whole with a single group request directly addressed to that group (e.g., via multicast). In addition to that, the reverse-proxy may also stand in for each of the individual servers in the CoAP group (e.g, if acting as firewall), thus also preventing the client from individually reaching any server in the group with a unicast request directly addressed to that server.
+The reverse-proxy practically stands in for a CoAP group, thus preventing the client from reaching the group as a whole with a single group request directly addressed to that group (e.g., via multicast). In addition to that, the reverse-proxy may also stand in for each of the individual servers in the CoAP group (e.g., if acting as firewall), thus also preventing the client from individually reaching any server in the group with a unicast request directly addressed to that server.
 
 For a reverse-proxy that sends a request to a group of servers, the considerations as defined in {{Section 5.7.3 of RFC7252}} hold, with the following additions:
 
@@ -862,7 +862,7 @@ For a reverse-proxy that sends a request to a group of servers, the consideratio
 
    If the reverse-proxy supports the signalling protocol of {{I-D.tiloca-core-groupcomm-proxy}} it can include a Multicast-Signaling Option in the error response to convey the reason for the error in a machine-readable way.
 
-For the operation of HTTP-to-CoAP reverse proxies, see the last paragraph of {{sec-proxy-forward}} which applies also to the case of reverse-proxies.
+For the operation of HTTP-to-CoAP reverse proxies, see the last two paragraphs of {{sec-proxy-forward}} which applies also to the case of reverse-proxies.
 
 ## Congestion Control ## {#sec-congestion}
 CoAP group requests may result in a multitude of responses from different nodes, potentially causing congestion. Therefore, both the sending of CoAP group requests and the sending of the unicast CoAP responses to these group requests should be conservatively controlled.
