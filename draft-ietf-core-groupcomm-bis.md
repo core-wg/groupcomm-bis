@@ -801,8 +801,7 @@ For a CoAP server node that supports resource discovery as defined in {{Section 
 
 ## Proxy Operation ## {#sec-proxy}
 
-This section defines how proxies operate in a group communication scenario. In particular, {{sec-proxy-forward}} defines operations of forward-proxies, while {{sec-proxy-reverse}} defines operations of reverse-proxies.
-Security operations for a proxy are discussed later in {{chap-proxy-security}}.
+This section defines how proxies operate in a group communication scenario. In particular, {{sec-proxy-forward}} defines operations of forward-proxies, while {{sec-proxy-reverse}} defines operations of reverse-proxies. Furthermore, {{multicasting-to-proxies}} discusses the case where a client sends a group request to multiple proxies at once. Security operations for a proxy are discussed later in {{chap-proxy-security}}.
 
 ### Forward-Proxies ### {#sec-proxy-forward}
 
@@ -864,6 +863,26 @@ For a reverse-proxy that sends a request to a group of servers, the consideratio
 
 For the operation of HTTP-to-CoAP reverse proxies, see the last two paragraphs of {{sec-proxy-forward}} which applies also to the case of reverse-proxies.
 
+### Single Group Request to Multiple Proxies ### {#multicasting-to-proxies}
+
+A client might send a group request to multiple proxies at once (e.g., over IP multicast), so that each and every of those proxies forwards it to the group of servers. Assuming that no message loss occurs and that N proxies receive and forward the group request, this has the following implications.
+
+* Each server receives N copies of the group request, i.e., one copy from each proxy.
+
+* If the NoSec mode is used, each server treats each received copy of the group request as a different request from a different client. Consistently:
+
+   - Each server can reply to each of the N received requests with multiple responses over time (see {{sec-request-response-multi}}). All the responses to the same received request are sent to the same proxy that has forwarded that request, which in turn relays those responses to the client.
+   
+   - From each proxy, the client receives all the responses to the group request that each server has sent to that proxy. Even in case the client is able to distinguish the different servers originating the responses (e.g., by using the approach defined in {{I-D.tiloca-core-groupcomm-proxy}}), the client would receive the same response content originated by each server N times, as relayed by the N proxies.
+
+* If secure group communication with Group OSCORE is used, each server is able to determine that each received copy of the group request is in fact originated by the same client. In particular, each server is able to determine that all such received requests are copies of exactly the same group request.
+
+   Consistently, each server S accepts only the first copy of the group request received from one of the proxies, say P, while discarding as replay any later copies received from any other proxy.
+   
+   After that, the server S can reply to the accepted request with multiple responses over time (see {{sec-request-response-multi}}). All those responses are sent to the same proxy P that forwarded the only accepted request, and that in turn relays those responses to the client.
+   
+   As a consequence, for each server, the client receives responses originated by that server only from one proxy. That is, the client receives a certain response content only once, like in the case with only one proxy.
+   
 ## Congestion Control ## {#sec-congestion}
 CoAP group requests may result in a multitude of responses from different nodes, potentially causing congestion. Therefore, both the sending of CoAP group requests and the sending of the unicast CoAP responses to these group requests should be conservatively controlled.
 
@@ -1559,6 +1578,8 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 * Clarified response revalidation.
 
 * Clarified limitations and peculiarities when using proxies.
+
+* Discussed the case of group request sent to multiple proxies at once.
 
 * Clarified use of the CoAP NoSec mode.
 
