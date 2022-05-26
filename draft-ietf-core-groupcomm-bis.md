@@ -153,6 +153,8 @@ This document updates {{RFC7252}} as follows.
 
 * It updates the freshness model and validation model to use for cached responses (see {{sec-caching-freshness}} and {{sec-caching-validation}}).
 
+* It defines the measures against congestion risk specified in {{RFC7252}} to be applicable also to alternative transports other than IP multicast, and defines additional guidelines to reduce congestion risks (see {{sec-congestion}}).
+
 This document updates {{RFC7641}} as follows.
 
 * It defines the use of the CoAP Observe Option in group requests, for both the GET method and the FETCH method {{RFC8132}}, together with normative behavior for both CoAP clients and CoAP servers (see {{sec-observe}}).
@@ -872,17 +874,17 @@ A client might send a group request to multiple proxies at once (e.g., over IP m
 * If the NoSec mode is used, each server treats each received copy of the group request as a different request from a different client. Consistently:
 
    - Each server can reply to each of the N received requests with multiple responses over time (see {{sec-request-response-multi}}). All the responses to the same received request are sent to the same proxy that has forwarded that request, which in turn relays those responses to the client.
-   
+
    - From each proxy, the client receives all the responses to the group request that each server has sent to that proxy. Even in case the client is able to distinguish the different servers originating the responses (e.g., by using the approach defined in {{I-D.tiloca-core-groupcomm-proxy}}), the client would receive the same response content originated by each server N times, as relayed by the N proxies.
 
 * If secure group communication with Group OSCORE is used, each server is able to determine that each received copy of the group request is in fact originated by the same client. In particular, each server is able to determine that all such received requests are copies of exactly the same group request.
 
    Consistently, each server S accepts only the first copy of the group request received from one of the proxies, say P, while discarding as replay any later copies received from any other proxy.
-   
+
    After that, the server S can reply to the accepted request with multiple responses over time (see {{sec-request-response-multi}}). All those responses are sent to the same proxy P that forwarded the only accepted request, and that in turn relays those responses to the client.
-   
+
    As a consequence, for each server, the client receives responses originated by that server only from one proxy. That is, the client receives a certain response content only once, like in the case with only one proxy.
-   
+
 ## Congestion Control ## {#sec-congestion}
 CoAP group requests may result in a multitude of responses from different nodes, potentially causing congestion. Therefore, both the sending of CoAP group requests and the sending of the unicast CoAP responses to these group requests should be conservatively controlled.
 
@@ -899,7 +901,8 @@ CoAP {{RFC7252}} reduces IP multicast-specific congestion risks through the foll
 * A server does not respond immediately to an IP multicast request and should first wait for a time that is randomly picked within a predetermined time interval called the Leisure ({{Section 8.2 of RFC7252}}).
 
 This document also defines these measures to be applicable to alternative transports (other than IP multicast), if not defined otherwise.
-Additional guidelines to reduce congestion risks defined in this document are as follows:
+
+Independently of the used transport, additional guidelines to reduce congestion risks defined in this document are as follows:
 
 * A server in a constrained network SHOULD only support group requests for resources that have a small representation (where the representation may be retrieved via a GET, FETCH or POST method in the request). For example, "small" can be defined as a response payload limited to approximately 5% of the IP Maximum Transmit Unit (MTU) size, so that it fits into a single link-layer frame in case IPv6 over Low-Power Wireless Personal Area Networks (6LoWPAN, see {{sec-6lowpan}}) is used on the constrained network.
 
@@ -1570,6 +1573,8 @@ Client              A  B  C
 RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 ## Version -06 to -07 ## {#sec-06-07}
+
+* Updated list of changes to other documents.
 
 * Clarified use of security group names.
 
