@@ -1576,6 +1576,8 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 * Updated list of changes to other documents.
 
+* Added real-life context and clarifications to examples.
+
 * Clarified use of security group names.
 
 * Clarified response suppression.
