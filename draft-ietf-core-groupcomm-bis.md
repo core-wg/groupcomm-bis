@@ -20,7 +20,6 @@ author:
         ins: E. Dijk
         name: Esko Dijk
         org:    IoTconsultancy.nl
-        street: \________________\
         city: Utrecht
         country: Netherlands
         email: esko.dijk@iotconsultancy.nl
