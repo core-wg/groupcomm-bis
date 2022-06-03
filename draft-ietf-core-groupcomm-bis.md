@@ -70,6 +70,7 @@ informative:
   I-D.tiloca-core-oscore-discovery:
   I-D.ietf-ace-oscore-gm-admin:
   I-D.ietf-core-coap-pubsub:
+  I-D.ietf-core-transport-indication:
   I-D.mattsson-t2trg-amplification-attacks:
   RFC6092:
   RFC6550:
@@ -970,10 +971,16 @@ CoAP group communication can use UDP over IPv4 as a transport protocol, provided
 
 Note that a client sending an IPv4 multicast CoAP message to a port number that is not supported by the server will not receive an ICMP Port Unreachable error message from that server, because the server does not send it in this case, per {{Section 3.2.2 of RFC1122}}.
 
+### TCP, TLS and WebSockets ###
+
+Because it supports unicast only, {{RFC8323}} (CoAP over TCP, TLS and WebSockets) has a restricted scope as a transport for CoAP group communication. This is limited to the use of block-wise transfer discussed in {{sec-block-wise}}.
+
+That is, after the first group request including the Block2 Option and sent over UDP, the following unicast CoAP requests targeting individual servers to retrieve further blocks may be sent over TCP or WebSockets, possibly protected with TLS.
+
+This requires the individually addressed servers to also support CoAP over TCP/TLS/WebSockests for the targeted resource. A server can indicate its support for multiple alternative transports, and practically enable access to its resources through either of them, by using the method defined in {{I-D.ietf-core-transport-indication}}.
+
 ### Other Transports ###
 CoAP group communication may be used over transports other than UDP/IP multicast. For example broadcast, non-UDP multicast, geocast, serial unicast, etc. In such cases the particular considerations for UDP/IP multicast in this document may need to be applied to that particular transport.
-
-Because it supports unicast only, {{RFC8323}} (CoAP over TCP, TLS, and WebSockets) is not in scope as a transport for CoAP group communication.
 
 ## Interworking with Other Protocols ## {#sec-other-protocols}
 
@@ -1578,6 +1585,8 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 * Clarified limitations and peculiarities when using proxies.
 
 * Discussed the case of group request sent to multiple proxies at once.
+
+* Discussed limited use of reliable transports with block-wise transfer.
 
 * Clarified use/avoidance of the CoAP NoSec mode.
 
