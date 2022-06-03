@@ -1021,11 +1021,13 @@ For security and performance reasons also other filtering criteria may be define
 
 CoAP group communication can operate in CoAP NoSec (No Security) mode, without using application-layer and transport-layer security mechanisms. The NoSec mode uses the "coap" scheme, and is defined in {{Section 9 of RFC7252}}.
 
-The NoSec mode does not require and does not make use of a security group. Indications that endpoints can use the NoSec mode MUST NOT rely on setting up and advertising a pseudo security group with name NoSec or any of its lowercase/uppercase combinations.
+The NoSec mode does not require and does not make use of a security group. Indications that endpoints can use the NoSec mode MUST NOT rely on setting up and advertising a pseudo security group with name "NoSec" or any of its lowercase/uppercase combinations.
 
-It is NOT RECOMMENDED to use CoAP group communication in NoSec mode, even in case of non-sensitive and non-critical applications.
+It is NOT RECOMMENDED to use CoAP group communication in NoSec mode.
 
-Before possibly and exceptionally using the NoSec mode, the security implications in {{chap-security-considerations-nosec-mode}} must be very well considered and understood, especially as to the risk and impact of amplification attacks (see {{ssec-amplification}}).
+The possible, exceptional use of the NoSec mode ought to be limited to non-sensitive and non-critical applications for which it is relevant, such as early discovery of devices and resources (see {{chap-security-considerations-nosec-mode}}).
+
+Before possibly and exceptionally using the NoSec mode in such applications, the security implications in {{chap-security-considerations-nosec-mode}} must be very well considered and understood, especially as to the risk and impact of amplification attacks (see {{ssec-amplification}}). Consistently with such security implications, the use of the NoSec mode should still be avoided whenever possible.
 
 # Secured Group Communication using Group OSCORE # {#chap-oscore}
 
@@ -1102,9 +1104,11 @@ This section provides security considerations for CoAP group communication, in g
 
 CoAP group communication, if not protected, is vulnerable to all the attacks mentioned in {{Section 11 of RFC7252}} for IP multicast. Moreover, as also discussed in {{I-D.mattsson-t2trg-amplification-attacks}}, the NoSec mode is susceptible to source IP address spoofing, hence amplification attacks are especially feasible and greatly effective, since a single request can result in multiple responses from multiple servers (see {{ssec-amplification}}).
 
-Therefore, even in case of non-sensitive and non-critical applications, it is generally NOT RECOMMENDED to use CoAP group communication in NoSec mode, also in order to prevent an easy proliferation of high-volume amplification attacks as further discussed in {{ssec-amplification}}.
+Therefore, it is generally NOT RECOMMENDED to use CoAP group communication in NoSec mode, also in order to prevent an easy proliferation of high-volume amplification attacks as further discussed in {{ssec-amplification}}.
 
-Exceptionally, early discovery of devices and resources is a typical use case where NoSec mode is applied. In such a situation, the querying devices do not have yet configured any mutual security relations at the time they perform the discovery. Also, high-volume and harmful amplifications can be prevented through appropriate and conservative configurations, since only a few CoAP servers are expected to be configured for responding to the group requests sent for discovery (see {{ssec-amplification}}).
+Exceptionally, and only after the security implications have been very well considered and understood, some non-sensitive and non-critical applications may rely on a limited and well-defined use of the NoSec mode.
+
+For example, early discovery of devices and resources is a typical use case where the NoSec mode is relevant to use. In such a situation, the querying devices do not have yet configured any mutual security relations at the time they perform the discovery. Also, high-volume and harmful amplifications can be prevented through appropriate and conservative configurations, since only a few CoAP servers are expected to be configured for responding to the group requests sent for discovery (see {{ssec-amplification}}).
 
 CoAP group communication in NoSec mode SHOULD NOT be deployed for sensitive and mission-critical applications (e.g., health monitoring systems and alarm monitoring systems).
 
@@ -1575,7 +1579,7 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 * Discussed the case of group request sent to multiple proxies at once.
 
-* Clarified use of the CoAP NoSec mode.
+* Clarified use/avoidance of the CoAP NoSec mode.
 
 * Revised list of references.
 
