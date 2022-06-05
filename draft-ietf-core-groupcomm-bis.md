@@ -148,6 +148,8 @@ This document obsoletes and replaces {{RFC7390}} as follows.
 
 * It strongly discourages unsecured group communication for CoAP based on the CoAP NoSec (No Security) mode (see {{chap-unsecured-groupcomm}} and {{chap-security-considerations-nosec-mode}}) and highlights the risk of amplification attacks (see {{ssec-amplification}}).
 
+* It updates all sections on transport protocols and interworking with other protocols based on new IETF work done for these protocols.
+
 This document updates {{RFC7252}} as follows.
 
 * It updates the request/response model for group communication, as to response suppression (see {{sec-request-response-suppress}}) and token reuse time (see {{sec-token-reuse}}).
