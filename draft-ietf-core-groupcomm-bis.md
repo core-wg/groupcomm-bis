@@ -72,6 +72,7 @@ informative:
   I-D.ietf-core-coap-pubsub:
   I-D.ietf-core-transport-indication:
   I-D.mattsson-t2trg-amplification-attacks:
+  I-D.ietf-6lo-multicast-registration:
   RFC6092:
   RFC6550:
   RFC6636:
@@ -987,14 +988,13 @@ CoAP group communication may be used over transports other than UDP/IP multicast
 ### MLD/MLDv2/IGMP/IGMPv3 ###
 <!-- Section 4.2 of {{RFC7390}} has the original content -->
 
-CoAP nodes that are IP hosts (i.e., not IP routers) are generally unaware of the specific IP multicast routing/forwarding protocol
-being used in their network.  When such a host needs to join a specific (CoAP) multicast group, it requires a way to signal to IP multicast routers
-which IP multicast address(es) it needs to listen to.
+A CoAP node that is an IP host (i.e., not an IP router) may be unaware of the specific IP multicast routing/forwarding protocol
+being used in its network.  When such a node needs to join a specific (CoAP) multicast group, the application process would typically subscribe to the particular IP multicast group via an API method of the IP stack on the node. Then the IP stack would execute a particular (e.g. default) method to communicate its subscription to on-link IP (multicast) routers. 
 
-The MLDv2 protocol {{RFC3810}} is the standard IPv6 method to achieve this; therefore, this method SHOULD be used by members of a CoAP group to subscribe to its multicast IPv6 address, on IPv6 networks that support it. CoAP server nodes then act in the role of MLD Multicast Address Listener. MLDv2 uses link-local communication between Listeners and IP multicast routers. Constrained IPv6 networks that implement either RPL (see {{sec-rpl}}) or MPL (see {{sec-mpl}}) typically
+The MLDv2 protocol {{RFC3810}} is the standard IPv6 method to communicate multicast subscriptions, when other methods are not defined. The CoAP server nodes then act in the role of MLD Multicast Address Listener. MLDv2 uses link-local communication between Listeners and IP multicast routers. Constrained IPv6 networks such as ones implementing either RPL (see {{sec-rpl}}) or MPL (see {{sec-mpl}}) typically
 do not support MLDv2 as they have their own mechanisms defined for subscribing to multicast groups.
 
-The IGMPv3 protocol {{RFC3376}} is the standard IPv4 method to signal multicast group subscriptions. This SHOULD be used by members of a CoAP group to subscribe to its multicast IPv4 address on IPv4 networks.
+The IGMPv3 protocol {{RFC3376}} is the standard IPv4 method to signal multicast group subscriptions. This SHOULD be used by members of a CoAP group to subscribe to its multicast IPv4 address on IPv4 networks unless another method is defined for the network interface/technology used.
 
 The guidelines from {{RFC6636}} on the tuning of MLD for mobile and wireless networks may be useful when implementing MLD in constrained networks.
 
@@ -1010,6 +1010,8 @@ RPL supports (see {{Section 12 of RFC6550}}) advertisement of IP multicast desti
 In this mode, RPL DAO can be used by a CoAP node that is either an RPL router or RPL Leaf Node, to advertise its CoAP group membership to parent RPL routers. Then, RPL will route any IP multicast CoAP requests over multiple hops to those CoAP servers that are group members.
 
 The same DAO mechanism can be used to convey CoAP group membership information to an edge router (e.g., 6LBR), in case the edge router is also the root of the RPL Destination-Oriented Directed Acyclic Graph (DODAG). This is useful because the edge router then learns which IP multicast traffic it needs to pass through from the backbone network into the LLN subnet, and which traffic not.  In LLNs, such ingress filtering helps to avoid congestion of the resource-constrained network segment, due to IP multicast traffic from the high-speed backbone IP network.
+
+See {{draft-ietf-6lo-multicast-registration}} for more details on subscribing to IPv6 multicast in RPL networks.
 
 ### MPL ### {#sec-mpl}
 The Multicast Protocol for Low-Power and Lossy Networks (MPL) {{RFC7731}} can be used for propagation of IPv6 multicast packets throughout a defined network domain, over multiple hops.  MPL is designed to work in LLNs and can operate alone or in combination with RPL. The protocol involves a predefined group of MPL Forwarders to collectively distribute IPv6 multicast packets throughout their MPL Domain. An MPL Forwarder may be associated with multiple MPL Domains at the same time. Non-Forwarders will receive IPv6 multicast packets from one or more of their neighboring Forwarders. Therefore, MPL can be used to propagate a CoAP multicast group request to all group members.
