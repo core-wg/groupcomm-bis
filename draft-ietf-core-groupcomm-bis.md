@@ -1596,6 +1596,8 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 * Discussed limited use of reliable transports with block-wise transfer.
 
+* Revised text on joining CoAP groups and multicast routing.
+
 * Clarified use/avoidance of the CoAP NoSec mode.
 
 * Revised list of references.
