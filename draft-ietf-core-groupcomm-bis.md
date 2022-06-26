@@ -91,14 +91,21 @@ informative:
     author:
       org: Eclipse Foundation
     title: Eclipse Californium
-    date: 2019-03
-    target: https://github.com/eclipse/californium/tree/2.0.x/californium-core/src/main/java/org/eclipse/californium/core
-  Go-OCF:
+    date: 2022-06
+    target: https://github.com/eclipse/californium
+  Go-CoAP:
     author:
       org: Open Connectivity Foundation (OCF)
-    title: Implementation of CoAP Server & Client in Go
-    date: 2019-03
+    title: Go-CoAP
+    date: 2022-06
     target: https://github.com/go-ocf/go-coap
+  libcoap:
+    author:
+      name: Olaf Bergmann
+      org: TZI
+    title: libcoap
+    date: 2022-06
+    target: https://github.com/obgm/libcoap
 
 --- abstract
 
@@ -109,7 +116,7 @@ This document specifies the use of the Constrained Application Protocol (CoAP) f
 # Introduction # {#chap-intro}
 This document specifies group communication using the Constrained Application Protocol (CoAP) {{RFC7252}}, together with UDP/IP multicast as the default transport for CoAP group communication messages. CoAP is a RESTful communication protocol that is used in resource-constrained nodes, and in resource-constrained networks where packet sizes should be small. This area of use is summarized as Constrained RESTful Environments (CoRE).
 
-One-to-many group communication can be achieved in CoAP, by a client using UDP/IP multicast data transport to send multicast CoAP request messages. In response, each server in the addressed group sends a response message back to the client over UDP/IP unicast. Notable CoAP implementations supporting group communication include the framework "Eclipse Californium" 2.0.x {{Californium}} from the Eclipse Foundation and the "Implementation of CoAP Server & Client in Go" {{Go-OCF}} from the Open Connectivity Foundation (OCF).
+One-to-many group communication can be achieved in CoAP, by a client using UDP/IP multicast data transport to send multicast CoAP request messages. In response, each server in the addressed group sends a response message back to the client over UDP/IP unicast. Notable CoAP implementations that support group communication include "Eclipse Californium" {{Californium}}, "Go-CoAP" {{Go-CoAP}} as well as "libcoap" {{libcoap}}.
 
 Both unsecured and secured CoAP group communication are specified in this document. Security is achieved by using Group Object Security for Constrained RESTful Environments (Group OSCORE) {{I-D.ietf-core-oscore-groupcomm}}, which in turn builds on Object Security for Constrained Restful Environments (OSCORE) {{RFC8613}}. This method provides end-to-end application-layer security protection of CoAP messages, by using CBOR Object Signing and Encryption (COSE) {{I-D.ietf-cose-rfc8152bis-struct}}{{I-D.ietf-cose-rfc8152bis-algs}}.
 
