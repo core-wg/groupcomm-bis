@@ -278,7 +278,22 @@ Different types of group are named as specified below, separately for CoAP group
 
 #### CoAP Groups ### {#sec-groupnaming-coap}
 
-A CoAP group is identified and named by the authority component in the group URI (see {{sec-groupdef-coapgroup}}), which includes the host subcomponent (possibly an IP multicast address literal) and an optional UDP port number. Note that, when using the "coap" scheme, the two authority components \<HOST\> and \<HOST\>:5683 both identify the same CoAP group, whose members listen to the CoAP default port number 5683.
+A CoAP group is identified and named by the authority component in the group URI (see {{sec-groupdef-coapgroup}}), which includes the host subcomponent (possibly an IP multicast address literal) and an optional UDP port number.
+
+It follows that the same CoAP group might have multiple names, which are possible to simultaneously and interchangeably use. For example, if the two hostnames group1.com and group1.alias.com both resolve to the IP multicast address \[ff15::1234\], then the following authority components are all names for the same CoAP group.
+
+* group1.com:7700
+* group1.alias.com:7700
+* \[ff15::1234\]:7700
+
+Also note that, when using the "coap" scheme, the two authority components \<HOST\> and \<HOST\>:5683 both identify the same CoAP group, whose members listen to the CoAP default port number 5683. Therefore, building on the above, the following authority components are all names for the same CoAP group.
+
+* group1.com
+* group1.alias.com
+* \[ff15::1234\]
+* group1.com:5683
+* group1.alias.com:5683
+* \[ff15::1234\]:5683
 
 When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal, instead of a group hostname. This is because DNS infrastructure may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via DNS resolution, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.
 
@@ -1673,6 +1688,8 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 * Added real-life context and clarifications to examples.
 
+* Clarified aliasing of CoAP group names.
+
 * Clarified use of security group names.
 
 * Clarified response suppression.
@@ -1692,6 +1709,8 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 * Moved examples of application group naming and group discovery to appendix sections.
 
 * Revised list of references.
+
+* Updated list of implementations supporting group communication.
 
 * Editorial improvements.
 
