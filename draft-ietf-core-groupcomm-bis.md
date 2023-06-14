@@ -63,6 +63,7 @@ normative:
   I-D.ietf-core-oscore-groupcomm:
 
 informative:
+  I-D.bormann-core-responses:
   I-D.tiloca-core-groupcomm-proxy:
   I-D.ietf-ace-key-groupcomm-oscore:
   I-D.tiloca-core-oscore-discovery:
@@ -520,6 +521,8 @@ Since a client sending a group request with a Token T will accept multiple respo
 When this happens, the client normally processes at the CoAP layer each of those responses to the same request coming from the same server. If the processing of a response is successful, the client delivers this response to the application as usual.
 
 Then, the application is in a better position to decide what to do, depending on the available context information. For instance, it might accept and process all the responses from the same server, even if they are not Observe notifications (i.e., they do not include an Observe option). Alternatively, the application might accept and process only one of those responses, such as the most recent one from that server, e.g., when this can trigger a change of state within the application.
+
+As part of a long exchange between the client and any of the servers in the group, the responses considered above are an example of the more general concept elaborated in {{Section 2 of I-D.bormann-core-responses}}.
 
 ## Caching ## {#sec-caching}
 
@@ -1685,6 +1688,8 @@ Client              A  B  C
 RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 ## Version -08 to -09 ## {#sec-08-09}
+
+* Multiple responses in long exchanges are non-traditional responses.
 
 * Updated references.
 
