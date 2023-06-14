@@ -69,7 +69,7 @@ informative:
   I-D.ietf-ace-oscore-gm-admin:
   I-D.ietf-core-coap-pubsub:
   I-D.ietf-core-transport-indication:
-  I-D.mattsson-t2trg-amplification-attacks:
+  I-D.irtf-t2trg-amplification-attacks:
   I-D.ietf-6lo-multicast-registration:
   RFC3810:
   RFC6092:
@@ -895,7 +895,7 @@ This section provides security considerations for CoAP group communication, in g
 
 ## CoAP NoSec Mode ## {#chap-security-considerations-nosec-mode}
 
-CoAP group communication, if not protected, is vulnerable to all the attacks mentioned in {{Section 11 of RFC7252}} for IP multicast. Moreover, as also discussed in {{I-D.mattsson-t2trg-amplification-attacks}}, the NoSec mode is susceptible to source IP address spoofing, hence amplification attacks are especially feasible and greatly effective, since a single request can result in multiple responses from multiple servers (see {{ssec-amplification}}).
+CoAP group communication, if not protected, is vulnerable to all the attacks mentioned in {{Section 11 of RFC7252}} for IP multicast. Moreover, as also discussed in {{I-D.irtf-t2trg-amplification-attacks}}, the NoSec mode is susceptible to source IP address spoofing, hence amplification attacks are especially feasible and greatly effective, since a single request can result in multiple responses from multiple servers (see {{ssec-amplification}}).
 
 Therefore, it is generally NOT RECOMMENDED to use CoAP group communication in NoSec mode, also in order to prevent an easy proliferation of high-volume amplification attacks as further discussed in {{ssec-amplification}}.
 
@@ -977,7 +977,7 @@ Thus, consistently with {{Section 11.3 of RFC7252}}, a server in a CoAP group:
 
 * SHOULD NOT provide large amplification factors through its responses to a non-authenticated group request, possibly employing CoAP block-wise transfers {{RFC7959}} to reduce the amount of amplification.
 
-Amplification attacks using CoAP are further discussed in {{I-D.mattsson-t2trg-amplification-attacks}}, which also highlights how the amplification factor would become even higher when CoAP group communication is combined with resource observation {{RFC7641}}. That is, a single group request may result in multiple notification responses from each of the responding servers, throughout the observation lifetime.
+Amplification attacks using CoAP are further discussed in {{I-D.irtf-t2trg-amplification-attacks}}, which also highlights how the amplification factor would become even higher when CoAP group communication is combined with resource observation {{RFC7641}}. That is, a single group request may result in multiple notification responses from each of the responding servers, throughout the observation lifetime.
 
 Thus, consistently with {{Section 7 of RFC7641}}, a server in a CoAP group MUST strictly limit the number of notifications it sends between receiving acknowledgments that confirm the actual interest of the client in continuing the observation.
 
@@ -1683,6 +1683,10 @@ Client              A  B  C
 {:removeinrfc}
 
 RFC EDITOR: PLEASE REMOVE THIS SECTION.
+
+## Version -08 to -09 ## {#sec-08-09}
+
+* Updated references.
 
 ## Version -07 to -08 ## {#sec-07-08}
 
