@@ -928,11 +928,17 @@ The same security considerations from {{Section 13 of I-D.ietf-core-oscore-group
 
 A key management scheme for secure revocation and renewal of group security material, namely group rekeying, is required to be adopted in OSCORE groups. The key management scheme has to preserve forward security in the OSCORE group, as well as backward security if this is required by the application (see {{chap-sec-group-maintenance}}). In particular, the key management scheme MUST comply with the functional steps defined in {{Section 3.2 of I-D.ietf-core-oscore-groupcomm}}.
 
-Group policies should also take into account the time that the key management scheme requires to rekey the group, on one hand, and the expected frequency of group membership changes, i.e., nodes joining and leaving, on the other hand.
+Even though group policies vary depending on the specific applications and their security requirements, they SHOULD also take into account:
 
-That is, it may be desirable to not rekey the group upon every single membership change, in case members frequently joining and leaving, and at the same time a single group rekeying instance taking a non-negligible time to complete.
+   * The expected amount of time that the key management scheme requires to rekey the group.
 
-In such a case, the Group Manager may cautiously consider to rekey the group, e.g., after a minimum number of nodes has joined or left the group within a pre-defined time interval, or according to communication patterns with predictable time intervals of network inactivity. This would prevent from paralyzing communications in the group, when a slow rekeying scheme is used and frequently invoked.
+   * The expected frequency of group membership changes (i.e., nodes joining and leaving).
+
+   * The identity of the specific CoAP endpoints as they join and leave the OSCORE group.
+
+In particular, it can be desirable to not rekey the group upon every single membership change, in case group members frequently join and leave, and at the same time a single group rekeying instance takes a non-negligible time to complete.
+
+In such a case, the Group Manager can cautiously consider to rekey the group, e.g., after a minimum number of nodes has joined or left the group within a pre-defined time interval, or according to communication patterns with predictable time intervals of network inactivity. This would prevent from paralyzing communications in the group, when a slow rekeying scheme is used and frequently invoked.
 
 At the same time, the security implications of delaying the rekeying process have to be carefully considered and understood before employing such group policies.
 
@@ -1702,6 +1708,8 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 * The name of a security group is not necessarily a string.
 
 * Changed "has to" to "should" for enforcing access control based on membership to security groups.
+
+* Used normative language for policies about group rekeying.
 
 * Further stressed that group communication ought to be secured.
 
