@@ -922,7 +922,7 @@ Group OSCORE provides end-to-end application-level security. This has many desir
 
 CoAP group communication MUST be protected by using Group OSCORE as specified in {{I-D.ietf-core-oscore-groupcomm}}, with the possible exception of: applications that are proven to be neither sensitive nor critical; and specific, well-defined steps where security is not viable or is intrinsically unattainable (e.g., early discovery).
 
-The same security considerations from {{Section 11 of I-D.ietf-core-oscore-groupcomm}} hold for this specification.
+The same security considerations from {{Section 13 of I-D.ietf-core-oscore-groupcomm}} hold for this specification.
 
 ### Group Key Management ### {#chap-security-considerations-sec-mode-key-mgmt}
 
