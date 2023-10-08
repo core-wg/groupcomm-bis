@@ -827,9 +827,9 @@ The NoSec mode does not require and does not make use of a security group. Indic
 
 It is NOT RECOMMENDED to use CoAP group communication in NoSec mode.
 
-The possible, exceptional use of the NoSec mode ought to be limited to non-sensitive and non-critical applications for which it is relevant, such as early discovery of devices and resources (see {{chap-security-considerations-nosec-mode}}).
+The possible, exceptional use of the NoSec mode ought to be limited to: applications that are proven to be neither sensitive nor critical; and specific, well-defined steps where security is not viable or is intrinsically unattainable, e.g., early discovery of devices and resources (see {{chap-security-considerations-nosec-mode}}).
 
-Before possibly and exceptionally using the NoSec mode in such applications, the security implications in {{chap-security-considerations-nosec-mode}} must be very well considered and understood, especially as to the risk and impact of amplification attacks (see {{ssec-amplification}}). Consistently with such security implications, the use of the NoSec mode should still be avoided whenever possible.
+Before possibly and exceptionally using the NoSec mode in such circumstances, the security implications in {{chap-security-considerations-nosec-mode}} must be very well considered and understood, especially as to the risk and impact of amplification attacks (see {{ssec-amplification}}). Consistently with such security implications, the use of the NoSec mode should still be avoided whenever possible.
 
 # Secured Group Communication using Group OSCORE # {#chap-oscore}
 
@@ -914,13 +914,15 @@ For example, early discovery of devices and resources is a typical use case wher
 
 As a further example, the NoSec mode may be relevant to use in non-critical applications that neither involve nor may have an impact on sensitive data and personal sphere. These include, e.g., read-only temperature sensors deployed in non-sensitive environments, where the client reads out the values but does not use the data to control actuators or to base important decisions on.
 
-Except for the class of applications discussed above, and all the more so in sensitive and mission-critical applications (e.g., health monitoring systems and alarm monitoring systems), CoAP group communication MUST NOT be used in NoSec mode.
+Except for the class of applications discussed above, and all the more so in sensitive and/or critical applications (e.g., health monitoring systems and alarm monitoring systems), CoAP group communication MUST NOT be used in NoSec mode.
 
 ## Group OSCORE ## {#chap-security-considerations-sec-mode}
 
 Group OSCORE provides end-to-end application-level security. This has many desirable properties, including maintaining security assurances while forwarding traffic through intermediaries (proxies). Application-level security also tends to more cleanly separate security from the dynamics of group membership (e.g., the problem of distributing security keys across large groups with many members that come and go).
 
-For sensitive and mission-critical applications, CoAP group communication MUST be protected by using Group OSCORE as specified in {{I-D.ietf-core-oscore-groupcomm}}. The same security considerations from {{Section 11 of I-D.ietf-core-oscore-groupcomm}} hold for this specification.
+CoAP group communication MUST be protected by using Group OSCORE as specified in {{I-D.ietf-core-oscore-groupcomm}}, with the possible exception of: applications that are proven to be neither sensitive nor critical; and specific, well-defined steps where security is not viable or is intrinsically unattainable (e.g., early discovery).
+
+The same security considerations from {{Section 11 of I-D.ietf-core-oscore-groupcomm}} hold for this specification.
 
 ### Group Key Management ### {#chap-security-considerations-sec-mode-key-mgmt}
 
@@ -1700,6 +1702,8 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 * The name of a security group is not necessarily a string.
 
 * Changed "has to" to "should" for enforcing access control based on membership to security groups.
+
+* Further stressed that group communication ought to be secured.
 
 * Editorial fixes and improvements.
 
