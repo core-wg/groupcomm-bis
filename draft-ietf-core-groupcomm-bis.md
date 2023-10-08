@@ -287,19 +287,19 @@ Different types of groups are named as specified below, separately for CoAP grou
 
 A CoAP group is identified and named by the authority component in the group URI (see {{sec-groupdef-coapgroup}}), which includes the host subcomponent (possibly an IP multicast address literal) and an optional UDP port number.
 
-It follows that the same CoAP group might have multiple names, which are possible to simultaneously and interchangeably use. For example, if the two hostnames group1.com and group1.alias.com both resolve to the IP multicast address \[ff15::1234\], then the following authority components are all names for the same CoAP group.
+It follows that the same CoAP group might have multiple names, which are possible to simultaneously and interchangeably use. For example, if the two hostnames group1.example and group1.alias.example both resolve to the IP multicast address \[ff15::1234\], then the following authority components are all names for the same CoAP group.
 
-* group1.com:7700
-* group1.alias.com:7700
+* group1.example:7700
+* group1.alias.example:7700
 * \[ff15::1234\]:7700
 
 Also note that, when using the "coap" scheme, the two authority components \<HOST\> and \<HOST\>:5683 both identify the same CoAP group, whose members listen to the CoAP default port number 5683. Therefore, building on the above, the following authority components are all names for the same CoAP group.
 
-* group1.com
-* group1.alias.com
+* group1.example
+* group1.alias.example
 * \[ff15::1234\]
-* group1.com:5683
-* group1.alias.com:5683
+* group1.example:5683
+* group1.alias.example:5683
 * \[ff15::1234\]:5683
 
 When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal, instead of a group hostname. This is because DNS infrastructure may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via DNS resolution, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.
@@ -1110,7 +1110,7 @@ Group communication can be useful to efficiently distribute new software (firmwa
 
 This section provides examples for the different methods that can be used to name application groups, as defined in {{sec-groupnaming-app}}.
 
-The shown examples consider a CoAP group identified by the group hostname grp.example.org. Its members are CoAP servers listening to the associated IP multicast address ff35:30:2001:db8:f1::8000:1 and port number 5685.
+The shown examples consider a CoAP group identified by the group hostname grp.example. Its members are CoAP servers listening to the associated IP multicast address ff35:30:2001:db8:f1::8000:1 and port number 5685.
 
 Note that a group hostname is used here to have better-readable examples. As discussed in {{sec-groupnaming-app}} when considering the authority component and its host subcomponent in the Group URI, in practice an implementation would likely use an IP address literal as the host component of the Group URI, in order to reduce the size of the CoAP request. In particular, the Uri-Host Option can be fully elided in this case.
 
@@ -1124,11 +1124,11 @@ Also note that the Uri-Port Option does not appear in the examples, since the po
 
    Application group name: gp1
 
-   Group URI: coap://grp.example.org:5685/gp/gp1/light?foo=bar
+   Group URI: coap://grp.example:5685/gp/gp1/light?foo=bar
 
    CoAP group request
       Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example.org
+      Uri-Host: grp.example
       Uri-Path: gp
       Uri-Path: gp1
       Uri-Path: light
@@ -1160,11 +1160,11 @@ Also note that the Uri-Port Option does not appear in the examples, since the po
 
    Application group name: gp1
 
-   Group URI: coap://grp.example.org:5685/light?gp1
+   Group URI: coap://grp.example:5685/light?gp1
 
    CoAP group request
       Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example.org
+      Uri-Host: grp.example
       Uri-Path: light
       Uri-Query: gp1
 ~~~~~~~~~~~
@@ -1176,11 +1176,11 @@ Also note that the Uri-Port Option does not appear in the examples, since the po
 
    Application group name: gp1
 
-   Group URI: coap://grp.example.org:5685/light?foo=bar&gp=gp1
+   Group URI: coap://grp.example:5685/light?foo=bar&gp=gp1
 
    CoAP group request
       Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example.org
+      Uri-Host: grp.example
       Uri-Path: light
       Uri-Query: foo=bar
       Uri-Query: gp=gp1
@@ -1193,13 +1193,13 @@ Also note that the Uri-Port Option does not appear in the examples, since the po
 
 ~~~~~~~~~~~
 
-   Application group name: grp.example.org:5685
+   Application group name: grp.example:5685
 
-   Group URI: coap://grp.example.org:5685/light?foo=bar
+   Group URI: coap://grp.example:5685/light?foo=bar
 
    CoAP group request
       Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example.org
+      Uri-Host: grp.example
       Uri-Path: light
       Uri-Query: foo=bar
 ~~~~~~~~~~~
@@ -1211,13 +1211,13 @@ Also note that the Uri-Port Option does not appear in the examples, since the po
 
 ~~~~~~~~~~~
 
-   Application group name: grp.example.org
+   Application group name: grp.example
 
-   Group URI: coap://grp.example.org:5685/light?foo=bar
+   Group URI: coap://grp.example:5685/light?foo=bar
 
    CoAP group request
       Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example.org
+      Uri-Host: grp.example
       Uri-Path: light
       Uri-Query: foo=bar
 ~~~~~~~~~~~
@@ -1231,11 +1231,11 @@ Also note that the Uri-Port Option does not appear in the examples, since the po
 
    Application group name: grp1, as inferable from port number 5685
 
-   Group URI: coap://grp.example.org:5685/light?foo=bar
+   Group URI: coap://grp.example:5685/light?foo=bar
 
    CoAP group request
       Header: GET(T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example.org
+      Uri-Host: grp.example
       Uri-Path: light
       Uri-Query: foo=bar
 ~~~~~~~~~~~
@@ -1249,11 +1249,11 @@ Also note that the Uri-Port Option does not appear in the examples, since the po
 
    Application group name: grp1
 
-   Group URI: coap://grp.example.org:5685/light?foo=bar
+   Group URI: coap://grp.example:5685/light?foo=bar
 
    CoAP group request
       Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example.org
+      Uri-Host: grp.example
       Uri-Path: light
       Uri-Query: foo=bar
       App-Group-Name: grp1  // new (e.g., custom) CoAP option
@@ -1264,7 +1264,7 @@ Also note that the Uri-Port Option does not appear in the examples, since the po
 
 This section provides examples for the different methods that a CoAP client can use to discover application groups and CoAP groups by interacting with CoAP servers, as defined in {{sssec-discovery-from-servers}}.
 
-The examples build on the same assumptions considered in {{sssec-discovery-from-servers}}. In addition, a CoAP group is used and is identified by the URI authority grp.example.org:5685.
+The examples build on the same assumptions considered in {{sssec-discovery-from-servers}}. In addition, a CoAP group is used and is identified by the URI authority grp.example:5685.
 
 ## Application Groups Associated with a CoAP Group # {#sec-examples-group-discovery-1}
 
@@ -1277,10 +1277,10 @@ Each of the servers S1 and S2 is identified by the IP source address of the CoAP
 ~~~~~~~~~~~
 
    // Request to all members of the CoAP group
-   Req: GET coap://grp.example.org:5685/.well-known/core?rt=g.*
+   Req: GET coap://grp.example:5685/.well-known/core?rt=g.*
 
    // Response from server S1, as member of:
-   //   - The CoAP group "grp.example.org:5685"
+   //   - The CoAP group "grp.example:5685"
    //   - The application group "gp1"
    Res: 2.05 (Content)
    Content-Format: 40
@@ -1288,7 +1288,7 @@ Each of the servers S1 and S2 is identified by the IP source address of the CoAP
    </gp/gp1>;rt=g.light
 
    // Response from server S2, as member of:
-   // - The CoAP group "grp.example.org:5685"
+   // - The CoAP group "grp.example:5685"
    // - The application groups "gp1" and "gp2"
    Res: 2.05 (Content)
    Content-Format: 40
@@ -1304,7 +1304,7 @@ Each of the servers S1 and S2 is identified by the IP source address of the CoAP
 
 Note that, unlike in the example shown in {{sec-examples-group-discovery-1}}, now the servers need to respond with an absolute URI and not a relative URI. This is necessary because the responding CoAP endpoint serving the Link Format document (on port 5683) is a different CoAP endpoint from the one hosting the group resource "gp1" (on port 5685). Due to this situation, the responding server includes the full (absolute) URI in the Link Format response from which the client can conveniently gain knowledge of the CoAP group.
 
-Also note that a server could equally well respond with the literal IPv6 multicast address within square brackets instead of the CoAP group name "grp.example.org". In that case, the client would still gain knowledge of the CoAP group, albeit in a different representation.
+Also note that a server could equally well respond with the literal IPv6 multicast address within square brackets instead of the CoAP group name "grp.example". In that case, the client would still gain knowledge of the CoAP group, albeit in a different representation.
 
 ~~~~~~~~~~~
 
@@ -1312,20 +1312,20 @@ Also note that a server could equally well respond with the literal IPv6 multica
    Req: GET coap://[ff03::fd]/.well-known/core?href=/gp/gp1
 
    // CoAP response from server S1, as member of:
-   //   - The CoAP group "grp.example.org:5685"
+   //   - The CoAP group "grp.example:5685"
    //   - The application group "gp1"
    Res: 2.05 (Content)
    Content-Format: 40
    Payload:
-   <coap://grp.example.org:5685/gp/gp1>;rt=g.light
+   <coap://grp.example:5685/gp/gp1>;rt=g.light
 
    // CoAP response from server S2, as member of:
-   // - The CoAP group "grp.example.org:5685"
+   // - The CoAP group "grp.example:5685"
    // - The application groups "gp1"
    Res: 2.05 (Content)
    Content-Format: 40
    Payload:
-   <coap://grp.example.org:5685/gp/gp1>;rt=g.light
+   <coap://grp.example:5685/gp/gp1>;rt=g.light
 ~~~~~~~~~~~
 {: #fig-app-gp-discovery-example2 title="Discovery of members of an application group, together with the associated CoAP group"}
 
@@ -1340,21 +1340,21 @@ Also note that a server could equally well respond with the literal IPv6 multica
    Req: GET coap://[ff03::fd]/.well-known/core?rt=g.temp
 
    // Response from server S1, as member of:
-   //   - The CoAP group "grp.example.org:5685"
+   //   - The CoAP group "grp.example:5685"
    //   - The application group "gp1" of type "g.temp"
    Res: 2.05 (Content)
    Content-Format: 40
    Payload:
-   <coap://grp.example.org:5685/gp/gp1>;rt=g.temp
+   <coap://grp.example:5685/gp/gp1>;rt=g.temp
 
    // Response from server S2, as member of:
-   //   - The CoAP group "grp.example.org:5685"
+   //   - The CoAP group "grp.example:5685"
    //   - The application groups "gp1" and "gp2" of type "g.temp"
    Res: 2.05 (Content)
    Content-Format: 40
    Payload:
-   <coap://grp.example.org:5685/gp/gp1>;rt=g.temp,
-   <coap://grp.example.org:5685/gp/gp2>;rt=g.temp
+   <coap://grp.example:5685/gp/gp1>;rt=g.temp,
+   <coap://grp.example:5685/gp/gp2>;rt=g.temp
 ~~~~~~~~~~~
 {: #fig-app-gp-discovery-example3 title="Discovery of members of application groups of a specified type, and of the associated CoAP group"}
 
@@ -1368,30 +1368,30 @@ Also note that a server could equally well respond with the literal IPv6 multica
    Req: GET coap://[ff03::fd]/.well-known/core?rt=g.*
 
    // Response from server S1, as member of:
-   //   - The CoAP groups "grp.example.org:5685" and "grp2.example.org"
+   //   - The CoAP groups "grp.example:5685" and "grp2.example"
    //   - The application groups "gp1" and "gp5"
    Res: 2.05 (Content)
    Content-Format: 40
    Payload:
-   <coap://grp.example.org:5685/gp/gp1>;rt=g.light,
-   <coap://grp2.example.org/gp/gp5>;rt=g.lock
+   <coap://grp.example:5685/gp/gp1>;rt=g.light,
+   <coap://grp2.example/gp/gp5>;rt=g.lock
 
    // Response from server S2, as member of:
-   //   - The CoAP group "grp.example.org:5685"
+   //   - The CoAP group "grp.example:5685"
    //   - The application groups "gp1" and "gp2"
    Res: 2.05 (Content)
    Content-Format: 40
    Payload:
-   <coap://grp.example.org:5685/gp/gp1>;rt=g.light,
-   <coap://grp.example.org:5685/gp/gp2>;rt=g.light
+   <coap://grp.example:5685/gp/gp1>;rt=g.light,
+   <coap://grp.example:5685/gp/gp2>;rt=g.light
 
    // Response from server S3, as member of:
-   //   - The CoAP group "grp2.example.org"
+   //   - The CoAP group "grp2.example"
    //   - The application group "gp5"
    Res: 2.05 (Content)
    Content-Format: 40
    Payload:
-   <coap://grp2.example.org/gp/gp5>;rt=g.lock
+   <coap://grp2.example/gp/gp5>;rt=g.lock
 ~~~~~~~~~~~
 {: #fig-app-gp-discovery-example4 title="Discovery of the resources and members of any application group, and of the associated CoAP group"}
 
@@ -1405,30 +1405,30 @@ For instance, {{fig-app-gp-discovery-example5}} provides a different example whe
    Req: GET coap://[ff03::fd]/.well-known/core?gpt=*
 
    // Response from server S1, as member of:
-   //   - The CoAP groups "grp.example.org:5685" and "grp2.example.org"
+   //   - The CoAP groups "grp.example:5685" and "grp2.example"
    //   - The application groups "gp1" and "gp5"
    Res: 2.05 (Content)
    Content-Format: 40
    Payload:
-   <coap://grp.example.org:5685/gp/gp1>;rt=oic.d.light;gpt=light,
-   <coap://grp2.example.org/gp/gp5>;rt=oic.d.smartlock;gpt=lock
+   <coap://grp.example:5685/gp/gp1>;rt=oic.d.light;gpt=light,
+   <coap://grp2.example/gp/gp5>;rt=oic.d.smartlock;gpt=lock
 
    // Response from server S2, as member of:
-   //   - The CoAP group "grp.example.org:5685"
+   //   - The CoAP group "grp.example:5685"
    //   - The application groups "gp1" and "gp2"
    Res: 2.05 (Content)
    Content-Format: 40
    Payload:
-   <coap://grp.example.org:5685/gp/gp1>;rt=oic.d.light;gpt=light,
-   <coap://grp.example.org:5685/gp/gp2>;rt=oic.d.light;gpt=light
+   <coap://grp.example:5685/gp/gp1>;rt=oic.d.light;gpt=light,
+   <coap://grp.example:5685/gp/gp2>;rt=oic.d.light;gpt=light
 
    // Response from server S3, as member of:
-   //   - The CoAP group "grp2.example.org"
+   //   - The CoAP group "grp2.example"
    //   - The application group "gp5"
    Res: 2.05 (Content)
    Content-Format: 40
    Payload:
-   <coap://grp2.example.org/gp/gp5>;rt=oic.d.smartlock;gpt=lock
+   <coap://grp2.example/gp/gp5>;rt=oic.d.smartlock;gpt=lock
 ~~~~~~~~~~~
 {: #fig-app-gp-discovery-example5 title="Example of using a custom 'gpt' link attribute to denote group type"}
 
@@ -1692,6 +1692,8 @@ Client              A  B  C
 RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
 ## Version -09 to -10 ## {#sec-09-10}
+
+* Use of .example for example hostnames.
 
 * Editorial fixes and improvements.
 
