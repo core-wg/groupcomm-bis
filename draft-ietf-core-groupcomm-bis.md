@@ -310,7 +310,7 @@ Examples of hierarchical CoAP group FQDN naming (and scoping) for a building con
 
 #### Application Groups ### {#sec-groupnaming-app}
 
-An application group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI, or other types of string. The decision of whether and how exactly an application group name is encoded and transported is application specific.
+An application group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI, or other types of strings. The decision of whether and how exactly an application group name is encoded and transported is application specific.
 
 The following discusses a number of possible methods to use, while full examples for the different methods are provided in {{sec-examples-app-group-naming}}.
 
@@ -366,7 +366,7 @@ Finally, Appendix A of {{RFC9176}} provides an example of an application group r
 
 #### Security Groups ### {#sec-groupnaming-sec}
 
-A security group is identified by a stable and invariant string used as group name. This is generally not related to other kinds of group identifiers that may be specific of the used security solution.
+A security group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI, or other types of strings. Such a group name is generally not related to other kinds of group identifiers that may be specific of the used security solution.
 
 The name of a security group is not expected to be used in messages exchanged among its members, unless the application requires otherwise. At the same time, it is useful to identify the security group when performing a number of side tasks related to secure group communication, such as the following ones.
 
@@ -1696,6 +1696,8 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 ## Version -09 to -10 ## {#sec-09-10}
 
 * Use of .example for example hostnames.
+
+* The name of a security group is not necessarily a string.
 
 * Changed "has to" to "should" for enforcing access control based on membership to security groups.
 
