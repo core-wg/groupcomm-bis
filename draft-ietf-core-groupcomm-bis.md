@@ -281,9 +281,13 @@ Different types of group are named as specified below, separately for CoAP group
 
 #### CoAP Groups ### {#sec-groupnaming-coap}
 
-A CoAP group is identified and named by the authority component in the group URI (see {{sec-groupdef-coapgroup}}), which includes the host subcomponent (possibly an IP multicast address literal) and an optional UDP port number.
+A CoAP group is always defined by the two properties of IP multicast address and UDP port number (see {{sec-groupdef-coapgroup}}).
 
-It follows that the same CoAP group might have multiple names, which are possible to simultaneously and interchangeably use. For example, if the two hostnames group1.com and group1.alias.com both resolve to the IP multicast address \[ff15::1234\], then the following authority components are all names for the same CoAP group.
+However, a CoAP group is for practical purposes identified and named by the authority component in the group URI. This component includes the host subcomponent and an optional UDP port number.
+The host subcomponent directly defines the IP multicast address of the CoAP group, in case the host consists of an IP literal. 
+The host subcomponent indirectly defines the IP multicast address of the CoAP group, in case the host consists of a hostname: resolving the hostname to an IP address in this case produces the IP multicast address.
+
+It follows that the same CoAP group might have multiple names, which can be simultaneously and interchangeably used. For example, if the two hostnames group1.com and group1.alias.com both resolve to the IP multicast address [ff15::1234], then the following authority components are all names for the same CoAP group.
 
 * group1.com:7700
 * group1.alias.com:7700
