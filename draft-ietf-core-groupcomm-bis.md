@@ -829,6 +829,7 @@ CoAP group communication can operate in CoAP NoSec (No Security) mode, without u
 
 The NoSec mode does not require and does not make use of a security group. Indications that endpoints can use the NoSec mode MUST NOT rely on setting up and advertising a pseudo security group with name "NoSec" or any of its lowercase/uppercase combinations.
 
+A CoAP server in NoSec mode MUST NOT be accessible through the public Internet.
 It is NOT RECOMMENDED to use CoAP group communication in NoSec mode.
 
 The possible, exceptional use of the NoSec mode ought to be limited to: applications that are proven to be neither sensitive nor critical; and specific, well-defined steps where security is not viable or is intrinsically unattainable, e.g., early discovery of devices and resources (see {{chap-security-considerations-nosec-mode}}).
@@ -911,6 +912,7 @@ This section provides security considerations for CoAP group communication, in g
 CoAP group communication, if not protected, is vulnerable to all the attacks mentioned in {{Section 11 of RFC7252}} for IP multicast. Moreover, as also discussed in {{I-D.irtf-t2trg-amplification-attacks}}, the NoSec mode is susceptible to source IP address spoofing, hence amplification attacks are especially feasible and greatly effective, since a single request can result in multiple responses from multiple servers (see {{ssec-amplification}}).
 
 Therefore, it is generally NOT RECOMMENDED to use CoAP group communication in NoSec mode, also in order to prevent an easy proliferation of high-volume amplification attacks as further discussed in {{ssec-amplification}}.
+The requirement in {{chap-unsecured-groupcomm}} on publically accessible CoAP servers also aims to prevent amplification attacks.
 
 Exceptionally, and only after the security implications have been very well considered and understood, some non-sensitive and non-critical applications may rely on a limited and well-defined use of the NoSec mode.
 
