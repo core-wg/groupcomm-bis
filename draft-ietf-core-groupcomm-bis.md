@@ -1464,7 +1464,7 @@ This section provides examples of different message exchanges when CoAP is used 
 
 In {{fig-exchange-example}}, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "temperature" in the application group "gp1". All servers reply with a 2.05 (Content) response, although the response from server B is lost. As source port number of their response, servers A and B use the destination port number of the request, i.e., PORT_GRP. Instead, server C uses its own port number PORT_C.
 
-~~~~~~~~~~~
+~~~~~~~~~~~ aasvg
 Client              A  B  C
    |                |  |  |
    |  GET           |  |  |
@@ -1500,7 +1500,7 @@ Client              A  B  C
 
 In {{fig-exchange-example-observe}}, the client sends a Non-confirmable GET request to the CoAP group, targeting and requesting to observe the resource "temperature" in the application group "gp1". All servers reply with a 2.05 (Content) notification response. As source port number of their response, servers A and B use the destination port number of the request, i.e., PORT_GRP. Instead, server C uses its own port number PORT_C. Some time later, all servers send a 2.05 (Content) notification response, with the new representation of the "temperature" resource as payload.
 
-~~~~~~~~~~~
+~~~~~~~~~~~ aasvg
 Client              A  B  C
    |                |  |  |
    |  GET           |  |  |
@@ -1564,7 +1564,7 @@ Client              A  B  C
 
 In {{fig-exchange-example-blockwise}}, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "log" in the application group "gp1", and requesting a blockwise transfer. All servers reply with a 2.05 (Content) response including the first block. As source port number of its response, each server uses its own port number. After obtaining the first block, the client requests the following blocks separately from each server, by means of unicast exchanges.
 
-~~~~~~~~~~~
+~~~~~~~~~~~ aasvg
 Client              A  B  C
    |                |  |  |
    |  GET           |  |  |
