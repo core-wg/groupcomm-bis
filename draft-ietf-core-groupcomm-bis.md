@@ -832,7 +832,7 @@ The NoSec mode does not require and does not make use of a security group. Indic
 A CoAP server in NoSec mode MUST NOT be accessible through the public Internet.
 It is NOT RECOMMENDED to use CoAP group communication in NoSec mode.
 
-The possible, exceptional use of the NoSec mode ought to be limited to: applications that are proven to be neither sensitive nor critical; and specific, well-defined steps where security is not viable or is intrinsically unattainable, e.g., early discovery of devices and resources (see {{chap-security-considerations-nosec-mode}}).
+The possible, exceptional use of the NoSec mode ought to be limited to specific, well-defined steps that are proven to not require security or to not be able to attain it, e.g., early discovery of devices and resources (see {{chap-security-considerations-nosec-mode}}).
 
 Before possibly and exceptionally using the NoSec mode in such circumstances, the security implications in {{chap-security-considerations-nosec-mode}} must be very well considered and understood, especially as to the risk and impact of amplification attacks (see {{ssec-amplification}}). Consistently with such security implications, the use of the NoSec mode should still be avoided whenever possible.
 
@@ -926,7 +926,7 @@ Except for the class of applications discussed above, and all the more so in sen
 
 Group OSCORE provides end-to-end application-level security. This has many desirable properties, including maintaining security assurances while forwarding traffic through intermediaries (proxies). Application-level security also tends to more cleanly separate security from the specific dynamics of security group membership (e.g., the problem of distributing security keys across large groups with many members that come and go).
 
-CoAP group communication MUST be protected by using Group OSCORE as specified in {{I-D.ietf-core-oscore-groupcomm}}, with the possible exception of: applications that are proven to be neither sensitive nor critical; and specific, well-defined steps where security is not viable or is intrinsically unattainable (e.g., early discovery).
+CoAP group communication MUST be protected by using Group OSCORE as specified in {{I-D.ietf-core-oscore-groupcomm}}, with the possible exception of specific, well-defined steps that are proven to not require security or to not be able to attain it (e.g., early discovery).
 
 The same security considerations from {{Section 13 of I-D.ietf-core-oscore-groupcomm}} hold for this specification.
 
