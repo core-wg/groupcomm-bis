@@ -224,27 +224,27 @@ In fact, being a member of a security group actually grants access only to excha
 {{fig-group-relation}} summarizes the relations between the different types of groups described above in Unified Modeling Language (UML) class diagram notation. The class attributes in square brackets are optionally defined.
 
 ~~~~~~~~~~~ aasvg
-+------------------------+                 +--------------------+
-|   Application group    |                 |    CoAP group      |
-|........................|                 |....................|
-|                        |                 |                    |
-| [ - group name ]       +-----------------+ - IP mcast address |
-|                        |  1...N       1  | - UDP port number  |
-|                        |                 |                    |
-|                        |                 |                    |
-+-------------+----------+                 +---------+----------+
-              |  1...N                               |  1...N
-              |                                      |
-              |                                      |
-              |                                      |  1...N
-              |                           +----------+------------+
-              |                           |   Security group      |
-              |                           |.......................|
-              |                           |                       |
-              '---------------------------+ - Security group name |
-                                   1...N  | - Security material   |
-                                          |                       |
-                                          +-----------------------+
++------------------------------+                 +--------------------+
+|   Application group          |                 |    CoAP group      |
+|..............................|                 |....................|
+|                              |                 |                    |
+| [ - Application group name ] +-----------------+ - IP mcast address |
+|                              |  1...N       1  | - UDP port number  |
+|                              |                 |                    |
+|                              |                 |                    |
++-------------+----------------+                 +---------+----------+
+              |  1...N                                     |  1...N
+              |                                            |
+              |                                            |
+              |                                            |  1...N
+              |                               +------------+----------+
+              |                               |   Security group      |
+              |                               |.......................|
+              |                               |                       |
+              '-------------------------------+ - Security group name |
+                                       1...N  | - Security material   |
+                                              |                       |
+                                              +-----------------------+
 ~~~~~~~~~~~
 {: #fig-group-relation title="Relations Among Different Group Types" artwork-align="center"}
 
