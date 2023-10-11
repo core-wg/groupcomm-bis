@@ -914,13 +914,13 @@ CoAP group communication, if not protected, is vulnerable to all the attacks men
 Therefore, it is generally NOT RECOMMENDED to use CoAP group communication in NoSec mode, also in order to prevent an easy proliferation of high-volume amplification attacks as further discussed in {{ssec-amplification}}.
 The requirement in {{chap-unsecured-groupcomm}} on publically accessible CoAP servers also aims to prevent amplification attacks.
 
-Exceptionally, and only after the security implications have been very well considered and understood, some non-sensitive and non-critical applications may rely on a limited and well-defined use of the NoSec mode.
+Exceptionally, and only after the security implications have been very well considered and understood, some applications may rely on a limited use of the NoSec mode, when performing specific, well-defined steps that are proven to not require security or to not be able to attain it.
 
 For example, early discovery of devices and resources is a typical use case where the NoSec mode is relevant to use. In such a situation, the querying devices do not have yet configured any mutual security relations at the time they perform the discovery. Also, high-volume and harmful amplifications can be prevented through appropriate and conservative configurations, since only a few CoAP servers are expected to be configured for responding to the group requests sent for discovery (see {{ssec-amplification}}).
 
-As a further example, the NoSec mode may be relevant to use in non-critical applications that neither involve nor may have an impact on sensitive data and personal sphere. These include, e.g., read-only temperature sensors deployed in non-sensitive environments, where the client reads out the values but does not use the data to control actuators or to base important decisions on.
+As a further example, the NoSec mode may be relevant to use in simple applications that neither involve nor may have an impact on sensitive data and personal sphere. These include, e.g., read-only temperature sensors deployed in non-sensitive environments, where the client reads out the values but does not use the data to control actuators or to base important decisions on.
 
-Except for the class of applications discussed above, and all the more so in sensitive and/or critical applications (e.g., health monitoring systems and alarm monitoring systems), CoAP group communication MUST NOT be used in NoSec mode.
+Except for the class of applications discussed above, and all the more so in applications that obviously have hard security requirements (e.g., health monitoring systems and alarm monitoring systems), CoAP group communication MUST NOT be used in NoSec mode.
 
 ## Group OSCORE ## {#chap-security-considerations-sec-mode}
 
@@ -1010,7 +1010,7 @@ Thus, consistently with {{Section 7 of RFC7641}}, a server in a CoAP group MUST 
 
 Moreover, it is especially easy to perform an amplification attack when the NoSec mode is used. Therefore, also in order to prevent an easy proliferation of high-volume amplification attacks, it is generally NOT RECOMMENDED to use CoAP group communication in NoSec mode (see {{chap-security-considerations-nosec-mode}}).
 
-Besides requiring that the security implications in {{chap-security-considerations-nosec-mode}} are very well understood, exceptions should be carefully limited to non-sensitive and non-critical use cases where accesses to a group resource have a specific, narrow, and well understood scope, and where only a few CoAP servers (or, ideally, only one) would possibly respond to a group request.
+Besides building on very well understood security implications and being limited to specific, well-defined steps that are proven to not require security or to not be able to attain it, possible exceptions should also be limited to use cases where accesses to a group resource have a specific, narrow, and well understood scope, and where only a few CoAP servers (or, ideally, only one) would possibly respond to a group request.
 
 A relevant exceptional example is a CoAP client performing the discovery of hosts such as a group manager or a Resource Directory {{RFC9176}}, by probing for them through a group request sent to the CoAP group. This early, unprotected step is relevant for a CoAP client that does not know the address of such hosts in advance, and that does not have yet configured a mutual security relation with them. In this kind of deployments, such a discovery procedure does not result in a considerable and harmful amplification, since only the few CoAP servers that are the object of discovery are going to respond to the group request targeting that specific resource. In particular, those hosts can be the only CoAP servers in that specific CoAP group (hence listening for group requests sent to that group), and/or the only CoAP servers explicitly configured to respond to group requests targeting specific group resources.
 
@@ -1726,6 +1726,8 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 * Used normative language for policies about group rekeying.
 
 * Further stressed that group communication ought to be secured.
+
+* Avoid calling applications as "(non-)sensitive" and "(non-)critical".
 
 * Clarification on source authentication, source addresses, and Echo Option.
 
