@@ -225,27 +225,27 @@ In fact, being a member of a security group actually grants access only to excha
 {{fig-group-relation}} summarizes the relations between the different types of groups described above in Unified Modeling Language (UML) class diagram notation. The class attributes in square brackets are optionally defined.
 
 ~~~~~~~~~~~ aasvg
-+------------------------------+                 +--------------------+
-|   Application group          |                 |    CoAP group      |
-|..............................|                 |....................|
-|                              |                 |                    |
-| [ - Application group name ] +-----------------+ - IP mcast address |
-|                              |  1...N       1  | - UDP port number  |
-|                              |                 |                    |
-|                              |                 |                    |
-+-------------+----------------+                 +---------+----------+
-              |  1...N                                     |  1...N
-              |                                            |
-              |                                            |
-              |                                            |  1...N
-              |                               +------------+----------+
-              |                               |   Security group      |
-              |                               |.......................|
-              |                               |                       |
-              '-------------------------------+ - Security group name |
-                                       1...N  | - Security material   |
-                                              |                       |
-                                              +-----------------------+
++------------------------------+              +--------------------+
+|   Application group          |              |    CoAP group      |
+|..............................|              |....................|
+|                              |              |                    |
+| [ - Application group name ] +--------------+ - IP mcast address |
+|                              |  1...N    1  | - UDP port number  |
+|                              |              |                    |
+|                              |              |                    |
++-------------+----------------+              +---------+----------+
+              |  1...N                                  |  1...N
+              |                                         |
+              |                                         |
+              |                                         |  1...N
+              |                            +------------+----------+
+              |                            |   Security group      |
+              |                            |.......................|
+              |                            |                       |
+              '----------------------------+ - Security group name |
+                                    1...N  | - Security material   |
+                                           |                       |
+                                           +-----------------------+
 ~~~~~~~~~~~
 {: #fig-group-relation title="Relations Among Different Group Types" artwork-align="center"}
 
@@ -256,18 +256,18 @@ There are three application groups (1, 2, 3) and two security groups (1, 2). The
 All the shown application groups may use the same CoAP group (not shown in the figure), for example the CoAP group with site-local, site-specific multicast IP address ff15::3456 and default UDP port number 5683 on which all the shown resources are hosted for each server. Other floors of the same building may replicate the shown structure, but using different security groups and different CoAP groups.
 
 ~~~~~~~~~~~ aasvg
- .------------------------------.    .-------------------------------.
-|                                |  |                                 |
-|       +---------------------+  |  |  +---------------------+        |
-|       | Application Group 1 |  |  |  | Application Group 3 |  Cli2  |
-|       |                     |  |  |  |                     |        |
-| Cli1  | Srv1   Srv2   Srv3  |  |  |  | Srv5   Srv6         |  Cli4  |
-|       | /resA  /resA  /resA |  |  |  | /resC  /resC        |        |
-| Cli2  +---------------------+  |  |  | /resD  /resD        |        |
-|                                |  |  +---------------------+        |
-| Cli3     Security Group 1      |  |                                 |
-|                                |  |        Security Group 2         |
-|       +---------------------+  |   '-------------------------------'
+ .------------------------------.   .-----------------------------.
+|                                | |                               |
+|       +---------------------+  | |  +---------------------+      |
+|       | Application Group 1 |  | |  | Application Group 3 | Cli2 |
+|       |                     |  | |  |                     |      |
+| Cli1  | Srv1   Srv2   Srv3  |  | |  | Srv5   Srv6         | Cli4 |
+|       | /resA  /resA  /resA |  | |  | /resC  /resC        |      |
+| Cli2  +---------------------+  | |  | /resD  /resD        |      |
+|                                | |  +---------------------+      |
+| Cli3     Security Group 1      | |                               |
+|                                | |        Security Group 2       |
+|       +---------------------+  |  '-----------------------------'
 |       | Application Group 2 |  |
 |       |                     |  |
 |       | Srv1   Srv4         |  |
