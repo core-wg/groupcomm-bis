@@ -7,8 +7,8 @@ Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                    C. Wang
 Updates: 7252, 7641 (if approved)                           InterDigital
 Intended status: Standards Track                               M. Tiloca
-Expires: 25 April 2024                                           RISE AB
-                                                         23 October 2023
+Expires: 18 June 2024                                            RISE AB
+                                                        16 December 2023
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 April 2024.
+   This Internet-Draft will expire on 18 June 2024.
 
 Copyright Notice
 
@@ -237,9 +237,9 @@ Table of Contents
    Furthermore, this document defines Group OSCORE
    [I-D.ietf-core-oscore-groupcomm] as the default group communication
    security solution for CoAP.  Security solutions for group
-   communication and configuration other than Group OSCORE are left for
-   future work.  General principles for secure group configuration are
-   in scope.
+   communication and configuration other than Group OSCORE are not
+   considered.  General principles for secure group configuration are in
+   scope.
 
 1.2.  Terminology
 
@@ -2900,9 +2900,9 @@ Table of Contents
    [I-D.ietf-6lo-multicast-registration]
               Thubert, P., "IPv6 Neighbor Discovery Multicast and
               Anycast Address Listener Subscription", Work in Progress,
-              Internet-Draft, draft-ietf-6lo-multicast-registration-15,
-              30 May 2023, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-6lo-multicast-registration-15>.
+              Internet-Draft, draft-ietf-6lo-multicast-registration-16,
+              10 November 2023, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-6lo-multicast-registration-16>.
 
    [I-D.ietf-ace-key-groupcomm-oscore]
               Tiloca, M., Park, J., and F. Palombini, "Key Management
@@ -2915,17 +2915,17 @@ Table of Contents
               Tiloca, M., Höglund, R., Van der Stok, P., and F.
               Palombini, "Admin Interface for the OSCORE Group Manager",
               Work in Progress, Internet-Draft, draft-ietf-ace-oscore-
-              gm-admin-09, 1 July 2023,
+              gm-admin-10, 23 October 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-ace-
-              oscore-gm-admin-09>.
+              oscore-gm-admin-10>.
 
    [I-D.ietf-anima-constrained-voucher]
               Richardson, M., Van der Stok, P., Kampanakis, P., and E.
               Dijk, "Constrained Bootstrapping Remote Secure Key
               Infrastructure (BRSKI)", Work in Progress, Internet-Draft,
-              draft-ietf-anima-constrained-voucher-21, 7 July 2023,
+              draft-ietf-anima-constrained-voucher-22, 21 November 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-anima-
-              constrained-voucher-21>.
+              constrained-voucher-22>.
 
    [I-D.ietf-core-coap-pubsub]
               Jimenez, J., Koster, M., and A. Keränen, "A publish-
@@ -2937,9 +2937,9 @@ Table of Contents
 
    [I-D.ietf-core-transport-indication]
               Amsüss, C., "CoAP Protocol Indication", Work in Progress,
-              Internet-Draft, draft-ietf-core-transport-indication-02,
-              13 March 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-core-transport-indication-02>.
+              Internet-Draft, draft-ietf-core-transport-indication-03,
+              23 October 2023, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-core-transport-indication-03>.
 
    [I-D.irtf-t2trg-amplification-attacks]
               Mattsson, J. P., Selander, G., and C. Amsüss,
