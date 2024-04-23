@@ -64,7 +64,7 @@ normative:
 
 informative:
   I-D.bormann-core-responses:
-  I-D.tiloca-core-groupcomm-proxy:
+  I-D.ietf-core-groupcomm-proxy:
   I-D.ietf-ace-key-groupcomm-oscore:
   I-D.tiloca-core-oscore-discovery:
   I-D.ietf-ace-oscore-gm-admin:
@@ -547,7 +547,7 @@ Furthermore, building on what is defined in {{Section 8.2.1 of RFC7252}}:
 
 * A client MAY revalidate a cached response by making a GET or FETCH request on the related unicast request URI.
 
-Note that, in the presence of proxies, doing any of the above (optional) unicast requests requires the client to distinguish the different responses to a group request, as well as to distinguish the different origin servers that responded. This in turn requires additional means to provide the client with information about the origin server of each response, e.g., using the forward-proxying method defines in {{I-D.tiloca-core-groupcomm-proxy}}.
+Note that, in the presence of proxies, doing any of the above (optional) unicast requests requires the client to distinguish the different responses to a group request, as well as to distinguish the different origin servers that responded. This in turn requires additional means to provide the client with information about the origin server of each response, e.g., using the forward-proxying method defines in {{I-D.ietf-core-groupcomm-proxy}}.
 
 The following subsections define the freshness model and validation model to use for cached responses, which update the models defined in {{Sections 5.6.1 and 5.6.2 of RFC7252}}, respectively.
 
@@ -563,14 +563,14 @@ That is, a request is never served from cached responses only. This document upd
 
 How the client in the case above determines the CoAP servers that are currently members of the CoAP group is out of scope for this document. It may be, for example, via a group manager server, or by monitoring group joining protocol exchanges.
 
-For caching at proxies, the freshness model defined in {{I-D.tiloca-core-groupcomm-proxy}}  can be used.
+For caching at proxies, the freshness model defined in {{I-D.ietf-core-groupcomm-proxy}} can be used.
 
 ### Validation Model ### {#sec-caching-validation}
 
 For validation of cached group communication responses at client endpoints, the multicast validation rules in {{Section 8.2.1 of RFC7252}} apply, except for the last paragraph which states "A GET request to a multicast group MUST NOT contain an ETag option".
 This document updates {{RFC7252}} by allowing a group request to contain ETag Options as specified below.
 
-For validation at proxies, the validation model defined in {{I-D.tiloca-core-groupcomm-proxy}} can be used.
+For validation at proxies, the validation model defined in {{I-D.ietf-core-groupcomm-proxy}} can be used.
 
 #### ETag Option in a Group Request/Response ####
 A client endpoint MAY include one or more ETag Options in a GET or FETCH group request, to validate one or more stored responses it has cached.
@@ -620,7 +620,7 @@ However, there are certain issues and limitations with this approach:
 
    In principle, a CoAP client that is not using a proxy might face the same problems in collecting responses to a group request. However, unlike a CoAP proxy, the client itself would typically have application-specific rules or knowledge on how to handle this situation. For example, a CoAP client could monitor incoming responses and use this information to decide for how long to continue collecting responses
 
-A forward-proxying method using this approach and addressing the issues raised above is defined in {{I-D.tiloca-core-groupcomm-proxy}}.
+A forward-proxying method using this approach and addressing the issues raised above is defined in {{I-D.ietf-core-groupcomm-proxy}}.
 
 An alternative solution is for the proxy to collect all the individual (unicast) responses to a CoAP group request and then send back only a single (aggregated) response to the client. However, this solution brings up new issues:
 
@@ -632,7 +632,7 @@ Due to the above issues, it is RECOMMENDED that a CoAP Proxy processes a request
 
 The operation of HTTP-to-CoAP proxies for multicast CoAP requests is specified in {{Sections 8.4 and 10.1 of RFC8075}}. In this case, the "application/http" media type is used to let the proxy return multiple CoAP responses -- each translated to a HTTP response -- back to the HTTP client. Of course, in this case the HTTP client sending a group URI to the proxy needs to be aware that it is going to receive this format, and needs to be able to decode it into the responses of multiple CoAP servers. Also, the IP source address of each CoAP response cannot be determined anymore from the "application/http" response. The HTTP client may still be able to identify the CoAP servers by other means such as application-specific information in the response payload.
 
-A forward-proxying method for HTTP-to-CoAP proxies addressing the issues raised above is defined in {{I-D.tiloca-core-groupcomm-proxy}}.
+A forward-proxying method for HTTP-to-CoAP proxies addressing the issues raised above is defined in {{I-D.ietf-core-groupcomm-proxy}}.
 
 ### Reverse-Proxies ### {#sec-proxy-reverse}
 
@@ -646,9 +646,9 @@ The reverse-proxy practically stands in for a CoAP group, thus preventing the cl
 
 For a reverse-proxy that sends a request to servers in a CoAP group, the considerations as defined in {{Section 5.7.3 of RFC7252}} hold, with the following additions:
 
-* The three issues and limitations defined in {{sec-proxy-forward}} for a forward proxy apply to a reverse-proxy as well, and have to be addressed, e.g., using the signaling method defined in {{I-D.tiloca-core-groupcomm-proxy}} or other means.
+* The three issues and limitations defined in {{sec-proxy-forward}} for a forward proxy apply to a reverse-proxy as well, and have to be addressed, e.g., using the signaling method defined in {{I-D.ietf-core-groupcomm-proxy}} or other means.
 
-* A reverse-proxy MAY have preconfigured time duration(s) that are used for collecting server responses and forwarding these back to the client. These duration(s) may be set as global configuration or as resource-specific configurations. If there is such preconfiguration, then an explicit signaling of the time period in the client's request as defined in {{I-D.tiloca-core-groupcomm-proxy}} is not necessarily needed. Note that a reverse-proxy is in an explicit relation with the origin servers it stands in for. Thus, compared to a forward-proxy, it has a much better basis for determining and configuring such time durations.
+* A reverse-proxy MAY have preconfigured time duration(s) that are used for collecting server responses and forwarding these back to the client. These duration(s) may be set as global configuration or as resource-specific configurations. If there is such preconfiguration, then an explicit signaling of the time period in the client's request as defined in {{I-D.ietf-core-groupcomm-proxy}} is not necessarily needed. Note that a reverse-proxy is in an explicit relation with the origin servers it stands in for. Thus, compared to a forward-proxy, it has a much better basis for determining and configuring such time durations.
 
 * A client that is configured to access a reverse-proxy resource (i.e., one that triggers a CoAP group communication request) SHOULD be configured also to handle potentially multiple responses with the same Token value caused by a single request.
 
@@ -658,7 +658,7 @@ For a reverse-proxy that sends a request to servers in a CoAP group, the conside
 
    If this happens, the reverse-proxy MUST stop the ongoing request and associated response forwarding, it MUST NOT forward the new request to the servers in the CoAP group, and it MUST send a 4.00 (Bad Request) error response to the client. The diagnostic payload of the error response SHOULD indicate to the client that the resource is a reverse-proxy resource, and that for this reason immediate Token re-use is not possible.
 
-   If the reverse-proxy supports the signaling protocol of {{I-D.tiloca-core-groupcomm-proxy}} it can include a Multicast-Signaling Option in the error response to convey the reason for the error in a machine-readable way.
+   If the reverse-proxy supports the signaling protocol of {{I-D.ietf-core-groupcomm-proxy}} it can include a Multicast-Signaling Option in the error response to convey the reason for the error in a machine-readable way.
 
 For the operation of HTTP-to-CoAP reverse proxies, see the last two paragraphs of {{sec-proxy-forward}} which applies also to the case of reverse-proxies.
 
@@ -672,7 +672,7 @@ A client might send a group request to multiple proxies at once (e.g., over IP m
 
    - Each server can reply to each of the N received requests with multiple responses over time (see {{sec-request-response-multi}}). All the responses to the same received request are sent to the same proxy that has forwarded that request, which in turn relays those responses to the client.
 
-   - From each proxy, the client receives all the responses to the group request that each server has sent to that proxy. Even in case the client is able to distinguish the different servers originating the responses (e.g., by using the approach defined in {{I-D.tiloca-core-groupcomm-proxy}}), the client would receive the same response content originated by each server N times, as relayed by the N proxies.
+   - From each proxy, the client receives all the responses to the group request that each server has sent to that proxy. Even in case the client is able to distinguish the different servers originating the responses (e.g., by using the approach defined in {{I-D.ietf-core-groupcomm-proxy}}), the client would receive the same response content originated by each server N times, as relayed by the N proxies.
 
 * If secure group communication with Group OSCORE is used (see {{chap-oscore}}), each server is able to determine that each received copy of the group request is in fact originated by the same client. In particular, each server is able to determine that all such received requests are copies of exactly the same group request.
 
@@ -732,7 +732,7 @@ A server SHOULD have a mechanism to verify the aliveness of its observing client
 
 A client can use the unicast cancellation methods of {{Section 3.6 of RFC7641}} and stop the ongoing observation of a particular resource on members of a CoAP group. This can be used to remove specific observed servers, or even all servers in the CoAP group (using serial unicast to each known group member). In addition, a client MAY explicitly deregister from all those servers at once, by sending a group/multicast GET or FETCH request that includes the Token value of the observation to be canceled and includes an Observe Option with the value set to 1 (deregister). In case not all the servers in the CoAP group received this deregistration request, either the unicast cancellation methods can be used at a later point in time or the group/multicast deregistration request MAY be repeated upon receiving another observe response from a server.
 
-For observing at servers that are members of a CoAP group through a CoAP-to-CoAP proxy, the limitations stated in {{sec-proxy}} apply. The method defined in {{I-D.tiloca-core-groupcomm-proxy}} enables group communication including resource observation through proxies and addresses those limitations.
+For observing at servers that are members of a CoAP group through a CoAP-to-CoAP proxy, the limitations stated in {{sec-proxy}} apply. The method defined in {{I-D.ietf-core-groupcomm-proxy}} enables group communication including resource observation through proxies and addresses those limitations.
 
 ## Block-Wise Transfer ## {#sec-block-wise}
 
@@ -902,7 +902,7 @@ The case of end-to-end security is the same as for the forward-proxy case.
 
 The case of hop-by-hop security is only possible if the proxy can be completely trusted and it is configured as a member of the OSCORE security group(s) that it needs to access, when sending a group request on behalf of clients. The first leg of communication between client and proxy is then protected with a security method for CoAP unicast, such as (D)TLS, OSCORE, or a combination of such methods. The second leg between proxy and servers is protected using Group OSCORE. This can be useful in applications where for example the origin client does not implement Group OSCORE, or the group management operations are confined to a particular network domain and the client is outside this domain.
 
-For all the above cases, more details on using Group OSCORE are defined in {{I-D.tiloca-core-groupcomm-proxy}}.
+For all the above cases, more details on using Group OSCORE are defined in {{I-D.ietf-core-groupcomm-proxy}}.
 
 # Security Considerations # {#chap-security-considerations}
 
