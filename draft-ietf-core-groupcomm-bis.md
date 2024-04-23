@@ -1714,7 +1714,14 @@ Client              A  B  C
 
 RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
+## Version -10 to -11 ## {#sec-10-11}
+
+* Updated references.
+
+* Editorial improvements.
+
 ## Version -09 to -10 ## {#sec-09-10}
+
 * Clarified use of NoSec for 'early discovery' and refer to cBRSKI.
 
 * Clarified mandatory vs optional elements in CoAP group and CoAP group URI.
