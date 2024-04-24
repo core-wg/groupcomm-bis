@@ -7,8 +7,8 @@ Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                    C. Wang
 Updates: 7252, 7641 (if approved)                           InterDigital
 Intended status: Standards Track                               M. Tiloca
-Expires: 25 October 2024                                         RISE AB
-                                                           23 April 2024
+Expires: 26 October 2024                                         RISE AB
+                                                           24 April 2024
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -27,18 +27,20 @@ Abstract
    document replaces and obsoletes RFC 7390, while it updates RFC 7252
    and RFC 7641.
 
-Discussion Venues
+About This Document
 
    This note is to be removed before publishing as an RFC.
 
-   Discussion of this document takes place on the CORE Working Group
-   mailing list (core@ietf.org), which is archived at
-   https://mailarchive.ietf.org/arch/browse/core/
-   (https://mailarchive.ietf.org/arch/browse/core/).
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-ietf-core-groupcomm-bis/.
+
+   Discussion of this document takes place on the Constrained RESTful
+   Environments Working Group mailing list (mailto:core@ietf.org), which
+   is archived at https://mailarchive.ietf.org/arch/browse/core/.
+   Subscribe at https://www.ietf.org/mailman/listinfo/core/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/core-wg/groupcomm-bis (https://github.com/core-wg/
-   groupcomm-bis).
+   https://github.com/core-wg/groupcomm-bis.
 
 Status of This Memo
 
@@ -55,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 October 2024.
+   This Internet-Draft will expire on 26 October 2024.
 
 Copyright Notice
 
@@ -177,7 +179,7 @@ Table of Contents
      E.9.  Version -02 to -03
      E.10. Version -01 to -02
      E.11. Version -00 to -01
-   Acknowledgments
+   Acknowledgements
    Authors' Addresses
 
 1.  Introduction
@@ -1903,7 +1905,7 @@ Table of Contents
    WebSockets, possibly protected with TLS.
 
    This requires the individually addressed servers to also support CoAP
-   over TCP/TLS/WebSockests for the targeted resource.  A server can
+   over TCP/TLS/WebSockets for the targeted resource.  A server can
    indicate its support for multiple alternative transports, and
    practically enable access to its resources through either of them, by
    using the method defined in [I-D.ietf-core-transport-indication].
@@ -2313,7 +2315,7 @@ Table of Contents
    as an example, only a few CoAP servers are expected to be configured
    for responding to multicast group requests that are sent for
    discovery.  And the time window during which such unsecured requests
-   are accepted, can be limited as well.  Furthermore the scope is also
+   are accepted, can be limited as well.  Furthermore, the scope is also
    limited: only link-local requests are accepted.
 
    Except for the class of applications discussed above, and all the
@@ -2576,8 +2578,8 @@ Table of Contents
 
    Thus, consistently with Section 7 of [RFC7641], a server in a CoAP
    group MUST strictly limit the number of notifications it sends
-   between receiving acknowledgments that confirm the actual interest of
-   the client in continuing the observation.
+   between receiving acknowledgements that confirm the actual interest
+   of the client in continuing the observation.
 
    Moreover, it is especially easy to perform an amplification attack
    when the NoSec mode is used.  Therefore, also in order to prevent an
@@ -2684,9 +2686,9 @@ Table of Contents
    likely at a future point in time trigger a neighboring MPL Forwarder
    to send the IPv6 packet (fragments) again, because its internal state
    marks this packet (that it failed to received previously) still as a
-   "new" IPv6 packet.  Hence this leads to an MPL Forwarder signaling to
-   neighbors its "old" state, triggering additional transmission(s) of
-   all packet fragments.
+   "new" IPv6 packet.  Hence, this leads to an MPL Forwarder signaling
+   to neighbors its "old" state, triggering additional transmission(s)
+   of all packet fragments.
 
    For these reasons, a large IPv6 multicast packet is a possible attack
    vector in a Denial of Service (DoS) amplification attack on a 6LoWPAN
@@ -3080,7 +3082,7 @@ A.1.1.  Distributed Device Discovery
    Device discovery is the discovery and identification of networked
    devices -- optionally only devices of a particular class, type,
    model, or brand.  Group communication is used for distributed device
-   discovery, if a central directory server is not used.  Typically in
+   discovery, if a central directory server is not used.  Typically, in
    distributed device discovery, a multicast request is sent to a
    particular address (or address range) and multicast scope of
    interest, and any devices configured to be discoverable will respond
@@ -3248,7 +3250,7 @@ B.1.  Group Naming using the URI Path Component
 
    Figure 4 provides a different example, where an IPv6 literal address
    and the default CoAP port number 5683 are used in the authority
-   component, which yields a compact CoAP request.  Also the resource
+   component, which yields a compact CoAP request.  Also, the resource
    structure is different in this example.
 
       Application group name: gp1
@@ -4071,7 +4073,7 @@ E.11.  Version -00 to -01
 
    *  Editorial improvements.
 
-Acknowledgments
+Acknowledgements
 
    The authors sincerely thank Christian Amsüss, Carsten Bormann, Thomas
    Fossati, Rikard Höglund, Jaime Jiménez, John Preuß Mattsson, Jim
