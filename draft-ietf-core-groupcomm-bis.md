@@ -44,7 +44,6 @@ author:
 
 normative:
   RFC1122:
-  RFC2119:
   RFC3376:
   RFC4443:
   RFC4944:
@@ -55,7 +54,6 @@ normative:
   RFC7959:
   RFC8075:
   RFC8132:
-  RFC8174:
   RFC8613:
   RFC9052:
   RFC9053:
@@ -135,7 +133,7 @@ Furthermore, this document defines Group OSCORE {{I-D.ietf-core-oscore-groupcomm
 
 ## Terminology ## {#terminology}
 
-{::boilerplate bcp14}
+{::boilerplate bcp14-tagged}
 
 This specification requires readers to be familiar with CoAP terminology {{RFC7252}}. Terminology related to group communication is defined in {{sec-groupdef}}.
 
@@ -1097,7 +1095,7 @@ To illustrate where and how CoAP-based group communication can be used, this sec
 Discovery of physical devices in a network, or discovery of information entities hosted on network devices, are operations that are usually required in a system during the phases of setup or (re)configuration. When a discovery use case involves devices that need to interact without having been configured previously with a common security context, unsecured CoAP communication is typically used. Discovery may involve a request to a directory server, which provides services to aid clients in the discovery process. One particular type of directory server is the CoRE Resource Directory {{RFC9176}}; and there may be other types of directories that can be used with CoAP.
 
 ### Distributed Device Discovery ### {#sec-uc-dd}
-Device discovery is the discovery and identification of networked devices -- optionally only devices of a particular class, type, model, or brand. Group communication is used for distributed device discovery, if a central directory server is not used. Typically in distributed device discovery, a multicast request is sent to a particular address (or address range) and multicast scope of interest, and any devices configured to be discoverable will respond back. For the alternative solution of centralized device discovery a central directory server is accessed through unicast, in which case group communication is not needed. This requires that the address of the central directory is either preconfigured in each device or configured during operation using a protocol.
+Device discovery is the discovery and identification of networked devices -- optionally only devices of a particular class, type, model, or brand. Group communication is used for distributed device discovery, if a central directory server is not used. Typically, in distributed device discovery, a multicast request is sent to a particular address (or address range) and multicast scope of interest, and any devices configured to be discoverable will respond back. For the alternative solution of centralized device discovery a central directory server is accessed through unicast, in which case group communication is not needed. This requires that the address of the central directory is either preconfigured in each device or configured during operation using a protocol.
 
 In CoAP, device discovery can be implemented by CoAP resource discovery requesting (GET) a particular resource that the sought device class, type, model, or brand is known to respond to. It can also be implemented using CoAP resource discovery ({{Section 7 of RFC7252}}) and the CoAP query interface defined in {{Section 4 of RFC6690}} to find these particular resources.
 
