@@ -1,0 +1,995 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2021-07-29T01:05:25.634537+00:00",
+  "repo": "core-wg/groupcomm-bis",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "id": "MDU6SXNzdWU1OTE3MjMyNDU=",
+      "title": "Clarify multicast endpoint concept and messaging model - UDP port may change",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/1",
+      "state": "CLOSED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "EskoDijk"
+      ],
+      "labels": [],
+      "body": "To clarify RFC 7252 endpoint concept and messaging model that, in case of multicast, the server may respond from a different UDP port (endpoint) than the UDP port used in the request.\r\n\r\nSee email thread: https://mailarchive.ietf.org/arch/msg/core/_qUgnje8qgWoBYssi3ZzfNA8QrU/",
+      "createdAt": "2020-04-01T08:24:14Z",
+      "updatedAt": "2020-10-18T12:13:50Z",
+      "closedAt": "2020-10-18T12:13:50Z",
+      "comments": []
+    },
+    {
+      "number": 2,
+      "id": "MDU6SXNzdWU2MDMwOTQxMDc=",
+      "title": "Consider if consistency requirement for \"response suppression\" should operate on Response Code class or not",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/2",
+      "state": "CLOSED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "EskoDijk"
+      ],
+      "labels": [],
+      "body": "Current draft has this text:\r\n\r\n> Any default response suppression by a server SHOULD be performed in a\r\n> consistent way, such that if a request on a resource produces a\r\n> Response Code and this response is not suppressed, then a later\r\n> request on the same resource that produces a response with the same\r\n> Response Code is also not suppressed.\r\n\r\nTo consider if this should say \"Response Code class\" instead of \"Response Code\". The No-Response Option for example works on class level.\r\n\r\nAs an example, then consistency means if 4.04 is suppressed by default then also 4.05 is suppressed by default.",
+      "createdAt": "2020-04-20T09:40:26Z",
+      "updatedAt": "2020-10-15T15:33:10Z",
+      "closedAt": "2020-10-15T15:33:10Z",
+      "comments": []
+    },
+    {
+      "number": 3,
+      "id": "MDU6SXNzdWU2MDMwOTYzODc=",
+      "title": "URI-Host for naming application groups?",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/3",
+      "state": "CLOSED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "EskoDijk"
+      ],
+      "labels": [],
+      "body": "Review suggestion was that we could use also Uri-Host for naming of application groups.\r\n\r\nBut: RFC 7252 defines an endpoint (in 4.1) for CoAP-NoSec mode solely by IP address and UDP port number. And since we define CoAP group as a set of endpoints, changing the Uri-Host Option to something else will not change the CoAP group if the CoAP request is still delivered to the same IP address and port.  In other words, the use of Uri-Host Option influences the 'common set of resources' that can be reached by a request and hence it has direct impact on the (selection of) application group.\r\n\r\nUse of Uri-Host can be tricky:\r\n\r\n- if it is encoded in the CoAP group URI, then the information typically gets removed in the actual CoAP request sent over the wire. So that means the receiving server cannot use it.\r\n\r\n- it can be added to an outgoing CoAP request (for which the group URI was already resolved to IP address). In that case it influences the choice of application group, because each virtual server will have a different set of resources hosted.\r\n\r\n",
+      "createdAt": "2020-04-20T09:43:48Z",
+      "updatedAt": "2020-10-15T15:32:55Z",
+      "closedAt": "2020-10-15T15:32:55Z",
+      "comments": []
+    },
+    {
+      "number": 4,
+      "id": "MDU6SXNzdWU2MDMxMDk5NjU=",
+      "title": "What is a \"legitimate\" multicast + Observe request (section 2.3.5) ?",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/4",
+      "state": "CLOSED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Section 2.3.5 on multicast + Observe:\r\n\r\n> A server that receives a legitimate GET request with the Observe Option .... \r\n\r\n(later text says that server SHOULD or resp MUST respond to it depending on state.)\r\n\r\nshould 'legitimate' be specified further? What is it exactly; does the client require some form of authentication here? Or is it sufficient that the resource supports observation and the request is correctly formatted/encoded.\r\n",
+      "createdAt": "2020-04-20T10:03:02Z",
+      "updatedAt": "2020-07-09T08:46:41Z",
+      "closedAt": "2020-07-09T08:46:40Z",
+      "comments": [
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Removed the word \"legitimate\" here, not needed since text already indicates the request must be successfully processed before sending the response.",
+          "createdAt": "2020-07-09T08:46:40Z",
+          "updatedAt": "2020-07-09T08:46:40Z"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "MDU6SXNzdWU2MDc2MTIxOTA=",
+      "title": "Mention both group mode and pairwise mode of Group OSCORE",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/5",
+      "state": "CLOSED",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-04-27T14:49:31Z",
+      "updatedAt": "2020-05-02T16:26:55Z",
+      "closedAt": "2020-05-02T16:26:55Z",
+      "comments": []
+    },
+    {
+      "number": 7,
+      "id": "MDU6SXNzdWU3ODMzODg3ODk=",
+      "title": "Multiple responses from same server - Handle at the application",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/7",
+      "state": "CLOSED",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-01-11T13:51:59Z",
+      "updatedAt": "2021-01-13T08:28:10Z",
+      "closedAt": "2021-01-13T08:28:10Z",
+      "comments": []
+    },
+    {
+      "number": 8,
+      "id": "MDU6SXNzdWU3ODMzODkyMjM=",
+      "title": "Caching of responses at proxies",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/8",
+      "state": "CLOSED",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-01-11T13:52:31Z",
+      "updatedAt": "2021-01-20T18:11:20Z",
+      "closedAt": "2021-01-20T18:11:20Z",
+      "comments": []
+    },
+    {
+      "number": 9,
+      "id": "MDU6SXNzdWU3ODMzODk1ODQ=",
+      "title": "Usage of ETag",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/9",
+      "state": "CLOSED",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-01-11T13:52:57Z",
+      "updatedAt": "2021-01-22T23:11:09Z",
+      "closedAt": "2021-01-22T23:11:09Z",
+      "comments": []
+    },
+    {
+      "number": 11,
+      "id": "MDU6SXNzdWU3OTUyNDQ0Mzk=",
+      "title": "Placement of new caching features",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/11",
+      "state": "CLOSED",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The following three items are currently all in draft-ietf-core-groupcomm-bis.\r\n\r\nBelow the open point on what the most appropriate placement is for each of them.\r\n\r\n- General mechanics on cachability of responses at proxies\r\n   --- draft-ietf-core-groupcomm-bis  seems already appropriate\r\n   \r\n- Response validation of individual responses, with the new Multi-ETag option\r\n   --- draft-ietf-core-groupcomm-bis  or separate self-standing document ?\r\n\r\n- Response validation of a whole response set cached at the proxy, with the new Group-ETag option\r\n--- draft-tiloca-core-groupcomm-proxy  may be more appropriate\r\n",
+      "createdAt": "2021-01-27T16:19:13Z",
+      "updatedAt": "2021-06-04T12:48:07Z",
+      "closedAt": "2021-06-04T12:48:06Z",
+      "comments": [
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "As discussed in the IETF 110 CoRE session:\r\n* Multi-ETag could be included in groupcomm-proxy,  or maybe a separate doc\r\n* Group-ETag can be included in groupcomm-proxy\r\n* general mechanics (using existing options) can stay in groupcomm-bis",
+          "createdAt": "2021-03-09T08:26:15Z",
+          "updatedAt": "2021-03-09T08:26:15Z"
+        },
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Trying a further step forward in the same direction, since \"general mechanics\" above was intended to include also the freshness model for caching.\r\n\r\nAt the moment, groupcomm-bis covers:\r\n\r\nA) Freshness model for caching at endpoints, as just \"like in RFC 7252\".\r\n\r\nB) Freshness model for caching at proxies, i.e. the use of \"individual\" and \"aggregated\" cache entries. This is clearly about proxies.\r\n\r\nC) Validation model with Multi-ETag. This has to be split into two.\r\nC1) Between origin client and origin servers - This is not really related to the proxy, but, as @chrysn pointed out, the Multi-ETag option uses the same server address encoding as the Response-Forwarding option defined in groupcomm-proxy.\r\nC2) Between proxy (acting as client refreshing its cache) and servers - This is clearly about proxies; it's possible only without end-to-end security between origin client and origin servers.\r\n\r\nD) Validation model with Group-ETag -  This is clearly about proxies; it's possible only without end-to-end security between origin client and origin servers.\r\n\r\nThen I think we can move (B)(C)(D) to groupcomm-proxy, essentially adding (B) to what proposed in the previous comment. This would expand the scope of groupcomm-proxy, to cover both proxy operations and caching (freshness + validation) for CoAP group communication.\r\n",
+          "createdAt": "2021-03-09T16:55:12Z",
+          "updatedAt": "2021-03-09T16:55:12Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "MEMBER",
+          "body": "> Then I think we can move (B)(C)(D) to groupcomm-proxy, essentially\n> adding (B) to what proposed in the previous comment. This would expand\n> the scope of groupcomm-proxy, to cover both proxy operations and\n> caching (freshness + validation) for CoAP group communication.\n\nSounds good to me.\n\n> A) Freshness model for caching at endpoints, as just \"like in RFC 7252\".\n\nI think that this needs some additional note differentiating between the\nfreshness of the responses and the freshness of the implicit 4.04ish\nfrom all the other nodes in the group. That latter has a much harder to\nspecify lifetime. I don't know whether the onus of quantifying this with\na lifetime is to be put on the application (\"I'm doing printer\ndiscovery, and it takes at least 5 minutest to set up a printer\") or on\nthe network (\"60 seconds for Ethernet\"? \"10x the beacon interval for some\n6los\"? \"Until I next sniff an MLD packet\"? \"60 seconds unless\napplication says otherwise\"?).\n\n(From that would then also follow an additional timeout on the\naggregated entry in the proxy).\n",
+          "createdAt": "2021-03-09T17:16:38Z",
+          "updatedAt": "2021-03-09T17:16:38Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "On C1) I don't think that Multi-ETag use (when used without any proxy) is at a proper place in groupcomm-proxy. The fact that the same option-encoding is used is a minor aspect, the topic (i.e. group comm via a proxy) should be the major aspect. So a separate draft would be best. If that's unwanted for some reason, then inclusion in groupcomm-proxy is 2nd best.\r\n\r\n@chrysn do you mean server endpoints, that are known to be group members by the client (e.g. due to previous responses, or by configuration) , do not respond to a group request?  This could mean the request or response got lost, or that it led to a suppressed response (like 4.04). I don't think a client can assume anything about freshness for the \"missing\" responses.  The client can use previous responses that are still fresh according to Max-Age.",
+          "createdAt": "2021-03-10T08:20:11Z",
+          "updatedAt": "2021-03-10T08:20:11Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "MEMBER",
+          "body": "If the client knows who should respond and what suppressed responses mean (or whether that can happen even) sure it can decide better.\n\nI was more thinking of the general open-group case. If nothing else is known of the group and no further assumptions are allowed, there'd simply be no caching at all other than getting fresh individual responses, ie. a cache (local or in a generic proxy) would always miss on MC targets as there could always just be a new member there. Fine too, just needs rules.\n",
+          "createdAt": "2021-03-10T11:36:59Z",
+          "updatedAt": "2021-03-10T11:36:59Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Ok; I also have some open questions on these different cases, and how a cache in a proxy is supposed to use cached results. This could be a separate new issue for groupcomm-proxy:\r\n* in case cached responses match a new request, does the proxy immediately respond with the cached responses?\r\n* and what if the server does send an updated response later on? (does the proxy forward that as a \"second\" response to override the previous cached one?)\r\n* or, does the proxy wait until the end of the response-collection period and then augments with potential cached responses from those servers that didn't respond to the latest request?\r\n* or, can the proxy serve a group request from cache without sending any new multicast request out?  (assuming that no further new servers joined the group. In some cases the proxy might know the group members / be notified of new group members. In the general case of no pre-knowledge this probably is not possible.)",
+          "createdAt": "2021-03-10T12:54:17Z",
+          "updatedAt": "2021-03-10T12:54:17Z"
+        },
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> On C1) I don't think that Multi-ETag use (when used without any proxy) is at a proper place in groupcomm-proxy. The fact that the same option-encoding is used is a minor aspect, the topic (i.e. group comm via a proxy) should be the major aspect. So a separate draft would be best. If that's unwanted for some reason, then inclusion in groupcomm-proxy is 2nd best.\r\n\r\nAt least it seems clear that C1) should not be in groupcomm-bis :-)\r\n\r\nPerhaps a separate TBD draft can focus on response validation for (client; origin servers) in group communication, by means of the Multi-ETag option or by using ETag as suggested in https://github.com/core-wg/groupcomm-bis/issues/18 . It seems that both ways have pros and cons.\r\n\r\nThen, groupcomm-proxy can build on TBD, to say how that can also be done by a proxy acting as client refreshing its cache, as long as Group OSCORE is not used end-to-end between client and origin servers (see above).",
+          "createdAt": "2021-03-10T13:26:07Z",
+          "updatedAt": "2021-03-10T13:26:07Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "That looks like a good dependency graph ;)   if okay to add another document \"TBD\".\r\nOtherwise it would be an approach to add Multi-ETag to groupcomm-proxy for use through a Proxy; and saying oh by the way you can also use it without a proxy in the path.",
+          "createdAt": "2021-03-10T14:03:44Z",
+          "updatedAt": "2021-03-10T14:03:44Z"
+        },
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Otherwise it would be an approach to add Multi-ETag to groupcomm-proxy for use through a Proxy; and saying oh by the way you can also use it without a proxy in the path.\r\n\r\nRight, although it may be confusing. The main case seems still to be the end-to-end validation between origin client and origin servers, regardless the presence of a proxy. The fact that a proxy can also take advantage of that when it acts as client is more a nice plus.",
+          "createdAt": "2021-03-10T14:30:17Z",
+          "updatedAt": "2021-03-10T14:30:17Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "MEMBER",
+          "body": ">  * or, can the proxy serve a group request from cache without sending any new multicast request out?  (assuming that no further new servers joined the group. In some cases the proxy might know the group members / be notified of new group members. In the general case of no pre-knowledge this probably is not possible.)\r\n\r\nI think that's the primary use case we should have in mind. The other cases only come to bear if we have good response suppression (granted, that's what much of this work is about), when there's block-wise involved, or when the responses are used later to serve UC requests. (Otherwise, what's the point -- the responses will come through anyway. No gloating points for a proxy that \"knew right ahead\").\r\n\r\nThere might not even be an overly long time caching time involved. Think, maybe, of a herd of clients stampeding online after a power outage, all asking around for servers within a few seconds (maybe the first request's response awaiting period is not even over yet). Here a proxy should not forward that stampede but ask once, and if the time that eventually gets determined for for freshness of not-being-on-the-network is just 10 seconds, then that stampede is at least rate limited to one request every 10 seconds (before, eventually, hitting PROBING_RATE).\r\n\r\n>  * in case cached responses match a new request, does the proxy immediately respond with the cached responses?\r\n> \r\n>  * and what if the server does send an updated response later on? (does the proxy forward that as a \"second\" response to override the previous cached one?)\r\n> \r\n>  * or, does the proxy wait until the end of the response-collection period and then augments with potential cached responses from those servers that didn't respond to the latest request?\r\n\r\nI think we can leave that to the implementation / application, as long as any newer response is sent when it arrives at the proxy. As the latest groupcomm-bis already allows multiple responses from a server, both should work.\r\n\r\nIf I were to implement it smartly, I'd probably send up to 3 copies of the NON request (one right away, one half-way through and one just in time so that even if the response takes DEFAULT_LEISURE I can still send it on), and send my cached responses after the first lb_leisure has expired. (Or maybe a bit later so that they can be nagled onto any responses from the second request). Although, unless there's pressure to do it smart, I'd do it minimal-effort and that's send-immediately-update-later.",
+          "createdAt": "2021-03-16T11:07:56Z",
+          "updatedAt": "2021-03-16T11:07:56Z"
+        },
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> I think we can leave that to the implementation / application, as long as any newer response is sent when it arrives at the proxy. As the latest groupcomm-bis already allows multiple responses from a server, both should work.\r\n> \r\n> If I were to implement it smartly, I'd probably send up to 3 copies of the NON request (one right away, one half-way through and one just in time so that even if the response takes DEFAULT_LEISURE I can still send it on), and send my cached responses after the first lb_leisure has expired. (Or maybe a bit later so that they can be nagled onto any responses from the second request). Although, unless there's pressure to do it smart, I'd do it minimal-effort and that's send-immediately-update-later.\r\n\r\nAssuming this was all referring to the \"aggregated\" cache entry, groupcomm-bis is in fact considering the model \"send-immediately-update-later\".\r\n\r\nSee https://datatracker.ietf.org/doc/html/draft-ietf-core-groupcomm-bis-03#section-3.4.3, where the \"aggregated\" cache entry is actually updated only at the end of the collection period, i.e. \"After stopping to forward the received responses back to the client ...\"\r\n\r\nWhat we should say probably more explicitly is:\r\n\r\n- Responses are forwarded back as they come, also in case of multiple responses from a same server. As already mentioned in previous sections, it's ultimately up to the application on the origin client to decide how to handle them.\r\n\r\n- During the collection period, if multiple responses from a server come, then each of those responses:\r\n\r\n   --- Replaces the previous one from the same server in the list L, that will eventually populate the \"aggregated\" cache entry at the end of the collection period.\r\n\r\n   --- Replaces the previous one in the \"individual\" cache entry associated to that server.\r\n",
+          "createdAt": "2021-03-17T08:24:56Z",
+          "updatedAt": "2021-03-17T08:24:56Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Updated the caching and validation text based on the discussion; see above commit. It seemed not needed to introduce the concept of 'aggregate cache entries' , so I wrote the draft text without these. If needed we can reopen the discussion if the text needs to be improved.",
+          "createdAt": "2021-06-04T12:48:06Z",
+          "updatedAt": "2021-06-04T12:48:06Z"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "MDU6SXNzdWU4MTAwMTYzNTM=",
+      "title": "Can we refer to examples in an obsoleted RFC? (section 2.2.1)",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/12",
+      "state": "CLOSED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "EskoDijk"
+      ],
+      "labels": [],
+      "body": "Can we refer to examples in an obsoleted RFC? (section 2.2.1 mentions the RFC 7390 examples)",
+      "createdAt": "2021-02-17T09:37:31Z",
+      "updatedAt": "2021-06-04T07:57:21Z",
+      "closedAt": "2021-06-04T07:57:21Z",
+      "comments": [
+        {
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "body": "What is the purpose of referring to those?\r\nIf they are illustrating normative concepts, I'd pull them over.\r\nIf they are just \"look, this is one way this has been done\", such a reference is OK IMHO.",
+          "createdAt": "2021-02-17T12:31:20Z",
+          "updatedAt": "2021-02-17T12:31:20Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The purpose is just to point to some examples (that we didn't want to repeat), nothing normative. So it should be ok to do so.",
+          "createdAt": "2021-02-17T12:53:18Z",
+          "updatedAt": "2021-02-17T12:53:18Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "body": "You could emphasize this by using past tense (... RFC 7390 showed examples...)",
+          "createdAt": "2021-02-17T15:51:53Z",
+          "updatedAt": "2021-02-17T15:51:53Z"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "MDU6SXNzdWU4MTE5NDIxNDM=",
+      "title": "Consider if interaction between Observe and No-Response Options should be described",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/14",
+      "state": "CLOSED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "marco-tiloca-sics"
+      ],
+      "labels": [],
+      "body": "A server receiving an Observe Option in the group request SHOULD respond, and MUST respond even when it adds the client as a new entry to the observers list for that resource.\r\nHowever, what if the client uses also No-Response? I.e. it might include a weird combination of both options. Should one take precedence over the other?  E.g. an Observe request with suppression of 2.x responses does not make much sense; the server could just decide to not put the client on the observers-list after the first initial processing of the request leads to a 2.x response. \r\nOr, it could ignore the conflicting No-Response option in this case.\r\n\r\nOr, we could say the behaviour is implementation dependent and the client MUST NOT use such particular combinations.",
+      "createdAt": "2021-02-19T11:24:36Z",
+      "updatedAt": "2021-06-04T08:43:16Z",
+      "closedAt": "2021-06-04T08:43:16Z",
+      "comments": [
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This seems relevant more generally also to non-group requests. Since RFC 7967 does not say so much on this combination,  perhaps it's better to not say more in this document and leave if for corrclarr [1] ? @cabo \r\n\r\nJust for information, we've actually thought of a possible usage of a request with both Observe:0 (Register) and No-Response: 2 (Not interested in 2.xx responses). See the last three paragraphs of [2], where this is intentionally phrased just as a suggestion, since it's unclear how much well Observe and No-Response are used together in implementations today.\r\n\r\n[1] https://github.com/core-wg/corrclar\r\n[2] https://ace-wg.github.io/ace-key-groupcomm/v-11/draft-ietf-ace-key-groupcomm.html#section-4.1.6.2",
+          "createdAt": "2021-02-19T13:38:53Z",
+          "updatedAt": "2021-02-19T13:39:53Z"
+        },
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "As per the commit https://github.com/core-wg/groupcomm-bis/commit/64f51899ecc040a32a4547ea6b86c0614f9cfe35 , responding (suppressing the response) now follows a SHOULD (SHOULD NOT) rather than a MUST (MUST NOT), pointing at the discussion about No-Response in Section 3.1 as an exception to that.",
+          "createdAt": "2021-04-26T08:04:02Z",
+          "updatedAt": "2021-04-26T08:04:02Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Agree, closing.",
+          "createdAt": "2021-06-04T08:43:16Z",
+          "updatedAt": "2021-06-04T08:43:16Z"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "MDU6SXNzdWU4MTIwMjg2NjU=",
+      "title": "Move intro text of Section 5 into an own Section 5.1?",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/15",
+      "state": "CLOSED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "marco-tiloca-sics"
+      ],
+      "labels": [],
+      "body": "The intro text of Section 5 has become quite long - it could have its own section 5.1.\r\nThis is just a nice-to-have to make text easier to refer to. (Some standards bodies use this convention. E.g. if I refer to \"Section 5\" currently it is not clear whether I mean the intro text or the whole of Section 5 including subsections.)\r\nOther sections already conform to this convention. (Except section 1. Introduction ; but for an intro section it is less common to apply this convention.)",
+      "createdAt": "2021-02-19T13:34:53Z",
+      "updatedAt": "2021-04-26T08:27:04Z",
+      "closedAt": "2021-04-26T08:27:04Z",
+      "comments": [
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Same pattern can be applied to the text of 6.2 -> 6.2.1",
+          "createdAt": "2021-02-19T14:00:25Z",
+          "updatedAt": "2021-02-19T14:00:25Z"
+        },
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "As per the commit https://github.com/core-wg/groupcomm-bis/commit/8f776df34080199a249cf3abd579f9fc123d5385 , done for Section 5 -> 5.1.\r\n\r\nInstead, the introductory text in Section 6.2 seems already pretty short and self-contained to be further broken down.",
+          "createdAt": "2021-04-26T08:27:04Z",
+          "updatedAt": "2021-04-26T08:27:04Z"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "MDU6SXNzdWU4MTIwNjQzMzg=",
+      "title": "Do we need to mention size-based packet filtering in 6.5 6LoWPAN security considerations?",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/16",
+      "state": "CLOSED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Idea: an ingress MPL Forwarder or 6LBR may filter ingress multicast packets based on size. E.g., any packet that would lead to (excessive) 6LoWPAN fragmentation could be dropped as a policy. Or deprioritized just like we state for MPL Forwarders / 6LR Routers.\r\nIs this something we ought to mention in the security considerations?\r\n",
+      "createdAt": "2021-02-19T14:23:46Z",
+      "updatedAt": "2021-06-04T08:18:54Z",
+      "closedAt": "2021-06-04T08:18:54Z",
+      "comments": [
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think it's good to add.",
+          "createdAt": "2021-02-19T18:41:43Z",
+          "updatedAt": "2021-02-19T18:41:43Z"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "id": "MDU6SXNzdWU4MTI4NDI1Mjk=",
+      "title": "Define what are valid cases of forward/reverse proxy with e2e security and with two-leg security",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/17",
+      "state": "OPEN",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "EskoDijk"
+      ],
+      "labels": [],
+      "body": "Reverse proxy may act as origin server and hence client doesn't use e2e security to server group. However, in other cases a reverse proxy may assume the client uses e2e OSCORE security and not add any security by itself. To consider all the different, possible/valid cases for this.  And see if it's different for forward proxies.",
+      "createdAt": "2021-02-21T12:19:30Z",
+      "updatedAt": "2021-06-04T15:51:05Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "One particular example is a client that connects over CoAP+TLS+TCP (or CoAP+DTLS) to the reverse-proxy, where the proxy uses OSCORE security for the multicast request.  The client is not aware of the (group) security material which the proxy and servers have.",
+          "createdAt": "2021-02-21T20:13:46Z",
+          "updatedAt": "2021-02-21T20:13:46Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "At high level, there are 4 different potential cases of \"proxying with security\".\r\n\r\n1. Forward proxy with e2e security [=Group oscore e2e via proxy]\r\n2. Forward proxy with two-leg security [=unicast OSCORE or DTLS on 1st leg, with group OSCORE on 2nd leg]\r\n3. Reverse proxy with e2e security [=Group oscore e2e via proxy]\r\n4. Reverse proxy with two-leg security [=unicast OSCORE or DTLS on 1st leg, with group OSCORE on 2nd leg]\r\n\r\nCurrently the draft doesn't say anything about these combinations, which are valid, which not, and where to find the security solution to them (e.g. a pointer to draft-groupcomm-proxy for covering most of these cases)\r\n\r\nThis text/analysis could be a new Section 5.3 \"Proxy Security\" or so.\r\n\r\nNote: cases 2 and 4 depend on a 100% trusted proxy so no e2e security model.  The client in this case is not even aware necessarily of the existence of Group-OSCORE. The proxy stores the \"group member identity\" to be used to make the Group OSCORE protected request. This may be a single identity, or a separate identity for each authorized user of the Proxy service.\r\n\r\nCase 1 and 3 most likely means OSCORE-in-OSCORE is needed? ",
+          "createdAt": "2021-06-04T14:11:27Z",
+          "updatedAt": "2021-06-04T14:11:27Z"
+        },
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> This text/analysis could be a new Section 5.3 \"Proxy Security\" or so.\r\n\r\nIt seems like a good idea.\r\n\r\n> Note: cases 2 and 4 depend on a 100% trusted proxy so no e2e security model. The client in this case is not even aware necessarily of the existence of Group-OSCORE. The proxy stores the \"group member identity\" to be used to make the Group OSCORE protected request. This may be a single identity, or a separate identity for each authorized user of the Proxy service.\r\n\r\nIntermediaries are usually considered non-trusted, hence the interest for an actual e2e security model between origin client and origin servers.\r\n\r\nHow would the proxy store and use a \"group member identity\" ? Even if the proxy somehow obtains multiple different Sender IDs from the Group Manager (i.e., one for each authorized user of the proxy service), the proxy would have to sign a Group OSCORE protected request with a private key of its own (possibly one per corresponding Sender ID), which is not in control of the actual origin client.\r\n\r\nWith such a level of trust on the proxy, and with a client not interested in e2e security anyway, it would be just easier to think of the proxy simply as another single member of the same OSCORE group including the servers, thus sacrificing verifiable data authorship/origin.\r\n\r\nMaybe this might be useful/applicable for case 4, with a client anyway likely unaware of what happens beyond the reverse-proxy and to be actually reaching a group of servers. Not sure about case 2, where the client would be aware of an actual group of servers it tries to reach.\r\n\r\n> Case 1 and 3 most likely means OSCORE-in-OSCORE is needed?\r\n\r\nYes, when exactly OSCORE is also conveniently used between Client and Proxy, to fulfill REQ2 from https://datatracker.ietf.org/doc/html/draft-tiloca-core-groupcomm-proxy-03#section-4 :\r\n\r\nREQ2. The CoAP proxy MUST identify a client sending a CoAP group request, in order to verify whether the client is allowed-listed to do so.  For example, this can rely on one of the following ...\r\n\r\nNote that this requirement applies even in case end-to-end security is not enforced between client and servers.\r\n",
+          "createdAt": "2021-06-04T15:33:49Z",
+          "updatedAt": "2021-06-04T15:33:49Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Agree, in the two-legs security case it seems sufficient that the proxy has one \"identity\" within the group. And I agree that this proxy would most likely be a reverse proxy Case 4 i.e. it operates like a (trusted!) origin server. By definition of a reverse proxy , it has to be trusted just like a client trusts an origin server with being able to know and manipulate the served content.",
+          "createdAt": "2021-06-04T15:51:05Z",
+          "updatedAt": "2021-06-04T15:51:05Z"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "MDU6SXNzdWU4MjU1NTQ3MDk=",
+      "title": "Using ETag in a multicast request?",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/18",
+      "state": "CLOSED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "EskoDijk"
+      ],
+      "labels": [],
+      "body": "RFC 7252 writes: \"A GET request to a multicast group MUST NOT contain an ETag option.\"\r\nOne reason to have this statement may be that known problems were found for doing ETag in a group request. Another reason could be: just be on the cautious side.\r\n\r\nNow if the currently defined Multi-ETag Option works, then in my view also ETag could work in exactly the same way.\r\nThat is: server includes an ETag option in a response that is a binary concatenation of two items:\r\n  { resource e-tag  ,  unique-server-id-within-group }\r\n\r\nhere the unique-id doesn't need to be guaranteed-unique, only unique with some (high/reasonable) probability. It could be a group member number/id if those have been assigned.\r\n\r\nSo the idea is that the server may use these 'extended' e-tag values for any resources that support multicast.  For example it could be used for resources that are in application context only used with multicast. \r\n\r\nNow we have something using ETag that works like Multi-ETag so should be correct. In case of \"etag collission\" i.e. two servers return the same ETag value for a resource representation the burden is on the client to detect this case and ensure this ETag value is not used in a subsequent request (or: only used if the client really intends to validate the responses from both servers at the same time.)\r\n\r\nPros:\r\n* the \"unique server id within group\" can be made much shorter than the complete server IP address structure used in Multi-ETag\r\n* will also work when some servers are unware of this special use of ETag  (i.e. for normal ETag values, these can be mixed into the set of responses. Client will handle potential collissions)\r\n* servers don't need to support Multi-ETag\r\n\r\nCons:\r\n* burden on client to do \"bookkeeping\" in case of potentially colliding etags\r\n* the Multi-Etag is more efficient in encoding multiple etag values for the same server (using CBOR array ), for a larger number of etag values  (but: is this usage likely in practice?)\r\n* needs some concept of 'server id within group' and server should apply it to ETag generation if it has this id.\r\n",
+      "createdAt": "2021-03-09T08:52:10Z",
+      "updatedAt": "2021-06-04T12:21:34Z",
+      "closedAt": "2021-06-04T12:21:34Z",
+      "comments": [
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Draft proposal text included in above commit. (We can review and reopen this if needed.)",
+          "createdAt": "2021-06-04T12:21:34Z",
+          "updatedAt": "2021-06-04T12:21:34Z"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "id": "MDU6SXNzdWU4NTg2MTMxMDk=",
+      "title": "Consider if new Q-Block options can be integrated in draft",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/19",
+      "state": "CLOSED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-04-15T08:04:47Z",
+      "updatedAt": "2021-06-04T08:43:34Z",
+      "closedAt": "2021-06-04T08:43:34Z",
+      "comments": [
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "See https://datatracker.ietf.org/doc/html/draft-ietf-core-new-block-14#section-4.8\r\n\r\n> Servers MUST ignore multicast requests that contain the Q-Block2 Option. As a reminder, Block2 Option can be used as stated in Section 2.8 of [RFC7959].",
+          "createdAt": "2021-05-31T08:05:28Z",
+          "updatedAt": "2021-05-31T08:05:28Z"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "id": "MDU6SXNzdWU5MDk0Njg5MDg=",
+      "title": "Clarify in detail which elements are updated in prior RFCs",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/20",
+      "state": "OPEN",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Based on John's review ([link](https://mailarchive.ietf.org/arch/msg/core/Z9wxTL3-hAEDT_P8JOQztTfxlVU/)); Clarify in detail which elements are updated in prior RFCs.\r\n* Mention what is \"added\" to prior content (without replacement)\r\n* Mention what is replacing prior content (including specific section numbers)\r\n\r\nProposal: to add a section 1.3 to define this in detail.",
+      "createdAt": "2021-06-02T12:52:10Z",
+      "updatedAt": "2021-06-02T12:52:10Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 21,
+      "id": "MDU6SXNzdWU5MDk0Nzk4NjM=",
+      "title": "Verify if transport protocol can be generalized, from UDP/IP only to any CoAP-capable transports",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/21",
+      "state": "CLOSED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "EskoDijk"
+      ],
+      "labels": [],
+      "body": "Based on John's review ([link](https://mailarchive.ietf.org/arch/msg/core/Z9wxTL3-hAEDT_P8JOQztTfxlVU/)), verify if transport protocol can be generalized, from UDP/IP only to any CoAP-capable transports.\r\n\r\nIf so adapt the text at various places to enable this, using UDP/IP multicast as the default transport binding while not excluding others.",
+      "createdAt": "2021-06-02T13:03:55Z",
+      "updatedAt": "2021-07-08T07:02:30Z",
+      "closedAt": "2021-07-08T07:02:30Z",
+      "comments": [
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Part of this verification: if transport can be generalized, then review all instances of \"multicast request\" and \"group request\" - make uniform terminology. If a group request is meant, use \"group request\". For a group request specifically and only sent over a multicast transport, a phrase like \"multicast group request\" could be used.",
+          "createdAt": "2021-06-04T11:40:21Z",
+          "updatedAt": "2021-06-04T11:40:21Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Did a check of the text; it looks like it can be easily generalized to any alternative CoAP transports. The concept of \"CoAP group\" remains. In the alternative transports, the concept of \"port\" may be absent so for sections that define requirements related to \"port\" some care in the wording is needed - it pertains specifically to any transports that do have the 'port' concept.\r\n\r\nIn addition, the \"security group\" may be generalized to use an alternative security means (not OSCORE).\r\nThe intro can explain that this draft focuses by default on \"UDP multicast\" as transport and \"Group OSCORE\" for security ; but many considerations also hold when alternatives are used for these.",
+          "createdAt": "2021-06-16T09:31:30Z",
+          "updatedAt": "2021-06-16T09:31:30Z"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "id": "MDU6SXNzdWU5MDk1MDQ3NzQ=",
+      "title": "Expand text on amplification attacks and countering",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/22",
+      "state": "OPEN",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Based on John's review ([link](https://mailarchive.ietf.org/arch/msg/core/Z9wxTL3-hAEDT_P8JOQztTfxlVU/)), expand a bit on the following text from RFC 7252:\r\n\r\n \"This specification attempts to reduce the\r\n   amplification effects of multicast requests by limiting when a\r\n   response is returned.  To limit the possibility of malicious use,\r\n   CoAP servers SHOULD NOT accept multicast requests that can not be\r\n   authenticated in some way, cryptographically or by some multicast\r\n   boundary limiting the potential sources.  If possible, a CoAP server\r\n   SHOULD limit the support for multicast requests to the specific\r\n   resources where the feature is required.\"\r\n\r\nA specific section 6.x on amplification attacks in general could be added, even. (To cross-check with what 6.2.3 writes about amplification attacks.)",
+      "createdAt": "2021-06-02T13:29:48Z",
+      "updatedAt": "2021-06-14T10:27:50Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "The commit https://github.com/core-wg/groupcomm-bis/commit/3eac21fbf6eb0dbf441c1e3b954a5ad6e94ee25a   adds:\r\n\r\n- New text in Sections 4, 6.1, 6.2.3 (second bullet point)\r\n- New Section 6.3",
+          "createdAt": "2021-06-14T10:27:50Z",
+          "updatedAt": "2021-06-14T10:27:50Z"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "id": "MDU6SXNzdWU5Mzk1NDAwMjY=",
+      "title": "Consider to replace terms 'backward security' and 'forward security'",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/24",
+      "state": "OPEN",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Consider to replace terms 'backward security' and 'forward security': from what I have seen, only 'backward secrecy' and 'forward secrecy' is used instead of the terms in the current text. Correct me if I'm wrong :)",
+      "createdAt": "2021-07-08T07:03:33Z",
+      "updatedAt": "2021-07-08T18:24:08Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Both versions are found in the literature about secure group communication.\r\n\r\nAn advantage of using \" *-security \" is to avoid confusion with \"forward secrecy\", which is also used in other contexts with a different meaning, more related to key agreement protocols and assurances on established session keys.\r\n\r\nProbably it's still fine to do the change, if we phrase it as \"... backward secrecy in the group\".",
+          "createdAt": "2021-07-08T18:24:08Z",
+          "updatedAt": "2021-07-08T18:24:08Z"
+        }
+      ]
+    },
+    {
+      "number": 27,
+      "id": "MDU6SXNzdWU5NTUwMjU2NzE=",
+      "title": "one-to-many vs. figure 1",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/27",
+      "state": "OPEN",
+      "author": "chrysn",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "There seems to be a contradiction between \"There can be a one-to-one or a one-to-many relation between security groups and CoAP groups\" and figure 1 that has a 1..n / 1..n relation between CoAP groups and security groups. The figure (which I think is correct here) would imply that the sentence should rather say \"can be a many-to-many relation between ... (but often it is one-to-one)\".",
+      "createdAt": "2021-07-28T16:19:36Z",
+      "updatedAt": "2021-07-28T16:19:36Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 28,
+      "id": "MDU6SXNzdWU5NTUwNTA2NTg=",
+      "title": "Encoding the group name in requests",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/28",
+      "state": "OPEN",
+      "author": "chrysn",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Reading the paragraph after \"An application group can be named in many ways\", I was left a bit confused:\r\n\r\n* Why should it be encoded in the Uri-Query? That'd need coordination among all applications running on that host (for it is interfering with the query argument space that's usually left for the application to use). The common partitioning of applications inside a host is left-to-right in the URI, and that puts it in the very last spot.\r\n\r\n* I think I do see what is meant by the discouragement of using the Uri-Host, but doubt that it'd be immediately obvious to general readers.\r\n\r\n  How I understand Uri-Host to be impractical here is that while the request is sent to a well-defined and named URI, the response is a representation of the same URI with the individual server's IP replaced into the authority component, and if two application groups on the same CoAP group *use the same path*, then there may be clashes, not on the request-response layer (where the responses are bound to request for a particular host name) but in the client's cache of the responses. (And once one is at the point where application groups in the same CoAP group have a disjunct path set, one can do away with identification altogether and just address the unique path).\r\n\r\n  I don't quite follow how this is not \"as intended in RFC7252\": It is an identifier for who is being addressed, and as such just part of the URI. (For example, if I define my lights group to be named multilight.example.com and name the resource `coap://multilight.example.com/all-off`, then the host name is exactly the group name, and already needs to be put into the request unless there is known URI aliasing). See also https://github.com/core-wg/wiki/wiki/CoAP-FAQ on \"send a Uri-Host\" option, with the caveat that I'm a strong proponent of answer A2.\r\n\r\n  Furthermore, the text seems to imply that virtual hosting is something a server would need to go out of its way to implement. It isn't: The Uri-Host option is critical, and a host needs to make the conscious decision to ignore that option; otherwise it's just as much part of finding the addressed resource as all the other Uri-* options are.\r\n\r\nThe best practice is something I can get behind, although I suggest using no identifier on the wire (and just the disjunct set of resources) as a byte saving alternative when the administrative effort of ensuring path uniqueness can be afforded.",
+      "createdAt": "2021-07-28T16:52:03Z",
+      "updatedAt": "2021-07-28T16:52:03Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 29,
+      "id": "MDU6SXNzdWU5NTUwNzEwNDA=",
+      "title": "Clarify \"can also discover application groups by [...] /.well-known/core\"",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/29",
+      "state": "OPEN",
+      "author": "chrysn",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Current draft says:\r\n\r\n> CoAP endpoints can also discover application groups by performing a group discovery query using the /.well-known/core resource. Such a request may be sent to a known CoAP group multicast address associated to application group(s), or to the All CoAP Nodes multicast address.\r\n\r\nI don't quite understand how that'd happen; I see two possible interpretations:\r\n\r\n* Use .wk/c to discover *content of* application groups, eg. by requesting coap://mygroup/.well-known/core, picking really only one response, and hoping that it's just the content of the group resources and not everything on the host (cf. #28 -- coap://mygroup/.well-known/core was requested, but what comes back is coap://[fe80::f00]/.well-known/core actually).\r\n* Send out a broad multicast and wait for links that describe groups. However, other than the RD Appendix A methods (which aren't really applicable here), I don't know of any description format to be used. Is \"The description of the group may be provided in an application specific or a yet to be defined generic format.\" meant here?",
+      "createdAt": "2021-07-28T17:20:03Z",
+      "updatedAt": "2021-07-28T17:20:03Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 6,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTM1ODAxNTEy",
+      "title": "V 02",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/6",
+      "state": "MERGED",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-12-10T09:46:30Z",
+      "updatedAt": "2020-12-10T09:48:06Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "05fdc96e11488b0edb3a2ec00d02e0bff566411c",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "v-02",
+      "headRefOid": "c81cc319343aeeb4ef69574822f96d5d2f761ed2",
+      "closedAt": "2020-12-10T09:46:42Z",
+      "mergedAt": "2020-12-10T09:46:42Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "fcc8218eb6fc14fd0d9e7717d517bc2f42b48c89"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTYwODkzNzcy",
+      "title": "V 03",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/10",
+      "state": "MERGED",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-01-25T08:25:06Z",
+      "updatedAt": "2021-02-24T08:12:15Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "fcc8218eb6fc14fd0d9e7717d517bc2f42b48c89",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "v-03",
+      "headRefOid": "ed756d29b0fecc324130703305b9157109e6da6a",
+      "closedAt": "2021-02-24T08:11:19Z",
+      "mergedAt": "2021-02-24T08:11:19Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "dd47165012738d4d64228aa6d76111bdace1d3e3"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTc1MTgzMzE2",
+          "commit": {
+            "abbreviatedOid": "783840c"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "I did a high-level review of all the recent updates; thanks! For the Multi-ETag and Group-ETag options I think a separate draft would be needed as it seems to go beyond the scope of updated GroupComm RFC.  We can also include these new features and let the working group discuss where it should go.\r\n\r\nFor the new features I feel that some motivation and typical use cases are needed; e.g. a constrained CoAP client wouldn't use these (too much complexity/code?) but an unconstrained client accessing constrained servers via an unconstrained Proxy might happily use these to reduce network load on the constrained network (near the servers). But this could be added later also.",
+          "createdAt": "2021-01-25T09:02:11Z",
+          "updatedAt": "2021-01-25T09:39:00Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "RFC7252 states \"Unlike HTTP, the cacheability of CoAP responses does not depend on the request method, but it depends on the Response Code.\"  If this is the case, why mention GET / FETCH in this section?",
+              "createdAt": "2021-01-25T09:02:11Z",
+              "updatedAt": "2021-02-22T11:21:39Z"
+            },
+            {
+              "originalPosition": 10,
+              "body": "Wait, it is quoting from RFC7252 - so that's ok.",
+              "createdAt": "2021-01-25T09:06:40Z",
+              "updatedAt": "2021-02-22T11:21:39Z"
+            },
+            {
+              "originalPosition": 17,
+              "body": "\"this requires\" can be clarified - all bullets are a MAY here so does not really seem a requirement?\r\nIt is only needed when the client wants to do one of the optional (MAY) things in the bullets. We can also leave the text as is and I'll think about improved formulation.",
+              "createdAt": "2021-01-25T09:15:29Z",
+              "updatedAt": "2021-02-22T11:21:39Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc0ODkyOTY0",
+      "title": "Use external section references",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/13",
+      "state": "CLOSED",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-02-17T12:49:45Z",
+      "updatedAt": "2021-07-14T13:51:11Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "fcc8218eb6fc14fd0d9e7717d517bc2f42b48c89",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "section-references",
+      "headRefOid": "dce40e413e876adfca95ff32c9a9f2200a30213a",
+      "closedAt": "2021-04-19T07:56:15Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "On my setup, the \"make\" fails for the new style section refs: e.g.\r\n\r\ndraft-ietf-core-groupcomm-bis.xml(0): Error: IDREF attribute target references an unknown ID \"Section_9_of_RFC7252\", at None\r\n\r\nis there something that needs updating? ( xml2rfc 3.2.1 / kramdown-rfc2629 1.3.32 / Msys2 toolchain on Windows 10)\r\n",
+          "createdAt": "2021-02-17T13:06:10Z",
+          "updatedAt": "2021-02-17T13:06:10Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "body": "Are you sure you are actually using that kramdown-rfc version?\r\nVersion 1.3.21 of two months ago added the section references.\r\nMaybe you have another version as well that is older.\r\n\r\n",
+          "createdAt": "2021-02-17T15:55:11Z",
+          "updatedAt": "2021-02-17T15:55:11Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "body": "(Oh, and xml2rfc has been 3.5.0 for a while, and the update is worth it.  But that is not the problem you describe.)",
+          "createdAt": "2021-02-17T15:56:17Z",
+          "updatedAt": "2021-02-17T15:56:17Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "body": "One reason may be that you are not calling kramdown-rfc with --v3.  The I-d-template makefile does this automatically -- *if* it is up to date.  Maybe you are short a `git submodule update --recursive --remote` (or whatever your preferred incantation is).\r\n",
+          "createdAt": "2021-02-18T22:37:16Z",
+          "updatedAt": "2021-02-18T22:37:16Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@cabo Bingo! Thanks for the tip; I saw that the submodule needed to go from \"master\" to \"main\" branch and it was way behind. Now it works nicely. We may merge this PR after the I-D submission deadline because my co-author is still on an older toolchain.",
+          "createdAt": "2021-02-19T10:55:43Z",
+          "updatedAt": "2021-02-19T10:55:43Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "body": "Great!  I suggested this because it is better for the end product, but also eases the work of a reviewer by being able klick on those section links.\r\n",
+          "createdAt": "2021-02-19T15:13:24Z",
+          "updatedAt": "2021-02-19T15:13:24Z"
+        },
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Adopted in branch v-04, see https://github.com/core-wg/groupcomm-bis/commit/76a5ced3f5865c3d7d1e77bf50e72a722a1ddef9",
+          "createdAt": "2021-04-19T07:56:15Z",
+          "updatedAt": "2021-04-19T07:56:15Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 23,
+      "id": "MDExOlB1bGxSZXF1ZXN0NjczOTM1ODI5",
+      "title": "Generalize to non-IP-multicast transports and other security methods, #21",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/23",
+      "state": "MERGED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Generalize to non-IP-multicast transports and other security methods, for issue #21",
+      "createdAt": "2021-06-19T21:23:40Z",
+      "updatedAt": "2021-07-14T13:51:12Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "v-04",
+      "baseRefOid": "01121de2566ba1d381dc88c29ee61fa47e8d7965",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "pr-generalized-transports-21",
+      "headRefOid": "99baf0948ef863ffd16805b834bf63b8664465b8",
+      "closedAt": "2021-06-22T18:05:28Z",
+      "mergedAt": "2021-06-22T18:05:28Z",
+      "mergedBy": "EskoDijk",
+      "mergeCommit": {
+        "oid": "6574f8896f60528de20a262572c62de961c8ed61"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njg4Njc3NDYx",
+          "commit": {
+            "abbreviatedOid": "99baf09"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "It looks good and ready to merge. Thanks!",
+          "createdAt": "2021-06-21T17:06:49Z",
+          "updatedAt": "2021-06-21T17:06:49Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg1ODU3ODM0",
+      "title": "text for #17 proxy security cases",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/25",
+      "state": "MERGED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "text for #17 proxy security cases",
+      "createdAt": "2021-07-08T09:47:32Z",
+      "updatedAt": "2021-07-09T12:43:27Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "v-04",
+      "baseRefOid": "6574f8896f60528de20a262572c62de961c8ed61",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "pr-proxy-security-cases-17",
+      "headRefOid": "236ff7b56d412f54eaaecb280b94c5f1ef0afb45",
+      "closedAt": "2021-07-09T12:43:11Z",
+      "mergedAt": "2021-07-09T12:43:11Z",
+      "mergedBy": "EskoDijk",
+      "mergeCommit": {
+        "oid": "45ce587aed3fbf4646d2da106f15c6ed7bdef1fe"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAyMzU0ODQy",
+          "commit": {
+            "abbreviatedOid": "d2fa297"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-07-08T17:59:42Z",
+          "updatedAt": "2021-07-08T17:59:43Z",
+          "comments": [
+            {
+              "originalPosition": 16,
+              "body": "Proposed rephrasing:\r\n\r\nFor a client performing a group communication request via a forward-proxy, end-to-end security should be implemented. The client then creates a group request protected with Group OSCORE and unicasts this to the proxy. The proxy adapts the request from a forward-proxy request to a regular request and multicasts this adapted request to the indicated CoAP group. During the adaptation, the security provided by Group OSCORE persists, both when using the group mode or the pairwise mode. The first leg of communication between client and proxy can optionally be further protected, e.g., by using (D)TLS and/or OSCORE.",
+              "createdAt": "2021-07-08T17:59:43Z",
+              "updatedAt": "2021-07-08T17:59:43Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAyMzU1MDg1",
+          "commit": {
+            "abbreviatedOid": "d2fa297"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-07-08T18:00:00Z",
+          "updatedAt": "2021-07-08T18:00:00Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "Proposed rephrasing:\r\n\r\nThe case of hop-by-hop security is only possible if the proxy can be completely trusted and it is configured as a member of the OSCORE security group(s) that it needs to access, on behalf of clients. The first leg of communication between client and proxy is then protected with a security method for CoAP unicast, e.g., by using (D)TLS and/or OSCORE. The second leg between proxy and servers is protected using Group OSCORE. This can be useful in applications where, for example, the origin client does not implement Group OSCORE, or the group management operations are confined to a particular network domain and the client is outside this domain.",
+              "createdAt": "2021-07-08T18:00:00Z",
+              "updatedAt": "2021-07-08T18:01:10Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAyMzU1Nzk3",
+          "commit": {
+            "abbreviatedOid": "d2fa297"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "Looks good! See inline some proposed rephrasing.",
+          "createdAt": "2021-07-08T18:00:47Z",
+          "updatedAt": "2021-07-08T18:00:47Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 26,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg5OTI5Mzg4",
+      "title": "V 04",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/26",
+      "state": "MERGED",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-07-14T13:46:08Z",
+      "updatedAt": "2021-07-14T13:51:12Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "dd47165012738d4d64228aa6d76111bdace1d3e3",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "v-04",
+      "headRefOid": "1d847096302e9e6f5bb438700f596b353253cb56",
+      "closedAt": "2021-07-14T13:47:56Z",
+      "mergedAt": "2021-07-14T13:47:56Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "fb0079953c336b6b1a71b123d4606b89376456bc"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
