@@ -15,6 +15,11 @@ updates: 7252, 7641
 
 coding: utf-8
 
+venue:
+  group: Constrained RESTful Environments
+  mail: core@ietf.org
+  github: core-wg/groupcomm-bis
+
 author:
       -
         ins: E. Dijk
