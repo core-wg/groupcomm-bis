@@ -772,7 +772,7 @@ Because it supports unicast only, {{RFC8323}} (CoAP over TCP, TLS, and WebSocket
 
 That is, after the first group request including the Block2 Option and sent over UDP, the following unicast CoAP requests targeting individual servers to retrieve further blocks may be sent over TCP or WebSockets, possibly protected with TLS.
 
-This requires the individually addressed servers to also support CoAP over TCP/TLS/WebSockests for the targeted resource. A server can indicate its support for multiple alternative transports, and practically enable access to its resources through either of them, by using the method defined in {{I-D.ietf-core-transport-indication}}.
+This requires the individually addressed servers to also support CoAP over TCP/TLS/WebSockets for the targeted resource. A server can indicate its support for multiple alternative transports, and practically enable access to its resources through either of them, by using the method defined in {{I-D.ietf-core-transport-indication}}.
 
 ### Other Transports ###
 CoAP group communication may be used over transports other than UDP/IP multicast. For example broadcast, non-UDP multicast, geocast, serial unicast, etc. In such cases the particular considerations for UDP/IP multicast in this document may need to be applied to that particular transport.
