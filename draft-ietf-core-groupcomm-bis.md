@@ -1715,8 +1715,6 @@ Client              A  B  C
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
 
-RFC EDITOR: PLEASE REMOVE THIS SECTION.
-
 ## Version -10 to -11 ## {#sec-10-11}
 
 * Updated references.
@@ -1904,7 +1902,7 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 * Editorial improvements.
 
 # Acknowledgements # {#acknowledgements}
-{: numbered="no"}
+{:numbered="false"}
 
 The authors sincerely thank {{{Christian Amsüss}}}, {{{Carsten Bormann}}}, {{{Thomas Fossati}}}, {{{Rikard Höglund}}}, {{{Jaime Jiménez}}}, {{{John Preuß Mattsson}}}, {{{Jim Schaad}}}, and {{{Jon Shallow}}} for their comments and feedback.
 
