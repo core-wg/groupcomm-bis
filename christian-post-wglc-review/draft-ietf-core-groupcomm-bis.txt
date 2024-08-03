@@ -3868,8 +3868,6 @@ Appendix E.  Document Updates
 
    This section is to be removed before publishing as an RFC.
 
-   RFC EDITOR: PLEASE REMOVE THIS SECTION.
-
 E.1.  Version -10 to -11
 
    *  Updated references.
