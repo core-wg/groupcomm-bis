@@ -1760,7 +1760,7 @@ Table of Contents
 
    A server SHOULD have a mechanism to verify the aliveness of its
    observing clients and the continued interest of these clients in
-   receiving the observe notifications.  This can be implemented by
+   receiving the Observe notifications.  This can be implemented by
    sending notifications occasionally using a Confirmable message (see
    Section 4.5 of [RFC7641] for details).  This requirement overrides
    the regular behavior of sending Non-confirmable notifications in
