@@ -1715,6 +1715,10 @@ Client              A  B  C
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
 
+## Version -11 to -12 ## {#sec-11-12}
+
+* Editorial improvements.
+
 ## Version -10 to -11 ## {#sec-10-11}
 
 * Updated references.
