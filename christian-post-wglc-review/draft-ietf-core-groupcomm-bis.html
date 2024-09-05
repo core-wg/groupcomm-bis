@@ -2218,7 +2218,7 @@ will be unique to this particular server with a high probability. This practical
         <h3 id="name-uri-path-selection">
 <a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-uri-path-selection" class="section-name selfRef">URI Path Selection</a>
         </h3>
-<p id="section-3.3-1">The URI Path used in a group request is preferably a path that is known to be supported across all members of a CoAP group. However, there are valid use cases where a group request is known to be successful only for a subset of the CoAP group. For instance, the subset may include only members of a specific application group, while the members of the CoAP group for which the request is unsuccessful (for example because they are outside the target application group) either respond with an error status code or ignore the group request (see also <a href="#sec-request-response-suppress" class="auto internal xref">Section 3.1.2</a> on response suppression).<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-1">The URI Path used in a group request is preferably a path that is known to be supported across all members of a CoAP group. However, there are valid use cases where a group request is known to be successful only for a subset of the CoAP group. For instance, the subset may include only members of a specific application group, while the members of the CoAP group for which the request is unsuccessful (for example because they are outside the target application group) either suppress a response as per the default behavior from <a href="#sec-request-response-suppress" class="auto internal xref">Section 3.1.2</a>, or reply with an error response, e.g., when the default behavior is overridden by a No-Response Option <span>[<a href="#RFC7967" class="cite xref">RFC7967</a>]</span> included in the group request.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="port-selection-for-udp-transport">
@@ -2396,7 +2396,7 @@ As a consequence, for each server, the client receives responses originated by t
         </h3>
 <p id="section-3.7-1">The CoAP Observe Option <span>[<a href="#RFC7641" class="cite xref">RFC7641</a>]</span> is a protocol extension of CoAP, which allows a CoAP client to retrieve a representation of a resource and automatically keep this representation up-to-date over a longer period of time. The client gets notified when the representation has changed. <span>[<a href="#RFC7641" class="cite xref">RFC7641</a>]</span> does not mention whether the Observe Option can be combined with CoAP (multicast) group communication.<a href="#section-3.7-1" class="pilcrow">¶</a></p>
 <p id="section-3.7-2">This section updates <span>[<a href="#RFC7641" class="cite xref">RFC7641</a>]</span> with the use of the Observe Option in a CoAP GET group request, and defines normative behavior for both client and server. Consistent with <span><a href="https://rfc-editor.org/rfc/rfc8132#section-2.4" class="relref">Section 2.4</a> of [<a href="#RFC8132" class="cite xref">RFC8132</a>]</span>, the same rules apply when using the Observe Option in a CoAP FETCH group request.<a href="#section-3.7-2" class="pilcrow">¶</a></p>
-<p id="section-3.7-3">Multicast Observe is a useful way to start observing a particular resource on all members of a CoAP group at the same time. Group members that do not have this particular resource or do not allow the GET or FETCH method on it will either respond with an error status -- 4.04 (Not Found) or 4.05 (Method Not Allowed), respectively -- or will silently suppress the response following the rules of <a href="#sec-request-response-suppress" class="auto internal xref">Section 3.1.2</a>, depending on server-specific configuration.<a href="#section-3.7-3" class="pilcrow">¶</a></p>
+<p id="section-3.7-3">Multicast Observe is a useful way to start observing a particular resource on all members of a CoAP group at the same time. If a group member does not have this particular resource or it does not allow the GET or FETCH method on that resource, then the group member will either suppress a response as per the default behavior from <a href="#sec-request-response-suppress" class="auto internal xref">Section 3.1.2</a>, or reply with an error response -- 4.04 (Not Found) or 4.05 (Method Not Allowed), respectively -- e.g., when the default behavior is overridden by a No-Response Option <span>[<a href="#RFC7967" class="cite xref">RFC7967</a>]</span> included in the group request.<a href="#section-3.7-3" class="pilcrow">¶</a></p>
 <p id="section-3.7-4">A client that sends a group GET or FETCH request with the Observe Option <span class="bcp14">MAY</span> repeat this request using the same Token value and the same Observe Option value, in order to ensure that enough (or all) members of the CoAP group have been reached with the request. This is useful in case a number of members of the CoAP group did not respond to the initial request. The client <span class="bcp14">MAY</span> additionally use the same Message ID in the repeated request, to avoid that members of the CoAP group that had already received the initial request would respond again. Note that using the same Message ID in a repeated request will not be helpful in case of loss of a response message, since the server that responded already will consider the repeated request as a duplicate message. On the other hand, if the client uses a different, fresh Message ID in the repeated request, then all the members of the CoAP group that receive this new message will typically respond again, which increases the network load.<a href="#section-3.7-4" class="pilcrow">¶</a></p>
 <p id="section-3.7-5">A client that has sent a group GET or FETCH request with the Observe Option <span class="bcp14">MAY</span> follow up by sending a new unicast CON request with the same Token value and same Observe Option value to a particular server, in order to ensure that the particular server receives the request. This is useful in case a specific member of the CoAP group did not respond to the initial group request, although it was expected to. In this case, the client <span class="bcp14">MUST</span> use a Message ID that differs from that of the initial group request message.<a href="#section-3.7-5" class="pilcrow">¶</a></p>
 <p id="section-3.7-6">Since the first Observe notification from a server can be lost, a client should be ready to start receiving the Observe notifications from a server long after the Non-confirmable group request with the Observe Option was sent.<a href="#section-3.7-6" class="pilcrow">¶</a></p>
@@ -4290,22 +4290,25 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
         </h3>
 <ul class="normal">
 <li class="normal" id="appendix-E.1-1.1">
-            <p id="appendix-E.1-1.1.1">Mentioned PROBING_RATE as a means to enforce congestion control.<a href="#appendix-E.1-1.1.1" class="pilcrow">¶</a></p>
+            <p id="appendix-E.1-1.1.1">Clarifications on response suppression.<a href="#appendix-E.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-E.1-1.2">
-            <p id="appendix-E.1-1.2.1">Consideration on how eventual consistency from Observe compensates for lost notifications.<a href="#appendix-E.1-1.2.1" class="pilcrow">¶</a></p>
+            <p id="appendix-E.1-1.2.1">Mentioned PROBING_RATE as a means to enforce congestion control.<a href="#appendix-E.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-E.1-1.3">
-            <p id="appendix-E.1-1.3.1">Admitted resource retrieval through consecutive group requests with the Block2 Option.<a href="#appendix-E.1-1.3.1" class="pilcrow">¶</a></p>
+            <p id="appendix-E.1-1.3.1">Consideration on how eventual consistency from Observe compensates for lost notifications.<a href="#appendix-E.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-E.1-1.4">
-            <p id="appendix-E.1-1.4.1">Clarified relation with TCP/TLS/WebSockets.<a href="#appendix-E.1-1.4.1" class="pilcrow">¶</a></p>
+            <p id="appendix-E.1-1.4.1">Admitted resource retrieval through consecutive group requests with the Block2 Option.<a href="#appendix-E.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-E.1-1.5">
-            <p id="appendix-E.1-1.5.1">Clarified security on the different legs with a proxy.<a href="#appendix-E.1-1.5.1" class="pilcrow">¶</a></p>
+            <p id="appendix-E.1-1.5.1">Clarified relation with TCP/TLS/WebSockets.<a href="#appendix-E.1-1.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-E.1-1.6">
-            <p id="appendix-E.1-1.6.1">Editorial improvements.<a href="#appendix-E.1-1.6.1" class="pilcrow">¶</a></p>
+            <p id="appendix-E.1-1.6.1">Clarified security on the different legs with a proxy.<a href="#appendix-E.1-1.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-E.1-1.7">
+            <p id="appendix-E.1-1.7.1">Editorial improvements.<a href="#appendix-E.1-1.7.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>

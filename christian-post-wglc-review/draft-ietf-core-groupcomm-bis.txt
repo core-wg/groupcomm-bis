@@ -1346,8 +1346,10 @@ Table of Contents
    subset may include only members of a specific application group,
    while the members of the CoAP group for which the request is
    unsuccessful (for example because they are outside the target
-   application group) either respond with an error status code or ignore
-   the group request (see also Section 3.1.2 on response suppression).
+   application group) either suppress a response as per the default
+   behavior from Section 3.1.2, or reply with an error response, e.g.,
+   when the default behavior is overridden by a No-Response Option
+   [RFC7967] included in the group request.
 
 3.4.  Port Selection for UDP Transport
 
@@ -1708,12 +1710,14 @@ Table of Contents
    request.
 
    Multicast Observe is a useful way to start observing a particular
-   resource on all members of a CoAP group at the same time.  Group
-   members that do not have this particular resource or do not allow the
-   GET or FETCH method on it will either respond with an error status --
-   4.04 (Not Found) or 4.05 (Method Not Allowed), respectively -- or
-   will silently suppress the response following the rules of
-   Section 3.1.2, depending on server-specific configuration.
+   resource on all members of a CoAP group at the same time.  If a group
+   member does not have this particular resource or it does not allow
+   the GET or FETCH method on that resource, then the group member will
+   either suppress a response as per the default behavior from
+   Section 3.1.2, or reply with an error response -- 4.04 (Not Found) or
+   4.05 (Method Not Allowed), respectively -- e.g., when the default
+   behavior is overridden by a No-Response Option [RFC7967] included in
+   the group request.
 
    A client that sends a group GET or FETCH request with the Observe
    Option MAY repeat this request using the same Token value and the
@@ -3915,6 +3919,8 @@ Appendix E.  Document Updates
    This section is to be removed before publishing as an RFC.
 
 E.1.  Version -11 to -12
+
+   *  Clarifications on response suppression.
 
    *  Mentioned PROBING_RATE as a means to enforce congestion control.
 
