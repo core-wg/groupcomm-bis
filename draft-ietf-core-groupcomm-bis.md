@@ -589,8 +589,7 @@ Note: a legacy CoAP server might treat an ETag Option in a group request as an u
 
 
 ## URI Path Selection ##
-The URI Path used in a group request is preferably a path that is known to be supported across all members of a CoAP group. However, there are valid use cases where a group request is known to be successful only for a subset of the CoAP group. For instance, the subset may include only members of a specific application group, while the members of the CoAP group for which the request is unsuccessful (for example because they are outside the target application group) either respond with an error status code or ignore the group request (see also {{sec-request-response-suppress}} on response suppression).
-
+The URI Path used in a group request is preferably a path that is known to be supported across all members of a CoAP group. However, there are valid use cases where a group request is known to be successful only for a subset of the CoAP group. For instance, the subset may include only members of a specific application group, while the members of the CoAP group for which the request is unsuccessful (for example because they are outside the target application group) either suppress a response as per the default behavior from {{sec-request-response-suppress}}, or reply with an error response, e.g., when the default behavior is overridden by a No-Response Option {{RFC7967}} included in the group request.
 
 ## Port Selection for UDP Transport ##
 A server that is a member of a CoAP group listens for CoAP request messages on the group's IP multicast address, usually on the CoAP default UDP port number 5683, or another non-default UDP port number if configured. Regardless of the method for selecting the port number, the same port number MUST be used across all CoAP servers that are members of a CoAP group and across all CoAP clients sending group requests to that group.
@@ -719,7 +718,7 @@ The CoAP Observe Option {{RFC7641}} is a protocol extension of CoAP, which allow
 
 This section updates {{RFC7641}} with the use of the Observe Option in a CoAP GET group request, and defines normative behavior for both client and server. Consistent with {{Section 2.4 of RFC8132}}, the same rules apply when using the Observe Option in a CoAP FETCH group request.
 
-Multicast Observe is a useful way to start observing a particular resource on all members of a CoAP group at the same time. Group members that do not have this particular resource or do not allow the GET or FETCH method on it will either respond with an error status -- 4.04 (Not Found) or 4.05 (Method Not Allowed), respectively -- or will silently suppress the response following the rules of {{sec-request-response-suppress}}, depending on server-specific configuration.
+Multicast Observe is a useful way to start observing a particular resource on all members of a CoAP group at the same time. If a group member does not have this particular resource or it does not allow the GET or FETCH method on that resource, then the group member will either suppress a response as per the default behavior from {{sec-request-response-suppress}}, or reply with an error response -- 4.04 (Not Found) or 4.05 (Method Not Allowed), respectively -- e.g., when the default behavior is overridden by a No-Response Option {{RFC7967}} included in the group request.
 
 A client that sends a group GET or FETCH request with the Observe Option MAY repeat this request using the same Token value and the same Observe Option value, in order to ensure that enough (or all) members of the CoAP group have been reached with the request. This is useful in case a number of members of the CoAP group did not respond to the initial request. The client MAY additionally use the same Message ID in the repeated request, to avoid that members of the CoAP group that had already received the initial request would respond again. Note that using the same Message ID in a repeated request will not be helpful in case of loss of a response message, since the server that responded already will consider the repeated request as a duplicate message. On the other hand, if the client uses a different, fresh Message ID in the repeated request, then all the members of the CoAP group that receive this new message will typically respond again, which increases the network load.
 
@@ -1730,6 +1729,8 @@ Client              A  B  C
 {:removeinrfc}
 
 ## Version -11 to -12 ## {#sec-11-12}
+
+* Clarifications on response suppression.
 
 * Mentioned PROBING_RATE as a means to enforce congestion control.
 
