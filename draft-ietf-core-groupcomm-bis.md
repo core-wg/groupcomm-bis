@@ -57,6 +57,7 @@ normative:
   RFC7252:
   RFC7641:
   RFC7959:
+  RFC7967:
   RFC8075:
   RFC8132:
   RFC8613:
@@ -84,7 +85,6 @@ informative:
   RFC7346:
   RFC7390:
   RFC7731:
-  RFC7967:
   RFC8323:
   RFC8710:
   RFC9019:
@@ -1729,6 +1729,8 @@ Client              A  B  C
 {:removeinrfc}
 
 ## Version -11 to -12 ## {#sec-11-12}
+
+* Made RFC 7967 a normative reference.
 
 * Generalized resending of a group request with different Message ID.
 
