@@ -741,7 +741,13 @@ For observing at servers that are members of a CoAP group through a CoAP-to-CoAP
 
 {{Section 2.8 of RFC7959}} specifies how a client can use block-wise transfer (Block2 Option) in a multicast GET request to limit the size of the initial response of each server. Consistent with {{Section 2.5 of RFC8132}}, the same can be done with a multicast FETCH request.
 
-To retrieve any further blocks of the resource from a responding server, the client then has to use unicast requests, separately addressing each different server. Also, a server (member of a targeted CoAP group) that needs to respond to a group request with a particularly large resource can use block-wise transfer (Block2 Option) at its own initiative, to limit the size of the initial response. Again, a client would have to use unicast for any further requests to retrieve more blocks of the resource.
+To retrieve any further blocks of the resource from responding servers, the client can rely on two possible approaches.
+
+1. The client uses unicast requests, separately addressing each different server.
+
+2. The client uses follow-up group requests, if all the received responses from different servers specify the same block size SIZE in their Block2 Option. In particular, SIZE can have the same value specified in the Block2 Option of the first group request, or instead a different one. If the client relies on this approach, follow-up group requests MUST specify SIZE in their Block2 Option.
+
+Furthermore, a server (member of a targeted CoAP group) that needs to respond to a group request with a particularly large resource can use block-wise transfer (Block2 Option) at its own initiative, to limit the size of the initial response. A client can rely on either of the two approaches above for any further requests to retrieve more blocks of the resource.
 
 A solution for group/multicast block-wise transfer using the Block1 Option is not specified in {{RFC7959}} nor in the present document. Such a solution would be useful for group FETCH/PUT/POST/PATCH/iPATCH requests, to efficiently distribute a large request payload as multiple blocks to all members of a CoAP group. Multicast usage of Block1 is non-trivial due to potential message loss (leading to missing blocks or missing confirmations), and potential diverging block size preferences of different members of the CoAP group.
 
@@ -1718,6 +1724,8 @@ Client              A  B  C
 {:removeinrfc}
 
 ## Version -11 to -12 ## {#sec-11-12}
+
+* Admitted resource retrieval through consecutive group requests with the Block2 Option.
 
 * Clarified relation with TCP/TLS/WebSockets.
 
