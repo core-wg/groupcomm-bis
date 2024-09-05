@@ -507,7 +507,7 @@ A CoAP client can distinguish the origin of multiple server responses by the sou
 
 While processing a response on the client, the source endpoint of the response is not matched to the destination endpoint of the request, since for a group request these will never match. This is specified in {{Section 8.2 of RFC7252}}, with reference to IP multicast.
 
-Also, when UDP transport is used, this implies that a server MAY respond from a UDP port number that differs from the destination UDP port number of the request, although a CoAP server normally SHOULD respond from the UDP port number that equals the destination port number of the request -- following the convention for UDP-based protocols.
+Also, when UDP transport is used, a server MAY respond from a UDP port number that differs from the destination UDP port number of the request.
 
 In case a single client has sent multiple group requests and concurrent CoAP transactions are ongoing, the responses received by that client are matched to an active request using only the Token value. Due to UDP level multiplexing, the UDP destination port number of the response MUST match to the client endpoint's UDP port number, i.e., to the UDP source port number of the client's request.
 
@@ -1729,6 +1729,8 @@ Client              A  B  C
 {:removeinrfc}
 
 ## Version -11 to -12 ## {#sec-11-12}
+
+* Switched SHOULD to MAY on changing port number from group request to response.
 
 * Further generalized the handling of multiple responses from the same server to the same request.
 
