@@ -7,8 +7,8 @@ Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                    C. Wang
 Updates: 7252, 7641 (if approved)                           InterDigital
 Intended status: Standards Track                               M. Tiloca
-Expires: 4 February 2025                                         RISE AB
-                                                           3 August 2024
+Expires: 9 March 2025                                            RISE AB
+                                                        5 September 2024
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 February 2025.
+   This Internet-Draft will expire on 9 March 2025.
 
 Copyright Notice
 
@@ -2246,14 +2246,20 @@ Table of Contents
    The case of hop-by-hop security is only possible if the proxy can be
    completely trusted and it is configured as a member of the OSCORE
    security group(s) that it needs to access, when sending a group
-   request on behalf of clients.  The first leg of communication between
-   client and proxy is then protected with a security method for CoAP
-   unicast, such as (D)TLS, OSCORE, or a combination of such methods.
-   The second leg between proxy and servers is protected using Group
-   OSCORE.  This can be useful in applications where for example the
-   origin client does not implement Group OSCORE, or the group
-   management operations are confined to a particular network domain and
-   the client is outside this domain.
+   request on behalf of clients.  As further clarified below, the first
+   communication leg between the client and the proxy, on one hand, and
+   the second communication leg between the proxy and the servers, on
+   the other hand, are protected individually and independently from one
+   another.
+
+   The first leg of communication between client and proxy is then
+   protected with a security method for CoAP unicast, such as (D)TLS,
+   OSCORE, or a combination of such methods.  The second leg between
+   proxy and servers is protected using Group OSCORE.  This can be
+   useful in applications where for example the origin client does not
+   implement Group OSCORE, or the group management operations are
+   confined to a particular network domain and the client is outside
+   this domain.
 
    For all the above cases, more details on using Group OSCORE are
    defined in [I-D.ietf-core-groupcomm-proxy].
@@ -2795,9 +2801,9 @@ Table of Contents
               Tiloca, M., Selander, G., Palombini, F., Mattsson, J. P.,
               and R. Höglund, "Group Object Security for Constrained
               RESTful Environments (Group OSCORE)", Work in Progress,
-              Internet-Draft, draft-ietf-core-oscore-groupcomm-21, 4
-              March 2024, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-core-oscore-groupcomm-21>.
+              Internet-Draft, draft-ietf-core-oscore-groupcomm-22, 28
+              August 2024, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-core-oscore-groupcomm-22>.
 
    [RFC1122]  Braden, R., Ed., "Requirements for Internet Hosts -
               Communication Layers", STD 3, RFC 1122,
@@ -2896,9 +2902,9 @@ Table of Contents
    [I-D.bormann-core-responses]
               Bormann, C. and C. Amsüss, "CoAP: Non-traditional response
               forms", Work in Progress, Internet-Draft, draft-bormann-
-              core-responses-02, 3 March 2024,
+              core-responses-03, 1 September 2024,
               <https://datatracker.ietf.org/doc/html/draft-bormann-core-
-              responses-02>.
+              responses-03>.
 
    [I-D.ietf-6lo-multicast-registration]
               Thubert, P., "IPv6 Neighbor Discovery Multicast and
@@ -2964,9 +2970,9 @@ Table of Contents
               Tiloca, M., Amsüss, C., and P. Van der Stok, "Discovery of
               OSCORE Groups with the CoRE Resource Directory", Work in
               Progress, Internet-Draft, draft-tiloca-core-oscore-
-              discovery-15, 4 March 2024,
+              discovery-16, 4 September 2024,
               <https://datatracker.ietf.org/doc/html/draft-tiloca-core-
-              oscore-discovery-15>.
+              oscore-discovery-16>.
 
    [libcoap]  Bergmann, O., "libcoap", June 2022,
               <https://github.com/obgm/libcoap>.
@@ -3870,6 +3876,8 @@ Appendix E.  Document Updates
    This section is to be removed before publishing as an RFC.
 
 E.1.  Version -11 to -12
+
+   *  Clarified security on the different legs with a proxy.
 
    *  Editorial improvements.
 
