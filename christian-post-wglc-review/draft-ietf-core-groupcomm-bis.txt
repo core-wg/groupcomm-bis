@@ -1911,8 +1911,8 @@ Table of Contents
    multicast for discovering that a server has those transports
    available and that they allow accessing the targeted resource,
    possibly with block-wise transfer used for random access to blocks
-   within the resource reprentation.  Such discovering can rely on means
-   defined in [I-D.ietf-core-transport-indication].
+   within the resource representation.  Such discovering can rely on
+   means defined in [I-D.ietf-core-transport-indication].
 
 3.9.5.  Other Transports
 
