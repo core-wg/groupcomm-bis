@@ -883,11 +883,24 @@ Table of Contents
 
    The following discusses a number of methods to discover application
    groups and CoAP groups, building on the following assumptions.
-   First, application group names are encoded in the path component of
-   Group URIs (see Section 2.2.1.2), using the path segment "gp" as
-   designated delimiter.  Second, the type of an application group is
-   encoded in the CoRE Link Format attribute "rt" of a group resource
-   with a value "g.<GROUPTYPE>".
+
+   *  Application group names are encoded in the path component of Group
+      URIs (see Section 2.2.1.2), using the path segment "gp" as
+      designated delimiter.
+
+   *  The type of an application group is encoded in the value of the
+      CoRE Link Format attribute "rt" of a group resource.
+
+      As exclusively intended to support examples throughout this
+      document, the following considers such values for the attribute
+      "rt" to have the semantics "g.<GROUPTYPE>", where GROUPTYPE
+      denotes the type of the application group in question.
+
+      To be effectively usable, such Resource Type values have to be
+      registered in the "Resource Type (rt=) Link Target Attribute
+      Values" IANA registry [Resource.Type.Link.Target.Attribute.Values]
+      within the "Constrained RESTful Environments (CoRE) Parameters"
+      registry group.
 
    Full examples for the different methods are provided in Appendix C.
 
@@ -2846,6 +2859,11 @@ Table of Contents
               August 2024, <https://datatracker.ietf.org/doc/html/draft-
               ietf-core-oscore-groupcomm-22>.
 
+   [Resource.Type.Link.Target.Attribute.Values]
+              IANA, "Resource Type (rt=) Link Target Attribute Values",
+              <https://www.iana.org/assignments/core-parameters/core-
+              parameters.xhtml#rt-link-target-att-value>.
+
    [RFC1122]  Braden, R., Ed., "Requirements for Internet Hosts -
               Communication Layers", STD 3, RFC 1122,
               DOI 10.17487/RFC1122, October 1989,
@@ -3449,6 +3467,13 @@ C.1.  Application Groups Associated with a CoAP Group
    discovered group resource type (e.g., rt=g.light) to infer which
    resources are present below the group resource.
 
+   The semantics "g.<GROUPTYPE>" for the values of the attribute "rt" is
+   exclusively intended to support examples in this document.  To be
+   effectively usable, such Resource Type values have to be registered
+   in the "Resource Type (rt=) Link Target Attribute Values" IANA
+   registry [Resource.Type.Link.Target.Attribute.Values] within the
+   "Constrained RESTful Environments (CoRE) Parameters" registry group.
+
       // Request to all members of the CoAP group
       Req: GET coap://grp.example:5685/.well-known/core?rt=g.*
 
@@ -3552,6 +3577,13 @@ C.4.  Members of any Application Group in the Network
    associated with each application group.  In this example, the scope
    is realm-local to address all servers in the current 6LoWPAN wireless
    mesh network of the client.
+
+   The semantics "g.<GROUPTYPE>" for the values of the attribute "rt" is
+   exclusively intended to support examples in this document.  To be
+   effectively usable, such Resource Type values have to be registered
+   in the "Resource Type (rt=) Link Target Attribute Values" IANA
+   registry [Resource.Type.Link.Target.Attribute.Values] within the
+   "Constrained RESTful Environments (CoRE) Parameters" registry group.
 
       // Request to realm-local members of any application group
       Req: GET coap://[ff03::fd]/.well-known/core?rt=g.*
@@ -3917,6 +3949,8 @@ Appendix E.  Document Updates
    This section is to be removed before publishing as an RFC.
 
 E.1.  Version -11 to -12
+
+   *  Clarified that rt=g.<GROUPTYPE> is used just as an example.
 
    *  Made RFC 7967 a normative reference.
 
