@@ -532,9 +532,9 @@ Another method to more easily meet the above constraint is to instantiate multip
 ### Client Handling of Multiple Responses With Same Token ### {#sec-request-response-multi}
 Since a client sending a group request with a Token T will accept multiple responses with the same Token T, it is possible in particular that the same server sends multiple responses with the same Token T back to the client. For example, this server might not implement the optional CoAP message deduplication based on Message ID; or it might be acting out of specification as a malicious, compromised or faulty server.
 
-When this happens, the client normally processes at the CoAP layer each of those responses to the same request coming from the same server. If the processing of a response is successful, the client delivers this response to the application as usual.
+When this happens, it is up to the specific client implementation at which layer deduplication of responses is performed, or whether it is necessary in an application at all. If the processing of a response is successful, the client delivers the response to the application as usual.
 
-Then, the application is in a better position to decide what to do, depending on the available context information. For instance, it might accept and process all the responses from the same server, even if they are not Observe notifications (i.e., they do not include an Observe option). Alternatively, the application might accept and process only one of those responses, such as the most recent one from that server, e.g., when this can trigger a change of state within the application.
+The application itself can be in a good position to decide what to do, depending on the available context information. For instance, it might accept and process all the responses from the same server, even if they are not Observe notifications (i.e., they do not include an Observe option). Alternatively, the application might accept and process only one of those responses, such as the most recent one from that server, e.g., when this can trigger a change of state within the application.
 
 As part of a long exchange between the client and any of the servers in the CoAP group, the responses considered above are an example of the more general concept elaborated in {{Section 2 of I-D.bormann-core-responses}}.
 
@@ -1729,6 +1729,8 @@ Client              A  B  C
 {:removeinrfc}
 
 ## Version -11 to -12 ## {#sec-11-12}
+
+* Further generalized the handling of multiple responses from the same server to the same request.
 
 * Clarifications on response suppression.
 
