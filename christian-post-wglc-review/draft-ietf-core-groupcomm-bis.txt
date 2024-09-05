@@ -2896,6 +2896,11 @@ Table of Contents
               DOI 10.17487/RFC7959, August 2016,
               <https://www.rfc-editor.org/rfc/rfc7959>.
 
+   [RFC7967]  Bhattacharyya, A., Bandyopadhyay, S., Pal, A., and T.
+              Bose, "Constrained Application Protocol (CoAP) Option for
+              No Server Response", RFC 7967, DOI 10.17487/RFC7967,
+              August 2016, <https://www.rfc-editor.org/rfc/rfc7967>.
+
    [RFC8075]  Castellani, A., Loreto, S., Rahman, A., Fossati, T., and
               E. Dijk, "Guidelines for Mapping Implementations: HTTP to
               the Constrained Application Protocol (CoAP)", RFC 8075,
@@ -3058,11 +3063,6 @@ Table of Contents
    [RFC7731]  Hui, J. and R. Kelsey, "Multicast Protocol for Low-Power
               and Lossy Networks (MPL)", RFC 7731, DOI 10.17487/RFC7731,
               February 2016, <https://www.rfc-editor.org/rfc/rfc7731>.
-
-   [RFC7967]  Bhattacharyya, A., Bandyopadhyay, S., Pal, A., and T.
-              Bose, "Constrained Application Protocol (CoAP) Option for
-              No Server Response", RFC 7967, DOI 10.17487/RFC7967,
-              August 2016, <https://www.rfc-editor.org/rfc/rfc7967>.
 
    [RFC8323]  Bormann, C., Lemay, S., Tschofenig, H., Hartke, K.,
               Silverajan, B., and B. Raymor, Ed., "CoAP (Constrained
@@ -3917,6 +3917,8 @@ Appendix E.  Document Updates
    This section is to be removed before publishing as an RFC.
 
 E.1.  Version -11 to -12
+
+   *  Made RFC 7967 a normative reference.
 
    *  Generalized resending of a group request with different Message
       ID.
