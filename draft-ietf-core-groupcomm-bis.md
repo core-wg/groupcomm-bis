@@ -65,6 +65,12 @@ normative:
   RFC9053:
   RFC9175:
   I-D.ietf-core-oscore-groupcomm:
+  Resource.Type.Link.Target.Attribute.Values:
+    author:
+      org: IANA
+    date: false
+    title: Resource Type (rt=) Link Target Attribute Values
+    target: https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#rt-link-target-att-value
 
 informative:
   I-D.bormann-core-responses:
@@ -425,7 +431,15 @@ As discussed below, such a GET request may be sent to the IP multicast address o
 
 These particular details concerning the GET request depend on the specific discovery action intended by the client and on application-specific means used to encode names of application groups and CoAP groups, e.g., in group URIs and/or CoRE target attributes used with resource links.
 
-The following discusses a number of methods to discover application groups and CoAP groups, building on the following assumptions. First, application group names are encoded in the path component of Group URIs (see {{sec-groupnaming-app}}), using the path segment "gp" as designated delimiter. Second, the type of an application group is encoded in the CoRE Link Format attribute "rt" of a group resource with a value "g.\<GROUPTYPE\>".
+The following discusses a number of methods to discover application groups and CoAP groups, building on the following assumptions.
+
+* Application group names are encoded in the path component of Group URIs (see {{sec-groupnaming-app}}), using the path segment "gp" as designated delimiter.
+
+* The type of an application group is encoded in the value of the CoRE Link Format attribute "rt" of a group resource.
+
+  As exclusively intended to support examples throughout this document, the following considers such values for the attribute "rt" to have the semantics "g.\<GROUPTYPE\>", where GROUPTYPE denotes the type of the application group in question.
+
+  To be effectively usable, such Resource Type values have to be registered in the "Resource Type (rt=) Link Target Attribute Values" IANA registry {{Resource.Type.Link.Target.Attribute.Values}} within the "Constrained RESTful Environments (CoRE) Parameters" registry group.
 
 Full examples for the different methods are provided in {{sec-examples-group-discovery}}.
 
@@ -1313,6 +1327,8 @@ As a result, the client gains knowledge of: i) the set of servers that are membe
 
 Each of the servers S1 and S2 is identified by the IP source address of the CoAP response. If the client wishes to discover resources that a particular server hosts within a particular application group, it may use unicast discovery request(s) to this server, i.e., to its respective unicast IP address. Alternatively the client may use the discovered group resource type (e.g., rt=g.light) to infer which resources are present below the group resource.
 
+The semantics "g.\<GROUPTYPE\>" for the values of the attribute "rt" is exclusively intended to support examples in this document. To be effectively usable, such Resource Type values have to be registered in the "Resource Type (rt=) Link Target Attribute Values" IANA registry {{Resource.Type.Link.Target.Attribute.Values}} within the "Constrained RESTful Environments (CoRE) Parameters" registry group.
+
 ~~~~~~~~~~~
 
    // Request to all members of the CoAP group
@@ -1400,6 +1416,8 @@ Also note that a server could equally well respond with the literal IPv6 multica
 ## Members of any Application Group in the Network # {#sec-examples-group-discovery-4}
 
 {{fig-app-gp-discovery-example4}} provides an example where a CoAP client discovers the CoAP servers that are members of any application group configured in the 6LoWPAN wireless mesh network of the client, and the CoAP group associated with each application group. In this example, the scope is realm-local to address all servers in the current 6LoWPAN wireless mesh network of the client.
+
+The semantics "g.\<GROUPTYPE\>" for the values of the attribute "rt" is exclusively intended to support examples in this document. To be effectively usable, such Resource Type values have to be registered in the "Resource Type (rt=) Link Target Attribute Values" IANA registry {{Resource.Type.Link.Target.Attribute.Values}} within the "Constrained RESTful Environments (CoRE) Parameters" registry group.
 
 ~~~~~~~~~~~
 
@@ -1729,6 +1747,8 @@ Client              A  B  C
 {:removeinrfc}
 
 ## Version -11 to -12 ## {#sec-11-12}
+
+* Clarified that rt=g.\<GROUPTYPE\> is used just as an example.
 
 * Made RFC 7967 a normative reference.
 
