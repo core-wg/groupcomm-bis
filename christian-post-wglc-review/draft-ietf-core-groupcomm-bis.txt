@@ -1205,13 +1205,14 @@ Table of Contents
    ID; or it might be acting out of specification as a malicious,
    compromised or faulty server.
 
-   When this happens, the client normally processes at the CoAP layer
-   each of those responses to the same request coming from the same
-   server.  If the processing of a response is successful, the client
-   delivers this response to the application as usual.
+   When this happens, it is up to the specific client implementation at
+   which layer deduplication of responses is performed, or whether it is
+   necessary in an application at all.  If the processing of a response
+   is successful, the client delivers the response to the application as
+   usual.
 
-   Then, the application is in a better position to decide what to do,
-   depending on the available context information.  For instance, it
+   The application itself can be in a good position to decide what to
+   do, depending on the available context information.  For instance, it
    might accept and process all the responses from the same server, even
    if they are not Observe notifications (i.e., they do not include an
    Observe option).  Alternatively, the application might accept and
@@ -3919,6 +3920,9 @@ Appendix E.  Document Updates
    This section is to be removed before publishing as an RFC.
 
 E.1.  Version -11 to -12
+
+   *  Further generalized the handling of multiple responses from the
+      same server to the same request.
 
    *  Clarifications on response suppression.
 
