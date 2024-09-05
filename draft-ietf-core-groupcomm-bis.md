@@ -696,6 +696,8 @@ CoAP {{RFC7252}} reduces IP multicast-specific congestion risks through the foll
 
 * An IP multicast request MUST be Non-confirmable ({{Section 8.1 of RFC7252}}).
 
+* The same rationale for enforcing congestion control based on the transmission parameter PROBING_RATE defined in {{Section 4.7 of RFC7252}} holds for CoAP group communication. In particular, group requests are the Non-confirmable requests in question, and an average data rate PROBING_RATE is not to be exceeded by a client that does not receive a response from any server in the targeted CoAP group.
+
 * A response to an IP multicast request SHOULD be Non-confirmable ({{Section 5.2.3 of RFC7252}}).
 
 * A server does not respond immediately to an IP multicast request and should first wait for a time that is randomly picked within a predetermined time interval called the Leisure ({{Section 8.2 of RFC7252}}).
@@ -1728,6 +1730,8 @@ Client              A  B  C
 {:removeinrfc}
 
 ## Version -11 to -12 ## {#sec-11-12}
+
+* Mentioned PROBING_RATE as a means to enforce congestion control.
 
 * Consideration on how eventual consistency from Observe compensates for lost notifications.
 
