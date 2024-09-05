@@ -1732,6 +1732,22 @@ Table of Contents
    expected to.  In this case, the client MUST use a Message ID that
    differs from that of the initial group request message.
 
+   Since the first Observe notification from a server can be lost, a
+   client should be ready to start receiving the Observe notifications
+   from a server long after the Non-confirmable group request with the
+   Observe Option was sent.
+
+   At the same time, the loss of initial responses with the Observe
+   Option from a server is less problematic than in the case where the
+   group request is a regular request, i.e., when the request does not
+   include the Observe Option.  That is, as per Section 4.5 of
+   [RFC7641], servers that have registered a client as an observer have
+   to ensure that the client achieves eventual consistency with respect
+   to the representation of the observed resource.  This realistically
+   relies on the sending of new Observe notifications, which are
+   occasionally expected to be sent as Confirmable messages also in
+   order to assess client aliveness (see below).
+
    Furthermore, consistent with Section 3.3.1 of [RFC7641] and following
    its guidelines, a client MAY at any time send a new group/multicast
    GET or FETCH request with the same Token value and same Observe
@@ -3891,6 +3907,9 @@ Appendix E.  Document Updates
    This section is to be removed before publishing as an RFC.
 
 E.1.  Version -11 to -12
+
+   *  Consideration on how eventual consistency from Observe compensates
+      for lost notifications.
 
    *  Admitted resource retrieval through consecutive group requests
       with the Block2 Option.
