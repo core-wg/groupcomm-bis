@@ -2411,9 +2411,18 @@ As a consequence, for each server, the client receives responses originated by t
 <a href="#section-3.8" class="section-number selfRef">3.8. </a><a href="#name-block-wise-transfer" class="section-name selfRef">Block-Wise Transfer</a>
         </h3>
 <p id="section-3.8-1"><span><a href="https://rfc-editor.org/rfc/rfc7959#section-2.8" class="relref">Section 2.8</a> of [<a href="#RFC7959" class="cite xref">RFC7959</a>]</span> specifies how a client can use block-wise transfer (Block2 Option) in a multicast GET request to limit the size of the initial response of each server. Consistent with <span><a href="https://rfc-editor.org/rfc/rfc8132#section-2.5" class="relref">Section 2.5</a> of [<a href="#RFC8132" class="cite xref">RFC8132</a>]</span>, the same can be done with a multicast FETCH request.<a href="#section-3.8-1" class="pilcrow">¶</a></p>
-<p id="section-3.8-2">To retrieve any further blocks of the resource from a responding server, the client then has to use unicast requests, separately addressing each different server. Also, a server (member of a targeted CoAP group) that needs to respond to a group request with a particularly large resource can use block-wise transfer (Block2 Option) at its own initiative, to limit the size of the initial response. Again, a client would have to use unicast for any further requests to retrieve more blocks of the resource.<a href="#section-3.8-2" class="pilcrow">¶</a></p>
-<p id="section-3.8-3">A solution for group/multicast block-wise transfer using the Block1 Option is not specified in <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>]</span> nor in the present document. Such a solution would be useful for group FETCH/PUT/POST/PATCH/iPATCH requests, to efficiently distribute a large request payload as multiple blocks to all members of a CoAP group. Multicast usage of Block1 is non-trivial due to potential message loss (leading to missing blocks or missing confirmations), and potential diverging block size preferences of different members of the CoAP group.<a href="#section-3.8-3" class="pilcrow">¶</a></p>
-<p id="section-3.8-4"><span>[<a href="#RFC9177" class="cite xref">RFC9177</a>]</span> specifies a specialized alternative method for CoAP block-wise transfer. It specifies that "servers <span class="bcp14">MUST</span> ignore multicast requests that contain the Q-Block2 Option".<a href="#section-3.8-4" class="pilcrow">¶</a></p>
+<p id="section-3.8-2">To retrieve any further blocks of the resource from responding servers, the client can rely on two possible approaches.<a href="#section-3.8-2" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3.8-3">
+<li id="section-3.8-3.1">
+            <p id="section-3.8-3.1.1">The client uses unicast requests, separately addressing each different server.<a href="#section-3.8-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-3.8-3.2">
+            <p id="section-3.8-3.2.1">The client uses follow-up group requests, if all the received responses from different servers specify the same block size SIZE in their Block2 Option. In particular, SIZE can have the same value specified in the Block2 Option of the first group request, or instead a different one. If the client relies on this approach, follow-up group requests <span class="bcp14">MUST</span> specify SIZE in their Block2 Option.<a href="#section-3.8-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ol>
+<p id="section-3.8-4">Furthermore, a server (member of a targeted CoAP group) that needs to respond to a group request with a particularly large resource can use block-wise transfer (Block2 Option) at its own initiative, to limit the size of the initial response. A client can rely on either of the two approaches above for any further requests to retrieve more blocks of the resource.<a href="#section-3.8-4" class="pilcrow">¶</a></p>
+<p id="section-3.8-5">A solution for group/multicast block-wise transfer using the Block1 Option is not specified in <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>]</span> nor in the present document. Such a solution would be useful for group FETCH/PUT/POST/PATCH/iPATCH requests, to efficiently distribute a large request payload as multiple blocks to all members of a CoAP group. Multicast usage of Block1 is non-trivial due to potential message loss (leading to missing blocks or missing confirmations), and potential diverging block size preferences of different members of the CoAP group.<a href="#section-3.8-5" class="pilcrow">¶</a></p>
+<p id="section-3.8-6"><span>[<a href="#RFC9177" class="cite xref">RFC9177</a>]</span> specifies a specialized alternative method for CoAP block-wise transfer. It specifies that "servers <span class="bcp14">MUST</span> ignore multicast requests that contain the Q-Block2 Option".<a href="#section-3.8-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-transport">
@@ -4276,13 +4285,16 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
         </h3>
 <ul class="normal">
 <li class="normal" id="appendix-E.1-1.1">
-            <p id="appendix-E.1-1.1.1">Clarified relation with TCP/TLS/WebSockets.<a href="#appendix-E.1-1.1.1" class="pilcrow">¶</a></p>
+            <p id="appendix-E.1-1.1.1">Admitted resource retrieval through consecutive group requests with the Block2 Option.<a href="#appendix-E.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-E.1-1.2">
-            <p id="appendix-E.1-1.2.1">Clarified security on the different legs with a proxy.<a href="#appendix-E.1-1.2.1" class="pilcrow">¶</a></p>
+            <p id="appendix-E.1-1.2.1">Clarified relation with TCP/TLS/WebSockets.<a href="#appendix-E.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-E.1-1.3">
-            <p id="appendix-E.1-1.3.1">Editorial improvements.<a href="#appendix-E.1-1.3.1" class="pilcrow">¶</a></p>
+            <p id="appendix-E.1-1.3.1">Clarified security on the different legs with a proxy.<a href="#appendix-E.1-1.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-E.1-1.4">
+            <p id="appendix-E.1-1.4.1">Editorial improvements.<a href="#appendix-E.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
