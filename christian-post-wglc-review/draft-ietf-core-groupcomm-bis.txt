@@ -1130,12 +1130,9 @@ Table of Contents
    since for a group request these will never match.  This is specified
    in Section 8.2 of [RFC7252], with reference to IP multicast.
 
-   Also, when UDP transport is used, this implies that a server MAY
-   respond from a UDP port number that differs from the destination UDP
-   port number of the request, although a CoAP server normally SHOULD
-   respond from the UDP port number that equals the destination port
-   number of the request -- following the convention for UDP-based
-   protocols.
+   Also, when UDP transport is used, a server MAY respond from a UDP
+   port number that differs from the destination UDP port number of the
+   request.
 
    In case a single client has sent multiple group requests and
    concurrent CoAP transactions are ongoing, the responses received by
@@ -3920,6 +3917,9 @@ Appendix E.  Document Updates
    This section is to be removed before publishing as an RFC.
 
 E.1.  Version -11 to -12
+
+   *  Switched SHOULD to MAY on changing port number from group request
+      to response.
 
    *  Further generalized the handling of multiple responses from the
       same server to the same request.

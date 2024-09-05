@@ -2112,7 +2112,7 @@ Full examples are provided in <a href="#sec-examples-group-discovery-4" class="a
           </h4>
 <p id="section-3.1.4-1">A CoAP client can distinguish the origin of multiple server responses by the source IP address of the message containing the CoAP response and/or any other available application-specific source identifiers contained in the CoAP response payload or CoAP response options, such as an application-level unique ID associated with the server. If secure communication is provided with Group OSCORE (see <a href="#chap-oscore" class="auto internal xref">Section 5</a>), additional security-related identifiers in the CoAP response enable the client to retrieve the right security material for decrypting each response and authenticating its source.<a href="#section-3.1.4-1" class="pilcrow">¶</a></p>
 <p id="section-3.1.4-2">While processing a response on the client, the source endpoint of the response is not matched to the destination endpoint of the request, since for a group request these will never match. This is specified in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-8.2" class="relref">Section 8.2</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>, with reference to IP multicast.<a href="#section-3.1.4-2" class="pilcrow">¶</a></p>
-<p id="section-3.1.4-3">Also, when UDP transport is used, this implies that a server <span class="bcp14">MAY</span> respond from a UDP port number that differs from the destination UDP port number of the request, although a CoAP server normally <span class="bcp14">SHOULD</span> respond from the UDP port number that equals the destination port number of the request -- following the convention for UDP-based protocols.<a href="#section-3.1.4-3" class="pilcrow">¶</a></p>
+<p id="section-3.1.4-3">Also, when UDP transport is used, a server <span class="bcp14">MAY</span> respond from a UDP port number that differs from the destination UDP port number of the request.<a href="#section-3.1.4-3" class="pilcrow">¶</a></p>
 <p id="section-3.1.4-4">In case a single client has sent multiple group requests and concurrent CoAP transactions are ongoing, the responses received by that client are matched to an active request using only the Token value. Due to UDP level multiplexing, the UDP destination port number of the response <span class="bcp14">MUST</span> match to the client endpoint's UDP port number, i.e., to the UDP source port number of the client's request.<a href="#section-3.1.4-4" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -4290,28 +4290,31 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
         </h3>
 <ul class="normal">
 <li class="normal" id="appendix-E.1-1.1">
-            <p id="appendix-E.1-1.1.1">Further generalized the handling of multiple responses from the same server to the same request.<a href="#appendix-E.1-1.1.1" class="pilcrow">¶</a></p>
+            <p id="appendix-E.1-1.1.1">Switched <span class="bcp14">SHOULD</span> to <span class="bcp14">MAY</span> on changing port number from group request to response.<a href="#appendix-E.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-E.1-1.2">
-            <p id="appendix-E.1-1.2.1">Clarifications on response suppression.<a href="#appendix-E.1-1.2.1" class="pilcrow">¶</a></p>
+            <p id="appendix-E.1-1.2.1">Further generalized the handling of multiple responses from the same server to the same request.<a href="#appendix-E.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-E.1-1.3">
-            <p id="appendix-E.1-1.3.1">Mentioned PROBING_RATE as a means to enforce congestion control.<a href="#appendix-E.1-1.3.1" class="pilcrow">¶</a></p>
+            <p id="appendix-E.1-1.3.1">Clarifications on response suppression.<a href="#appendix-E.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-E.1-1.4">
-            <p id="appendix-E.1-1.4.1">Consideration on how eventual consistency from Observe compensates for lost notifications.<a href="#appendix-E.1-1.4.1" class="pilcrow">¶</a></p>
+            <p id="appendix-E.1-1.4.1">Mentioned PROBING_RATE as a means to enforce congestion control.<a href="#appendix-E.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-E.1-1.5">
-            <p id="appendix-E.1-1.5.1">Admitted resource retrieval through consecutive group requests with the Block2 Option.<a href="#appendix-E.1-1.5.1" class="pilcrow">¶</a></p>
+            <p id="appendix-E.1-1.5.1">Consideration on how eventual consistency from Observe compensates for lost notifications.<a href="#appendix-E.1-1.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-E.1-1.6">
-            <p id="appendix-E.1-1.6.1">Clarified relation with TCP/TLS/WebSockets.<a href="#appendix-E.1-1.6.1" class="pilcrow">¶</a></p>
+            <p id="appendix-E.1-1.6.1">Admitted resource retrieval through consecutive group requests with the Block2 Option.<a href="#appendix-E.1-1.6.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-E.1-1.7">
-            <p id="appendix-E.1-1.7.1">Clarified security on the different legs with a proxy.<a href="#appendix-E.1-1.7.1" class="pilcrow">¶</a></p>
+            <p id="appendix-E.1-1.7.1">Clarified relation with TCP/TLS/WebSockets.<a href="#appendix-E.1-1.7.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-E.1-1.8">
-            <p id="appendix-E.1-1.8.1">Editorial improvements.<a href="#appendix-E.1-1.8.1" class="pilcrow">¶</a></p>
+            <p id="appendix-E.1-1.8.1">Clarified security on the different legs with a proxy.<a href="#appendix-E.1-1.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-E.1-1.9">
+            <p id="appendix-E.1-1.9.1">Editorial improvements.<a href="#appendix-E.1-1.9.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
