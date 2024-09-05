@@ -1102,16 +1102,16 @@ Table of Contents
    response(s) if the server(s) implement the optional Message ID based
    deduplication (Section 4.5 of [RFC7252]).
 
-   A CoAP client MAY repeat a group request using the same Token value
-   and a different Message ID, in which case all servers that received
-   the initial request will again process the repeated request since it
-   appears within a new CoAP message.  This is useful in case a client
-   suspects that one or more response(s) to its original request were
-   lost and the client needs to collect more, or even all, responses
-   from members of the CoAP group, even if this comes at the cost of the
-   overhead of certain group members responding twice (once to the
-   original request, and once to the repeated request with different
-   Message ID).
+   A CoAP client MAY repeat a group request using a different Message ID
+   (and the same or a different Token value), in which case all servers
+   that received the initial request will again process the repeated
+   request since it appears within a new CoAP message.  This is useful
+   in case a client suspects that one or more response(s) to its
+   original request were lost and the client needs to collect more, or
+   even all, responses from members of the CoAP group, even if this
+   comes at the cost of the overhead of certain group members responding
+   twice (once to the original request, and once to the repeated request
+   with different Message ID).
 
 3.1.4.  Request/Response Matching and Distinguishing Responses
 
@@ -3917,6 +3917,9 @@ Appendix E.  Document Updates
    This section is to be removed before publishing as an RFC.
 
 E.1.  Version -11 to -12
+
+   *  Generalized resending of a group request with different Message
+      ID.
 
    *  Switched SHOULD to MAY on changing port number from group request
       to response.
