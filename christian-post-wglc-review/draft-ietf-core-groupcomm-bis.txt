@@ -168,19 +168,20 @@ Table of Contents
      C.4.  Members of any Application Group in the Network
    Appendix D.  Examples of Message Exchanges
    Appendix E.  Issues and Limitations with Forward-Proxies
-   Appendix F.  Document Updates
-     F.1.  Version -11 to -12
-     F.2.  Version -10 to -11
-     F.3.  Version -09 to -10
-     F.4.  Version -08 to -09
-     F.5.  Version -07 to -08
-     F.6.  Version -06 to -07
-     F.7.  Version -05 to -06
-     F.8.  Version -04 to -05
-     F.9.  Version -03 to -04
-     F.10. Version -02 to -03
-     F.11. Version -01 to -02
-     F.12. Version -00 to -01
+   Appendix F.  Issues and Limitations with Reverse-Proxies
+   Appendix G.  Document Updates
+     G.1.  Version -11 to -12
+     G.2.  Version -10 to -11
+     G.3.  Version -09 to -10
+     G.4.  Version -08 to -09
+     G.5.  Version -07 to -08
+     G.6.  Version -06 to -07
+     G.7.  Version -05 to -06
+     G.8.  Version -04 to -05
+     G.9.  Version -03 to -04
+     G.10. Version -02 to -03
+     G.11. Version -01 to -02
+     G.12. Version -00 to -01
    Acknowledgements
    Authors' Addresses
 
@@ -1475,59 +1476,28 @@ Table of Contents
    reaching any server in the group with a unicast request directly
    addressed to that server.
 
-   For a reverse-proxy that sends a request to servers in a CoAP group,
-   the considerations as defined in Section 5.7.3 of [RFC7252] hold,
-   with the following additions:
+   For a reverse-proxy that sends a group request to servers in a CoAP
+   group, the considerations as defined in Section 5.7.3 of [RFC7252]
+   hold.  Resulting issues and limitations are compiled in Appendix F.
+   A reverse-proxying method addressing such issues and limitations is
+   defined in [I-D.ietf-core-groupcomm-proxy].
 
-   *  The three issues and limitations defined in Section 3.5.1 for a
-      forward proxy apply to a reverse-proxy as well, and have to be
-      addressed, e.g., using the signaling method defined in
-      [I-D.ietf-core-groupcomm-proxy] or other means.
+   A client might re-use a Token value in a valid new request to the
+   reverse-proxy, while the reverse-proxy still has an ongoing group
+   communication request for this client with the same Token value
+   (i.e., its time period for response collection has not ended yet).
 
-   *  A reverse-proxy MAY have preconfigured time duration(s) that are
-      used for collecting server responses and forwarding these back to
-      the client.  These duration(s) may be set as global configuration
-      or as resource-specific configurations.  If there is such
-      preconfiguration, then an explicit signaling of the time period in
-      the client's request as defined in [I-D.ietf-core-groupcomm-proxy]
-      is not necessarily needed.  Note that a reverse-proxy is in an
-      explicit relation with the origin servers it stands in for.  Thus,
-      compared to a forward-proxy, it has a much better basis for
-      determining and configuring such time durations.
-
-   *  A client that is configured to access a reverse-proxy resource
-      (i.e., one that triggers a CoAP group communication request)
-      SHOULD be configured also to handle potentially multiple responses
-      with the same Token value caused by a single request.
-
-      That is, the client needs to preserve the Token value used for the
-      request also after the reception of the first response forwarded
-      back by the proxy (see Section 3.1.6) and keep the request open to
-      potential further responses with this Token.  This requirement can
-      be met by a combination of client implementation and proper
-      proxied group communication configuration on the client.
-
-   *  A client might re-use a Token value in a valid new request to the
-      reverse-proxy, while the reverse-proxy still has an ongoing group
-      communication request for this client with the same Token value
-      (i.e., its time period for response collection has not ended yet).
-
-      If this happens, the reverse-proxy MUST stop the ongoing request
-      and associated response forwarding, it MUST NOT forward the new
-      request to the servers in the CoAP group, and it MUST send a 4.00
-      (Bad Request) error response to the client.  The diagnostic
-      payload of the error response SHOULD indicate to the client that
-      the resource is a reverse-proxy resource, and that for this reason
-      immediate Token re-use is not possible.
-
-      If the reverse-proxy supports the signaling protocol of
-      [I-D.ietf-core-groupcomm-proxy] it can include a Multicast-
-      Signaling Option in the error response to convey the reason for
-      the error in a machine-readable way.
+   If this happens, the reverse-proxy MUST stop the ongoing request and
+   associated response forwarding, it MUST NOT forward the new request
+   to the servers in the CoAP group, and it MUST send a 4.00 (Bad
+   Request) error response to the client.  The diagnostic payload of the
+   error response SHOULD indicate to the client that the resource is a
+   reverse-proxy resource, and that for this reason immediate Token re-
+   use is not possible.
 
    For the operation of HTTP-to-CoAP reverse proxies, see the last two
-   paragraphs of Section 3.5.1 which applies also to the case of
-   reverse-proxies.
+   paragraphs of Section 3.5.1, which apply also to the case of reverse-
+   proxies.
 
 3.5.3.  Single Group Request to Multiple Proxies
 
@@ -3967,11 +3937,43 @@ Appendix E.  Issues and Limitations with Forward-Proxies
    servers by other means such as application-specific information in
    the response payload.
 
-Appendix F.  Document Updates
+Appendix F.  Issues and Limitations with Reverse-Proxies
+
+   Section 3.5.2 defines how a reverse-proxy sends a group request to
+   servers in a CoAP group, over a one-to-many transport such as IP/UDP
+   multicast.  This results in certain issues and limitations:
+
+   *  The three issues and limitations defined in Section 3.5.1 for a
+      forward proxy apply to a reverse-proxy as well.
+
+   *  A reverse-proxy may have preconfigured time duration(s) that are
+      used for collecting server responses and forwarding these back to
+      the client.  These duration(s) may be set as global configuration
+      or as resource-specific configurations.  If there is such
+      preconfiguration, then an explicit signaling of the time period in
+      the client's request as defined in [I-D.ietf-core-groupcomm-proxy]
+      is not necessarily needed.  Note that a reverse-proxy is in an
+      explicit relation with the origin servers it stands in for.  Thus,
+      compared to a forward-proxy, it has a much better basis for
+      determining and configuring such time durations.
+
+   *  A client that is configured to access a reverse-proxy resource
+      (i.e., one that triggers a CoAP group communication request)
+      should be configured also to handle potentially multiple responses
+      with the same Token value caused by a single request.
+
+      That is, the client needs to preserve the Token value used for the
+      request also after the reception of the first response forwarded
+      back by the proxy (see Section 3.1.6) and keep the request open to
+      potential further responses with this Token.  This requirement can
+      be met by a combination of client implementation and proper
+      proxied group communication configuration on the client.
+
+Appendix G.  Document Updates
 
    This section is to be removed before publishing as an RFC.
 
-F.1.  Version -11 to -12
+G.1.  Version -11 to -12
 
    *  Clarified outcome of the RFC 7390 experiment on group membership
       configuration protocol.
@@ -3991,7 +3993,10 @@ F.1.  Version -11 to -12
 
    *  Clarifications on response suppression.
 
-   *  Issues and Limitations with Forward-Proxies compiled in an
+   *  Issues and limitations with Forward-Proxies compiled in an
+      appendix.
+
+   *  Issues and limitations with Reverse-Proxies compiled in an
       appendix.
 
    *  Mentioned PROBING_RATE as a means to enforce congestion control.
@@ -4008,13 +4013,13 @@ F.1.  Version -11 to -12
 
    *  Editorial improvements.
 
-F.2.  Version -10 to -11
+G.2.  Version -10 to -11
 
    *  Updated references.
 
    *  Editorial improvements.
 
-F.3.  Version -09 to -10
+G.3.  Version -09 to -10
 
    *  Clarified use of NoSec for 'early discovery' and refer to cBRSKI.
 
@@ -4045,18 +4050,18 @@ F.3.  Version -09 to -10
 
    *  Editorial fixes and improvements.
 
-F.4.  Version -08 to -09
+G.4.  Version -08 to -09
 
    *  Multiple responses in long exchanges are non-traditional
       responses.
 
    *  Updated references.
 
-F.5.  Version -07 to -08
+G.5.  Version -07 to -08
 
    *  Updated references.
 
-F.6.  Version -06 to -07
+G.6.  Version -06 to -07
 
    *  Updated list of changes to other documents.
 
@@ -4091,7 +4096,7 @@ F.6.  Version -06 to -07
 
    *  Editorial improvements.
 
-F.7.  Version -05 to -06
+G.7.  Version -05 to -06
 
    *  Harmonized use of "group URI".
 
@@ -4115,7 +4120,7 @@ F.7.  Version -05 to -06
 
    *  Editorial improvements.
 
-F.8.  Version -04 to -05
+G.8.  Version -04 to -05
 
    *  Clarified changes to other documents.
 
@@ -4134,7 +4139,7 @@ F.8.  Version -04 to -05
 
    *  Editorial improvements.
 
-F.9.  Version -03 to -04
+G.9.  Version -03 to -04
 
    *  Multi-ETag Option for response revalidation moved to appendix.
 
@@ -4156,7 +4161,7 @@ F.9.  Version -03 to -04
 
    *  Editorial improvements.
 
-F.10.  Version -02 to -03
+G.10.  Version -02 to -03
 
    *  Multiple responses from same server handled at the application.
 
@@ -4170,7 +4175,7 @@ F.10.  Version -02 to -03
 
    *  Client-Proxy response revalidation, with the Group-ETag Option.
 
-F.11.  Version -01 to -02
+G.11.  Version -01 to -02
 
    *  Clarified relation between security groups and application groups.
 
@@ -4186,7 +4191,7 @@ F.11.  Version -01 to -02
 
    *  Response suppression based on classes of error codes.
 
-F.12.  Version -00 to -01
+G.12.  Version -00 to -01
 
    *  Clarifications on group memberships for the different group types.
 
