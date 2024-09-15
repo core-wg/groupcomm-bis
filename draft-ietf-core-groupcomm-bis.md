@@ -347,7 +347,7 @@ An application group name can be explicitly encoded in a group URI. Specifically
 * URI authority component -- If this method is used, the application group is identified by the authority component of the group URI or a subset thereof.
 
    Because the CoAP group is also defined by the same authority component (see {{sec-groupnaming-coap}}), this method can only be used if there is a predefined relation between CoAP groups and application groups (see {{sec-groupdef-grouprelations}}).
-   Note that the host component within the authority component of the Group URI can be a group hostname, or an IP address literal. For constrained networks, using an IP address literal has the benefit that it reduces the size of the CoAP request message. 
+   Note that the host component within the authority component of the Group URI can be a group hostname, or an IP address literal. For constrained networks, using an IP address literal has the benefit that it reduces the size of the CoAP request message.
    This is because the Uri-Host Option is elided from the CoAP request in this case.
 
    Full examples are provided in {{sec-examples-app-group-naming-authority}}.
