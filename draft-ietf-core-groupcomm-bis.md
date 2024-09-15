@@ -240,7 +240,7 @@ In fact, being a member of a security group actually grants access only to excha
 |                              |              |                    |
 | [ - Application group name ] +--------------+ - IP mcast address |
 |                              |  1...N    1  | - UDP port number  |
-|                              |              |                    |
+| - Resource URI path(s)       |              |                    |
 |                              |              |                    |
 +-------------+----------------+              +---------+----------+
               |  1...N                                  |  1...N
@@ -1757,6 +1757,8 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 {:removeinrfc}
 
 ## Version -11 to -12 ## {#sec-11-12}
+
+* Added application group resource URI path(s) in Figure 1.
 
 * Clarified outcome of the RFC 7390 experiment on group membership configuration protocol.
 
