@@ -573,13 +573,14 @@ For validation at proxies, the validation model defined in {{I-D.ietf-core-group
 
 #### ETag Option in a Group Request/Response ####
 A client endpoint MAY include one or more ETag Options in a GET or FETCH group request, to validate one or more stored responses it has cached.
-In case two or more servers in the CoAP group have responded to a previous request to the same resource with an identical ETag value, it is the responsibility of the client to handle this case. In particular, if the client
-wishes to validate, using a group request, a response from server 1 with an ETag value N, while it does not wish to validate a response from server 2 with the same ETag value N, there is no way to achieve this.
-In such cases where an identical ETag value is returned by two or more servers, the client, by default, SHOULD NOT include an ETag Option containing that ETag value in a group request.
+In case two or more servers in the CoAP group have responded to a past request to the same resource with an identical ETag value, it is the responsibility of the client to handle this case. In particular, if the client
+wishes to validate, using a group request, a response from server 1 with an ETag value N, while it wants a fresh response from server 2, there is no way to achieve this using a single group request. This wish could occur if the client has a cached representation for server 1, but has no cached representation for server 2: for example, because the client needed to remove older items from its cache to make space for newer resource representations.
+
+There are various strategies to avoid problems caused by identical ETag values: one strategy is for a client to repeat a request if a particular server returned 2.03 Valid with an ETag value that is not in its cache (for that server). The repeated request excludes the "duplicate" ETag, and it may be a group request or a unicast request to the particular server. Another strategy is to mark a cached ETag value as "duplicated - not to be used for revalidation" as soon as another server responds with the same ETag value. Finally, the recommended strategy is for the servers to generate unique ETags as specified below.
 
 A server endpoint MUST process an ETag Option in a GET or FETCH group request in the same way it processes an ETag Option for a unicast request.
 A server endpoint that includes an ETag Option in a response to a group request SHOULD construct the ETag Option value in such a way that the value
-will be unique to this particular server with a high probability. This practically prevents a collision of the ETag values from different servers in the same CoAP group and application group, which in turn allows the client to effectively validate a particular response of an origin server. This can be accomplished, for example, by embedding a compact ID of the server within the ETag value, where the ID is unique (or unique with a high probability) in the scope of the group.
+will be unique to this particular server with a high probability. This practically prevents a collision of the ETag values from different servers in the same CoAP group and application group, which in turn allows the client to effectively validate a particular response of an origin server. This can be accomplished, for example, by embedding a compact ID (or hash) of the server within the ETag value, where the ID is unique (or unique with a high probability) in the scope of the CoAP/application groups.
 
 Note: a legacy CoAP server might treat an ETag Option in a group request as an unrecognized option per {{Sections 5.4 and 8.2.1 of RFC7252}}, causing it to ignore this (elective) ETag Option regardless of its value, and process the request normally as if that ETag Option was not included.
 
@@ -1720,6 +1721,8 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 {:removeinrfc}
 
 ## Version -11 to -12 ## {#sec-11-12}
+
+* Clarified the issue of identical ETags from multiple servers and added strategies to cope with this. Removed recommendation to not use such duplicate ETags.
 
 * Simplified section on application group naming using URI authority and corresponding appendix examples; declaring new Option solution out of scope.
 
