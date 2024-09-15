@@ -303,7 +303,7 @@ However, a CoAP group is for practical purposes identified and named by the auth
 The host subcomponent directly defines the IP multicast address of the CoAP group, in case the host consists of an IP literal.
 The host subcomponent indirectly defines the IP multicast address of the CoAP group, in case the host consists of a hostname: resolving the hostname to an IP address in this case produces the IP multicast address.
 
-It follows that the same CoAP group might have multiple names, which can be simultaneously and interchangeably used. For example, if the two hostnames group1.com and group1.alias.com both resolve to the IP multicast address \[ff15::1234\], then the following authority components are all names for the same CoAP group.
+It follows that the same CoAP group might have multiple names, which can be simultaneously and interchangeably used. For example, if the two hostnames group1.example and group1.alias.example both resolve to the IP multicast address \[ff15::1234\], then the following authority components are all names for the same CoAP group.
 
 * group1.example:7700
 * group1.alias.example:7700
@@ -324,59 +324,41 @@ Examples of hierarchical CoAP group FQDN naming (and scoping) for a building con
 
 #### Application Groups ### {#sec-groupnaming-app}
 
-An application group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI, or other types of strings. The decision of whether and how exactly an application group name is encoded and transported is application specific.
+An application group can be named through different types of identifiers, such as a name string, (integer) number, URI, or other types of strings. The decision of whether and how an application group name is encoded and transported in a CoAP group request is application specific.
 
-The following discusses a number of possible methods to use, while full examples for the different methods are provided in {{sec-examples-app-group-naming}}.
+This section summarizes possible methods for encoding an application group name in a CoAP group request. Full examples for these methods are provided in {{sec-examples-app-group-naming}}.
 
-An application group name can be explicitly encoded in a group URI. In such a case, it can be encoded within one of the following URI components.
+An application group name can be explicitly encoded in a group URI. Specifically, it can be encoded within one of the following URI components:
 
 * URI path component -- This is the most common and RECOMMENDED method to encode the application group name. When using this method in constrained networks, an application group name APPNAME should be kept short.
 
-   A best practice for doing so is to use a URI path component such that: i) it includes a path segment as delimiter with a designated value, e.g., "gp", followed by ii) a path segment with value the name of the application group, followed by iii) the path segment(s) that identify the targeted resource within the application group. For example, both /gp/APPNAME/res1 and /base/gp/APPNAME/res1/res2 conform to this practice. Just like application group names, the path segment used as delimiter should be kept short in constrained networks.
+   A best practice is to use a URI path component such that: i) it includes a path segment as delimiter with a designated value, e.g., "gp", followed by ii) a path segment containing the name of the application group, followed by iii) the path segment(s) that identify the targeted resource within the application group. For example, both /gp/APPNAME/res1 and /base/gp/APPNAME/res1/res2 conform to this practice. The path segment used as delimiter ('gp' in the examples) should be kept short in constrained networks.
 
    Full examples are provided in {{sec-examples-app-group-naming-path}}.
 
 * URI query component -- This method can use the following formats. In either case, when using this method in constrained networks, an application group name APPNAME should be as short as possible.
 
-   - As a first alternative, the URI query component consists of only one parameter, which has no value and has the name of the application group as its own identifier. That is, the query component ?APPNAME conforms to this format.
+   - As a first alternative, the URI query component consists of only one parameter, which has no value and has the name of the application group as its own identifier. The query component ?APPNAME conforms to this format.
 
-   - As a second alternative, the URI query component includes a query parameter as designated indicator, e.g., "gp", with value the name of the application group. That is, assuming "gp" to be used as designated indicator, both the query components ?gp=APPNAME and ?par1=v1&gp=APPNAME conform to this format.
+   - As a second alternative, the URI query component includes a query parameter as designated indicator, e.g., "gp", with a value euqal to the name of the application group. That is, assuming "gp" is used as designated indicator, both the query components ?gp=APPNAME and ?par1=v1&gp=APPNAME conform to this format.
 
    Full examples are provided in {{sec-examples-app-group-naming-query}}.
 
-* URI authority component -- If this method is used, the application group is identified by the authority component as a whole.
+* URI authority component -- If this method is used, the application group is identified by the authority component of the group URI or a subset thereof.
 
-   In particular, the application group has the same name of the CoAP group expressed by the group URI (see {{sec-groupnaming-coap}}). Thus, this method can only be used if there is a one-to-one mapping between CoAP groups and application groups (see {{sec-groupdef-grouprelations}}).
+   Because the CoAP group is also defined by the same authority component (see {{sec-groupnaming-coap}}), this method can only be used if there is a predefined relation between CoAP groups and application groups (see {{sec-groupdef-grouprelations}}).
+   Note that the host component within the authority component of the Group URI can be a group hostname, or an IP address literal. For constrained networks, using an IP address literal has the benefit that it reduces the size of the CoAP request message. 
+   This is because the Uri-Host Option is elided from the CoAP request in this case.
 
-   While the host component of the Group URI can be a group hostname, an implementation would likely rather use an IP address literal, in order to reduce the size of the CoAP request. In particular, the Uri-Host Option can be fully elided in this case.
+   Full examples are provided in {{sec-examples-app-group-naming-authority}}.
 
-   A full example is provided in {{sec-examples-app-group-naming-authority}}.
+Due to the CoAP client's encoding of the request URI into CoAP Options (see {{Section 6.4 of RFC7252}}) and the possibility of the CoAP server to compose the URI again based on received Options (see {{Section 6.5 of RFC7252}}), the application group name information can be transported to the server and used to select the intended application group.
 
-* URI host subcomponent -- If this method is used, the application group is identified solely by the host subcomponent of the authority component.
+Any other method to transport the application group name within a CoAP request, not using the group URI, would require a new CoAP Option to be defined. Such an approach is out of scope of this document.
 
-   Since an application group can be associated with only one CoAP group (see {{sec-groupdef-grouprelations}}), using this method implies that, given any two CoAP groups, the port subcomponent of the URI authority component MUST NOT be the only information distinguishing them.
+Finally, it is also possible to not encode the application group name in the CoAP request, yielding the most compact representation on the wire. In this case, each CoAP server needs to determine the right application group based on contextual information, such as the CoAP group, and/or the client identity and/or the target resource. For example, each application group on a server could support a unique set of resources, such that it does not overlap with the set of resources of any other application group.
+Appendix A of {{RFC9176}} provides an example of a named application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources it supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry, while the CoAP group ff35:30:2001:db8:f1::8000:1 is specified in the authority component of the URI encoded in the "base" attribute. In subsequent group requests by a client to the "lights" group, the name of the group is not present in the request message. Rather, the URI authority that selects the CoAP group ff35:30:2001:db8:f1::8000:1 will implicitly also select the "lights" application group.
 
-   Like for the previous case relying on the whole URI authority component, an implementation would likely use an IP address literal rather than the group hostname as host component of the Group URI, in order to reduce the size of the CoAP request. In particular, the Uri-Host Option can be fully elided in this case.
-
-   A full example is provided in {{sec-examples-app-group-naming-host}}.
-
-* URI port subcomponent -- By using this method, the application group is uniquely identified by the destination port number encoded in the port subcomponent of the authority component.
-
-   Since an application group can be associated with only one CoAP group (see {{sec-groupdef-grouprelations}}), using this method implies that any two CoAP groups cannot differ only by their host subcomponent of the URI authority component.
-
-   A full example is provided in {{sec-examples-app-group-naming-port}}.
-
-Alternatively, there are also methods to encode the application group name within the CoAP request, even though it is not encoded within the group URI. An example of such a method is summarized below.
-
-* The application group name can be encoded in a new (e.g., custom, application-specific) CoAP Option, which the client adds to the CoAP request before sending it out.
-
-   Upon receiving the request as a member of the targeted CoAP group, each CoAP server would, by design, understand this Option, decode it, and treat the result as an application group name.
-
-   A full example is provided in {{sec-examples-app-group-naming-option}}.
-
-Furthermore, it is possible to encode the application group name neither in the group URI nor within a CoAP request, thus yielding the most compact representation on the wire. In this case, each CoAP server needs to determine the right application group based on contextual information, such as the client identity and/or the target resource. For example, each application group on a server could support a unique set of resources, such that it does not overlap with the set of resources of any other application group.
-
-Finally, Appendix A of {{RFC9176}} provides an example of an application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources it supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry, while the CoAP group ff35:30:2001:db8:f1::8000:1 is specified in the authority component of the URI encoded in the "base" attribute.
 
 #### Security Groups ### {#sec-groupnaming-sec}
 
@@ -1139,9 +1121,9 @@ This section provides examples for the different methods that can be used to nam
 
 The shown examples consider a CoAP group identified by the group hostname grp.example. Its members are CoAP servers listening to the associated IP multicast address ff35:30:2001:db8:f1::8000:1 and port number 5685.
 
-Note that a group hostname is used here to have better-readable examples. As discussed in {{sec-groupnaming-app}} when considering the authority component and its host subcomponent in the Group URI, in practice an implementation would likely use an IP address literal as the host component of the Group URI, in order to reduce the size of the CoAP request. In particular, the Uri-Host Option can be fully elided in this case.
+Note that a group hostname is used in most examples to improve readability. As discussed in {{sec-groupnaming-app}}, in practice using an IP address literal as the host component of the Group URI reduces the size of the CoAP request message. In particular, the Uri-Host Option can be elided in this case.
 
-Also note that the Uri-Port Option does not appear in the examples, since the port number 5685 is already included in the CoAP request's UDP header (which is not shown in the examples).
+Also note that the Uri-Port Option does not appear in the examples, since the port number 5685 is already included in the CoAP request's UDP header (which is not shown in the examples) in the destination port field.
 
 ## Group Naming using the URI Path Component # {#sec-examples-app-group-naming-path}
 
@@ -1216,7 +1198,9 @@ Also note that the Uri-Port Option does not appear in the examples, since the po
 
 ## Group Naming using the URI Authority Component # {#sec-examples-app-group-naming-authority}
 
-{{fig-gname-auth-example}} provides an example where the URI authority component as a whole is used for naming application groups.
+{{fig-gname-auth-example}} provides an example where the URI authority component as a whole is used for encoding the name of the application group.
+Note that although the port information (5685) is not carried as a CoAP Option, it is still transported within the UDP message (in the UDP destination port field).
+So effectively, the application group name is transported in the UDP message as two parts.
 
 ~~~~~~~~~~~
 
@@ -1230,35 +1214,33 @@ Also note that the Uri-Port Option does not appear in the examples, since the po
       Uri-Path: light
       Uri-Query: foo=bar
 ~~~~~~~~~~~
-{: #fig-gname-auth-example title="Example of application group name in URI authority"}
+{: #fig-gname-auth-example title="Example of application group name defined by the URI authority"}
 
-## Group Naming using the URI Host Subcomponent # {#sec-examples-app-group-naming-host}
-
-{{fig-gname-host-example}} provides an example where the URI host subcomponent of the URI authority component is used for naming application groups.
+{{fig-gname-host-example}} provides an example where the URI host subcomponent of the URI authority component is used for encoding the name of the application group.
+Specifically, the first label of the DNS name is used.
 
 ~~~~~~~~~~~
 
-   Application group name: grp.example
+   Application group name: grp42
 
-   Group URI: coap://grp.example:5685/light?foo=bar
+   Group URI: coap://grp42.example:5685/light?foo=bar
 
    CoAP group request
       Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example
+      Uri-Host: grp42.example
       Uri-Path: light
       Uri-Query: foo=bar
 ~~~~~~~~~~~
-{: #fig-gname-host-example title="Example of application group name in URI host"}
-
-## Group Naming using the URI Port Subcomponent # {#sec-examples-app-group-naming-port}
+{: #fig-gname-host-example title="Example of application group name encoded in URI host"}
 
 {{fig-gname-port-example}} provides an example where the URI port subcomponent of the URI authority component is used for naming application groups.
+It uses a UDP port from the dynamic port range. Multiple application groups could be defined this way, each represented by a number and associated port in the dynamic port range.
 
 ~~~~~~~~~~~
 
-   Application group name: grp1, as inferable from port number 5685
+   Application group name: 55685
 
-   Group URI: coap://grp.example:5685/light?foo=bar
+   Group URI: coap://grp.example:55685/light?foo=bar
 
    CoAP group request
       Header: GET(T=NON, Code=0.01, MID=0x7d41)
@@ -1267,25 +1249,6 @@ Also note that the Uri-Port Option does not appear in the examples, since the po
       Uri-Query: foo=bar
 ~~~~~~~~~~~
 {: #fig-gname-port-example title="Example of application group name in URI port"}
-
-## Group Naming using a Custom CoAP Option # {#sec-examples-app-group-naming-option}
-
-{{fig-gname-custom-option-example}} provides an example where a new, custom CoAP Option, namely App-Group-Name, is used for naming application groups.
-
-~~~~~~~~~~~
-
-   Application group name: grp1
-
-   Group URI: coap://grp.example:5685/light?foo=bar
-
-   CoAP group request
-      Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example
-      Uri-Path: light
-      Uri-Query: foo=bar
-      App-Group-Name: grp1  // new (e.g., custom) CoAP option
-~~~~~~~~~~~
-{: #fig-gname-custom-option-example title="Example of application group name in a new CoAP Option"}
 
 # Examples of Group Discovery from CoAP Servers # {#sec-examples-group-discovery}
 
@@ -1757,6 +1720,8 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 {:removeinrfc}
 
 ## Version -11 to -12 ## {#sec-11-12}
+
+* Simplified section on application group naming using URI authority and corresponding appendix examples; declaring new Option solution out of scope.
 
 * Added application group resource URI path(s) in Figure 1.
 
