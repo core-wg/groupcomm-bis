@@ -1030,7 +1030,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Dijk, et al.</td>
-<td class="center">Expires 12 March 2025</td>
+<td class="center">Expires 20 March 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1049,12 +1049,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7252" class="eref">7252</a>, <a href="https://www.rfc-editor.org/rfc/rfc7641" class="eref">7641</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-09-08" class="published">8 September 2024</time>
+<time datetime="2024-09-16" class="published">16 September 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-03-12">12 March 2025</time></dd>
+<dd class="expires"><time datetime="2025-03-20">20 March 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1111,7 +1111,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 12 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 20 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1425,15 +1425,6 @@ svg :is([fill="white"], [fill^="#fff"]) {
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.3">
                 <p id="section-toc.1-1.10.2.3.1"><a href="#appendix-B.3" class="auto internal xref">B.3</a>.  <a href="#name-group-naming-using-the-uri-a" class="internal xref">Group Naming using the URI Authority Component</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.4">
-                <p id="section-toc.1-1.10.2.4.1"><a href="#appendix-B.4" class="auto internal xref">B.4</a>.  <a href="#name-group-naming-using-the-uri-h" class="internal xref">Group Naming using the URI Host Subcomponent</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.5">
-                <p id="section-toc.1-1.10.2.5.1"><a href="#appendix-B.5" class="auto internal xref">B.5</a>.  <a href="#name-group-naming-using-the-uri-p" class="internal xref">Group Naming using the URI Port Subcomponent</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.6">
-                <p id="section-toc.1-1.10.2.6.1"><a href="#appendix-B.6" class="auto internal xref">B.6</a>.  <a href="#name-group-naming-using-a-custom" class="internal xref">Group Naming using a Custom CoAP Option</a></p>
-</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
@@ -1708,6 +1699,10 @@ appear in all capitals, as shown here.<a href="#section-1.2-1" class="pilcrow">�
                     <text x="416" y="116">UDP</text>
                     <text x="452" y="116">port</text>
                     <text x="500" y="116">number</text>
+                    <text x="24" y="132">-</text>
+                    <text x="68" y="132">Resource</text>
+                    <text x="120" y="132">URI</text>
+                    <text x="168" y="132">path(s)</text>
                     <text x="160" y="180">1...N</text>
                     <text x="496" y="180">1...N</text>
                     <text x="496" y="228">1...N</text>
@@ -1836,7 +1831,7 @@ appear in all capitals, as shown here.<a href="#section-1.2-1" class="pilcrow">�
 <p id="section-2.2.1.1-2">However, a CoAP group is for practical purposes identified and named by the authority component in the group URI. This component includes the host subcomponent and an optional UDP port number.
 The host subcomponent directly defines the IP multicast address of the CoAP group, in case the host consists of an IP literal.
 The host subcomponent indirectly defines the IP multicast address of the CoAP group, in case the host consists of a hostname: resolving the hostname to an IP address in this case produces the IP multicast address.<a href="#section-2.2.1.1-2" class="pilcrow">¶</a></p>
-<p id="section-2.2.1.1-3">It follows that the same CoAP group might have multiple names, which can be simultaneously and interchangeably used. For example, if the two hostnames group1.com and group1.alias.com both resolve to the IP multicast address [ff15::1234], then the following authority components are all names for the same CoAP group.<a href="#section-2.2.1.1-3" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.1-3">It follows that the same CoAP group might have multiple names, which can be simultaneously and interchangeably used. For example, if the two hostnames group1.example and group1.alias.example both resolve to the IP multicast address [ff15::1234], then the following authority components are all names for the same CoAP group.<a href="#section-2.2.1.1-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2.2.1.1-4.1">
                 <p id="section-2.2.1.1-4.1.1">group1.example:7700<a href="#section-2.2.1.1-4.1.1" class="pilcrow">¶</a></p>
@@ -1878,14 +1873,14 @@ The host subcomponent indirectly defines the IP multicast address of the CoAP gr
             <h5 id="name-application-groups">
 <a href="#section-2.2.1.2" class="section-number selfRef">2.2.1.2. </a><a href="#name-application-groups" class="section-name selfRef">Application Groups</a>
             </h5>
-<p id="section-2.2.1.2-1">An application group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI, or other types of strings. The decision of whether and how exactly an application group name is encoded and transported is application specific.<a href="#section-2.2.1.2-1" class="pilcrow">¶</a></p>
-<p id="section-2.2.1.2-2">The following discusses a number of possible methods to use, while full examples for the different methods are provided in <a href="#sec-examples-app-group-naming" class="auto internal xref">Appendix B</a>.<a href="#section-2.2.1.2-2" class="pilcrow">¶</a></p>
-<p id="section-2.2.1.2-3">An application group name can be explicitly encoded in a group URI. In such a case, it can be encoded within one of the following URI components.<a href="#section-2.2.1.2-3" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.2-1">An application group can be named through different types of identifiers, such as a name string, (integer) number, URI, or other types of strings. The decision of whether and how an application group name is encoded and transported in a CoAP group request is application specific.<a href="#section-2.2.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.2-2">This section summarizes possible methods for encoding an application group name in a CoAP group request. Full examples for these methods are provided in <a href="#sec-examples-app-group-naming" class="auto internal xref">Appendix B</a>.<a href="#section-2.2.1.2-2" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.2-3">An application group name can be explicitly encoded in a group URI. Specifically, it can be encoded within one of the following URI components:<a href="#section-2.2.1.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2.2.1.2-4.1">
                 <p id="section-2.2.1.2-4.1.1">URI path component -- This is the most common and <span class="bcp14">RECOMMENDED</span> method to encode the application group name. When using this method in constrained networks, an application group name APPNAME should be kept short.<a href="#section-2.2.1.2-4.1.1" class="pilcrow">¶</a></p>
 <p id="section-2.2.1.2-4.1.2">
-A best practice for doing so is to use a URI path component such that: i) it includes a path segment as delimiter with a designated value, e.g., "gp", followed by ii) a path segment with value the name of the application group, followed by iii) the path segment(s) that identify the targeted resource within the application group. For example, both /gp/APPNAME/res1 and /base/gp/APPNAME/res1/res2 conform to this practice. Just like application group names, the path segment used as delimiter should be kept short in constrained networks.<a href="#section-2.2.1.2-4.1.2" class="pilcrow">¶</a></p>
+A best practice is to use a URI path component such that: i) it includes a path segment as delimiter with a designated value, e.g., "gp", followed by ii) a path segment containing the name of the application group, followed by iii) the path segment(s) that identify the targeted resource within the application group. For example, both /gp/APPNAME/res1 and /base/gp/APPNAME/res1/res2 conform to this practice. The path segment used as delimiter ('gp' in the examples) should be kept short in constrained networks.<a href="#section-2.2.1.2-4.1.2" class="pilcrow">¶</a></p>
 <p id="section-2.2.1.2-4.1.3">
 Full examples are provided in <a href="#sec-examples-app-group-naming-path" class="auto internal xref">Appendix B.1</a>.<a href="#section-2.2.1.2-4.1.3" class="pilcrow">¶</a></p>
 </li>
@@ -1893,53 +1888,30 @@ Full examples are provided in <a href="#sec-examples-app-group-naming-path" clas
                 <p id="section-2.2.1.2-4.2.1">URI query component -- This method can use the following formats. In either case, when using this method in constrained networks, an application group name APPNAME should be as short as possible.<a href="#section-2.2.1.2-4.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2.2.1.2-4.2.2.1">
-                    <p id="section-2.2.1.2-4.2.2.1.1">As a first alternative, the URI query component consists of only one parameter, which has no value and has the name of the application group as its own identifier. That is, the query component ?APPNAME conforms to this format.<a href="#section-2.2.1.2-4.2.2.1.1" class="pilcrow">¶</a></p>
+                    <p id="section-2.2.1.2-4.2.2.1.1">As a first alternative, the URI query component consists of only one parameter, which has no value and has the name of the application group as its own identifier. The query component ?APPNAME conforms to this format.<a href="#section-2.2.1.2-4.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
                   <li class="normal" id="section-2.2.1.2-4.2.2.2">
-                    <p id="section-2.2.1.2-4.2.2.2.1">As a second alternative, the URI query component includes a query parameter as designated indicator, e.g., "gp", with value the name of the application group. That is, assuming "gp" to be used as designated indicator, both the query components ?gp=APPNAME and ?par1=v1&amp;gp=APPNAME conform to this format.<a href="#section-2.2.1.2-4.2.2.2.1" class="pilcrow">¶</a></p>
+                    <p id="section-2.2.1.2-4.2.2.2.1">As a second alternative, the URI query component includes a query parameter as designated indicator, e.g., "gp", with a value equal to the name of the application group. That is, assuming that "gp" is used as designated indicator, both the query components ?gp=APPNAME and ?par1=v1&amp;gp=APPNAME conform to this format.<a href="#section-2.2.1.2-4.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 <p id="section-2.2.1.2-4.2.3">
 Full examples are provided in <a href="#sec-examples-app-group-naming-query" class="auto internal xref">Appendix B.2</a>.<a href="#section-2.2.1.2-4.2.3" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-2.2.1.2-4.3">
-                <p id="section-2.2.1.2-4.3.1">URI authority component -- If this method is used, the application group is identified by the authority component as a whole.<a href="#section-2.2.1.2-4.3.1" class="pilcrow">¶</a></p>
+                <p id="section-2.2.1.2-4.3.1">URI authority component -- If this method is used, the application group is identified by the authority component of the group URI or a subset thereof.<a href="#section-2.2.1.2-4.3.1" class="pilcrow">¶</a></p>
 <p id="section-2.2.1.2-4.3.2">
-In particular, the application group has the same name of the CoAP group expressed by the group URI (see <a href="#sec-groupnaming-coap" class="auto internal xref">Section 2.2.1.1</a>). Thus, this method can only be used if there is a one-to-one mapping between CoAP groups and application groups (see <a href="#sec-groupdef-grouprelations" class="auto internal xref">Section 2.1.4</a>).<a href="#section-2.2.1.2-4.3.2" class="pilcrow">¶</a></p>
+Because the CoAP group is also defined by the same authority component (see <a href="#sec-groupnaming-coap" class="auto internal xref">Section 2.2.1.1</a>), this method can only be used if there is a predefined relation between CoAP groups and application groups (see <a href="#sec-groupdef-grouprelations" class="auto internal xref">Section 2.1.4</a>).<a href="#section-2.2.1.2-4.3.2" class="pilcrow">¶</a></p>
 <p id="section-2.2.1.2-4.3.3">
-While the host component of the Group URI can be a group hostname, an implementation would likely rather use an IP address literal, in order to reduce the size of the CoAP request. In particular, the Uri-Host Option can be fully elided in this case.<a href="#section-2.2.1.2-4.3.3" class="pilcrow">¶</a></p>
+Note that the host component within the authority component of the Group URI can be a group hostname, or an IP address literal. For constrained networks, using an IP address literal has the benefit that it reduces the size of the CoAP request message.
+ This is because the Uri-Host Option is elided from the CoAP request in this case.<a href="#section-2.2.1.2-4.3.3" class="pilcrow">¶</a></p>
 <p id="section-2.2.1.2-4.3.4">
-A full example is provided in <a href="#sec-examples-app-group-naming-authority" class="auto internal xref">Appendix B.3</a>.<a href="#section-2.2.1.2-4.3.4" class="pilcrow">¶</a></p>
-</li>
-              <li class="normal" id="section-2.2.1.2-4.4">
-                <p id="section-2.2.1.2-4.4.1">URI host subcomponent -- If this method is used, the application group is identified solely by the host subcomponent of the authority component.<a href="#section-2.2.1.2-4.4.1" class="pilcrow">¶</a></p>
-<p id="section-2.2.1.2-4.4.2">
-Since an application group can be associated with only one CoAP group (see <a href="#sec-groupdef-grouprelations" class="auto internal xref">Section 2.1.4</a>), using this method implies that, given any two CoAP groups, the port subcomponent of the URI authority component <span class="bcp14">MUST NOT</span> be the only information distinguishing them.<a href="#section-2.2.1.2-4.4.2" class="pilcrow">¶</a></p>
-<p id="section-2.2.1.2-4.4.3">
-Like for the previous case relying on the whole URI authority component, an implementation would likely use an IP address literal rather than the group hostname as host component of the Group URI, in order to reduce the size of the CoAP request. In particular, the Uri-Host Option can be fully elided in this case.<a href="#section-2.2.1.2-4.4.3" class="pilcrow">¶</a></p>
-<p id="section-2.2.1.2-4.4.4">
-A full example is provided in <a href="#sec-examples-app-group-naming-host" class="auto internal xref">Appendix B.4</a>.<a href="#section-2.2.1.2-4.4.4" class="pilcrow">¶</a></p>
-</li>
-              <li class="normal" id="section-2.2.1.2-4.5">
-                <p id="section-2.2.1.2-4.5.1">URI port subcomponent -- By using this method, the application group is uniquely identified by the destination port number encoded in the port subcomponent of the authority component.<a href="#section-2.2.1.2-4.5.1" class="pilcrow">¶</a></p>
-<p id="section-2.2.1.2-4.5.2">
-Since an application group can be associated with only one CoAP group (see <a href="#sec-groupdef-grouprelations" class="auto internal xref">Section 2.1.4</a>), using this method implies that any two CoAP groups cannot differ only by their host subcomponent of the URI authority component.<a href="#section-2.2.1.2-4.5.2" class="pilcrow">¶</a></p>
-<p id="section-2.2.1.2-4.5.3">
-A full example is provided in <a href="#sec-examples-app-group-naming-port" class="auto internal xref">Appendix B.5</a>.<a href="#section-2.2.1.2-4.5.3" class="pilcrow">¶</a></p>
+Full examples are provided in <a href="#sec-examples-app-group-naming-authority" class="auto internal xref">Appendix B.3</a>.<a href="#section-2.2.1.2-4.3.4" class="pilcrow">¶</a></p>
 </li>
             </ul>
-<p id="section-2.2.1.2-5">Alternatively, there are also methods to encode the application group name within the CoAP request, even though it is not encoded within the group URI. An example of such a method is summarized below.<a href="#section-2.2.1.2-5" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-2.2.1.2-6.1">
-                <p id="section-2.2.1.2-6.1.1">The application group name can be encoded in a new (e.g., custom, application-specific) CoAP Option, which the client adds to the CoAP request before sending it out.<a href="#section-2.2.1.2-6.1.1" class="pilcrow">¶</a></p>
-<p id="section-2.2.1.2-6.1.2">
-Upon receiving the request as a member of the targeted CoAP group, each CoAP server would, by design, understand this Option, decode it, and treat the result as an application group name.<a href="#section-2.2.1.2-6.1.2" class="pilcrow">¶</a></p>
-<p id="section-2.2.1.2-6.1.3">
-A full example is provided in <a href="#sec-examples-app-group-naming-option" class="auto internal xref">Appendix B.6</a>.<a href="#section-2.2.1.2-6.1.3" class="pilcrow">¶</a></p>
-</li>
-            </ul>
-<p id="section-2.2.1.2-7">Furthermore, it is possible to encode the application group name neither in the group URI nor within a CoAP request, thus yielding the most compact representation on the wire. In this case, each CoAP server needs to determine the right application group based on contextual information, such as the client identity and/or the target resource. For example, each application group on a server could support a unique set of resources, such that it does not overlap with the set of resources of any other application group.<a href="#section-2.2.1.2-7" class="pilcrow">¶</a></p>
-<p id="section-2.2.1.2-8">Finally, Appendix A of <span>[<a href="#RFC9176" class="cite xref">RFC9176</a>]</span> provides an example of an application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources it supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry, while the CoAP group ff35:30:2001:db8:f1::8000:1 is specified in the authority component of the URI encoded in the "base" attribute.<a href="#section-2.2.1.2-8" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.2-5">Due to the CoAP client's encoding of the request URI into CoAP options (see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-6.4" class="relref">Section 6.4</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>) and the possibility of the CoAP server to compose the URI again based on received options (see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-6.5" class="relref">Section 6.5</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>), the application group name information can be transported to the server and used to select the intended application group.<a href="#section-2.2.1.2-5" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.2-6">Any other method to transport the application group name within a CoAP request, but not using the group URI, would require a new CoAP option to be defined. Such an approach is out of the scope of this document.<a href="#section-2.2.1.2-6" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.2-7">Finally, it is also possible to not encode the application group name in the CoAP request, yielding the most compact representation on the wire. In this case, each CoAP server needs to determine the right application group based on contextual information, such as the CoAP group, and/or the client identity and/or the target resource. For example, each application group on a server could support a unique set of resources, such that it does not overlap with the set of resources of any other application group.
+Appendix A of <span>[<a href="#RFC9176" class="cite xref">RFC9176</a>]</span> provides an example of a named application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources it supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry, while the CoAP group ff35:30:2001:db8:f1::8000:1 is specified in the authority component of the URI encoded in the "base" attribute. In subsequent group requests by a client to the "lights" group, the name of the group is not present in the request message. Rather, the URI authority component that selects the CoAP group ff35:30:2001:db8:f1::8000:1 will implicitly also select the "lights" application group.<a href="#section-2.2.1.2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-groupnaming-sec">
@@ -2218,13 +2190,13 @@ This document updates <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</
 <a href="#section-3.2.2.1" class="section-number selfRef">3.2.2.1. </a><a href="#name-etag-option-in-a-group-requ" class="section-name selfRef">ETag Option in a Group Request/Response</a>
             </h5>
 <p id="section-3.2.2.1-1">A client endpoint <span class="bcp14">MAY</span> include one or more ETag Options in a GET or FETCH group request, to validate one or more stored responses it has cached.
-In case two or more servers in the CoAP group have responded to a previous request to the same resource with an identical ETag value, it is the responsibility of the client to handle this case. In particular, if the client
-wishes to validate, using a group request, a response from server 1 with an ETag value N, while it does not wish to validate a response from server 2 with the same ETag value N, there is no way to achieve this.
-In such cases where an identical ETag value is returned by two or more servers, the client, by default, <span class="bcp14">SHOULD NOT</span> include an ETag Option containing that ETag value in a group request.<a href="#section-3.2.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.2.2.1-2">A server endpoint <span class="bcp14">MUST</span> process an ETag Option in a GET or FETCH group request in the same way it processes an ETag Option for a unicast request.
+In case two or more servers in the CoAP group have responded to a past request to the same resource with an identical ETag value, it is the responsibility of the client to handle this case. In particular, if the client
+wishes to validate, using a group request, a response from server 1 with an ETag value N, while it wants a fresh response from server 2, there is no way to achieve this using a single group request. This wish could occur if the client has a cached representation for server 1, but has no cached representation for server 2: for example, because the client needed to remove older items from its cache to make space for newer resource representations.<a href="#section-3.2.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.2.1-2">There are various strategies to avoid problems caused by identical ETag values: one strategy is for a client to repeat a request if a particular server returned 2.03 (Valid) with an ETag value that is not in the client's cache (for that server). The repeated request excludes the "duplicate" ETag, and it may be a group request or a unicast request to the particular server. Another strategy is to mark a cached ETag value as "duplicated - not to be used for revalidation" as soon as another server responds with the same ETag value. Finally, the recommended strategy is for the servers to generate unique ETags as specified below.<a href="#section-3.2.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.2.2.1-3">A server endpoint <span class="bcp14">MUST</span> process an ETag Option in a GET or FETCH group request in the same way it processes an ETag Option for a unicast request.
 A server endpoint that includes an ETag Option in a response to a group request <span class="bcp14">SHOULD</span> construct the ETag Option value in such a way that the value
-will be unique to this particular server with a high probability. This practically prevents a collision of the ETag values from different servers in the same CoAP group and application group, which in turn allows the client to effectively validate a particular response of an origin server. This can be accomplished, for example, by embedding a compact ID of the server within the ETag value, where the ID is unique (or unique with a high probability) in the scope of the group.<a href="#section-3.2.2.1-2" class="pilcrow">¶</a></p>
-<p id="section-3.2.2.1-3">Note: a legacy CoAP server might treat an ETag Option in a group request as an unrecognized option per Sections <a href="https://rfc-editor.org/rfc/rfc7252#section-5.4" class="relref">5.4</a> and <a href="https://rfc-editor.org/rfc/rfc7252#section-8.2.1" class="relref">8.2.1</a> of <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>, causing it to ignore this (elective) ETag Option regardless of its value, and process the request normally as if that ETag Option was not included.<a href="#section-3.2.2.1-3" class="pilcrow">¶</a></p>
+will be unique to this particular server with a high probability. This practically prevents a collision of the ETag values from different servers in the same CoAP group and application group, which in turn allows the client to effectively validate a particular response of an origin server. This can be accomplished, for example, by embedding a compact ID (or hash) of the server within the ETag value, where the ID is unique (or unique with a high probability) in the scope of the CoAP/application groups.<a href="#section-3.2.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.2.2.1-4">Note: a legacy CoAP server might treat an ETag Option in a group request as an unrecognized option per Sections <a href="https://rfc-editor.org/rfc/rfc7252#section-5.4" class="relref">5.4</a> and <a href="https://rfc-editor.org/rfc/rfc7252#section-8.2.1" class="relref">8.2.1</a> of <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>, causing it to ignore this (elective) ETag Option regardless of its value, and process the request normally as if that ETag Option was not included.<a href="#section-3.2.2.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2277,12 +2249,13 @@ will be unique to this particular server with a high probability. This practical
           </h4>
 <p id="section-3.5.2-1">CoAP enables the use of a reverse-proxy, as an endpoint that stands in for one or more other server(s), and satisfies requests on behalf of these, doing any necessary translations (see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.7.3" class="relref">Section 5.7.3</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>).<a href="#section-3.5.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.5.2-2">In a group communication scenario, a reverse-proxy can rely on its configuration and/or on information in a request from a client, in order to determine that a group request has to be sent to servers in a CoAP group, over a one-to-many transport such as IP/UDP multicast.<a href="#section-3.5.2-2" class="pilcrow">¶</a></p>
-<p id="section-3.5.2-3">For example, specific resources on the reverse-proxy could be allocated, each to a specific application group and/or CoAP group. Or alternatively, the application group and/or CoAP group in question could be encoded as URI path segments. The URI path encodings for a reverse-proxy may also use a URI mapping template as described in <span><a href="https://rfc-editor.org/rfc/rfc8075#section-5.4" class="relref">Section 5.4</a> of [<a href="#RFC8075" class="cite xref">RFC8075</a>]</span>.<a href="#section-3.5.2-3" class="pilcrow">¶</a></p>
-<p id="section-3.5.2-4">The reverse-proxy practically stands in for a CoAP group, thus preventing the client from reaching the group as a whole with a single group request directly addressed to that group (e.g., via multicast). In addition to that, the reverse-proxy may also stand in for each of the individual servers in the CoAP group (e.g., if acting as firewall), thus also preventing the client from individually reaching any server in the group with a unicast request directly addressed to that server.<a href="#section-3.5.2-4" class="pilcrow">¶</a></p>
-<p id="section-3.5.2-5">For a reverse-proxy that sends a group request to servers in a CoAP group, the considerations as defined in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.7.3" class="relref">Section 5.7.3</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> hold. Resulting issues and limitations are compiled in <a href="#sec-issues-reverse-proxies" class="auto internal xref">Appendix F</a>. A reverse-proxying method addressing such issues and limitations is defined in <span>[<a href="#I-D.ietf-core-groupcomm-proxy" class="cite xref">I-D.ietf-core-groupcomm-proxy</a>]</span>.<a href="#section-3.5.2-5" class="pilcrow">¶</a></p>
-<p id="section-3.5.2-6">A client might re-use a Token value in a valid new request to the reverse-proxy, while the reverse-proxy still has an ongoing group communication request for this client with the same Token value (i.e., its time period for response collection has not ended yet).<a href="#section-3.5.2-6" class="pilcrow">¶</a></p>
-<p id="section-3.5.2-7">If this happens, the reverse-proxy <span class="bcp14">MUST</span> stop the ongoing request and associated response forwarding, it <span class="bcp14">MUST NOT</span> forward the new request to the servers in the CoAP group, and it <span class="bcp14">MUST</span> send a 4.00 (Bad Request) error response to the client. The diagnostic payload of the error response <span class="bcp14">SHOULD</span> indicate to the client that the resource is a reverse-proxy resource, and that for this reason immediate Token re-use is not possible.<a href="#section-3.5.2-7" class="pilcrow">¶</a></p>
-<p id="section-3.5.2-8">For the operation of HTTP-to-CoAP reverse proxies, see the last two paragraphs of <a href="#sec-proxy-forward" class="auto internal xref">Section 3.5.1</a>, which apply also to the case of reverse-proxies.<a href="#section-3.5.2-8" class="pilcrow">¶</a></p>
+<p id="section-3.5.2-3">One typical implementation is to allocate specific resources on the reverse-proxy to application groups. A client can then select the application group, and group resource to access, using the URI path in its group request. For example, a request to /proxy/APPNAME/res1 could give access to resource /res1 in the application group APPNAME. In this example, the proxy automatically selects the associated CoAP group.<a href="#section-3.5.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.5.2-4">In general, using the URI path to select application group and/or CoAP group is an efficient way to access a reverse proxy. Other methods are possible, such as using the URI authority component: this requires configuration of more elements on the reverse proxy, like multiple virtual servers and/or multiple IP addresses and/or multiple port numbers.<a href="#section-3.5.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.5.2-5">The reverse-proxy practically stands in for a CoAP group, thus preventing the client from reaching the group as a whole with a single group request directly addressed to that group (e.g., via multicast). In addition to that, the reverse-proxy may also stand in for each of the individual servers in the CoAP group (e.g., if acting as firewall), thus also preventing the client from individually reaching any server in the group with a unicast request directly addressed to that server.<a href="#section-3.5.2-5" class="pilcrow">¶</a></p>
+<p id="section-3.5.2-6">For a reverse-proxy that sends a group request to servers in a CoAP group, the considerations as defined in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.7.3" class="relref">Section 5.7.3</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> hold. Resulting issues and limitations are compiled in <a href="#sec-issues-reverse-proxies" class="auto internal xref">Appendix F</a>. A reverse-proxying method addressing such issues and limitations is defined in <span>[<a href="#I-D.ietf-core-groupcomm-proxy" class="cite xref">I-D.ietf-core-groupcomm-proxy</a>]</span>.<a href="#section-3.5.2-6" class="pilcrow">¶</a></p>
+<p id="section-3.5.2-7">A client might re-use a Token value in a valid new request to the reverse-proxy, while the reverse-proxy still has an ongoing group communication request for this client with the same Token value (i.e., its time period for response collection has not ended yet).<a href="#section-3.5.2-7" class="pilcrow">¶</a></p>
+<p id="section-3.5.2-8">If this happens, the reverse-proxy <span class="bcp14">MUST</span> stop the ongoing request and associated response forwarding, it <span class="bcp14">MUST NOT</span> forward the new request to the servers in the CoAP group, and it <span class="bcp14">MUST</span> send a 4.00 (Bad Request) error response to the client. The diagnostic payload of the error response <span class="bcp14">SHOULD</span> indicate to the client that the resource is a reverse-proxy resource, and that for this reason immediate Token re-use is not possible.<a href="#section-3.5.2-8" class="pilcrow">¶</a></p>
+<p id="section-3.5.2-9">For the operation of HTTP-to-CoAP reverse proxies, see the last two paragraphs of <a href="#sec-proxy-forward" class="auto internal xref">Section 3.5.1</a>, which apply also to the case of reverse-proxies.<a href="#section-3.5.2-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="multicasting-to-proxies">
@@ -3153,8 +3126,8 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
       </h2>
 <p id="appendix-B-1">This section provides examples for the different methods that can be used to name application groups, as defined in <a href="#sec-groupnaming-app" class="auto internal xref">Section 2.2.1.2</a>.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <p id="appendix-B-2">The shown examples consider a CoAP group identified by the group hostname grp.example. Its members are CoAP servers listening to the associated IP multicast address ff35:30:2001:db8:f1::8000:1 and port number 5685.<a href="#appendix-B-2" class="pilcrow">¶</a></p>
-<p id="appendix-B-3">Note that a group hostname is used here to have better-readable examples. As discussed in <a href="#sec-groupnaming-app" class="auto internal xref">Section 2.2.1.2</a> when considering the authority component and its host subcomponent in the Group URI, in practice an implementation would likely use an IP address literal as the host component of the Group URI, in order to reduce the size of the CoAP request. In particular, the Uri-Host Option can be fully elided in this case.<a href="#appendix-B-3" class="pilcrow">¶</a></p>
-<p id="appendix-B-4">Also note that the Uri-Port Option does not appear in the examples, since the port number 5685 is already included in the CoAP request's UDP header (which is not shown in the examples).<a href="#appendix-B-4" class="pilcrow">¶</a></p>
+<p id="appendix-B-3">Note that a group hostname is used in most examples to improve readability. As discussed in <a href="#sec-groupnaming-app" class="auto internal xref">Section 2.2.1.2</a>, in practice using an IP address literal as the host component of the Group URI reduces the size of the CoAP request message. In particular, the Uri-Host Option can be elided in this case.<a href="#appendix-B-3" class="pilcrow">¶</a></p>
+<p id="appendix-B-4">Also note that the Uri-Port Option does not appear in the examples, since the port number 5685 is already included in the CoAP request's UDP header (which is not shown in the examples) in the destination port field.<a href="#appendix-B-4" class="pilcrow">¶</a></p>
 <div id="sec-examples-app-group-naming-path">
 <section id="appendix-B.1">
         <h3 id="name-group-naming-using-the-uri-">
@@ -3171,15 +3144,15 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
 
    CoAP group request
       Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example
-      Uri-Path: gp
-      Uri-Path: gp1
-      Uri-Path: light
-      Uri-Query: foo=bar
+      Uri-Host: "grp.example"
+      Uri-Path: "gp"
+      Uri-Path: "gp1"
+      Uri-Path: "light"
+      Uri-Query: "foo=bar"
 </pre>
 </div>
 <figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
-<a href="#name-example-of-application-grou" class="selfRef">Example of application group name in URI path (1/2)</a>
+<a href="#name-example-of-application-grou" class="selfRef">Example of application group name in the URI path (1/2)</a>
           </figcaption></figure>
 </div>
 <p id="appendix-B.1-3"><a href="#fig-gname-path-example-2" class="auto internal xref">Figure 4</a> provides a different example, where an IPv6 literal address and the default CoAP port number 5683 are used in the authority component, which yields a compact CoAP request. Also, the resource structure is different in this example.<a href="#appendix-B.1-3" class="pilcrow">¶</a></p>
@@ -3193,13 +3166,13 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
 
    CoAP group request
       Header: POST (T=NON, Code=0.02, MID=0x7d41)
-      Uri-Path: g
-      Uri-Path: gp1
-      Uri-Path: li
+      Uri-Path: "g"
+      Uri-Path: "gp1"
+      Uri-Path: "li"
 </pre>
 </div>
 <figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
-<a href="#name-example-of-application-group" class="selfRef">Example of application group name in URI path (2/2)</a>
+<a href="#name-example-of-application-group" class="selfRef">Example of application group name in the URI path (2/2)</a>
           </figcaption></figure>
 </div>
 </section>
@@ -3220,13 +3193,13 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
 
    CoAP group request
       Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example
-      Uri-Path: light
-      Uri-Query: gp1
+      Uri-Host: "grp.example"
+      Uri-Path: "light"
+      Uri-Query: "gp1"
 </pre>
 </div>
 <figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
-<a href="#name-example-of-application-group-" class="selfRef">Example of application group name in URI query (1/2)</a>
+<a href="#name-example-of-application-group-" class="selfRef">Example of application group name in the URI query (1/2)</a>
           </figcaption></figure>
 </div>
 <p id="appendix-B.2-3"><a href="#fig-gname-query2-example" class="auto internal xref">Figure 6</a> provides another example, which considers the second alternative discussed in <a href="#sec-groupnaming-app" class="auto internal xref">Section 2.2.1.2</a>. In particular, the URI query component includes a query parameter "gp" as designated indicator, with value the name of the application group.<a href="#appendix-B.2-3" class="pilcrow">¶</a></p>
@@ -3240,14 +3213,14 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
 
    CoAP group request
       Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example
-      Uri-Path: light
-      Uri-Query: foo=bar
-      Uri-Query: gp=gp1
+      Uri-Host: "grp.example"
+      Uri-Path: "light"
+      Uri-Query: "foo=bar"
+      Uri-Query: "gp=gp1"
 </pre>
 </div>
 <figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
-<a href="#name-example-of-application-group-n" class="selfRef">Example of application group name in URI query (2/2)</a>
+<a href="#name-example-of-application-group-n" class="selfRef">Example of application group name in the URI query (2/2)</a>
           </figcaption></figure>
 </div>
 </section>
@@ -3257,7 +3230,9 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
         <h3 id="name-group-naming-using-the-uri-a">
 <a href="#appendix-B.3" class="section-number selfRef">B.3. </a><a href="#name-group-naming-using-the-uri-a" class="section-name selfRef">Group Naming using the URI Authority Component</a>
         </h3>
-<p id="appendix-B.3-1"><a href="#fig-gname-auth-example" class="auto internal xref">Figure 7</a> provides an example where the URI authority component as a whole is used for naming application groups.<a href="#appendix-B.3-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.3-1"><a href="#fig-gname-auth-example" class="auto internal xref">Figure 7</a> provides an example where the URI authority component as a whole is used for encoding the name of the application group.
+Note that, although the port information (5685) is not carried as a CoAP Option, it is still transported within the UDP message (in the UDP destination port field).
+So, effectively, the application group name is transported in the UDP message as two parts.<a href="#appendix-B.3-1" class="pilcrow">¶</a></p>
 <span id="name-example-of-application-group-na"></span><div id="fig-gname-auth-example">
 <figure id="figure-7">
           <div class="alignLeft art-text artwork" id="appendix-B.3-2.1">
@@ -3268,95 +3243,55 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
 
    CoAP group request
       Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example
-      Uri-Path: light
-      Uri-Query: foo=bar
+      Uri-Host: "grp.example"
+      Uri-Path: "light"
+      Uri-Query: "foo=bar"
 </pre>
 </div>
 <figcaption><a href="#figure-7" class="selfRef">Figure 7</a>:
-<a href="#name-example-of-application-group-na" class="selfRef">Example of application group name in URI authority</a>
+<a href="#name-example-of-application-group-na" class="selfRef">Example of application group name defined by the URI authority</a>
           </figcaption></figure>
 </div>
-</section>
-</div>
-<div id="sec-examples-app-group-naming-host">
-<section id="appendix-B.4">
-        <h3 id="name-group-naming-using-the-uri-h">
-<a href="#appendix-B.4" class="section-number selfRef">B.4. </a><a href="#name-group-naming-using-the-uri-h" class="section-name selfRef">Group Naming using the URI Host Subcomponent</a>
-        </h3>
-<p id="appendix-B.4-1"><a href="#fig-gname-host-example" class="auto internal xref">Figure 8</a> provides an example where the URI host subcomponent of the URI authority component is used for naming application groups.<a href="#appendix-B.4-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.3-3"><a href="#fig-gname-host-example" class="auto internal xref">Figure 8</a> provides an example where the URI host subcomponent of the URI authority component is used for encoding the name of the application group.
+Specifically, the first label of the DNS name is used.<a href="#appendix-B.3-3" class="pilcrow">¶</a></p>
 <span id="name-example-of-application-group-nam"></span><div id="fig-gname-host-example">
 <figure id="figure-8">
-          <div class="alignLeft art-text artwork" id="appendix-B.4-2.1">
+          <div class="alignLeft art-text artwork" id="appendix-B.3-4.1">
 <pre>
-   Application group name: grp.example
+   Application group name: grp42
 
-   Group URI: coap://grp.example:5685/light?foo=bar
+   Group URI: coap://grp42.example:5685/light?foo=bar
 
    CoAP group request
       Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example
-      Uri-Path: light
-      Uri-Query: foo=bar
+      Uri-Host: "grp42.example"
+      Uri-Path: "light"
+      Uri-Query: "foo=bar"
 </pre>
 </div>
 <figcaption><a href="#figure-8" class="selfRef">Figure 8</a>:
-<a href="#name-example-of-application-group-nam" class="selfRef">Example of application group name in URI host</a>
+<a href="#name-example-of-application-group-nam" class="selfRef">Example of application group name encoded in the URI host</a>
           </figcaption></figure>
 </div>
-</section>
-</div>
-<div id="sec-examples-app-group-naming-port">
-<section id="appendix-B.5">
-        <h3 id="name-group-naming-using-the-uri-p">
-<a href="#appendix-B.5" class="section-number selfRef">B.5. </a><a href="#name-group-naming-using-the-uri-p" class="section-name selfRef">Group Naming using the URI Port Subcomponent</a>
-        </h3>
-<p id="appendix-B.5-1"><a href="#fig-gname-port-example" class="auto internal xref">Figure 9</a> provides an example where the URI port subcomponent of the URI authority component is used for naming application groups.<a href="#appendix-B.5-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.3-5"><a href="#fig-gname-port-example" class="auto internal xref">Figure 9</a> provides an example where the URI port subcomponent of the URI authority component is used for naming application groups.
+It uses a UDP port from the dynamic port range. Multiple application groups could be defined this way, each represented by a number and associated port in the dynamic port range.<a href="#appendix-B.3-5" class="pilcrow">¶</a></p>
 <span id="name-example-of-application-group-name"></span><div id="fig-gname-port-example">
 <figure id="figure-9">
-          <div class="alignLeft art-text artwork" id="appendix-B.5-2.1">
+          <div class="alignLeft art-text artwork" id="appendix-B.3-6.1">
 <pre>
-   Application group name: grp1, as inferable from port number 5685
+   Application group name: 55685
 
-   Group URI: coap://grp.example:5685/light?foo=bar
+   Group URI: coap://grp.example:55685/light?foo=bar
 
    CoAP group request
       Header: GET(T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example
-      Uri-Path: light
-      Uri-Query: foo=bar
+      Uri-Host: "grp.example"
+      Uri-Path: "light"
+      Uri-Query: "foo=bar"
 </pre>
 </div>
 <figcaption><a href="#figure-9" class="selfRef">Figure 9</a>:
-<a href="#name-example-of-application-group-name" class="selfRef">Example of application group name in URI port</a>
-          </figcaption></figure>
-</div>
-</section>
-</div>
-<div id="sec-examples-app-group-naming-option">
-<section id="appendix-B.6">
-        <h3 id="name-group-naming-using-a-custom">
-<a href="#appendix-B.6" class="section-number selfRef">B.6. </a><a href="#name-group-naming-using-a-custom" class="section-name selfRef">Group Naming using a Custom CoAP Option</a>
-        </h3>
-<p id="appendix-B.6-1"><a href="#fig-gname-custom-option-example" class="auto internal xref">Figure 10</a> provides an example where a new, custom CoAP Option, namely App-Group-Name, is used for naming application groups.<a href="#appendix-B.6-1" class="pilcrow">¶</a></p>
-<span id="name-example-of-application-group-name-"></span><div id="fig-gname-custom-option-example">
-<figure id="figure-10">
-          <div class="alignLeft art-text artwork" id="appendix-B.6-2.1">
-<pre>
-   Application group name: grp1
-
-   Group URI: coap://grp.example:5685/light?foo=bar
-
-   CoAP group request
-      Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example
-      Uri-Path: light
-      Uri-Query: foo=bar
-      App-Group-Name: grp1  // new (e.g., custom) CoAP option
-</pre>
-</div>
-<figcaption><a href="#figure-10" class="selfRef">Figure 10</a>:
-<a href="#name-example-of-application-group-name-" class="selfRef">Example of application group name in a new CoAP Option</a>
+<a href="#name-example-of-application-group-name" class="selfRef">Example of application group name in the URI port</a>
           </figcaption></figure>
 </div>
 </section>
@@ -3375,12 +3310,12 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
         <h3 id="name-application-groups-associat">
 <a href="#appendix-C.1" class="section-number selfRef">C.1. </a><a href="#name-application-groups-associat" class="section-name selfRef">Application Groups Associated with a CoAP Group</a>
         </h3>
-<p id="appendix-C.1-1"><a href="#fig-app-gp-discovery-example1" class="auto internal xref">Figure 11</a> provides an example where a CoAP client discovers all the application groups associated with a specific CoAP group.<a href="#appendix-C.1-1" class="pilcrow">¶</a></p>
+<p id="appendix-C.1-1"><a href="#fig-app-gp-discovery-example1" class="auto internal xref">Figure 10</a> provides an example where a CoAP client discovers all the application groups associated with a specific CoAP group.<a href="#appendix-C.1-1" class="pilcrow">¶</a></p>
 <p id="appendix-C.1-2">As a result, the client gains knowledge of: i) the set of servers that are members of the specified CoAP group and member of any of the associated application groups; ii) for each of those servers, the name of the application groups where the server is a member and that are associated with the CoAP group.<a href="#appendix-C.1-2" class="pilcrow">¶</a></p>
 <p id="appendix-C.1-3">Each of the servers S1 and S2 is identified by the IP source address of the CoAP response. If the client wishes to discover resources that a particular server hosts within a particular application group, it may use unicast discovery request(s) to this server, i.e., to its respective unicast IP address. Alternatively the client may use the discovered group resource type (e.g., rt=g.light) to infer which resources are present below the group resource.<a href="#appendix-C.1-3" class="pilcrow">¶</a></p>
 <p id="appendix-C.1-4">The semantics "g.&lt;GROUPTYPE&gt;" for the values of the attribute "rt" is exclusively intended to support examples in this document. To be effectively usable, such Resource Type values have to be registered in the "Resource Type (rt=) Link Target Attribute Values" IANA registry <span>[<a href="#Resource.Type.Link.Target.Attribute.Values" class="cite xref">Resource.Type.Link.Target.Attribute.Values</a>]</span> within the "Constrained RESTful Environments (CoRE) Parameters" registry group.<a href="#appendix-C.1-4" class="pilcrow">¶</a></p>
 <span id="name-discovery-of-application-gr"></span><div id="fig-app-gp-discovery-example1">
-<figure id="figure-11">
+<figure id="figure-10">
           <div class="alignLeft art-text artwork" id="appendix-C.1-5.1">
 <pre>
    // Request to all members of the CoAP group
@@ -3390,7 +3325,7 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
    //   - The CoAP group "grp.example:5685"
    //   - The application group "gp1"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    &lt;/gp/gp1&gt;;rt=g.light
 
@@ -3398,13 +3333,13 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
    // - The CoAP group "grp.example:5685"
    // - The application groups "gp1" and "gp2"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    &lt;/gp/gp1&gt;;rt=g.light,
    &lt;/gp/gp2&gt;;rt=g.temp
 </pre>
 </div>
-<figcaption><a href="#figure-11" class="selfRef">Figure 11</a>:
+<figcaption><a href="#figure-10" class="selfRef">Figure 10</a>:
 <a href="#name-discovery-of-application-gr" class="selfRef">Discovery of application groups associated with a CoAP group</a>
           </figcaption></figure>
 </div>
@@ -3415,11 +3350,11 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
         <h3 id="name-members-of-a-given-applicat">
 <a href="#appendix-C.2" class="section-number selfRef">C.2. </a><a href="#name-members-of-a-given-applicat" class="section-name selfRef">Members of a Given Application Group</a>
         </h3>
-<p id="appendix-C.2-1"><a href="#fig-app-gp-discovery-example2" class="auto internal xref">Figure 12</a> provides an example where a CoAP client discovers the CoAP servers that are members of a specific application group and the CoAP group associated with the application group.<a href="#appendix-C.2-1" class="pilcrow">¶</a></p>
+<p id="appendix-C.2-1"><a href="#fig-app-gp-discovery-example2" class="auto internal xref">Figure 11</a> provides an example where a CoAP client discovers the CoAP servers that are members of a specific application group and the CoAP group associated with the application group.<a href="#appendix-C.2-1" class="pilcrow">¶</a></p>
 <p id="appendix-C.2-2">Note that, unlike in the example shown in <a href="#sec-examples-group-discovery-1" class="auto internal xref">Appendix C.1</a>, now the servers need to respond with an absolute URI and not a relative URI. This is necessary because the responding CoAP endpoint serving the Link Format document (on port 5683) is a different CoAP endpoint from the one hosting the group resource "gp1" (on port 5685). Due to this situation, the responding server includes the full (absolute) URI in the Link Format response from which the client can conveniently gain knowledge of the CoAP group.<a href="#appendix-C.2-2" class="pilcrow">¶</a></p>
 <p id="appendix-C.2-3">Also note that a server could equally well respond with the literal IPv6 multicast address within square brackets instead of the CoAP group name "grp.example". In that case, the client would still gain knowledge of the CoAP group, albeit in a different representation.<a href="#appendix-C.2-3" class="pilcrow">¶</a></p>
 <span id="name-discovery-of-members-of-an-"></span><div id="fig-app-gp-discovery-example2">
-<figure id="figure-12">
+<figure id="figure-11">
           <div class="alignLeft art-text artwork" id="appendix-C.2-4.1">
 <pre>
    // Request to realm-local members of the application group "gp1"
@@ -3429,7 +3364,7 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
    //   - The CoAP group "grp.example:5685"
    //   - The application group "gp1"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    &lt;coap://grp.example:5685/gp/gp1&gt;;rt=g.light
 
@@ -3437,12 +3372,12 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
    // - The CoAP group "grp.example:5685"
    // - The application groups "gp1"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    &lt;coap://grp.example:5685/gp/gp1&gt;;rt=g.light
 </pre>
 </div>
-<figcaption><a href="#figure-12" class="selfRef">Figure 12</a>:
+<figcaption><a href="#figure-11" class="selfRef">Figure 11</a>:
 <a href="#name-discovery-of-members-of-an-" class="selfRef">Discovery of members of an application group, together with the associated CoAP group</a>
           </figcaption></figure>
 </div>
@@ -3453,9 +3388,9 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
         <h3 id="name-members-of-any-application-">
 <a href="#appendix-C.3" class="section-number selfRef">C.3. </a><a href="#name-members-of-any-application-" class="section-name selfRef">Members of any Application Group of a Given Type</a>
         </h3>
-<p id="appendix-C.3-1"><a href="#fig-app-gp-discovery-example3" class="auto internal xref">Figure 13</a> provides an example where a CoAP client  discovers the CoAP servers that are members of any application group of a specific type, and the CoAP group associated with those application groups.<a href="#appendix-C.3-1" class="pilcrow">¶</a></p>
+<p id="appendix-C.3-1"><a href="#fig-app-gp-discovery-example3" class="auto internal xref">Figure 12</a> provides an example where a CoAP client  discovers the CoAP servers that are members of any application group of a specific type, and the CoAP group associated with those application groups.<a href="#appendix-C.3-1" class="pilcrow">¶</a></p>
 <span id="name-discovery-of-members-of-app"></span><div id="fig-app-gp-discovery-example3">
-<figure id="figure-13">
+<figure id="figure-12">
           <div class="alignLeft art-text artwork" id="appendix-C.3-2.1">
 <pre>
    // Request to realm-local members of application groups
@@ -3466,7 +3401,7 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
    //   - The CoAP group "grp.example:5685"
    //   - The application group "gp1" of type "g.temp"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    &lt;coap://grp.example:5685/gp/gp1&gt;;rt=g.temp
 
@@ -3474,13 +3409,13 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
    //   - The CoAP group "grp.example:5685"
    //   - The application groups "gp1" and "gp2" of type "g.temp"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    &lt;coap://grp.example:5685/gp/gp1&gt;;rt=g.temp,
    &lt;coap://grp.example:5685/gp/gp2&gt;;rt=g.temp
 </pre>
 </div>
-<figcaption><a href="#figure-13" class="selfRef">Figure 13</a>:
+<figcaption><a href="#figure-12" class="selfRef">Figure 12</a>:
 <a href="#name-discovery-of-members-of-app" class="selfRef">Discovery of members of application groups of a specified type, and of the associated CoAP group</a>
           </figcaption></figure>
 </div>
@@ -3491,10 +3426,10 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
         <h3 id="name-members-of-any-application-g">
 <a href="#appendix-C.4" class="section-number selfRef">C.4. </a><a href="#name-members-of-any-application-g" class="section-name selfRef">Members of any Application Group in the Network</a>
         </h3>
-<p id="appendix-C.4-1"><a href="#fig-app-gp-discovery-example4" class="auto internal xref">Figure 14</a> provides an example where a CoAP client discovers the CoAP servers that are members of any application group configured in the 6LoWPAN wireless mesh network of the client, and the CoAP group associated with each application group. In this example, the scope is realm-local to address all servers in the current 6LoWPAN wireless mesh network of the client.<a href="#appendix-C.4-1" class="pilcrow">¶</a></p>
+<p id="appendix-C.4-1"><a href="#fig-app-gp-discovery-example4" class="auto internal xref">Figure 13</a> provides an example where a CoAP client discovers the CoAP servers that are members of any application group configured in the 6LoWPAN wireless mesh network of the client, and the CoAP group associated with each application group. In this example, the scope is realm-local to address all servers in the current 6LoWPAN wireless mesh network of the client.<a href="#appendix-C.4-1" class="pilcrow">¶</a></p>
 <p id="appendix-C.4-2">The semantics "g.&lt;GROUPTYPE&gt;" for the values of the attribute "rt" is exclusively intended to support examples in this document. To be effectively usable, such Resource Type values have to be registered in the "Resource Type (rt=) Link Target Attribute Values" IANA registry <span>[<a href="#Resource.Type.Link.Target.Attribute.Values" class="cite xref">Resource.Type.Link.Target.Attribute.Values</a>]</span> within the "Constrained RESTful Environments (CoRE) Parameters" registry group.<a href="#appendix-C.4-2" class="pilcrow">¶</a></p>
 <span id="name-discovery-of-the-resources-"></span><div id="fig-app-gp-discovery-example4">
-<figure id="figure-14">
+<figure id="figure-13">
           <div class="alignLeft art-text artwork" id="appendix-C.4-3.1">
 <pre>
    // Request to realm-local members of any application group
@@ -3504,7 +3439,7 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
    //   - The CoAP groups "grp.example:5685" and "grp2.example"
    //   - The application groups "gp1" and "gp5"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    &lt;coap://grp.example:5685/gp/gp1&gt;;rt=g.light,
    &lt;coap://grp2.example/gp/gp5&gt;;rt=g.lock
@@ -3513,7 +3448,7 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
    //   - The CoAP group "grp.example:5685"
    //   - The application groups "gp1" and "gp2"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    &lt;coap://grp.example:5685/gp/gp1&gt;;rt=g.light,
    &lt;coap://grp.example:5685/gp/gp2&gt;;rt=g.light
@@ -3522,19 +3457,19 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
    //   - The CoAP group "grp2.example"
    //   - The application group "gp5"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    &lt;coap://grp2.example/gp/gp5&gt;;rt=g.lock
 </pre>
 </div>
-<figcaption><a href="#figure-14" class="selfRef">Figure 14</a>:
+<figcaption><a href="#figure-13" class="selfRef">Figure 13</a>:
 <a href="#name-discovery-of-the-resources-" class="selfRef">Discovery of the resources and members of any application group, and of the associated CoAP group</a>
           </figcaption></figure>
 </div>
 <p id="appendix-C.4-4">Alternatively, some applications may use the "rt" attribute on a parent resource to denote support for a particular REST API to access child resources.<a href="#appendix-C.4-4" class="pilcrow">¶</a></p>
-<p id="appendix-C.4-5">For instance, <a href="#fig-app-gp-discovery-example5" class="auto internal xref">Figure 15</a> provides a different example where a custom Link Format attribute "gpt" is used to denote the group type within the scope of the application/system. An alternative, shorter encoding (not shown in the figure) is to use only the value "1" for each "gpt" attribute, in order to denote that the resource is of type application group. In that case, information about the semantics/API of the group resource is disclosed only via the "rt" attribute as shown in the figure.<a href="#appendix-C.4-5" class="pilcrow">¶</a></p>
+<p id="appendix-C.4-5">For instance, <a href="#fig-app-gp-discovery-example5" class="auto internal xref">Figure 14</a> provides a different example where a custom Link Format attribute "gpt" is used to denote the group type within the scope of the application/system. An alternative, shorter encoding (not shown in the figure) is to use only the value "1" for each "gpt" attribute, in order to denote that the resource is of type application group. In that case, information about the semantics/API of the group resource is disclosed only via the "rt" attribute as shown in the figure.<a href="#appendix-C.4-5" class="pilcrow">¶</a></p>
 <span id="name-example-of-using-a-custom-g"></span><div id="fig-app-gp-discovery-example5">
-<figure id="figure-15">
+<figure id="figure-14">
           <div class="alignLeft art-text artwork" id="appendix-C.4-6.1">
 <pre>
    // Request to realm-local members of any application group
@@ -3544,7 +3479,7 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
    //   - The CoAP groups "grp.example:5685" and "grp2.example"
    //   - The application groups "gp1" and "gp5"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    &lt;coap://grp.example:5685/gp/gp1&gt;;rt=oic.d.light;gpt=light,
    &lt;coap://grp2.example/gp/gp5&gt;;rt=oic.d.smartlock;gpt=lock
@@ -3553,7 +3488,7 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
    //   - The CoAP group "grp.example:5685"
    //   - The application groups "gp1" and "gp2"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    &lt;coap://grp.example:5685/gp/gp1&gt;;rt=oic.d.light;gpt=light,
    &lt;coap://grp.example:5685/gp/gp2&gt;;rt=oic.d.light;gpt=light
@@ -3562,12 +3497,12 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
    //   - The CoAP group "grp2.example"
    //   - The application group "gp5"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    &lt;coap://grp2.example/gp/gp5&gt;;rt=oic.d.smartlock;gpt=lock
 </pre>
 </div>
-<figcaption><a href="#figure-15" class="selfRef">Figure 15</a>:
+<figcaption><a href="#figure-14" class="selfRef">Figure 14</a>:
 <a href="#name-example-of-using-a-custom-g" class="selfRef">Example of using a custom 'gpt' link attribute to denote group type</a>
           </figcaption></figure>
 </div>
@@ -3595,9 +3530,9 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
           <p id="appendix-D-2.4.1">Three servers A, B, and C, all of which are members of the CoAP group above and of the application group "gp1". Each server X (with X equal to A, B, or C): listens to its own address ADDR_X and port number PORT_X; and listens to the address ADDR_GRP and port number PORT_GRP. For each server its PORT_X may be different from PORT_GRP or may be equal to it, in general.<a href="#appendix-D-2.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-D-3">In <a href="#fig-exchange-example" class="auto internal xref">Figure 16</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "temperature" in the application group "gp1". All servers reply with a 2.05 (Content) response, although the response from server B is lost. As source port number of their response, servers A and B use the destination port number of the request, i.e., PORT_GRP. Instead, server C uses its own port number PORT_C.<a href="#appendix-D-3" class="pilcrow">¶</a></p>
+<p id="appendix-D-3">In <a href="#fig-exchange-example" class="auto internal xref">Figure 15</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "temperature" in the application group "gp1". All servers reply with a 2.05 (Content) response, although the response from server B is lost. As source port number of their response, servers A and B use the destination port number of the request, i.e., PORT_GRP. Instead, server C uses its own port number PORT_C.<a href="#appendix-D-3" class="pilcrow">¶</a></p>
 <span id="name-example-of-non-confirmable-"></span><div id="fig-exchange-example">
-<figure id="figure-16">
+<figure id="figure-15">
         <div id="appendix-D-4.1">
           <div class="alignLeft art-svg artwork" id="appendix-D-4.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="512" width="576" viewBox="0 0 576 512" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
@@ -3697,13 +3632,13 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
             </svg><a href="#appendix-D-4.1.1" class="pilcrow">¶</a>
 </div>
 </div>
-<figcaption><a href="#figure-16" class="selfRef">Figure 16</a>:
+<figcaption><a href="#figure-15" class="selfRef">Figure 15</a>:
 <a href="#name-example-of-non-confirmable-" class="selfRef">Example of Non-confirmable group request, followed by Non-confirmable Responses</a>
         </figcaption></figure>
 </div>
-<p id="appendix-D-5">In <a href="#fig-exchange-example-observe" class="auto internal xref">Figure 17</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting and requesting to observe the resource "temperature" in the application group "gp1". All servers reply with a 2.05 (Content) notification response. As source port number of their response, servers A and B use the destination port number of the request, i.e., PORT_GRP. Instead, server C uses its own port number PORT_C. Some time later, all servers send a 2.05 (Content) notification response, with the new representation of the "temperature" resource as payload.<a href="#appendix-D-5" class="pilcrow">¶</a></p>
+<p id="appendix-D-5">In <a href="#fig-exchange-example-observe" class="auto internal xref">Figure 16</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting and requesting to observe the resource "temperature" in the application group "gp1". All servers reply with a 2.05 (Content) notification response. As source port number of their response, servers A and B use the destination port number of the request, i.e., PORT_GRP. Instead, server C uses its own port number PORT_C. Some time later, all servers send a 2.05 (Content) notification response, with the new representation of the "temperature" resource as payload.<a href="#appendix-D-5" class="pilcrow">¶</a></p>
 <span id="name-example-of-non-confirmable-o"></span><div id="fig-exchange-example-observe">
-<figure id="figure-17">
+<figure id="figure-16">
         <div id="appendix-D-6.1">
           <div class="alignLeft art-svg artwork" id="appendix-D-6.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="960" width="576" viewBox="0 0 576 960" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
@@ -3881,13 +3816,13 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
             </svg><a href="#appendix-D-6.1.1" class="pilcrow">¶</a>
 </div>
 </div>
-<figcaption><a href="#figure-17" class="selfRef">Figure 17</a>:
+<figcaption><a href="#figure-16" class="selfRef">Figure 16</a>:
 <a href="#name-example-of-non-confirmable-o" class="selfRef">Example of Non-confirmable Observe group request, followed by Non-confirmable Responses as Observe notifications</a>
         </figcaption></figure>
 </div>
-<p id="appendix-D-7">In <a href="#fig-exchange-example-blockwise" class="auto internal xref">Figure 18</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "log" in the application group "gp1", and requesting a blockwise transfer. All servers reply with a 2.05 (Content) response including the first block. As source port number of its response, each server uses its own port number. After obtaining the first block, the client requests the following blocks separately from each server, by means of unicast exchanges.<a href="#appendix-D-7" class="pilcrow">¶</a></p>
+<p id="appendix-D-7">In <a href="#fig-exchange-example-blockwise" class="auto internal xref">Figure 17</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "log" in the application group "gp1", and requesting a blockwise transfer. All servers reply with a 2.05 (Content) response including the first block. As source port number of its response, each server uses its own port number. After obtaining the first block, the client requests the following blocks separately from each server, by means of unicast exchanges.<a href="#appendix-D-7" class="pilcrow">¶</a></p>
 <span id="name-example-of-non-confirmable-g"></span><div id="fig-exchange-example-blockwise">
-<figure id="figure-18">
+<figure id="figure-17">
         <div id="appendix-D-8.1">
           <div class="alignLeft art-svg artwork" id="appendix-D-8.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="2208" width="576" viewBox="0 0 576 2208" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
@@ -4253,7 +4188,7 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
             </svg><a href="#appendix-D-8.1.1" class="pilcrow">¶</a>
 </div>
 </div>
-<figcaption><a href="#figure-18" class="selfRef">Figure 18</a>:
+<figcaption><a href="#figure-17" class="selfRef">Figure 17</a>:
 <a href="#name-example-of-non-confirmable-g" class="selfRef">Example of Non-confirmable group request starting a blockwise transfer, followed by Non-confirmable Responses with the first block. The transfer continues over confirmable unicast exchanges</a>
         </figcaption></figure>
 </div>
@@ -4327,49 +4262,61 @@ That is, the client needs to preserve the Token value used for the request also 
         </h3>
 <ul class="normal">
 <li class="normal" id="appendix-G.1-1.1">
-            <p id="appendix-G.1-1.1.1">Clarified outcome of the RFC 7390 experiment on group membership configuration protocol.<a href="#appendix-G.1-1.1.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.1.1">Clarified how a group name can be included in a URI path for reverse proxies; removed reference to URI templates for reverse proxies.<a href="#appendix-G.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.2">
-            <p id="appendix-G.1-1.2.1">Clarified that rt=g.&lt;GROUPTYPE&gt; is used just as an example.<a href="#appendix-G.1-1.2.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.2.1">Clarified the issue of identical ETags from multiple servers and added strategies to cope with this. Removed recommendation to not use such duplicate ETags.<a href="#appendix-G.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.3">
-            <p id="appendix-G.1-1.3.1">Made RFC 7967 a normative reference.<a href="#appendix-G.1-1.3.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.3.1">Simplified section on application group naming using URI authority and corresponding appendix examples; declaring new Option solution out of scope.<a href="#appendix-G.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.4">
-            <p id="appendix-G.1-1.4.1">Generalized resending of a group request with different Message ID.<a href="#appendix-G.1-1.4.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.4.1">Added application group resource URI path(s) in Figure 1.<a href="#appendix-G.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.5">
-            <p id="appendix-G.1-1.5.1">Switched <span class="bcp14">SHOULD</span> to <span class="bcp14">MAY</span> on changing port number from group request to response.<a href="#appendix-G.1-1.5.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.5.1">Clarified outcome of the RFC 7390 experiment on group membership configuration protocol.<a href="#appendix-G.1-1.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.6">
-            <p id="appendix-G.1-1.6.1">Further generalized the handling of multiple responses from the same server to the same request.<a href="#appendix-G.1-1.6.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.6.1">Clarified that rt=g.&lt;GROUPTYPE&gt; is used just as an example.<a href="#appendix-G.1-1.6.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.7">
-            <p id="appendix-G.1-1.7.1">Clarifications on response suppression.<a href="#appendix-G.1-1.7.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.7.1">Made RFC 7967 a normative reference.<a href="#appendix-G.1-1.7.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.8">
-            <p id="appendix-G.1-1.8.1">Issues and limitations with Forward-Proxies compiled in an appendix.<a href="#appendix-G.1-1.8.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.8.1">Generalized resending of a group request with different Message ID.<a href="#appendix-G.1-1.8.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.9">
-            <p id="appendix-G.1-1.9.1">Issues and limitations with Reverse-Proxies compiled in an appendix.<a href="#appendix-G.1-1.9.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.9.1">Switched <span class="bcp14">SHOULD</span> to <span class="bcp14">MAY</span> on changing port number from group request to response.<a href="#appendix-G.1-1.9.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.10">
-            <p id="appendix-G.1-1.10.1">Mentioned PROBING_RATE as a means to enforce congestion control.<a href="#appendix-G.1-1.10.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.10.1">Further generalized the handling of multiple responses from the same server to the same request.<a href="#appendix-G.1-1.10.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.11">
-            <p id="appendix-G.1-1.11.1">Consideration on how eventual consistency from Observe compensates for lost notifications.<a href="#appendix-G.1-1.11.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.11.1">Clarifications on response suppression.<a href="#appendix-G.1-1.11.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.12">
-            <p id="appendix-G.1-1.12.1">Admitted resource retrieval through consecutive group requests with the Block2 Option.<a href="#appendix-G.1-1.12.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.12.1">Issues and limitations with Forward-Proxies compiled in an appendix.<a href="#appendix-G.1-1.12.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.13">
-            <p id="appendix-G.1-1.13.1">Clarified relation with TCP/TLS/WebSockets.<a href="#appendix-G.1-1.13.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.13.1">Issues and limitations with Reverse-Proxies compiled in an appendix.<a href="#appendix-G.1-1.13.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.14">
-            <p id="appendix-G.1-1.14.1">Clarified security on the different legs with a proxy.<a href="#appendix-G.1-1.14.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.14.1">Mentioned PROBING_RATE as a means to enforce congestion control.<a href="#appendix-G.1-1.14.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.15">
-            <p id="appendix-G.1-1.15.1">Editorial improvements.<a href="#appendix-G.1-1.15.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.15.1">Consideration on how eventual consistency from Observe compensates for lost notifications.<a href="#appendix-G.1-1.15.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-G.1-1.16">
+            <p id="appendix-G.1-1.16.1">Admitted resource retrieval through consecutive group requests with the Block2 Option.<a href="#appendix-G.1-1.16.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-G.1-1.17">
+            <p id="appendix-G.1-1.17.1">Clarified relation with TCP/TLS/WebSockets.<a href="#appendix-G.1-1.17.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-G.1-1.18">
+            <p id="appendix-G.1-1.18.1">Clarified security on the different legs with a proxy.<a href="#appendix-G.1-1.18.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-G.1-1.19">
+            <p id="appendix-G.1-1.19.1">Editorial improvements.<a href="#appendix-G.1-1.19.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
