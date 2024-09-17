@@ -346,14 +346,14 @@ An application group name can be explicitly encoded in a group URI. Specifically
 
 * URI authority component -- If this method is used, the application group is identified by the authority component of the group URI or a subset thereof.
 
-   Because the CoAP group is also defined by the same authority component (see {{sec-groupnaming-coap}}), this method can only be used if there is a predefined relation between CoAP groups and application groups (see {{sec-groupdef-grouprelations}}).
+   Because the CoAP group is also defined by the same authority component (see {{sec-groupnaming-coap}}), a given CoAP group always maps to exactly one application group. (See {{sec-groupdef-grouprelations}} for background on group relations.)
 
-   Note that the host component within the authority component of the Group URI can be a group hostname, or an IP address literal. For constrained networks, using an IP address literal has the benefit that it reduces the size of the CoAP request message.
-   This is because the Uri-Host Option is elided from the CoAP request in this case.
+   Note that the host subcomponent within the authority component of the Group URI can be a group hostname, or an IP address literal. For constrained networks, using an IP address literal matching the request's destination IP address has the benefit of reducing the size of the CoAP message.
+   This is because the Uri-Host Option is elided from the CoAP request in this case, since its default value applies (see {{Section 5.10.1 and Section 6.4 of RFC7252}}).
 
    Full examples are provided in {{sec-examples-app-group-naming-authority}}.
 
-Due to the CoAP client's encoding of the request URI into CoAP options (see {{Section 6.4 of RFC7252}}) and the possibility of the CoAP server to compose the URI again based on received options (see {{Section 6.5 of RFC7252}}), the application group name information can be transported to the server and used to select the intended application group.
+Due to the CoAP client's encoding of the request URI into CoAP options (per {{Section 6.4 of RFC7252}}) and the possibility of the CoAP server to compose the URI again based on received options (see {{Section 6.5 of RFC7252}}), the application group name information can be transported to the server and used to select the intended application group.
 
 Any other method to transport the application group name within a CoAP request, but not using the group URI, would require a new CoAP option to be defined. Such an approach is out of the scope of this document.
 
@@ -1125,7 +1125,7 @@ This section provides examples for the different methods that can be used to nam
 
 The shown examples consider a CoAP group identified by the group hostname grp.example. Its members are CoAP servers listening to the associated IP multicast address ff35:30:2001:db8:f1::8000:1 and port number 5685.
 
-Note that a group hostname is used in most examples to improve readability. As discussed in {{sec-groupnaming-app}}, in practice using an IP address literal as the host component of the Group URI reduces the size of the CoAP request message. In particular, the Uri-Host Option can be elided in this case.
+Note that a group hostname is used in most examples to improve readability. In practice, as discussed in {{sec-groupnaming-app}}, using an IP address literal as the host subcomponent of the Group URI can reduce the size of the CoAP request message, in case the Uri-Host Option can be elided.
 
 Also note that the Uri-Port Option does not appear in the examples, since the port number 5685 is already included in the CoAP request's UDP header (which is not shown in the examples) in the destination port field.
 
