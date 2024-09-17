@@ -1030,7 +1030,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Dijk, et al.</td>
-<td class="center">Expires 20 March 2025</td>
+<td class="center">Expires 21 March 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1049,12 +1049,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7252" class="eref">7252</a>, <a href="https://www.rfc-editor.org/rfc/rfc7641" class="eref">7641</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-09-16" class="published">16 September 2024</time>
+<time datetime="2024-09-17" class="published">17 September 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-03-20">20 March 2025</time></dd>
+<dd class="expires"><time datetime="2025-03-21">21 March 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1111,7 +1111,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 20 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 21 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1900,15 +1900,15 @@ Full examples are provided in <a href="#sec-examples-app-group-naming-query" cla
               <li class="normal" id="section-2.2.1.2-4.3">
                 <p id="section-2.2.1.2-4.3.1">URI authority component -- If this method is used, the application group is identified by the authority component of the group URI or a subset thereof.<a href="#section-2.2.1.2-4.3.1" class="pilcrow">¶</a></p>
 <p id="section-2.2.1.2-4.3.2">
-Because the CoAP group is also defined by the same authority component (see <a href="#sec-groupnaming-coap" class="auto internal xref">Section 2.2.1.1</a>), this method can only be used if there is a predefined relation between CoAP groups and application groups (see <a href="#sec-groupdef-grouprelations" class="auto internal xref">Section 2.1.4</a>).<a href="#section-2.2.1.2-4.3.2" class="pilcrow">¶</a></p>
+Because the CoAP group is also defined by the same authority component (see <a href="#sec-groupnaming-coap" class="auto internal xref">Section 2.2.1.1</a>), a given CoAP group always maps to exactly one application group. (See <a href="#sec-groupdef-grouprelations" class="auto internal xref">Section 2.1.4</a> for background on group relations.)<a href="#section-2.2.1.2-4.3.2" class="pilcrow">¶</a></p>
 <p id="section-2.2.1.2-4.3.3">
-Note that the host component within the authority component of the Group URI can be a group hostname, or an IP address literal. For constrained networks, using an IP address literal has the benefit that it reduces the size of the CoAP request message.
- This is because the Uri-Host Option is elided from the CoAP request in this case.<a href="#section-2.2.1.2-4.3.3" class="pilcrow">¶</a></p>
+Note that the host subcomponent within the authority component of the Group URI can be a group hostname, or an IP address literal. For constrained networks, using an IP address literal matching the request's destination IP address has the benefit of reducing the size of the CoAP message.
+ This is because the Uri-Host Option is elided from the CoAP request in this case, since its default value applies (see Section <a href="https://rfc-editor.org/rfc/rfc7252#section-5.10.1" class="relref">5.10.1</a> and Section <a href="https://rfc-editor.org/rfc/rfc7252#section-6.4" class="relref">6.4</a> of <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>).<a href="#section-2.2.1.2-4.3.3" class="pilcrow">¶</a></p>
 <p id="section-2.2.1.2-4.3.4">
 Full examples are provided in <a href="#sec-examples-app-group-naming-authority" class="auto internal xref">Appendix B.3</a>.<a href="#section-2.2.1.2-4.3.4" class="pilcrow">¶</a></p>
 </li>
             </ul>
-<p id="section-2.2.1.2-5">Due to the CoAP client's encoding of the request URI into CoAP options (see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-6.4" class="relref">Section 6.4</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>) and the possibility of the CoAP server to compose the URI again based on received options (see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-6.5" class="relref">Section 6.5</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>), the application group name information can be transported to the server and used to select the intended application group.<a href="#section-2.2.1.2-5" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.2-5">Due to the CoAP client's encoding of the request URI into CoAP options (per <span><a href="https://rfc-editor.org/rfc/rfc7252#section-6.4" class="relref">Section 6.4</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>) and the possibility of the CoAP server to compose the URI again based on received options (see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-6.5" class="relref">Section 6.5</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>), the application group name information can be transported to the server and used to select the intended application group.<a href="#section-2.2.1.2-5" class="pilcrow">¶</a></p>
 <p id="section-2.2.1.2-6">Any other method to transport the application group name within a CoAP request, but not using the group URI, would require a new CoAP option to be defined. Such an approach is out of the scope of this document.<a href="#section-2.2.1.2-6" class="pilcrow">¶</a></p>
 <p id="section-2.2.1.2-7">Finally, it is also possible to not encode the application group name in the CoAP request, yielding the most compact representation on the wire. In this case, each CoAP server needs to determine the right application group based on contextual information, such as the CoAP group, and/or the client identity and/or the target resource. For example, each application group on a server could support a unique set of resources, such that it does not overlap with the set of resources of any other application group.
 Appendix A of <span>[<a href="#RFC9176" class="cite xref">RFC9176</a>]</span> provides an example of a named application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources it supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry, while the CoAP group ff35:30:2001:db8:f1::8000:1 is specified in the authority component of the URI encoded in the "base" attribute. In subsequent group requests by a client to the "lights" group, the name of the group is not present in the request message. Rather, the URI authority component that selects the CoAP group ff35:30:2001:db8:f1::8000:1 will implicitly also select the "lights" application group.<a href="#section-2.2.1.2-7" class="pilcrow">¶</a></p>
@@ -3126,7 +3126,7 @@ the network. <span><a href="https://rfc-editor.org/rfc/rfc7390#section-3.3" clas
       </h2>
 <p id="appendix-B-1">This section provides examples for the different methods that can be used to name application groups, as defined in <a href="#sec-groupnaming-app" class="auto internal xref">Section 2.2.1.2</a>.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <p id="appendix-B-2">The shown examples consider a CoAP group identified by the group hostname grp.example. Its members are CoAP servers listening to the associated IP multicast address ff35:30:2001:db8:f1::8000:1 and port number 5685.<a href="#appendix-B-2" class="pilcrow">¶</a></p>
-<p id="appendix-B-3">Note that a group hostname is used in most examples to improve readability. As discussed in <a href="#sec-groupnaming-app" class="auto internal xref">Section 2.2.1.2</a>, in practice using an IP address literal as the host component of the Group URI reduces the size of the CoAP request message. In particular, the Uri-Host Option can be elided in this case.<a href="#appendix-B-3" class="pilcrow">¶</a></p>
+<p id="appendix-B-3">Note that a group hostname is used in most examples to improve readability. In practice, as discussed in <a href="#sec-groupnaming-app" class="auto internal xref">Section 2.2.1.2</a>, using an IP address literal as the host subcomponent of the Group URI can reduce the size of the CoAP request message, in case the Uri-Host Option can be elided.<a href="#appendix-B-3" class="pilcrow">¶</a></p>
 <p id="appendix-B-4">Also note that the Uri-Port Option does not appear in the examples, since the port number 5685 is already included in the CoAP request's UDP header (which is not shown in the examples) in the destination port field.<a href="#appendix-B-4" class="pilcrow">¶</a></p>
 <div id="sec-examples-app-group-naming-path">
 <section id="appendix-B.1">

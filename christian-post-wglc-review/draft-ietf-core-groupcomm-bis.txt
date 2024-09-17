@@ -7,8 +7,8 @@ Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                    C. Wang
 Updates: 7252, 7641 (if approved)                           InterDigital
 Intended status: Standards Track                               M. Tiloca
-Expires: 20 March 2025                                           RISE AB
-                                                       16 September 2024
+Expires: 21 March 2025                                           RISE AB
+                                                       17 September 2024
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 March 2025.
+   This Internet-Draft will expire on 21 March 2025.
 
 Copyright Notice
 
@@ -662,21 +662,22 @@ Table of Contents
       a subset thereof.
 
       Because the CoAP group is also defined by the same authority
-      component (see Section 2.2.1.1), this method can only be used if
-      there is a predefined relation between CoAP groups and application
-      groups (see Section 2.1.4).
+      component (see Section 2.2.1.1), a given CoAP group always maps to
+      exactly one application group.  (See Section 2.1.4 for background
+      on group relations.)
 
-      Note that the host component within the authority component of the
-      Group URI can be a group hostname, or an IP address literal.  For
-      constrained networks, using an IP address literal has the benefit
-      that it reduces the size of the CoAP request message.  This is
-      because the Uri-Host Option is elided from the CoAP request in
-      this case.
+      Note that the host subcomponent within the authority component of
+      the Group URI can be a group hostname, or an IP address literal.
+      For constrained networks, using an IP address literal matching the
+      request's destination IP address has the benefit of reducing the
+      size of the CoAP message.  This is because the Uri-Host Option is
+      elided from the CoAP request in this case, since its default value
+      applies (see Section 5.10.1 and Section 6.4 of [RFC7252]).
 
       Full examples are provided in Appendix B.3.
 
    Due to the CoAP client's encoding of the request URI into CoAP
-   options (see Section 6.4 of [RFC7252]) and the possibility of the
+   options (per Section 6.4 of [RFC7252]) and the possibility of the
    CoAP server to compose the URI again based on received options (see
    Section 6.5 of [RFC7252]), the application group name information can
    be transported to the server and used to select the intended
@@ -3199,10 +3200,10 @@ Appendix B.  Examples of Group Naming for Application Groups
    number 5685.
 
    Note that a group hostname is used in most examples to improve
-   readability.  As discussed in Section 2.2.1.2, in practice using an
-   IP address literal as the host component of the Group URI reduces the
-   size of the CoAP request message.  In particular, the Uri-Host Option
-   can be elided in this case.
+   readability.  In practice, as discussed in Section 2.2.1.2, using an
+   IP address literal as the host subcomponent of the Group URI can
+   reduce the size of the CoAP request message, in case the Uri-Host
+   Option can be elided.
 
    Also note that the Uri-Port Option does not appear in the examples,
    since the port number 5685 is already included in the CoAP request's
