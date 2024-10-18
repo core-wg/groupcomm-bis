@@ -7,8 +7,8 @@ Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                    C. Wang
 Updates: 7252, 7641 (if approved)                           InterDigital
 Intended status: Standards Track                               M. Tiloca
-Expires: 21 March 2025                                           RISE AB
-                                                       17 September 2024
+Expires: 21 April 2025                                           RISE AB
+                                                         18 October 2024
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 March 2025.
+   This Internet-Draft will expire on 21 April 2025.
 
 Copyright Notice
 
@@ -2182,7 +2182,7 @@ Table of Contents
       OSCORE group are able to confidently assert the group membership
       of other sender nodes, when receiving protected messages in the
       OSCORE group after the distribution and installation of the new
-      security material (see Section 3.2 of
+      security material (see Section 12.2 of
       [I-D.ietf-core-oscore-groupcomm]).
 
    The key management operations mentioned above are entrusted to the
@@ -2327,7 +2327,7 @@ Table of Contents
    security in the OSCORE group, as well as backward security if this is
    required by the application (see Section 5.2).  In particular, the
    key management scheme MUST comply with the functional steps defined
-   in Section 3.2 of [I-D.ietf-core-oscore-groupcomm].
+   in Section 12.2 of [I-D.ietf-core-oscore-groupcomm].
 
    Even though security group policies vary depending on the specific
    applications and their security requirements, they SHOULD also take
@@ -2404,7 +2404,7 @@ Table of Contents
       proxies are not assumed to have access to the OSCORE Security
       Context used by OSCORE group members.  Also, with the notable
       addition of signatures for the group mode, Group OSCORE protects
-      messages using the same procedure as OSCORE (see Sections 8 and 9
+      messages using the same procedure as OSCORE (see Sections 7 and 8
       of [I-D.ietf-core-oscore-groupcomm]), and especially processes
       CoAP options according to the same classification in U/I/E
       classes.
@@ -2420,14 +2420,14 @@ Table of Contents
       In order to perform the latter check of source authentication, the
       server either: i) verifies the signature included in the request
       by using the public key of the client, when the request is
-      protected using the group mode (see Section 8.2 of
+      protected using the group mode (see Section 7.2 of
       [I-D.ietf-core-oscore-groupcomm]); or ii) decrypts and verifies
       the request by means of an additionally derived pairwise key
       associated with the client, when the request is protected using
-      the pairwise mode (see Section 9.4 of
+      the pairwise mode (see Section 8.4 of
       [I-D.ietf-core-oscore-groupcomm]).
 
-      As also discussed in Section 8 of
+      As also discussed in Section 7 of
       [I-D.ietf-core-oscore-groupcomm], it is recommended that, when
       failing to decrypt and verify an incoming group request protected
       with the group mode, a server does not send back any error message
@@ -2479,9 +2479,9 @@ Table of Contents
       Within an OSCORE group, the shared symmetric-key security material
       strictly provides only group-level authentication.  However,
       source authentication of messages is also ensured, both in the
-      group mode by means of signatures (see Sections 8.1 and 8.3 of
+      group mode by means of signatures (see Sections 7.1 and 7.3 of
       [I-D.ietf-core-oscore-groupcomm]), and in the pairwise mode by
-      using additionally derived pairwise keys (see Sections 9.3 and 9.5
+      using additionally derived pairwise keys (see Sections 8.3 and 8.5
       of [I-D.ietf-core-oscore-groupcomm]).  Thus, recipient endpoints
       can verify a message to have been originated and sent by the
       alleged, identifiable CoAP endpoint in the OSCORE group.
@@ -2771,9 +2771,9 @@ Table of Contents
               Tiloca, M., Selander, G., Palombini, F., Mattsson, J. P.,
               and R. Höglund, "Group Object Security for Constrained
               RESTful Environments (Group OSCORE)", Work in Progress,
-              Internet-Draft, draft-ietf-core-oscore-groupcomm-22, 28
-              August 2024, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-core-oscore-groupcomm-22>.
+              Internet-Draft, draft-ietf-core-oscore-groupcomm-23, 26
+              September 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-core-oscore-groupcomm-23>.
 
    [Resource.Type.Link.Target.Attribute.Values]
               IANA, "Resource Type (rt=) Link Target Attribute Values",
