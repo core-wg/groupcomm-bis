@@ -57,6 +57,7 @@ normative:
   RFC7252:
   RFC7641:
   RFC7959:
+  RFC7967:
   RFC8075:
   RFC8132:
   RFC8613:
@@ -64,6 +65,12 @@ normative:
   RFC9053:
   RFC9175:
   I-D.ietf-core-oscore-groupcomm:
+  Resource.Type.Link.Target.Attribute.Values:
+    author:
+      org: IANA
+    date: false
+    title: Resource Type (rt=) Link Target Attribute Values
+    target: https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#rt-link-target-att-value
 
 informative:
   I-D.bormann-core-responses:
@@ -84,7 +91,6 @@ informative:
   RFC7346:
   RFC7390:
   RFC7731:
-  RFC7967:
   RFC8323:
   RFC8710:
   RFC9019:
@@ -234,7 +240,7 @@ In fact, being a member of a security group actually grants access only to excha
 |                              |              |                    |
 | [ - Application group name ] +--------------+ - IP mcast address |
 |                              |  1...N    1  | - UDP port number  |
-|                              |              |                    |
+| - Resource URI path(s)       |              |                    |
 |                              |              |                    |
 +-------------+----------------+              +---------+----------+
               |  1...N                                  |  1...N
@@ -297,7 +303,7 @@ However, a CoAP group is for practical purposes identified and named by the auth
 The host subcomponent directly defines the IP multicast address of the CoAP group, in case the host consists of an IP literal.
 The host subcomponent indirectly defines the IP multicast address of the CoAP group, in case the host consists of a hostname: resolving the hostname to an IP address in this case produces the IP multicast address.
 
-It follows that the same CoAP group might have multiple names, which can be simultaneously and interchangeably used. For example, if the two hostnames group1.com and group1.alias.com both resolve to the IP multicast address \[ff15::1234\], then the following authority components are all names for the same CoAP group.
+It follows that the same CoAP group might have multiple names, which can be simultaneously and interchangeably used. For example, if the two hostnames group1.example and group1.alias.example both resolve to the IP multicast address \[ff15::1234\], then the following authority components are all names for the same CoAP group.
 
 * group1.example:7700
 * group1.alias.example:7700
@@ -318,59 +324,42 @@ Examples of hierarchical CoAP group FQDN naming (and scoping) for a building con
 
 #### Application Groups ### {#sec-groupnaming-app}
 
-An application group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI, or other types of strings. The decision of whether and how exactly an application group name is encoded and transported is application specific.
+An application group can be named through different types of identifiers, such as a name string, (integer) number, URI, or other types of strings. The decision of whether and how an application group name is encoded and transported in a CoAP group request is application specific.
 
-The following discusses a number of possible methods to use, while full examples for the different methods are provided in {{sec-examples-app-group-naming}}.
+This section summarizes possible methods for encoding an application group name in a CoAP group request. Full examples for these methods are provided in {{sec-examples-app-group-naming}}.
 
-An application group name can be explicitly encoded in a group URI. In such a case, it can be encoded within one of the following URI components.
+An application group name can be explicitly encoded in a group URI. Specifically, it can be encoded within one of the following URI components:
 
 * URI path component -- This is the most common and RECOMMENDED method to encode the application group name. When using this method in constrained networks, an application group name APPNAME should be kept short.
 
-   A best practice for doing so is to use a URI path component such that: i) it includes a path segment as delimiter with a designated value, e.g., "gp", followed by ii) a path segment with value the name of the application group, followed by iii) the path segment(s) that identify the targeted resource within the application group. For example, both /gp/APPNAME/res1 and /base/gp/APPNAME/res1/res2 conform to this practice. Just like application group names, the path segment used as delimiter should be kept short in constrained networks.
+   A best practice is to use a URI path component such that: i) it includes a path segment as delimiter with a designated value, e.g., "gp", followed by ii) a path segment containing the name of the application group, followed by iii) the path segment(s) that identify the targeted resource within the application group. For example, both /gp/APPNAME/res1 and /base/gp/APPNAME/res1/res2 conform to this practice. The path segment used as delimiter ('gp' in the examples) should be kept short in constrained networks.
 
    Full examples are provided in {{sec-examples-app-group-naming-path}}.
 
 * URI query component -- This method can use the following formats. In either case, when using this method in constrained networks, an application group name APPNAME should be as short as possible.
 
-   - As a first alternative, the URI query component consists of only one parameter, which has no value and has the name of the application group as its own identifier. That is, the query component ?APPNAME conforms to this format.
+   - As a first alternative, the URI query component consists of only one parameter, which has no value and has the name of the application group as its own identifier. The query component ?APPNAME conforms to this format.
 
-   - As a second alternative, the URI query component includes a query parameter as designated indicator, e.g., "gp", with value the name of the application group. That is, assuming "gp" to be used as designated indicator, both the query components ?gp=APPNAME and ?par1=v1&gp=APPNAME conform to this format.
+   - As a second alternative, the URI query component includes a query parameter as designated indicator, e.g., "gp", with a value equal to the name of the application group. That is, assuming that "gp" is used as designated indicator, both the query components ?gp=APPNAME and ?par1=v1&gp=APPNAME conform to this format.
 
    Full examples are provided in {{sec-examples-app-group-naming-query}}.
 
-* URI authority component -- If this method is used, the application group is identified by the authority component as a whole.
+* URI authority component -- If this method is used, the application group is identified by the authority component of the group URI or a subset thereof.
 
-   In particular, the application group has the same name of the CoAP group expressed by the group URI (see {{sec-groupnaming-coap}}). Thus, this method can only be used if there is a one-to-one mapping between CoAP groups and application groups (see {{sec-groupdef-grouprelations}}).
+   Because the CoAP group is also defined by the same authority component (see {{sec-groupnaming-coap}}), a given CoAP group always maps to exactly one application group. (See {{sec-groupdef-grouprelations}} for background on group relations.)
 
-   While the host component of the Group URI can be a group hostname, an implementation would likely rather use an IP address literal, in order to reduce the size of the CoAP request. In particular, the Uri-Host Option can be fully elided in this case.
+   Note that the host subcomponent within the authority component of the Group URI can be a group hostname, or an IP address literal. For constrained networks, using an IP address literal matching the request's destination IP address has the benefit of reducing the size of the CoAP message.
+   This is because the Uri-Host Option is elided from the CoAP request in this case, since its default value applies (see {{Section 5.10.1 and Section 6.4 of RFC7252}}).
 
-   A full example is provided in {{sec-examples-app-group-naming-authority}}.
+   Full examples are provided in {{sec-examples-app-group-naming-authority}}.
 
-* URI host subcomponent -- If this method is used, the application group is identified solely by the host subcomponent of the authority component.
+Due to the CoAP client's encoding of the request URI into CoAP options (per {{Section 6.4 of RFC7252}}) and the possibility of the CoAP server to compose the URI again based on received options (see {{Section 6.5 of RFC7252}}), the application group name information can be transported to the server and used to select the intended application group.
 
-   Since an application group can be associated with only one CoAP group (see {{sec-groupdef-grouprelations}}), using this method implies that, given any two CoAP groups, the port subcomponent of the URI authority component MUST NOT be the only information distinguishing them.
+Any other method to transport the application group name within a CoAP request, but not using the group URI, would require a new CoAP option to be defined. Such an approach is out of the scope of this document.
 
-   Like for the previous case relying on the whole URI authority component, an implementation would likely use an IP address literal rather than the group hostname as host component of the Group URI, in order to reduce the size of the CoAP request. In particular, the Uri-Host Option can be fully elided in this case.
+Finally, it is also possible to not encode the application group name in the CoAP request, yielding the most compact representation on the wire. In this case, each CoAP server needs to determine the right application group based on contextual information, such as the CoAP group, and/or the client identity and/or the target resource. For example, each application group on a server could support a unique set of resources, such that it does not overlap with the set of resources of any other application group.
+Appendix A of {{RFC9176}} provides an example of a named application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources it supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry, while the CoAP group ff35:30:2001:db8:f1::8000:1 is specified in the authority component of the URI encoded in the "base" attribute. In subsequent group requests by a client to the "lights" group, the name of the group is not present in the request message. Rather, the URI authority component that selects the CoAP group ff35:30:2001:db8:f1::8000:1 will implicitly also select the "lights" application group.
 
-   A full example is provided in {{sec-examples-app-group-naming-host}}.
-
-* URI port subcomponent -- By using this method, the application group is uniquely identified by the destination port number encoded in the port subcomponent of the authority component.
-
-   Since an application group can be associated with only one CoAP group (see {{sec-groupdef-grouprelations}}), using this method implies that any two CoAP groups cannot differ only by their host subcomponent of the URI authority component.
-
-   A full example is provided in {{sec-examples-app-group-naming-port}}.
-
-Alternatively, there are also methods to encode the application group name within the CoAP request, even though it is not encoded within the group URI. An example of such a method is summarized below.
-
-* The application group name can be encoded in a new (e.g., custom, application-specific) CoAP Option, which the client adds to the CoAP request before sending it out.
-
-   Upon receiving the request as a member of the targeted CoAP group, each CoAP server would, by design, understand this Option, decode it, and treat the result as an application group name.
-
-   A full example is provided in {{sec-examples-app-group-naming-option}}.
-
-Furthermore, it is possible to encode the application group name neither in the group URI nor within a CoAP request, thus yielding the most compact representation on the wire. In this case, each CoAP server needs to determine the right application group based on contextual information, such as the client identity and/or the target resource. For example, each application group on a server could support a unique set of resources, such that it does not overlap with the set of resources of any other application group.
-
-Finally, Appendix A of {{RFC9176}} provides an example of an application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources it supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry, while the CoAP group ff35:30:2001:db8:f1::8000:1 is specified in the authority component of the URI encoded in the "base" attribute.
 
 #### Security Groups ### {#sec-groupnaming-sec}
 
@@ -391,7 +380,7 @@ To create a CoAP group, a configuring entity defines an IP multicast address (or
 
 The configuring entity can be, for example, a local application with pre-configuration, a user, a software developer, a cloud service, or a local commissioning tool. Also, the devices sending CoAP requests to the CoAP group in the role of CoAP client need to be configured with the same information, even though they are not necessarily group members. One way to configure a client is to supply it with a group URI.
 
-The IETF does not define a mandatory protocol to accomplish CoAP group creation. {{RFC7390}} defined an experimental protocol for configuring memberships of CoAP groups for unsecured group communication, based on JSON-formatted configuration resources, and the experiment is concluded. For IPv6 CoAP groups, common multicast address ranges that are used to configure group addresses from are ff1x::/16 and ff3x::/16.
+The IETF does not define a mandatory protocol to accomplish CoAP group creation. {{RFC7390}} defined an experimental protocol for configuring memberships of CoAP groups for unsecured group communication, based on JSON-formatted configuration resources. The experiment is concluded as showing that the protocol has not been considered for deployment and use. For IPv6 CoAP groups, common multicast address ranges that are used to configure group addresses from are ff1x::/16 and ff3x::/16.
 
 To create an application group, a configuring entity may configure a resource (name) or a set of resources on CoAP endpoints, such that a CoAP request sent to a group URI by a configured CoAP client will be processed by one or more CoAP servers that have the matching URI path configured. These servers are the members of the application group.
 
@@ -425,7 +414,15 @@ As discussed below, such a GET request may be sent to the IP multicast address o
 
 These particular details concerning the GET request depend on the specific discovery action intended by the client and on application-specific means used to encode names of application groups and CoAP groups, e.g., in group URIs and/or CoRE target attributes used with resource links.
 
-The following discusses a number of methods to discover application groups and CoAP groups, building on the following assumptions. First, application group names are encoded in the path component of Group URIs (see {{sec-groupnaming-app}}), using the path segment "gp" as designated delimiter. Second, the type of an application group is encoded in the CoRE Link Format attribute "rt" of a group resource with a value "g.\<GROUPTYPE\>".
+The following discusses a number of methods to discover application groups and CoAP groups, building on the following assumptions.
+
+* Application group names are encoded in the path component of Group URIs (see {{sec-groupnaming-app}}), using the path segment "gp" as designated delimiter.
+
+* The type of an application group is encoded in the value of the CoRE Link Format attribute "rt" of a group resource.
+
+  As exclusively intended to support examples throughout this document, the following considers such values for the attribute "rt" to have the semantics "g.\<GROUPTYPE\>", where GROUPTYPE denotes the type of the application group in question.
+
+  To be effectively usable, such Resource Type values have to be registered in the "Resource Type (rt=) Link Target Attribute Values" IANA registry {{Resource.Type.Link.Target.Attribute.Values}} within the "Constrained RESTful Environments (CoRE) Parameters" registry group.
 
 Full examples for the different methods are provided in {{sec-examples-group-discovery}}.
 
@@ -500,14 +497,14 @@ Any default response suppression by a server SHOULD be performed consistently, a
 ### Repeating a Request ###
 A CoAP client MAY repeat a group request using the same Token value and same Message ID value, in order to ensure that enough (or all) members of the CoAP group have been reached with the request. This is useful in case a number of members of the CoAP group did not respond to the initial request and the client suspects that the request did not reach these group members. However, in case one or more servers did receive the initial request but the response to that request was lost, this repeat does not help to retrieve the lost response(s) if the server(s) implement the optional Message ID based deduplication ({{Section 4.5 of RFC7252}}).
 
-A CoAP client MAY repeat a group request using the same Token value and a different Message ID, in which case all servers that received the initial request will again process the repeated request since it appears within a new CoAP message. This is useful in case a client suspects that one or more response(s) to its original request were lost and the client needs to collect more, or even all, responses from members of the CoAP group, even if this comes at the cost of the overhead of certain group members responding twice (once to the original request, and once to the repeated request with different Message ID).
+A CoAP client MAY repeat a group request using a different Message ID (and the same or a different Token value), in which case all servers that received the initial request will again process the repeated request since it appears within a new CoAP message. This is useful in case a client suspects that one or more response(s) to its original request were lost and the client needs to collect more, or even all, responses from members of the CoAP group, even if this comes at the cost of the overhead of certain group members responding twice (once to the original request, and once to the repeated request with different Message ID).
 
 ### Request/Response Matching and Distinguishing Responses ###
 A CoAP client can distinguish the origin of multiple server responses by the source IP address of the message containing the CoAP response and/or any other available application-specific source identifiers contained in the CoAP response payload or CoAP response options, such as an application-level unique ID associated with the server. If secure communication is provided with Group OSCORE (see {{chap-oscore}}), additional security-related identifiers in the CoAP response enable the client to retrieve the right security material for decrypting each response and authenticating its source.
 
 While processing a response on the client, the source endpoint of the response is not matched to the destination endpoint of the request, since for a group request these will never match. This is specified in {{Section 8.2 of RFC7252}}, with reference to IP multicast.
 
-Also, when UDP transport is used, this implies that a server MAY respond from a UDP port number that differs from the destination UDP port number of the request, although a CoAP server normally SHOULD respond from the UDP port number that equals the destination port number of the request -- following the convention for UDP-based protocols.
+Also, when UDP transport is used, a server MAY respond from a UDP port number that differs from the destination UDP port number of the request.
 
 In case a single client has sent multiple group requests and concurrent CoAP transactions are ongoing, the responses received by that client are matched to an active request using only the Token value. Due to UDP level multiplexing, the UDP destination port number of the response MUST match to the client endpoint's UDP port number, i.e., to the UDP source port number of the client's request.
 
@@ -532,9 +529,9 @@ Another method to more easily meet the above constraint is to instantiate multip
 ### Client Handling of Multiple Responses With Same Token ### {#sec-request-response-multi}
 Since a client sending a group request with a Token T will accept multiple responses with the same Token T, it is possible in particular that the same server sends multiple responses with the same Token T back to the client. For example, this server might not implement the optional CoAP message deduplication based on Message ID; or it might be acting out of specification as a malicious, compromised or faulty server.
 
-When this happens, the client normally processes at the CoAP layer each of those responses to the same request coming from the same server. If the processing of a response is successful, the client delivers this response to the application as usual.
+When this happens, it is up to the specific client implementation at which layer deduplication of responses is performed, or whether it is necessary in an application at all. If the processing of a response is successful, the client delivers the response to the application as usual.
 
-Then, the application is in a better position to decide what to do, depending on the available context information. For instance, it might accept and process all the responses from the same server, even if they are not Observe notifications (i.e., they do not include an Observe option). Alternatively, the application might accept and process only one of those responses, such as the most recent one from that server, e.g., when this can trigger a change of state within the application.
+The application itself can be in a good position to decide what to do, depending on the available context information. For instance, it might accept and process all the responses from the same server, even if they are not Observe notifications (i.e., they do not include an Observe option). Alternatively, the application might accept and process only one of those responses, such as the most recent one from that server, e.g., when this can trigger a change of state within the application.
 
 As part of a long exchange between the client and any of the servers in the CoAP group, the responses considered above are an example of the more general concept elaborated in {{Section 2 of I-D.bormann-core-responses}}.
 
@@ -577,20 +574,20 @@ For validation at proxies, the validation model defined in {{I-D.ietf-core-group
 
 #### ETag Option in a Group Request/Response ####
 A client endpoint MAY include one or more ETag Options in a GET or FETCH group request, to validate one or more stored responses it has cached.
-In case two or more servers in the CoAP group have responded to a previous request to the same resource with an identical ETag value, it is the responsibility of the client to handle this case. In particular, if the client
-wishes to validate, using a group request, a response from server 1 with an ETag value N, while it does not wish to validate a response from server 2 with the same ETag value N, there is no way to achieve this.
-In such cases where an identical ETag value is returned by two or more servers, the client, by default, SHOULD NOT include an ETag Option containing that ETag value in a group request.
+In case two or more servers in the CoAP group have responded to a past request to the same resource with an identical ETag value, it is the responsibility of the client to handle this case. In particular, if the client
+wishes to validate, using a group request, a response from server 1 with an ETag value N, while it wants a fresh response from server 2, there is no way to achieve this using a single group request. This wish could occur if the client has a cached representation for server 1, but has no cached representation for server 2: for example, because the client needed to remove older items from its cache to make space for newer resource representations.
+
+There are various strategies to avoid problems caused by identical ETag values: one strategy is for a client to repeat a request if a particular server returned 2.03 (Valid) with an ETag value that is not in the client's cache (for that server). The repeated request excludes the "duplicate" ETag, and it may be a group request or a unicast request to the particular server. Another strategy is to mark a cached ETag value as "duplicated - not to be used for revalidation" as soon as another server responds with the same ETag value. Finally, the recommended strategy is for the servers to generate unique ETags as specified below.
 
 A server endpoint MUST process an ETag Option in a GET or FETCH group request in the same way it processes an ETag Option for a unicast request.
 A server endpoint that includes an ETag Option in a response to a group request SHOULD construct the ETag Option value in such a way that the value
-will be unique to this particular server with a high probability. This practically prevents a collision of the ETag values from different servers in the same CoAP group and application group, which in turn allows the client to effectively validate a particular response of an origin server. This can be accomplished, for example, by embedding a compact ID of the server within the ETag value, where the ID is unique (or unique with a high probability) in the scope of the group.
+will be unique to this particular server with a high probability. This practically prevents a collision of the ETag values from different servers in the same CoAP group and application group, which in turn allows the client to effectively validate a particular response of an origin server. This can be accomplished, for example, by embedding a compact ID (or hash) of the server within the ETag value, where the ID is unique (or unique with a high probability) in the scope of the CoAP/application groups.
 
 Note: a legacy CoAP server might treat an ETag Option in a group request as an unrecognized option per {{Sections 5.4 and 8.2.1 of RFC7252}}, causing it to ignore this (elective) ETag Option regardless of its value, and process the request normally as if that ETag Option was not included.
 
 
 ## URI Path Selection ##
-The URI Path used in a group request is preferably a path that is known to be supported across all members of a CoAP group. However, there are valid use cases where a group request is known to be successful only for a subset of the CoAP group. For instance, the subset may include only members of a specific application group, while the members of the CoAP group for which the request is unsuccessful (for example because they are outside the target application group) either respond with an error status code or ignore the group request (see also {{sec-request-response-suppress}} on response suppression).
-
+The URI Path used in a group request is preferably a path that is known to be supported across all members of a CoAP group. However, there are valid use cases where a group request is known to be successful only for a subset of the CoAP group. For instance, the subset may include only members of a specific application group, while the members of the CoAP group for which the request is unsuccessful (for example because they are outside the target application group) either suppress a response as per the default behavior from {{sec-request-response-suppress}}, or reply with an error response, e.g., when the default behavior is overridden by a No-Response Option {{RFC7967}} included in the group request.
 
 ## Port Selection for UDP Transport ##
 A server that is a member of a CoAP group listens for CoAP request messages on the group's IP multicast address, usually on the CoAP default UDP port number 5683, or another non-default UDP port number if configured. Regardless of the method for selecting the port number, the same port number MUST be used across all CoAP servers that are members of a CoAP group and across all CoAP clients sending group requests to that group.
@@ -609,33 +606,17 @@ This section defines how proxies operate in a group communication scenario. In p
 
 CoAP enables a client to request a forward-proxy to process a CoAP request on its behalf, as described in {{Sections 5.7.2 and 8.2.2 of RFC7252}}.
 
-When intending to reach a CoAP group through a proxy, the client sends a unicast CoAP group request to the proxy. The group URI where the request has to be forwarded to is specified in the request, either as a string in the Proxy-URI Option, or through the Proxy-Scheme Option with the group URI constructed from the usual Uri-* Options. Then, the forward-proxy resolves the group URI to a destination CoAP group, i.e., it sends (e.g., multicasts) the CoAP group request to the group URI, receives the responses and forwards all the individual (unicast) responses back to the client.
+When intending to reach a CoAP group through a proxy, the client sends a unicast CoAP group request to the proxy. The group URI where the request has to be forwarded to is specified in the request, either as a string in the Proxy-Uri Option, or through the Proxy-Scheme Option with the group URI constructed from the usual Uri-* Options. Then, the forward-proxy resolves the group URI to a destination CoAP group, i.e., it sends (e.g., multicasts) the CoAP group request to the group URI, receives the responses and forwards all the individual (unicast) responses back to the client.
 
-However, there are certain issues and limitations with this approach:
+Issues and limitations of this approach are compiled in {{sec-issues-forward-proxies}}. A forward-proxying method using this approach and addressing such issues and limitations is defined in {{I-D.ietf-core-groupcomm-proxy}}.
 
-* The CoAP client component that has sent the unicast CoAP group request to the proxy may be expecting only one (unicast) response, as usual for a CoAP unicast request. Instead, it receives multiple (unicast) responses, potentially leading to fault conditions in the component or to discarding any received responses following the first one. This issue may occur even if the application calling the CoAP client component is aware that the forward-proxy is going to forward the CoAP group request to the group URI.
+An alternative approach is for the proxy to collect all the individual (unicast) responses to a CoAP group request and then send back only a single (aggregated) response to the client. Issues and limitations of this alternative approach are also compiled in {{sec-issues-forward-proxies}}.
 
-* Each individual CoAP response received by the client will appear to originate (based on its IP source address) from the CoAP proxy, and not from the server that produced the response. This makes it impossible for the client to identify the server that produced each response, unless the server identity is contained as a part of the response payload or inside a CoAP option in the response.
+It is RECOMMENDED that a CoAP proxy processes a request to be forwarded to a group URI only if it is explicitly enabled to do so. If such functionality is not explicitly enabled, the default response returned to the client is 5.01 (Not Implemented). Furthermore, a proxy SHOULD be explicitly configured (e.g., by allow-listing and/or client authentication) to allow proxied CoAP group requests only from specific client(s).
 
-* Unlike a CoAP client, the proxy is likely to lack "application context". In particular, the proxy is not expected to know how many members there are in the CoAP group (not even the order of magnitude), how many members of that group will actually respond, or the minimal amount/percentage of those that will respond.
+The operation of HTTP-to-CoAP proxies for multicast CoAP requests is specified in {{Sections 8.4 and 10.1 of RFC8075}}. In this case, the "application/http" media type is used to let the proxy return multiple CoAP responses -- each translated to a HTTP response -- back to the HTTP client. Resulting issues and limitations are also compiled in {{sec-issues-forward-proxies}}.
 
-   Therefore, while still capable to forward the group request to the CoAP group and the corresponding responses to the client, the proxy does not know and cannot reliably determine for how long to collect responses, before it stops forwarding them to the client.
-
-   In principle, a CoAP client that is not using a proxy might face the same problems in collecting responses to a group request. However, unlike a CoAP proxy, the client itself would typically have application-specific rules or knowledge on how to handle this situation. For example, a CoAP client could monitor incoming responses and use this information to decide for how long to continue collecting responses
-
-A forward-proxying method using this approach and addressing the issues raised above is defined in {{I-D.ietf-core-groupcomm-proxy}}.
-
-An alternative solution is for the proxy to collect all the individual (unicast) responses to a CoAP group request and then send back only a single (aggregated) response to the client. However, this solution brings up new issues:
-
-* Like for the approach discussed above, the proxy does not know for how long to collect responses before sending back the aggregated response to the client. Analogous considerations apply to this approach too, both on the client and proxy side.
-
-* There is no default format defined in CoAP for aggregation of multiple responses into a single response. Such a format could be standardized based on, for example, the multipart content-format {{RFC8710}}.
-
-Due to the above issues, it is RECOMMENDED that a CoAP Proxy processes a request to be forwarded to a group URI only if it is explicitly enabled to do so. If such functionality is not explicitly enabled, the default response returned to the client is 5.01 Not Implemented. Furthermore, a proxy SHOULD be explicitly configured (e.g., by allow-listing and/or client authentication) to allow proxied CoAP group requests only from specific client(s).
-
-The operation of HTTP-to-CoAP proxies for multicast CoAP requests is specified in {{Sections 8.4 and 10.1 of RFC8075}}. In this case, the "application/http" media type is used to let the proxy return multiple CoAP responses -- each translated to a HTTP response -- back to the HTTP client. Of course, in this case the HTTP client sending a group URI to the proxy needs to be aware that it is going to receive this format, and needs to be able to decode it into the responses of multiple CoAP servers. Also, the IP source address of each CoAP response cannot be determined anymore from the "application/http" response. The HTTP client may still be able to identify the CoAP servers by other means such as application-specific information in the response payload.
-
-A forward-proxying method for HTTP-to-CoAP proxies addressing the issues raised above is defined in {{I-D.ietf-core-groupcomm-proxy}}.
+A forward-proxying method for HTTP-to-CoAP proxies addressing such issues and limitations is defined in {{I-D.ietf-core-groupcomm-proxy}}.
 
 ### Reverse-Proxies ### {#sec-proxy-reverse}
 
@@ -643,27 +624,19 @@ CoAP enables the use of a reverse-proxy, as an endpoint that stands in for one o
 
 In a group communication scenario, a reverse-proxy can rely on its configuration and/or on information in a request from a client, in order to determine that a group request has to be sent to servers in a CoAP group, over a one-to-many transport such as IP/UDP multicast.
 
-For example, specific resources on the reverse-proxy could be allocated, each to a specific application group and/or CoAP group. Or alternatively, the application group and/or CoAP group in question could be encoded as URI path segments. The URI path encodings for a reverse-proxy may also use a URI mapping template as described in {{Section 5.4 of RFC8075}}.
+One typical implementation is to allocate specific resources on the reverse-proxy to application groups. A client can then select the application group, and group resource to access, using the URI path in its group request. For example, a request to /proxy/APPNAME/res1 could give access to resource /res1 in the application group APPNAME. In this example, the proxy automatically selects the associated CoAP group.
+
+In general, using the URI path to select application group and/or CoAP group is an efficient way to access a reverse proxy. Other methods are possible, such as using the URI authority component: this requires configuration of more elements on the reverse proxy, like multiple virtual servers and/or multiple IP addresses and/or multiple port numbers.
 
 The reverse-proxy practically stands in for a CoAP group, thus preventing the client from reaching the group as a whole with a single group request directly addressed to that group (e.g., via multicast). In addition to that, the reverse-proxy may also stand in for each of the individual servers in the CoAP group (e.g., if acting as firewall), thus also preventing the client from individually reaching any server in the group with a unicast request directly addressed to that server.
 
-For a reverse-proxy that sends a request to servers in a CoAP group, the considerations as defined in {{Section 5.7.3 of RFC7252}} hold, with the following additions:
+For a reverse-proxy that sends a group request to servers in a CoAP group, the considerations as defined in {{Section 5.7.3 of RFC7252}} hold. Resulting issues and limitations are compiled in {{sec-issues-reverse-proxies}}. A reverse-proxying method addressing such issues and limitations is defined in {{I-D.ietf-core-groupcomm-proxy}}.
 
-* The three issues and limitations defined in {{sec-proxy-forward}} for a forward proxy apply to a reverse-proxy as well, and have to be addressed, e.g., using the signaling method defined in {{I-D.ietf-core-groupcomm-proxy}} or other means.
+A client might re-use a Token value in a valid new request to the reverse-proxy, while the reverse-proxy still has an ongoing group communication request for this client with the same Token value (i.e., its time period for response collection has not ended yet).
 
-* A reverse-proxy MAY have preconfigured time duration(s) that are used for collecting server responses and forwarding these back to the client. These duration(s) may be set as global configuration or as resource-specific configurations. If there is such preconfiguration, then an explicit signaling of the time period in the client's request as defined in {{I-D.ietf-core-groupcomm-proxy}} is not necessarily needed. Note that a reverse-proxy is in an explicit relation with the origin servers it stands in for. Thus, compared to a forward-proxy, it has a much better basis for determining and configuring such time durations.
+If this happens, the reverse-proxy MUST stop the ongoing request and associated response forwarding, it MUST NOT forward the new request to the servers in the CoAP group, and it MUST send a 4.00 (Bad Request) error response to the client. The diagnostic payload of the error response SHOULD indicate to the client that the resource is a reverse-proxy resource, and that for this reason immediate Token re-use is not possible.
 
-* A client that is configured to access a reverse-proxy resource (i.e., one that triggers a CoAP group communication request) SHOULD be configured also to handle potentially multiple responses with the same Token value caused by a single request.
-
-   That is, the client needs to preserve the Token value used for the request also after the reception of the first response forwarded back by the proxy (see {{sec-request-response-multi}}) and keep the request open to potential further responses with this Token. This requirement can be met by a combination of client implementation and proper proxied group communication configuration on the client.
-
-* A client might re-use a Token value in a valid new request to the reverse-proxy, while the reverse-proxy still has an ongoing group communication request for this client with the same Token value (i.e., its time period for response collection has not ended yet).
-
-   If this happens, the reverse-proxy MUST stop the ongoing request and associated response forwarding, it MUST NOT forward the new request to the servers in the CoAP group, and it MUST send a 4.00 (Bad Request) error response to the client. The diagnostic payload of the error response SHOULD indicate to the client that the resource is a reverse-proxy resource, and that for this reason immediate Token re-use is not possible.
-
-   If the reverse-proxy supports the signaling protocol of {{I-D.ietf-core-groupcomm-proxy}} it can include a Multicast-Signaling Option in the error response to convey the reason for the error in a machine-readable way.
-
-For the operation of HTTP-to-CoAP reverse proxies, see the last two paragraphs of {{sec-proxy-forward}} which applies also to the case of reverse-proxies.
+For the operation of HTTP-to-CoAP reverse proxies, see the last two paragraphs of {{sec-proxy-forward}}, which apply also to the case of reverse-proxies.
 
 ### Single Group Request to Multiple Proxies ### {#multicasting-to-proxies}
 
@@ -696,6 +669,8 @@ CoAP {{RFC7252}} reduces IP multicast-specific congestion risks through the foll
 
 * An IP multicast request MUST be Non-confirmable ({{Section 8.1 of RFC7252}}).
 
+* The same rationale for enforcing congestion control based on the transmission parameter PROBING_RATE defined in {{Section 4.7 of RFC7252}} holds for CoAP group communication. In particular, group requests are the Non-confirmable requests in question, and an average data rate PROBING_RATE is not to be exceeded by a client that does not receive a response from any server in the targeted CoAP group.
+
 * A response to an IP multicast request SHOULD be Non-confirmable ({{Section 5.2.3 of RFC7252}}).
 
 * A server does not respond immediately to an IP multicast request and should first wait for a time that is randomly picked within a predetermined time interval called the Leisure ({{Section 8.2 of RFC7252}}).
@@ -717,11 +692,15 @@ The CoAP Observe Option {{RFC7641}} is a protocol extension of CoAP, which allow
 
 This section updates {{RFC7641}} with the use of the Observe Option in a CoAP GET group request, and defines normative behavior for both client and server. Consistent with {{Section 2.4 of RFC8132}}, the same rules apply when using the Observe Option in a CoAP FETCH group request.
 
-Multicast Observe is a useful way to start observing a particular resource on all members of a CoAP group at the same time. Group members that do not have this particular resource or do not allow the GET or FETCH method on it will either respond with an error status -- 4.04 (Not Found) or 4.05 (Method Not Allowed), respectively -- or will silently suppress the response following the rules of {{sec-request-response-suppress}}, depending on server-specific configuration.
+Multicast Observe is a useful way to start observing a particular resource on all members of a CoAP group at the same time. If a group member does not have this particular resource or it does not allow the GET or FETCH method on that resource, then the group member will either suppress a response as per the default behavior from {{sec-request-response-suppress}}, or reply with an error response -- 4.04 (Not Found) or 4.05 (Method Not Allowed), respectively -- e.g., when the default behavior is overridden by a No-Response Option {{RFC7967}} included in the group request.
 
 A client that sends a group GET or FETCH request with the Observe Option MAY repeat this request using the same Token value and the same Observe Option value, in order to ensure that enough (or all) members of the CoAP group have been reached with the request. This is useful in case a number of members of the CoAP group did not respond to the initial request. The client MAY additionally use the same Message ID in the repeated request, to avoid that members of the CoAP group that had already received the initial request would respond again. Note that using the same Message ID in a repeated request will not be helpful in case of loss of a response message, since the server that responded already will consider the repeated request as a duplicate message. On the other hand, if the client uses a different, fresh Message ID in the repeated request, then all the members of the CoAP group that receive this new message will typically respond again, which increases the network load.
 
 A client that has sent a group GET or FETCH request with the Observe Option MAY follow up by sending a new unicast CON request with the same Token value and same Observe Option value to a particular server, in order to ensure that the particular server receives the request. This is useful in case a specific member of the CoAP group did not respond to the initial group request, although it was expected to. In this case, the client MUST use a Message ID that differs from that of the initial group request message.
+
+Since the first Observe notification from a server can be lost, a client should be ready to start receiving the Observe notifications from a server long after the Non-confirmable group request with the Observe Option was sent.
+
+At the same time, the loss of initial responses with the Observe Option from a server is less problematic than in the case where the group request is a regular request, i.e., when the request does not include the Observe Option. That is, as per {{Section 4.5 of RFC7641}}, servers that have registered a client as an observer have to ensure that the client achieves eventual consistency with respect to the representation of the observed resource. This realistically relies on the sending of new Observe notifications, which are occasionally expected to be sent as Confirmable messages also in order to assess client aliveness (see below).
 
 Furthermore, consistent with {{Section 3.3.1 of RFC7641}} and following its guidelines, a client MAY at any time send a new group/multicast GET or FETCH request with the same Token value and same Observe Option value as the original request. This allows the client to verify that it has an up-to-date representation of an observed resource and/or to re-register its interest to observe a resource.
 
@@ -731,7 +710,7 @@ Before repeating a request as specified above, the client SHOULD wait for at lea
 
 A server that receives a GET or FETCH request with the Observe Option, for which request processing is successful, SHOULD respond to this request and not suppress the response. If a server adds a client (as a new entry) to the list of observers for a resource due to an Observe request, the server SHOULD respond to this request and SHOULD NOT suppress the response. An exception to the above is the overriding of response suppression according to a CoAP No-Response Option {{RFC7967}} specified by the client in the GET or FETCH request (see {{sec-request-response-suppress}}).
 
-A server SHOULD have a mechanism to verify the aliveness of its observing clients and the continued interest of these clients in receiving the observe notifications. This can be implemented by sending notifications occasionally using a Confirmable message (see {{Section 4.5 of RFC7641}} for details). This requirement overrides the regular behavior of sending Non-confirmable notifications in response to a Non-confirmable request.
+A server SHOULD have a mechanism to verify the aliveness of its observing clients and the continued interest of these clients in receiving the Observe notifications. This can be implemented by sending notifications occasionally using a Confirmable message (see {{Section 4.5 of RFC7641}} for details). This requirement overrides the regular behavior of sending Non-confirmable notifications in response to a Non-confirmable request.
 
 A client can use the unicast cancellation methods of {{Section 3.6 of RFC7641}} and stop the ongoing observation of a particular resource on members of a CoAP group. This can be used to remove specific observed servers, or even all servers in the CoAP group (using serial unicast to each known group member). In addition, a client MAY explicitly deregister from all those servers at once, by sending a group/multicast GET or FETCH request that includes the Token value of the observation to be canceled and includes an Observe Option with the value set to 1 (deregister). In case not all the servers in the CoAP group received this deregistration request, either the unicast cancellation methods can be used at a later point in time or the group/multicast deregistration request MAY be repeated upon receiving another observe response from a server.
 
@@ -741,7 +720,13 @@ For observing at servers that are members of a CoAP group through a CoAP-to-CoAP
 
 {{Section 2.8 of RFC7959}} specifies how a client can use block-wise transfer (Block2 Option) in a multicast GET request to limit the size of the initial response of each server. Consistent with {{Section 2.5 of RFC8132}}, the same can be done with a multicast FETCH request.
 
-To retrieve any further blocks of the resource from a responding server, the client then has to use unicast requests, separately addressing each different server. Also, a server (member of a targeted CoAP group) that needs to respond to a group request with a particularly large resource can use block-wise transfer (Block2 Option) at its own initiative, to limit the size of the initial response. Again, a client would have to use unicast for any further requests to retrieve more blocks of the resource.
+To retrieve any further blocks of the resource from responding servers, the client can rely on two possible approaches.
+
+1. The client uses unicast requests, separately addressing each different server.
+
+2. The client uses follow-up group requests, if all the received responses from different servers specify the same block size SIZE in their Block2 Option. In particular, SIZE can have the same value specified in the Block2 Option of the first group request, or instead a different one. If the client relies on this approach, follow-up group requests MUST specify SIZE in their Block2 Option.
+
+Furthermore, a server (member of a targeted CoAP group) that needs to respond to a group request with a particularly large resource can use block-wise transfer (Block2 Option) at its own initiative, to limit the size of the initial response. A client can rely on either of the two approaches above for any further requests to retrieve more blocks of the resource.
 
 A solution for group/multicast block-wise transfer using the Block1 Option is not specified in {{RFC7959}} nor in the present document. Such a solution would be useful for group FETCH/PUT/POST/PATCH/iPATCH requests, to efficiently distribute a large request payload as multiple blocks to all members of a CoAP group. Multicast usage of Block1 is non-trivial due to potential message loss (leading to missing blocks or missing confirmations), and potential diverging block size preferences of different members of the CoAP group.
 
@@ -777,7 +762,7 @@ Because it supports unicast only, {{RFC8323}} (CoAP over TCP, TLS, and WebSocket
 
 That is, after the first group request including the Block2 Option and sent over UDP, the following unicast CoAP requests targeting individual servers to retrieve further blocks may be sent over TCP or WebSockets, possibly protected with TLS.
 
-This requires the individually addressed servers to also support CoAP over TCP/TLS/WebSockets for the targeted resource. A server can indicate its support for multiple alternative transports, and practically enable access to its resources through either of them, by using the method defined in {{I-D.ietf-core-transport-indication}}.
+This requires the individually addressed servers to also support CoAP over TCP/TLS/WebSockets for the targeted resource. While those transports do not support multicast, it is possible to rely on multicast for discovering that a server has those transports available and that they allow accessing the targeted resource, possibly with block-wise transfer used for random access to blocks within the resource representation. Such discovering can rely on means defined in {{I-D.ietf-core-transport-indication}}.
 
 ### Other Transports ###
 CoAP group communication may be used over transports other than UDP/IP multicast. For example broadcast, non-UDP multicast, geocast, serial unicast, etc. In such cases the particular considerations for UDP/IP multicast in this document may need to be applied to that particular transport.
@@ -890,7 +875,7 @@ As part of group maintenance operations (see {{sec-group-maintenance}}), additio
 
    This ensures forward security in the OSCORE group. That is, it ensures that only the members intended to remain in the OSCORE group are able to continue participating in the secure communications within that group, while the evicted ones are not able to participate after the distribution and installation of the new security material.
 
-   Also, this ensures that the members intended to remain in the OSCORE group are able to confidently assert the group membership of other sender nodes, when receiving protected messages in the OSCORE group after the distribution and installation of the new security material (see {{Section 3.2 of I-D.ietf-core-oscore-groupcomm}}).
+   Also, this ensures that the members intended to remain in the OSCORE group are able to confidently assert the group membership of other sender nodes, when receiving protected messages in the OSCORE group after the distribution and installation of the new security material (see {{Section 12.2 of I-D.ietf-core-oscore-groupcomm}}).
 
 The key management operations mentioned above are entrusted to the Group Manager responsible for the OSCORE group {{I-D.ietf-core-oscore-groupcomm}}, and it is RECOMMENDED to perform them as defined in {{I-D.ietf-ace-key-groupcomm-oscore}}.
 
@@ -903,7 +888,9 @@ For a client performing a group communication request via a forward-proxy, end-t
 For a client performing a group communication request via a reverse-proxy, either end-to-end-security or hop-by-hop security can be implemented.
 The case of end-to-end security is the same as for the forward-proxy case.
 
-The case of hop-by-hop security is only possible if the proxy can be completely trusted and it is configured as a member of the OSCORE security group(s) that it needs to access, when sending a group request on behalf of clients. The first leg of communication between client and proxy is then protected with a security method for CoAP unicast, such as (D)TLS, OSCORE, or a combination of such methods. The second leg between proxy and servers is protected using Group OSCORE. This can be useful in applications where for example the origin client does not implement Group OSCORE, or the group management operations are confined to a particular network domain and the client is outside this domain.
+The case of hop-by-hop security is only possible if the proxy can be completely trusted and it is configured as a member of the OSCORE security group(s) that it needs to access, when sending a group request on behalf of clients. As further clarified below, the first communication leg between the client and the proxy, on one hand, and the second communication leg between the proxy and the servers, on the other hand, are protected individually and independently from one another.
+
+The first leg of communication between client and proxy is then protected with a security method for CoAP unicast, such as (D)TLS, OSCORE, or a combination of such methods. The second leg between proxy and servers is protected using Group OSCORE. This can be useful in applications where for example the origin client does not implement Group OSCORE, or the group management operations are confined to a particular network domain and the client is outside this domain.
 
 For all the above cases, more details on using Group OSCORE are defined in {{I-D.ietf-core-groupcomm-proxy}}.
 
@@ -938,7 +925,7 @@ The same security considerations from {{Section 13 of I-D.ietf-core-oscore-group
 
 ### Group Key Management ### {#chap-security-considerations-sec-mode-key-mgmt}
 
-A key management scheme for secure revocation and renewal of group security material, namely group rekeying, is required to be adopted in OSCORE groups. The key management scheme has to preserve forward security in the OSCORE group, as well as backward security if this is required by the application (see {{chap-sec-group-maintenance}}). In particular, the key management scheme MUST comply with the functional steps defined in {{Section 3.2 of I-D.ietf-core-oscore-groupcomm}}.
+A key management scheme for secure revocation and renewal of group security material, namely group rekeying, is required to be adopted in OSCORE groups. The key management scheme has to preserve forward security in the OSCORE group, as well as backward security if this is required by the application (see {{chap-sec-group-maintenance}}). In particular, the key management scheme MUST comply with the functional steps defined in {{Section 12.2 of I-D.ietf-core-oscore-groupcomm}}.
 
 Even though security group policies vary depending on the specific applications and their security requirements, they SHOULD also take into account:
 
@@ -970,13 +957,13 @@ Note that Group OSCORE does not protect the addressing information about the CoA
 
 As discussed below, Group OSCORE addresses a number of security attacks mentioned in {{Section 11 of RFC7252}}, with particular reference to their execution over IP multicast.
 
-* Since Group OSCORE provides end-to-end confidentiality and integrity of request/response messages, proxies capable of group communication cannot break message protection, and thus cannot act as man-in-the-middle beyond their legitimate duties (see {{Section 11.2 of RFC7252}}). In fact, intermediaries such as proxies are not assumed to have access to the OSCORE Security Context used by OSCORE group members. Also, with the notable addition of signatures for the group mode, Group OSCORE protects messages using the same procedure as OSCORE (see {{Sections 8 and 9 of I-D.ietf-core-oscore-groupcomm}}), and especially processes CoAP options according to the same classification in U/I/E classes.
+* Since Group OSCORE provides end-to-end confidentiality and integrity of request/response messages, proxies capable of group communication cannot break message protection, and thus cannot act as man-in-the-middle beyond their legitimate duties (see {{Section 11.2 of RFC7252}}). In fact, intermediaries such as proxies are not assumed to have access to the OSCORE Security Context used by OSCORE group members. Also, with the notable addition of signatures for the group mode, Group OSCORE protects messages using the same procedure as OSCORE (see {{Sections 7 and 8 of I-D.ietf-core-oscore-groupcomm}}), and especially processes CoAP options according to the same classification in U/I/E classes.
 
 * Group OSCORE limits the feasibility and impact of amplification attacks (see {{ssec-amplification}} of this document and {{Section 11.3 of RFC7252}}), thanks to the handling of protected group requests on the server side. That is, upon receiving a group request protected with Group OSCORE, a server verifies whether the request is not a replay, and whether it has been originated and sent by the alleged CoAP endpoint in the OSCORE group.
 
-   In order to perform the latter check of source authentication, the server either: i) verifies the signature included in the request by using the public key of the client, when the request is protected using the group mode (see {{Section 8.2 of I-D.ietf-core-oscore-groupcomm}}); or ii) decrypts and verifies the request by means of an additionally derived pairwise key associated with the client, when the request is protected using the pairwise mode (see {{Section 9.4 of I-D.ietf-core-oscore-groupcomm}}).
+   In order to perform the latter check of source authentication, the server either: i) verifies the signature included in the request by using the public key of the client, when the request is protected using the group mode (see {{Section 7.2 of I-D.ietf-core-oscore-groupcomm}}); or ii) decrypts and verifies the request by means of an additionally derived pairwise key associated with the client, when the request is protected using the pairwise mode (see {{Section 8.4 of I-D.ietf-core-oscore-groupcomm}}).
 
-   As also discussed in {{Section 8 of I-D.ietf-core-oscore-groupcomm}}, it is recommended that, when failing to decrypt and verify an incoming group request protected with the group mode, a server does not send back any error message in case any of the following holds: the server determines that the request was indeed sent to the whole CoAP group (e.g., over IP multicast); or the server is not able to determine it altogether.
+   As also discussed in {{Section 7 of I-D.ietf-core-oscore-groupcomm}}, it is recommended that, when failing to decrypt and verify an incoming group request protected with the group mode, a server does not send back any error message in case any of the following holds: the server determines that the request was indeed sent to the whole CoAP group (e.g., over IP multicast); or the server is not able to determine it altogether.
 
    Such a message processing on the server limits an adversary to leveraging an intercepted group request protected with Group OSCORE, and then altering the source address to be the one of the intended amplification victim.
 
@@ -988,7 +975,7 @@ As discussed below, Group OSCORE addresses a number of security attacks mentione
 
 * Group OSCORE limits the impact of attacks based on IP spoofing over IP multicast (see {{Section 11.4 of RFC7252}}). In fact, requests and corresponding responses sent in the OSCORE group can be correctly generated only by CoAP endpoints that are legitimate members of the group.
 
-    Within an OSCORE group, the shared symmetric-key security material strictly provides only group-level authentication. However, source authentication of messages is also ensured, both in the group mode by means of signatures (see {{Sections 8.1 and 8.3 of I-D.ietf-core-oscore-groupcomm}}), and in the pairwise mode by using additionally derived pairwise keys (see {{Sections 9.3 and 9.5 of I-D.ietf-core-oscore-groupcomm}}). Thus, recipient endpoints can verify a message to have been originated and sent by the alleged, identifiable CoAP endpoint in the OSCORE group.
+    Within an OSCORE group, the shared symmetric-key security material strictly provides only group-level authentication. However, source authentication of messages is also ensured, both in the group mode by means of signatures (see {{Sections 7.1 and 7.3 of I-D.ietf-core-oscore-groupcomm}}), and in the pairwise mode by using additionally derived pairwise keys (see {{Sections 8.3 and 8.5 of I-D.ietf-core-oscore-groupcomm}}). Thus, recipient endpoints can verify a message to have been originated and sent by the alleged, identifiable CoAP endpoint in the OSCORE group.
 
     As noted above, the server may additionally rely on the Echo Option for CoAP defined in {{RFC9175}}, in order to verify the aliveness and reachability of the client sending a request from a particular IP address.
 
@@ -1138,9 +1125,9 @@ This section provides examples for the different methods that can be used to nam
 
 The shown examples consider a CoAP group identified by the group hostname grp.example. Its members are CoAP servers listening to the associated IP multicast address ff35:30:2001:db8:f1::8000:1 and port number 5685.
 
-Note that a group hostname is used here to have better-readable examples. As discussed in {{sec-groupnaming-app}} when considering the authority component and its host subcomponent in the Group URI, in practice an implementation would likely use an IP address literal as the host component of the Group URI, in order to reduce the size of the CoAP request. In particular, the Uri-Host Option can be fully elided in this case.
+Note that a group hostname is used in most examples to improve readability. In practice, as discussed in {{sec-groupnaming-app}}, using an IP address literal as the host subcomponent of the Group URI can reduce the size of the CoAP request message, in case the Uri-Host Option can be elided.
 
-Also note that the Uri-Port Option does not appear in the examples, since the port number 5685 is already included in the CoAP request's UDP header (which is not shown in the examples).
+Also note that the Uri-Port Option does not appear in the examples, since the port number 5685 is already included in the CoAP request's UDP header (which is not shown in the examples) in the destination port field.
 
 ## Group Naming using the URI Path Component # {#sec-examples-app-group-naming-path}
 
@@ -1154,13 +1141,13 @@ Also note that the Uri-Port Option does not appear in the examples, since the po
 
    CoAP group request
       Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example
-      Uri-Path: gp
-      Uri-Path: gp1
-      Uri-Path: light
-      Uri-Query: foo=bar
+      Uri-Host: "grp.example"
+      Uri-Path: "gp"
+      Uri-Path: "gp1"
+      Uri-Path: "light"
+      Uri-Query: "foo=bar"
 ~~~~~~~~~~~
-{: #fig-gname-path-example title="Example of application group name in URI path (1/2)"}
+{: #fig-gname-path-example title="Example of application group name in the URI path (1/2)"}
 
 {{fig-gname-path-example-2}} provides a different example, where an IPv6 literal address and the default CoAP port number 5683 are used in the authority component, which yields a compact CoAP request. Also, the resource structure is different in this example.
 
@@ -1172,11 +1159,11 @@ Also note that the Uri-Port Option does not appear in the examples, since the po
 
    CoAP group request
       Header: POST (T=NON, Code=0.02, MID=0x7d41)
-      Uri-Path: g
-      Uri-Path: gp1
-      Uri-Path: li
+      Uri-Path: "g"
+      Uri-Path: "gp1"
+      Uri-Path: "li"
 ~~~~~~~~~~~
-{: #fig-gname-path-example-2 title="Example of application group name in URI path (2/2)"}
+{: #fig-gname-path-example-2 title="Example of application group name in the URI path (2/2)"}
 
 ## Group Naming using the URI Query Component # {#sec-examples-app-group-naming-query}
 
@@ -1190,11 +1177,11 @@ Also note that the Uri-Port Option does not appear in the examples, since the po
 
    CoAP group request
       Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example
-      Uri-Path: light
-      Uri-Query: gp1
+      Uri-Host: "grp.example"
+      Uri-Path: "light"
+      Uri-Query: "gp1"
 ~~~~~~~~~~~
-{: #fig-gname-query1-example title="Example of application group name in URI query (1/2)"}
+{: #fig-gname-query1-example title="Example of application group name in the URI query (1/2)"}
 
 {{fig-gname-query2-example}} provides another example, which considers the second alternative discussed in {{sec-groupnaming-app}}. In particular, the URI query component includes a query parameter "gp" as designated indicator, with value the name of the application group.
 
@@ -1206,16 +1193,18 @@ Also note that the Uri-Port Option does not appear in the examples, since the po
 
    CoAP group request
       Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example
-      Uri-Path: light
-      Uri-Query: foo=bar
-      Uri-Query: gp=gp1
+      Uri-Host: "grp.example"
+      Uri-Path: "light"
+      Uri-Query: "foo=bar"
+      Uri-Query: "gp=gp1"
 ~~~~~~~~~~~
-{: #fig-gname-query2-example title="Example of application group name in URI query (2/2)"}
+{: #fig-gname-query2-example title="Example of application group name in the URI query (2/2)"}
 
 ## Group Naming using the URI Authority Component # {#sec-examples-app-group-naming-authority}
 
-{{fig-gname-auth-example}} provides an example where the URI authority component as a whole is used for naming application groups.
+{{fig-gname-auth-example}} provides an example where the URI authority component as a whole is used for encoding the name of the application group.
+Note that, although the port information (5685) is not carried as a CoAP Option, it is still transported within the UDP message (in the UDP destination port field).
+So, effectively, the application group name is transported in the UDP message as two parts.
 
 ~~~~~~~~~~~
 
@@ -1225,66 +1214,45 @@ Also note that the Uri-Port Option does not appear in the examples, since the po
 
    CoAP group request
       Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example
-      Uri-Path: light
-      Uri-Query: foo=bar
+      Uri-Host: "grp.example"
+      Uri-Path: "light"
+      Uri-Query: "foo=bar"
 ~~~~~~~~~~~
-{: #fig-gname-auth-example title="Example of application group name in URI authority"}
+{: #fig-gname-auth-example title="Example of application group name defined by the URI authority"}
 
-## Group Naming using the URI Host Subcomponent # {#sec-examples-app-group-naming-host}
-
-{{fig-gname-host-example}} provides an example where the URI host subcomponent of the URI authority component is used for naming application groups.
+{{fig-gname-host-example}} provides an example where the URI host subcomponent of the URI authority component is used for encoding the name of the application group.
+Specifically, the first label of the DNS name is used.
 
 ~~~~~~~~~~~
 
-   Application group name: grp.example
+   Application group name: grp42
 
-   Group URI: coap://grp.example:5685/light?foo=bar
+   Group URI: coap://grp42.example:5685/light?foo=bar
 
    CoAP group request
       Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example
-      Uri-Path: light
-      Uri-Query: foo=bar
+      Uri-Host: "grp42.example"
+      Uri-Path: "light"
+      Uri-Query: "foo=bar"
 ~~~~~~~~~~~
-{: #fig-gname-host-example title="Example of application group name in URI host"}
-
-## Group Naming using the URI Port Subcomponent # {#sec-examples-app-group-naming-port}
+{: #fig-gname-host-example title="Example of application group name encoded in the URI host"}
 
 {{fig-gname-port-example}} provides an example where the URI port subcomponent of the URI authority component is used for naming application groups.
+It uses a UDP port from the dynamic port range. Multiple application groups could be defined this way, each represented by a number and associated port in the dynamic port range.
 
 ~~~~~~~~~~~
 
-   Application group name: grp1, as inferable from port number 5685
+   Application group name: 55685
 
-   Group URI: coap://grp.example:5685/light?foo=bar
+   Group URI: coap://grp.example:55685/light?foo=bar
 
    CoAP group request
       Header: GET(T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example
-      Uri-Path: light
-      Uri-Query: foo=bar
+      Uri-Host: "grp.example"
+      Uri-Path: "light"
+      Uri-Query: "foo=bar"
 ~~~~~~~~~~~
-{: #fig-gname-port-example title="Example of application group name in URI port"}
-
-## Group Naming using a Custom CoAP Option # {#sec-examples-app-group-naming-option}
-
-{{fig-gname-custom-option-example}} provides an example where a new, custom CoAP Option, namely App-Group-Name, is used for naming application groups.
-
-~~~~~~~~~~~
-
-   Application group name: grp1
-
-   Group URI: coap://grp.example:5685/light?foo=bar
-
-   CoAP group request
-      Header: GET (T=NON, Code=0.01, MID=0x7d41)
-      Uri-Host: grp.example
-      Uri-Path: light
-      Uri-Query: foo=bar
-      App-Group-Name: grp1  // new (e.g., custom) CoAP option
-~~~~~~~~~~~
-{: #fig-gname-custom-option-example title="Example of application group name in a new CoAP Option"}
+{: #fig-gname-port-example title="Example of application group name in the URI port"}
 
 # Examples of Group Discovery from CoAP Servers # {#sec-examples-group-discovery}
 
@@ -1300,6 +1268,8 @@ As a result, the client gains knowledge of: i) the set of servers that are membe
 
 Each of the servers S1 and S2 is identified by the IP source address of the CoAP response. If the client wishes to discover resources that a particular server hosts within a particular application group, it may use unicast discovery request(s) to this server, i.e., to its respective unicast IP address. Alternatively the client may use the discovered group resource type (e.g., rt=g.light) to infer which resources are present below the group resource.
 
+The semantics "g.\<GROUPTYPE\>" for the values of the attribute "rt" is exclusively intended to support examples in this document. To be effectively usable, such Resource Type values have to be registered in the "Resource Type (rt=) Link Target Attribute Values" IANA registry {{Resource.Type.Link.Target.Attribute.Values}} within the "Constrained RESTful Environments (CoRE) Parameters" registry group.
+
 ~~~~~~~~~~~
 
    // Request to all members of the CoAP group
@@ -1309,7 +1279,7 @@ Each of the servers S1 and S2 is identified by the IP source address of the CoAP
    //   - The CoAP group "grp.example:5685"
    //   - The application group "gp1"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    </gp/gp1>;rt=g.light
 
@@ -1317,7 +1287,7 @@ Each of the servers S1 and S2 is identified by the IP source address of the CoAP
    // - The CoAP group "grp.example:5685"
    // - The application groups "gp1" and "gp2"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    </gp/gp1>;rt=g.light,
    </gp/gp2>;rt=g.temp
@@ -1341,7 +1311,7 @@ Also note that a server could equally well respond with the literal IPv6 multica
    //   - The CoAP group "grp.example:5685"
    //   - The application group "gp1"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    <coap://grp.example:5685/gp/gp1>;rt=g.light
 
@@ -1349,7 +1319,7 @@ Also note that a server could equally well respond with the literal IPv6 multica
    // - The CoAP group "grp.example:5685"
    // - The application groups "gp1"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    <coap://grp.example:5685/gp/gp1>;rt=g.light
 ~~~~~~~~~~~
@@ -1369,7 +1339,7 @@ Also note that a server could equally well respond with the literal IPv6 multica
    //   - The CoAP group "grp.example:5685"
    //   - The application group "gp1" of type "g.temp"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    <coap://grp.example:5685/gp/gp1>;rt=g.temp
 
@@ -1377,7 +1347,7 @@ Also note that a server could equally well respond with the literal IPv6 multica
    //   - The CoAP group "grp.example:5685"
    //   - The application groups "gp1" and "gp2" of type "g.temp"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    <coap://grp.example:5685/gp/gp1>;rt=g.temp,
    <coap://grp.example:5685/gp/gp2>;rt=g.temp
@@ -1388,6 +1358,8 @@ Also note that a server could equally well respond with the literal IPv6 multica
 
 {{fig-app-gp-discovery-example4}} provides an example where a CoAP client discovers the CoAP servers that are members of any application group configured in the 6LoWPAN wireless mesh network of the client, and the CoAP group associated with each application group. In this example, the scope is realm-local to address all servers in the current 6LoWPAN wireless mesh network of the client.
 
+The semantics "g.\<GROUPTYPE\>" for the values of the attribute "rt" is exclusively intended to support examples in this document. To be effectively usable, such Resource Type values have to be registered in the "Resource Type (rt=) Link Target Attribute Values" IANA registry {{Resource.Type.Link.Target.Attribute.Values}} within the "Constrained RESTful Environments (CoRE) Parameters" registry group.
+
 ~~~~~~~~~~~
 
    // Request to realm-local members of any application group
@@ -1397,7 +1369,7 @@ Also note that a server could equally well respond with the literal IPv6 multica
    //   - The CoAP groups "grp.example:5685" and "grp2.example"
    //   - The application groups "gp1" and "gp5"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    <coap://grp.example:5685/gp/gp1>;rt=g.light,
    <coap://grp2.example/gp/gp5>;rt=g.lock
@@ -1406,7 +1378,7 @@ Also note that a server could equally well respond with the literal IPv6 multica
    //   - The CoAP group "grp.example:5685"
    //   - The application groups "gp1" and "gp2"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    <coap://grp.example:5685/gp/gp1>;rt=g.light,
    <coap://grp.example:5685/gp/gp2>;rt=g.light
@@ -1415,7 +1387,7 @@ Also note that a server could equally well respond with the literal IPv6 multica
    //   - The CoAP group "grp2.example"
    //   - The application group "gp5"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    <coap://grp2.example/gp/gp5>;rt=g.lock
 ~~~~~~~~~~~
@@ -1434,7 +1406,7 @@ For instance, {{fig-app-gp-discovery-example5}} provides a different example whe
    //   - The CoAP groups "grp.example:5685" and "grp2.example"
    //   - The application groups "gp1" and "gp5"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    <coap://grp.example:5685/gp/gp1>;rt=oic.d.light;gpt=light,
    <coap://grp2.example/gp/gp5>;rt=oic.d.smartlock;gpt=lock
@@ -1443,7 +1415,7 @@ For instance, {{fig-app-gp-discovery-example5}} provides a different example whe
    //   - The CoAP group "grp.example:5685"
    //   - The application groups "gp1" and "gp2"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    <coap://grp.example:5685/gp/gp1>;rt=oic.d.light;gpt=light,
    <coap://grp.example:5685/gp/gp2>;rt=oic.d.light;gpt=light
@@ -1452,7 +1424,7 @@ For instance, {{fig-app-gp-discovery-example5}} provides a different example whe
    //   - The CoAP group "grp2.example"
    //   - The application group "gp5"
    Res: 2.05 (Content)
-   Content-Format: 40
+   Content-Format: 40 (application/link-format)
    Payload:
    <coap://grp2.example/gp/gp5>;rt=oic.d.smartlock;gpt=lock
 ~~~~~~~~~~~
@@ -1712,10 +1684,84 @@ Client              A  B  C
 ~~~~~~~~~~~
 {: #fig-exchange-example-blockwise title="Example of Non-confirmable group request starting a blockwise transfer, followed by Non-confirmable Responses with the first block. The transfer continues over confirmable unicast exchanges"}
 
+# Issues and Limitations with Forward-Proxies # {#sec-issues-forward-proxies}
+
+{{sec-proxy-forward}} defines how a forward-proxy sends (e.g., multicasts) a CoAP group request to the group URI specified in the request from the client. After that, the proxy receives the responses and forwards all the individual (unicast) responses back to the client.
+
+However, there are certain issues and limitations with this approach:
+
+* The CoAP client component that has sent the unicast CoAP group request to the proxy may be expecting only one (unicast) response, as usual for a CoAP unicast request. Instead, it receives multiple (unicast) responses, potentially leading to fault conditions in the component or to discarding any received responses following the first one. This issue may occur even if the application calling the CoAP client component is aware that the forward-proxy is going to forward the CoAP group request to the group URI.
+
+* Each individual CoAP response received by the client will appear to originate (based on its IP source address) from the CoAP proxy, and not from the server that produced the response. This makes it impossible for the client to identify the server that produced each response, unless the server identity is contained as a part of the response payload or inside a CoAP option in the response.
+
+* Unlike a CoAP client, the proxy is likely to lack "application context". In particular, the proxy is not expected to know how many members there are in the CoAP group (not even the order of magnitude), how many members of that group will actually respond, or the minimal amount/percentage of those that will respond.
+
+   Therefore, while still capable to forward the group request to the CoAP group and the corresponding responses to the client, the proxy does not know and cannot reliably determine for how long to collect responses, before it stops forwarding them to the client.
+
+   In principle, a CoAP client that is not using a proxy might face the same problems in collecting responses to a group request. However, unlike a CoAP proxy, the client itself would typically have application-specific rules or knowledge on how to handle this situation. For example, a CoAP client could monitor incoming responses and use this information to decide for how long to continue collecting responses
+
+An alternative solution is for the proxy to collect all the individual (unicast) responses to a CoAP group request and then send back only a single (aggregated) response to the client. However, this solution brings up new issues:
+
+* Like for the approach discussed above, the proxy does not know for how long to collect responses before sending back the aggregated response to the client. Analogous considerations apply to this approach too, both on the client and proxy side.
+
+* There is no default format defined in CoAP for aggregation of multiple responses into a single response. Such a format could be standardized based on, for example, the multipart Content-Format {{RFC8710}}.
+
+Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-to-CoAP proxies for multicast CoAP requests. This relies on the "application/http" media type to let the proxy return multiple CoAP responses -- each translated to a HTTP response -- back to the HTTP client. Of course, in this case the HTTP client sending a group URI to the proxy needs to be aware that it is going to receive this format, and needs to be able to decode it into the responses of multiple CoAP servers. Also, the IP source address of each CoAP response cannot be determined anymore from the "application/http" response. The HTTP client may still be able to identify the CoAP servers by other means such as application-specific information in the response payload.
+
+# Issues and Limitations with Reverse-Proxies # {#sec-issues-reverse-proxies}
+
+{{sec-proxy-reverse}} defines how a reverse-proxy sends a group request to servers in a CoAP group, over a one-to-many transport such as IP/UDP multicast. This results in certain issues and limitations:
+
+* The three issues and limitations defined in {{sec-proxy-forward}} for a forward proxy apply to a reverse-proxy as well.
+
+* A reverse-proxy may have preconfigured time duration(s) that are used for collecting server responses and forwarding these back to the client. These duration(s) may be set as global configuration or as resource-specific configurations. If there is such preconfiguration, then an explicit signaling of the time period in the client's request as defined in {{I-D.ietf-core-groupcomm-proxy}} is not necessarily needed. Note that a reverse-proxy is in an explicit relation with the origin servers it stands in for. Thus, compared to a forward-proxy, it has a much better basis for determining and configuring such time durations.
+
+* A client that is configured to access a reverse-proxy resource (i.e., one that triggers a CoAP group communication request) should be configured also to handle potentially multiple responses with the same Token value caused by a single request.
+
+  That is, the client needs to preserve the Token value used for the request also after the reception of the first response forwarded back by the proxy (see {{sec-request-response-multi}}) and keep the request open to potential further responses with this Token. This requirement can be met by a combination of client implementation and proper proxied group communication configuration on the client.
+
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
 
-RFC EDITOR: PLEASE REMOVE THIS SECTION.
+## Version -11 to -12 ## {#sec-11-12}
+
+* Clarified how a group name can be included in a URI path for reverse proxies; removed reference to URI templates for reverse proxies.
+
+* Clarified the issue of identical ETags from multiple servers and added strategies to cope with this. Removed recommendation to not use such duplicate ETags.
+
+* Simplified section on application group naming using URI authority and corresponding appendix examples; declaring new Option solution out of scope.
+
+* Added application group resource URI path(s) in Figure 1.
+
+* Clarified outcome of the RFC 7390 experiment on group membership configuration protocol.
+
+* Clarified that rt=g.\<GROUPTYPE\> is used just as an example.
+
+* Made RFC 7967 a normative reference.
+
+* Generalized resending of a group request with different Message ID.
+
+* Switched SHOULD to MAY on changing port number from group request to response.
+
+* Further generalized the handling of multiple responses from the same server to the same request.
+
+* Clarifications on response suppression.
+
+* Issues and limitations with Forward-Proxies compiled in an appendix.
+
+* Issues and limitations with Reverse-Proxies compiled in an appendix.
+
+* Mentioned PROBING_RATE as a means to enforce congestion control.
+
+* Consideration on how eventual consistency from Observe compensates for lost notifications.
+
+* Admitted resource retrieval through consecutive group requests with the Block2 Option.
+
+* Clarified relation with TCP/TLS/WebSockets.
+
+* Clarified security on the different legs with a proxy.
+
+* Editorial improvements.
 
 ## Version -10 to -11 ## {#sec-10-11}
 
@@ -1904,10 +1950,10 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 * Editorial improvements.
 
 # Acknowledgements # {#acknowledgements}
-{: numbered="no"}
+{:numbered="false"}
 
 The authors sincerely thank {{{Christian Amsüss}}}, {{{Carsten Bormann}}}, {{{Thomas Fossati}}}, {{{Rikard Höglund}}}, {{{Jaime Jiménez}}}, {{{John Preuß Mattsson}}}, {{{Jim Schaad}}}, and {{{Jon Shallow}}} for their comments and feedback.
 
-The work on this document has been partly supported by VINNOVA and the Celtic-Next project CRITISEC; and by the H2020 projects SIFIS-Home (Grant agreement 952652) and ARCADIAN-IoT (Grant agreement 101020259).
+The work on this document has been partly supported by the Sweden's Innovation Agency VINNOVA and the Celtic-Next projects CRITISEC and CYPRESS; and by the H2020 projects SIFIS-Home (Grant agreement 952652) and ARCADIAN-IoT (Grant agreement 101020259).
 
 --- fluff
