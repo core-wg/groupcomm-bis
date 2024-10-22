@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-07-29T01:05:25.634537+00:00",
+  "timestamp": "2024-10-22T01:23:42.413332+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -435,7 +435,7 @@
       "id": "MDU6SXNzdWU4MTI4NDI1Mjk=",
       "title": "Define what are valid cases of forward/reverse proxy with e2e security and with two-leg security",
       "url": "https://github.com/core-wg/groupcomm-bis/issues/17",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "EskoDijk",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -444,8 +444,8 @@
       "labels": [],
       "body": "Reverse proxy may act as origin server and hence client doesn't use e2e security to server group. However, in other cases a reverse proxy may assume the client uses e2e OSCORE security and not add any security by itself. To consider all the different, possible/valid cases for this.  And see if it's different for forward proxies.",
       "createdAt": "2021-02-21T12:19:30Z",
-      "updatedAt": "2021-06-04T15:51:05Z",
-      "closedAt": null,
+      "updatedAt": "2021-10-07T07:37:25Z",
+      "closedAt": "2021-10-07T07:37:25Z",
       "comments": [
         {
           "author": "EskoDijk",
@@ -474,6 +474,20 @@
           "body": "Agree, in the two-legs security case it seems sufficient that the proxy has one \"identity\" within the group. And I agree that this proxy would most likely be a reverse proxy Case 4 i.e. it operates like a (trusted!) origin server. By definition of a reverse proxy , it has to be trusted just like a client trusts an origin server with being able to know and manipulate the served content.",
           "createdAt": "2021-06-04T15:51:05Z",
           "updatedAt": "2021-06-04T15:51:05Z"
+        },
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This issue was addressed in Section 5.3 of version -04. @EskoDijk , can we close it?",
+          "createdAt": "2021-10-05T14:17:18Z",
+          "updatedAt": "2021-10-05T14:17:18Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yes!",
+          "createdAt": "2021-10-07T07:37:25Z",
+          "updatedAt": "2021-10-07T07:37:25Z"
         }
       ]
     },
@@ -532,16 +546,31 @@
       "id": "MDU6SXNzdWU5MDk0Njg5MDg=",
       "title": "Clarify in detail which elements are updated in prior RFCs",
       "url": "https://github.com/core-wg/groupcomm-bis/issues/20",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "EskoDijk",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Based on John's review ([link](https://mailarchive.ietf.org/arch/msg/core/Z9wxTL3-hAEDT_P8JOQztTfxlVU/)); Clarify in detail which elements are updated in prior RFCs.\r\n* Mention what is \"added\" to prior content (without replacement)\r\n* Mention what is replacing prior content (including specific section numbers)\r\n\r\nProposal: to add a section 1.3 to define this in detail.",
       "createdAt": "2021-06-02T12:52:10Z",
-      "updatedAt": "2021-06-02T12:52:10Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2021-10-07T07:44:53Z",
+      "closedAt": "2021-10-07T07:44:53Z",
+      "comments": [
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@EskoDijk , please see if the text in the commit above is comprehensive and good enough, or if we need to add more details.",
+          "createdAt": "2021-10-05T14:14:55Z",
+          "updatedAt": "2021-10-05T14:14:55Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@marco-tiloca-sics Thanks, looks good to me. Closing this issue",
+          "createdAt": "2021-10-07T07:44:53Z",
+          "updatedAt": "2021-10-07T07:44:53Z"
+        }
+      ]
     },
     {
       "number": 21,
@@ -581,15 +610,15 @@
       "id": "MDU6SXNzdWU5MDk1MDQ3NzQ=",
       "title": "Expand text on amplification attacks and countering",
       "url": "https://github.com/core-wg/groupcomm-bis/issues/22",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "EskoDijk",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Based on John's review ([link](https://mailarchive.ietf.org/arch/msg/core/Z9wxTL3-hAEDT_P8JOQztTfxlVU/)), expand a bit on the following text from RFC 7252:\r\n\r\n \"This specification attempts to reduce the\r\n   amplification effects of multicast requests by limiting when a\r\n   response is returned.  To limit the possibility of malicious use,\r\n   CoAP servers SHOULD NOT accept multicast requests that can not be\r\n   authenticated in some way, cryptographically or by some multicast\r\n   boundary limiting the potential sources.  If possible, a CoAP server\r\n   SHOULD limit the support for multicast requests to the specific\r\n   resources where the feature is required.\"\r\n\r\nA specific section 6.x on amplification attacks in general could be added, even. (To cross-check with what 6.2.3 writes about amplification attacks.)",
       "createdAt": "2021-06-02T13:29:48Z",
-      "updatedAt": "2021-06-14T10:27:50Z",
-      "closedAt": null,
+      "updatedAt": "2021-10-05T12:58:51Z",
+      "closedAt": "2021-10-05T12:58:51Z",
       "comments": [
         {
           "author": "marco-tiloca-sics",
@@ -597,6 +626,13 @@
           "body": "The commit https://github.com/core-wg/groupcomm-bis/commit/3eac21fbf6eb0dbf441c1e3b954a5ad6e94ee25a   adds:\r\n\r\n- New text in Sections 4, 6.1, 6.2.3 (second bullet point)\r\n- New Section 6.3",
           "createdAt": "2021-06-14T10:27:50Z",
           "updatedAt": "2021-06-14T10:27:50Z"
+        },
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "The commit https://github.com/core-wg/groupcomm-bis/commit/99011a4c4b3baa4aab410c30bf52fe52db9159bb  revises the sections mentioned in the previous comment, mostly based on version -01 of [1] and the related slide  9 at [2].\r\n\r\n[1] https://datatracker.ietf.org/doc/draft-mattsson-core-coap-attacks/\r\n[2] https://datatracker.ietf.org/meeting/111/materials/slides-111-core-coap-attacks-00",
+          "createdAt": "2021-10-04T21:46:48Z",
+          "updatedAt": "2021-10-04T21:46:48Z"
         }
       ]
     },
@@ -605,15 +641,15 @@
       "id": "MDU6SXNzdWU5Mzk1NDAwMjY=",
       "title": "Consider to replace terms 'backward security' and 'forward security'",
       "url": "https://github.com/core-wg/groupcomm-bis/issues/24",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "EskoDijk",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Consider to replace terms 'backward security' and 'forward security': from what I have seen, only 'backward secrecy' and 'forward secrecy' is used instead of the terms in the current text. Correct me if I'm wrong :)",
       "createdAt": "2021-07-08T07:03:33Z",
-      "updatedAt": "2021-07-08T18:24:08Z",
-      "closedAt": null,
+      "updatedAt": "2021-10-05T10:02:01Z",
+      "closedAt": "2021-10-05T10:02:01Z",
       "comments": [
         {
           "author": "marco-tiloca-sics",
@@ -621,6 +657,13 @@
           "body": "Both versions are found in the literature about secure group communication.\r\n\r\nAn advantage of using \" *-security \" is to avoid confusion with \"forward secrecy\", which is also used in other contexts with a different meaning, more related to key agreement protocols and assurances on established session keys.\r\n\r\nProbably it's still fine to do the change, if we phrase it as \"... backward secrecy in the group\".",
           "createdAt": "2021-07-08T18:24:08Z",
           "updatedAt": "2021-07-08T18:24:08Z"
+        },
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "As per discussions at IETF 111:\r\n\r\n* The commit https://github.com/core-wg/groupcomm-bis/commit/0a2f59858b3bdcfb6a21dda68f128bda1bc34042  presents backward/forward security more clearly as properties.\r\n* Given the clarification above, both terms \"security\" and \"secrecy\" are fine, as long as their meaning is clear. As commented above, \"security\" might raise less confusion than \"secrecy\".\r\n",
+          "createdAt": "2021-10-05T10:02:01Z",
+          "updatedAt": "2021-10-05T10:02:01Z"
         }
       ]
     },
@@ -629,47 +672,130 @@
       "id": "MDU6SXNzdWU5NTUwMjU2NzE=",
       "title": "one-to-many vs. figure 1",
       "url": "https://github.com/core-wg/groupcomm-bis/issues/27",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "chrysn",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "There seems to be a contradiction between \"There can be a one-to-one or a one-to-many relation between security groups and CoAP groups\" and figure 1 that has a 1..n / 1..n relation between CoAP groups and security groups. The figure (which I think is correct here) would imply that the sentence should rather say \"can be a many-to-many relation between ... (but often it is one-to-one)\".",
       "createdAt": "2021-07-28T16:19:36Z",
-      "updatedAt": "2021-07-28T16:19:36Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2021-10-05T16:54:41Z",
+      "closedAt": "2021-10-05T16:54:41Z",
+      "comments": [
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "You are right, and the same applied also to the following sentence about the relation between security groups and application groups.",
+          "createdAt": "2021-10-05T16:54:41Z",
+          "updatedAt": "2021-10-05T16:54:41Z"
+        }
+      ]
     },
     {
       "number": 28,
       "id": "MDU6SXNzdWU5NTUwNTA2NTg=",
       "title": "Encoding the group name in requests",
       "url": "https://github.com/core-wg/groupcomm-bis/issues/28",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "chrysn",
       "authorAssociation": "MEMBER",
-      "assignees": [],
+      "assignees": [
+        "EskoDijk"
+      ],
       "labels": [],
       "body": "Reading the paragraph after \"An application group can be named in many ways\", I was left a bit confused:\r\n\r\n* Why should it be encoded in the Uri-Query? That'd need coordination among all applications running on that host (for it is interfering with the query argument space that's usually left for the application to use). The common partitioning of applications inside a host is left-to-right in the URI, and that puts it in the very last spot.\r\n\r\n* I think I do see what is meant by the discouragement of using the Uri-Host, but doubt that it'd be immediately obvious to general readers.\r\n\r\n  How I understand Uri-Host to be impractical here is that while the request is sent to a well-defined and named URI, the response is a representation of the same URI with the individual server's IP replaced into the authority component, and if two application groups on the same CoAP group *use the same path*, then there may be clashes, not on the request-response layer (where the responses are bound to request for a particular host name) but in the client's cache of the responses. (And once one is at the point where application groups in the same CoAP group have a disjunct path set, one can do away with identification altogether and just address the unique path).\r\n\r\n  I don't quite follow how this is not \"as intended in RFC7252\": It is an identifier for who is being addressed, and as such just part of the URI. (For example, if I define my lights group to be named multilight.example.com and name the resource `coap://multilight.example.com/all-off`, then the host name is exactly the group name, and already needs to be put into the request unless there is known URI aliasing). See also https://github.com/core-wg/wiki/wiki/CoAP-FAQ on \"send a Uri-Host\" option, with the caveat that I'm a strong proponent of answer A2.\r\n\r\n  Furthermore, the text seems to imply that virtual hosting is something a server would need to go out of its way to implement. It isn't: The Uri-Host option is critical, and a host needs to make the conscious decision to ignore that option; otherwise it's just as much part of finding the addressed resource as all the other Uri-* options are.\r\n\r\nThe best practice is something I can get behind, although I suggest using no identifier on the wire (and just the disjunct set of resources) as a byte saving alternative when the administrative effort of ensuring path uniqueness can be afforded.",
       "createdAt": "2021-07-28T16:52:03Z",
-      "updatedAt": "2021-07-28T16:52:03Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2022-03-04T20:02:58Z",
+      "closedAt": "2022-03-04T20:02:58Z",
+      "comments": [
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks; we do need to improve the current text on these aspects.\r\n\r\nOn Uri-Host and your example \"coap://multilight.example.com/all-off\" where authority component includes the application group: in this group communication example the sending client would normally DNS-resolve \"multilight.example.com\" to a particular multicast IP address, then send the CoAP request to this multicast IP address destination, without including any Uri-Host Option.  This works as long as you have a unique 1:1 association between application-group and CoAP-group.   In case multiple application-groups map to a single CoAP-group, this doesn't work anymore : a client could be e.g. configured to always include the \"Uri-Host\" Option to indicate the hostname. Still not the preferred approach I would think.  Btw I can't follow answer A2 on the CoAP-Faq, unfortunately: formulation is too complex.\r\n\r\nIn some (common?) constrained use cases, the DNS name would not even be configured in the client and the client would just be configured directly with the IPv6 multicast address of the CoAP group to send it to. Then, the application-group would need to be encoded in some way still, e.g. using the Uri-Path Option.   Now what our original text tried to suggest is to \"misuse\" a Uri-Host Option for that.  So instead of using an option like:\r\n  Uri-Path = group123\r\n\r\nYou would instead use an option:\r\n  Uri-Host = group123\r\n\r\nSo this is not a \"real\" URI hostname but rather a low-level hack to let the client's CoAP stack insert by force an additional option just before sending out the CoAP request.  The receiver's CoAP stack would just parse it as the ID of the application-group and not really as a URI-host. \r\n\r\nBecause this gets confusing and potentially messy (proven by the present discussion !) we don't recommend it.\r\n\r\nSo, trying to reiterate\r\n* if one has configured Group URIs of the form coap://[mcast-ip-address]/resource on the client then by default the Uri-Host Option would get elided. The above mentioned \"hack\" is to put it back to encode application-group.  This has the issue that the application-group name isn't present in the Group URI.\r\n* if one has configured Group URIs of the form coap://groupname.example.com/resource on the client then normally by default the authority gets resolved to some IP multicast address before sending it out, and thus while sending it the Uri-Host Option is NOT included in the CoAP encoding but elided.  So the receiving server doesn't see the application-group ID because it's not encoded in the request data.     (We assume here that multiple application-groups use the same CoAP-group.)\r\n\r\n> when the administrative effort of ensuring path uniqueness can be afforded.\r\n\r\nMaybe we should discuss this further; what's the effort here / who ensures it / unique between what and what?\r\n",
+          "createdAt": "2021-10-23T18:50:34Z",
+          "updatedAt": "2021-10-23T18:50:34Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Initial text proposed in above PR! We'll merge it in by tomorrow evening, as an improvement (hopefully).\r\nWhat is not included yet is a statement saying that we don't recommend using the non-Group-URI methods of encoding application group name. To do so we would need to clearly state why that is not recommended; still not clear at this moment what the disadvantages of these are.",
+          "createdAt": "2021-10-23T19:30:40Z",
+          "updatedAt": "2021-10-23T19:30:40Z"
+        }
+      ]
     },
     {
       "number": 29,
       "id": "MDU6SXNzdWU5NTUwNzEwNDA=",
       "title": "Clarify \"can also discover application groups by [...] /.well-known/core\"",
       "url": "https://github.com/core-wg/groupcomm-bis/issues/29",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "chrysn",
       "authorAssociation": "MEMBER",
-      "assignees": [],
+      "assignees": [
+        "EskoDijk"
+      ],
       "labels": [],
       "body": "Current draft says:\r\n\r\n> CoAP endpoints can also discover application groups by performing a group discovery query using the /.well-known/core resource. Such a request may be sent to a known CoAP group multicast address associated to application group(s), or to the All CoAP Nodes multicast address.\r\n\r\nI don't quite understand how that'd happen; I see two possible interpretations:\r\n\r\n* Use .wk/c to discover *content of* application groups, eg. by requesting coap://mygroup/.well-known/core, picking really only one response, and hoping that it's just the content of the group resources and not everything on the host (cf. #28 -- coap://mygroup/.well-known/core was requested, but what comes back is coap://[fe80::f00]/.well-known/core actually).\r\n* Send out a broad multicast and wait for links that describe groups. However, other than the RD Appendix A methods (which aren't really applicable here), I don't know of any description format to be used. Is \"The description of the group may be provided in an application specific or a yet to be defined generic format.\" meant here?",
       "createdAt": "2021-07-28T17:20:03Z",
-      "updatedAt": "2021-07-28T17:20:03Z",
-      "closedAt": null,
+      "updatedAt": "2022-03-04T20:02:59Z",
+      "closedAt": "2022-03-04T20:02:59Z",
+      "comments": [
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Above PR expands the text with discovery use cases and examples.  We may still expand this later on with discovery examples or the link format attribute(s) defined by draft-tiloca-core-oscore-discovery; but that is not done yet.  (I would need some more time still to read that draft first)",
+          "createdAt": "2021-10-24T16:03:20Z",
+          "updatedAt": "2021-10-24T16:03:20Z"
+        }
+      ]
+    },
+    {
+      "number": 35,
+      "id": "I_kwDODvYK3c5L4qS3",
+      "title": "Mention libcoap support of multicast?",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/35",
+      "state": "CLOSED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Can add a reference in Section 1.",
+      "createdAt": "2022-06-16T07:04:48Z",
+      "updatedAt": "2022-06-26T15:35:40Z",
+      "closedAt": "2022-06-26T15:35:40Z",
+      "comments": []
+    },
+    {
+      "number": 36,
+      "id": "I_kwDODvYK3c5L4vIP",
+      "title": "Clarify that CoAP group may have multiple names?",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/36",
+      "state": "CLOSED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "E.g. same CoAP group may be named as\r\n* mygroup.example.com\r\n* mygroup.example.com:5683\r\n* [[ff15::1234]:5683\r\n* [[ff15::1234]\r\n\r\nAnd maybe additionally also as:\r\n* mygroupalias.example.com\r\n* mygroupalias.example.com:5683\r\n(etc.)\r\n\r\n",
+      "createdAt": "2022-06-16T07:24:48Z",
+      "updatedAt": "2022-06-26T16:20:48Z",
+      "closedAt": "2022-06-26T16:20:48Z",
+      "comments": []
+    },
+    {
+      "number": 37,
+      "id": "I_kwDODvYK3c5L4_af",
+      "title": "Possible use of realm-local and global scope as part of the update",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/37",
+      "state": "CLOSED",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Like RFC 7390 already did, this document is also considering realm-local scope and global scope as possible IP multicast scope to use.\r\n\r\nHowever, Section 12.8 \"Multicast Address Registration\" of RFC 7252 says:\r\n\r\n> CoAP needs the Link-Local and Site-Local scopes only.\r\n\r\nRFC 7346 defining the realm-local scope came later than RFC 7252. Thus, it is worth including the possible use of realm-local scope and global scope as part of the update to RFC 7252 that this document is providing, as summarized in its Section 1.3.",
+      "createdAt": "2022-06-16T08:28:27Z",
+      "updatedAt": "2022-06-26T16:48:44Z",
+      "closedAt": "2022-06-26T16:48:44Z",
       "comments": []
     }
   ],
@@ -987,6 +1113,464 @@
       "mergedBy": "marco-tiloca-sics",
       "mergeCommit": {
         "oid": "fb0079953c336b6b1a71b123d4606b89376456bc"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 30,
+      "id": "PR_kwDODvYK3c4tlPIh",
+      "title": "more details on encoding application group name, for #28",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/30",
+      "state": "MERGED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "more details on encoding application group name, for #28",
+      "createdAt": "2021-10-23T19:28:25Z",
+      "updatedAt": "2021-10-24T18:42:36Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "6ae55256614d10708465027a05e3ad2074e07c1a",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "pr-appl-group-name-28",
+      "headRefOid": "db4e4de405c70d3d1b21b791393da60c58efe9ee",
+      "closedAt": "2021-10-24T18:42:29Z",
+      "mergedAt": "2021-10-24T18:42:29Z",
+      "mergedBy": "EskoDijk",
+      "mergeCommit": {
+        "oid": "2c1b9667c27cda33c1d8f6cf1f10f42f22ca4fbd"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDODvYK3c4u8M7Z",
+          "commit": {
+            "abbreviatedOid": "bc13ff5"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-24T17:04:10Z",
+          "updatedAt": "2021-10-24T17:04:11Z",
+          "comments": [
+            {
+              "originalPosition": 23,
+              "body": "s/doesn't/does not",
+              "createdAt": "2021-10-24T17:04:10Z",
+              "updatedAt": "2021-10-24T17:04:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c4u8NHi",
+          "commit": {
+            "abbreviatedOid": "bc13ff5"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-24T17:11:51Z",
+          "updatedAt": "2021-10-24T17:11:51Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "> In this example an application group identifier is not explicitly encoded in the RD\r\n\r\nIt depends what that means. The example shows how the name \"light\" of the application group is expressed by the 'ep' attribute. The RD keeps track of that and uses it, for instance, in the response in Figure 28 \"Example lookup of groups\".\r\n\r\n(admittedly, I never noticed that \"light\" is also used as last path segment to the exact resource in the group:-)\r\n\r\n> nor in CoAP requests made to the group\r\n\r\nThat depends on how later on a client accesses resources in that application group, which is out of scope for the RD.\r\n\r\n> but it implicitly follows from the CoAP group used for the request\r\n\r\nThat particular example shows a single application group registered as associated to that CoAP group. In general, more application groups can be later on registered as associated to that CoAP group, at which point the ono-to-one binding would not hold anymore.",
+              "createdAt": "2021-10-24T17:11:51Z",
+              "updatedAt": "2021-10-24T17:11:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c4u8Ooy",
+          "commit": {
+            "abbreviatedOid": "2f47f1f"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-24T18:26:55Z",
+          "updatedAt": "2021-10-24T18:26:55Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "Agree, text now updated in this PR.",
+              "createdAt": "2021-10-24T18:26:55Z",
+              "updatedAt": "2021-10-24T18:26:55Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "id": "PR_kwDODvYK3c4tl3Ka",
+      "title": "Pr clarify appl group discovery for #29",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/31",
+      "state": "MERGED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Pr clarify appl group discovery for #29",
+      "createdAt": "2021-10-24T15:58:50Z",
+      "updatedAt": "2021-10-24T18:43:49Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "6ae55256614d10708465027a05e3ad2074e07c1a",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "pr-clarify-appl-group-discovery-29",
+      "headRefOid": "dbcd10d4c0ceaae70223290e828d3f7ad09a2b40",
+      "closedAt": "2021-10-24T18:43:46Z",
+      "mergedAt": "2021-10-24T18:43:46Z",
+      "mergedBy": "EskoDijk",
+      "mergeCommit": {
+        "oid": "d4c761a72f96b90210ffff88fb74211f076ac376"
+      },
+      "comments": [
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Oops, this PR accidentally contains also the changes of the other PR for #28. (This should be ignored by readers...)",
+          "createdAt": "2021-10-24T16:01:30Z",
+          "updatedAt": "2021-10-24T16:01:30Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDODvYK3c4u8NJo",
+          "commit": {
+            "abbreviatedOid": "00519ac"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-24T17:13:27Z",
+          "updatedAt": "2021-10-24T17:13:28Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "Consistently with the following paragraphs, this can conclude with:\r\n\r\n\"The result of this query is a list of resources at CoAP servers that are a member of at least one application group associated to the CoAP group.\"",
+              "createdAt": "2021-10-24T17:13:27Z",
+              "updatedAt": "2021-10-24T17:13:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c4u8NK1",
+          "commit": {
+            "abbreviatedOid": "00519ac"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-24T17:14:18Z",
+          "updatedAt": "2021-10-24T17:14:18Z",
+          "comments": [
+            {
+              "originalPosition": 40,
+              "body": "> The result of this query is a list of CoAP servers that are a member of \"mygroup1\".\r\n\r\nI suppose this means: \"The result of this query is a list of resources at CoAP servers that are a member of \"mygroup1\".\"",
+              "createdAt": "2021-10-24T17:14:18Z",
+              "updatedAt": "2021-10-24T17:14:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c4u8NL_",
+          "commit": {
+            "abbreviatedOid": "00519ac"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-24T17:15:21Z",
+          "updatedAt": "2021-10-24T17:15:21Z",
+          "comments": [
+            {
+              "originalPosition": 42,
+              "body": "> The query result is a list of CoAP servers that have at least one application group of type \"mytype1\" and each server response identifies one or more application group name(s) of type \"mytype1\".\r\n\r\nI suppose this means: \"The query result is a list of resources at CoAP servers that are a member of at least one application group of type \"mytype1\", and each server response identifies one or more application group name(s) of type \"mytype1\".\"",
+              "createdAt": "2021-10-24T17:15:21Z",
+              "updatedAt": "2021-10-24T17:15:21Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 32,
+      "id": "PR_kwDODvYK3c4wH7ic",
+      "title": "Examples",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/32",
+      "state": "MERGED",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Changelog:\r\n\r\n* Section 1.2 - \"Group URI\" in the main terminology.\r\n* Section 2.1 - Revision of group type definitions.\r\n* Section 2.2.1 - Revision of methods for group naming; added examples.\r\n* Section 2.2.3 - Revision of methods for group discovery; added examples.\r\n* Sections 3.1.4, 3.1.5 and 3.5.1 - Editorial fixes and rephrasing.\r\n* Appendix B - Newly added, with examples of message exchanges.",
+      "createdAt": "2021-12-21T10:12:35Z",
+      "updatedAt": "2022-04-13T07:45:11Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "59946ddfc8d2a0657b6335df3454844700d3d316",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "examples",
+      "headRefOid": "f1eee19ff0c8050fe4226577ae4040d947f228e8",
+      "closedAt": "2022-03-04T20:02:58Z",
+      "mergedAt": "2022-03-04T20:02:58Z",
+      "mergedBy": "EskoDijk",
+      "mergeCommit": {
+        "oid": "7be6fc3ceafa7df8efece097c559b2f2186c1ad1"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDODvYK3c4zAHkA",
+          "commit": {
+            "abbreviatedOid": "7bae94e"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Suggestions committed in this PR.",
+          "createdAt": "2022-01-18T16:22:41Z",
+          "updatedAt": "2022-01-18T16:22:41Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 33,
+      "id": "PR_kwDODvYK3c41iLGj",
+      "title": "Chair review",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/33",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-04-02T22:12:54Z",
+      "updatedAt": "2022-05-16T15:18:41Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "3e6080a32a6d01efb5699188f2b9f638f6f4ec3c",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "chair-review",
+      "headRefOid": "accf3d7d1ee1df2f068a33903bd022da4cb913a0",
+      "closedAt": "2022-04-25T18:18:39Z",
+      "mergedAt": "2022-04-25T18:18:38Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "de2dd8eabb47b9b0f8d25dfbb3210d1709c89d37"
+      },
+      "comments": [
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@cabo Asking this for another I-D: is putting the names of contributors in brackets like \"{{{Christian Ams\u00fcss}}}, {{{Carsten Bormann}}}, \" etc. sufficient to make these persons as contributors to the document, and so that IETF can keep statistics on this?\r\n\r\nI heard from another source that the names need to be in a \"Contributors\" section for the IETF to count this and not in an \"Acknowledgements\" section. But that may be wrong.",
+          "createdAt": "2022-04-12T09:35:00Z",
+          "updatedAt": "2022-04-12T09:35:00Z"
+        },
+        {
+          "author": "core-bot",
+          "authorAssociation": "NONE",
+          "body": "> My kramdown-rfc2629 1.6.6 gives an error on this \"No such file or directory - aasvg\"\n\nRight \u2014 you need to install aasvg, e.g., via\n\nnpm install -g aasvg\n\nMore at\n\nhttps://github.com/cabo/kramdown-rfc/wiki/SVG#aasvg\n\n(And the links from there.)\n\nGr\u00fc\u00dfe, Carsten\n\n",
+          "createdAt": "2022-04-12T11:13:09Z",
+          "updatedAt": "2022-04-12T11:13:09Z"
+        },
+        {
+          "author": "core-bot",
+          "authorAssociation": "NONE",
+          "body": "On 12. Apr 2022, at 11:42, Esko Dijk ***@***.***> wrote:\n> \n> \n> @cabo Asking this for another I-D: is putting the names of contributors in brackets like \"{{{Christian Ams\u00fcss}}}, {{{Carsten Bormann}}}, \" etc. sufficient to make these persons as contributors to the document, and so that IETF can keep statistics on this?\n> \n> \n\n{{{ \u2026 }}} is a shorthand for using the <contact element of RFCXMLv3.\nThis element...\n\n* marks the text as a human name\n* makes sure that Umlauts etc. survive.\n\nSee\nhttps://github.com/cabo/kramdown-rfc/wiki/Syntax#-syntax-contact-names\n\n\u2026for more details (including how to handle non-Latin contact names.)\n\nIt depends on the tool used for mining the RFCs whether contact names in acknowledgment sections are handled in a specific way.\n\n> I heard from another source that the names need to be in a \"Contributors\" section for the IETF to count this and not in an \"Acknowledgements\" section. But that may be wrong.\n> \n\nA stronger way to acknowledge someone as a contributor is to include them in the contributor section, which also makes it possible to include email addresses, affiliation etc., if desired.\n\nThe `contributor` and `author` YAML header entries look the same, so someone can be shuttled between authorship and mere contributorship by just moving over the YAML.\n\nPlease see...\n\nhttps://github.com/cabo/kramdown-rfc/wiki/Syntax2#authors-contributors\n\n...for more detail and an example.\n\nBTW, 1.6.6 indeed is the current version of kramdown-rfc (released this Sunday).\n\nGr\u00fc\u00dfe, Carsten\n\n",
+          "createdAt": "2022-04-12T11:23:53Z",
+          "updatedAt": "2022-04-12T11:23:53Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDODvYK3c43-1VO",
+          "commit": {
+            "abbreviatedOid": "accf3d7"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Agree with all the improvements, thanks for this Carsten!\r\nOne issue I had with the compilation for the \"aasvg\" option on two figures - on my Windows MSYS2 setup the most recent kramdown-rfc2629 version seems to be 1.6.6.",
+          "createdAt": "2022-04-12T09:16:44Z",
+          "updatedAt": "2022-04-12T09:32:37Z",
+          "comments": [
+            {
+              "originalPosition": 100,
+              "body": "My kramdown-rfc2629 1.6.6 gives an error on this \"No such file or directory - aasvg\"",
+              "createdAt": "2022-04-12T09:16:44Z",
+              "updatedAt": "2022-04-12T09:32:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c44D1OV",
+          "commit": {
+            "abbreviatedOid": "accf3d7"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Thanks for reviewing and for the proposed changes!",
+          "createdAt": "2022-04-13T07:30:00Z",
+          "updatedAt": "2022-04-13T07:30:00Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 34,
+      "id": "PR_kwDODvYK3c449R4m",
+      "title": "Ongoing PR for Carsten's comments",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/34",
+      "state": "MERGED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "this PR to view the edits in the carsten-comments branch",
+      "createdAt": "2022-06-02T07:44:16Z",
+      "updatedAt": "2022-07-11T13:42:11Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "de2dd8eabb47b9b0f8d25dfbb3210d1709c89d37",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "carsten-comments",
+      "headRefOid": "548d26e66262734f7166529fb3efd79accb4c8c6",
+      "closedAt": "2022-07-11T13:42:11Z",
+      "mergedAt": "2022-07-11T13:42:11Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "0237cc4aeaeb29a671e034e384f098fc27fa888b"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 38,
+      "id": "PR_kwDODvYK3c46kvRu",
+      "title": "John review",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/38",
+      "state": "CLOSED",
+      "author": "emanjon",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-06-29T14:50:58Z",
+      "updatedAt": "2023-12-16T11:02:18Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "de2dd8eabb47b9b0f8d25dfbb3210d1709c89d37",
+      "headRepository": null,
+      "headRefName": "patch-2",
+      "headRefOid": "34be854efc55c6f2ba2d35385265f3a7c50908a6",
+      "closedAt": "2023-12-16T11:02:17Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "The changes originally proposed in this PR are now all integrated in the Editor's Copy.\r\n\r\nThe change that was still missing in v -10 of the Internet Draft is now in the Editor's Copy, see https://github.com/core-wg/groupcomm-bis/commit/80543b24eeaccff4489ade4ee744d5b496a9e72d\r\n\r\n",
+          "createdAt": "2023-12-16T11:02:17Z",
+          "updatedAt": "2023-12-16T11:02:17Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 39,
+      "id": "PR_kwDODvYK3c5dS6C0",
+      "title": "John comments: resolution",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/39",
+      "state": "MERGED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-10-19T16:32:20Z",
+      "updatedAt": "2023-10-23T12:01:38Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "6995475a01d0917d069deef2d0844f873459aad6",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "john-comments",
+      "headRefOid": "5965aac6d25e5c61883ccb04f01a05fd64edb022",
+      "closedAt": "2023-10-23T12:01:38Z",
+      "mergedAt": "2023-10-23T12:01:38Z",
+      "mergedBy": "EskoDijk",
+      "mergeCommit": {
+        "oid": "43890469e50e47bd5b83e4b7ea954296288f275d"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 40,
+      "id": "PR_kwDODvYK3c5tlArB",
+      "title": "Nits on -11",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/40",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-24T09:26:22Z",
+      "updatedAt": "2024-04-24T12:59:48Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "22f16504207bf2b0d435fcdf096c34f6502883af",
+      "headRepository": "cabo/groupcomm-bis",
+      "headRefName": "nits-11",
+      "headRefOid": "5311a4daaa062519229317bcc3e56dc6c3b2b374",
+      "closedAt": "2024-04-24T12:59:48Z",
+      "mergedAt": "2024-04-24T12:59:48Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "964a76c0c64b57d8525cfefb4400648b6db01e61"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 41,
+      "id": "PR_kwDODvYK3c57uLaa",
+      "title": "Updates for post-WGLC review by Christian",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/41",
+      "state": "MERGED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR address comments made by Christian in his review:\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/core/yyyqK9N1qd4icApYsymtyennCkk/\r\n\r\nMotivation for each changes is given in the response email to the core WG list. (No link yet.)",
+      "createdAt": "2024-09-17T08:08:32Z",
+      "updatedAt": "2024-10-21T17:21:34Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "964a76c0c64b57d8525cfefb4400648b6db01e61",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "christian-post-wglc-review",
+      "headRefOid": "f814b2862a11e38de338948170368eafe8805026",
+      "closedAt": "2024-10-21T17:21:34Z",
+      "mergedAt": "2024-10-21T17:21:34Z",
+      "mergedBy": "EskoDijk",
+      "mergeCommit": {
+        "oid": "e65dff28752603c0d9b82d87d0acc8fe24e126c2"
       },
       "comments": [],
       "reviews": []
