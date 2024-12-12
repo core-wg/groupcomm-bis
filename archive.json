@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-10T01:39:54.314213+00:00",
+  "timestamp": "2024-12-12T01:37:58.706541+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -1559,7 +1559,7 @@
       "labels": [],
       "body": "This PR address comments made by Christian in his review:\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/core/yyyqK9N1qd4icApYsymtyennCkk/\r\n\r\nMotivation for each changes is given in the response email to the core WG list. (No link yet.)",
       "createdAt": "2024-09-17T08:08:32Z",
-      "updatedAt": "2024-10-21T17:21:34Z",
+      "updatedAt": "2024-12-10T18:01:57Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "964a76c0c64b57d8525cfefb4400648b6db01e61",
