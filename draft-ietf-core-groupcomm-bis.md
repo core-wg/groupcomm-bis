@@ -888,7 +888,7 @@ For a client performing a group communication request via a forward-proxy, end-t
 For a client performing a group communication request via a reverse-proxy, either end-to-end-security or hop-by-hop security can be implemented.
 The case of end-to-end security is the same as for the forward-proxy case.
 
-The case of hop-by-hop security is only possible if the proxy can be completely trusted and it is configured as a member of the OSCORE security group(s) that it needs to access, when sending a group request on behalf of clients. As further clarified below, the first communication leg between the client and the proxy, on one hand, and the second communication leg between the proxy and the servers, on the other hand, are protected individually and independently from one another.
+The case of hop-by-hop security is only possible if the proxy can be completely trusted and it is configured as a member of the OSCORE security group(s) that it needs to access, when sending a group request on behalf of clients. As further clarified below, the first communication leg between the client and the proxy, on one hand, and the second communication leg between the proxy and the servers, on the other hand, are protected individually and independently of one another.
 
 The first leg of communication between client and proxy is then protected with a security method for CoAP unicast, such as (D)TLS, OSCORE, or a combination of such methods. The second leg between proxy and servers is protected using Group OSCORE. This can be useful in applications where for example the origin client does not implement Group OSCORE, or the group management operations are confined to a particular network domain and the client is outside this domain.
 
