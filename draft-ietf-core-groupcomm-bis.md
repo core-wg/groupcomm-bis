@@ -353,7 +353,7 @@ An application group name can be explicitly encoded in a group URI. Specifically
 
    Full examples are provided in {{sec-examples-app-group-naming-authority}}.
 
-Due to the CoAP client's encoding of the request URI into CoAP options (per {{Section 6.4 of RFC7252}}) and the possibility of the CoAP server to compose the URI again based on received options (see {{Section 6.5 of RFC7252}}), the application group name information can be transported to the server and used to select the intended application group.
+Due to the CoAP client's encoding of the request URI into CoAP options (per {{Section 6.4 of RFC7252}}) and the possibility of the CoAP server to compose the URI again based on the options received (see {{Section 6.5 of RFC7252}}), the application group name information can be transported to the server and used to select the intended application group.
 
 Any other method to transport the application group name within a CoAP request, but not using the group URI, would require a new CoAP option to be defined. Such an approach is out of the scope of this document.
 
@@ -363,7 +363,7 @@ Appendix A of {{RFC9176}} provides an example of a named application group regis
 
 #### Security Groups ### {#sec-groupnaming-sec}
 
-A security group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI, or other types of strings. Such a group name is generally not related to other kinds of group identifiers that may be specific of the used security solution.
+A security group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI, or other types of strings. Such a group name is generally not related to other kinds of group identifiers that may be specific of the security solution used.
 
 The name of a security group is not expected to be used in messages exchanged among its members, unless the application requires otherwise. At the same time, it is useful to identify the security group when performing a number of side tasks related to secure group communication, such as the following ones.
 
@@ -677,7 +677,7 @@ CoAP {{RFC7252}} reduces IP multicast-specific congestion risks through the foll
 
 This document also defines these measures to be applicable to alternative transports (other than IP multicast), if not defined otherwise.
 
-Independently of the used transport, additional guidelines to reduce congestion risks defined in this document are as follows:
+Independently of the transport used, additional guidelines to reduce congestion risks defined in this document are as follows:
 
 * A server in a constrained network SHOULD only support group requests for resources that have a small representation (where the representation may be retrieved via a GET, FETCH, or POST method in the request). For example, "small" can be defined as a response payload limited to approximately 5% of the IP Maximum Transmit Unit (MTU) size, so that it fits into a single link-layer frame in case IPv6 over Low-Power Wireless Personal Area Networks (6LoWPAN, see {{sec-6lowpan}}) is used on the constrained network.
 
@@ -724,7 +724,7 @@ To retrieve any further blocks of the resource from responding servers, the clie
 
 1. The client uses unicast requests, separately addressing each different server.
 
-2. The client uses follow-up group requests, if all the received responses from different servers specify the same block size SIZE in their Block2 Option. In particular, SIZE can have the same value specified in the Block2 Option of the first group request, or instead a different one. If the client relies on this approach, follow-up group requests MUST specify SIZE in their Block2 Option.
+2. The client uses follow-up group requests, if all the responses received from different servers specify the same block size SIZE in their Block2 Option. In particular, SIZE can have the same value specified in the Block2 Option of the first group request, or instead a different one. If the client relies on this approach, follow-up group requests MUST specify SIZE in their Block2 Option.
 
 Furthermore, a server (member of a targeted CoAP group) that needs to respond to a group request with a particularly large resource can use block-wise transfer (Block2 Option) at its own initiative, to limit the size of the initial response. A client can rely on either of the two approaches above for any further requests to retrieve more blocks of the resource.
 
