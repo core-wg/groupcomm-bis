@@ -812,7 +812,7 @@ However, a CoAP multicast request to a CoAP group that originated outside of the
 
 For security and performance reasons, also other filtering criteria may be defined at an ingress MPL Forwarder. See {{sec-security-considerations-6lowpan-mpl}} for more details.
 
-# Unsecured Group Communication # {#chap-unsecured-groupcomm}
+# Unsecured Group Communication (NoSec Mode) # {#chap-unsecured-groupcomm}
 
 CoAP group communication can operate in CoAP NoSec (No Security) mode, without using application-layer and transport-layer security mechanisms. The NoSec mode uses the "coap" scheme, and is defined in {{Section 9 of RFC7252}}.
 
