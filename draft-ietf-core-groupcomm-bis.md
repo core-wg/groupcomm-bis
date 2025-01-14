@@ -533,7 +533,7 @@ When this happens, it is up to the specific client implementation at which layer
 
 The application itself can be in a good position to decide what to do, depending on the available context information. For instance, it might accept and process all the responses from the same server, even if they are not Observe notifications (i.e., they do not include an Observe option). Alternatively, the application might accept and process only one of those responses, such as the most recent one from that server, e.g., when this can trigger a change of state within the application.
 
-As part of a long exchange between the client and any of the servers in the CoAP group, the responses considered above are an example of the more general concept elaborated in {{Section 2 of I-D.bormann-core-responses}}.
+As part of a long exchange between the client and any of the servers in the CoAP group, the responses considered above are examples of the more general concept elaborated in {{Section 2 of I-D.bormann-core-responses}}.
 
 ## Caching ## {#sec-caching}
 
