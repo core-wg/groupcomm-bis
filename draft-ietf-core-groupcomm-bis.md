@@ -547,7 +547,7 @@ Furthermore, building on what is defined in {{Section 8.2.1 of RFC7252}}:
 
 * A client MAY revalidate a cached response by making a GET or FETCH request on the related unicast request URI.
 
-Note that, in the presence of proxies, doing any of the above (optional) unicast requests requires the client to distinguish the different responses to a group request, as well as to distinguish the different origin servers that responded. This in turn requires additional means to provide the client with information about the origin server of each response, e.g., using the forward-proxying method defines in {{I-D.ietf-core-groupcomm-proxy}}.
+Note that, in the presence of proxies, doing any of the above (optional) unicast requests requires the client to distinguish the different responses to a group request, as well as to distinguish the different origin servers that responded. This in turn requires additional means to provide the client with information about the origin server of each response, e.g., using the forward-proxying method defined in {{I-D.ietf-core-groupcomm-proxy}}.
 
 The following subsections define the freshness model and validation model to use for cached responses, which update the models defined in {{Sections 5.6.1 and 5.6.2 of RFC7252}}, respectively.
 
