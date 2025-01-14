@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-12T01:37:31.563055+00:00",
+  "timestamp": "2025-01-14T01:19:41.870649+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -1572,6 +1572,32 @@
       "mergeCommit": {
         "oid": "e65dff28752603c0d9b82d87d0acc8fe24e126c2"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 42,
+      "id": "PR_kwDODvYK3c6Hof1D",
+      "title": "Nits on -12 and editors' copy",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/42",
+      "state": "OPEN",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-01-14T00:27:22Z",
+      "updatedAt": "2025-01-14T01:02:47Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "e65dff28752603c0d9b82d87d0acc8fe24e126c2",
+      "headRepository": "cabo/groupcomm-bis",
+      "headRefName": "nits-12",
+      "headRefOid": "d3301a609daa29e44cbfef5b9d241d0b344cd943",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
