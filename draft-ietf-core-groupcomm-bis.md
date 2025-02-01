@@ -29,15 +29,6 @@ author:
         country: Netherlands
         email: esko.dijk@iotconsultancy.nl
       -
-        ins: C. Wang
-        name: Chonggang Wang
-        org: InterDigital
-        street: 1001 E Hector St, Suite 300
-        city: Conshohocken
-        code: PA 19428
-        country: United States
-        email: Chonggang.Wang@InterDigital.com
-      -
         ins: M. Tiloca
         name: Marco Tiloca
         org: RISE AB
