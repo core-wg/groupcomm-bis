@@ -20,6 +20,11 @@ venue:
   mail: core@ietf.org
   github: core-wg/groupcomm-bis
 
+v3xml2rfc:
+  silence:
+  - Found SVG with width or height specified
+
+
 author:
       -
         ins: E. Dijk
