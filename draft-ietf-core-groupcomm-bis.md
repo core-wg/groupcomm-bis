@@ -538,7 +538,7 @@ Another method to more easily meet the above constraint is to instantiate multip
 ### Client Handling of Multiple Responses With Same Token ### {#sec-request-response-multi}
 Since a client sending a group request with a Token T will accept multiple responses with the same Token T, it is possible in particular that the same server sends multiple responses with the same Token T back to the client. For example, this server might not implement the optional CoAP message deduplication based on Message ID; or it might be acting out of specification as a malicious, compromised or faulty server.
 
-When this happens, it is up to the specific client implementation at which layer deduplication of responses is performed, or whether it is necessary in an application at all. If the processing of a response is successful, the client delivers the response to the application as usual.
+When this happens, it is up to the specific client implementation to decide at which layer deduplication of responses is performed, or whether it is necessary in an application at all. If the processing of a response is successful, the client delivers the response to the application as usual.
 
 The application itself can be in a good position to decide what to do, depending on the available context information. For instance, it might accept and process all the responses from the same server, even if they are not Observe notifications (i.e., they do not include an Observe option). Alternatively, the application might accept and process only one of those responses, such as the most recent one from that server, e.g., when this can trigger a change of state within the application.
 
@@ -550,7 +550,7 @@ CoAP endpoints that are members of a CoAP group MAY cache responses to a group r
 
 Furthermore, building on what is defined in {{Section 8.2.1 of RFC7252}}:
 
-* A client sending a GET or FETCH group request MAY update a cache with the responses from the servers in the CoAP group. Then, the client uses both cached-still-fresh and new responses as the result of the group request.
+* A client sending a GET or FETCH group request MAY update a cache with the responses from the servers in the CoAP group. With such a cache, the client uses both cached-still-fresh and new responses as the result of further group requests.
 
 * A client sending a GET or FETCH group request MAY use a response received from a server, to satisfy a subsequent sent request intended to that server on the related unicast request URI. In particular, the unicast request URI is obtained by replacing the authority component of the request URI with the transport-layer source address of the cached response message.
 
@@ -603,7 +603,7 @@ A server that is a member of a CoAP group listens for CoAP request messages on t
 
 One way to create multiple CoAP groups is using different UDP ports with the same IP multicast address, in case the devices' network stack only supports a limited number of multicast address subscriptions. However, it must be taken into account that this incurs additional processing overhead on each CoAP server participating in at least one of these groups: messages to groups that are not of interest to the node are only discarded at the higher transport (UDP) layer instead of directly at the network (IP) layer. Also, a constrained network may be additionally burdened in this case with multicast traffic that is eventually discarded at the UDP layer by most nodes.
 
-The port number 5684 is reserved for DTLS-secured unicast CoAP and MUST NOT be used for any CoAP group communication.
+The port number 5684 is dedicated for DTLS-secured unicast CoAP and MUST NOT be used for any CoAP group communication.
 
 For a CoAP server node that supports resource discovery as defined in {{Section 2.4 of RFC7252}}, the default port number 5683 MUST be supported (see {{Section 7.1 of RFC7252}}) for the "All CoAP Nodes" CoAP group as detailed in {{sec-transport}}.
 
@@ -905,7 +905,7 @@ For all the above cases, more details on using Group OSCORE are defined in {{I-D
 
 # Security Considerations # {#chap-security-considerations}
 
-This section provides security considerations for CoAP group communication, in general and for the particular transport of IP multicast.
+This section provides security considerations for CoAP group communication, in general and in particular when using IP multicast.
 
 ## CoAP NoSec Mode ## {#chap-security-considerations-nosec-mode}
 
@@ -934,7 +934,7 @@ The same security considerations from {{Section 13 of I-D.ietf-core-oscore-group
 
 ### Group Key Management ### {#chap-security-considerations-sec-mode-key-mgmt}
 
-A key management scheme for secure revocation and renewal of group security material, namely group rekeying, is required to be adopted in OSCORE groups. The key management scheme has to preserve forward security in the OSCORE group, as well as backward security if this is required by the application (see {{chap-sec-group-maintenance}}). In particular, the key management scheme MUST comply with the functional steps defined in {{Section 12.2 of I-D.ietf-core-oscore-groupcomm}}.
+Group rekeying, that is, a key management scheme for secure revocation and renewal of group security material, is required to be adopted in OSCORE groups. The key management scheme has to preserve forward security in the OSCORE group, as well as backward security if this is required by the application (see {{chap-sec-group-maintenance}}). In particular, the key management scheme MUST comply with the functional steps defined in {{Section 12.2 of I-D.ietf-core-oscore-groupcomm}}.
 
 Even though security group policies vary depending on the specific applications and their security requirements, they SHOULD also take into account:
 
@@ -946,7 +946,7 @@ Even though security group policies vary depending on the specific applications 
 
 In particular, it can be desirable to not rekey the OSCORE group upon every single membership change, in case group members frequently join and leave, and at the same time a single group rekeying instance takes a non-negligible time to complete.
 
-In such a case, the Group Manager can cautiously consider to rekey the OSCORE group, e.g., after a minimum number of nodes has joined or left the group within a pre-defined time interval, or according to communication patterns with predictable time intervals of network inactivity. This would prevent from paralyzing communications in the OSCORE group, when a slow rekeying scheme is used and frequently invoked.
+In such a case, the Group Manager can cautiously consider to rekey the OSCORE group, e.g., after a minimum number of nodes has joined or left the group within a pre-defined time interval, or according to communication patterns with predictable time intervals of network inactivity. This would prevent a slow rekeying scheme that is frequently invoked from paralyzing communications in the OSCORE group.
 
 At the same time, the security implications of delaying the rekeying process have to be carefully considered and understood before employing such security group policies.
 
@@ -960,7 +960,7 @@ To this end, outgoing messages are either signed by the message sender endpoint 
 
 Thus, both modes allow a recipient CoAP endpoint to verify that a message has actually been originated and sent by a specific and identified CoAP endpoint as a member of the OSCORE group.
 
-Note that Group OSCORE does not protect the addressing information about the CoAP endpoint that has sent the message, e.g., the source IP address and port number used when sending the message. Therefore, Group OSCORE does not provide authentication of such source addressing information.
+Note that Group OSCORE does not protect the addressing information about the CoAP endpoint that has sent the message, e.g., the source IP address and port number used when sending the message. In particular, Group OSCORE does not provide authentication of such source addressing information.
 
 ### Countering Attacks ### {#chap-security-considerations-sec-mode-attacks}
 
@@ -990,7 +990,7 @@ As discussed below, Group OSCORE addresses a number of security attacks mentione
 
 * Group OSCORE does not require members of an OSCORE group to be equipped with a good source of entropy for generating security material (see {{Section 11.6 of RFC7252}}), and thus does not contribute to create an entropy-related attack vector against such (constrained) CoAP endpoints. In particular, the symmetric keys used for message encryption and decryption are derived through the same HMAC-based HKDF scheme used for OSCORE (see {{Section 3.2 of RFC8613}}). Besides, the OSCORE Master Secret used in such derivation is securely generated by the Group Manager responsible for the OSCORE group, and securely provided to the CoAP endpoints when they join the OSCORE group.
 
-* Group OSCORE prevents making any single member of an OSCORE group a target for subverting security in the whole group (see {{Section 11.6 of RFC7252}}), even though all group members share (and can derive) the same symmetric-key security material used in the group. In fact, source authentication is always ensured for exchanged CoAP messages, as verifiable to be originated by the alleged, identifiable sender in the OSCORE group. This relies on including a signature computed with a node's individual private key (in the group mode), or on protecting messages with a pairwise symmetric key, which is in turn derived from the asymmetric keys of the sender and recipient CoAP endpoints (in the pairwise mode).
+* Group OSCORE prevents that any single member of an OSCORE group can be used as a target for subverting security in the whole group (see {{Section 11.6 of RFC7252}}), even though all group members share (and can derive) the same symmetric-key security material used in the group. In fact, source authentication is always ensured for exchanged CoAP messages, as verifiable to be originated by the alleged, identifiable sender in the OSCORE group. This relies on including a signature computed with a node's individual private key (in the group mode), or on protecting messages with a pairwise symmetric key, which is in turn derived from the asymmetric keys of the sender and recipient CoAP endpoints (in the pairwise mode).
 
 ## Risk of Amplification ## {#ssec-amplification}
 
@@ -1014,7 +1014,7 @@ Moreover, it is especially easy to perform an amplification attack when the NoSe
 
 Besides building on very well understood security implications and being limited to specific, well-defined steps that are proven to not require security or to not be able to attain it, possible exceptions should also be limited to use cases where accesses to a group resource have a specific, narrow, and well understood scope, and where only a few CoAP servers (or, ideally, only one) would possibly respond to a group request.
 
-A relevant exceptional example is a CoAP client performing the discovery of hosts such as a group manager or a Resource Directory {{RFC9176}}, by probing for them through a group request sent to the CoAP group. This early, unprotected step is relevant for a CoAP client that does not know the address of such hosts in advance, and that does not have yet configured a mutual security relation with them. In this kind of deployments, such a discovery procedure does not result in a considerable and harmful amplification, since only the few CoAP servers that are the object of discovery are going to respond to the group request targeting that specific resource. In particular, those hosts can be the only CoAP servers in that specific CoAP group (hence listening for group requests sent to that group), and/or the only CoAP servers explicitly configured to respond to group requests targeting specific group resources.
+A relevant exceptional example is a CoAP client performing the discovery of hosts such as a group manager or a Resource Directory {{RFC9176}}, by probing for them through a group request sent to the CoAP group. This early, unprotected step is relevant for a CoAP client that does not know the address of such hosts in advance, and that does not yet have configured a mutual security relation with them. In this kind of deployments, such a discovery procedure does not result in a considerable and harmful amplification, since only the few CoAP servers that are the object of discovery are going to respond to the group request targeting that specific resource. In particular, those hosts can be the only CoAP servers in that specific CoAP group (hence listening for group requests sent to that group), and/or the only CoAP servers explicitly configured to respond to group requests targeting specific group resources.
 
 With the exception of such particular use cases, group communications MUST be secured using Group OSCORE {{I-D.ietf-core-oscore-groupcomm}}, see {{chap-oscore}}. As discussed in {{chap-security-considerations-sec-mode-attacks}}, this limits the feasibility and impact of amplification attacks.
 
@@ -1071,7 +1071,7 @@ In a home automation scenario using Wi-Fi, Wi-Fi security
 
    CoAP traffic is typically used for the Internet of Things, and CoAP (multicast) group communication may specifically be used for conveniently controlling and monitoring critical infrastructure (e.g., lights, alarms, HVAC, electrical grid, etc.).
 
-   However, this may be a prime target of pervasive monitoring attacks {{RFC7258}}, which have to be considered as a key additional threat for group communication. For example, an attacker may attempt to record all the CoAP traffic going over a smart grid (i.e., networked electrical utility) and try to determine critical nodes for further attacks. For instance, the source node (controller) sends out CoAP group messages, which easily identifies it as a controller.
+   This may make it a prime target of pervasive monitoring attacks {{RFC7258}}, which have to be considered as a key additional threat for group communication. For example, an attacker may attempt to record all the CoAP traffic going over a smart grid (i.e., networked electrical utility) and try to determine critical nodes for further attacks. For instance, the source node (controller) sends out CoAP group messages, which easily identifies it as a controller.
 
    CoAP group communication built on top of IP multicast is inherently more vulnerable compared to communications solely relying on IP unicast, since the same packet may be replicated over many multiple links. In particular, this yields a higher probability of packet capture by a pervasive monitoring system, which in turn results in more information available to analyze within the same time interval. Moreover, a single CoAP group request potentially results in multiple CoAP responses, thus further contributing to the information available to analyze.
 
@@ -1123,7 +1123,7 @@ To properly monitor the status of systems, there may be a need for ad-hoc, unpla
 In some cases, a whole network or subnet of multiple IP devices needs to be queried for status or other information. This is similar to the previous use case except that the set of devices is not defined in terms of its function/type but in terms of its network location. Technically this is also similar to distributed service discovery ({{sec-uc-sd}}) where a query is processed by all devices on a network -- except that the query is not about services offered by the device, but rather specific operational data is requested.
 
 ### Network-wide / Group Notification ###
-In some cases, a whole network, or subnet of multiple IP devices, or a specific target set of devices needs to be notified of a status change or other information. This is similar to the previous two use cases except that the recipients are not expected to respond with some information. Unreliable notification can be acceptable in some use cases, in which a recipient does not respond with a confirmation of having received the notification. In such a case, the receiving CoAP server does not have to create a CoAP response. If the sender needs confirmation of reception, the CoAP servers can be configured for that resource to respond with a 2.xx success status after processing a notification request successfully.
+In some cases, a whole network, or subnet of multiple IP devices, or a specific target set of devices needs to be notified of a status change or other information. This is similar to the previous two use cases except that the recipients are not expected to respond with some information. Unreliable notification can be acceptable in some use cases, in which a recipient does not respond with a confirmation of having received the notification. In such a case, the receiving CoAP server does not have to create a CoAP response. If the sender needs confirmation of reception, the CoAP servers can be configured for that resource to respond with a 2.xx success status after processing a request successfully that provided a notification.
 
 ## Software Update ##
 Group communication can be useful to efficiently distribute new software (firmware, image, application, etc.) to a set of multiple devices, e.g., by relying on the SUIT firmware update architecture {{RFC9019}} and its manifest information model {{RFC9124}}. In this case, a CoAP group can be defined in terms of the device type of its members: all devices in the target CoAP group are known to be capable of installing and running the new software. The software is distributed as a series of smaller blocks that are collected by all devices and stored in memory. All devices in the target CoAP group are usually responsible for integrity verification of the received software; which can be done per-block or for the entire software image once all blocks have been received. Due to the inherent unreliability of CoAP multicast, there needs to be a backup mechanism (e.g., implemented using CoAP unicast) by which a device can individually request missing blocks of a whole software image/entity. Prior to a multicast software update, the CoAP group of recipients can be separately notified that there is new software available and coming, using the above network-wide or group notification.
