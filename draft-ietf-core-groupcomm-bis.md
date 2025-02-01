@@ -930,7 +930,7 @@ Group OSCORE provides end-to-end application-level security. This has many desir
 
 CoAP group communication MUST be protected by using Group OSCORE as specified in {{I-D.ietf-core-oscore-groupcomm}}, with the possible exception of specific, well-defined steps that are proven to not require security or to not be able to attain it (e.g., early discovery).
 
-The same security considerations from {{Section 13 of I-D.ietf-core-oscore-groupcomm}} hold for this specification.
+The security considerations from {{Section 13 of I-D.ietf-core-oscore-groupcomm}} hold for this specification.
 
 ### Group Key Management ### {#chap-security-considerations-sec-mode-key-mgmt}
 
@@ -950,7 +950,7 @@ In such a case, the Group Manager can cautiously consider to rekey the OSCORE gr
 
 At the same time, the security implications of delaying the rekeying process have to be carefully considered and understood before employing such security group policies.
 
-In fact, this comes at the cost of not continuously preserving backward and forward security, since group rekeying might not occur upon every single change in the OSCORE group membership. That is, most recently joined nodes would have access to the security material used prior to their joining, and thus be able to access past group communications protected with that security material. Similarly, until the OSCORE group is rekeyed, most recently left nodes would retain access to group communications protected with the existing security material.
+In fact, this comes at the cost of not continuously preserving backward and forward security, since group rekeying might not occur upon every single change in the OSCORE group membership. That is, recently joined nodes would have access to the security material used prior to their joining, and thus be able to access past group communications protected with that security material. Similarly, until the OSCORE group is rekeyed, recently left nodes would retain access to group communications protected with the existing security material.
 
 ### Source Authentication ### {#chap-security-considerations-sec-mode-sauth}
 
@@ -968,7 +968,7 @@ As discussed below, Group OSCORE addresses a number of security attacks mentione
 
 * Since Group OSCORE provides end-to-end confidentiality and integrity of request/response messages, proxies capable of group communication cannot break message protection, and thus cannot act as meddler-in-the-middle beyond their legitimate duties (see {{Section 11.2 of RFC7252}}). In fact, intermediaries such as proxies are not assumed to have access to the OSCORE Security Context used by OSCORE group members. Also, with the notable addition of signatures for the group mode, Group OSCORE protects messages using the same procedure as OSCORE (see {{Sections 7 and 8 of I-D.ietf-core-oscore-groupcomm}}), and especially processes CoAP options according to the same classification in U/I/E classes.
 
-* Group OSCORE limits the feasibility and impact of amplification attacks (see {{ssec-amplification}} of this document and {{Section 11.3 of RFC7252}}), thanks to the handling of protected group requests on the server side. That is, upon receiving a group request protected with Group OSCORE, a server verifies whether the request is not a replay, and whether it has been originated and sent by the alleged CoAP endpoint in the OSCORE group.
+* Group OSCORE limits the feasibility and impact of amplification attacks (see {{ssec-amplification}} of this document and {{Section 11.3 of RFC7252}}), thanks to the handling of protected group requests on the server side. That is, upon receiving a group request protected with Group OSCORE, a server verifies whether the request is not a replay, and whether it has been originated by the alleged CoAP endpoint in the OSCORE group.
 
    In order to perform the latter check of source authentication, the server either: i) verifies the signature included in the request by using the public key of the client, when the request is protected using the group mode (see {{Section 7.2 of I-D.ietf-core-oscore-groupcomm}}); or ii) decrypts and verifies the request by means of an additionally derived pairwise key associated with the client, when the request is protected using the pairwise mode (see {{Section 8.4 of I-D.ietf-core-oscore-groupcomm}}).
 
