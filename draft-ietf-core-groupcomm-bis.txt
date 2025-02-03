@@ -4,11 +4,10 @@
 
 CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
-Obsoletes: 7390 (if approved)                                    C. Wang
-Updates: 7252, 7641 (if approved)                           InterDigital
-Intended status: Standards Track                               M. Tiloca
-Expires: 24 April 2025                                           RISE AB
-                                                         21 October 2024
+Obsoletes: 7390 (if approved)                                  M. Tiloca
+Updates: 7252, 7641 (if approved)                                RISE AB
+Intended status: Standards Track                         3 February 2025
+Expires: 7 August 2025
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -57,11 +56,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 April 2025.
+   This Internet-Draft will expire on 7 August 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -2904,25 +2903,25 @@ Table of Contents
               Tiloca, M., Höglund, R., Van der Stok, P., and F.
               Palombini, "Admin Interface for the OSCORE Group Manager",
               Work in Progress, Internet-Draft, draft-ietf-ace-oscore-
-              gm-admin-12, 8 July 2024,
+              gm-admin-13, 8 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-ace-
-              oscore-gm-admin-12>.
+              oscore-gm-admin-13>.
 
    [I-D.ietf-anima-constrained-voucher]
               Richardson, M., Van der Stok, P., Kampanakis, P., and E.
               Dijk, "Constrained Bootstrapping Remote Secure Key
               Infrastructure (cBRSKI)", Work in Progress, Internet-
-              Draft, draft-ietf-anima-constrained-voucher-25, 8 July
-              2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              anima-constrained-voucher-25>.
+              Draft, draft-ietf-anima-constrained-voucher-26, 8 January
+              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              anima-constrained-voucher-26>.
 
    [I-D.ietf-core-coap-pubsub]
               Jimenez, J., Koster, M., and A. Keränen, "A publish-
               subscribe architecture for the Constrained Application
               Protocol (CoAP)", Work in Progress, Internet-Draft, draft-
-              ietf-core-coap-pubsub-15, 21 October 2024,
+              ietf-core-coap-pubsub-16, 28 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              coap-pubsub-15>.
+              coap-pubsub-16>.
 
    [I-D.ietf-core-groupcomm-proxy]
               Tiloca, M. and E. Dijk, "Proxy Operations for CoAP Group
@@ -2934,17 +2933,17 @@ Table of Contents
    [I-D.ietf-core-transport-indication]
               Amsüss, C. and M. S. Lenders, "CoAP Transport Indication",
               Work in Progress, Internet-Draft, draft-ietf-core-
-              transport-indication-06, 8 July 2024,
+              transport-indication-07, 21 October 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              transport-indication-06>.
+              transport-indication-07>.
 
    [I-D.irtf-t2trg-amplification-attacks]
               Mattsson, J. P., Selander, G., and C. Amsüss,
               "Amplification Attacks Using the Constrained Application
               Protocol (CoAP)", Work in Progress, Internet-Draft, draft-
-              irtf-t2trg-amplification-attacks-03, 21 February 2024,
+              irtf-t2trg-amplification-attacks-04, 8 December 2024,
               <https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-
-              amplification-attacks-03>.
+              amplification-attacks-04>.
 
    [I-D.tiloca-core-oscore-discovery]
               Tiloca, M., Amsüss, C., and P. Van der Stok, "Discovery of
@@ -4231,14 +4230,6 @@ Authors' Addresses
    Utrecht
    Netherlands
    Email: esko.dijk@iotconsultancy.nl
-
-
-   Chonggang Wang
-   InterDigital
-   1001 E Hector St, Suite 300
-   Conshohocken,  PA 19428
-   United States
-   Email: Chonggang.Wang@InterDigital.com
 
 
    Marco Tiloca
