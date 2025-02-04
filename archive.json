@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-02T01:24:59.199436+00:00",
+  "timestamp": "2025-02-04T01:21:13.491249+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -1580,52 +1580,110 @@
       "id": "PR_kwDODvYK3c6Hof1D",
       "title": "Nits on -12 and editors' copy",
       "url": "https://github.com/core-wg/groupcomm-bis/pull/42",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "cabo",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-01-14T00:27:22Z",
-      "updatedAt": "2025-02-01T17:00:18Z",
+      "updatedAt": "2025-02-03T11:43:04Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "e65dff28752603c0d9b82d87d0acc8fe24e126c2",
       "headRepository": "cabo/groupcomm-bis",
       "headRefName": "nits-12",
       "headRefOid": "56a2184b818b247e84eac7387cc0bf4d066cec0c",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-02-03T11:43:04Z",
+      "mergedAt": "2025-02-03T11:43:04Z",
+      "mergedBy": "EskoDijk",
+      "mergeCommit": {
+        "oid": "d92eb12b340ed78a41e963b99fb7f9f410282988"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDODvYK3c6aShQX",
+          "commit": {
+            "abbreviatedOid": "56a2184"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-02T12:48:49Z",
+          "updatedAt": "2025-02-02T12:48:49Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDODvYK3c6aWwOe",
+          "commit": {
+            "abbreviatedOid": "56a2184"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks @cabo for the comments! Will merge these now.",
+          "createdAt": "2025-02-03T11:42:47Z",
+          "updatedAt": "2025-02-03T11:42:47Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 43,
       "id": "PR_kwDODvYK3c6JvNxY",
       "title": "Update author list as discussed with chairs and the contributor.",
       "url": "https://github.com/core-wg/groupcomm-bis/pull/43",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "cabo",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-02-01T17:20:27Z",
-      "updatedAt": "2025-02-01T17:20:27Z",
+      "updatedAt": "2025-02-03T11:33:54Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "e65dff28752603c0d9b82d87d0acc8fe24e126c2",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "author-list",
       "headRefOid": "9367e8925de3ddfbb3310b29e6955ce541b8e816",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-02-03T11:33:46Z",
+      "mergedAt": "2025-02-03T11:33:46Z",
+      "mergedBy": "EskoDijk",
+      "mergeCommit": {
+        "oid": "40130ecb4d06140aba41ea40995d21d22ed81ca6"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDODvYK3c6aSew1",
+          "commit": {
+            "abbreviatedOid": "9367e89"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-02T11:59:44Z",
+          "updatedAt": "2025-02-02T11:59:44Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDODvYK3c6aWrxZ",
+          "commit": {
+            "abbreviatedOid": "9367e89"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-03T11:33:21Z",
+          "updatedAt": "2025-02-03T11:33:21Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
