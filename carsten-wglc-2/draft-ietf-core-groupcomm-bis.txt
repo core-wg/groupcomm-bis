@@ -1228,9 +1228,9 @@ Table of Contents
    might accept and process all the responses from the same server, even
    if they are not Observe notifications (i.e., they do not include an
    Observe option).  Alternatively, the application might accept and
-   process only one of those responses, such as the most recent one from
-   that server, e.g., when this can trigger a change of state within the
-   application.
+   process only one of those responses, such as the one that is deemed
+   to be the most recent one from that server, e.g., when this can
+   trigger a change of state within the application.
 
    As part of a long exchange between the client and any of the servers
    in the CoAP group, the responses considered above are examples of the
