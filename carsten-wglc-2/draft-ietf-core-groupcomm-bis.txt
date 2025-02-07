@@ -778,8 +778,8 @@ Table of Contents
    to configure group addresses from are ff1x::/16 and ff3x::/16.
 
    To create an application group, a configuring entity may configure a
-   resource (name) or a set of resources on CoAP endpoints, such that a
-   CoAP request sent to a group URI by a configured CoAP client will be
+   resource or a set of resources on CoAP endpoints, such that a CoAP
+   request sent to a group URI by a configured CoAP client will be
    processed by one or more CoAP servers that have the matching URI path
    configured.  These servers are the members of the application group.
 
