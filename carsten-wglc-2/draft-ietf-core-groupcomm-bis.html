@@ -2754,7 +2754,7 @@ As noted above, the server may additionally rely on the Echo Option for CoAP def
         </h3>
 <p id="section-6.5-1">When CoAP group communication is used in CoAP NoSec (No Security)
 mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section 4</a>), the CoAP No-Response Option <span>[<a href="#RFC7967" class="cite xref">RFC7967</a>]</span> could be misused by a malicious client to evoke as many responses from servers to a group request as possible, by using the value '0' -- Interested in all responses. This might even override the default behavior of a CoAP server to suppress the response in case there is nothing of interest to respond with. Therefore, this option can be used to perform an amplification attack (see <a href="#ssec-amplification" class="auto internal xref">Section 6.3</a>).<a href="#section-6.5-1" class="pilcrow">¶</a></p>
-<p id="section-6.5-2">A proposed mitigation is to only allow this option to relax the standard suppression rules for a resource in case the option is sent by an authenticated client. If sent by an unauthenticated client, the option can be used to expand the classes of responses suppressed compared to the default rules but not to reduce the classes of responses suppressed.<a href="#section-6.5-2" class="pilcrow">¶</a></p>
+<p id="section-6.5-2">As a mitigation, a server that takes into account the No-Response Option <span class="bcp14">SHOULD</span> relax the standard suppression rules for a resource only in case the option is sent by an authenticated client. Consequently, if sent by an unauthenticated client, the option can still be used to expand the classes of responses suppressed compared to the default rules, but not to reduce the classes of responses suppressed.<a href="#section-6.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-security-considerations-6lowpan-mpl">
@@ -4292,7 +4292,10 @@ That is, the client needs to preserve the Token value used for the request also 
             <p id="appendix-G.1-1.3.1">Added further alternative to follow-up with group requests using the Block2 Option.<a href="#appendix-G.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.4">
-            <p id="appendix-G.1-1.4.1">Editorial improvements.<a href="#appendix-G.1-1.4.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.4.1">Recommended use of a mitigation against abuses of the No-Response Option.<a href="#appendix-G.1-1.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-G.1-1.5">
+            <p id="appendix-G.1-1.5.1">Editorial improvements.<a href="#appendix-G.1-1.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
