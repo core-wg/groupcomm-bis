@@ -422,7 +422,7 @@ The following discusses a number of methods to discover application groups and C
 
   As exclusively intended to support examples throughout this document, the following considers such values for the attribute "rt" to have the semantics "g.\<GROUPTYPE\>", where GROUPTYPE denotes the type of the application group in question.
 
-  To be effectively usable, such Resource Type values have to be registered in the "Resource Type (rt=) Link Target Attribute Values" IANA registry {{Resource.Type.Link.Target.Attribute.Values}} within the "Constrained RESTful Environments (CoRE) Parameters" registry group.
+  Resource Type values can be registered in the "Resource Type (rt=) Link Target Attribute Values" IANA registry {{Resource.Type.Link.Target.Attribute.Values}} within the "Constrained RESTful Environments (CoRE) Parameters" registry group. While relying on registered Resource Type values is not strictly necessary, it is encouraged in order to ensure a more effective discovery of application groups and CoAP groups.
 
 Full examples for the different methods are provided in {{sec-examples-group-discovery}}.
 
@@ -1268,7 +1268,7 @@ As a result, the client gains knowledge of: i) the set of servers that are membe
 
 Each of the servers S1 and S2 is identified by the IP source address of the CoAP response. If the client wishes to discover resources that a particular server hosts within a particular application group, it may use unicast discovery request(s) to this server, i.e., to its respective unicast IP address. Alternatively the client may use the discovered group resource type (e.g., rt=g.light) to infer which resources are present below the group resource.
 
-The semantics "g.\<GROUPTYPE\>" for the values of the attribute "rt" is exclusively intended to support examples in this document. To be effectively usable, such Resource Type values have to be registered in the "Resource Type (rt=) Link Target Attribute Values" IANA registry {{Resource.Type.Link.Target.Attribute.Values}} within the "Constrained RESTful Environments (CoRE) Parameters" registry group.
+The semantics "g.\<GROUPTYPE\>" for the values of the attribute "rt" is exclusively intended to support examples in this document.
 
 ~~~~~~~~~~~
 
@@ -1358,7 +1358,7 @@ Also note that a server could equally well respond with the literal IPv6 multica
 
 {{fig-app-gp-discovery-example4}} provides an example where a CoAP client discovers the CoAP servers that are members of any application group configured in the 6LoWPAN wireless mesh network of the client, and the CoAP group associated with each application group. In this example, the scope is realm-local to address all servers in the current 6LoWPAN wireless mesh network of the client.
 
-The semantics "g.\<GROUPTYPE\>" for the values of the attribute "rt" is exclusively intended to support examples in this document. To be effectively usable, such Resource Type values have to be registered in the "Resource Type (rt=) Link Target Attribute Values" IANA registry {{Resource.Type.Link.Target.Attribute.Values}} within the "Constrained RESTful Environments (CoRE) Parameters" registry group.
+The semantics "g.\<GROUPTYPE\>" for the values of the attribute "rt" is exclusively intended to support examples in this document.
 
 ~~~~~~~~~~~
 
@@ -1722,6 +1722,12 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
+
+## Version -12 to -13 ## {#sec-12-13}
+
+* Registering Resource Type values is not strictly required.
+
+* Editorial improvements.
 
 ## Version -11 to -12 ## {#sec-11-12}
 
