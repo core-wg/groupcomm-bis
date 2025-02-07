@@ -874,8 +874,8 @@ Table of Contents
    *  The type of an application group is encoded in the value of the
       CoRE Link Format attribute "rt" of a group resource.
 
-      As exclusively intended to support examples throughout this
-      document, the following considers such values for the attribute
+      As exclusively intended to support the examples presented in the
+      following, this document considers such values for the attribute
       "rt" to have the semantics "g.<GROUPTYPE>", where GROUPTYPE
       denotes the type of the application group in question.
 
