@@ -416,7 +416,7 @@ These particular details concerning the GET request depend on the specific disco
 
 The following discusses a number of methods to discover application groups and CoAP groups, building on the following assumptions.
 
-* Application group names are encoded in the path component of Group URIs (see {{sec-groupnaming-app}}), using the path segment "gp" as designated delimiter.
+* Application group names are encoded in the path component of Group URIs (see {{sec-groupnaming-app}}). As exclusively intended to support examples throughout this document, the path segment "gp" is used as designated delimiter.
 
 * The type of an application group is encoded in the value of the CoRE Link Format attribute "rt" of a group resource.
 
@@ -1726,6 +1726,8 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 ## Version -12 to -13 ## {#sec-12-13}
 
 * Registering Resource Type values is not strictly required.
+
+* Higlighted what is used simply as an example.
 
 * Editorial improvements.
 
