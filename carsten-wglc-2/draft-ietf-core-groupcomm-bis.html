@@ -2093,7 +2093,7 @@ Full examples are provided in <a href="#sec-examples-group-discovery-4" class="a
 <a href="#section-3.1.1" class="section-number selfRef">3.1.1. </a><a href="#name-general" class="section-name selfRef">General</a>
           </h4>
 <p id="section-3.1.1-1">A CoAP client is an endpoint able to transmit CoAP requests and receive CoAP responses. Since the underlying UDP transport supports multiplexing by means of UDP port number, there can be multiple independent CoAP clients operational on a single host. On each UDP port, an independent CoAP client can be hosted. Each independent CoAP client sends requests that use the associated endpoint's UDP port number as the UDP source port number of the request.<a href="#section-3.1.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.1.1-2">All CoAP requests that are sent via IP multicast <span class="bcp14">MUST</span> be Non-confirmable, see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-8.1" class="relref">Section 8.1</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>.  The Message ID in an IP multicast CoAP message is used for optional message deduplication by both clients and servers, as detailed in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-4.5" class="relref">Section 4.5</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>. A server sends back a unicast response to a CoAP group request. The unicast responses received by the CoAP client may carry a mixture of success (e.g., 2.05 (Content)) and failure (e.g., 4.04 (Not Found)) response codes, depending on the individual server processing results.<a href="#section-3.1.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.1.1-2">All CoAP requests that are sent via IP multicast <span class="bcp14">MUST</span> be Non-confirmable, see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-8.1" class="relref">Section 8.1</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>.  The Message ID in an IP multicast CoAP message is used for optional message deduplication by both clients and servers, as detailed in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-4.5" class="relref">Section 4.5</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>. A server <span class="bcp14">MAY</span> send one or more responses to a CoAP group request; these are always unicast messages. The unicast responses received by the CoAP client may carry a mixture of success (e.g., 2.05 (Content)) and failure (e.g., 4.04 (Not Found)) response codes, depending on the individual server processing results.<a href="#section-3.1.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-request-response-suppress">
@@ -4298,7 +4298,7 @@ That is, the client needs to preserve the Token value used for the request also 
             <p id="appendix-G.1-1.5.1">Given more context around priorized packet forwarding in 6LoWPAN.<a href="#appendix-G.1-1.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.6">
-            <p id="appendix-G.1-1.6.1">Editorial improvements.<a href="#appendix-G.1-1.6.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.6.1">Clarifications and editorial improvements.<a href="#appendix-G.1-1.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
