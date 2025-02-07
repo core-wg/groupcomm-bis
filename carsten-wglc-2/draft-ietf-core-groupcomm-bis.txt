@@ -1356,11 +1356,13 @@ Table of Contents
    server within the ETag value, where the ID is unique (or unique with
    a high probability) in the scope of the CoAP/application groups.
 
-   Note: a legacy CoAP server might treat an ETag Option in a group
-   request as an unrecognized option per Sections 5.4 and 8.2.1 of
-   [RFC7252], causing it to ignore this (elective) ETag Option
-   regardless of its value, and process the request normally as if that
-   ETag Option was not included.
+   Note: a CoAP server implementation that is unaware of the updates to
+   [RFC7252] made by this document will expect group requests to never
+   contain an ETag Option (see Section 8.2.1 of [RFC7252]).  Such a
+   server treats an ETag Option in a group request as an unrecognized
+   option per Sections 5.4 and 8.2.1 of [RFC7252], causing it to ignore
+   this (elective) ETag Option regardless of its value, and process the
+   request normally as if that ETag Option was not included.
 
 3.3.  URI Path Selection
 
