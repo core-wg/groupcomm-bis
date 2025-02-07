@@ -420,7 +420,7 @@ The following discusses a number of methods to discover application groups and C
 
 * The type of an application group is encoded in the value of the CoRE Link Format attribute "rt" of a group resource.
 
-  As exclusively intended to support examples throughout this document, the following considers such values for the attribute "rt" to have the semantics "g.\<GROUPTYPE\>", where GROUPTYPE denotes the type of the application group in question.
+  As exclusively intended to support the examples presented in the following, this document considers such values for the attribute "rt" to have the semantics "g.\<GROUPTYPE\>", where GROUPTYPE denotes the type of the application group in question.
 
   Resource Type values can be registered in the "Resource Type (rt=) Link Target Attribute Values" IANA registry {{Resource.Type.Link.Target.Attribute.Values}} within the "Constrained RESTful Environments (CoRE) Parameters" registry group. While relying on registered Resource Type values is not strictly necessary, it is encouraged in order to ensure a more effective discovery of application groups and CoAP groups.
 
