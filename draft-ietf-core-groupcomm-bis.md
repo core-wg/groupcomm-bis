@@ -178,11 +178,11 @@ This document updates {{RFC7641}} as follows.
 
 * It defines the use of the CoAP Observe Option in group requests, for both the GET method and the FETCH method {{RFC8132}}, together with normative behavior for both CoAP clients and CoAP servers (see {{sec-observe}}).
 
-# Group Definition and Group Configuration # {#chap-general-groupcomm}
+# Types of Groups and Their Configuration # {#chap-general-groupcomm}
 
 In the following, different group types are first defined in {{sec-groupdef}}. Then, Group configuration, including group creation and maintenance by an application, user, or commissioning entity is considered in {{sec-groupconf}}.
 
-## Group Definition ## {#sec-groupdef}
+## Types of Groups ## {#sec-groupdef}
 Three types of groups and their mutual relations are defined in this section: CoAP group, application group, and security group.
 
 ### CoAP Group ## {#sec-groupdef-coapgroup}
