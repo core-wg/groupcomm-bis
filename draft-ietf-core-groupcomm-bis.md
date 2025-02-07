@@ -702,7 +702,7 @@ A client that sends a group GET or FETCH request with the Observe Option MAY rep
 
 A client that has sent a group GET or FETCH request with the Observe Option MAY follow up by sending a new unicast CON request with the same Token value and same Observe Option value to a particular server, in order to ensure that the particular server receives the request. This is useful in case a specific member of the CoAP group did not respond to the initial group request, although it was expected to. In this case, the client MUST use a Message ID that differs from that of the initial group request message.
 
-Since the first Observe notification from a server can be lost, a client should be ready to start receiving the Observe notifications from a server long after the Non-confirmable group request with the Observe Option was sent.
+Since the first Observe notification from a server can be lost, a client SHOULD be ready to begin receiving the Observe notifications from a server long after the Non-confirmable group request with the Observe Option was sent.
 
 At the same time, the loss of initial responses with the Observe Option from a server is less problematic than in the case where the group request is a regular request, i.e., when the request does not include the Observe Option. That is, as per {{Section 4.5 of RFC7641}}, servers that have registered a client as an observer have to ensure that the client achieves eventual consistency with respect to the representation of the observed resource. This realistically relies on the sending of new Observe notifications, which are occasionally expected to be sent as Confirmable messages also in order to assess client aliveness (see below).
 
