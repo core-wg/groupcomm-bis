@@ -83,7 +83,7 @@ Table of Contents
        2.1.1.  CoAP Group
        2.1.2.  Application Group
        2.1.3.  Security Group
-       2.1.4.  Relations Between Group Types
+       2.1.4.  Relationships Between Group Types
      2.2.  Group Configuration
        2.2.1.  Group Naming
        2.2.2.  Group Creation and Membership
@@ -333,8 +333,8 @@ Table of Contents
 
 2.1.  Types of Groups
 
-   Three types of groups and their mutual relations are defined in this
-   section: CoAP group, application group, and security group.
+   Three types of groups and their mutual relationships are defined in
+   this section: CoAP group, application group, and security group.
 
 2.1.1.  CoAP Group
 
@@ -370,9 +370,9 @@ Table of Contents
    endpoint that sends a group communication message to an application
    group is not necessarily itself a member of this application group.
 
-   There can be a one-to-one or a one-to-many relation between a CoAP
-   group and application group(s).  Such relations are discussed in more
-   detail in Section 2.1.4.
+   There can be a one-to-one or a one-to-many relationship between a
+   CoAP group and application group(s).  Such relationships are
+   discussed in more detail in Section 2.1.4.
 
    An application group name may be explicitly encoded in the group URI
    of a CoAP request, for example in the URI path component.  If this is
@@ -395,11 +395,11 @@ Table of Contents
    message sent to that group.  An endpoint may be a member of multiple
    security groups.
 
-   There can be a many-to-many relation between security groups and CoAP
-   groups, but often it is one-to-one.  Also, there can be a many-to-
-   many relation between security groups and application groups, but
-   often it is one-to-one.  Such relations are discussed in more detail
-   in Section 2.1.4.
+   There can be a many-to-many relationship between security groups and
+   CoAP groups, but often it is one-to-one.  Also, there can be a many-
+   to-many relationship between security groups and application groups,
+   but often it is one-to-one.  Such relationships are discussed in more
+   detail in Section 2.1.4.
 
    Further details on identifying a security group are provided in
    Section 2.2.1.3.
@@ -408,7 +408,7 @@ Table of Contents
    not rely on security at the transport layer nor at the CoAP layer,
    hence the communicating endpoints do not refer to a security group.
 
-2.1.4.  Relations Between Group Types
+2.1.4.  Relationships Between Group Types
 
    Using the above group type definitions, a CoAP group communication
    message sent by an endpoint can be associated with a tuple that
@@ -416,7 +416,7 @@ Table of Contents
 
    (application group, CoAP group, security group)
 
-   A special note is appropriate about the possible relation between
+   A special note is appropriate about the possible relationship between
    security groups and application groups.
 
    On one hand, multiple application groups may use the same security
@@ -453,7 +453,7 @@ Table of Contents
    separately enforced by leveraging the resource properties or through
    dedicated access control credentials assessed by separate means.
 
-   Figure 1 summarizes the relations between the different types of
+   Figure 1 summarizes the relationships between the different types of
    groups described above in Unified Modeling Language (UML) class
    diagram notation.  The class attributes in square brackets are
    optionally defined.
@@ -480,11 +480,11 @@ Table of Contents
                                               |                       |
                                               +-----------------------+
 
-              Figure 1: Relations Among Different Group Types
+            Figure 1: Relationships Among Different Group Types
 
-   Figure 2 provides a deployment example of the relations between the
-   different types of groups.  It shows six CoAP servers (Srv1-Srv6) and
-   their respective resources hosted (/resX).  Although in real-life
+   Figure 2 provides a deployment example of the relationships between
+   the different types of groups.  It shows six CoAP servers (Srv1-Srv6)
+   and their respective resources hosted (/resX).  Although in real-life
    deployments using group communication the number of servers and
    resources would usually be higher, only limited numbers are shown
    here for ease of representation.
@@ -664,7 +664,7 @@ Table of Contents
       Because the CoAP group is also defined by the same authority
       component (see Section 2.2.1.1), a given CoAP group always maps to
       exactly one application group.  (See Section 2.1.4 for background
-      on group relations.)
+      on group relationships.)
 
       Note that the host subcomponent within the authority component of
       the Group URI can be a group hostname, or an IP address literal.
@@ -1298,7 +1298,7 @@ Table of Contents
 
    How the client in the case above determines the CoAP servers that are
    currently members of the CoAP group is out of scope for this
-   document.  It may be, for example, via a group manager server, or by
+   document.  It may be, for example, via a Group Manager, or by
    monitoring group joining protocol exchanges.
 
    For caching at proxies, the freshness model defined in
@@ -1396,7 +1396,7 @@ Table of Contents
    incurs additional processing overhead on each CoAP server
    participating in at least one of these groups: messages to groups
    that are not of interest to the node are only discarded at the higher
-   transport (UDP) layer instead of directly at the network (IP) layer.
+   transport (UDP) layer instead of directly at the Internet (IP) layer.
    Also, a constrained network may be additionally burdened in this case
    with multicast traffic that is eventually discarded at the UDP layer
    by most nodes.
@@ -2251,14 +2251,14 @@ Table of Contents
    implemented.  The case of end-to-end security is the same as for the
    forward-proxy case.
 
-   The case of hop-by-hop security is only possible if the proxy can be
-   completely trusted and it is configured as a member of the OSCORE
-   security group(s) that it needs to access, when sending a group
-   request on behalf of clients.  As further clarified below, the first
-   communication leg between the client and the proxy, on one hand, and
-   the second communication leg between the proxy and the servers, on
-   the other hand, are protected individually and independently of one
-   another.
+   The case of hop-by-hop security is only possible if the proxy is
+   considered trustworthy in sending a group request on behalf of
+   clients and it is configured as a member of the OSCORE security
+   group(s) that it needs to access.  As further clarified below, the
+   first communication leg between the client and the proxy, on one
+   hand, and the second communication leg between the proxy and the
+   servers, on the other hand, are protected individually and
+   independently of one another.
 
    The first leg of communication between client and proxy is then
    protected with a security method for CoAP unicast, such as (D)TLS,
@@ -2304,17 +2304,17 @@ Table of Contents
    mode or equivalent unsecured mode is used.  In such a discovery step,
    there may be a querying device that needs to discover nearby devices
    capable of helping it with the network onboarding process.  But there
-   are no mutual security relations configured on the querying device
-   and its neighbor devices at the time it performs the early discovery.
-   These relations are configured later in the process based on secure
-   device identities.  Alternatively, a new device to be onboarded may
-   wait for advertisements of nearby devices able to help it do the
-   network onboarding process.  Also in this case, these messages cannot
-   be secured initially because the new device does not yet have any
-   security relation configured with devices that are already a member
-   of the network.  See [I-D.ietf-anima-constrained-voucher] for an
-   example of an onboarding protocol that can use CoAP multicast for
-   early link-local discovery.
+   are no mutual security relationships configured on the querying
+   device and its neighbor devices at the time it performs the early
+   discovery.  These relationships are configured later in the process
+   based on secure device identities.  Alternatively, a new device to be
+   onboarded may wait for advertisements of nearby devices able to help
+   it do the network onboarding process.  Also in this case, these
+   messages cannot be secured initially because the new device does not
+   yet have any security relationship configured with devices that are
+   already a member of the network.  See
+   [I-D.ietf-anima-constrained-voucher] for an example of an onboarding
+   protocol that can use CoAP multicast for early link-local discovery.
 
    As a further example, the NoSec mode may be useful in simple
    applications that neither involve nor may have an impact on sensitive
@@ -2611,11 +2611,11 @@ Table of Contents
    respond to a group request.
 
    A relevant exceptional example is a CoAP client performing the
-   discovery of hosts such as a group manager or a Resource Directory
+   discovery of hosts such as a Group Manager or a Resource Directory
    [RFC9176], by probing for them through a group request sent to the
    CoAP group.  This early, unprotected step is relevant for a CoAP
    client that does not know the address of such hosts in advance, and
-   that does not yet have configured a mutual security relation with
+   that does not yet have configured a mutual security relationship with
    them.  In this kind of deployments, such a discovery procedure does
    not result in a considerable and harmful amplification, since only
    the few CoAP servers that are the object of discovery are going to
@@ -3086,17 +3086,16 @@ Appendix A.  Use Cases
 
 A.1.  Discovery
 
-   Discovery of physical devices in a network, or discovery of
-   information entities hosted on network devices, are operations that
-   are usually required in a system during the phases of setup or
-   (re)configuration.  When a discovery use case involves devices that
-   need to interact without having been configured previously with a
-   common security context, unsecured CoAP communication is typically
-   used.  Discovery may involve a request to a directory server, which
-   provides services to aid clients in the discovery process.  One
-   particular type of directory server is the CoRE Resource Directory
-   [RFC9176]; and there may be other types of directories that can be
-   used with CoAP.
+   Discovery of physical devices in a network, or discovery of resources
+   hosted on network devices, are operations that are usually required
+   in a system during the phases of setup or (re)configuration.  When a
+   discovery use case involves devices that need to interact without
+   having been configured previously with a common security context,
+   unsecured CoAP communication is typically used.  Discovery may
+   involve a request to a directory server, which provides services to
+   aid clients in the discovery process.  One particular type of
+   directory server is the CoRE Resource Directory [RFC9176]; and there
+   may be other types of directories that can be used with CoAP.
 
 A.1.1.  Distributed Device Discovery
 
@@ -3967,8 +3966,8 @@ Appendix F.  Issues and Limitations with Reverse-Proxies
       preconfiguration, then an explicit signaling of the time period in
       the client's request as defined in [I-D.ietf-core-groupcomm-proxy]
       is not necessarily needed.  Note that a reverse-proxy is in an
-      explicit relation with the origin servers it stands in for.  Thus,
-      compared to a forward-proxy, it has a much better basis for
+      explicit relationship with the origin servers it stands in for.
+      Thus, compared to a forward-proxy, it has a much better basis for
       determining and configuring such time durations.
 
    *  A client that is configured to access a reverse-proxy resource
@@ -4055,7 +4054,7 @@ G.2.  Version -11 to -12
    *  Admitted resource retrieval through consecutive group requests
       with the Block2 Option.
 
-   *  Clarified relation with TCP/TLS/WebSockets.
+   *  Clarified relationship with TCP/TLS/WebSockets.
 
    *  Clarified security on the different legs with a proxy.
 
@@ -4172,7 +4171,7 @@ G.9.  Version -04 to -05
 
    *  Clarified changes to other documents.
 
-   *  Clarified relation between different group types.
+   *  Clarified relationship between different group types.
 
    *  Clarified discovery of application groups.
 
@@ -4225,7 +4224,8 @@ G.11.  Version -02 to -03
 
 G.12.  Version -01 to -02
 
-   *  Clarified relation between security groups and application groups.
+   *  Clarified relationship between security groups and application
+      groups.
 
    *  Considered also FETCH for requests over IP multicast.
 
