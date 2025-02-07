@@ -495,6 +495,8 @@ The CoAP No-Response Option {{RFC7967}} can be used by a client to influence the
 Any default response suppression by a server SHOULD be performed consistently, as follows: if a request on a resource produces a particular Response Code and this response is not suppressed, then another request on the same resource that produces a response of the same Response Code class (see {{Section 3 of RFC7252}}) is also not suppressed. For example, if a 4.05 (Method Not Allowed) error response code is suppressed by default on a resource, then a 4.15 Unsupported Content-Format error response code is also suppressed by default for that resource.
 
 ### Repeating a Request ###
+Group requests sent over IP multicast generally have much higher loss rates than messages sent over unicast, particularly in constrained networks. Therefore, it is more urgent to have a strategy in place for handling the loss of group requests than the loss of unicast responses. To this end, CoAP clients can rely on the following two approaches.
+
 A CoAP client MAY repeat a group request using the same Token value and same Message ID value, in order to ensure that enough (or all) members of the CoAP group have been reached with the request. This is useful in case a number of members of the CoAP group did not respond to the initial request and the client suspects that the request did not reach these group members. However, in case one or more servers did receive the initial request but the response to that request was lost, this repeat does not help to retrieve the lost response(s) if the server(s) implement the optional Message ID based deduplication ({{Section 4.5 of RFC7252}}).
 
 A CoAP client MAY repeat a group request using a different Message ID (and the same or a different Token value), in which case all servers that received the initial request will again process the repeated request since it appears within a new CoAP message. This is useful in case a client suspects that one or more response(s) to its original request were lost and the client needs to collect more, or even all, responses from members of the CoAP group, even if this comes at the cost of the overhead of certain group members responding twice (once to the original request, and once to the repeated request with different Message ID).
@@ -1732,6 +1734,8 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 * Higlighted what is used simply as an example.
 
 * Added further alternative to follow-up with group requests using the Block2 Option.
+
+* Justified importance of possibly repeating requests.
 
 * Recommended use of a mitigation against abuses of the No-Response Option.
 
