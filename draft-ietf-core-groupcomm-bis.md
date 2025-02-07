@@ -529,7 +529,9 @@ When securing CoAP group communication with Group OSCORE {{I-D.ietf-core-oscore-
 Another method to more easily meet the above constraint is to instantiate multiple CoAP clients at multiple UDP ports on the same host. The Token values only have to be unique within the context of a single CoAP client, so using multiple clients can make it easier to meet the constraint.
 
 ### Client Handling of Multiple Responses With Same Token ### {#sec-request-response-multi}
-Since a client sending a group request with a Token T will accept multiple responses with the same Token T, it is possible in particular that the same server sends multiple responses with the same Token T back to the client. For example, this server might not implement the optional CoAP message deduplication based on Message ID; or it might be acting out of specification as a malicious, compromised or faulty server.
+Since a client sending a group request with a Token T will accept multiple responses with the same Token T, it is possible in particular that the same server sends multiple responses with the same Token T back to the client.
+
+For example, if the client sends a group request specifying the Observe option set to 0 (see {{Section 3.1 of RFC7641}}) and this server adds the client to the list of observers for the targeted resource, then the server will send multiple responses as Observe notifications to notify the client of changes to the resource state (see {{Section 4.2 of RFC7641}}). The use of Observe with group communication is discussed in more details in {{sec-observe}}. As an alternative example, this server might not implement the optional CoAP message deduplication based on Message ID; or it might be acting out of specification as a malicious, compromised or faulty server.
 
 When this happens, it is up to the specific client implementation to decide at which layer deduplication of responses is performed, or whether it is necessary in an application at all. If the processing of a response is successful, the client delivers the response to the application as usual.
 
@@ -1736,6 +1738,8 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 * Added further alternative to follow-up with group requests using the Block2 Option.
 
 * Justified importance of possibly repeating requests.
+
+* Explicitly mentioned Observe as a reason for follow-on responses.
 
 * Recommended use of a mitigation against abuses of the No-Response Option.
 
