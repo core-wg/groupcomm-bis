@@ -1075,8 +1075,9 @@ Table of Contents
    The CoAP No-Response Option [RFC7967] can be used by a client to
    influence the default response suppression on the server side.  It is
    RECOMMENDED that a server supporting this option only takes it into
-   account when processing requests targeting selected resources, as
-   useful in the application context.
+   account when processing requests that target resources for which
+   influencing the default suppression has been predetermined to be
+   appropriate, as useful in the application context.
 
    Any default response suppression by a server SHOULD be performed
    consistently, as follows: if a request on a resource produces a
