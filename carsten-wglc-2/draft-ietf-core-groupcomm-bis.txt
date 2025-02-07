@@ -1698,7 +1698,7 @@ Table of Contents
    differs from that of the initial group request message.
 
    Since the first Observe notification from a server can be lost, a
-   client should be ready to start receiving the Observe notifications
+   client SHOULD be ready to begin receiving the Observe notifications
    from a server long after the Non-confirmable group request with the
    Observe Option was sent.
 
