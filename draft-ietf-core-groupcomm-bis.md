@@ -406,7 +406,7 @@ When secure communication is provided with Group OSCORE (see {{chap-oscore}}), t
 
 In particular, the responsible OSCORE Group Manager registers its security groups to the RD, as links to its own corresponding resources for joining the security groups {{I-D.ietf-ace-key-groupcomm-oscore}}. Later on, CoAP endpoints can discover the names of the registered security groups and related application groups, by using the lookup interface of the RD, and then join the security group through the respective Group Manager.
 
-#### Discovery from the CoAP Servers ### {#sssec-discovery-from-servers}
+#### Discovery from the CoAP Servers of an Application/CoAP Group ### {#sssec-discovery-from-servers}
 
 It is possible for CoAP endpoints to discover application groups and CoAP groups from the CoAP servers that are members of such groups, by using a GET request targeting the /.well-known/core resource.
 
