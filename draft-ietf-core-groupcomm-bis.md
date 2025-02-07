@@ -720,13 +720,15 @@ For observing at servers that are members of a CoAP group through a CoAP-to-CoAP
 
 {{Section 2.8 of RFC7959}} specifies how a client can use block-wise transfer (Block2 Option) in a multicast GET request to limit the size of the initial response of each server. Consistent with {{Section 2.5 of RFC8132}}, the same can be done with a multicast FETCH request.
 
-To retrieve any further blocks of the resource from responding servers, the client can rely on two possible approaches.
+If a client sends a multicast GET or FETCH request including a Block2 Option with a block number of 0, then the client can rely on two possible approaches in order to retrieve any further blocks of the resource from responding servers.
 
 1. The client uses unicast requests, separately addressing each different server.
 
-2. The client uses follow-up group requests, if all the responses received from different servers specify the same block size SIZE in their Block2 Option. In particular, SIZE can have the same value specified in the Block2 Option of the first group request, or instead a different one. If the client relies on this approach, follow-up group requests MUST specify SIZE in their Block2 Option.
+2. The client uses follow-up group requests, if all the responses received from different servers specify the same block size in their Block2 Option. In particular, such a block size can be equal to the block size specified in the Block2 Option of the first group request, or instead a smaller one. If the client relies on this approach, then the Block2 Option of follow-up group requests in the same block-wise transfer MUST specify the same block size used by all the servers in the Block2 Option of their responses.
 
-Furthermore, a server (member of a targeted CoAP group) that needs to respond to a group request with a particularly large resource can use block-wise transfer (Block2 Option) at its own initiative, to limit the size of the initial response. A client can rely on either of the two approaches above for any further requests to retrieve more blocks of the resource.
+Furthermore, a server (member of a targeted CoAP group) that needs to respond to a group request with a particularly large resource can use block-wise transfer (Block2 Option) at its own initiative, to limit the size of the initial response. That is the case when a client sends a multicast GET or FETCH request that does not include a Block2 Option.
+
+After a client receives responses that include a Block2 Option to the first group request that did not include a Block2 Option, the client can rely on either of the two approaches above for any further requests to retrieve more blocks of the resource. Alternatively, the client can compute a block size that is smaller than or equal to the smallest block size among those specified in the Block2 Option of the received responses. If the client relies on this latter approach, then the Block2 Option of follow-up group requests in the same block-wise transfer MUST specify the block size computed by the client.
 
 A solution for group/multicast block-wise transfer using the Block1 Option is not specified in {{RFC7959}} nor in the present document. Such a solution would be useful for group FETCH/PUT/POST/PATCH/iPATCH requests, to efficiently distribute a large request payload as multiple blocks to all members of a CoAP group. Multicast usage of Block1 is non-trivial due to potential message loss (leading to missing blocks or missing confirmations), and potential diverging block size preferences of different members of the CoAP group.
 
@@ -1728,6 +1730,8 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 * Registering Resource Type values is not strictly required.
 
 * Higlighted what is used simply as an example.
+
+* Added further alternative to follow-up with group requests using the Block2 Option.
 
 * Editorial improvements.
 
