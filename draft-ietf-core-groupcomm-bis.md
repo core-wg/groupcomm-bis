@@ -1024,7 +1024,7 @@ This requires a server to have a synchronized, up-to-date view of the sequence n
 When CoAP group communication is used in CoAP NoSec (No Security)
 mode (see {{chap-unsecured-groupcomm}}), the CoAP No-Response Option {{RFC7967}} could be misused by a malicious client to evoke as many responses from servers to a group request as possible, by using the value '0' -- Interested in all responses. This might even override the default behavior of a CoAP server to suppress the response in case there is nothing of interest to respond with. Therefore, this option can be used to perform an amplification attack (see {{ssec-amplification}}).
 
-A proposed mitigation is to only allow this option to relax the standard suppression rules for a resource in case the option is sent by an authenticated client. If sent by an unauthenticated client, the option can be used to expand the classes of responses suppressed compared to the default rules but not to reduce the classes of responses suppressed.
+As a mitigation, a server that takes into account the No-Response Option SHOULD relax the standard suppression rules for a resource only in case the option is sent by an authenticated client. Consequently, if sent by an unauthenticated client, the option can still be used to expand the classes of responses suppressed compared to the default rules, but not to reduce the classes of responses suppressed.
 
 ## 6LoWPAN and MPL ## {#sec-security-considerations-6lowpan-mpl}
 In a 6LoWPAN network, the MPL {{RFC7731}} protocol may be used to forward multicast packets throughout the network. A 6LoWPAN Router that forwards a large IPv6 packet may have a relatively high impact on the occupation of the wireless channel because sending a large packet consists of the transmission of multiple link-layer IEEE 802.15.4 frames. Also, a constrained 6LoWPAN Router may experience a high memory load due to buffering of the large packet -- MPL requires an MPL Forwarder to store the packet for a longer duration, to allow multiple forwarding transmissions to neighboring Forwarders. This could allow an attacker on the 6LoWPAN network or outside the 6LoWPAN network to execute a Denial of Service (DoS) attack by sending large IPv6 multicast packets. This is also an amplification attack in general, because each of potentially multiple MPL Forwarder(s) repeats the transmission of the IPv6 packet potentially multiple times, hence amplifying the original amount of data sent by the attacker considerably.
@@ -1732,6 +1732,8 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 * Higlighted what is used simply as an example.
 
 * Added further alternative to follow-up with group requests using the Block2 Option.
+
+* Recommended use of a mitigation against abuses of the No-Response Option.
 
 * Editorial improvements.
 
