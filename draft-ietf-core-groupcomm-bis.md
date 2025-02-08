@@ -1137,6 +1137,8 @@ Group communication can be useful to efficiently distribute new software (firmwa
 
 This section provides examples for the different methods that can be used to name application groups, as defined in {{sec-groupnaming-app}}.
 
+The content of this section is purely illustrative and has no ambition to be comprehensive. That is, while the methods defined in {{sec-groupnaming-app}} are presented as viable to use, further viable methods might exist and can be defined in the future. Furthermore, this section does not provide guidelines on how to choose between the different methods, for which a decision is application-specific.
+
 The shown examples consider a CoAP group identified by the group hostname grp.example. Its members are CoAP servers listening to the associated IP multicast address ff35:30:2001:db8:f1::8000:1 and port number 5685.
 
 Note that a group hostname is used in most examples to improve readability. In practice, as discussed in {{sec-groupnaming-app}}, using an IP address literal as the host subcomponent of the Group URI can reduce the size of the CoAP request message, in case the Uri-Host Option can be elided.
