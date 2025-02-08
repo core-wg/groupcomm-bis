@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                         7 February 2025
-Expires: 11 August 2025
+Intended status: Standards Track                         8 February 2025
+Expires: 12 August 2025
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 August 2025.
+   This Internet-Draft will expire on 12 August 2025.
 
 Copyright Notice
 
@@ -1902,10 +1902,9 @@ Table of Contents
 
 3.9.4.  TCP, TLS, and WebSockets
 
-   Because it supports unicast only, [RFC8323] (CoAP over TCP, TLS, and
-   WebSockets) has a restricted scope as a transport for CoAP group
-   communication.  This is limited to the use of block-wise transfer
-   discussed in Section 3.8.
+   Because it supports unicast only, employing [RFC8323] (CoAP over TCP,
+   TLS, and WebSockets) as a transport for CoAP group communication is
+   limited to the use of block-wise transfer discussed in Section 3.8.
 
    That is, after the first group request including the Block2 Option
    and sent over UDP, the following unicast CoAP requests targeting
@@ -2812,9 +2811,9 @@ Table of Contents
               Tiloca, M., Selander, G., Palombini, F., Mattsson, J. P.,
               and R. Höglund, "Group Object Security for Constrained
               RESTful Environments (Group OSCORE)", Work in Progress,
-              Internet-Draft, draft-ietf-core-oscore-groupcomm-23, 26
-              September 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-core-oscore-groupcomm-23>.
+              Internet-Draft, draft-ietf-core-oscore-groupcomm-24, 8
+              February 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-core-oscore-groupcomm-24>.
 
    [Resource.Type.Link.Target.Attribute.Values]
               IANA, "Resource Type (rt=) Link Target Attribute Values",
