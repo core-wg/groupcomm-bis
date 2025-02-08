@@ -764,7 +764,7 @@ Note that a client sending an IPv4 multicast CoAP message to a port number that 
 
 ### TCP, TLS, and WebSockets ###
 
-Because it supports unicast only, {{RFC8323}} (CoAP over TCP, TLS, and WebSockets) has a restricted scope as a transport for CoAP group communication. This is limited to the use of block-wise transfer discussed in {{sec-block-wise}}.
+Because it supports unicast only, employing {{RFC8323}} (CoAP over TCP, TLS, and WebSockets) as a transport for CoAP group communication is limited to the use of block-wise transfer discussed in {{sec-block-wise}}.
 
 That is, after the first group request including the Block2 Option and sent over UDP, the following unicast CoAP requests targeting individual servers to retrieve further blocks may be sent over TCP or WebSockets, possibly protected with TLS.
 
