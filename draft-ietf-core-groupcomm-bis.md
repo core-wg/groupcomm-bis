@@ -827,7 +827,7 @@ The NoSec mode does not require and does not make use of a security group. Indic
 A CoAP server in NoSec mode MUST NOT be accessible through the public Internet.
 It is NOT RECOMMENDED to use CoAP group communication in NoSec mode.
 
-The possible, exceptional use of the NoSec mode ought to be limited to specific, well-defined steps that are proven to not require security or to not be able to attain it, e.g., early discovery of devices and resources (see {{chap-security-considerations-nosec-mode}}).
+The possible, exceptional use of the NoSec mode ought to be limited to specific, well-defined "unsecured steps" that unquestionably do not require security or are not able to attain it, e.g., early discovery of devices and resources (see {{chap-security-considerations-nosec-mode}}).
 
 Before possibly and exceptionally using the NoSec mode in such circumstances, the security implications in {{chap-security-considerations-nosec-mode}} must be very well considered and understood, especially as to the risk and impact of amplification attacks (see {{ssec-amplification}}). Consistent with such security implications, the use of the NoSec mode should still be avoided whenever possible.
 
@@ -911,7 +911,7 @@ CoAP group communication, if not protected, is vulnerable to all the attacks men
 Therefore, it is NOT RECOMMENDED to use CoAP group communication in NoSec mode, also in order to prevent proliferation of high-volume amplification attacks as further discussed in {{ssec-amplification}}.
 The requirement in {{chap-unsecured-groupcomm}} on publically accessible CoAP servers also aims to prevent amplification attacks.
 
-Exceptionally, and only after the security implications have been very well considered and understood, some applications may rely on a limited use of the NoSec mode, when performing specific, well-defined steps that are proven to not require security or to not be able to attain it.
+Exceptionally, and only after the security implications have been very well considered and understood, some applications may rely on a limited use of the NoSec mode, when performing specific, well-defined "unsecured steps" (see {{chap-unsecured-groupcomm}}).
 
 For example, early link-local discovery of devices and resources as part of an onboarding protocol is a typical use case where the NoSec mode or equivalent unsecured mode is used. In such a discovery step, there may be a querying device that needs to discover nearby devices capable of helping it with the network onboarding process. But there are no mutual security relationships configured on the querying device and its neighbor devices at the time it performs the early discovery. These relationships are configured later in the process based on secure device identities. Alternatively, a new device to be onboarded may wait for advertisements of nearby devices able to help it do the network onboarding process. Also in this case, these messages cannot be secured initially because the new device does not yet have any security relationship configured with devices that are already a member of the network. See {{I-D.ietf-anima-constrained-voucher}} for an example of an onboarding protocol that can use CoAP multicast for early link-local discovery.
 
@@ -925,7 +925,7 @@ Except for the class of applications discussed above, and all the more so in app
 
 Group OSCORE provides end-to-end application-level security. This has many desirable properties, including maintaining security assurances while forwarding traffic through intermediaries (proxies). Application-level security also tends to more cleanly separate security from the specific dynamics of security group membership (e.g., the problem of distributing security keys across large groups with many members that come and go).
 
-CoAP group communication MUST be protected by using Group OSCORE as specified in {{I-D.ietf-core-oscore-groupcomm}}, with the possible exception of specific, well-defined steps that are proven to not require security or to not be able to attain it (e.g., early discovery).
+CoAP group communication MUST be protected by using Group OSCORE as specified in {{I-D.ietf-core-oscore-groupcomm}}, with the possible exception of specific, well-defined "unsecured steps" (see {{chap-unsecured-groupcomm}}).
 
 The security considerations from {{Section 13 of I-D.ietf-core-oscore-groupcomm}} hold for this specification.
 
@@ -1009,7 +1009,7 @@ Thus, consistent with {{Section 7 of RFC7641}}, a server in a CoAP group MUST st
 
 Moreover, it is especially easy to perform an amplification attack when the NoSec mode is used. Therefore, also in order to prevent an easy proliferation of high-volume amplification attacks, it is generally NOT RECOMMENDED to use CoAP group communication in NoSec mode (see {{chap-security-considerations-nosec-mode}}).
 
-Besides building on very well understood security implications and being limited to specific, well-defined steps that are proven to not require security or to not be able to attain it, possible exceptions should also be limited to use cases where accesses to a group resource have a specific, narrow, and well understood scope, and where only a few CoAP servers (or, ideally, only one) would possibly respond to a group request.
+Besides building on very well understood security implications and being limited to specific, well-defined "unsecured steps" (see {{chap-unsecured-groupcomm}}), possible exceptions should also be limited to use cases where accesses to a group resource have a specific, narrow, and well understood scope, and where only a few CoAP servers (or, ideally, only one) would possibly respond to a group request.
 
 A relevant exceptional example is a CoAP client performing the discovery of hosts such as a Group Manager or a Resource Directory {{RFC9176}}, by probing for them through a group request sent to the CoAP group. This early, unprotected step is relevant for a CoAP client that does not know the address of such hosts in advance, and that does not yet have configured a mutual security relationship with them. In this kind of deployments, such a discovery procedure does not result in a considerable and harmful amplification, since only the few CoAP servers that are the object of discovery are going to respond to the group request targeting that specific resource. In particular, those hosts can be the only CoAP servers in that specific CoAP group (hence listening for group requests sent to that group), and/or the only CoAP servers explicitly configured to respond to group requests targeting specific group resources.
 
