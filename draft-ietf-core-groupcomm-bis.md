@@ -1473,20 +1473,20 @@ Client              A  B  C
    |                |  |  | Uri-Path: "temperature"
    |                |  |  |
    |<---------------+  |  | Source: ADDR_A:PORT_GRP
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60b1)
    |                |  |  | Token: 0x86
    |                |  |  | Payload: "22.3 C"
    |                |  |  |
-   |   X---------------+  | Source: ADDR_B:PORT_GRP
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   | Lost X <----------+  | Source: ADDR_B:PORT_GRP
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x01a0)
    |                |  |  | Token: 0x86
    |                |  |  | Payload: "20.9 C"
    |                |  |  |
    |                |  |  |
    |<---------------------+ Source: ADDR_C:PORT_C
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x952a)
    |                |  |  | Token: 0x86
    |                |  |  | Payload: "21.0 C"
@@ -1510,21 +1510,21 @@ Client              A  B  C
    |                |  |  | Uri-Path: "temperature"
    |                |  |  |
    |<---------------+  |  | Source: ADDR_A:PORT_GRP
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60b1)
    |                |  |  | Token: 0x86
    |                |  |  | Observe: 3
    |                |  |  | Payload: "22.3 C"
    |                |  |  |
    |<------------------+  | Source: ADDR_B:PORT_GRP
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x01a0)
    |                |  |  | Token: 0x86
    |                |  |  | Observe: 13
    |                |  |  | Payload: "20.9 C"
    |                |  |  |
    |<---------------------+ Source: ADDR_C:PORT_C
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x952a)
    |                |  |  | Token: 0x86
    |                |  |  | Observe: 23
@@ -1535,21 +1535,21 @@ Client              A  B  C
 
    |                |  |  |
    |<---------------+  |  | Source: ADDR_A:PORT_GRP
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60b2)
    |                |  |  | Token: 0x86
    |                |  |  | Observe: 7
    |                |  |  | Payload: "32.3 C"
    |                |  |  |
    |<------------------+  | Source: ADDR_B:PORT_GRP
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x01a1)
    |                |  |  | Token: 0x86
    |                |  |  | Observe: 18
    |                |  |  | Payload: "30.9 C"
    |                |  |  |
    |<---------------------+ Source: ADDR_C:PORT_C
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x952b)
    |                |  |  | Token: 0x86
    |                |  |  | Observe: 29
@@ -1574,27 +1574,27 @@ Client              A  B  C
    |                |  |  | Block2: 0/0/64
    |                |  |  |
    |<---------------+  |  | Source: ADDR_A:PORT_A
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60b1)
    |                |  |  | Token: 0x86
    |                |  |  | Block2: 0/1/64
    |                |  |  | Payload: 0x0a00 ...
    |                |  |  |
    |<------------------+  | Source: ADDR_B:PORT_B
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x01a0)
    |                |  |  | Token: 0x86
    |                |  |  | Block2: 0/1/64
    |                |  |  | Payload: 0x0b00 ...
    |                |  |  |
    |<---------------------+ Source: ADDR_C:PORT_C
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=NON, Code=4.04, MID=0x952a)
    |                |  |  | Token: 0x86
    |                |  |  | Block2: 0/1/64
    |                |  |  | Payload: 0x0c00 ...
    |                |  |  |
-   |      GET       |  |  |
+   |  GET           |  |  |
    +--------------->|  |  | Source: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Destination: ADDR_A:PORT_A
    |                |  |  | Header: GET (T=CON, Code=0.01, MID=0x7d42)
@@ -1605,13 +1605,13 @@ Client              A  B  C
    |                |  |  | Block2: 1/0/64
    |                |  |  |
    |<---------------+  |  | Source: ADDR_A:PORT_A
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=ACK, Code=2.05, MID=0x7d42)
    |                |  |  | Token: 0xa6
    |                |  |  | Block2: 1/1/64
    |                |  |  | Payload: 0x0a01 ...
    |                |  |  |
-   |      GET       |  |  |
+   |  GET           |  |  |
    +--------------->|  |  | Source: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Destination: ADDR_A:PORT_A
    |                |  |  | Header: GET (T=CON, Code=0.01, MID=0x7d43)
@@ -1622,13 +1622,13 @@ Client              A  B  C
    |                |  |  | Block2: 2/0/64
    |                |  |  |
    |<---------------+  |  | Source: ADDR_A:PORT_A
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=ACK, Code=2.05, MID=0x7d43)
    |                |  |  | Token: 0xa7
    |                |  |  | Block2: 2/0/64
    |                |  |  | Payload: 0x0a02 ...
    |                |  |  |
-   |      GET       |  |  |
+   |  GET           |  |  |
    +------------------>|  | Source: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Destination: ADDR_B:PORT_B
    |                |  |  | Header: GET (T=CON, Code=0.01, MID=0x7d44)
@@ -1639,13 +1639,13 @@ Client              A  B  C
    |                |  |  | Block2: 1/0/64
    |                |  |  |
    |<------------------+  | Source: ADDR_B:PORT_B
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=ACK, Code=2.05, MID=0x7d44)
    |                |  |  | Token: 0xb6
    |                |  |  | Block2: 1/1/64
    |                |  |  | Payload: 0x0b01 ...
    |                |  |  |
-   |      GET       |  |  |
+   |  GET           |  |  |
    +------------------>|  | Source: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Destination: ADDR_C:PORT_B
    |                |  |  | Header: GET (T=CON, Code=0.01, MID=0x7d45)
@@ -1656,13 +1656,13 @@ Client              A  B  C
    |                |  |  | Block2: 2/0/64
    |                |  |  |
    |<------------------+  | Source: ADDR_B:PORT_B
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=ACK, Code=2.05, MID=0x7d45)
    |                |  |  | Token: 0xb7
    |                |  |  | Block2: 2/0/64
    |                |  |  | Payload: 0x0b02 ...
    |                |  |  |
-   |      GET       |  |  |
+   |  GET           |  |  |
    +--------------------->| Source: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Destination: ADDR_C:PORT_C
    |                |  |  | Header: GET (T=CON, Code=0.01, MID=0x7d46)
@@ -1673,13 +1673,13 @@ Client              A  B  C
    |                |  |  | Block2: 1/0/64
    |                |  |  |
    |<---------------------+ Source: ADDR_C:PORT_C
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=ACK, Code=2.05, MID=0x7d46)
    |                |  |  | Token: 0xc6
    |                |  |  | Block2: 1/1/64
    |                |  |  | Payload: 0x0c01 ...
    |                |  |  |
-   |      GET       |  |  |
+   |  GET           |  |  |
    +--------------------->| Source: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Destination: ADDR_C:PORT_C
    |                |  |  | Header: GET (T=CON, Code=0.01, MID=0x7d47)
@@ -1690,7 +1690,7 @@ Client              A  B  C
    |                |  |  | Block2: 2/0/64
    |                |  |  |
    |<---------------------+ Source: ADDR_C:PORT_C
-   |      2.05      |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
+   |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=ACK, Code=2.05, MID=0x7d47)
    |                |  |  | Token: 0xc7
    |                |  |  | Block2: 2/0/64
