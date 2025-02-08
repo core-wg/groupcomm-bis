@@ -1796,9 +1796,11 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 
 ## Version -12 to -13 ## {#sec-12-13}
 
+* Updated author list.
+
 * Registering Resource Type values is not strictly required.
 
-* Higlighted what is used simply as an example.
+* Highlighted what is used simply as an example.
 
 * Added further alternative to follow-up with group requests using the Block2 Option.
 
@@ -1810,7 +1812,7 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 
 * Described the use of the Echo option like done in draft-ietf-core-oscore-groupcomm.
 
-* Given more context around priorized packet forwarding in 6LoWPAN.
+* Given more context around prioritized packet forwarding in 6LoWPAN.
 
 * Expanded considerations about replayed group requests.
 
