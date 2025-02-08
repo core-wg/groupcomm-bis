@@ -2106,9 +2106,10 @@ Table of Contents
    is, some message parts are encrypted and integrity protected; other
    parts are only integrity protected to be accessible to, but not
    modifiable by, proxies; and some parts are kept as plain content to
-   be both accessible to and modifiable by proxies.  Such differences
-   especially concern the CoAP options included in the unprotected
-   message.
+   be both accessible to and modifiable by proxies.  Section 4 of
+   [RFC8613] defines in detail if and what protection is applied to the
+   CoAP header fields, payload, and CoAP options specified in the
+   unprotected message, in accordance with their class for OSCORE.
 
    Group OSCORE [I-D.ietf-core-oscore-groupcomm] builds on OSCORE, and
    provides end-to-end security of CoAP messages exchanged between
