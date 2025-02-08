@@ -1086,8 +1086,8 @@ Table of Contents
    same Response Code class (see Section 3 of [RFC7252]) is also not
    suppressed.  For example, if a 4.05 (Method Not Allowed) error
    response code is suppressed by default on a resource, then a 4.15
-   Unsupported Content-Format error response code is also suppressed by
-   default for that resource.
+   (Unsupported Content-Format) error response code is also suppressed
+   by default for that resource.
 
 3.1.3.  Repeating a Request
 
@@ -2230,7 +2230,7 @@ Table of Contents
 5.3.  Proxy Security
 
    Different solutions may be selected for secure group communication
-   via a proxy depending on proxy type, use case and deployment
+   via a proxy depending on proxy type, use case, and deployment
    requirements.  In this section the options based on Group OSCORE are
    listed.
 
