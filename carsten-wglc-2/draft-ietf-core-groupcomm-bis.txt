@@ -3246,6 +3246,13 @@ Appendix B.  Examples of Group Naming for Application Groups
    This section provides examples for the different methods that can be
    used to name application groups, as defined in Section 2.2.1.2.
 
+   The content of this section is purely illustrative and has no
+   ambition to be comprehensive.  That is, while the methods defined in
+   Section 2.2.1.2 are presented as viable to use, further viable
+   methods might exist and can be defined in the future.  Furthermore,
+   this section does not provide guidelines on how to choose between the
+   different methods, for which a decision is application-specific.
+
    The shown examples consider a CoAP group identified by the group
    hostname grp.example.  Its members are CoAP servers listening to the
    associated IP multicast address ff35:30:2001:db8:f1::8000:1 and port
