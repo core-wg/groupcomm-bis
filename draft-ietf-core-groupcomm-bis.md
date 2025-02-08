@@ -1015,9 +1015,17 @@ A relevant exceptional example is a CoAP client performing the discovery of host
 
 With the exception of such particular use cases, group communications MUST be secured using Group OSCORE {{I-D.ietf-core-oscore-groupcomm}}, see {{chap-oscore}}. As discussed in {{chap-security-considerations-sec-mode-attacks}}, this limits the feasibility and impact of amplification attacks.
 
-## Replay of Non-Confirmable Messages ##
+## Replay of Group Requests ##
 
-Since all requests sent over IP multicast are Non-confirmable, a client might not be able to know if an adversary has actually captured one of its transmitted requests and later re-injected it in the group as a replay to the server nodes. In fact, even if the servers sent back responses to the replayed request, the client would typically not have a valid matching request active anymore, so this attack would not accomplish anything in the client.
+After a client has sent a group request over IP multicast, an adversary might capture the group request to be re-injected in the group as a replay to the server nodes. In particular:
+
+* If the adversary re-injects the group request before the client has freed up the corresponding Token value (see {{sec-token-reuse}}), the client might receive additional responses from the servers in the group.
+
+  Due to the group request being Non-confirmable and thus not eliciting Acknowledgement messages, the client might not be able to notice the attack, or to distinguish the responses that a particular server has sent as reply to the original group request (if any) or to the replayed group request.
+
+* If the adversary re-injects the group request after the client has freed up the corresponding Token value, the client would not have anymore a valid, active request matching with responses that the servers sent to the replayed group request.
+
+It follows that, in either case, this replay attack would not accomplish anything on the client, although it does effectively target the servers in the group.
 
 If Group OSCORE is used, such a replay attack on the servers is prevented, since a client protects each different request with a different Sequence Number value, which is in turn included as Partial IV in the protected message and takes part in the construction of the AEAD cipher nonce. Thus, a server would be able to detect the replayed request, by checking the conveyed Partial IV against its own replay window in the OSCORE Recipient Context associated with the client.
 
@@ -1744,6 +1752,8 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 * Recommended use of a mitigation against abuses of the No-Response Option.
 
 * Given more context around priorized packet forwarding in 6LoWPAN.
+
+* Expanded considerations about replayed group requests.
 
 * Clarifications and editorial improvements.
 
