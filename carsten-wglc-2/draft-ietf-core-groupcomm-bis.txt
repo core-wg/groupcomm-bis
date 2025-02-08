@@ -2062,9 +2062,9 @@ Table of Contents
    NoSec mode.
 
    The possible, exceptional use of the NoSec mode ought to be limited
-   to specific, well-defined steps that are proven to not require
-   security or to not be able to attain it, e.g., early discovery of
-   devices and resources (see Section 6.1).
+   to specific, well-defined "unsecured steps" that unquestionably do
+   not require security or are not able to attain it, e.g., early
+   discovery of devices and resources (see Section 6.1).
 
    Before possibly and exceptionally using the NoSec mode in such
    circumstances, the security implications in Section 6.1 must be very
@@ -2296,8 +2296,7 @@ Table of Contents
    Exceptionally, and only after the security implications have been
    very well considered and understood, some applications may rely on a
    limited use of the NoSec mode, when performing specific, well-defined
-   steps that are proven to not require security or to not be able to
-   attain it.
+   "unsecured steps" (see Section 4).
 
    For example, early link-local discovery of devices and resources as
    part of an onboarding protocol is a typical use case where the NoSec
@@ -2349,9 +2348,8 @@ Table of Contents
 
    CoAP group communication MUST be protected by using Group OSCORE as
    specified in [I-D.ietf-core-oscore-groupcomm], with the possible
-   exception of specific, well-defined steps that are proven to not
-   require security or to not be able to attain it (e.g., early
-   discovery).
+   exception of specific, well-defined "unsecured steps" (see
+   Section 4).
 
    The security considerations from Section 13 of
    [I-D.ietf-core-oscore-groupcomm] hold for this specification.
@@ -2603,12 +2601,11 @@ Table of Contents
    mode (see Section 6.1).
 
    Besides building on very well understood security implications and
-   being limited to specific, well-defined steps that are proven to not
-   require security or to not be able to attain it, possible exceptions
-   should also be limited to use cases where accesses to a group
-   resource have a specific, narrow, and well understood scope, and
-   where only a few CoAP servers (or, ideally, only one) would possibly
-   respond to a group request.
+   being limited to specific, well-defined "unsecured steps" (see
+   Section 4), possible exceptions should also be limited to use cases
+   where accesses to a group resource have a specific, narrow, and well
+   understood scope, and where only a few CoAP servers (or, ideally,
+   only one) would possibly respond to a group request.
 
    A relevant exceptional example is a CoAP client performing the
    discovery of hosts such as a Group Manager or a Resource Directory
