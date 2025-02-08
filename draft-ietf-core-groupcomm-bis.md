@@ -454,12 +454,12 @@ Full examples for the different methods are provided in {{sec-examples-group-dis
 
    A full example is provided in {{sec-examples-group-discovery-3}}.
 
-* A CoAP client can discover the CoAP servers that are members of any application group configured in the 6LoWPAN wireless mesh network of the client, the CoAP group associated with each application group, and optionally the resources that those servers host as members of the application group.
+* A CoAP client can discover the CoAP servers that are members of any application group configured in the 6LoWPAN network of the client, the CoAP group associated with each application group, and optionally the resources that those servers host as members of the application group.
 
    This is achieved by sending the GET request above with a query specifying a wildcarded group type in the URI query parameter for "rt". For example, the request can use a Group URI with path and query components "/.well-known/core?rt=g.\*", so that the query matches any application group type.
    The request is sent to the "All CoAP Nodes" IP multicast address (see {{Section 12.8 of RFC7252}}), with a particular chosen scope if IPv6 is used.
 
-   Through the corresponding responses, the query result is a list of group resources hosted by any server in the mesh network. Each group resource denotes one application group membership of a server. For each application group, the associated CoAP group is obtained as the URI authority component of the corresponding returned link.
+   Through the corresponding responses, the query result is a list of group resources hosted by any server in the 6LoWPAN network. Each group resource denotes one application group membership of a server. For each application group, the associated CoAP group is obtained as the URI authority component of the corresponding returned link.
 
    If the client wishes to discover resources that a particular server hosts within a particular application group, it may use unicast discovery request(s) to this server.
 
@@ -810,7 +810,7 @@ However, a CoAP multicast request to a CoAP group that originated outside of the
 
 * Manual configuration on each ingress MPL Forwarder.
 
-* MLDv2 protocol {{RFC3810}}, which works only in case all CoAP servers joining a CoAP group are in link-local communication range of an ingress MPL Forwarder. This is typically not the case on mesh networks.
+* MLDv2 protocol {{RFC3810}}, which works only in case all CoAP servers joining a CoAP group are in link-local communication range of an ingress MPL Forwarder.
 
 * Using 6LoWPAN Neighbor Discovery (ND) and Extended Address Registration Option (EARO) as described in {{-multicast-registration}}, in a network that supports 6LoWPAN-ND, RPL, and MPL.
 
@@ -1372,7 +1372,7 @@ Also note that a server could equally well respond with the literal IPv6 multica
 
 ## Members of any Application Group in the Network # {#sec-examples-group-discovery-4}
 
-{{fig-app-gp-discovery-example4}} provides an example where a CoAP client discovers the CoAP servers that are members of any application group configured in the 6LoWPAN wireless mesh network of the client, and the CoAP group associated with each application group. In this example, the scope is realm-local to address all servers in the current 6LoWPAN wireless mesh network of the client.
+{{fig-app-gp-discovery-example4}} provides an example where a CoAP client discovers the CoAP servers that are members of any application group configured in the 6LoWPAN network of the client, and the CoAP group associated with each application group. In this example, the scope is realm-local to address all servers in the current 6LoWPAN network of the client.
 
 The semantics "g.\<GROUPTYPE\>" for the values of the attribute "rt" is exclusively intended to support examples in this document.
 
