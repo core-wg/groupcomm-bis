@@ -2315,12 +2315,13 @@ Table of Contents
    [I-D.ietf-anima-constrained-voucher] for an example of an onboarding
    protocol that can use CoAP multicast for early link-local discovery.
 
-   As a further example, the NoSec mode may be useful in simple
-   applications that neither involve nor may have an impact on sensitive
-   data and personal information.  These include, e.g., read-only
-   temperature sensors deployed in an environment where a client reads
-   temperature values but does not use this data to control actuators or
-   to perform other automated actions.
+   As a further example, the NoSec mode may be useful and acceptable in
+   simple read-only applications that do not involve, impact, or
+   disclose sensitive data and personal information.  These include,
+   e.g., read-only temperature sensors deployed in a public gathering
+   environment, where unauthenticated clients retrieve temperature
+   values but do not use this data to control actuators or to perform
+   other automated actions.
 
    In the exception cases where NoSec mode is used, high-volume and
    harmful amplifications need to be prevented through appropriate and
