@@ -3565,34 +3565,42 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
           <p id="appendix-D-2.4.1">Three servers A, B, and C, all of which are members of the CoAP group above and of the application group "gp1". Each server X (with X equal to A, B, or C): listens to its own address ADDR_X and port number PORT_X; and listens to the address ADDR_GRP and port number PORT_GRP. For each server its PORT_X may be different from PORT_GRP or may be equal to it, in general.<a href="#appendix-D-2.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-D-3">In <a href="#fig-exchange-example" class="auto internal xref">Figure 15</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "temperature" in the application group "gp1". All servers reply with a 2.05 (Content) response, although the response from server B is lost. As source port number of their response, servers A and B use the destination port number of the request, i.e., PORT_GRP. Instead, server C uses its own port number PORT_C.<a href="#appendix-D-3" class="pilcrow">¶</a></p>
+<p id="appendix-D-3">In <a href="#fig-exchange-example" class="auto internal xref">Figure 15</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "temperature" in the application group "gp1".<a href="#appendix-D-3" class="pilcrow">¶</a></p>
 <span id="name-example-of-non-confirmable-"></span><div id="fig-exchange-example">
 <figure id="figure-15">
         <div id="appendix-D-4.1">
           <div class="alignLeft art-svg artwork" id="appendix-D-4.1.1">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="512" width="576" viewBox="0 0 576 512" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
-              <path d="M 32,48 L 32,496" fill="none" stroke="black"></path>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="736" width="576" viewBox="0 0 576 736" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+              <path d="M 32,48 L 32,192" fill="none" stroke="black"></path>
+              <path d="M 32,320 L 32,528" fill="none" stroke="black"></path>
+              <path d="M 32,608 L 32,720" fill="none" stroke="black"></path>
               <path d="M 168,48 L 168,104" fill="none" stroke="black"></path>
-              <path d="M 168,152 L 168,296" fill="none" stroke="black"></path>
-              <path d="M 168,312 L 168,408" fill="none" stroke="black"></path>
-              <path d="M 168,424 L 168,496" fill="none" stroke="black"></path>
+              <path d="M 168,152 L 168,192" fill="none" stroke="black"></path>
+              <path d="M 168,320 L 168,440" fill="none" stroke="black"></path>
+              <path d="M 168,456 L 168,528" fill="none" stroke="black"></path>
+              <path d="M 168,608 L 168,632" fill="none" stroke="black"></path>
+              <path d="M 168,648 L 168,720" fill="none" stroke="black"></path>
               <path d="M 192,48 L 192,136" fill="none" stroke="black"></path>
-              <path d="M 192,152 L 192,408" fill="none" stroke="black"></path>
-              <path d="M 192,424 L 192,496" fill="none" stroke="black"></path>
-              <path d="M 216,48 L 216,496" fill="none" stroke="black"></path>
+              <path d="M 192,152 L 192,192" fill="none" stroke="black"></path>
+              <path d="M 192,320 L 192,528" fill="none" stroke="black"></path>
+              <path d="M 192,608 L 192,632" fill="none" stroke="black"></path>
+              <path d="M 192,648 L 192,720" fill="none" stroke="black"></path>
+              <path d="M 216,48 L 216,192" fill="none" stroke="black"></path>
+              <path d="M 216,320 L 216,528" fill="none" stroke="black"></path>
+              <path d="M 216,608 L 216,720" fill="none" stroke="black"></path>
               <path d="M 32,80 L 160,80" fill="none" stroke="black"></path>
               <path d="M 112,112 L 184,112" fill="none" stroke="black"></path>
               <path d="M 128,144 L 208,144" fill="none" stroke="black"></path>
-              <path d="M 40,208 L 168,208" fill="none" stroke="black"></path>
-              <path d="M 104,304 L 192,304" fill="none" stroke="black"></path>
-              <path d="M 40,416 L 216,416" fill="none" stroke="black"></path>
+              <path d="M 40,352 L 168,352" fill="none" stroke="black"></path>
+              <path d="M 104,448 L 192,448" fill="none" stroke="black"></path>
+              <path d="M 40,640 L 216,640" fill="none" stroke="black"></path>
               <path d="M 96,80 L 128,144" fill="none" stroke="black"></path>
               <polygon class="arrowhead" points="216,144 204,138.4 204,149.6" fill="black" transform="rotate(0,208,144)"></polygon>
               <polygon class="arrowhead" points="192,112 180,106.4 180,117.6" fill="black" transform="rotate(0,184,112)"></polygon>
               <polygon class="arrowhead" points="168,80 156,74.4 156,85.6" fill="black" transform="rotate(0,160,80)"></polygon>
-              <polygon class="arrowhead" points="112,304 100,298.4 100,309.6" fill="black" transform="rotate(180,104,304)"></polygon>
-              <polygon class="arrowhead" points="48,416 36,410.4 36,421.6" fill="black" transform="rotate(180,40,416)"></polygon>
-              <polygon class="arrowhead" points="48,208 36,202.4 36,213.6" fill="black" transform="rotate(180,40,208)"></polygon>
+              <polygon class="arrowhead" points="112,448 100,442.4 100,453.6" fill="black" transform="rotate(180,104,448)"></polygon>
+              <polygon class="arrowhead" points="48,640 36,634.4 36,645.6" fill="black" transform="rotate(180,40,640)"></polygon>
+              <polygon class="arrowhead" points="48,352 36,346.4 36,357.6" fill="black" transform="rotate(180,40,352)"></polygon>
               <g class="text">
                 <text x="28" y="36">Client</text>
                 <text x="168" y="36">A</text>
@@ -3617,53 +3625,105 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
                 <text x="328" y="164">"gp1"</text>
                 <text x="264" y="180">Uri-Path:</text>
                 <text x="360" y="180">"temperature"</text>
-                <text x="256" y="212">Source:</text>
-                <text x="352" y="212">ADDR_A:PORT_GRP</text>
-                <text x="132" y="228">2.05</text>
-                <text x="276" y="228">Destination:</text>
-                <text x="424" y="228">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="244">Header:</text>
-                <text x="308" y="244">2.05</text>
-                <text x="360" y="244">(T=NON,</text>
-                <text x="436" y="244">Code=2.05,</text>
-                <text x="528" y="244">MID=0x60b1)</text>
-                <text x="252" y="260">Token:</text>
-                <text x="300" y="260">0x86</text>
-                <text x="260" y="276">Payload:</text>
-                <text x="320" y="276">"22.3</text>
-                <text x="356" y="276">C"</text>
-                <text x="60" y="308">Lost</text>
-                <text x="88" y="308">X</text>
-                <text x="256" y="308">Source:</text>
-                <text x="352" y="308">ADDR_B:PORT_GRP</text>
-                <text x="132" y="324">2.05</text>
-                <text x="276" y="324">Destination:</text>
-                <text x="424" y="324">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="340">Header:</text>
-                <text x="308" y="340">2.05</text>
-                <text x="360" y="340">(T=NON,</text>
-                <text x="436" y="340">Code=2.05,</text>
-                <text x="528" y="340">MID=0x01a0)</text>
-                <text x="252" y="356">Token:</text>
-                <text x="300" y="356">0x86</text>
-                <text x="260" y="372">Payload:</text>
-                <text x="320" y="372">"20.9</text>
-                <text x="356" y="372">C"</text>
-                <text x="256" y="420">Source:</text>
-                <text x="344" y="420">ADDR_C:PORT_C</text>
-                <text x="132" y="436">2.05</text>
-                <text x="276" y="436">Destination:</text>
-                <text x="424" y="436">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="452">Header:</text>
-                <text x="308" y="452">2.05</text>
-                <text x="360" y="452">(T=NON,</text>
-                <text x="436" y="452">Code=2.05,</text>
-                <text x="528" y="452">MID=0x952a)</text>
-                <text x="252" y="468">Token:</text>
-                <text x="300" y="468">0x86</text>
-                <text x="260" y="484">Payload:</text>
-                <text x="320" y="484">"21.0</text>
-                <text x="356" y="484">C"</text>
+                <text x="40" y="228">All</text>
+                <text x="88" y="228">servers</text>
+                <text x="144" y="228">reply</text>
+                <text x="188" y="228">with</text>
+                <text x="216" y="228">a</text>
+                <text x="244" y="228">2.05</text>
+                <text x="304" y="228">(Content)</text>
+                <text x="384" y="228">response,</text>
+                <text x="460" y="228">although</text>
+                <text x="512" y="228">the</text>
+                <text x="60" y="244">response</text>
+                <text x="116" y="244">from</text>
+                <text x="164" y="244">server</text>
+                <text x="200" y="244">B</text>
+                <text x="220" y="244">is</text>
+                <text x="256" y="244">lost.</text>
+                <text x="36" y="276">As</text>
+                <text x="76" y="276">source</text>
+                <text x="124" y="276">port</text>
+                <text x="172" y="276">number</text>
+                <text x="212" y="276">of</text>
+                <text x="248" y="276">their</text>
+                <text x="312" y="276">response,</text>
+                <text x="384" y="276">servers</text>
+                <text x="424" y="276">A</text>
+                <text x="448" y="276">and</text>
+                <text x="472" y="276">B</text>
+                <text x="496" y="276">use</text>
+                <text x="528" y="276">the</text>
+                <text x="72" y="292">destination</text>
+                <text x="140" y="292">port</text>
+                <text x="188" y="292">number</text>
+                <text x="228" y="292">of</text>
+                <text x="256" y="292">the</text>
+                <text x="308" y="292">request,</text>
+                <text x="368" y="292">i.e.,</text>
+                <text x="432" y="292">PORT_GRP.</text>
+                <text x="256" y="356">Source:</text>
+                <text x="352" y="356">ADDR_A:PORT_GRP</text>
+                <text x="132" y="372">2.05</text>
+                <text x="276" y="372">Destination:</text>
+                <text x="424" y="372">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="388">Header:</text>
+                <text x="308" y="388">2.05</text>
+                <text x="360" y="388">(T=NON,</text>
+                <text x="436" y="388">Code=2.05,</text>
+                <text x="528" y="388">MID=0x60b1)</text>
+                <text x="252" y="404">Token:</text>
+                <text x="300" y="404">0x86</text>
+                <text x="260" y="420">Payload:</text>
+                <text x="320" y="420">"22.3</text>
+                <text x="356" y="420">C"</text>
+                <text x="60" y="452">Lost</text>
+                <text x="88" y="452">X</text>
+                <text x="256" y="452">Source:</text>
+                <text x="352" y="452">ADDR_B:PORT_GRP</text>
+                <text x="132" y="468">2.05</text>
+                <text x="276" y="468">Destination:</text>
+                <text x="424" y="468">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="484">Header:</text>
+                <text x="308" y="484">2.05</text>
+                <text x="360" y="484">(T=NON,</text>
+                <text x="436" y="484">Code=2.05,</text>
+                <text x="528" y="484">MID=0x01a0)</text>
+                <text x="252" y="500">Token:</text>
+                <text x="300" y="500">0x86</text>
+                <text x="260" y="516">Payload:</text>
+                <text x="320" y="516">"20.9</text>
+                <text x="356" y="516">C"</text>
+                <text x="36" y="564">As</text>
+                <text x="76" y="564">source</text>
+                <text x="124" y="564">port</text>
+                <text x="172" y="564">number</text>
+                <text x="212" y="564">of</text>
+                <text x="240" y="564">its</text>
+                <text x="296" y="564">response,</text>
+                <text x="364" y="564">server</text>
+                <text x="400" y="564">C</text>
+                <text x="428" y="564">uses</text>
+                <text x="464" y="564">its</text>
+                <text x="496" y="564">own</text>
+                <text x="532" y="564">port</text>
+                <text x="52" y="580">number</text>
+                <text x="112" y="580">PORT_C.</text>
+                <text x="256" y="644">Source:</text>
+                <text x="344" y="644">ADDR_C:PORT_C</text>
+                <text x="132" y="660">2.05</text>
+                <text x="276" y="660">Destination:</text>
+                <text x="424" y="660">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="676">Header:</text>
+                <text x="308" y="676">2.05</text>
+                <text x="360" y="676">(T=NON,</text>
+                <text x="436" y="676">Code=2.05,</text>
+                <text x="528" y="676">MID=0x952a)</text>
+                <text x="252" y="692">Token:</text>
+                <text x="300" y="692">0x86</text>
+                <text x="260" y="708">Payload:</text>
+                <text x="320" y="708">"21.0</text>
+                <text x="356" y="708">C"</text>
               </g>
             </svg><a href="#appendix-D-4.1.1" class="pilcrow">¶</a>
 </div>
@@ -3672,47 +3732,55 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
 <a href="#name-example-of-non-confirmable-" class="selfRef">Example of Non-confirmable group request, followed by Non-confirmable Responses</a>
         </figcaption></figure>
 </div>
-<p id="appendix-D-5">In <a href="#fig-exchange-example-observe" class="auto internal xref">Figure 16</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting and requesting to observe the resource "temperature" in the application group "gp1". All servers reply with a 2.05 (Content) notification response. As source port number of their response, servers A and B use the destination port number of the request, i.e., PORT_GRP. Instead, server C uses its own port number PORT_C. Some time later, all servers send a 2.05 (Content) notification response, with the new representation of the "temperature" resource as payload.<a href="#appendix-D-5" class="pilcrow">¶</a></p>
+<p id="appendix-D-5">In <a href="#fig-exchange-example-observe" class="auto internal xref">Figure 16</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting and requesting to observe the resource "temperature" in the application group "gp1".<a href="#appendix-D-5" class="pilcrow">¶</a></p>
 <span id="name-example-of-non-confirmable-o"></span><div id="fig-exchange-example-observe">
 <figure id="figure-16">
         <div id="appendix-D-6.1">
           <div class="alignLeft art-svg artwork" id="appendix-D-6.1.1">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="960" width="576" viewBox="0 0 576 960" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
-              <path d="M 32,48 L 32,544" fill="none" stroke="black"></path>
-              <path d="M 32,608 L 32,944" fill="none" stroke="black"></path>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1232" width="576" viewBox="0 0 576 1232" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+              <path d="M 32,48 L 32,208" fill="none" stroke="black"></path>
+              <path d="M 32,320 L 32,544" fill="none" stroke="black"></path>
+              <path d="M 32,624 L 32,752" fill="none" stroke="black"></path>
+              <path d="M 32,864 L 32,1216" fill="none" stroke="black"></path>
               <path d="M 168,48 L 168,104" fill="none" stroke="black"></path>
-              <path d="M 168,152 L 168,328" fill="none" stroke="black"></path>
-              <path d="M 168,344 L 168,440" fill="none" stroke="black"></path>
-              <path d="M 168,456 L 168,544" fill="none" stroke="black"></path>
-              <path d="M 168,608 L 168,728" fill="none" stroke="black"></path>
-              <path d="M 168,744 L 168,840" fill="none" stroke="black"></path>
-              <path d="M 168,856 L 168,944" fill="none" stroke="black"></path>
+              <path d="M 168,152 L 168,208" fill="none" stroke="black"></path>
+              <path d="M 168,320 L 168,456" fill="none" stroke="black"></path>
+              <path d="M 168,472 L 168,544" fill="none" stroke="black"></path>
+              <path d="M 168,624 L 168,648" fill="none" stroke="black"></path>
+              <path d="M 168,664 L 168,752" fill="none" stroke="black"></path>
+              <path d="M 168,864 L 168,1000" fill="none" stroke="black"></path>
+              <path d="M 168,1016 L 168,1112" fill="none" stroke="black"></path>
+              <path d="M 168,1128 L 168,1216" fill="none" stroke="black"></path>
               <path d="M 192,48 L 192,136" fill="none" stroke="black"></path>
-              <path d="M 192,152 L 192,440" fill="none" stroke="black"></path>
-              <path d="M 192,456 L 192,544" fill="none" stroke="black"></path>
-              <path d="M 192,608 L 192,840" fill="none" stroke="black"></path>
-              <path d="M 192,856 L 192,944" fill="none" stroke="black"></path>
-              <path d="M 216,48 L 216,544" fill="none" stroke="black"></path>
-              <path d="M 216,608 L 216,944" fill="none" stroke="black"></path>
+              <path d="M 192,152 L 192,208" fill="none" stroke="black"></path>
+              <path d="M 192,320 L 192,544" fill="none" stroke="black"></path>
+              <path d="M 192,624 L 192,648" fill="none" stroke="black"></path>
+              <path d="M 192,664 L 192,752" fill="none" stroke="black"></path>
+              <path d="M 192,864 L 192,1112" fill="none" stroke="black"></path>
+              <path d="M 192,1128 L 192,1216" fill="none" stroke="black"></path>
+              <path d="M 216,48 L 216,208" fill="none" stroke="black"></path>
+              <path d="M 216,320 L 216,544" fill="none" stroke="black"></path>
+              <path d="M 216,624 L 216,752" fill="none" stroke="black"></path>
+              <path d="M 216,864 L 216,1216" fill="none" stroke="black"></path>
               <path d="M 32,80 L 160,80" fill="none" stroke="black"></path>
               <path d="M 112,112 L 184,112" fill="none" stroke="black"></path>
               <path d="M 128,144 L 208,144" fill="none" stroke="black"></path>
-              <path d="M 40,224 L 168,224" fill="none" stroke="black"></path>
-              <path d="M 40,336 L 192,336" fill="none" stroke="black"></path>
-              <path d="M 40,448 L 216,448" fill="none" stroke="black"></path>
-              <path d="M 40,624 L 168,624" fill="none" stroke="black"></path>
-              <path d="M 40,736 L 192,736" fill="none" stroke="black"></path>
-              <path d="M 40,848 L 216,848" fill="none" stroke="black"></path>
+              <path d="M 40,352 L 168,352" fill="none" stroke="black"></path>
+              <path d="M 40,464 L 192,464" fill="none" stroke="black"></path>
+              <path d="M 40,656 L 216,656" fill="none" stroke="black"></path>
+              <path d="M 40,896 L 168,896" fill="none" stroke="black"></path>
+              <path d="M 40,1008 L 192,1008" fill="none" stroke="black"></path>
+              <path d="M 40,1120 L 216,1120" fill="none" stroke="black"></path>
               <path d="M 96,80 L 128,144" fill="none" stroke="black"></path>
               <polygon class="arrowhead" points="216,144 204,138.4 204,149.6" fill="black" transform="rotate(0,208,144)"></polygon>
               <polygon class="arrowhead" points="192,112 180,106.4 180,117.6" fill="black" transform="rotate(0,184,112)"></polygon>
               <polygon class="arrowhead" points="168,80 156,74.4 156,85.6" fill="black" transform="rotate(0,160,80)"></polygon>
-              <polygon class="arrowhead" points="48,848 36,842.4 36,853.6" fill="black" transform="rotate(180,40,848)"></polygon>
-              <polygon class="arrowhead" points="48,736 36,730.4 36,741.6" fill="black" transform="rotate(180,40,736)"></polygon>
-              <polygon class="arrowhead" points="48,624 36,618.4 36,629.6" fill="black" transform="rotate(180,40,624)"></polygon>
-              <polygon class="arrowhead" points="48,448 36,442.4 36,453.6" fill="black" transform="rotate(180,40,448)"></polygon>
-              <polygon class="arrowhead" points="48,336 36,330.4 36,341.6" fill="black" transform="rotate(180,40,336)"></polygon>
-              <polygon class="arrowhead" points="48,224 36,218.4 36,229.6" fill="black" transform="rotate(180,40,224)"></polygon>
+              <polygon class="arrowhead" points="48,1120 36,1114.4 36,1125.6" fill="black" transform="rotate(180,40,1120)"></polygon>
+              <polygon class="arrowhead" points="48,1008 36,1002.4 36,1013.6" fill="black" transform="rotate(180,40,1008)"></polygon>
+              <polygon class="arrowhead" points="48,896 36,890.4 36,901.6" fill="black" transform="rotate(180,40,896)"></polygon>
+              <polygon class="arrowhead" points="48,656 36,650.4 36,661.6" fill="black" transform="rotate(180,40,656)"></polygon>
+              <polygon class="arrowhead" points="48,464 36,458.4 36,469.6" fill="black" transform="rotate(180,40,464)"></polygon>
+              <polygon class="arrowhead" points="48,352 36,346.4 36,357.6" fill="black" transform="rotate(180,40,352)"></polygon>
               <g class="text">
                 <text x="28" y="36">Client</text>
                 <text x="168" y="36">A</text>
@@ -3740,113 +3808,177 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
                 <text x="328" y="180">"gp1"</text>
                 <text x="264" y="196">Uri-Path:</text>
                 <text x="360" y="196">"temperature"</text>
-                <text x="256" y="228">Source:</text>
-                <text x="352" y="228">ADDR_A:PORT_GRP</text>
-                <text x="132" y="244">2.05</text>
-                <text x="276" y="244">Destination:</text>
-                <text x="424" y="244">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="260">Header:</text>
-                <text x="308" y="260">2.05</text>
-                <text x="360" y="260">(T=NON,</text>
-                <text x="436" y="260">Code=2.05,</text>
-                <text x="528" y="260">MID=0x60b1)</text>
-                <text x="252" y="276">Token:</text>
-                <text x="300" y="276">0x86</text>
-                <text x="260" y="292">Observe:</text>
-                <text x="304" y="292">3</text>
-                <text x="260" y="308">Payload:</text>
-                <text x="320" y="308">"22.3</text>
-                <text x="356" y="308">C"</text>
-                <text x="256" y="340">Source:</text>
-                <text x="352" y="340">ADDR_B:PORT_GRP</text>
-                <text x="132" y="356">2.05</text>
-                <text x="276" y="356">Destination:</text>
-                <text x="424" y="356">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="372">Header:</text>
-                <text x="308" y="372">2.05</text>
-                <text x="360" y="372">(T=NON,</text>
-                <text x="436" y="372">Code=2.05,</text>
-                <text x="528" y="372">MID=0x01a0)</text>
-                <text x="252" y="388">Token:</text>
-                <text x="300" y="388">0x86</text>
-                <text x="260" y="404">Observe:</text>
-                <text x="308" y="404">13</text>
-                <text x="260" y="420">Payload:</text>
-                <text x="320" y="420">"20.9</text>
-                <text x="356" y="420">C"</text>
-                <text x="256" y="452">Source:</text>
-                <text x="344" y="452">ADDR_C:PORT_C</text>
-                <text x="132" y="468">2.05</text>
-                <text x="276" y="468">Destination:</text>
-                <text x="424" y="468">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="484">Header:</text>
-                <text x="308" y="484">2.05</text>
-                <text x="360" y="484">(T=NON,</text>
-                <text x="436" y="484">Code=2.05,</text>
-                <text x="528" y="484">MID=0x952a)</text>
-                <text x="252" y="500">Token:</text>
-                <text x="300" y="500">0x86</text>
-                <text x="260" y="516">Observe:</text>
-                <text x="308" y="516">23</text>
-                <text x="260" y="532">Payload:</text>
-                <text x="320" y="532">"21.0</text>
-                <text x="356" y="532">C"</text>
-                <text x="36" y="580">//</text>
-                <text x="64" y="580">The</text>
-                <text x="128" y="580">temperature</text>
-                <text x="208" y="580">changes</text>
-                <text x="256" y="580">...</text>
-                <text x="256" y="628">Source:</text>
-                <text x="352" y="628">ADDR_A:PORT_GRP</text>
-                <text x="132" y="644">2.05</text>
-                <text x="276" y="644">Destination:</text>
-                <text x="424" y="644">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="660">Header:</text>
-                <text x="308" y="660">2.05</text>
-                <text x="360" y="660">(T=NON,</text>
-                <text x="436" y="660">Code=2.05,</text>
-                <text x="528" y="660">MID=0x60b2)</text>
-                <text x="252" y="676">Token:</text>
-                <text x="300" y="676">0x86</text>
-                <text x="260" y="692">Observe:</text>
-                <text x="304" y="692">7</text>
-                <text x="260" y="708">Payload:</text>
-                <text x="320" y="708">"32.3</text>
-                <text x="356" y="708">C"</text>
-                <text x="256" y="740">Source:</text>
-                <text x="352" y="740">ADDR_B:PORT_GRP</text>
-                <text x="132" y="756">2.05</text>
-                <text x="276" y="756">Destination:</text>
-                <text x="424" y="756">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="772">Header:</text>
-                <text x="308" y="772">2.05</text>
-                <text x="360" y="772">(T=NON,</text>
-                <text x="436" y="772">Code=2.05,</text>
-                <text x="528" y="772">MID=0x01a1)</text>
-                <text x="252" y="788">Token:</text>
-                <text x="300" y="788">0x86</text>
-                <text x="260" y="804">Observe:</text>
-                <text x="308" y="804">18</text>
-                <text x="260" y="820">Payload:</text>
-                <text x="320" y="820">"30.9</text>
-                <text x="356" y="820">C"</text>
-                <text x="256" y="852">Source:</text>
-                <text x="344" y="852">ADDR_C:PORT_C</text>
-                <text x="132" y="868">2.05</text>
-                <text x="276" y="868">Destination:</text>
-                <text x="424" y="868">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="884">Header:</text>
-                <text x="308" y="884">2.05</text>
-                <text x="360" y="884">(T=NON,</text>
-                <text x="436" y="884">Code=2.05,</text>
-                <text x="528" y="884">MID=0x952b)</text>
-                <text x="252" y="900">Token:</text>
-                <text x="300" y="900">0x86</text>
-                <text x="260" y="916">Observe:</text>
-                <text x="308" y="916">29</text>
-                <text x="260" y="932">Payload:</text>
-                <text x="320" y="932">"31.0</text>
-                <text x="356" y="932">C"</text>
+                <text x="40" y="244">All</text>
+                <text x="88" y="244">servers</text>
+                <text x="144" y="244">reply</text>
+                <text x="188" y="244">with</text>
+                <text x="216" y="244">a</text>
+                <text x="244" y="244">2.05</text>
+                <text x="304" y="244">(Content)</text>
+                <text x="396" y="244">notification</text>
+                <text x="488" y="244">response.</text>
+                <text x="36" y="276">As</text>
+                <text x="76" y="276">source</text>
+                <text x="124" y="276">port</text>
+                <text x="172" y="276">number</text>
+                <text x="212" y="276">of</text>
+                <text x="248" y="276">their</text>
+                <text x="312" y="276">response,</text>
+                <text x="384" y="276">servers</text>
+                <text x="424" y="276">A</text>
+                <text x="448" y="276">and</text>
+                <text x="472" y="276">B</text>
+                <text x="496" y="276">use</text>
+                <text x="528" y="276">the</text>
+                <text x="72" y="292">destination</text>
+                <text x="140" y="292">port</text>
+                <text x="188" y="292">number</text>
+                <text x="228" y="292">of</text>
+                <text x="256" y="292">the</text>
+                <text x="308" y="292">request,</text>
+                <text x="368" y="292">i.e.,</text>
+                <text x="432" y="292">PORT_GRP.</text>
+                <text x="256" y="356">Source:</text>
+                <text x="352" y="356">ADDR_A:PORT_GRP</text>
+                <text x="132" y="372">2.05</text>
+                <text x="276" y="372">Destination:</text>
+                <text x="424" y="372">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="388">Header:</text>
+                <text x="308" y="388">2.05</text>
+                <text x="360" y="388">(T=NON,</text>
+                <text x="436" y="388">Code=2.05,</text>
+                <text x="528" y="388">MID=0x60b1)</text>
+                <text x="252" y="404">Token:</text>
+                <text x="300" y="404">0x86</text>
+                <text x="260" y="420">Observe:</text>
+                <text x="304" y="420">3</text>
+                <text x="260" y="436">Payload:</text>
+                <text x="320" y="436">"22.3</text>
+                <text x="356" y="436">C"</text>
+                <text x="256" y="468">Source:</text>
+                <text x="352" y="468">ADDR_B:PORT_GRP</text>
+                <text x="132" y="484">2.05</text>
+                <text x="276" y="484">Destination:</text>
+                <text x="424" y="484">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="500">Header:</text>
+                <text x="308" y="500">2.05</text>
+                <text x="360" y="500">(T=NON,</text>
+                <text x="436" y="500">Code=2.05,</text>
+                <text x="528" y="500">MID=0x01a0)</text>
+                <text x="252" y="516">Token:</text>
+                <text x="300" y="516">0x86</text>
+                <text x="260" y="532">Observe:</text>
+                <text x="308" y="532">13</text>
+                <text x="260" y="548">Payload:</text>
+                <text x="320" y="548">"20.9</text>
+                <text x="356" y="548">C"</text>
+                <text x="36" y="580">As</text>
+                <text x="76" y="580">source</text>
+                <text x="124" y="580">port</text>
+                <text x="172" y="580">number</text>
+                <text x="212" y="580">of</text>
+                <text x="240" y="580">its</text>
+                <text x="296" y="580">response,</text>
+                <text x="364" y="580">server</text>
+                <text x="400" y="580">C</text>
+                <text x="428" y="580">uses</text>
+                <text x="464" y="580">its</text>
+                <text x="496" y="580">own</text>
+                <text x="532" y="580">port</text>
+                <text x="52" y="596">number</text>
+                <text x="112" y="596">PORT_C.</text>
+                <text x="256" y="660">Source:</text>
+                <text x="344" y="660">ADDR_C:PORT_C</text>
+                <text x="132" y="676">2.05</text>
+                <text x="276" y="676">Destination:</text>
+                <text x="424" y="676">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="692">Header:</text>
+                <text x="308" y="692">2.05</text>
+                <text x="360" y="692">(T=NON,</text>
+                <text x="436" y="692">Code=2.05,</text>
+                <text x="528" y="692">MID=0x952a)</text>
+                <text x="252" y="708">Token:</text>
+                <text x="300" y="708">0x86</text>
+                <text x="260" y="724">Observe:</text>
+                <text x="308" y="724">23</text>
+                <text x="260" y="740">Payload:</text>
+                <text x="320" y="740">"21.0</text>
+                <text x="356" y="740">C"</text>
+                <text x="44" y="788">Some</text>
+                <text x="84" y="788">time</text>
+                <text x="132" y="788">later,</text>
+                <text x="176" y="788">the</text>
+                <text x="240" y="788">temperature</text>
+                <text x="324" y="788">changes.</text>
+                <text x="40" y="820">All</text>
+                <text x="88" y="820">servers</text>
+                <text x="140" y="820">send</text>
+                <text x="168" y="820">a</text>
+                <text x="196" y="820">2.05</text>
+                <text x="256" y="820">(Content)</text>
+                <text x="348" y="820">notification</text>
+                <text x="440" y="820">response,</text>
+                <text x="500" y="820">with</text>
+                <text x="536" y="820">the</text>
+                <text x="40" y="836">new</text>
+                <text x="116" y="836">representation</text>
+                <text x="188" y="836">of</text>
+                <text x="216" y="836">the</text>
+                <text x="288" y="836">"temperature"</text>
+                <text x="380" y="836">resource</text>
+                <text x="428" y="836">as</text>
+                <text x="476" y="836">payload.</text>
+                <text x="256" y="900">Source:</text>
+                <text x="352" y="900">ADDR_A:PORT_GRP</text>
+                <text x="132" y="916">2.05</text>
+                <text x="276" y="916">Destination:</text>
+                <text x="424" y="916">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="932">Header:</text>
+                <text x="308" y="932">2.05</text>
+                <text x="360" y="932">(T=NON,</text>
+                <text x="436" y="932">Code=2.05,</text>
+                <text x="528" y="932">MID=0x60b2)</text>
+                <text x="252" y="948">Token:</text>
+                <text x="300" y="948">0x86</text>
+                <text x="260" y="964">Observe:</text>
+                <text x="304" y="964">7</text>
+                <text x="260" y="980">Payload:</text>
+                <text x="320" y="980">"32.3</text>
+                <text x="356" y="980">C"</text>
+                <text x="256" y="1012">Source:</text>
+                <text x="352" y="1012">ADDR_B:PORT_GRP</text>
+                <text x="132" y="1028">2.05</text>
+                <text x="276" y="1028">Destination:</text>
+                <text x="424" y="1028">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="1044">Header:</text>
+                <text x="308" y="1044">2.05</text>
+                <text x="360" y="1044">(T=NON,</text>
+                <text x="436" y="1044">Code=2.05,</text>
+                <text x="528" y="1044">MID=0x01a1)</text>
+                <text x="252" y="1060">Token:</text>
+                <text x="300" y="1060">0x86</text>
+                <text x="260" y="1076">Observe:</text>
+                <text x="308" y="1076">18</text>
+                <text x="260" y="1092">Payload:</text>
+                <text x="320" y="1092">"30.9</text>
+                <text x="356" y="1092">C"</text>
+                <text x="256" y="1124">Source:</text>
+                <text x="344" y="1124">ADDR_C:PORT_C</text>
+                <text x="132" y="1140">2.05</text>
+                <text x="276" y="1140">Destination:</text>
+                <text x="424" y="1140">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="1156">Header:</text>
+                <text x="308" y="1156">2.05</text>
+                <text x="360" y="1156">(T=NON,</text>
+                <text x="436" y="1156">Code=2.05,</text>
+                <text x="528" y="1156">MID=0x952b)</text>
+                <text x="252" y="1172">Token:</text>
+                <text x="300" y="1172">0x86</text>
+                <text x="260" y="1188">Observe:</text>
+                <text x="308" y="1188">29</text>
+                <text x="260" y="1204">Payload:</text>
+                <text x="320" y="1204">"31.0</text>
+                <text x="356" y="1204">C"</text>
               </g>
             </svg><a href="#appendix-D-6.1.1" class="pilcrow">¶</a>
 </div>
@@ -3855,70 +3987,86 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
 <a href="#name-example-of-non-confirmable-o" class="selfRef">Example of Non-confirmable Observe group request, followed by Non-confirmable Responses as Observe notifications</a>
         </figcaption></figure>
 </div>
-<p id="appendix-D-7">In <a href="#fig-exchange-example-blockwise" class="auto internal xref">Figure 17</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "log" in the application group "gp1", and requesting a blockwise transfer. All servers reply with a 2.05 (Content) response including the first block. As source port number of its response, each server uses its own port number. After obtaining the first block, the client requests the following blocks separately from each server, by means of unicast exchanges.<a href="#appendix-D-7" class="pilcrow">¶</a></p>
+<p id="appendix-D-7">In <a href="#fig-exchange-example-blockwise" class="auto internal xref">Figure 17</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "log" in the application group "gp1", and requesting a blockwise transfer.<a href="#appendix-D-7" class="pilcrow">¶</a></p>
 <span id="name-example-of-non-confirmable-g"></span><div id="fig-exchange-example-blockwise">
 <figure id="figure-17">
         <div id="appendix-D-8.1">
           <div class="alignLeft art-svg artwork" id="appendix-D-8.1.1">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="2208" width="576" viewBox="0 0 576 2208" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
-              <path d="M 32,48 L 32,2176" fill="none" stroke="black"></path>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="2592" width="576" viewBox="0 0 576 2592" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+              <path d="M 32,48 L 32,208" fill="none" stroke="black"></path>
+              <path d="M 32,336 L 32,688" fill="none" stroke="black"></path>
+              <path d="M 32,800 L 32,1344" fill="none" stroke="black"></path>
+              <path d="M 32,1408 L 32,1952" fill="none" stroke="black"></path>
+              <path d="M 32,2016 L 32,2560" fill="none" stroke="black"></path>
               <path d="M 168,48 L 168,104" fill="none" stroke="black"></path>
-              <path d="M 168,152 L 168,328" fill="none" stroke="black"></path>
-              <path d="M 168,344 L 168,440" fill="none" stroke="black"></path>
-              <path d="M 168,456 L 168,1112" fill="none" stroke="black"></path>
-              <path d="M 168,1128 L 168,1256" fill="none" stroke="black"></path>
-              <path d="M 168,1272 L 168,1384" fill="none" stroke="black"></path>
-              <path d="M 168,1400 L 168,1528" fill="none" stroke="black"></path>
-              <path d="M 168,1544 L 168,1656" fill="none" stroke="black"></path>
-              <path d="M 168,1672 L 168,1800" fill="none" stroke="black"></path>
-              <path d="M 168,1816 L 168,1928" fill="none" stroke="black"></path>
-              <path d="M 168,1944 L 168,2072" fill="none" stroke="black"></path>
-              <path d="M 168,2088 L 168,2176" fill="none" stroke="black"></path>
+              <path d="M 168,152 L 168,208" fill="none" stroke="black"></path>
+              <path d="M 168,336 L 168,472" fill="none" stroke="black"></path>
+              <path d="M 168,488 L 168,584" fill="none" stroke="black"></path>
+              <path d="M 168,600 L 168,688" fill="none" stroke="black"></path>
+              <path d="M 168,800 L 168,1344" fill="none" stroke="black"></path>
+              <path d="M 168,1408 L 168,1432" fill="none" stroke="black"></path>
+              <path d="M 168,1448 L 168,1576" fill="none" stroke="black"></path>
+              <path d="M 168,1592 L 168,1704" fill="none" stroke="black"></path>
+              <path d="M 168,1720 L 168,1848" fill="none" stroke="black"></path>
+              <path d="M 168,1864 L 168,1952" fill="none" stroke="black"></path>
+              <path d="M 168,2016 L 168,2040" fill="none" stroke="black"></path>
+              <path d="M 168,2056 L 168,2184" fill="none" stroke="black"></path>
+              <path d="M 168,2200 L 168,2312" fill="none" stroke="black"></path>
+              <path d="M 168,2328 L 168,2456" fill="none" stroke="black"></path>
+              <path d="M 168,2472 L 168,2560" fill="none" stroke="black"></path>
               <path d="M 192,48 L 192,136" fill="none" stroke="black"></path>
-              <path d="M 192,152 L 192,440" fill="none" stroke="black"></path>
-              <path d="M 192,456 L 192,1656" fill="none" stroke="black"></path>
-              <path d="M 192,1672 L 192,1800" fill="none" stroke="black"></path>
-              <path d="M 192,1816 L 192,1928" fill="none" stroke="black"></path>
-              <path d="M 192,1944 L 192,2072" fill="none" stroke="black"></path>
-              <path d="M 192,2088 L 192,2176" fill="none" stroke="black"></path>
-              <path d="M 216,48 L 216,2176" fill="none" stroke="black"></path>
+              <path d="M 192,152 L 192,208" fill="none" stroke="black"></path>
+              <path d="M 192,336 L 192,584" fill="none" stroke="black"></path>
+              <path d="M 192,600 L 192,688" fill="none" stroke="black"></path>
+              <path d="M 192,800 L 192,1344" fill="none" stroke="black"></path>
+              <path d="M 192,1408 L 192,1952" fill="none" stroke="black"></path>
+              <path d="M 192,2016 L 192,2040" fill="none" stroke="black"></path>
+              <path d="M 192,2056 L 192,2184" fill="none" stroke="black"></path>
+              <path d="M 192,2200 L 192,2312" fill="none" stroke="black"></path>
+              <path d="M 192,2328 L 192,2456" fill="none" stroke="black"></path>
+              <path d="M 192,2472 L 192,2560" fill="none" stroke="black"></path>
+              <path d="M 216,48 L 216,208" fill="none" stroke="black"></path>
+              <path d="M 216,336 L 216,688" fill="none" stroke="black"></path>
+              <path d="M 216,800 L 216,1344" fill="none" stroke="black"></path>
+              <path d="M 216,1408 L 216,1952" fill="none" stroke="black"></path>
+              <path d="M 216,2016 L 216,2560" fill="none" stroke="black"></path>
               <path d="M 32,80 L 160,80" fill="none" stroke="black"></path>
               <path d="M 112,112 L 184,112" fill="none" stroke="black"></path>
               <path d="M 128,144 L 208,144" fill="none" stroke="black"></path>
-              <path d="M 40,224 L 168,224" fill="none" stroke="black"></path>
-              <path d="M 40,336 L 192,336" fill="none" stroke="black"></path>
-              <path d="M 40,448 L 216,448" fill="none" stroke="black"></path>
-              <path d="M 32,576 L 160,576" fill="none" stroke="black"></path>
-              <path d="M 40,720 L 168,720" fill="none" stroke="black"></path>
-              <path d="M 32,848 L 160,848" fill="none" stroke="black"></path>
-              <path d="M 40,992 L 168,992" fill="none" stroke="black"></path>
-              <path d="M 32,1120 L 184,1120" fill="none" stroke="black"></path>
-              <path d="M 40,1264 L 192,1264" fill="none" stroke="black"></path>
-              <path d="M 32,1392 L 184,1392" fill="none" stroke="black"></path>
-              <path d="M 40,1536 L 192,1536" fill="none" stroke="black"></path>
-              <path d="M 32,1664 L 208,1664" fill="none" stroke="black"></path>
-              <path d="M 40,1808 L 216,1808" fill="none" stroke="black"></path>
-              <path d="M 32,1936 L 208,1936" fill="none" stroke="black"></path>
-              <path d="M 40,2080 L 216,2080" fill="none" stroke="black"></path>
+              <path d="M 40,368 L 168,368" fill="none" stroke="black"></path>
+              <path d="M 40,480 L 192,480" fill="none" stroke="black"></path>
+              <path d="M 40,592 L 216,592" fill="none" stroke="black"></path>
+              <path d="M 32,832 L 160,832" fill="none" stroke="black"></path>
+              <path d="M 40,976 L 168,976" fill="none" stroke="black"></path>
+              <path d="M 32,1104 L 160,1104" fill="none" stroke="black"></path>
+              <path d="M 40,1248 L 168,1248" fill="none" stroke="black"></path>
+              <path d="M 32,1440 L 184,1440" fill="none" stroke="black"></path>
+              <path d="M 40,1584 L 192,1584" fill="none" stroke="black"></path>
+              <path d="M 32,1712 L 184,1712" fill="none" stroke="black"></path>
+              <path d="M 40,1856 L 192,1856" fill="none" stroke="black"></path>
+              <path d="M 32,2048 L 208,2048" fill="none" stroke="black"></path>
+              <path d="M 40,2192 L 216,2192" fill="none" stroke="black"></path>
+              <path d="M 32,2320 L 208,2320" fill="none" stroke="black"></path>
+              <path d="M 40,2464 L 216,2464" fill="none" stroke="black"></path>
               <path d="M 96,80 L 128,144" fill="none" stroke="black"></path>
-              <polygon class="arrowhead" points="216,1936 204,1930.4 204,1941.6" fill="black" transform="rotate(0,208,1936)"></polygon>
-              <polygon class="arrowhead" points="216,1664 204,1658.4 204,1669.6" fill="black" transform="rotate(0,208,1664)"></polygon>
+              <polygon class="arrowhead" points="216,2320 204,2314.4 204,2325.6" fill="black" transform="rotate(0,208,2320)"></polygon>
+              <polygon class="arrowhead" points="216,2048 204,2042.4 204,2053.6" fill="black" transform="rotate(0,208,2048)"></polygon>
               <polygon class="arrowhead" points="216,144 204,138.4 204,149.6" fill="black" transform="rotate(0,208,144)"></polygon>
-              <polygon class="arrowhead" points="192,1392 180,1386.4 180,1397.6" fill="black" transform="rotate(0,184,1392)"></polygon>
-              <polygon class="arrowhead" points="192,1120 180,1114.4 180,1125.6" fill="black" transform="rotate(0,184,1120)"></polygon>
+              <polygon class="arrowhead" points="192,1712 180,1706.4 180,1717.6" fill="black" transform="rotate(0,184,1712)"></polygon>
+              <polygon class="arrowhead" points="192,1440 180,1434.4 180,1445.6" fill="black" transform="rotate(0,184,1440)"></polygon>
               <polygon class="arrowhead" points="192,112 180,106.4 180,117.6" fill="black" transform="rotate(0,184,112)"></polygon>
-              <polygon class="arrowhead" points="168,848 156,842.4 156,853.6" fill="black" transform="rotate(0,160,848)"></polygon>
-              <polygon class="arrowhead" points="168,576 156,570.4 156,581.6" fill="black" transform="rotate(0,160,576)"></polygon>
+              <polygon class="arrowhead" points="168,1104 156,1098.4 156,1109.6" fill="black" transform="rotate(0,160,1104)"></polygon>
+              <polygon class="arrowhead" points="168,832 156,826.4 156,837.6" fill="black" transform="rotate(0,160,832)"></polygon>
               <polygon class="arrowhead" points="168,80 156,74.4 156,85.6" fill="black" transform="rotate(0,160,80)"></polygon>
-              <polygon class="arrowhead" points="48,2080 36,2074.4 36,2085.6" fill="black" transform="rotate(180,40,2080)"></polygon>
-              <polygon class="arrowhead" points="48,1808 36,1802.4 36,1813.6" fill="black" transform="rotate(180,40,1808)"></polygon>
-              <polygon class="arrowhead" points="48,1536 36,1530.4 36,1541.6" fill="black" transform="rotate(180,40,1536)"></polygon>
-              <polygon class="arrowhead" points="48,1264 36,1258.4 36,1269.6" fill="black" transform="rotate(180,40,1264)"></polygon>
-              <polygon class="arrowhead" points="48,992 36,986.4 36,997.6" fill="black" transform="rotate(180,40,992)"></polygon>
-              <polygon class="arrowhead" points="48,720 36,714.4 36,725.6" fill="black" transform="rotate(180,40,720)"></polygon>
-              <polygon class="arrowhead" points="48,448 36,442.4 36,453.6" fill="black" transform="rotate(180,40,448)"></polygon>
-              <polygon class="arrowhead" points="48,336 36,330.4 36,341.6" fill="black" transform="rotate(180,40,336)"></polygon>
-              <polygon class="arrowhead" points="48,224 36,218.4 36,229.6" fill="black" transform="rotate(180,40,224)"></polygon>
+              <polygon class="arrowhead" points="48,2464 36,2458.4 36,2469.6" fill="black" transform="rotate(180,40,2464)"></polygon>
+              <polygon class="arrowhead" points="48,2192 36,2186.4 36,2197.6" fill="black" transform="rotate(180,40,2192)"></polygon>
+              <polygon class="arrowhead" points="48,1856 36,1850.4 36,1861.6" fill="black" transform="rotate(180,40,1856)"></polygon>
+              <polygon class="arrowhead" points="48,1584 36,1578.4 36,1589.6" fill="black" transform="rotate(180,40,1584)"></polygon>
+              <polygon class="arrowhead" points="48,1248 36,1242.4 36,1253.6" fill="black" transform="rotate(180,40,1248)"></polygon>
+              <polygon class="arrowhead" points="48,976 36,970.4 36,981.6" fill="black" transform="rotate(180,40,976)"></polygon>
+              <polygon class="arrowhead" points="48,592 36,586.4 36,597.6" fill="black" transform="rotate(180,40,592)"></polygon>
+              <polygon class="arrowhead" points="48,480 36,474.4 36,485.6" fill="black" transform="rotate(180,40,480)"></polygon>
+              <polygon class="arrowhead" points="48,368 36,362.4 36,373.6" fill="black" transform="rotate(180,40,368)"></polygon>
               <g class="text">
                 <text x="28" y="36">Client</text>
                 <text x="168" y="36">A</text>
@@ -3945,279 +4093,352 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
                 <text x="328" y="180">"log"</text>
                 <text x="256" y="196">Block2:</text>
                 <text x="316" y="196">0/0/64</text>
-                <text x="256" y="228">Source:</text>
-                <text x="344" y="228">ADDR_A:PORT_A</text>
-                <text x="132" y="244">2.05</text>
-                <text x="276" y="244">Destination:</text>
-                <text x="424" y="244">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="260">Header:</text>
-                <text x="308" y="260">2.05</text>
-                <text x="360" y="260">(T=NON,</text>
-                <text x="436" y="260">Code=2.05,</text>
-                <text x="528" y="260">MID=0x60b1)</text>
-                <text x="252" y="276">Token:</text>
-                <text x="300" y="276">0x86</text>
-                <text x="256" y="292">Block2:</text>
-                <text x="316" y="292">0/1/64</text>
-                <text x="260" y="308">Payload:</text>
-                <text x="324" y="308">0x0a00</text>
-                <text x="368" y="308">...</text>
-                <text x="256" y="340">Source:</text>
-                <text x="344" y="340">ADDR_B:PORT_B</text>
-                <text x="132" y="356">2.05</text>
-                <text x="276" y="356">Destination:</text>
-                <text x="424" y="356">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="372">Header:</text>
-                <text x="308" y="372">2.05</text>
-                <text x="360" y="372">(T=NON,</text>
-                <text x="436" y="372">Code=2.05,</text>
-                <text x="528" y="372">MID=0x01a0)</text>
-                <text x="252" y="388">Token:</text>
-                <text x="300" y="388">0x86</text>
-                <text x="256" y="404">Block2:</text>
-                <text x="316" y="404">0/1/64</text>
-                <text x="260" y="420">Payload:</text>
-                <text x="324" y="420">0x0b00</text>
-                <text x="368" y="420">...</text>
-                <text x="256" y="452">Source:</text>
-                <text x="344" y="452">ADDR_C:PORT_C</text>
-                <text x="132" y="468">2.05</text>
-                <text x="276" y="468">Destination:</text>
-                <text x="424" y="468">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="484">Header:</text>
-                <text x="308" y="484">2.05</text>
-                <text x="360" y="484">(T=NON,</text>
-                <text x="436" y="484">Code=4.04,</text>
-                <text x="528" y="484">MID=0x952a)</text>
-                <text x="252" y="500">Token:</text>
-                <text x="300" y="500">0x86</text>
-                <text x="256" y="516">Block2:</text>
-                <text x="316" y="516">0/1/64</text>
-                <text x="260" y="532">Payload:</text>
-                <text x="324" y="532">0x0c00</text>
-                <text x="368" y="532">...</text>
-                <text x="64" y="564">GET</text>
-                <text x="256" y="580">Source:</text>
-                <text x="384" y="580">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="276" y="596">Destination:</text>
-                <text x="384" y="596">ADDR_A:PORT_A</text>
-                <text x="256" y="612">Header:</text>
-                <text x="304" y="612">GET</text>
-                <text x="352" y="612">(T=CON,</text>
-                <text x="428" y="612">Code=0.01,</text>
-                <text x="520" y="612">MID=0x7d42)</text>
-                <text x="252" y="628">Token:</text>
-                <text x="300" y="628">0xa6</text>
-                <text x="264" y="644">Uri-Path:</text>
-                <text x="324" y="644">"gp"</text>
-                <text x="264" y="660">Uri-Path:</text>
-                <text x="328" y="660">"gp1"</text>
-                <text x="264" y="676">Uri-Path:</text>
-                <text x="328" y="676">"log"</text>
-                <text x="256" y="692">Block2:</text>
-                <text x="316" y="692">1/0/64</text>
-                <text x="256" y="724">Source:</text>
-                <text x="344" y="724">ADDR_A:PORT_A</text>
-                <text x="132" y="740">2.05</text>
-                <text x="276" y="740">Destination:</text>
-                <text x="424" y="740">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="756">Header:</text>
-                <text x="308" y="756">2.05</text>
-                <text x="360" y="756">(T=ACK,</text>
-                <text x="436" y="756">Code=2.05,</text>
-                <text x="528" y="756">MID=0x7d42)</text>
-                <text x="252" y="772">Token:</text>
-                <text x="300" y="772">0xa6</text>
-                <text x="256" y="788">Block2:</text>
-                <text x="316" y="788">1/1/64</text>
-                <text x="260" y="804">Payload:</text>
-                <text x="324" y="804">0x0a01</text>
-                <text x="368" y="804">...</text>
-                <text x="64" y="836">GET</text>
-                <text x="256" y="852">Source:</text>
-                <text x="384" y="852">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="276" y="868">Destination:</text>
-                <text x="384" y="868">ADDR_A:PORT_A</text>
-                <text x="256" y="884">Header:</text>
-                <text x="304" y="884">GET</text>
-                <text x="352" y="884">(T=CON,</text>
-                <text x="428" y="884">Code=0.01,</text>
-                <text x="520" y="884">MID=0x7d43)</text>
-                <text x="252" y="900">Token:</text>
-                <text x="300" y="900">0xa7</text>
+                <text x="40" y="244">All</text>
+                <text x="88" y="244">servers</text>
+                <text x="144" y="244">reply</text>
+                <text x="188" y="244">with</text>
+                <text x="216" y="244">a</text>
+                <text x="244" y="244">2.05</text>
+                <text x="304" y="244">(Content)</text>
+                <text x="380" y="244">response</text>
+                <text x="456" y="244">including</text>
+                <text x="512" y="244">the</text>
+                <text x="552" y="244">first</text>
+                <text x="52" y="260">block.</text>
+                <text x="36" y="292">As</text>
+                <text x="76" y="292">source</text>
+                <text x="124" y="292">port</text>
+                <text x="172" y="292">number</text>
+                <text x="212" y="292">of</text>
+                <text x="240" y="292">its</text>
+                <text x="296" y="292">response,</text>
+                <text x="356" y="292">each</text>
+                <text x="404" y="292">server</text>
+                <text x="452" y="292">uses</text>
+                <text x="488" y="292">its</text>
+                <text x="520" y="292">own</text>
+                <text x="556" y="292">port</text>
+                <text x="56" y="308">number.</text>
+                <text x="256" y="372">Source:</text>
+                <text x="344" y="372">ADDR_A:PORT_A</text>
+                <text x="132" y="388">2.05</text>
+                <text x="276" y="388">Destination:</text>
+                <text x="424" y="388">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="404">Header:</text>
+                <text x="308" y="404">2.05</text>
+                <text x="360" y="404">(T=NON,</text>
+                <text x="436" y="404">Code=2.05,</text>
+                <text x="528" y="404">MID=0x60b1)</text>
+                <text x="252" y="420">Token:</text>
+                <text x="300" y="420">0x86</text>
+                <text x="256" y="436">Block2:</text>
+                <text x="316" y="436">0/1/64</text>
+                <text x="260" y="452">Payload:</text>
+                <text x="324" y="452">0x0a00</text>
+                <text x="368" y="452">...</text>
+                <text x="256" y="484">Source:</text>
+                <text x="344" y="484">ADDR_B:PORT_B</text>
+                <text x="132" y="500">2.05</text>
+                <text x="276" y="500">Destination:</text>
+                <text x="424" y="500">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="516">Header:</text>
+                <text x="308" y="516">2.05</text>
+                <text x="360" y="516">(T=NON,</text>
+                <text x="436" y="516">Code=2.05,</text>
+                <text x="528" y="516">MID=0x01a0)</text>
+                <text x="252" y="532">Token:</text>
+                <text x="300" y="532">0x86</text>
+                <text x="256" y="548">Block2:</text>
+                <text x="316" y="548">0/1/64</text>
+                <text x="260" y="564">Payload:</text>
+                <text x="324" y="564">0x0b00</text>
+                <text x="368" y="564">...</text>
+                <text x="256" y="596">Source:</text>
+                <text x="344" y="596">ADDR_C:PORT_C</text>
+                <text x="132" y="612">2.05</text>
+                <text x="276" y="612">Destination:</text>
+                <text x="424" y="612">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="628">Header:</text>
+                <text x="308" y="628">2.05</text>
+                <text x="360" y="628">(T=NON,</text>
+                <text x="436" y="628">Code=4.04,</text>
+                <text x="528" y="628">MID=0x952a)</text>
+                <text x="252" y="644">Token:</text>
+                <text x="300" y="644">0x86</text>
+                <text x="256" y="660">Block2:</text>
+                <text x="316" y="660">0/1/64</text>
+                <text x="260" y="676">Payload:</text>
+                <text x="324" y="676">0x0c00</text>
+                <text x="368" y="676">...</text>
+                <text x="48" y="724">After</text>
+                <text x="112" y="724">obtaining</text>
+                <text x="168" y="724">the</text>
+                <text x="208" y="724">first</text>
+                <text x="260" y="724">block,</text>
+                <text x="304" y="724">the</text>
+                <text x="348" y="724">client</text>
+                <text x="412" y="724">requests</text>
+                <text x="464" y="724">the</text>
+                <text x="520" y="724">following</text>
+                <text x="52" y="740">blocks</text>
+                <text x="124" y="740">separately</text>
+                <text x="188" y="740">from</text>
+                <text x="228" y="740">each</text>
+                <text x="280" y="740">server,</text>
+                <text x="324" y="740">by</text>
+                <text x="360" y="740">means</text>
+                <text x="396" y="740">of</text>
+                <text x="440" y="740">unicast</text>
+                <text x="516" y="740">exchanges.</text>
+                <text x="40" y="772">The</text>
+                <text x="84" y="772">client</text>
+                <text x="148" y="772">requests</text>
+                <text x="200" y="772">the</text>
+                <text x="256" y="772">following</text>
+                <text x="324" y="772">blocks</text>
+                <text x="372" y="772">from</text>
+                <text x="420" y="772">server</text>
+                <text x="460" y="772">A.</text>
+                <text x="64" y="820">GET</text>
+                <text x="256" y="836">Source:</text>
+                <text x="384" y="836">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="276" y="852">Destination:</text>
+                <text x="384" y="852">ADDR_A:PORT_A</text>
+                <text x="256" y="868">Header:</text>
+                <text x="304" y="868">GET</text>
+                <text x="352" y="868">(T=CON,</text>
+                <text x="428" y="868">Code=0.01,</text>
+                <text x="520" y="868">MID=0x7d42)</text>
+                <text x="252" y="884">Token:</text>
+                <text x="300" y="884">0xa6</text>
+                <text x="264" y="900">Uri-Path:</text>
+                <text x="324" y="900">"gp"</text>
                 <text x="264" y="916">Uri-Path:</text>
-                <text x="324" y="916">"gp"</text>
+                <text x="328" y="916">"gp1"</text>
                 <text x="264" y="932">Uri-Path:</text>
-                <text x="328" y="932">"gp1"</text>
-                <text x="264" y="948">Uri-Path:</text>
-                <text x="328" y="948">"log"</text>
-                <text x="256" y="964">Block2:</text>
-                <text x="316" y="964">2/0/64</text>
-                <text x="256" y="996">Source:</text>
-                <text x="344" y="996">ADDR_A:PORT_A</text>
-                <text x="132" y="1012">2.05</text>
-                <text x="276" y="1012">Destination:</text>
-                <text x="424" y="1012">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="1028">Header:</text>
-                <text x="308" y="1028">2.05</text>
-                <text x="360" y="1028">(T=ACK,</text>
-                <text x="436" y="1028">Code=2.05,</text>
-                <text x="528" y="1028">MID=0x7d43)</text>
-                <text x="252" y="1044">Token:</text>
-                <text x="300" y="1044">0xa7</text>
-                <text x="256" y="1060">Block2:</text>
-                <text x="316" y="1060">2/0/64</text>
-                <text x="260" y="1076">Payload:</text>
-                <text x="324" y="1076">0x0a02</text>
-                <text x="368" y="1076">...</text>
-                <text x="64" y="1108">GET</text>
-                <text x="256" y="1124">Source:</text>
-                <text x="384" y="1124">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="276" y="1140">Destination:</text>
-                <text x="384" y="1140">ADDR_B:PORT_B</text>
-                <text x="256" y="1156">Header:</text>
-                <text x="304" y="1156">GET</text>
-                <text x="352" y="1156">(T=CON,</text>
-                <text x="428" y="1156">Code=0.01,</text>
-                <text x="520" y="1156">MID=0x7d44)</text>
-                <text x="252" y="1172">Token:</text>
-                <text x="300" y="1172">0xb6</text>
+                <text x="328" y="932">"log"</text>
+                <text x="256" y="948">Block2:</text>
+                <text x="316" y="948">1/0/64</text>
+                <text x="256" y="980">Source:</text>
+                <text x="344" y="980">ADDR_A:PORT_A</text>
+                <text x="132" y="996">2.05</text>
+                <text x="276" y="996">Destination:</text>
+                <text x="424" y="996">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="1012">Header:</text>
+                <text x="308" y="1012">2.05</text>
+                <text x="360" y="1012">(T=ACK,</text>
+                <text x="436" y="1012">Code=2.05,</text>
+                <text x="528" y="1012">MID=0x7d42)</text>
+                <text x="252" y="1028">Token:</text>
+                <text x="300" y="1028">0xa6</text>
+                <text x="256" y="1044">Block2:</text>
+                <text x="316" y="1044">1/1/64</text>
+                <text x="260" y="1060">Payload:</text>
+                <text x="324" y="1060">0x0a01</text>
+                <text x="368" y="1060">...</text>
+                <text x="64" y="1092">GET</text>
+                <text x="256" y="1108">Source:</text>
+                <text x="384" y="1108">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="276" y="1124">Destination:</text>
+                <text x="384" y="1124">ADDR_A:PORT_A</text>
+                <text x="256" y="1140">Header:</text>
+                <text x="304" y="1140">GET</text>
+                <text x="352" y="1140">(T=CON,</text>
+                <text x="428" y="1140">Code=0.01,</text>
+                <text x="520" y="1140">MID=0x7d43)</text>
+                <text x="252" y="1156">Token:</text>
+                <text x="300" y="1156">0xa7</text>
+                <text x="264" y="1172">Uri-Path:</text>
+                <text x="324" y="1172">"gp"</text>
                 <text x="264" y="1188">Uri-Path:</text>
-                <text x="324" y="1188">"gp"</text>
+                <text x="328" y="1188">"gp1"</text>
                 <text x="264" y="1204">Uri-Path:</text>
-                <text x="328" y="1204">"gp1"</text>
-                <text x="264" y="1220">Uri-Path:</text>
-                <text x="328" y="1220">"log"</text>
-                <text x="256" y="1236">Block2:</text>
-                <text x="316" y="1236">1/0/64</text>
-                <text x="256" y="1268">Source:</text>
-                <text x="344" y="1268">ADDR_B:PORT_B</text>
-                <text x="132" y="1284">2.05</text>
-                <text x="276" y="1284">Destination:</text>
-                <text x="424" y="1284">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="1300">Header:</text>
-                <text x="308" y="1300">2.05</text>
-                <text x="360" y="1300">(T=ACK,</text>
-                <text x="436" y="1300">Code=2.05,</text>
-                <text x="528" y="1300">MID=0x7d44)</text>
-                <text x="252" y="1316">Token:</text>
-                <text x="300" y="1316">0xb6</text>
-                <text x="256" y="1332">Block2:</text>
-                <text x="316" y="1332">1/1/64</text>
-                <text x="260" y="1348">Payload:</text>
-                <text x="324" y="1348">0x0b01</text>
-                <text x="368" y="1348">...</text>
-                <text x="64" y="1380">GET</text>
-                <text x="256" y="1396">Source:</text>
-                <text x="384" y="1396">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="276" y="1412">Destination:</text>
-                <text x="384" y="1412">ADDR_C:PORT_B</text>
-                <text x="256" y="1428">Header:</text>
-                <text x="304" y="1428">GET</text>
-                <text x="352" y="1428">(T=CON,</text>
-                <text x="428" y="1428">Code=0.01,</text>
-                <text x="520" y="1428">MID=0x7d45)</text>
-                <text x="252" y="1444">Token:</text>
-                <text x="300" y="1444">0xb7</text>
-                <text x="264" y="1460">Uri-Path:</text>
-                <text x="324" y="1460">"gp"</text>
-                <text x="264" y="1476">Uri-Path:</text>
-                <text x="328" y="1476">"gp1"</text>
-                <text x="264" y="1492">Uri-Path:</text>
-                <text x="328" y="1492">"log"</text>
-                <text x="256" y="1508">Block2:</text>
-                <text x="316" y="1508">2/0/64</text>
-                <text x="256" y="1540">Source:</text>
-                <text x="344" y="1540">ADDR_B:PORT_B</text>
-                <text x="132" y="1556">2.05</text>
-                <text x="276" y="1556">Destination:</text>
-                <text x="424" y="1556">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="1572">Header:</text>
-                <text x="308" y="1572">2.05</text>
-                <text x="360" y="1572">(T=ACK,</text>
-                <text x="436" y="1572">Code=2.05,</text>
-                <text x="528" y="1572">MID=0x7d45)</text>
-                <text x="252" y="1588">Token:</text>
-                <text x="300" y="1588">0xb7</text>
-                <text x="256" y="1604">Block2:</text>
-                <text x="316" y="1604">2/0/64</text>
-                <text x="260" y="1620">Payload:</text>
-                <text x="324" y="1620">0x0b02</text>
-                <text x="368" y="1620">...</text>
-                <text x="64" y="1652">GET</text>
-                <text x="256" y="1668">Source:</text>
-                <text x="384" y="1668">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="276" y="1684">Destination:</text>
-                <text x="384" y="1684">ADDR_C:PORT_C</text>
-                <text x="256" y="1700">Header:</text>
-                <text x="304" y="1700">GET</text>
-                <text x="352" y="1700">(T=CON,</text>
-                <text x="428" y="1700">Code=0.01,</text>
-                <text x="520" y="1700">MID=0x7d46)</text>
-                <text x="252" y="1716">Token:</text>
-                <text x="300" y="1716">0xc6</text>
-                <text x="264" y="1732">Uri-Path:</text>
-                <text x="324" y="1732">"gp"</text>
-                <text x="264" y="1748">Uri-Path:</text>
-                <text x="328" y="1748">"gp1"</text>
-                <text x="264" y="1764">Uri-Path:</text>
-                <text x="328" y="1764">"log"</text>
-                <text x="256" y="1780">Block2:</text>
-                <text x="316" y="1780">1/0/64</text>
-                <text x="256" y="1812">Source:</text>
-                <text x="344" y="1812">ADDR_C:PORT_C</text>
-                <text x="132" y="1828">2.05</text>
-                <text x="276" y="1828">Destination:</text>
-                <text x="424" y="1828">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="1844">Header:</text>
-                <text x="308" y="1844">2.05</text>
-                <text x="360" y="1844">(T=ACK,</text>
-                <text x="436" y="1844">Code=2.05,</text>
-                <text x="528" y="1844">MID=0x7d46)</text>
-                <text x="252" y="1860">Token:</text>
-                <text x="300" y="1860">0xc6</text>
-                <text x="256" y="1876">Block2:</text>
-                <text x="316" y="1876">1/1/64</text>
-                <text x="260" y="1892">Payload:</text>
-                <text x="324" y="1892">0x0c01</text>
-                <text x="368" y="1892">...</text>
-                <text x="64" y="1924">GET</text>
-                <text x="256" y="1940">Source:</text>
-                <text x="384" y="1940">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="276" y="1956">Destination:</text>
-                <text x="384" y="1956">ADDR_C:PORT_C</text>
-                <text x="256" y="1972">Header:</text>
-                <text x="304" y="1972">GET</text>
-                <text x="352" y="1972">(T=CON,</text>
-                <text x="428" y="1972">Code=0.01,</text>
-                <text x="520" y="1972">MID=0x7d47)</text>
-                <text x="252" y="1988">Token:</text>
-                <text x="300" y="1988">0xc7</text>
-                <text x="264" y="2004">Uri-Path:</text>
-                <text x="324" y="2004">"gp"</text>
-                <text x="264" y="2020">Uri-Path:</text>
-                <text x="328" y="2020">"gp1"</text>
-                <text x="264" y="2036">Uri-Path:</text>
-                <text x="328" y="2036">"log"</text>
-                <text x="256" y="2052">Block2:</text>
-                <text x="316" y="2052">2/0/64</text>
-                <text x="256" y="2084">Source:</text>
-                <text x="344" y="2084">ADDR_C:PORT_C</text>
-                <text x="132" y="2100">2.05</text>
-                <text x="276" y="2100">Destination:</text>
-                <text x="424" y="2100">ADDR_CLIENT:PORT_CLIENT</text>
-                <text x="256" y="2116">Header:</text>
-                <text x="308" y="2116">2.05</text>
-                <text x="360" y="2116">(T=ACK,</text>
-                <text x="436" y="2116">Code=2.05,</text>
-                <text x="528" y="2116">MID=0x7d47)</text>
-                <text x="252" y="2132">Token:</text>
-                <text x="300" y="2132">0xc7</text>
-                <text x="256" y="2148">Block2:</text>
-                <text x="316" y="2148">2/0/64</text>
-                <text x="260" y="2164">Payload:</text>
-                <text x="324" y="2164">0x0c02</text>
-                <text x="368" y="2164">...</text>
+                <text x="328" y="1204">"log"</text>
+                <text x="256" y="1220">Block2:</text>
+                <text x="316" y="1220">2/0/64</text>
+                <text x="256" y="1252">Source:</text>
+                <text x="344" y="1252">ADDR_A:PORT_A</text>
+                <text x="132" y="1268">2.05</text>
+                <text x="276" y="1268">Destination:</text>
+                <text x="424" y="1268">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="1284">Header:</text>
+                <text x="308" y="1284">2.05</text>
+                <text x="360" y="1284">(T=ACK,</text>
+                <text x="436" y="1284">Code=2.05,</text>
+                <text x="528" y="1284">MID=0x7d43)</text>
+                <text x="252" y="1300">Token:</text>
+                <text x="300" y="1300">0xa7</text>
+                <text x="256" y="1316">Block2:</text>
+                <text x="316" y="1316">2/0/64</text>
+                <text x="260" y="1332">Payload:</text>
+                <text x="324" y="1332">0x0a02</text>
+                <text x="368" y="1332">...</text>
+                <text x="40" y="1380">The</text>
+                <text x="84" y="1380">client</text>
+                <text x="148" y="1380">requests</text>
+                <text x="200" y="1380">the</text>
+                <text x="256" y="1380">following</text>
+                <text x="324" y="1380">blocks</text>
+                <text x="372" y="1380">from</text>
+                <text x="420" y="1380">server</text>
+                <text x="460" y="1380">B.</text>
+                <text x="64" y="1428">GET</text>
+                <text x="256" y="1444">Source:</text>
+                <text x="384" y="1444">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="276" y="1460">Destination:</text>
+                <text x="384" y="1460">ADDR_B:PORT_B</text>
+                <text x="256" y="1476">Header:</text>
+                <text x="304" y="1476">GET</text>
+                <text x="352" y="1476">(T=CON,</text>
+                <text x="428" y="1476">Code=0.01,</text>
+                <text x="520" y="1476">MID=0x7d44)</text>
+                <text x="252" y="1492">Token:</text>
+                <text x="300" y="1492">0xb6</text>
+                <text x="264" y="1508">Uri-Path:</text>
+                <text x="324" y="1508">"gp"</text>
+                <text x="264" y="1524">Uri-Path:</text>
+                <text x="328" y="1524">"gp1"</text>
+                <text x="264" y="1540">Uri-Path:</text>
+                <text x="328" y="1540">"log"</text>
+                <text x="256" y="1556">Block2:</text>
+                <text x="316" y="1556">1/0/64</text>
+                <text x="256" y="1588">Source:</text>
+                <text x="344" y="1588">ADDR_B:PORT_B</text>
+                <text x="132" y="1604">2.05</text>
+                <text x="276" y="1604">Destination:</text>
+                <text x="424" y="1604">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="1620">Header:</text>
+                <text x="308" y="1620">2.05</text>
+                <text x="360" y="1620">(T=ACK,</text>
+                <text x="436" y="1620">Code=2.05,</text>
+                <text x="528" y="1620">MID=0x7d44)</text>
+                <text x="252" y="1636">Token:</text>
+                <text x="300" y="1636">0xb6</text>
+                <text x="256" y="1652">Block2:</text>
+                <text x="316" y="1652">1/1/64</text>
+                <text x="260" y="1668">Payload:</text>
+                <text x="324" y="1668">0x0b01</text>
+                <text x="368" y="1668">...</text>
+                <text x="64" y="1700">GET</text>
+                <text x="256" y="1716">Source:</text>
+                <text x="384" y="1716">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="276" y="1732">Destination:</text>
+                <text x="384" y="1732">ADDR_C:PORT_B</text>
+                <text x="256" y="1748">Header:</text>
+                <text x="304" y="1748">GET</text>
+                <text x="352" y="1748">(T=CON,</text>
+                <text x="428" y="1748">Code=0.01,</text>
+                <text x="520" y="1748">MID=0x7d45)</text>
+                <text x="252" y="1764">Token:</text>
+                <text x="300" y="1764">0xb7</text>
+                <text x="264" y="1780">Uri-Path:</text>
+                <text x="324" y="1780">"gp"</text>
+                <text x="264" y="1796">Uri-Path:</text>
+                <text x="328" y="1796">"gp1"</text>
+                <text x="264" y="1812">Uri-Path:</text>
+                <text x="328" y="1812">"log"</text>
+                <text x="256" y="1828">Block2:</text>
+                <text x="316" y="1828">2/0/64</text>
+                <text x="256" y="1860">Source:</text>
+                <text x="344" y="1860">ADDR_B:PORT_B</text>
+                <text x="132" y="1876">2.05</text>
+                <text x="276" y="1876">Destination:</text>
+                <text x="424" y="1876">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="1892">Header:</text>
+                <text x="308" y="1892">2.05</text>
+                <text x="360" y="1892">(T=ACK,</text>
+                <text x="436" y="1892">Code=2.05,</text>
+                <text x="528" y="1892">MID=0x7d45)</text>
+                <text x="252" y="1908">Token:</text>
+                <text x="300" y="1908">0xb7</text>
+                <text x="256" y="1924">Block2:</text>
+                <text x="316" y="1924">2/0/64</text>
+                <text x="260" y="1940">Payload:</text>
+                <text x="324" y="1940">0x0b02</text>
+                <text x="368" y="1940">...</text>
+                <text x="40" y="1988">The</text>
+                <text x="84" y="1988">client</text>
+                <text x="148" y="1988">requests</text>
+                <text x="200" y="1988">the</text>
+                <text x="256" y="1988">following</text>
+                <text x="324" y="1988">blocks</text>
+                <text x="372" y="1988">from</text>
+                <text x="420" y="1988">server</text>
+                <text x="460" y="1988">C.</text>
+                <text x="64" y="2036">GET</text>
+                <text x="256" y="2052">Source:</text>
+                <text x="384" y="2052">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="276" y="2068">Destination:</text>
+                <text x="384" y="2068">ADDR_C:PORT_C</text>
+                <text x="256" y="2084">Header:</text>
+                <text x="304" y="2084">GET</text>
+                <text x="352" y="2084">(T=CON,</text>
+                <text x="428" y="2084">Code=0.01,</text>
+                <text x="520" y="2084">MID=0x7d46)</text>
+                <text x="252" y="2100">Token:</text>
+                <text x="300" y="2100">0xc6</text>
+                <text x="264" y="2116">Uri-Path:</text>
+                <text x="324" y="2116">"gp"</text>
+                <text x="264" y="2132">Uri-Path:</text>
+                <text x="328" y="2132">"gp1"</text>
+                <text x="264" y="2148">Uri-Path:</text>
+                <text x="328" y="2148">"log"</text>
+                <text x="256" y="2164">Block2:</text>
+                <text x="316" y="2164">1/0/64</text>
+                <text x="256" y="2196">Source:</text>
+                <text x="344" y="2196">ADDR_C:PORT_C</text>
+                <text x="132" y="2212">2.05</text>
+                <text x="276" y="2212">Destination:</text>
+                <text x="424" y="2212">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="2228">Header:</text>
+                <text x="308" y="2228">2.05</text>
+                <text x="360" y="2228">(T=ACK,</text>
+                <text x="436" y="2228">Code=2.05,</text>
+                <text x="528" y="2228">MID=0x7d46)</text>
+                <text x="252" y="2244">Token:</text>
+                <text x="300" y="2244">0xc6</text>
+                <text x="256" y="2260">Block2:</text>
+                <text x="316" y="2260">1/1/64</text>
+                <text x="260" y="2276">Payload:</text>
+                <text x="324" y="2276">0x0c01</text>
+                <text x="368" y="2276">...</text>
+                <text x="64" y="2308">GET</text>
+                <text x="256" y="2324">Source:</text>
+                <text x="384" y="2324">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="276" y="2340">Destination:</text>
+                <text x="384" y="2340">ADDR_C:PORT_C</text>
+                <text x="256" y="2356">Header:</text>
+                <text x="304" y="2356">GET</text>
+                <text x="352" y="2356">(T=CON,</text>
+                <text x="428" y="2356">Code=0.01,</text>
+                <text x="520" y="2356">MID=0x7d47)</text>
+                <text x="252" y="2372">Token:</text>
+                <text x="300" y="2372">0xc7</text>
+                <text x="264" y="2388">Uri-Path:</text>
+                <text x="324" y="2388">"gp"</text>
+                <text x="264" y="2404">Uri-Path:</text>
+                <text x="328" y="2404">"gp1"</text>
+                <text x="264" y="2420">Uri-Path:</text>
+                <text x="328" y="2420">"log"</text>
+                <text x="256" y="2436">Block2:</text>
+                <text x="316" y="2436">2/0/64</text>
+                <text x="256" y="2468">Source:</text>
+                <text x="344" y="2468">ADDR_C:PORT_C</text>
+                <text x="132" y="2484">2.05</text>
+                <text x="276" y="2484">Destination:</text>
+                <text x="424" y="2484">ADDR_CLIENT:PORT_CLIENT</text>
+                <text x="256" y="2500">Header:</text>
+                <text x="308" y="2500">2.05</text>
+                <text x="360" y="2500">(T=ACK,</text>
+                <text x="436" y="2500">Code=2.05,</text>
+                <text x="528" y="2500">MID=0x7d47)</text>
+                <text x="252" y="2516">Token:</text>
+                <text x="300" y="2516">0xc7</text>
+                <text x="256" y="2532">Block2:</text>
+                <text x="316" y="2532">2/0/64</text>
+                <text x="260" y="2548">Payload:</text>
+                <text x="324" y="2548">0x0c02</text>
+                <text x="368" y="2548">...</text>
               </g>
             </svg><a href="#appendix-D-8.1.1" class="pilcrow">¶</a>
 </div>
