@@ -927,7 +927,7 @@ Group OSCORE provides end-to-end application-level security. This has many desir
 
 CoAP group communication MUST be protected by using Group OSCORE as specified in {{I-D.ietf-core-oscore-groupcomm}}, with the possible exception of specific, well-defined "unsecured steps" (see {{chap-unsecured-groupcomm}}).
 
-The security considerations from {{Section 13 of I-D.ietf-core-oscore-groupcomm}} hold for this specification.
+The security considerations from {{Section 14 of I-D.ietf-core-oscore-groupcomm}} hold for this specification.
 
 ### Group Key Management ### {#chap-security-considerations-sec-mode-key-mgmt}
 
@@ -1029,7 +1029,7 @@ It follows that, in either case, this replay attack would not accomplish anythin
 
 If Group OSCORE is used, such a replay attack on the servers is prevented, since a client protects each different request with a different Sequence Number value, which is in turn included as Partial IV in the protected message and takes part in the construction of the AEAD cipher nonce. Thus, a server would be able to detect the replayed request, by checking the conveyed Partial IV against its own replay window in the OSCORE Recipient Context associated with the client.
 
-This requires a server to have a Replay Window that is in a valid state. If the server's Replay Window is initialized as invalid, e.g., due to a reboot, the server should use the challenge-response synchronization method based on the Echo Option for CoAP defined in {{RFC9175}} as described in {{Section 10 of I-D.ietf-core-oscore-groupcomm}}, in order to make the Replay Window valid before resuming to accept incoming messages from other group members.
+This requires a server to have a Replay Window that is in a valid state. If the server's Replay Window is initialized as invalid, e.g., due to a reboot, the server should use the challenge-response synchronization method based on the Echo Option for CoAP defined in {{RFC9175}} as described in {{Section 9 of I-D.ietf-core-oscore-groupcomm}}, in order to make the Replay Window valid before resuming to accept incoming messages from other group members.
 
 ## Use of CoAP No-Response Option ##
 
