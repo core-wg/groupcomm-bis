@@ -1232,9 +1232,9 @@ Table of Contents
    to be the most recent one from that server, e.g., when this can
    trigger a change of state within the application.
 
-   As part of a long exchange between the client and any of the servers
-   in the CoAP group, the responses considered above are examples of the
-   more general concept elaborated in Section 2 of
+   As part of a message exchange between the client and any of the
+   servers in the CoAP group, the multiple responses considered above
+   are examples of the more general concept elaborated in Section 2 of
    [I-D.bormann-core-responses].
 
 3.2.  Caching
