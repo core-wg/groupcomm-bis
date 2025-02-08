@@ -2663,13 +2663,14 @@ Table of Contents
    replay window in the OSCORE Recipient Context associated with the
    client.
 
-   This requires a server to have a synchronized, up-to-date view of the
-   sequence number used by the client.  If such synchronization is lost,
-   e.g., due to a reboot, or suspected so, the server should use the
-   challenge-response synchronization method based on the Echo Option
-   for CoAP defined in [RFC9175] as described in Section 10 of
-   [I-D.ietf-core-oscore-groupcomm], in order to (re-)synchronize with
-   the client's sequence number.
+   This requires a server to have a Replay Window that is in a valid
+   state.  If the server's Replay Window is initialized as invalid,
+   e.g., due to a reboot, the server should use the challenge-response
+   synchronization method based on the Echo Option for CoAP defined in
+   [RFC9175] as described in Section 10 of
+   [I-D.ietf-core-oscore-groupcomm], in order to make the Replay Window
+   valid before resuming to accept incoming messages from other group
+   members.
 
 6.5.  Use of CoAP No-Response Option
 
@@ -4063,6 +4064,9 @@ G.1.  Version -12 to -13
 
    *  Recommended use of a mitigation against abuses of the No-Response
       Option.
+
+   *  Described the use of the Echo option like done in draft-ietf-core-
+      oscore-groupcomm.
 
    *  Given more context around priorized packet forwarding in 6LoWPAN.
 

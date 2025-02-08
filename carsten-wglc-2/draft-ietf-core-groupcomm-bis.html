@@ -2757,7 +2757,7 @@ Due to the group request being Non-confirmable and thus not eliciting Acknowledg
         </ul>
 <p id="section-6.4-3">It follows that, in either case, this replay attack would not accomplish anything on the client, although it does effectively target the servers in the group.<a href="#section-6.4-3" class="pilcrow">¶</a></p>
 <p id="section-6.4-4">If Group OSCORE is used, such a replay attack on the servers is prevented, since a client protects each different request with a different Sequence Number value, which is in turn included as Partial IV in the protected message and takes part in the construction of the AEAD cipher nonce. Thus, a server would be able to detect the replayed request, by checking the conveyed Partial IV against its own replay window in the OSCORE Recipient Context associated with the client.<a href="#section-6.4-4" class="pilcrow">¶</a></p>
-<p id="section-6.4-5">This requires a server to have a synchronized, up-to-date view of the sequence number used by the client. If such synchronization is lost, e.g., due to a reboot, or suspected so, the server should use the challenge-response synchronization method based on the Echo Option for CoAP defined in <span>[<a href="#RFC9175" class="cite xref">RFC9175</a>]</span> as described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-oscore-groupcomm-24#section-10" class="relref">Section 10</a> of [<a href="#I-D.ietf-core-oscore-groupcomm" class="cite xref">I-D.ietf-core-oscore-groupcomm</a>]</span>, in order to (re-)synchronize with the client's sequence number.<a href="#section-6.4-5" class="pilcrow">¶</a></p>
+<p id="section-6.4-5">This requires a server to have a Replay Window that is in a valid state. If the server's Replay Window is initialized as invalid, e.g., due to a reboot, the server should use the challenge-response synchronization method based on the Echo Option for CoAP defined in <span>[<a href="#RFC9175" class="cite xref">RFC9175</a>]</span> as described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-oscore-groupcomm-24#section-10" class="relref">Section 10</a> of [<a href="#I-D.ietf-core-oscore-groupcomm" class="cite xref">I-D.ietf-core-oscore-groupcomm</a>]</span>, in order to make the Replay Window valid before resuming to accept incoming messages from other group members.<a href="#section-6.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="use-of-coap-no-response-option">
@@ -4535,13 +4535,16 @@ That is, the client needs to preserve the Token value used for the request also 
             <p id="appendix-G.1-1.6.1">Recommended use of a mitigation against abuses of the No-Response Option.<a href="#appendix-G.1-1.6.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.7">
-            <p id="appendix-G.1-1.7.1">Given more context around priorized packet forwarding in 6LoWPAN.<a href="#appendix-G.1-1.7.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.7.1">Described the use of the Echo option like done in draft-ietf-core-oscore-groupcomm.<a href="#appendix-G.1-1.7.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.8">
-            <p id="appendix-G.1-1.8.1">Expanded considerations about replayed group requests.<a href="#appendix-G.1-1.8.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.8.1">Given more context around priorized packet forwarding in 6LoWPAN.<a href="#appendix-G.1-1.8.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.9">
-            <p id="appendix-G.1-1.9.1">Clarifications and editorial improvements.<a href="#appendix-G.1-1.9.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.9.1">Expanded considerations about replayed group requests.<a href="#appendix-G.1-1.9.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-G.1-1.10">
+            <p id="appendix-G.1-1.10.1">Clarifications and editorial improvements.<a href="#appendix-G.1-1.10.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
