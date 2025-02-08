@@ -1458,7 +1458,7 @@ This section provides examples of different message exchanges when CoAP is used 
 
 * Three servers A, B, and C, all of which are members of the CoAP group above and of the application group "gp1". Each server X (with X equal to A, B, or C): listens to its own address ADDR_X and port number PORT_X; and listens to the address ADDR_GRP and port number PORT_GRP. For each server its PORT_X may be different from PORT_GRP or may be equal to it, in general.
 
-In {{fig-exchange-example}}, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "temperature" in the application group "gp1". All servers reply with a 2.05 (Content) response, although the response from server B is lost. As source port number of their response, servers A and B use the destination port number of the request, i.e., PORT_GRP. Instead, server C uses its own port number PORT_C.
+In {{fig-exchange-example}}, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "temperature" in the application group "gp1".
 
 ~~~~~~~~~~~ aasvg
 Client              A  B  C
@@ -1472,6 +1472,15 @@ Client              A  B  C
    |                |  |  | Uri-Path: "gp1"
    |                |  |  | Uri-Path: "temperature"
    |                |  |  |
+
+   All servers reply with a 2.05 (Content) response, although the
+   response from server B is lost.
+
+   As source port number of their response, servers A and B use the
+   destination port number of the request, i.e., PORT_GRP.
+
+   |                |  |  |
+   |                |  |  |
    |<---------------+  |  | Source: ADDR_A:PORT_GRP
    |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60b1)
@@ -1484,6 +1493,11 @@ Client              A  B  C
    |                |  |  | Token: 0x86
    |                |  |  | Payload: "20.9 C"
    |                |  |  |
+
+   As source port number of its response, server C uses its own port
+   number PORT_C.
+
+   |                |  |  |
    |                |  |  |
    |<---------------------+ Source: ADDR_C:PORT_C
    |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
@@ -1494,7 +1508,7 @@ Client              A  B  C
 ~~~~~~~~~~~
 {: #fig-exchange-example title="Example of Non-confirmable group request, followed by Non-confirmable Responses"}
 
-In {{fig-exchange-example-observe}}, the client sends a Non-confirmable GET request to the CoAP group, targeting and requesting to observe the resource "temperature" in the application group "gp1". All servers reply with a 2.05 (Content) notification response. As source port number of their response, servers A and B use the destination port number of the request, i.e., PORT_GRP. Instead, server C uses its own port number PORT_C. Some time later, all servers send a 2.05 (Content) notification response, with the new representation of the "temperature" resource as payload.
+In {{fig-exchange-example-observe}}, the client sends a Non-confirmable GET request to the CoAP group, targeting and requesting to observe the resource "temperature" in the application group "gp1".
 
 ~~~~~~~~~~~ aasvg
 Client              A  B  C
@@ -1509,6 +1523,14 @@ Client              A  B  C
    |                |  |  | Uri-Path: "gp1"
    |                |  |  | Uri-Path: "temperature"
    |                |  |  |
+
+   All servers reply with a 2.05 (Content) notification response.
+
+   As source port number of their response, servers A and B use the
+   destination port number of the request, i.e., PORT_GRP.
+
+   |                |  |  |
+   |                |  |  |
    |<---------------+  |  | Source: ADDR_A:PORT_GRP
    |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60b1)
@@ -1522,6 +1544,11 @@ Client              A  B  C
    |                |  |  | Token: 0x86
    |                |  |  | Observe: 13
    |                |  |  | Payload: "20.9 C"
+
+   As source port number of its response, server C uses its own port
+   number PORT_C.
+
+   |                |  |  |
    |                |  |  |
    |<---------------------+ Source: ADDR_C:PORT_C
    |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
@@ -1531,8 +1558,12 @@ Client              A  B  C
    |                |  |  | Payload: "21.0 C"
    |                |  |  |
 
-   // The temperature changes ...
+   Some time later, the temperature changes.
 
+   All servers send a 2.05 (Content) notification response, with the
+   new representation of the "temperature" resource as payload.
+
+   |                |  |  |
    |                |  |  |
    |<---------------+  |  | Source: ADDR_A:PORT_GRP
    |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
@@ -1558,7 +1589,7 @@ Client              A  B  C
 ~~~~~~~~~~~
 {: #fig-exchange-example-observe title="Example of Non-confirmable Observe group request, followed by Non-confirmable Responses as Observe notifications"}
 
-In {{fig-exchange-example-blockwise}}, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "log" in the application group "gp1", and requesting a blockwise transfer. All servers reply with a 2.05 (Content) response including the first block. As source port number of its response, each server uses its own port number. After obtaining the first block, the client requests the following blocks separately from each server, by means of unicast exchanges.
+In {{fig-exchange-example-blockwise}}, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "log" in the application group "gp1", and requesting a blockwise transfer.
 
 ~~~~~~~~~~~ aasvg
 Client              A  B  C
@@ -1572,6 +1603,15 @@ Client              A  B  C
    |                |  |  | Uri-Path: "gp1"
    |                |  |  | Uri-Path: "log"
    |                |  |  | Block2: 0/0/64
+   |                |  |  |
+
+   All servers reply with a 2.05 (Content) response including the first
+   block.
+
+   As source port number of its response, each server uses its own port
+   number.
+
+   |                |  |  |
    |                |  |  |
    |<---------------+  |  | Source: ADDR_A:PORT_A
    |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
@@ -1593,6 +1633,13 @@ Client              A  B  C
    |                |  |  | Token: 0x86
    |                |  |  | Block2: 0/1/64
    |                |  |  | Payload: 0x0c00 ...
+   |                |  |  |
+
+   After obtaining the first block, the client requests the following
+   blocks separately from each server, by means of unicast exchanges.
+
+   The client requests the following blocks from server A.
+
    |                |  |  |
    |  GET           |  |  |
    +--------------->|  |  | Source: ADDR_CLIENT:PORT_CLIENT
@@ -1628,6 +1675,10 @@ Client              A  B  C
    |                |  |  | Block2: 2/0/64
    |                |  |  | Payload: 0x0a02 ...
    |                |  |  |
+
+   The client requests the following blocks from server B.
+
+   |                |  |  |
    |  GET           |  |  |
    +------------------>|  | Source: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Destination: ADDR_B:PORT_B
@@ -1661,6 +1712,10 @@ Client              A  B  C
    |                |  |  | Token: 0xb7
    |                |  |  | Block2: 2/0/64
    |                |  |  | Payload: 0x0b02 ...
+   |                |  |  |
+
+   The client requests the following blocks from server C.
+
    |                |  |  |
    |  GET           |  |  |
    +--------------------->| Source: ADDR_CLIENT:PORT_CLIENT
