@@ -2044,12 +2044,12 @@ If the client wishes to discover resources that a particular server hosts within
 A full example is provided in <a href="#sec-examples-group-discovery-3" class="auto internal xref">Appendix C.3</a>.<a href="#section-2.2.3.2-7.3.5" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-2.2.3.2-7.4">
-                <p id="section-2.2.3.2-7.4.1">A CoAP client can discover the CoAP servers that are members of any application group configured in the 6LoWPAN wireless mesh network of the client, the CoAP group associated with each application group, and optionally the resources that those servers host as members of the application group.<a href="#section-2.2.3.2-7.4.1" class="pilcrow">¶</a></p>
+                <p id="section-2.2.3.2-7.4.1">A CoAP client can discover the CoAP servers that are members of any application group configured in the 6LoWPAN network of the client, the CoAP group associated with each application group, and optionally the resources that those servers host as members of the application group.<a href="#section-2.2.3.2-7.4.1" class="pilcrow">¶</a></p>
 <p id="section-2.2.3.2-7.4.2">
 This is achieved by sending the GET request above with a query specifying a wildcarded group type in the URI query parameter for "rt". For example, the request can use a Group URI with path and query components "/.well-known/core?rt=g.*", so that the query matches any application group type.
  The request is sent to the "All CoAP Nodes" IP multicast address (see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-12.8" class="relref">Section 12.8</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>), with a particular chosen scope if IPv6 is used.<a href="#section-2.2.3.2-7.4.2" class="pilcrow">¶</a></p>
 <p id="section-2.2.3.2-7.4.3">
-Through the corresponding responses, the query result is a list of group resources hosted by any server in the mesh network. Each group resource denotes one application group membership of a server. For each application group, the associated CoAP group is obtained as the URI authority component of the corresponding returned link.<a href="#section-2.2.3.2-7.4.3" class="pilcrow">¶</a></p>
+Through the corresponding responses, the query result is a list of group resources hosted by any server in the 6LoWPAN network. Each group resource denotes one application group membership of a server. For each application group, the associated CoAP group is obtained as the URI authority component of the corresponding returned link.<a href="#section-2.2.3.2-7.4.3" class="pilcrow">¶</a></p>
 <p id="section-2.2.3.2-7.4.4">
 If the client wishes to discover resources that a particular server hosts within a particular application group, it may use unicast discovery request(s) to this server.<a href="#section-2.2.3.2-7.4.4" class="pilcrow">¶</a></p>
 <p id="section-2.2.3.2-7.4.5">
@@ -2501,7 +2501,7 @@ do not support MLDv2 as they have their own mechanisms defined for subscribing t
               <p id="section-3.10.3-3.1.1">Manual configuration on each ingress MPL Forwarder.<a href="#section-3.10.3-3.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.10.3-3.2">
-              <p id="section-3.10.3-3.2.1">MLDv2 protocol <span>[<a href="#RFC3810" class="cite xref">RFC3810</a>]</span>, which works only in case all CoAP servers joining a CoAP group are in link-local communication range of an ingress MPL Forwarder. This is typically not the case on mesh networks.<a href="#section-3.10.3-3.2.1" class="pilcrow">¶</a></p>
+              <p id="section-3.10.3-3.2.1">MLDv2 protocol <span>[<a href="#RFC3810" class="cite xref">RFC3810</a>]</span>, which works only in case all CoAP servers joining a CoAP group are in link-local communication range of an ingress MPL Forwarder.<a href="#section-3.10.3-3.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.10.3-3.3">
               <p id="section-3.10.3-3.3.1">Using 6LoWPAN Neighbor Discovery (ND) and Extended Address Registration Option (EARO) as described in <span>[<a href="#RFC9685" class="cite xref">RFC9685</a>]</span>, in a network that supports 6LoWPAN-ND, RPL, and MPL.<a href="#section-3.10.3-3.3.1" class="pilcrow">¶</a></p>
@@ -3461,7 +3461,7 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
         <h3 id="name-members-of-any-application-g">
 <a href="#appendix-C.4" class="section-number selfRef">C.4. </a><a href="#name-members-of-any-application-g" class="section-name selfRef">Members of any Application Group in the Network</a>
         </h3>
-<p id="appendix-C.4-1"><a href="#fig-app-gp-discovery-example4" class="auto internal xref">Figure 13</a> provides an example where a CoAP client discovers the CoAP servers that are members of any application group configured in the 6LoWPAN wireless mesh network of the client, and the CoAP group associated with each application group. In this example, the scope is realm-local to address all servers in the current 6LoWPAN wireless mesh network of the client.<a href="#appendix-C.4-1" class="pilcrow">¶</a></p>
+<p id="appendix-C.4-1"><a href="#fig-app-gp-discovery-example4" class="auto internal xref">Figure 13</a> provides an example where a CoAP client discovers the CoAP servers that are members of any application group configured in the 6LoWPAN network of the client, and the CoAP group associated with each application group. In this example, the scope is realm-local to address all servers in the current 6LoWPAN network of the client.<a href="#appendix-C.4-1" class="pilcrow">¶</a></p>
 <p id="appendix-C.4-2">The semantics "g.&lt;GROUPTYPE&gt;" for the values of the attribute "rt" is exclusively intended to support examples in this document.<a href="#appendix-C.4-2" class="pilcrow">¶</a></p>
 <span id="name-discovery-of-the-resources-"></span><div id="fig-app-gp-discovery-example4">
 <figure id="figure-13">
