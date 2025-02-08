@@ -1029,7 +1029,7 @@ It follows that, in either case, this replay attack would not accomplish anythin
 
 If Group OSCORE is used, such a replay attack on the servers is prevented, since a client protects each different request with a different Sequence Number value, which is in turn included as Partial IV in the protected message and takes part in the construction of the AEAD cipher nonce. Thus, a server would be able to detect the replayed request, by checking the conveyed Partial IV against its own replay window in the OSCORE Recipient Context associated with the client.
 
-This requires a server to have a synchronized, up-to-date view of the sequence number used by the client. If such synchronization is lost, e.g., due to a reboot, or suspected so, the server should use the challenge-response synchronization method based on the Echo Option for CoAP defined in {{RFC9175}} as described in {{Section 10 of I-D.ietf-core-oscore-groupcomm}}, in order to (re-)synchronize with the client's sequence number.
+This requires a server to have a Replay Window that is in a valid state. If the server's Replay Window is initialized as invalid, e.g., due to a reboot, the server should use the challenge-response synchronization method based on the Echo Option for CoAP defined in {{RFC9175}} as described in {{Section 10 of I-D.ietf-core-oscore-groupcomm}}, in order to make the Replay Window valid before resuming to accept incoming messages from other group members.
 
 ## Use of CoAP No-Response Option ##
 
@@ -1807,6 +1807,8 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 * Explicitly mentioned Observe as a reason for follow-on responses.
 
 * Recommended use of a mitigation against abuses of the No-Response Option.
+
+* Described the use of the Echo option like done in draft-ietf-core-oscore-groupcomm.
 
 * Given more context around priorized packet forwarding in 6LoWPAN.
 
