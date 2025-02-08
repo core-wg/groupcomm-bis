@@ -131,7 +131,7 @@ Table of Contents
        6.2.2.  Source Authentication
        6.2.3.  Countering Attacks
      6.3.  Risk of Amplification
-     6.4.  Replay of Non-Confirmable Messages
+     6.4.  Replay of Group Requests
      6.5.  Use of CoAP No-Response Option
      6.6.  6LoWPAN and MPL
      6.7.  Wi-Fi
@@ -2628,15 +2628,31 @@ Table of Contents
    see Section 5.  As discussed in Section 6.2.3, this limits the
    feasibility and impact of amplification attacks.
 
-6.4.  Replay of Non-Confirmable Messages
+6.4.  Replay of Group Requests
 
-   Since all requests sent over IP multicast are Non-confirmable, a
-   client might not be able to know if an adversary has actually
-   captured one of its transmitted requests and later re-injected it in
-   the group as a replay to the server nodes.  In fact, even if the
-   servers sent back responses to the replayed request, the client would
-   typically not have a valid matching request active anymore, so this
-   attack would not accomplish anything in the client.
+   After a client has sent a group request over IP multicast, an
+   adversary might capture the group request to be re-injected in the
+   group as a replay to the server nodes.  In particular:
+
+   *  If the adversary re-injects the group request before the client
+      has freed up the corresponding Token value (see Section 3.1.5),
+      the client might receive additional responses from the servers in
+      the group.
+
+      Due to the group request being Non-confirmable and thus not
+      eliciting Acknowledgement messages, the client might not be able
+      to notice the attack, or to distinguish the responses that a
+      particular server has sent as reply to the original group request
+      (if any) or to the replayed group request.
+
+   *  If the adversary re-injects the group request after the client has
+      freed up the corresponding Token value, the client would not have
+      anymore a valid, active request matching with responses that the
+      servers sent to the replayed group request.
+
+   It follows that, in either case, this replay attack would not
+   accomplish anything on the client, although it does effectively
+   target the servers in the group.
 
    If Group OSCORE is used, such a replay attack on the servers is
    prevented, since a client protects each different request with a
@@ -4001,6 +4017,8 @@ G.1.  Version -12 to -13
       Option.
 
    *  Given more context around priorized packet forwarding in 6LoWPAN.
+
+   *  Expanded considerations about replayed group requests.
 
    *  Clarifications and editorial improvements.
 

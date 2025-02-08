@@ -1351,7 +1351,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-risk-of-amplification" class="internal xref">Risk of Amplification</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.4">
-                <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="auto internal xref">6.4</a>.  <a href="#name-replay-of-non-confirmable-m" class="internal xref">Replay of Non-Confirmable Messages</a></p>
+                <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="auto internal xref">6.4</a>.  <a href="#name-replay-of-group-requests" class="internal xref">Replay of Group Requests</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5">
                 <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="auto internal xref">6.5</a>.  <a href="#name-use-of-coap-no-response-opt" class="internal xref">Use of CoAP No-Response Option</a></p>
@@ -2739,14 +2739,25 @@ As noted above, the server may additionally rely on the Echo Option for CoAP def
 <p id="section-6.3-10">With the exception of such particular use cases, group communications <span class="bcp14">MUST</span> be secured using Group OSCORE <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="cite xref">I-D.ietf-core-oscore-groupcomm</a>]</span>, see <a href="#chap-oscore" class="auto internal xref">Section 5</a>. As discussed in <a href="#chap-security-considerations-sec-mode-attacks" class="auto internal xref">Section 6.2.3</a>, this limits the feasibility and impact of amplification attacks.<a href="#section-6.3-10" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="replay-of-non-confirmable-messages">
+<div id="replay-of-group-requests">
 <section id="section-6.4">
-        <h3 id="name-replay-of-non-confirmable-m">
-<a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-replay-of-non-confirmable-m" class="section-name selfRef">Replay of Non-Confirmable Messages</a>
+        <h3 id="name-replay-of-group-requests">
+<a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-replay-of-group-requests" class="section-name selfRef">Replay of Group Requests</a>
         </h3>
-<p id="section-6.4-1">Since all requests sent over IP multicast are Non-confirmable, a client might not be able to know if an adversary has actually captured one of its transmitted requests and later re-injected it in the group as a replay to the server nodes. In fact, even if the servers sent back responses to the replayed request, the client would typically not have a valid matching request active anymore, so this attack would not accomplish anything in the client.<a href="#section-6.4-1" class="pilcrow">¶</a></p>
-<p id="section-6.4-2">If Group OSCORE is used, such a replay attack on the servers is prevented, since a client protects each different request with a different Sequence Number value, which is in turn included as Partial IV in the protected message and takes part in the construction of the AEAD cipher nonce. Thus, a server would be able to detect the replayed request, by checking the conveyed Partial IV against its own replay window in the OSCORE Recipient Context associated with the client.<a href="#section-6.4-2" class="pilcrow">¶</a></p>
-<p id="section-6.4-3">This requires a server to have a synchronized, up-to-date view of the sequence number used by the client. If such synchronization is lost, e.g., due to a reboot, or suspected so, the server should use the challenge-response synchronization method based on the Echo Option for CoAP defined in <span>[<a href="#RFC9175" class="cite xref">RFC9175</a>]</span> as described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-oscore-groupcomm-24#section-10" class="relref">Section 10</a> of [<a href="#I-D.ietf-core-oscore-groupcomm" class="cite xref">I-D.ietf-core-oscore-groupcomm</a>]</span>, in order to (re-)synchronize with the client's sequence number.<a href="#section-6.4-3" class="pilcrow">¶</a></p>
+<p id="section-6.4-1">After a client has sent a group request over IP multicast, an adversary might capture the group request to be re-injected in the group as a replay to the server nodes. In particular:<a href="#section-6.4-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.4-2.1">
+            <p id="section-6.4-2.1.1">If the adversary re-injects the group request before the client has freed up the corresponding Token value (see <a href="#sec-token-reuse" class="auto internal xref">Section 3.1.5</a>), the client might receive additional responses from the servers in the group.<a href="#section-6.4-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-6.4-2.1.2">
+Due to the group request being Non-confirmable and thus not eliciting Acknowledgement messages, the client might not be able to notice the attack, or to distinguish the responses that a particular server has sent as reply to the original group request (if any) or to the replayed group request.<a href="#section-6.4-2.1.2" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.4-2.2">
+            <p id="section-6.4-2.2.1">If the adversary re-injects the group request after the client has freed up the corresponding Token value, the client would not have anymore a valid, active request matching with responses that the servers sent to the replayed group request.<a href="#section-6.4-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-6.4-3">It follows that, in either case, this replay attack would not accomplish anything on the client, although it does effectively target the servers in the group.<a href="#section-6.4-3" class="pilcrow">¶</a></p>
+<p id="section-6.4-4">If Group OSCORE is used, such a replay attack on the servers is prevented, since a client protects each different request with a different Sequence Number value, which is in turn included as Partial IV in the protected message and takes part in the construction of the AEAD cipher nonce. Thus, a server would be able to detect the replayed request, by checking the conveyed Partial IV against its own replay window in the OSCORE Recipient Context associated with the client.<a href="#section-6.4-4" class="pilcrow">¶</a></p>
+<p id="section-6.4-5">This requires a server to have a synchronized, up-to-date view of the sequence number used by the client. If such synchronization is lost, e.g., due to a reboot, or suspected so, the server should use the challenge-response synchronization method based on the Echo Option for CoAP defined in <span>[<a href="#RFC9175" class="cite xref">RFC9175</a>]</span> as described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-oscore-groupcomm-24#section-10" class="relref">Section 10</a> of [<a href="#I-D.ietf-core-oscore-groupcomm" class="cite xref">I-D.ietf-core-oscore-groupcomm</a>]</span>, in order to (re-)synchronize with the client's sequence number.<a href="#section-6.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="use-of-coap-no-response-option">
@@ -4306,7 +4317,10 @@ That is, the client needs to preserve the Token value used for the request also 
             <p id="appendix-G.1-1.7.1">Given more context around priorized packet forwarding in 6LoWPAN.<a href="#appendix-G.1-1.7.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.8">
-            <p id="appendix-G.1-1.8.1">Clarifications and editorial improvements.<a href="#appendix-G.1-1.8.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.8.1">Expanded considerations about replayed group requests.<a href="#appendix-G.1-1.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-G.1-1.9">
+            <p id="appendix-G.1-1.9.1">Clarifications and editorial improvements.<a href="#appendix-G.1-1.9.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
