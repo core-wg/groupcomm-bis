@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-06T01:22:38.383555+00:00",
+  "timestamp": "2025-02-09T01:26:24.718816+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -1682,6 +1682,115 @@
           "createdAt": "2025-02-03T11:33:21Z",
           "updatedAt": "2025-02-03T11:33:21Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 44,
+      "id": "PR_kwDODvYK3c6KgxJk",
+      "title": "Carsten's comments from 2nd WGLC",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/44",
+      "state": "OPEN",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR addresses Carsten's comments received during the second WG Last Call and archived at:\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/core/tEc5P4t_A5emYdHvVCoei5FgT_o/",
+      "createdAt": "2025-02-08T12:10:38Z",
+      "updatedAt": "2025-02-08T15:47:38Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "d92eb12b340ed78a41e963b99fb7f9f410282988",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "carsten-wglc-2",
+      "headRefOid": "16d6b8304e1066e1ddabe3033be64c42ccb0fd05",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDODvYK3c6bM6qe",
+          "commit": {
+            "abbreviatedOid": "16d6b83"
+          },
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "Very nice handling of my comments!\r\nPart 1 of my review of that.",
+          "createdAt": "2025-02-08T14:06:59Z",
+          "updatedAt": "2025-02-08T14:28:30Z",
+          "comments": [
+            {
+              "originalPosition": 216,
+              "body": "I'm still not sure the MUST is justified here (or is it intended as a restatement of something I'm missing?)",
+              "createdAt": "2025-02-08T14:06:59Z",
+              "updatedAt": "2025-02-08T14:28:30Z"
+            },
+            {
+              "originalPosition": 342,
+              "body": "This has a SHOULD without explanation what the exceptions are.\r\nIsn't this really just a statement about when the mitigation actually works?\r\n",
+              "createdAt": "2025-02-08T14:10:41Z",
+              "updatedAt": "2025-02-08T14:28:30Z"
+            },
+            {
+              "originalPosition": 91,
+              "body": "(Really a nit: Discovery \"from X\" could be discovery that originates from X or discovery that works by inquiring X.  No good suggestion here.)\r\n\r\nMaybe clarify the unclear \"of\" of \"Servers of a ... group\" by including \"members\"?\r\n\r\n```suggestion\r\n#### Discovery from Server Members of an Application or CoAP Group ### {#sssec-discovery-from-servers}\r\n```\r\n",
+              "createdAt": "2025-02-08T14:20:25Z",
+              "updatedAt": "2025-02-08T14:28:30Z"
+            },
+            {
+              "originalPosition": 156,
+              "body": "```suggestion\r\nFor example, if the client sends a group request specifying the Observe option set to 0 (see {{Section 3.1 of RFC7641}}) and this server adds the client to the list of observers for the targeted resource, then the server is set up to send multiple responses as Observe notifications to notify the client of changes to the resource state (see {{Section 4.2 of RFC7641}}). The use of Observe with group communication is discussed in more details in {{sec-observe}}. As another example, a server might not implement the optional CoAP message deduplication based on Message ID; or it might be acting out of specification as a malicious, compromised or faulty server.\r\n```",
+              "createdAt": "2025-02-08T14:27:38Z",
+              "updatedAt": "2025-02-08T14:28:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6bM-1u",
+          "commit": {
+            "abbreviatedOid": "16d6b83"
+          },
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "(Second part.)\r\n\r\nThank  you for diligetly addressing my comments!",
+          "createdAt": "2025-02-08T15:05:57Z",
+          "updatedAt": "2025-02-08T15:47:38Z",
+          "comments": [
+            {
+              "originalPosition": 161,
+              "body": "My problem still is that, from a client's point of view, each incoming response message (unless detected to be reordered) will be deemed to be the most recent one from that server, so I don't understand how this statement is selective.",
+              "createdAt": "2025-02-08T15:05:57Z",
+              "updatedAt": "2025-02-08T15:47:38Z"
+            },
+            {
+              "originalPosition": 182,
+              "body": "```suggestion\r\nNote: a CoAP server implementation that is unaware of the updates to {{RFC7252}} made by this document will expect group requests to never contain an ETag Option (see {{Section 8.2.1 of RFC7252}}). Such a server treats an ETag Option in a group request as an unrecognized option per {{Sections 5.4 and 8.2.1 of RFC7252}}, causing it to ignore this (elective) ETag Option regardless of its value, and processes the request normally as if that ETag Option was not included.\r\n```",
+              "createdAt": "2025-02-08T15:09:44Z",
+              "updatedAt": "2025-02-08T15:47:38Z"
+            },
+            {
+              "originalPosition": 190,
+              "body": "Maybe be terminally clear which of the port numbers we are talking about:\r\n\r\n```suggestion\r\nA server that is a member of a CoAP group listens for CoAP request messages on the group's IP multicast address and port number. The group's port number is usually the CoAP default UDP port number 5683, or alternatively another non-default UDP port number if configured. Regardless of the method that is used for selecting the group's port number, the same port number is used as the destination port number for requests across all CoAP servers that are members of a CoAP group and across all CoAP clients sending group requests to that group.\r\n```",
+              "createdAt": "2025-02-08T15:15:20Z",
+              "updatedAt": "2025-02-08T15:47:38Z"
+            },
+            {
+              "originalPosition": 202,
+              "body": "(Another unqualified SHOULD, but maybe this is clear from the context here.)",
+              "createdAt": "2025-02-08T15:16:48Z",
+              "updatedAt": "2025-02-08T15:47:38Z"
+            },
+            {
+              "originalPosition": 230,
+              "body": "Thank you for improving the wording.\r\nCouldn't CO transports still be used as the first hop to a proxy that then uses IP multicast?",
+              "createdAt": "2025-02-08T15:23:40Z",
+              "updatedAt": "2025-02-08T15:47:38Z"
+            }
+          ]
         }
       ]
     }
