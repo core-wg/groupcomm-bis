@@ -587,7 +587,7 @@ A server endpoint MUST process an ETag Option in a GET or FETCH group request in
 A server endpoint that includes an ETag Option in a response to a group request SHOULD construct the ETag Option value in such a way that the value
 will be unique to this particular server with a high probability. This practically prevents a collision of the ETag values from different servers in the same CoAP group and application group, which in turn allows the client to effectively validate a particular response of an origin server. This can be accomplished, for example, by embedding a compact ID (or hash) of the server within the ETag value, where the ID is unique (or unique with a high probability) in the scope of the CoAP/application groups.
 
-Note: a CoAP server implementation that is unaware of the updates to {{RFC7252}} made by this document will expect group requests to never contain an ETag Option (see {{Section 8.2.1 of RFC7252}}). Such a server treats an ETag Option in a group request as an unrecognized option per {{Sections 5.4 and 8.2.1 of RFC7252}}, causing it to ignore this (elective) ETag Option regardless of its value, and process the request normally as if that ETag Option was not included.
+Note: a CoAP server implementation that is unaware of the updates to {{RFC7252}} made by this document will expect group requests to never contain an ETag Option (see {{Section 8.2.1 of RFC7252}}). Such a server treats an ETag Option in a group request as an unrecognized option per {{Sections 5.4 and 8.2.1 of RFC7252}}, causing it to ignore this (elective) ETag Option regardless of its value, and processes the request normally as if that ETag Option was not included.
 
 
 ## URI Path Selection ##
