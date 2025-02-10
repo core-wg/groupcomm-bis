@@ -1361,8 +1361,8 @@ Table of Contents
    contain an ETag Option (see Section 8.2.1 of [RFC7252]).  Such a
    server treats an ETag Option in a group request as an unrecognized
    option per Sections 5.4 and 8.2.1 of [RFC7252], causing it to ignore
-   this (elective) ETag Option regardless of its value, and process the
-   request normally as if that ETag Option was not included.
+   this (elective) ETag Option regardless of its value, and processes
+   the request normally as if that ETag Option was not included.
 
 3.3.  URI Path Selection
 
