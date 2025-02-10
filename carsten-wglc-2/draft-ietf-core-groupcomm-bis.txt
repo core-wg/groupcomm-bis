@@ -2682,11 +2682,12 @@ Table of Contents
    perform an amplification attack (see Section 6.3).
 
    As a mitigation, a server that takes into account the No-Response
-   Option relaxes the standard suppression rules for a resource only in
-   case the option is sent by an authenticated client.  Consequently, if
-   sent by an unauthenticated client, the option can still be used to
-   expand the classes of responses suppressed compared to the default
-   rules, but not to reduce the classes of responses suppressed.
+   Option can specifically relax the standard suppression rules for a
+   resource only in case the option is sent by an authenticated client.
+   Consequently, if sent by an unauthenticated client, the option can
+   still be used to expand the classes of responses suppressed compared
+   to the default rules, but not to reduce the classes of responses
+   suppressed.
 
 6.6.  6LoWPAN and MPL
 
