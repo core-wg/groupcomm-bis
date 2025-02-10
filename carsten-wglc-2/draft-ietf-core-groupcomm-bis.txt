@@ -1209,13 +1209,13 @@ Table of Contents
    For example, if the client sends a group request specifying the
    Observe option set to 0 (see Section 3.1 of [RFC7641]) and this
    server adds the client to the list of observers for the targeted
-   resource, then the server will send multiple responses as Observe
-   notifications to notify the client of changes to the resource state
-   (see Section 4.2 of [RFC7641]).  The use of Observe with group
-   communication is discussed in more details in Section 3.7.  As an
-   alternative example, this server might not implement the optional
-   CoAP message deduplication based on Message ID; or it might be acting
-   out of specification as a malicious, compromised or faulty server.
+   resource, then the server is set up to send multiple responses as
+   Observe notifications to notify the client of changes to the resource
+   state (see Section 4.2 of [RFC7641]).  The use of Observe with group
+   communication is discussed in more details in Section 3.7.  As
+   another example, a server might not implement the optional CoAP
+   message deduplication based on Message ID; or it might be acting out
+   of specification as a malicious, compromised or faulty server.
 
    When this happens, it is up to the specific client implementation to
    decide at which layer deduplication of responses is performed, or
