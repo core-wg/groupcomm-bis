@@ -1384,9 +1384,9 @@ Table of Contents
    group's port number is usually the CoAP default UDP port number 5683,
    or alternatively another non-default UDP port number if configured.
    Regardless of the method that is used for selecting the group's port
-   number, the same port number is used across all CoAP servers that are
-   members of a CoAP group and across all CoAP clients sending group
-   requests to that group.
+   number, the same port number is used as the destination port number
+   for requests across all CoAP servers that are members of a CoAP group
+   and across all CoAP clients sending group requests to that group.
 
    One way to create multiple CoAP groups is using different UDP ports
    with the same IP multicast address, in case the devices' network
