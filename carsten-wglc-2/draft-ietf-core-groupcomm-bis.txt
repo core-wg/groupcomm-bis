@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                         8 February 2025
-Expires: 12 August 2025
+Intended status: Standards Track                        10 February 2025
+Expires: 14 August 2025
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 August 2025.
+   This Internet-Draft will expire on 14 August 2025.
 
 Copyright Notice
 
@@ -1788,9 +1788,9 @@ Table of Contents
        equal to the block size specified in the Block2 Option of the
        first group request, or instead a smaller one.  If the client
        relies on this approach, then the Block2 Option of follow-up
-       group requests in the same block-wise transfer MUST specify the
-       same block size used by all the servers in the Block2 Option of
-       their responses.
+       group requests in the same block-wise transfer specifies the same
+       block size used by all the servers in the Block2 Option of their
+       responses.
 
    Furthermore, a server (member of a targeted CoAP group) that needs to
    respond to a group request with a particularly large resource can use
@@ -1807,7 +1807,7 @@ Table of Contents
    smallest block size among those specified in the Block2 Option of the
    received responses.  If the client relies on this latter approach,
    then the Block2 Option of follow-up group requests in the same block-
-   wise transfer MUST specify the block size computed by the client.
+   wise transfer specifies the block size computed by the client.
 
    A solution for group/multicast block-wise transfer using the Block1
    Option is not specified in [RFC7959] nor in the present document.
