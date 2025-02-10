@@ -535,7 +535,7 @@ For example, if the client sends a group request specifying the Observe option s
 
 When this happens, it is up to the specific client implementation to decide at which layer deduplication of responses is performed, or whether it is necessary in an application at all. If the processing of a response is successful, the client delivers the response to the application as usual.
 
-The application itself can be in a good position to decide what to do, depending on the available context information. For instance, it might accept and process all the responses from the same server, even if they are not Observe notifications (i.e., they do not include an Observe option). Alternatively, the application might accept and process only one of those responses, such as the one that is deemed to be the most recent one from that server, e.g., when this can trigger a change of state within the application.
+The application itself can be in a good position to decide what to do, depending on the available context information. For instance, it might accept and process all the responses from the same server, even if they are not Observe notifications (i.e., they do not include an Observe option). Alternatively, the application might accept and process only one of those responses, e.g., when this can trigger a change of state within the application.
 
 As part of a message exchange between the client and any of the servers in the CoAP group, the multiple responses considered above are examples of the more general concept elaborated in {{Section 2 of I-D.bormann-core-responses}}.
 
