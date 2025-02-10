@@ -843,7 +843,7 @@ Table of Contents
    application groups, by using the lookup interface of the RD, and then
    join the security group through the respective Group Manager.
 
-2.2.3.2.  Discovery from the CoAP Servers of an Application/CoAP Group
+2.2.3.2.  Discovery from Server Members of an Application or CoAP Group
 
    It is possible for CoAP endpoints to discover application groups and
    CoAP groups from the CoAP servers that are members of such groups, by
