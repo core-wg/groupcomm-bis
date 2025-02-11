@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-09T01:26:24.718816+00:00",
+  "timestamp": "2025-02-11T01:22:06.771816+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -1697,13 +1697,13 @@
       "labels": [],
       "body": "This PR addresses Carsten's comments received during the second WG Last Call and archived at:\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/core/tEc5P4t_A5emYdHvVCoei5FgT_o/",
       "createdAt": "2025-02-08T12:10:38Z",
-      "updatedAt": "2025-02-08T15:47:38Z",
+      "updatedAt": "2025-02-10T11:15:08Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "d92eb12b340ed78a41e963b99fb7f9f410282988",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "carsten-wglc-2",
-      "headRefOid": "16d6b8304e1066e1ddabe3033be64c42ccb0fd05",
+      "headRefOid": "6fe3f32a1be31d6e4f0c3333f6073106263fe587",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -1789,6 +1789,206 @@
               "body": "Thank you for improving the wording.\r\nCouldn't CO transports still be used as the first hop to a proxy that then uses IP multicast?",
               "createdAt": "2025-02-08T15:23:40Z",
               "updatedAt": "2025-02-08T15:47:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6bRVHK",
+          "commit": {
+            "abbreviatedOid": "16d6b83"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-10T08:37:37Z",
+          "updatedAt": "2025-02-10T08:37:37Z",
+          "comments": [
+            {
+              "originalPosition": 216,
+              "body": "It's a restatement of what is defined in Section 2.4 of of RFC 7959 (of course, there discussed for one-to-one communication). The same goes for the other \"MUST\" two paragraphs below.\r\n\r\nhttps://github.com/core-wg/groupcomm-bis/pull/44/commits/d26b390a23cd2fe8816d872e32ef7ac3d4246e2a  addressed this by avoiding \"MUST\" and just asserting, i.e., s/MUST specify/specifies",
+              "createdAt": "2025-02-10T08:37:37Z",
+              "updatedAt": "2025-02-10T08:37:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6bRalA",
+          "commit": {
+            "abbreviatedOid": "16d6b83"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-10T08:46:37Z",
+          "updatedAt": "2025-02-10T08:46:37Z",
+          "comments": [
+            {
+              "originalPosition": 342,
+              "body": "Fixed in https://github.com/core-wg/groupcomm-bis/pull/44/commits/3ff1784df721831448663eaeba690cfc9328940f",
+              "createdAt": "2025-02-10T08:46:37Z",
+              "updatedAt": "2025-02-10T08:46:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6bRbkk",
+          "commit": {
+            "abbreviatedOid": "16d6b83"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-10T08:48:25Z",
+          "updatedAt": "2025-02-10T08:48:26Z",
+          "comments": [
+            {
+              "originalPosition": 216,
+              "body": "@marco-tiloca-sics  If we define normative (new) requirements for multicast use of blockwise, that would require normative text and also that we formally update RFC 7959 - which we don't do, at the moment.\r\n\r\nIf we only follow RFC 7959 rules and restate those in a new context (deeming we don't formally update 7959) then avoiding \"MUST\" is the thing to do.  I haven't looked yet which case applies here :) ",
+              "createdAt": "2025-02-10T08:48:26Z",
+              "updatedAt": "2025-02-10T08:48:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6bRc8R",
+          "commit": {
+            "abbreviatedOid": "16d6b83"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-10T08:50:55Z",
+          "updatedAt": "2025-02-10T08:50:55Z",
+          "comments": [
+            {
+              "originalPosition": 216,
+              "body": "Right, that should be the latter :-)",
+              "createdAt": "2025-02-10T08:50:55Z",
+              "updatedAt": "2025-02-10T08:50:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6bRjSz",
+          "commit": {
+            "abbreviatedOid": "16d6b83"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-10T08:56:17Z",
+          "updatedAt": "2025-02-10T08:56:18Z",
+          "comments": [
+            {
+              "originalPosition": 161,
+              "body": "Maybe it's just better to drop the central part of the sentence and say:\r\n\r\n> Alternatively, the application might accept and process only one of those responses, e.g., when this can trigger a change of state within the application.",
+              "createdAt": "2025-02-10T08:56:17Z",
+              "updatedAt": "2025-02-10T08:56:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6bSEwq",
+          "commit": {
+            "abbreviatedOid": "5ff3d56"
+          },
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "Just one quick observation...",
+          "createdAt": "2025-02-10T09:39:43Z",
+          "updatedAt": "2025-02-10T09:41:43Z",
+          "comments": [
+            {
+              "originalPosition": 342,
+              "body": "Not sure that indicative mood (\"relaxes\") works here.\r\n\r\n\u00bb In grammar, the indicative mood is a verb mood that the speaker or writer uses to express information that sounds factual. \u00ab",
+              "createdAt": "2025-02-10T09:39:43Z",
+              "updatedAt": "2025-02-10T09:41:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6bSkZb",
+          "commit": {
+            "abbreviatedOid": "16d6b83"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-10T10:31:15Z",
+          "updatedAt": "2025-02-10T10:31:15Z",
+          "comments": [
+            {
+              "originalPosition": 161,
+              "body": "Addressed in https://github.com/core-wg/groupcomm-bis/pull/44/commits/f58845b1f2f542506ddf1c6b8479748fa9599e07",
+              "createdAt": "2025-02-10T10:31:15Z",
+              "updatedAt": "2025-02-10T10:31:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6bSohY",
+          "commit": {
+            "abbreviatedOid": "16d6b83"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-10T10:38:24Z",
+          "updatedAt": "2025-02-10T10:38:24Z",
+          "comments": [
+            {
+              "originalPosition": 202,
+              "body": "Yes, that was my hope.",
+              "createdAt": "2025-02-10T10:38:24Z",
+              "updatedAt": "2025-02-10T10:38:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6bS3Nn",
+          "commit": {
+            "abbreviatedOid": "16d6b83"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-10T11:04:23Z",
+          "updatedAt": "2025-02-10T11:04:23Z",
+          "comments": [
+            {
+              "originalPosition": 230,
+              "body": "Yes. What about adding the following new paragraph at the end of the same Section 3.9.4 \"TCP, TLS, and WebSockets\" ?\r\n\r\n> Alternatively, a suitable cross-proxy can be set up, such that it receives a unicast CoAP group request over TCP/TLS/WebSockets, and then forwards the request to the servers in the group over UDP/IP multicast (see {{sec-proxy}}). The discovery of such a proxy can also rely on means defined in {{I-D.ietf-core-transport-indication}}.",
+              "createdAt": "2025-02-10T11:04:23Z",
+              "updatedAt": "2025-02-10T11:05:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6bS80B",
+          "commit": {
+            "abbreviatedOid": "5ff3d56"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-10T11:15:07Z",
+          "updatedAt": "2025-02-10T11:15:08Z",
+          "comments": [
+            {
+              "originalPosition": 342,
+              "body": "Changed to \"can specifically relax\"",
+              "createdAt": "2025-02-10T11:15:08Z",
+              "updatedAt": "2025-02-10T11:15:08Z"
             }
           ]
         }
