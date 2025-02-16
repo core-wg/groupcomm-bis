@@ -1049,7 +1049,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Dijk &amp; Tiloca</td>
-<td class="center">Expires 14 August 2025</td>
+<td class="center">Expires 20 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7252" class="eref">7252</a>, <a href="https://www.rfc-editor.org/rfc/rfc7641" class="eref">7641</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-10" class="published">10 February 2025</time>
+<time datetime="2025-02-16" class="published">16 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-14">14 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-20">20 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1126,7 +1126,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 14 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 20 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2443,9 +2443,19 @@ As a consequence, for each server, the client receives responses originated by t
           <h4 id="name-tcp-tls-and-websockets">
 <a href="#section-3.9.4" class="section-number selfRef">3.9.4. </a><a href="#name-tcp-tls-and-websockets" class="section-name selfRef">TCP, TLS, and WebSockets</a>
           </h4>
-<p id="section-3.9.4-1">Because it supports unicast only, employing <span>[<a href="#RFC8323" class="cite xref">RFC8323</a>]</span> (CoAP over TCP, TLS, and WebSockets) as a transport for CoAP group communication is limited to the use of block-wise transfer discussed in <a href="#sec-block-wise" class="auto internal xref">Section 3.8</a>.<a href="#section-3.9.4-1" class="pilcrow">¶</a></p>
-<p id="section-3.9.4-2">That is, after the first group request including the Block2 Option and sent over UDP, the following unicast CoAP requests targeting individual servers to retrieve further blocks may be sent over TCP or WebSockets, possibly protected with TLS.<a href="#section-3.9.4-2" class="pilcrow">¶</a></p>
-<p id="section-3.9.4-3">This requires the individually addressed servers to also support CoAP over TCP/TLS/WebSockets for the targeted resource. While those transports do not support multicast, it is possible to rely on multicast for discovering that a server has those transports available and that they allow accessing the targeted resource, possibly with block-wise transfer used for random access to blocks within the resource representation. Such discovering can rely on means defined in <span>[<a href="#I-D.ietf-core-transport-indication" class="cite xref">I-D.ietf-core-transport-indication</a>]</span>.<a href="#section-3.9.4-3" class="pilcrow">¶</a></p>
+<p id="section-3.9.4-1">CoAP over TCP, TLS, and WebSockets is defined in <span>[<a href="#RFC8323" class="cite xref">RFC8323</a>]</span>. Although it supports unicast only, it can be employed as a transport for CoAP group communication in situations where unicast is used, such as exchanging messages with a proxy and completing block-wise transfers. In particular:<a href="#section-3.9.4-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.9.4-2.1">
+              <p id="section-3.9.4-2.1.1">A suitable cross-proxy can be set up, such that it receives a unicast CoAP group request over TCP/TLS/WebSockets, and then forwards the request to the servers in the group over UDP/IP multicast (see <a href="#sec-proxy" class="auto internal xref">Section 3.5</a>). The discovery of such a proxy can rely on means defined in <span>[<a href="#I-D.ietf-core-transport-indication" class="cite xref">I-D.ietf-core-transport-indication</a>]</span>.<a href="#section-3.9.4-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.9.4-2.2">
+              <p id="section-3.9.4-2.2.1"><span>[<a href="#RFC8323" class="cite xref">RFC8323</a>]</span> can be employed to complete block-wise transfers for CoAP group communication, with the limitations discussed in <a href="#sec-block-wise" class="auto internal xref">Section 3.8</a>.<a href="#section-3.9.4-2.2.1" class="pilcrow">¶</a></p>
+<p id="section-3.9.4-2.2.2">
+That is, after the first group request including the Block2 Option and sent over UDP, the following unicast CoAP requests targeting individual servers to retrieve further blocks may be sent over TCP or WebSockets, possibly protected with TLS.<a href="#section-3.9.4-2.2.2" class="pilcrow">¶</a></p>
+<p id="section-3.9.4-2.2.3">
+This requires the individually addressed servers to be reachable via a suitable cross-proxy or to also support CoAP over TCP/TLS/WebSockets for the targeted resource. While those transports do not support multicast, it is possible to rely on multicast for discovering that a server has those transports available and that they allow accessing the targeted resource, possibly with block-wise transfer used for random access to blocks within the resource representation. Such discovering can rely on means defined in <span>[<a href="#I-D.ietf-core-transport-indication" class="cite xref">I-D.ietf-core-transport-indication</a>]</span>.<a href="#section-3.9.4-2.2.3" class="pilcrow">¶</a></p>
+</li>
+          </ul>
 </section>
 </div>
 <div id="other-transports">
@@ -4541,13 +4551,16 @@ That is, the client needs to preserve the Token value used for the request also 
             <p id="appendix-G.1-1.8.1">Described the use of the Echo option like done in draft-ietf-core-oscore-groupcomm.<a href="#appendix-G.1-1.8.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.9">
-            <p id="appendix-G.1-1.9.1">Given more context around prioritized packet forwarding in 6LoWPAN.<a href="#appendix-G.1-1.9.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.9.1">Clarified possible use of CoAP over reliable transports.<a href="#appendix-G.1-1.9.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.10">
-            <p id="appendix-G.1-1.10.1">Expanded considerations about replayed group requests.<a href="#appendix-G.1-1.10.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.10.1">Given more context around prioritized packet forwarding in 6LoWPAN.<a href="#appendix-G.1-1.10.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.11">
-            <p id="appendix-G.1-1.11.1">Clarifications and editorial improvements.<a href="#appendix-G.1-1.11.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.11.1">Expanded considerations about replayed group requests.<a href="#appendix-G.1-1.11.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-G.1-1.12">
+            <p id="appendix-G.1-1.12.1">Clarifications and editorial improvements.<a href="#appendix-G.1-1.12.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>

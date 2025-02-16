@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                        10 February 2025
-Expires: 14 August 2025
+Intended status: Standards Track                        16 February 2025
+Expires: 20 August 2025
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 August 2025.
+   This Internet-Draft will expire on 20 August 2025.
 
 Copyright Notice
 
@@ -1901,23 +1901,36 @@ Table of Contents
 
 3.9.4.  TCP, TLS, and WebSockets
 
-   Because it supports unicast only, employing [RFC8323] (CoAP over TCP,
-   TLS, and WebSockets) as a transport for CoAP group communication is
-   limited to the use of block-wise transfer discussed in Section 3.8.
+   CoAP over TCP, TLS, and WebSockets is defined in [RFC8323].  Although
+   it supports unicast only, it can be employed as a transport for CoAP
+   group communication in situations where unicast is used, such as
+   exchanging messages with a proxy and completing block-wise transfers.
+   In particular:
 
-   That is, after the first group request including the Block2 Option
-   and sent over UDP, the following unicast CoAP requests targeting
-   individual servers to retrieve further blocks may be sent over TCP or
-   WebSockets, possibly protected with TLS.
+   *  A suitable cross-proxy can be set up, such that it receives a
+      unicast CoAP group request over TCP/TLS/WebSockets, and then
+      forwards the request to the servers in the group over UDP/IP
+      multicast (see Section 3.5).  The discovery of such a proxy can
+      rely on means defined in [I-D.ietf-core-transport-indication].
 
-   This requires the individually addressed servers to also support CoAP
-   over TCP/TLS/WebSockets for the targeted resource.  While those
-   transports do not support multicast, it is possible to rely on
-   multicast for discovering that a server has those transports
-   available and that they allow accessing the targeted resource,
-   possibly with block-wise transfer used for random access to blocks
-   within the resource representation.  Such discovering can rely on
-   means defined in [I-D.ietf-core-transport-indication].
+   *  [RFC8323] can be employed to complete block-wise transfers for
+      CoAP group communication, with the limitations discussed in
+      Section 3.8.
+
+      That is, after the first group request including the Block2 Option
+      and sent over UDP, the following unicast CoAP requests targeting
+      individual servers to retrieve further blocks may be sent over TCP
+      or WebSockets, possibly protected with TLS.
+
+      This requires the individually addressed servers to be reachable
+      via a suitable cross-proxy or to also support CoAP over TCP/TLS/
+      WebSockets for the targeted resource.  While those transports do
+      not support multicast, it is possible to rely on multicast for
+      discovering that a server has those transports available and that
+      they allow accessing the targeted resource, possibly with block-
+      wise transfer used for random access to blocks within the resource
+      representation.  Such discovering can rely on means defined in
+      [I-D.ietf-core-transport-indication].
 
 3.9.5.  Other Transports
 
@@ -4066,6 +4079,8 @@ G.1.  Version -12 to -13
 
    *  Described the use of the Echo option like done in draft-ietf-core-
       oscore-groupcomm.
+
+   *  Clarified possible use of CoAP over reliable transports.
 
    *  Given more context around prioritized packet forwarding in
       6LoWPAN.
