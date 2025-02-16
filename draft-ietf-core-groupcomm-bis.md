@@ -764,11 +764,15 @@ Note that a client sending an IPv4 multicast CoAP message to a port number that 
 
 ### TCP, TLS, and WebSockets ###
 
-Because it supports unicast only, employing {{RFC8323}} (CoAP over TCP, TLS, and WebSockets) as a transport for CoAP group communication is limited to the use of block-wise transfer discussed in {{sec-block-wise}}.
+CoAP over TCP, TLS, and WebSockets is defined in {{RFC8323}}. Although it supports unicast only, it can be employed as a transport for CoAP group communication in situations where unicast is used, such as exchanging messages with a proxy and completing block-wise transfers. In particular:
 
-That is, after the first group request including the Block2 Option and sent over UDP, the following unicast CoAP requests targeting individual servers to retrieve further blocks may be sent over TCP or WebSockets, possibly protected with TLS.
+* A suitable cross-proxy can be set up, such that it receives a unicast CoAP group request over TCP/TLS/WebSockets, and then forwards the request to the servers in the group over UDP/IP multicast (see {{sec-proxy}}). The discovery of such a proxy can rely on means defined in {{I-D.ietf-core-transport-indication}}.
 
-This requires the individually addressed servers to also support CoAP over TCP/TLS/WebSockets for the targeted resource. While those transports do not support multicast, it is possible to rely on multicast for discovering that a server has those transports available and that they allow accessing the targeted resource, possibly with block-wise transfer used for random access to blocks within the resource representation. Such discovering can rely on means defined in {{I-D.ietf-core-transport-indication}}.
+* {{RFC8323}} can be employed to complete block-wise transfers for CoAP group communication, with the limitations discussed in {{sec-block-wise}}.
+
+  That is, after the first group request including the Block2 Option and sent over UDP, the following unicast CoAP requests targeting individual servers to retrieve further blocks may be sent over TCP or WebSockets, possibly protected with TLS.
+
+  This requires the individually addressed servers to be reachable via a suitable cross-proxy or to also support CoAP over TCP/TLS/WebSockets for the targeted resource. While those transports do not support multicast, it is possible to rely on multicast for discovering that a server has those transports available and that they allow accessing the targeted resource, possibly with block-wise transfer used for random access to blocks within the resource representation. Such discovering can rely on means defined in {{I-D.ietf-core-transport-indication}}.
 
 ### Other Transports ###
 CoAP group communication may be used over transports other than UDP/IP multicast. For example broadcast, non-UDP multicast, geocast, serial unicast, etc. In such cases the particular considerations for UDP/IP multicast in this document may need to be applied to that particular transport.
@@ -1811,6 +1815,8 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 * Recommended use of a mitigation against abuses of the No-Response Option.
 
 * Described the use of the Echo option like done in draft-ietf-core-oscore-groupcomm.
+
+* Clarified possible use of CoAP over reliable transports.
 
 * Given more context around prioritized packet forwarding in 6LoWPAN.
 
