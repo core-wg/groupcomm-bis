@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-13T01:22:54.505167+00:00",
+  "timestamp": "2025-02-16T01:35:59.724016+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -1697,7 +1697,7 @@
       "labels": [],
       "body": "This PR addresses Carsten's comments received during the second WG Last Call and archived at:\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/core/tEc5P4t_A5emYdHvVCoei5FgT_o/",
       "createdAt": "2025-02-08T12:10:38Z",
-      "updatedAt": "2025-02-10T11:15:08Z",
+      "updatedAt": "2025-02-13T08:02:27Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "d92eb12b340ed78a41e963b99fb7f9f410282988",
@@ -1989,6 +1989,26 @@
               "body": "Changed to \"can specifically relax\"",
               "createdAt": "2025-02-10T11:15:08Z",
               "updatedAt": "2025-02-10T11:15:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6b0MW5",
+          "commit": {
+            "abbreviatedOid": "16d6b83"
+          },
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T08:02:27Z",
+          "updatedAt": "2025-02-13T08:02:27Z",
+          "comments": [
+            {
+              "originalPosition": 230,
+              "body": "I'm not sure there is an \"alternative\" here.  I would just say that 8323 is useful in unicast situations, such as\r\n\r\n* completing block-wise\r\n* talking to a proxy",
+              "createdAt": "2025-02-13T08:02:27Z",
+              "updatedAt": "2025-02-13T08:02:27Z"
             }
           ]
         }
