@@ -1023,15 +1023,15 @@ With the exception of such particular use cases, group communications MUST be se
 
 After a client has sent a group request over IP multicast, an adversary might capture the group request to be re-injected in the group as a replay to the server nodes. In particular:
 
-* If the adversary re-injects the group request before the client has freed up the corresponding Token value (see {{sec-token-reuse}}), the client might receive additional responses from the servers in the group.
+* If the adversary re-injects the group request before the client has freed up the corresponding Token value (see {{sec-token-reuse}}), the client might receive additional responses from the servers in the group, i.e., from the the servers that do not implement the optional Message ID based deduplication ({{Section 4.5 of RFC7252}}).
 
   Due to the group request being Non-confirmable and thus not eliciting Acknowledgement messages, the client might not be able to notice the attack, or to distinguish the responses that a particular server has sent as reply to the original group request (if any) or to the replayed group request.
 
 * If the adversary re-injects the group request after the client has freed up the corresponding Token value, the client would not have anymore a valid, active request matching with responses that the servers sent to the replayed group request.
 
-It follows that, in either case, this replay attack would not accomplish anything on the client, although it does effectively target the servers in the group.
+It follows that, in either case, this replay attack would not accomplish anything on the client, although it does effectively target the servers in the group that do not implement the optional Message ID based deduplication.
 
-If Group OSCORE is used, such a replay attack on the servers is prevented, since a client protects each different request with a different Sequence Number value, which is in turn included as Partial IV in the protected message and takes part in the construction of the AEAD cipher nonce. Thus, a server would be able to detect the replayed request, by checking the conveyed Partial IV against its own replay window in the OSCORE Recipient Context associated with the client.
+If Group OSCORE is used, such a replay attack is prevented on all servers, since a client protects each different request with a different Sequence Number value, which is in turn included as Partial IV in the protected message and takes part in the construction of the AEAD cipher nonce. Thus, a server would be able to detect the replayed request, by checking the conveyed Partial IV against its own replay window in the OSCORE Recipient Context associated with the client.
 
 This requires a server to have a Replay Window that is in a valid state. If the server's Replay Window is initialized as invalid, e.g., due to a reboot, the server should use the challenge-response synchronization method based on the Echo Option for CoAP defined in {{RFC9175}} as described in {{Section 9 of I-D.ietf-core-oscore-groupcomm}}, in order to make the Replay Window valid before resuming to accept incoming messages from other group members.
 
