@@ -1573,21 +1573,21 @@ Client              A  B  C
    |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60b2)
    |                |  |  | Token: 0x86
-   |                |  |  | Observe: 7
+   |                |  |  | Observe: 4
    |                |  |  | Payload: "32.3 C"
    |                |  |  |
    |<------------------+  | Source: ADDR_B:PORT_GRP
    |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x01a1)
    |                |  |  | Token: 0x86
-   |                |  |  | Observe: 18
+   |                |  |  | Observe: 14
    |                |  |  | Payload: "30.9 C"
    |                |  |  |
    |<---------------------+ Source: ADDR_C:PORT_C
    |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
    |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x952b)
    |                |  |  | Token: 0x86
-   |                |  |  | Observe: 29
+   |                |  |  | Observe: 24
    |                |  |  | Payload: "31.0 C"
    |                |  |  |
 ~~~~~~~~~~~
