@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-16T01:35:59.724016+00:00",
+  "timestamp": "2025-02-18T01:22:36.886530+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -797,6 +797,67 @@
       "updatedAt": "2022-06-26T16:48:44Z",
       "closedAt": "2022-06-26T16:48:44Z",
       "comments": []
+    },
+    {
+      "number": 45,
+      "id": "I_kwDODvYK3c6qUQCO",
+      "title": "Example Fig 16: inconsistent MIDs vs Observe Option sequence numbers?",
+      "url": "https://github.com/core-wg/groupcomm-bis/issues/45",
+      "state": "CLOSED",
+      "author": "EskoDijk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "marco-tiloca-sics"
+      ],
+      "labels": [],
+      "body": "Figure 16 example:\n\n* Message ID values (MIDs) are increased by +1 for the servers, for their next observe notification (\"some time later\")\n* Observe sequence number values are increased by 4, 5, 6 respectively for servers A,B,C.\n\nThis looks inconsistent. The MIDs suggest sequential increase is used, so that in the meantime (\"some time later\") no CoAP messages were sent by the server.\n\nHowever, the Observe sequence number is increased by more than 1. Which suggests that some notifications should have been sent out in the meantime by the server for this resource.",
+      "createdAt": "2025-02-17T10:33:30Z",
+      "updatedAt": "2025-02-17T17:50:42Z",
+      "closedAt": "2025-02-17T10:44:30Z",
+      "comments": [
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Addressed in https://github.com/core-wg/groupcomm-bis/commit/df89c0ad9ebb62e36335af10de1e255059f1bc24",
+          "createdAt": "2025-02-17T10:44:30Z",
+          "updatedAt": "2025-02-17T10:44:30Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@marco-tiloca-sics Thanks! This looks good now.",
+          "createdAt": "2025-02-17T10:58:27Z",
+          "updatedAt": "2025-02-17T10:58:27Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "body": "Please check Sections 3.4 and 4.4 of RFC 7641, in particular the design/implementation notes.\n\n(I don't understand what the fixes fix.)",
+          "createdAt": "2025-02-17T12:10:35Z",
+          "updatedAt": "2025-02-17T12:10:35Z"
+        },
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Ok, so it should be correct either way, and a server doesn't have to increment the notification number necessarily by 1.",
+          "createdAt": "2025-02-17T12:31:54Z",
+          "updatedAt": "2025-02-17T12:31:54Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "body": "> Ok, so it should be correct either way, and a server doesn't have to increment the notification number necessarily by 1.\n\nRight.  The question is whether we want to confuse people by showing an increment of 1, which might cause them to believe this is in any way normal.\n",
+          "createdAt": "2025-02-17T13:11:02Z",
+          "updatedAt": "2025-02-17T13:11:02Z"
+        },
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@EskoDijk , should we revert to what we had before https://github.com/core-wg/groupcomm-bis/commit/df89c0ad9ebb62e36335af10de1e255059f1bc24  ?",
+          "createdAt": "2025-02-17T17:50:41Z",
+          "updatedAt": "2025-02-17T17:50:41Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -1697,13 +1758,13 @@
       "labels": [],
       "body": "This PR addresses Carsten's comments received during the second WG Last Call and archived at:\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/core/tEc5P4t_A5emYdHvVCoei5FgT_o/",
       "createdAt": "2025-02-08T12:10:38Z",
-      "updatedAt": "2025-02-13T08:02:27Z",
+      "updatedAt": "2025-02-17T11:40:19Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "d92eb12b340ed78a41e963b99fb7f9f410282988",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "carsten-wglc-2",
-      "headRefOid": "6fe3f32a1be31d6e4f0c3333f6073106263fe587",
+      "headRefOid": "df89c0ad9ebb62e36335af10de1e255059f1bc24",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -2009,6 +2070,259 @@
               "body": "I'm not sure there is an \"alternative\" here.  I would just say that 8323 is useful in unicast situations, such as\r\n\r\n* completing block-wise\r\n* talking to a proxy",
               "createdAt": "2025-02-13T08:02:27Z",
               "updatedAt": "2025-02-13T08:02:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cJN5t",
+          "commit": {
+            "abbreviatedOid": "16d6b83"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-16T15:56:25Z",
+          "updatedAt": "2025-02-16T15:56:26Z",
+          "comments": [
+            {
+              "originalPosition": 216,
+              "body": "Marking this point as resolved, per the discussion and commit above",
+              "createdAt": "2025-02-16T15:56:26Z",
+              "updatedAt": "2025-02-16T15:56:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cJN8W",
+          "commit": {
+            "abbreviatedOid": "16d6b83"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-16T15:57:15Z",
+          "updatedAt": "2025-02-16T15:57:15Z",
+          "comments": [
+            {
+              "originalPosition": 202,
+              "body": "Marking this point as resolved, as considered clear from the context.",
+              "createdAt": "2025-02-16T15:57:15Z",
+              "updatedAt": "2025-02-16T15:57:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cJQLj",
+          "commit": {
+            "abbreviatedOid": "16d6b83"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-16T16:42:19Z",
+          "updatedAt": "2025-02-16T16:42:19Z",
+          "comments": [
+            {
+              "originalPosition": 230,
+              "body": "Thanks!\r\n\r\nNow in https://github.com/core-wg/groupcomm-bis/pull/44/commits/2327d509f69153ed9c23fcc8aaf3542bae2fadfa  , where the main point is stated upfront. @cabo @EskoDijk , please have a look.",
+              "createdAt": "2025-02-16T16:42:19Z",
+              "updatedAt": "2025-02-16T16:42:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cMkLY",
+          "commit": {
+            "abbreviatedOid": "2327d50"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-17T09:47:22Z",
+          "updatedAt": "2025-02-17T09:47:23Z",
+          "comments": [
+            {
+              "originalPosition": 238,
+              "body": "On \"possibly protected with TLS\" -> if this is done, then the client would not be accessing the same resource anymore right? \r\n\r\nBecause the resource namespaces of schemes coap:// and coaps:// are separately defined and not necessarily identical, as I recall it.",
+              "createdAt": "2025-02-17T09:47:23Z",
+              "updatedAt": "2025-02-17T09:47:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cMmPw",
+          "commit": {
+            "abbreviatedOid": "2327d50"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-17T09:50:34Z",
+          "updatedAt": "2025-02-17T09:50:34Z",
+          "comments": [
+            {
+              "originalPosition": 238,
+              "body": "This comment holds for direct unicast access to the CoAP servers at least.\r\n\r\nIf a Proxy is used, the client could connect via CoAP/TLS to the Proxy and the the Proxy will use CoAP/UDP to fetch the resources from the CoAP server using unicast unprotected coap:// scheme.  In this case, the server would server the same resource in the same scheme coap:// namespace.",
+              "createdAt": "2025-02-17T09:50:34Z",
+              "updatedAt": "2025-02-17T09:50:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cMwCt",
+          "commit": {
+            "abbreviatedOid": "2327d50"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-17T10:06:08Z",
+          "updatedAt": "2025-02-17T10:06:09Z",
+          "comments": [
+            {
+              "originalPosition": 332,
+              "body": "This is only from the servers that do *not*  implement the optional deduplication based on Message ID. Should we clarify that?   In cases where all servers implement deduplication, this replay will have no impact.",
+              "createdAt": "2025-02-17T10:06:08Z",
+              "updatedAt": "2025-02-17T10:06:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cM5vd",
+          "commit": {
+            "abbreviatedOid": "2327d50"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-17T10:22:24Z",
+          "updatedAt": "2025-02-17T10:22:24Z",
+          "comments": [
+            {
+              "originalPosition": 238,
+              "body": "The hard namespace separation is indeed what was originally intended in Section 6.2 of RFC 7252 and Section 8 of RFC 8323.\r\n\r\n(Note that following-up with unprotected TCP traffic would still mean a change of scheme compared to the first request, i.e., from coap to coap+tcp)\r\n\r\nFundamentally, yes, the block-wise transfer has to continue for the same resource.\r\n\r\nWhen considering servers reached individually, I think that the key here was about:\r\n\r\n> This requires the individually addressed servers ... to also support CoAP over TCP/TLS/WebSockets **for the targeted resource**. ...\r\n\r\n> ... discovering that a server has those transports available and that they allow **accessing the targeted resource**, ... . Such discovering can rely on means defined in {{I-D.ietf-core-transport-indication}}.\r\n\r\n@chrysn  , what do you think?",
+              "createdAt": "2025-02-17T10:22:24Z",
+              "updatedAt": "2025-02-17T10:22:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cM7Ir",
+          "commit": {
+            "abbreviatedOid": "2327d50"
+          },
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-17T10:23:53Z",
+          "updatedAt": "2025-02-17T10:23:53Z",
+          "comments": [
+            {
+              "originalPosition": 238,
+              "body": "This is a problem that should be solved by transport indication.\r\n",
+              "createdAt": "2025-02-17T10:23:53Z",
+              "updatedAt": "2025-02-17T10:23:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cNEWg",
+          "commit": {
+            "abbreviatedOid": "2327d50"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-17T10:37:19Z",
+          "updatedAt": "2025-02-17T10:37:19Z",
+          "comments": [
+            {
+              "originalPosition": 332,
+              "body": "Good point! Now in https://github.com/core-wg/groupcomm-bis/pull/44/commits/6da38d7c0183daf05900ec51f3113eda4b03de7f",
+              "createdAt": "2025-02-17T10:37:19Z",
+              "updatedAt": "2025-02-17T10:37:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cNKzF",
+          "commit": {
+            "abbreviatedOid": "6da38d7"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-17T10:48:10Z",
+          "updatedAt": "2025-02-17T10:48:10Z",
+          "comments": [
+            {
+              "originalPosition": 238,
+              "body": "@marco-tiloca-sics Right, we do say \"the targeted resource\" explicitly. So it does look like we can transfer the problem entirely to the {{I-D.ietf-core-transport-indication}} which is already referenced.\r\n\r\n(Assuming the discovery problem is solved in there - haven't studied it in detail.)\r\n\r\nSo we can leave the current text as is, I think.",
+              "createdAt": "2025-02-17T10:48:10Z",
+              "updatedAt": "2025-02-17T10:48:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cNL63",
+          "commit": {
+            "abbreviatedOid": "6da38d7"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks @cabo for the detailed comments! This definitely improves the document.",
+          "createdAt": "2025-02-17T10:50:01Z",
+          "updatedAt": "2025-02-17T10:50:01Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cNfXB",
+          "commit": {
+            "abbreviatedOid": "2327d50"
+          },
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-17T11:25:56Z",
+          "updatedAt": "2025-02-17T11:25:56Z",
+          "comments": [
+            {
+              "originalPosition": 332,
+              "body": "Message-ID deduplication is time-limited, so an attacker can circumvent that by just waiting long enough.  But yes, that is another thing an attacker has to consider.",
+              "createdAt": "2025-02-17T11:25:56Z",
+              "updatedAt": "2025-02-17T11:25:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cNm7D",
+          "commit": {
+            "abbreviatedOid": "2327d50"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-17T11:40:19Z",
+          "updatedAt": "2025-02-17T11:40:19Z",
+          "comments": [
+            {
+              "originalPosition": 332,
+              "body": "Looking at the context of this section within the document: it's about replay for both protected and unprotected group requests.\r\n\r\nIf unprotected, the attacker could just replay with a changed MID - so the attacker doesn't even have to wait for 145 seconds.   The attacker could just forge a completely new request also, so why even replay :)\r\nNot sure if there's a lot of value going into the replay details for this case.\r\n\r\nFor the Group OSCORE case it says that it's protected against these types of replay.",
+              "createdAt": "2025-02-17T11:40:19Z",
+              "updatedAt": "2025-02-17T11:40:20Z"
             }
           ]
         }
