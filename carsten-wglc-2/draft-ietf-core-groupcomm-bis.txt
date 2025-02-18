@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                        17 February 2025
-Expires: 21 August 2025
+Intended status: Standards Track                        18 February 2025
+Expires: 22 August 2025
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 August 2025.
+   This Internet-Draft will expire on 22 August 2025.
 
 Copyright Notice
 
@@ -3763,21 +3763,21 @@ Appendix D.  Examples of Message Exchanges
     |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
     |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x60b2)
     |                |  |  | Token: 0x86
-    |                |  |  | Observe: 4
+    |                |  |  | Observe: 7
     |                |  |  | Payload: "32.3 C"
     |                |  |  |
     |<------------------+  | Source: ADDR_B:PORT_GRP
     |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
     |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x01a1)
     |                |  |  | Token: 0x86
-    |                |  |  | Observe: 14
+    |                |  |  | Observe: 18
     |                |  |  | Payload: "30.9 C"
     |                |  |  |
     |<---------------------+ Source: ADDR_C:PORT_C
     |          2.05  |  |  | Destination: ADDR_CLIENT:PORT_CLIENT
     |                |  |  | Header: 2.05 (T=NON, Code=2.05, MID=0x952b)
     |                |  |  | Token: 0x86
-    |                |  |  | Observe: 24
+    |                |  |  | Observe: 29
     |                |  |  | Payload: "31.0 C"
     |                |  |  |
 
