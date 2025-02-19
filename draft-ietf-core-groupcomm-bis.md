@@ -1023,7 +1023,7 @@ With the exception of such particular use cases, group communications MUST be se
 
 After a client has sent a group request over IP multicast, an adversary might capture the group request to be re-injected in the group as a replay to the server nodes. In particular:
 
-* If the adversary re-injects the group request before the client has freed up the corresponding Token value (see {{sec-token-reuse}}), the client might receive additional responses from the servers in the group, i.e., from the the servers that do not implement the optional Message ID based deduplication ({{Section 4.5 of RFC7252}}).
+* If the adversary re-injects the group request before the client has freed up the corresponding Token value (see {{sec-token-reuse}}), the client might receive additional responses from one or more of the servers in the group.
 
   Due to the group request being Non-confirmable and thus not eliciting Acknowledgement messages, the client might not be able to notice the attack, or to distinguish the responses that a particular server has sent as reply to the original group request (if any) or to the replayed group request.
 
