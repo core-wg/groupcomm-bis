@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-18T01:22:36.886530+00:00",
+  "timestamp": "2025-02-20T01:23:23.994724+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -812,8 +812,8 @@
       "labels": [],
       "body": "Figure 16 example:\n\n* Message ID values (MIDs) are increased by +1 for the servers, for their next observe notification (\"some time later\")\n* Observe sequence number values are increased by 4, 5, 6 respectively for servers A,B,C.\n\nThis looks inconsistent. The MIDs suggest sequential increase is used, so that in the meantime (\"some time later\") no CoAP messages were sent by the server.\n\nHowever, the Observe sequence number is increased by more than 1. Which suggests that some notifications should have been sent out in the meantime by the server for this resource.",
       "createdAt": "2025-02-17T10:33:30Z",
-      "updatedAt": "2025-02-17T17:50:42Z",
-      "closedAt": "2025-02-17T10:44:30Z",
+      "updatedAt": "2025-02-18T08:46:13Z",
+      "closedAt": "2025-02-18T07:58:42Z",
       "comments": [
         {
           "author": "marco-tiloca-sics",
@@ -856,6 +856,34 @@
           "body": "@EskoDijk , should we revert to what we had before https://github.com/core-wg/groupcomm-bis/commit/df89c0ad9ebb62e36335af10de1e255059f1bc24  ?",
           "createdAt": "2025-02-17T17:50:41Z",
           "updatedAt": "2025-02-17T17:50:41Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@marco-tiloca-sics Yes, let's revert and re-open the issue!  (If a change results, we can make a separate PR)",
+          "createdAt": "2025-02-18T07:54:13Z",
+          "updatedAt": "2025-02-18T07:54:13Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Sorry, I see just now that the Observe sequence number is not a sequence number for one particular resource that tracks the number of changes for that resource!  The sections 3.4 and 4.4 make clear that it could be implemented as a global \"clock tick\" as well, or in various other ways. So closing this issue again :) \n\n@cabo thanks for the pointers.",
+          "createdAt": "2025-02-18T07:58:42Z",
+          "updatedAt": "2025-02-18T07:58:42Z"
+        },
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Now reverted in https://github.com/core-wg/groupcomm-bis/commit/4de3e70f6440f84b62547c0660f3d114cba56923",
+          "createdAt": "2025-02-18T08:06:21Z",
+          "updatedAt": "2025-02-18T08:06:21Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "body": "Thanks!",
+          "createdAt": "2025-02-18T08:46:12Z",
+          "updatedAt": "2025-02-18T08:46:12Z"
         }
       ]
     }
@@ -1758,13 +1786,13 @@
       "labels": [],
       "body": "This PR addresses Carsten's comments received during the second WG Last Call and archived at:\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/core/tEc5P4t_A5emYdHvVCoei5FgT_o/",
       "createdAt": "2025-02-08T12:10:38Z",
-      "updatedAt": "2025-02-17T11:40:19Z",
+      "updatedAt": "2025-02-19T09:02:13Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "d92eb12b340ed78a41e963b99fb7f9f410282988",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "carsten-wglc-2",
-      "headRefOid": "df89c0ad9ebb62e36335af10de1e255059f1bc24",
+      "headRefOid": "11ec9f2277f7b65bb0ca085fbbc95e7c747a3f07",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -2276,14 +2304,14 @@
         {
           "id": "PRR_kwDODvYK3c6cNL63",
           "commit": {
-            "abbreviatedOid": "6da38d7"
+            "abbreviatedOid": "4de3e70"
           },
           "author": "EskoDijk",
           "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "Thanks @cabo for the detailed comments! This definitely improves the document.",
           "createdAt": "2025-02-17T10:50:01Z",
-          "updatedAt": "2025-02-17T10:50:01Z",
+          "updatedAt": "2025-02-18T08:05:36Z",
           "comments": []
         },
         {
@@ -2323,6 +2351,146 @@
               "body": "Looking at the context of this section within the document: it's about replay for both protected and unprotected group requests.\r\n\r\nIf unprotected, the attacker could just replay with a changed MID - so the attacker doesn't even have to wait for 145 seconds.   The attacker could just forge a completely new request also, so why even replay :)\r\nNot sure if there's a lot of value going into the replay details for this case.\r\n\r\nFor the Group OSCORE case it says that it's protected against these types of replay.",
               "createdAt": "2025-02-17T11:40:19Z",
               "updatedAt": "2025-02-17T11:40:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cVUs2",
+          "commit": {
+            "abbreviatedOid": "6da38d7"
+          },
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T08:51:41Z",
+          "updatedAt": "2025-02-18T08:51:41Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "As I said, MID dedup times out, so the condition is too simplistic here.\r\n\r\ns/the the/the/",
+              "createdAt": "2025-02-18T08:51:41Z",
+              "updatedAt": "2025-02-18T08:51:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cVbOX",
+          "commit": {
+            "abbreviatedOid": "16d6b83"
+          },
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T09:01:48Z",
+          "updatedAt": "2025-02-18T09:01:48Z",
+          "comments": [
+            {
+              "originalPosition": 230,
+              "body": "The RFC editor will provide some minor wording improvements, so I think we can ship this now.",
+              "createdAt": "2025-02-18T09:01:48Z",
+              "updatedAt": "2025-02-18T09:01:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cVbvt",
+          "commit": {
+            "abbreviatedOid": "2327d50"
+          },
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T09:02:39Z",
+          "updatedAt": "2025-02-18T09:02:40Z",
+          "comments": [
+            {
+              "originalPosition": 332,
+              "body": "The current text overstates the mitigating effect of MID dedup.  I think we need to roll this back a bit and then we can ship.\r\n",
+              "createdAt": "2025-02-18T09:02:39Z",
+              "updatedAt": "2025-02-18T09:02:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cVujK",
+          "commit": {
+            "abbreviatedOid": "16d6b83"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T09:31:42Z",
+          "updatedAt": "2025-02-18T09:31:42Z",
+          "comments": [
+            {
+              "originalPosition": 230,
+              "body": "@marco-tiloca-sics I'm also okay with the new text - better now.",
+              "createdAt": "2025-02-18T09:31:42Z",
+              "updatedAt": "2025-02-18T09:31:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6cV0rd",
+          "commit": {
+            "abbreviatedOid": "2327d50"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T09:40:23Z",
+          "updatedAt": "2025-02-18T09:40:24Z",
+          "comments": [
+            {
+              "originalPosition": 332,
+              "body": "Ok for me to partially roll it back. Text can become for example:\r\n\r\n```\r\n* If the adversary re-injects the group request before the client has freed up the corresponding Token value (see {{sec-token-reuse}}), the client might receive additional responses from one or more of the servers in the group.\r\n```\r\n\r\nThe \"one or more\" can cover various cases where some servers implement deduplication, others not. And cases where despite deduplication for example the client's Token-valid time is longer than 145 sec, and the attacker replays the message after 145 sec.   Also cases where the attacker modifies the MID to circumvent the deduplication could be considered included, as a form of \"almost replay\". \r\n\r\nFor me it's also ok to fully roll back the change. The phrase \"might receive additional responses from the servers in the group\" doesn't say how many servers would respond: it could be 0, 1, N or all.\r\n",
+              "createdAt": "2025-02-18T09:40:23Z",
+              "updatedAt": "2025-02-18T09:40:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6chsh5",
+          "commit": {
+            "abbreviatedOid": "2327d50"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-19T08:59:39Z",
+          "updatedAt": "2025-02-19T08:59:40Z",
+          "comments": [
+            {
+              "originalPosition": 332,
+              "body": "Thanks! The suggested short version is now in https://github.com/core-wg/groupcomm-bis/pull/44/commits/11ec9f2277f7b65bb0ca085fbbc95e7c747a3f07",
+              "createdAt": "2025-02-19T08:59:40Z",
+              "updatedAt": "2025-02-19T08:59:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6chuJW",
+          "commit": {
+            "abbreviatedOid": "6da38d7"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-19T09:02:13Z",
+          "updatedAt": "2025-02-19T09:02:13Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "As in https://github.com/core-wg/groupcomm-bis/pull/44/commits/11ec9f2277f7b65bb0ca085fbbc95e7c747a3f07 , the MID deduplication is now not mentioned anymore.\r\n\r\n@cabo , can we simply keep it that way?\r\n\r\nAlternatively, a possible additional sentence that provides some explanation can be (highlighted in bold):\r\n\r\n> If the adversary re-injects the group request before the client has freed up the corresponding Token value (see {{sec-token-reuse}}), the client might receive additional responses from one or more of the servers in the group. **For instance, a server might respond if it does not implement the optional Message ID based deduplication, or more generally if at least NON_LIFETIME seconds elapse between receiving the original group request and the re-injected one (see {{Section 4.5 of RFC7252}}).**",
+              "createdAt": "2025-02-19T09:02:13Z",
+              "updatedAt": "2025-02-19T09:02:13Z"
             }
           ]
         }
