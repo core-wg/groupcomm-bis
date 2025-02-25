@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-23T01:35:45.431719+00:00",
+  "timestamp": "2025-02-25T01:25:19.164258+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -1779,24 +1779,26 @@
       "id": "PR_kwDODvYK3c6KgxJk",
       "title": "Carsten's comments from 2nd WGLC",
       "url": "https://github.com/core-wg/groupcomm-bis/pull/44",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "marco-tiloca-sics",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR addresses Carsten's comments received during the second WG Last Call and archived at:\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/core/tEc5P4t_A5emYdHvVCoei5FgT_o/",
       "createdAt": "2025-02-08T12:10:38Z",
-      "updatedAt": "2025-02-19T09:02:13Z",
+      "updatedAt": "2025-02-24T10:24:45Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "d92eb12b340ed78a41e963b99fb7f9f410282988",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "carsten-wglc-2",
       "headRefOid": "11ec9f2277f7b65bb0ca085fbbc95e7c747a3f07",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-02-24T10:24:44Z",
+      "mergedAt": "2025-02-24T10:24:44Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "a79a3222084d7e716bcd3a57a274914a1d50163c"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1845,9 +1847,9 @@
           "author": "cabo",
           "authorAssociation": "MEMBER",
           "state": "APPROVED",
-          "body": "(Second part.)\r\n\r\nThank  you for diligetly addressing my comments!",
+          "body": "(Second part.)\r\n\r\nThank  you for diligently addressing my comments!",
           "createdAt": "2025-02-08T15:05:57Z",
-          "updatedAt": "2025-02-08T15:47:38Z",
+          "updatedAt": "2025-02-24T09:35:19Z",
           "comments": [
             {
               "originalPosition": 161,
@@ -2491,6 +2493,46 @@
               "body": "As in https://github.com/core-wg/groupcomm-bis/pull/44/commits/11ec9f2277f7b65bb0ca085fbbc95e7c747a3f07 , the MID deduplication is now not mentioned anymore.\r\n\r\n@cabo , can we simply keep it that way?\r\n\r\nAlternatively, a possible additional sentence that provides some explanation can be (highlighted in bold):\r\n\r\n> If the adversary re-injects the group request before the client has freed up the corresponding Token value (see {{sec-token-reuse}}), the client might receive additional responses from one or more of the servers in the group. **For instance, a server might respond if it does not implement the optional Message ID based deduplication, or more generally if at least NON_LIFETIME seconds elapse between receiving the original group request and the re-injected one (see {{Section 4.5 of RFC7252}}).**",
               "createdAt": "2025-02-19T09:02:13Z",
               "updatedAt": "2025-02-19T09:02:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6dJGPU",
+          "commit": {
+            "abbreviatedOid": "6da38d7"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-24T09:23:59Z",
+          "updatedAt": "2025-02-24T09:23:59Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "After re-checking this, we can better keep it **without** the new sentence, to avoid restating.",
+              "createdAt": "2025-02-24T09:23:59Z",
+              "updatedAt": "2025-02-24T09:23:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6dJIt-",
+          "commit": {
+            "abbreviatedOid": "6da38d7"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-24T09:27:36Z",
+          "updatedAt": "2025-02-24T09:27:36Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "ok for me, thanks!",
+              "createdAt": "2025-02-24T09:27:36Z",
+              "updatedAt": "2025-02-24T09:27:36Z"
             }
           ]
         }
