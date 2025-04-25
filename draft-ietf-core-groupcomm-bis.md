@@ -156,13 +156,13 @@ This document obsoletes and replaces {{RFC7390}} as follows.
 
 * It provides separate definitions for CoAP groups, application groups, and security groups, together with high-level guidelines on their configuration (see {{chap-general-groupcomm}}).
 
-* It defines the use of Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} as the security protocol to protect group communication for CoAP, together with high-level guidelines on secure group maintenance (see {{chap-oscore}}).
-
 * It updates all the guidelines about using group communication for CoAP (see {{sec-coap-usage}}).
+
+* It updates all sections on transport protocols and interworking with other protocols based on new IETF work done for these protocols (see {{sec-transport}} and {{sec-other-protocols}}).
 
 * It strongly discourages unsecured group communication for CoAP based on the CoAP NoSec (No Security) mode (see {{chap-unsecured-groupcomm}} and {{chap-security-considerations-nosec-mode}}), and highlights the risk of amplification attacks (see {{ssec-amplification}}).
 
-* It updates all sections on transport protocols and interworking with other protocols based on new IETF work done for these protocols.
+* It defines the use of Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} as the security protocol to protect group communication for CoAP, together with high-level guidelines on secure group maintenance (see {{chap-oscore}}).
 
 This document updates {{RFC7252}} as follows.
 
@@ -1797,6 +1797,10 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
+
+## Version -13 to -14 ## {#sec-13-14}
+
+* Editorial improvements.
 
 ## Version -12 to -13 ## {#sec-12-13}
 
