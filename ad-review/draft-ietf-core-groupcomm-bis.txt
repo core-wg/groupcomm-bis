@@ -166,19 +166,20 @@ Table of Contents
    Appendix E.  Issues and Limitations with Forward-Proxies
    Appendix F.  Issues and Limitations with Reverse-Proxies
    Appendix G.  Document Updates
-     G.1.  Version -12 to -13
-     G.2.  Version -11 to -12
-     G.3.  Version -10 to -11
-     G.4.  Version -09 to -10
-     G.5.  Version -08 to -09
-     G.6.  Version -07 to -08
-     G.7.  Version -06 to -07
-     G.8.  Version -05 to -06
-     G.9.  Version -04 to -05
-     G.10. Version -03 to -04
-     G.11. Version -02 to -03
-     G.12. Version -01 to -02
-     G.13. Version -00 to -01
+     G.1.  Version -13 to -14
+     G.2.  Version -12 to -13
+     G.3.  Version -11 to -12
+     G.4.  Version -10 to -11
+     G.5.  Version -09 to -10
+     G.6.  Version -08 to -09
+     G.7.  Version -07 to -08
+     G.8.  Version -06 to -07
+     G.9.  Version -05 to -06
+     G.10. Version -04 to -05
+     G.11. Version -03 to -04
+     G.12. Version -02 to -03
+     G.13. Version -01 to -02
+     G.14. Version -00 to -01
    Acknowledgements
    Authors' Addresses
 
@@ -278,22 +279,22 @@ Table of Contents
       groups, and security groups, together with high-level guidelines
       on their configuration (see Section 2).
 
-   *  It defines the use of Group OSCORE
-      [I-D.ietf-core-oscore-groupcomm] as the security protocol to
-      protect group communication for CoAP, together with high-level
-      guidelines on secure group maintenance (see Section 5).
-
    *  It updates all the guidelines about using group communication for
       CoAP (see Section 3).
+
+   *  It updates all sections on transport protocols and interworking
+      with other protocols based on new IETF work done for these
+      protocols (see Section 3.9 and Section 3.10).
 
    *  It strongly discourages unsecured group communication for CoAP
       based on the CoAP NoSec (No Security) mode (see Section 4 and
       Section 6.1), and highlights the risk of amplification attacks
       (see Section 6.3).
 
-   *  It updates all sections on transport protocols and interworking
-      with other protocols based on new IETF work done for these
-      protocols.
+   *  It defines the use of Group OSCORE
+      [I-D.ietf-core-oscore-groupcomm] as the security protocol to
+      protect group communication for CoAP, together with high-level
+      guidelines on secure group maintenance (see Section 5).
 
    This document updates [RFC7252] as follows.
 
@@ -4062,7 +4063,11 @@ Appendix G.  Document Updates
 
    This section is to be removed before publishing as an RFC.
 
-G.1.  Version -12 to -13
+G.1.  Version -13 to -14
+
+   *  Editorial improvements.
+
+G.2.  Version -12 to -13
 
    *  Updated author list.
 
@@ -4092,7 +4097,7 @@ G.1.  Version -12 to -13
 
    *  Clarifications and editorial improvements.
 
-G.2.  Version -11 to -12
+G.3.  Version -11 to -12
 
    *  Clarified how a group name can be included in a URI path for
       reverse proxies; removed reference to URI templates for reverse
@@ -4146,13 +4151,13 @@ G.2.  Version -11 to -12
 
    *  Editorial improvements.
 
-G.3.  Version -10 to -11
+G.4.  Version -10 to -11
 
    *  Updated references.
 
    *  Editorial improvements.
 
-G.4.  Version -09 to -10
+G.5.  Version -09 to -10
 
    *  Clarified use of NoSec for 'early discovery' and refer to cBRSKI.
 
@@ -4183,18 +4188,18 @@ G.4.  Version -09 to -10
 
    *  Editorial fixes and improvements.
 
-G.5.  Version -08 to -09
+G.6.  Version -08 to -09
 
    *  Multiple responses in long exchanges are non-traditional
       responses.
 
    *  Updated references.
 
-G.6.  Version -07 to -08
+G.7.  Version -07 to -08
 
    *  Updated references.
 
-G.7.  Version -06 to -07
+G.8.  Version -06 to -07
 
    *  Updated list of changes to other documents.
 
@@ -4229,7 +4234,7 @@ G.7.  Version -06 to -07
 
    *  Editorial improvements.
 
-G.8.  Version -05 to -06
+G.9.  Version -05 to -06
 
    *  Harmonized use of "group URI".
 
@@ -4253,7 +4258,7 @@ G.8.  Version -05 to -06
 
    *  Editorial improvements.
 
-G.9.  Version -04 to -05
+G.10.  Version -04 to -05
 
    *  Clarified changes to other documents.
 
@@ -4272,7 +4277,7 @@ G.9.  Version -04 to -05
 
    *  Editorial improvements.
 
-G.10.  Version -03 to -04
+G.11.  Version -03 to -04
 
    *  Multi-ETag Option for response revalidation moved to appendix.
 
@@ -4294,7 +4299,7 @@ G.10.  Version -03 to -04
 
    *  Editorial improvements.
 
-G.11.  Version -02 to -03
+G.12.  Version -02 to -03
 
    *  Multiple responses from same server handled at the application.
 
@@ -4308,7 +4313,7 @@ G.11.  Version -02 to -03
 
    *  Client-Proxy response revalidation, with the Group-ETag Option.
 
-G.12.  Version -01 to -02
+G.13.  Version -01 to -02
 
    *  Clarified relationship between security groups and application
       groups.
@@ -4325,7 +4330,7 @@ G.12.  Version -01 to -02
 
    *  Response suppression based on classes of error codes.
 
-G.13.  Version -00 to -01
+G.14.  Version -00 to -01
 
    *  Clarifications on group memberships for the different group types.
 
