@@ -59,6 +59,8 @@ normative:
   RFC8613:
   RFC9052:
   RFC9053:
+  RFC9110:
+  RFC9112:
   RFC9175:
   I-D.ietf-core-oscore-groupcomm:
   Resource.Type.Link.Target.Attribute.Values:
@@ -121,7 +123,12 @@ The Constrained Application Protocol (CoAP) is a web transfer protocol for const
 --- middle
 
 # Introduction # {#chap-intro}
-This document specifies group communication using the Constrained Application Protocol (CoAP) {{RFC7252}}, together with UDP/IP multicast as the default transport for CoAP group communication messages. CoAP is a RESTful communication protocol that is used in resource-constrained nodes, and in resource-constrained networks where packet sizes should be small. This area of use is summarized as Constrained RESTful Environments (CoRE).
+
+The Constrained Application Protocol (CoAP) {{RFC7252}} is a web transfer protocol based on Representational State Transfer (REST) that is used in resource-constrained devices and in resource-constrained networks where packet sizes should be small. This area of use is summarized as Constrained RESTful Environments (CoRE). CoAP has many similarities to HTTP {{RFC9110}}{{RFC9112}} but also some key differences.
+
+In a number of use cases, constrained devices can be large in number as well as often related to each other in function or by location. For example, in a building automation scenario, all the light switches in a building may belong to one group, and all the thermostats may belong to another group. Groups may be preconfigured before deployment or dynamically formed during operation. If information needs to be sent to or received from a group of devices, group communication mechanisms can improve efficiency and latency of communication and reduce bandwidth requirements for a given application. While CoAP supports group communication via multicast requests (see {{Section 8 of RFC7252}}), HTTP does not support any equivalent functionality.
+
+This document specifies the use of CoAP for group communication, together with UDP/IP multicast as the default transport for CoAP group communication messages.
 
 One-to-many group communication can be achieved in CoAP, by a client using UDP/IP multicast data transport to send multicast CoAP request messages. In response, each server in the addressed group sends a response message back to the client over UDP/IP unicast. Notable CoAP implementations that support group communication include "Eclipse Californium" {{Californium}}, "Go-CoAP" {{Go-CoAP}} as well as "libcoap" {{libcoap}}.
 
@@ -1800,7 +1807,7 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 
 ## Version -13 to -14 ## {#sec-13-14}
 
-* More context information in the abstract.
+* More context information in the abstract and introduction.
 
 * Editorial improvements.
 
