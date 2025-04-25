@@ -81,6 +81,7 @@ informative:
   I-D.ietf-core-transport-indication:
   I-D.irtf-t2trg-amplification-attacks:
   RFC9685: multicast-registration # was I-D.ietf-6lo-multicast-registration:
+  RFC1033:
   RFC3810:
   RFC6092:
   RFC6550:
@@ -323,7 +324,16 @@ Also note that, when using the "coap" scheme, the two authority components \<HOS
 
 When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal, instead of a group hostname. This is because DNS infrastructure may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via DNS resolution, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.
 
-Examples of hierarchical CoAP group FQDN naming (and scoping) for a building control application were shown in {{Section 2.2 of RFC7390}}.
+Some examples of hierarchical CoAP group FQDN naming (and scoping) for a building control application are shown below.
+
+| URI authority                       | Targeted group of nodes                                     |
+| all.bldg6.example                   | "all nodes in building 6"                                   |
+| all.west.bldg6.example              | "all nodes in west wing, building 6"                        |
+| all.floor1.west.bldg6.example       | "all nodes in floor 1, west wing, building 6"               |
+| all.bu036.floor1.west.bldg6.example | "all nodes in office bu036, floor 1, west wing, building 6" |
+{: #table-fqdn-naming title="Examples of Hierarchical Group FQDN Naming" align="center"}
+
+Similarly, if supported, reverse mapping (from IP multicast address to Group FQDN) is possible using the reverse DNS resolution technique {{RFC1033}}. Reverse mapping is important, for example, in troubleshooting to translate IP multicast addresses back to human-readable hostnames to show in a diagnostics user interface.
 
 #### Application Groups ### {#sec-groupnaming-app}
 
