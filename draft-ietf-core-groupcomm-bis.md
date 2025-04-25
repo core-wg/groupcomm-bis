@@ -116,7 +116,7 @@ informative:
 
 --- abstract
 
-This document specifies the use of the Constrained Application Protocol (CoAP) for group communication, including the use of UDP/IP multicast as the default underlying data transport. Both unsecured and secured CoAP group communication are specified. Security is achieved by use of the Group Object Security for Constrained RESTful Environments (Group OSCORE) protocol. The target application area of this specification is any group communication use cases that involve resource-constrained devices or networks that support CoAP. This document replaces and obsoletes RFC 7390, while it updates RFC 7252 and RFC 7641.
+The Constrained Application Protocol (CoAP) is a web transfer protocol for constrained devices and constrained networks. In a number of use cases, constrained devices often naturally operate in groups (e.g., in a building automation scenario, all lights in a given room may need to be switched on/off as a group). This document specifies the use of CoAP for group communication, including the use of UDP/IP multicast as the default underlying data transport. Both unsecured and secured CoAP group communication are specified. Security is achieved by use of the Group Object Security for Constrained RESTful Environments (Group OSCORE) protocol. The target application area of this specification is any group communication use cases that involve resource-constrained devices or networks that support CoAP. This document replaces and obsoletes RFC 7390, while it updates RFC 7252 and RFC 7641.
 
 --- middle
 
@@ -1799,6 +1799,8 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 {:removeinrfc}
 
 ## Version -13 to -14 ## {#sec-13-14}
+
+* More context information in the abstract.
 
 * Editorial improvements.
 
