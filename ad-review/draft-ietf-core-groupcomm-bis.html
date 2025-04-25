@@ -1888,7 +1888,40 @@ The host subcomponent indirectly defines the IP multicast address of the CoAP gr
 </li>
             </ul>
 <p id="section-2.2.1.1-7">When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal, instead of a group hostname. This is because DNS infrastructure may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via DNS resolution, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.<a href="#section-2.2.1.1-7" class="pilcrow">¶</a></p>
-<p id="section-2.2.1.1-8">Examples of hierarchical CoAP group FQDN naming (and scoping) for a building control application were shown in <span><a href="https://rfc-editor.org/rfc/rfc7390#section-2.2" class="relref">Section 2.2</a> of [<a href="#RFC7390" class="cite xref">RFC7390</a>]</span>.<a href="#section-2.2.1.1-8" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.1-8">Some examples of hierarchical CoAP group FQDN naming (and scoping) for a building control application are shown below.<a href="#section-2.2.1.1-8" class="pilcrow">¶</a></p>
+<span id="name-examples-of-hierarchical-gr"></span><div id="_table-fqdn-naming">
+<table class="center" id="table-1">
+              <caption>
+<a href="#table-1" class="selfRef">Table 1</a>:
+<a href="#name-examples-of-hierarchical-gr" class="selfRef">Examples of Hierarchical Group FQDN Naming</a>
+              </caption>
+<thead>
+                <tr>
+                  <th class="text-left" rowspan="1" colspan="1">URI authority</th>
+                  <th class="text-left" rowspan="1" colspan="1">Targeted group of nodes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-left" rowspan="1" colspan="1">all.bldg6.example</td>
+                  <td class="text-left" rowspan="1" colspan="1">"all nodes in building 6"</td>
+                </tr>
+                <tr>
+                  <td class="text-left" rowspan="1" colspan="1">all.west.bldg6.example</td>
+                  <td class="text-left" rowspan="1" colspan="1">"all nodes in west wing, building 6"</td>
+                </tr>
+                <tr>
+                  <td class="text-left" rowspan="1" colspan="1">all.floor1.west.bldg6.example</td>
+                  <td class="text-left" rowspan="1" colspan="1">"all nodes in floor 1, west wing, building 6"</td>
+                </tr>
+                <tr>
+                  <td class="text-left" rowspan="1" colspan="1">all.bu036.floor1.west.bldg6.example</td>
+                  <td class="text-left" rowspan="1" colspan="1">"all nodes in office bu036, floor 1, west wing, building 6"</td>
+                </tr>
+              </tbody>
+            </table>
+</div>
+<p id="section-2.2.1.1-10">Similarly, if supported, reverse mapping (from IP multicast address to Group FQDN) is possible using the reverse DNS resolution technique <span>[<a href="#RFC1033" class="cite xref">RFC1033</a>]</span>. Reverse mapping is important, for example, in troubleshooting to translate IP multicast addresses back to human-readable hostnames to show in a diagnostics user interface.<a href="#section-2.2.1.1-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-groupnaming-app">
@@ -3014,6 +3047,10 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
 <dt id="libcoap">[libcoap]</dt>
         <dd>
 <span class="refAuthor">Bergmann, O.</span>, <span class="refTitle">"libcoap"</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://github.com/obgm/libcoap">https://github.com/obgm/libcoap</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC1033">[RFC1033]</dt>
+        <dd>
+<span class="refAuthor">Lottor, M.</span>, <span class="refTitle">"Domain Administrators Operations Guide"</span>, <span class="seriesInfo">RFC 1033</span>, <span class="seriesInfo">DOI 10.17487/RFC1033</span>, <time datetime="1987-11" class="refDate">November 1987</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc1033">https://www.rfc-editor.org/rfc/rfc1033</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC3810">[RFC3810]</dt>
         <dd>

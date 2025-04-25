@@ -625,8 +625,34 @@ Table of Contents
    endpoint being configured and the DNS service is supported in the
    network.
 
-   Examples of hierarchical CoAP group FQDN naming (and scoping) for a
-   building control application were shown in Section 2.2 of [RFC7390].
+   Some examples of hierarchical CoAP group FQDN naming (and scoping)
+   for a building control application are shown below.
+
+     +=====================================+========================+
+     | URI authority                       | Targeted group of      |
+     |                                     | nodes                  |
+     +=====================================+========================+
+     | all.bldg6.example                   | "all nodes in building |
+     |                                     | 6"                     |
+     +-------------------------------------+------------------------+
+     | all.west.bldg6.example              | "all nodes in west     |
+     |                                     | wing, building 6"      |
+     +-------------------------------------+------------------------+
+     | all.floor1.west.bldg6.example       | "all nodes in floor 1, |
+     |                                     | west wing, building 6" |
+     +-------------------------------------+------------------------+
+     | all.bu036.floor1.west.bldg6.example | "all nodes in office   |
+     |                                     | bu036, floor 1, west   |
+     |                                     | wing, building 6"      |
+     +-------------------------------------+------------------------+
+
+           Table 1: Examples of Hierarchical Group FQDN Naming
+
+   Similarly, if supported, reverse mapping (from IP multicast address
+   to Group FQDN) is possible using the reverse DNS resolution technique
+   [RFC1033].  Reverse mapping is important, for example, in
+   troubleshooting to translate IP multicast addresses back to human-
+   readable hostnames to show in a diagnostics user interface.
 
 2.2.1.2.  Application Groups
 
@@ -3050,6 +3076,10 @@ Table of Contents
 
    [libcoap]  Bergmann, O., "libcoap", June 2022,
               <https://github.com/obgm/libcoap>.
+
+   [RFC1033]  Lottor, M., "Domain Administrators Operations Guide",
+              RFC 1033, DOI 10.17487/RFC1033, November 1987,
+              <https://www.rfc-editor.org/rfc/rfc1033>.
 
    [RFC3810]  Vida, R., Ed. and L. Costa, Ed., "Multicast Listener
               Discovery Version 2 (MLDv2) for IPv6", RFC 3810,
