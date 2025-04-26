@@ -362,7 +362,7 @@ An application group name can be explicitly encoded in a group URI. Specifically
 
 * URI authority component -- If this method is used, the application group is identified by the authority component of the group URI or a subset thereof.
 
-   Because the CoAP group is also defined by the same authority component (see {{sec-groupnaming-coap}}), a given CoAP group always maps to exactly one application group. (See {{sec-groupdef-grouprelations}} for background on group relationships.)
+   Because the CoAP group is also defined by the same authority component (see {{sec-groupnaming-coap}}), even when using this method, a given application group is always associated with exactly one CoAP group. (See {{sec-groupdef-grouprelations}} for background on group relationships.)
 
    Note that the host subcomponent within the authority component of the Group URI can be a group hostname, or an IP address literal. For constrained networks, using an IP address literal matching the request's destination IP address has the benefit of reducing the size of the CoAP message.
    This is because the Uri-Host Option is elided from the CoAP request in this case, since its default value applies (see {{Sections 5.10.1 and 6.4 of RFC7252}}).
@@ -2089,7 +2089,7 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 
 * Early mentioning Group OSCORE and source authentication of messages.
 
-* Editorial improvements.
+* Minor fixes and editorial improvements.
 
 ## Version -12 to -13 ## {#sec-12-13}
 
