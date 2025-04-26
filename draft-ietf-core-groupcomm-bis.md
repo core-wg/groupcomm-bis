@@ -45,7 +45,6 @@ author:
 
 normative:
   RFC1122:
-  RFC3376:
   RFC4443:
   RFC4944:
   RFC6282:
@@ -63,6 +62,7 @@ normative:
   RFC9110:
   RFC9112:
   RFC9175:
+  RFC9776:
   I-D.ietf-core-oscore-groupcomm:
   Resource.Type.Link.Target.Attribute.Values:
     author:
@@ -808,7 +808,7 @@ being used in its network.  When such a node needs to join a specific (CoAP) mul
 The Multicast Listener Discovery Version 2 (MLDv2) protocol {{RFC9777}} is the standard IPv6 method to communicate multicast subscriptions, when other methods are not defined. The CoAP server nodes then act in the role of MLD Multicast Address Listener. MLDv2 uses link-local communication between Listeners and IP multicast routers. Constrained IPv6 networks such as ones implementing either RPL (see {{sec-rpl}}) or MPL (see {{sec-mpl}}) typically
 do not support MLDv2 as they have their own mechanisms defined for subscribing to multicast groups.
 
-The Internet Group Management Protocol Version 3 (IGMPv3) protocol {{RFC3376}} is the standard IPv4 method to signal subscriptions to multicast group. This SHOULD be used by members of a CoAP group to subscribe to its multicast IPv4 address on IPv4 networks unless another method is defined for the network interface/technology used.
+The Internet Group Management Protocol Version 3 (IGMPv3) protocol {{RFC9776}} is the standard IPv4 method to signal subscriptions to multicast group. This SHOULD be used by members of a CoAP group to subscribe to its multicast IPv4 address on IPv4 networks unless another method is defined for the network interface/technology used.
 
 The guidelines from {{RFC6636}} on the tuning of MLDv2 and IGMPv3 for mobile and wireless networks may be useful when implementing MLDv2 and IGMPv3 in constrained networks.
 
@@ -2088,6 +2088,8 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 * Imported examples from RFC 7390 into Appendix A "Use Cases".
 
 * Early mentioning Group OSCORE and source authentication of messages.
+
+* Updated references.
 
 * Minor fixes and editorial improvements.
 
