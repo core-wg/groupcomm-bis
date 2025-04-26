@@ -2284,7 +2284,7 @@ Table of Contents
       new security material.
 
       Also, this ensures that the members intended to remain in the
-      OSCORE group are able to confidently assert the group membership
+      OSCORE group are able to confidently verify the group membership
       of other sender nodes, when receiving protected messages in the
       OSCORE group after the distribution and installation of the new
       security material (see Section 12.2 of
@@ -2545,16 +2545,16 @@ Table of Contents
 
       Furthermore, the adversary needs to consider a group request that
       specifically targets a resource for which the CoAP servers are
-      configured to respond.  While this can be often correctly
-      inferable from the application context, it is not explicit from
-      the group request itself, since Group OSCORE protects the Uri-Path
-      and Uri-Query CoAP Options conveying the respective components of
-      the target URI.
+      configured to respond.  While this can often be correctly inferred
+      from the application context, it is not explicit from the group
+      request itself, since Group OSCORE protects the Uri-Path and Uri-
+      Query CoAP Options conveying the respective components of the
+      target URI.
 
       As a further mitigation against amplification attacks, a server
       can also rely on the Echo Option for CoAP defined in [RFC9175] and
       include it in a response to a group request.  By doing so, the
-      server can assert that the alleged sender of the group request
+      server can verify whether the alleged sender of the group request
       (i.e., the CoAP client associated with a certain authentication
       credential including the corresponding public key) is indeed
       reachable at the claimed source address of the group request,
@@ -2570,7 +2570,7 @@ Table of Contents
       authentication of exchanged messages, which is achieved by means
       of Group OSCORE (see Section 6.2.2).  Using the Echo Option
       together with Group OSCORE allows a CoAP server in the OSCORE
-      group to assert the freshness of CoAP requests received from other
+      group to verify the freshness of CoAP requests received from other
       members in the group.
 
    *  Group OSCORE limits the impact of attacks based on IP spoofing
@@ -2606,18 +2606,17 @@ Table of Contents
       for the OSCORE group, and securely provided to the CoAP endpoints
       when they join the OSCORE group.
 
-   *  Group OSCORE prevents that any single member of an OSCORE group
-      can be used as a target for subverting security in the whole group
-      (see Section 11.6 of [RFC7252]), even though all group members
-      share (and can derive) the same symmetric-key security material
-      used in the group.  In fact, source authentication is always
-      ensured for exchanged CoAP messages, as verifiable to be
-      originated by the alleged, identifiable sender in the OSCORE
-      group.  This relies on including a signature computed with a
-      node's individual private key (in the group mode), or on
-      protecting messages with a pairwise symmetric key, which is in
-      turn derived from the asymmetric keys of the sender and recipient
-      CoAP endpoints (in the pairwise mode).
+   *  Group OSCORE prevents any single member of an OSCORE group from
+      being a target for subverting security in the whole group (see
+      Section 11.6 of [RFC7252]), even though all group members share
+      (and can derive) the same symmetric-key security material used in
+      the group.  In fact, source authentication is always ensured for
+      exchanged CoAP messages, as verifiable to be originated by the
+      alleged, identifiable sender in the OSCORE group.  This relies on
+      including a signature computed with a node's individual private
+      key (in the group mode), or on protecting messages with a pairwise
+      symmetric key, which is in turn derived from the asymmetric keys
+      of the sender and recipient CoAP endpoints (in the pairwise mode).
 
 6.3.  Risk of Amplification
 
@@ -2640,7 +2639,7 @@ Table of Contents
       resources of the application group(s) using that CoAP group;
 
    *  SHOULD NOT accept group requests that cannot be authenticated in
-      some way, i.e., for which it is not possible to securely assert
+      some way, i.e., for which it is not possible to securely verify
       that they have been originated and sent by the alleged,
       identifiable CoAP endpoint in the OSCORE group;
 
