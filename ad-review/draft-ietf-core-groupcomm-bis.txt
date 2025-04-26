@@ -2860,10 +2860,10 @@ Table of Contents
 
    CoAP group communication built on top of IP multicast is inherently
    more vulnerable compared to communications solely relying on IP
-   unicast, since the same packet may be replicated over many multiple
-   links.  In particular, this yields a higher probability of packet
-   capture by a pervasive monitoring system, which in turn results in
-   more information available to analyze within the same time interval.
+   unicast, since the same packet may be replicated over many links.  In
+   particular, this yields a higher probability of packet capture by a
+   pervasive monitoring system, which in turn results in more
+   information available to analyze within the same time interval.
    Moreover, a single CoAP group request potentially results in multiple
    CoAP responses, thus further contributing to the information
    available to analyze.
