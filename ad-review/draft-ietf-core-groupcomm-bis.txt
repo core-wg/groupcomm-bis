@@ -944,6 +944,14 @@ Table of Contents
       strictly necessary, it is encouraged in order to ensure a more
       effective discovery of application groups and CoAP groups.
 
+   Note that the specific way of using the methods discussed below is
+   application-specific.  That is, there is currently no standard way of
+   encoding names of application groups and CoAP groups in group URIs
+   and/or CoRE target attributes used with resource links.  In
+   particular, the discovery of application groups and CoAP groups
+   through the RD mentioned in Section 2.2.3.1 is only defined for use
+   with an RD, i.e., not directly with CoAP servers as group members.
+
    Full examples for the different methods are provided in Appendix C.
 
    *  A CoAP client can discover all the application groups associated
@@ -1054,15 +1062,6 @@ Table of Contents
       unicast discovery request(s) to this server.
 
       Full examples are provided in Appendix C.4.
-
-   Note that the specific way of using the above methods, including the
-   ways shown by the examples in Appendix C.4, is application-specific.
-   That is, there is currently no standard way of encoding names of
-   application groups and CoAP groups in group URIs and/or CoRE target
-   attributes used with resource links.  In particular, the discovery of
-   application groups and CoAP groups through the RD mentioned in
-   Section 2.2.3.1 is only defined for use with an RD, i.e., not
-   directly with CoAP servers as group members.
 
 2.2.4.  Group Maintenance
 

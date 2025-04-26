@@ -2049,53 +2049,53 @@ In examples presented in the following, this document considers such values for 
 Resource Type values can be registered in the "Resource Type (rt=) Link Target Attribute Values" IANA registry <span>[<a href="#Resource.Type.Link.Target.Attribute.Values" class="cite xref">Resource.Type.Link.Target.Attribute.Values</a>]</span> within the "Constrained RESTful Environments (CoRE) Parameters" registry group. While relying on registered Resource Type values is not strictly necessary, it is encouraged in order to ensure a more effective discovery of application groups and CoAP groups.<a href="#section-2.2.3.2-5.2.3" class="pilcrow">¶</a></p>
 </li>
             </ul>
-<p id="section-2.2.3.2-6">Full examples for the different methods are provided in <a href="#sec-examples-group-discovery" class="auto internal xref">Appendix C</a>.<a href="#section-2.2.3.2-6" class="pilcrow">¶</a></p>
+<p id="section-2.2.3.2-6">Note that the specific way of using the methods discussed below is application-specific. That is, there is currently no standard way of encoding names of application groups and CoAP groups in group URIs and/or CoRE target attributes used with resource links. In particular, the discovery of application groups and CoAP groups through the RD mentioned in <a href="#sssec-discovery-from-rd" class="auto internal xref">Section 2.2.3.1</a> is only defined for use with an RD, i.e., not directly with CoAP servers as group members.<a href="#section-2.2.3.2-6" class="pilcrow">¶</a></p>
+<p id="section-2.2.3.2-7">Full examples for the different methods are provided in <a href="#sec-examples-group-discovery" class="auto internal xref">Appendix C</a>.<a href="#section-2.2.3.2-7" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-2.2.3.2-7.1">
-                <p id="section-2.2.3.2-7.1.1">A CoAP client can discover all the application groups associated with a specific CoAP group.<a href="#section-2.2.3.2-7.1.1" class="pilcrow">¶</a></p>
-<p id="section-2.2.3.2-7.1.2">
-This is achieved by sending the GET request above to the IP multicast address of the CoAP group, and specifying a wildcarded group type "g.*" as resource type in the URI query parameter "rt". For example, the request can use a Group URI with path and query components "/.well-known/core?rt=g.*", so that the query matches any application group resource type. Alternatively, the request can use a Group URI with path and query components "/.well-known/core?href=/gp/*", so that the query matches any application group resources and also matches any sub-resources of those.<a href="#section-2.2.3.2-7.1.2" class="pilcrow">¶</a></p>
-<p id="section-2.2.3.2-7.1.3">
-Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of the specified CoAP group and have at least one application group associated with the CoAP group. That is, the client gains knowledge of: i) the set of servers that are members of the specified CoAP group and member of any of the associated application groups; ii) for each of those servers, the name of the application groups where the server is a member and that are associated with the CoAP group.<a href="#section-2.2.3.2-7.1.3" class="pilcrow">¶</a></p>
-<p id="section-2.2.3.2-7.1.4">
-A full example is provided in <a href="#sec-examples-group-discovery-1" class="auto internal xref">Appendix C.1</a>.<a href="#section-2.2.3.2-7.1.4" class="pilcrow">¶</a></p>
+<li class="normal" id="section-2.2.3.2-8.1">
+                <p id="section-2.2.3.2-8.1.1">A CoAP client can discover all the application groups associated with a specific CoAP group.<a href="#section-2.2.3.2-8.1.1" class="pilcrow">¶</a></p>
+<p id="section-2.2.3.2-8.1.2">
+This is achieved by sending the GET request above to the IP multicast address of the CoAP group, and specifying a wildcarded group type "g.*" as resource type in the URI query parameter "rt". For example, the request can use a Group URI with path and query components "/.well-known/core?rt=g.*", so that the query matches any application group resource type. Alternatively, the request can use a Group URI with path and query components "/.well-known/core?href=/gp/*", so that the query matches any application group resources and also matches any sub-resources of those.<a href="#section-2.2.3.2-8.1.2" class="pilcrow">¶</a></p>
+<p id="section-2.2.3.2-8.1.3">
+Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of the specified CoAP group and have at least one application group associated with the CoAP group. That is, the client gains knowledge of: i) the set of servers that are members of the specified CoAP group and member of any of the associated application groups; ii) for each of those servers, the name of the application groups where the server is a member and that are associated with the CoAP group.<a href="#section-2.2.3.2-8.1.3" class="pilcrow">¶</a></p>
+<p id="section-2.2.3.2-8.1.4">
+A full example is provided in <a href="#sec-examples-group-discovery-1" class="auto internal xref">Appendix C.1</a>.<a href="#section-2.2.3.2-8.1.4" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-2.2.3.2-7.2">
-                <p id="section-2.2.3.2-7.2.1">A CoAP client can discover the CoAP servers that are members of a specific application group, the CoAP group associated with the application group, and optionally the resources that those servers host for each application group.<a href="#section-2.2.3.2-7.2.1" class="pilcrow">¶</a></p>
-<p id="section-2.2.3.2-7.2.2">
-This is achieved by sending the GET request above to the "All CoAP Nodes" IP multicast address (see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-12.8" class="relref">Section 12.8</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>), with a particular chosen scope (e.g., site-local or realm-local) if IPv6 is used. Also, the request specifies the application group name of interest in the URI query component, as defined in <a href="#sec-groupnaming-app" class="auto internal xref">Section 2.2.1.2</a>. For example, the request can use a Group URI with path and query components "/.well-known/core?href=/gp/gp1" to specify the application group with name "gp1".<a href="#section-2.2.3.2-7.2.2" class="pilcrow">¶</a></p>
-<p id="section-2.2.3.2-7.2.3">
-Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of the specified application group and for each application group the associated CoAP group. That is, the client gains knowledge of: i) the set of servers that are members of the specified application group and of the associated CoAP group; ii) for each of those servers, optionally the resources it hosts within the application group.<a href="#section-2.2.3.2-7.2.3" class="pilcrow">¶</a></p>
-<p id="section-2.2.3.2-7.2.4">
-If the client wishes to discover resources that a particular server hosts within a particular application group, it may use unicast discovery request(s) to this server.<a href="#section-2.2.3.2-7.2.4" class="pilcrow">¶</a></p>
-<p id="section-2.2.3.2-7.2.5">
-A full example is provided in <a href="#sec-examples-group-discovery-2" class="auto internal xref">Appendix C.2</a>.<a href="#section-2.2.3.2-7.2.5" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-2.2.3.2-8.2">
+                <p id="section-2.2.3.2-8.2.1">A CoAP client can discover the CoAP servers that are members of a specific application group, the CoAP group associated with the application group, and optionally the resources that those servers host for each application group.<a href="#section-2.2.3.2-8.2.1" class="pilcrow">¶</a></p>
+<p id="section-2.2.3.2-8.2.2">
+This is achieved by sending the GET request above to the "All CoAP Nodes" IP multicast address (see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-12.8" class="relref">Section 12.8</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>), with a particular chosen scope (e.g., site-local or realm-local) if IPv6 is used. Also, the request specifies the application group name of interest in the URI query component, as defined in <a href="#sec-groupnaming-app" class="auto internal xref">Section 2.2.1.2</a>. For example, the request can use a Group URI with path and query components "/.well-known/core?href=/gp/gp1" to specify the application group with name "gp1".<a href="#section-2.2.3.2-8.2.2" class="pilcrow">¶</a></p>
+<p id="section-2.2.3.2-8.2.3">
+Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of the specified application group and for each application group the associated CoAP group. That is, the client gains knowledge of: i) the set of servers that are members of the specified application group and of the associated CoAP group; ii) for each of those servers, optionally the resources it hosts within the application group.<a href="#section-2.2.3.2-8.2.3" class="pilcrow">¶</a></p>
+<p id="section-2.2.3.2-8.2.4">
+If the client wishes to discover resources that a particular server hosts within a particular application group, it may use unicast discovery request(s) to this server.<a href="#section-2.2.3.2-8.2.4" class="pilcrow">¶</a></p>
+<p id="section-2.2.3.2-8.2.5">
+A full example is provided in <a href="#sec-examples-group-discovery-2" class="auto internal xref">Appendix C.2</a>.<a href="#section-2.2.3.2-8.2.5" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-2.2.3.2-7.3">
-                <p id="section-2.2.3.2-7.3.1">A CoAP client can discover the CoAP servers that are members of any application group of a specific type, the CoAP group associated with those application groups, and optionally the resources that those servers host as members of those application groups.<a href="#section-2.2.3.2-7.3.1" class="pilcrow">¶</a></p>
-<p id="section-2.2.3.2-7.3.2">
-This is achieved by sending the GET request above to the "All CoAP Nodes" IP multicast address (see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-12.8" class="relref">Section 12.8</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>), with a particular chosen scope (e.g., site-local or realm-local) if IPv6 is used. Also, the request can specify the application group type of interest in the URI query component as value of a query parameter "rt". For example, the request can use a Group URI with path and query components "/.well-known/core?rt=TypeA" to specify the application group type "TypeA".<a href="#section-2.2.3.2-7.3.2" class="pilcrow">¶</a></p>
-<p id="section-2.2.3.2-7.3.3">
-Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of any application group of the specified type and of the CoAP group associated with each of those application groups. That is, the client gains knowledge of: i) the set of servers that are members of the application groups of the specified type and of the associated CoAP group; ii) optionally for each of those servers, the resources it hosts within each of those application groups.<a href="#section-2.2.3.2-7.3.3" class="pilcrow">¶</a></p>
-<p id="section-2.2.3.2-7.3.4">
-If the client wishes to discover resources that a particular server hosts within a particular application group, it may use unicast discovery request(s) to this server.<a href="#section-2.2.3.2-7.3.4" class="pilcrow">¶</a></p>
-<p id="section-2.2.3.2-7.3.5">
-A full example is provided in <a href="#sec-examples-group-discovery-3" class="auto internal xref">Appendix C.3</a>.<a href="#section-2.2.3.2-7.3.5" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-2.2.3.2-8.3">
+                <p id="section-2.2.3.2-8.3.1">A CoAP client can discover the CoAP servers that are members of any application group of a specific type, the CoAP group associated with those application groups, and optionally the resources that those servers host as members of those application groups.<a href="#section-2.2.3.2-8.3.1" class="pilcrow">¶</a></p>
+<p id="section-2.2.3.2-8.3.2">
+This is achieved by sending the GET request above to the "All CoAP Nodes" IP multicast address (see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-12.8" class="relref">Section 12.8</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>), with a particular chosen scope (e.g., site-local or realm-local) if IPv6 is used. Also, the request can specify the application group type of interest in the URI query component as value of a query parameter "rt". For example, the request can use a Group URI with path and query components "/.well-known/core?rt=TypeA" to specify the application group type "TypeA".<a href="#section-2.2.3.2-8.3.2" class="pilcrow">¶</a></p>
+<p id="section-2.2.3.2-8.3.3">
+Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of any application group of the specified type and of the CoAP group associated with each of those application groups. That is, the client gains knowledge of: i) the set of servers that are members of the application groups of the specified type and of the associated CoAP group; ii) optionally for each of those servers, the resources it hosts within each of those application groups.<a href="#section-2.2.3.2-8.3.3" class="pilcrow">¶</a></p>
+<p id="section-2.2.3.2-8.3.4">
+If the client wishes to discover resources that a particular server hosts within a particular application group, it may use unicast discovery request(s) to this server.<a href="#section-2.2.3.2-8.3.4" class="pilcrow">¶</a></p>
+<p id="section-2.2.3.2-8.3.5">
+A full example is provided in <a href="#sec-examples-group-discovery-3" class="auto internal xref">Appendix C.3</a>.<a href="#section-2.2.3.2-8.3.5" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-2.2.3.2-7.4">
-                <p id="section-2.2.3.2-7.4.1">A CoAP client can discover the CoAP servers that are members of any application group configured in the 6LoWPAN network of the client, the CoAP group associated with each application group, and optionally the resources that those servers host as members of the application group.<a href="#section-2.2.3.2-7.4.1" class="pilcrow">¶</a></p>
-<p id="section-2.2.3.2-7.4.2">
+              <li class="normal" id="section-2.2.3.2-8.4">
+                <p id="section-2.2.3.2-8.4.1">A CoAP client can discover the CoAP servers that are members of any application group configured in the 6LoWPAN network of the client, the CoAP group associated with each application group, and optionally the resources that those servers host as members of the application group.<a href="#section-2.2.3.2-8.4.1" class="pilcrow">¶</a></p>
+<p id="section-2.2.3.2-8.4.2">
 This is achieved by sending the GET request above with a query specifying a wildcarded group type in the URI query parameter for "rt". For example, the request can use a Group URI with path and query components "/.well-known/core?rt=g.*", so that the query matches any application group type.
- The request is sent to the "All CoAP Nodes" IP multicast address (see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-12.8" class="relref">Section 12.8</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>), with a particular chosen scope if IPv6 is used.<a href="#section-2.2.3.2-7.4.2" class="pilcrow">¶</a></p>
-<p id="section-2.2.3.2-7.4.3">
-Through the corresponding responses, the query result is a list of group resources hosted by any server in the 6LoWPAN network. Each group resource denotes one application group membership of a server. For each application group, the associated CoAP group is obtained as the URI authority component of the corresponding returned link.<a href="#section-2.2.3.2-7.4.3" class="pilcrow">¶</a></p>
-<p id="section-2.2.3.2-7.4.4">
-If the client wishes to discover resources that a particular server hosts within a particular application group, it may use unicast discovery request(s) to this server.<a href="#section-2.2.3.2-7.4.4" class="pilcrow">¶</a></p>
-<p id="section-2.2.3.2-7.4.5">
-Full examples are provided in <a href="#sec-examples-group-discovery-4" class="auto internal xref">Appendix C.4</a>.<a href="#section-2.2.3.2-7.4.5" class="pilcrow">¶</a></p>
+ The request is sent to the "All CoAP Nodes" IP multicast address (see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-12.8" class="relref">Section 12.8</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>), with a particular chosen scope if IPv6 is used.<a href="#section-2.2.3.2-8.4.2" class="pilcrow">¶</a></p>
+<p id="section-2.2.3.2-8.4.3">
+Through the corresponding responses, the query result is a list of group resources hosted by any server in the 6LoWPAN network. Each group resource denotes one application group membership of a server. For each application group, the associated CoAP group is obtained as the URI authority component of the corresponding returned link.<a href="#section-2.2.3.2-8.4.3" class="pilcrow">¶</a></p>
+<p id="section-2.2.3.2-8.4.4">
+If the client wishes to discover resources that a particular server hosts within a particular application group, it may use unicast discovery request(s) to this server.<a href="#section-2.2.3.2-8.4.4" class="pilcrow">¶</a></p>
+<p id="section-2.2.3.2-8.4.5">
+Full examples are provided in <a href="#sec-examples-group-discovery-4" class="auto internal xref">Appendix C.4</a>.<a href="#section-2.2.3.2-8.4.5" class="pilcrow">¶</a></p>
 </li>
             </ul>
-<p id="section-2.2.3.2-8">Note that the specific way of using the above methods, including the ways shown by the examples in <a href="#sec-examples-group-discovery-4" class="auto internal xref">Appendix C.4</a>, is application-specific. That is, there is currently no standard way of encoding names of application groups and CoAP groups in group URIs and/or CoRE target attributes used with resource links. In particular, the discovery of application groups and CoAP groups through the RD mentioned in <a href="#sssec-discovery-from-rd" class="auto internal xref">Section 2.2.3.1</a> is only defined for use with an RD, i.e., not directly with CoAP servers as group members.<a href="#section-2.2.3.2-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
