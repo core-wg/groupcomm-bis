@@ -2009,7 +2009,7 @@ Table of Contents
    particular (e.g., default) method to communicate its subscription to
    on-link IP (multicast) routers.
 
-   The Multicast Listener Discovery Version 2 (MLDv2) protocol [RFC3810]
+   The Multicast Listener Discovery Version 2 (MLDv2) protocol [RFC9777]
    is the standard IPv6 method to communicate multicast subscriptions,
    when other methods are not defined.  The CoAP server nodes then act
    in the role of MLD Multicast Address Listener.  MLDv2 uses link-local
@@ -2097,7 +2097,7 @@ Table of Contents
 
    *  Manual configuration on each ingress MPL Forwarder.
 
-   *  MLDv2 protocol [RFC3810], which works only in case all CoAP
+   *  MLDv2 protocol [RFC9777], which works only in case all CoAP
       servers joining a CoAP group are in link-local communication range
       of an ingress MPL Forwarder.
 
@@ -3095,11 +3095,6 @@ Table of Contents
               RFC 1033, DOI 10.17487/RFC1033, November 1987,
               <https://www.rfc-editor.org/rfc/rfc1033>.
 
-   [RFC3810]  Vida, R., Ed. and L. Costa, Ed., "Multicast Listener
-              Discovery Version 2 (MLDv2) for IPv6", RFC 3810,
-              DOI 10.17487/RFC3810, June 2004,
-              <https://www.rfc-editor.org/rfc/rfc3810>.
-
    [RFC6092]  Woodyatt, J., Ed., "Recommended Simple Security
               Capabilities in Customer Premises Equipment (CPE) for
               Providing Residential IPv6 Internet Service", RFC 6092,
@@ -3177,6 +3172,11 @@ Table of Contents
               Discovery Multicast and Anycast Addresses", RFC 9685,
               DOI 10.17487/RFC9685, November 2024,
               <https://www.rfc-editor.org/rfc/rfc9685>.
+
+   [RFC9777]  Haberman, B., Ed., "Multicast Listener Discovery Version 2
+              (MLDv2) for IPv6", STD 101, RFC 9777,
+              DOI 10.17487/RFC9777, March 2025,
+              <https://www.rfc-editor.org/rfc/rfc9777>.
 
 Appendix A.  Use Cases
 
@@ -3577,19 +3577,20 @@ A.2.1.1.  Lighting Control
 A.2.1.2.  Lighting Control in MLD-Enabled Network
 
    The use case in Appendix A.2.1.1 can also apply in networks where
-   nodes support the MLD protocol [RFC3810].  The lights then take on
+   nodes support the MLDv2 protocol [RFC9777].  The lights then take on
    the role of MLDv2 listener, and the routers (Rtr-1 and Rtr-2) are
-   MLDv2 routers.  In the Ethernet-based network configuration, MLD may
-   be available on all involved network interfaces.  Use of MLD in the
-   6LoWPAN-based configuration is also possible but requires MLD support
-   in all nodes in the 6LoWPAN.  In current 6LoWPAN implementations, MLD
-   is, however, not supported.
+   MLDv2 routers.  In the Ethernet-based network configuration, MLDv2
+   may be available on all involved network interfaces.  Use of MLDv2 in
+   the 6LoWPAN-based configuration is also possible but requires MLDv2
+   support in all nodes in the 6LoWPAN.  In current 6LoWPAN
+   implementations, MLDv2 is, however, not supported.
 
    The resulting protocol flow is shown in Figure 8.  This flow is
    executed after the commissioning phase, as soon as lights are
    configured with a group address to listen to.  The (unicast) MLD
-   Reports may require periodic refresh activity as specified by the MLD
-   protocol.  In the figure, 'LL' denotes link-local communication.
+   Reports may require periodic refresh activity as specified by the
+   MLDv2 protocol.  In the figure, 'LL' denotes link-local
+   communication.
 
    After the shown sequence of MLD Report messages has been executed,
    both Rtr-1 and Rtr-2 are automatically configured to forward IP
@@ -3623,7 +3624,7 @@ A.2.1.2.  Lighting Control in MLD-Enabled Network
     |          |          |          |          |          |          |
     |          |          |          |          |          |          |
 
-                Figure 8: Joining Lighting Groups Using MLD
+               Figure 8: Joining Lighting Groups Using MLDv2
 
 A.2.2.  Device Group Status Request
 

@@ -2519,7 +2519,7 @@ This requires the individually addressed servers to be reachable via a suitable 
           </h4>
 <p id="section-3.10.1-1">A CoAP node that is an IP host (i.e., not an IP router) may be unaware of the specific IP multicast routing/forwarding protocol
 being used in its network.  When such a node needs to join a specific (CoAP) multicast group, the application process would typically subscribe to the particular IP multicast group via an API method of the IP stack on the node. Then the IP stack would execute a particular (e.g., default) method to communicate its subscription to on-link IP (multicast) routers.<a href="#section-3.10.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.10.1-2">The Multicast Listener Discovery Version 2 (MLDv2) protocol <span>[<a href="#RFC3810" class="cite xref">RFC3810</a>]</span> is the standard IPv6 method to communicate multicast subscriptions, when other methods are not defined. The CoAP server nodes then act in the role of MLD Multicast Address Listener. MLDv2 uses link-local communication between Listeners and IP multicast routers. Constrained IPv6 networks such as ones implementing either RPL (see <a href="#sec-rpl" class="auto internal xref">Section 3.10.2</a>) or MPL (see <a href="#sec-mpl" class="auto internal xref">Section 3.10.3</a>) typically
+<p id="section-3.10.1-2">The Multicast Listener Discovery Version 2 (MLDv2) protocol <span>[<a href="#RFC9777" class="cite xref">RFC9777</a>]</span> is the standard IPv6 method to communicate multicast subscriptions, when other methods are not defined. The CoAP server nodes then act in the role of MLD Multicast Address Listener. MLDv2 uses link-local communication between Listeners and IP multicast routers. Constrained IPv6 networks such as ones implementing either RPL (see <a href="#sec-rpl" class="auto internal xref">Section 3.10.2</a>) or MPL (see <a href="#sec-mpl" class="auto internal xref">Section 3.10.3</a>) typically
 do not support MLDv2 as they have their own mechanisms defined for subscribing to multicast groups.<a href="#section-3.10.1-2" class="pilcrow">¶</a></p>
 <p id="section-3.10.1-3">The Internet Group Management Protocol Version 3 (IGMPv3) protocol <span>[<a href="#RFC3376" class="cite xref">RFC3376</a>]</span> is the standard IPv4 method to signal subscriptions to multicast group. This <span class="bcp14">SHOULD</span> be used by members of a CoAP group to subscribe to its multicast IPv4 address on IPv4 networks unless another method is defined for the network interface/technology used.<a href="#section-3.10.1-3" class="pilcrow">¶</a></p>
 <p id="section-3.10.1-4">The guidelines from <span>[<a href="#RFC6636" class="cite xref">RFC6636</a>]</span> on the tuning of MLDv2 and IGMPv3 for mobile and wireless networks may be useful when implementing MLDv2 and IGMPv3 in constrained networks.<a href="#section-3.10.1-4" class="pilcrow">¶</a></p>
@@ -2550,7 +2550,7 @@ do not support MLDv2 as they have their own mechanisms defined for subscribing t
               <p id="section-3.10.3-3.1.1">Manual configuration on each ingress MPL Forwarder.<a href="#section-3.10.3-3.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.10.3-3.2">
-              <p id="section-3.10.3-3.2.1">MLDv2 protocol <span>[<a href="#RFC3810" class="cite xref">RFC3810</a>]</span>, which works only in case all CoAP servers joining a CoAP group are in link-local communication range of an ingress MPL Forwarder.<a href="#section-3.10.3-3.2.1" class="pilcrow">¶</a></p>
+              <p id="section-3.10.3-3.2.1">MLDv2 protocol <span>[<a href="#RFC9777" class="cite xref">RFC9777</a>]</span>, which works only in case all CoAP servers joining a CoAP group are in link-local communication range of an ingress MPL Forwarder.<a href="#section-3.10.3-3.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.10.3-3.3">
               <p id="section-3.10.3-3.3.1">Using 6LoWPAN Neighbor Discovery (ND) and Extended Address Registration Option (EARO) as described in <span>[<a href="#RFC9685" class="cite xref">RFC9685</a>]</span>, in a network that supports 6LoWPAN-ND, RPL, and MPL.<a href="#section-3.10.3-3.3.1" class="pilcrow">¶</a></p>
@@ -3057,10 +3057,6 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
         <dd>
 <span class="refAuthor">Lottor, M.</span>, <span class="refTitle">"Domain Administrators Operations Guide"</span>, <span class="seriesInfo">RFC 1033</span>, <span class="seriesInfo">DOI 10.17487/RFC1033</span>, <time datetime="1987-11" class="refDate">November 1987</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc1033">https://www.rfc-editor.org/rfc/rfc1033</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC3810">[RFC3810]</dt>
-        <dd>
-<span class="refAuthor">Vida, R., Ed.</span> and <span class="refAuthor">L. Costa, Ed.</span>, <span class="refTitle">"Multicast Listener Discovery Version 2 (MLDv2) for IPv6"</span>, <span class="seriesInfo">RFC 3810</span>, <span class="seriesInfo">DOI 10.17487/RFC3810</span>, <time datetime="2004-06" class="refDate">June 2004</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3810">https://www.rfc-editor.org/rfc/rfc3810</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC6092">[RFC6092]</dt>
         <dd>
 <span class="refAuthor">Woodyatt, J., Ed.</span>, <span class="refTitle">"Recommended Simple Security Capabilities in Customer Premises Equipment (CPE) for Providing Residential IPv6 Internet Service"</span>, <span class="seriesInfo">RFC 6092</span>, <span class="seriesInfo">DOI 10.17487/RFC6092</span>, <time datetime="2011-01" class="refDate">January 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6092">https://www.rfc-editor.org/rfc/rfc6092</a>&gt;</span>. </dd>
@@ -3118,8 +3114,12 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
 <span class="refAuthor">Seitz, L.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Wahlstroem, E.</span>, <span class="refAuthor">Erdtman, S.</span>, and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"Authentication and Authorization for Constrained Environments Using the OAuth 2.0 Framework (ACE-OAuth)"</span>, <span class="seriesInfo">RFC 9200</span>, <span class="seriesInfo">DOI 10.17487/RFC9200</span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9200">https://www.rfc-editor.org/rfc/rfc9200</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9685">[RFC9685]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Thubert, P., Ed.</span>, <span class="refTitle">"Listener Subscription for IPv6 Neighbor Discovery Multicast and Anycast Addresses"</span>, <span class="seriesInfo">RFC 9685</span>, <span class="seriesInfo">DOI 10.17487/RFC9685</span>, <time datetime="2024-11" class="refDate">November 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9685">https://www.rfc-editor.org/rfc/rfc9685</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9777">[RFC9777]</dt>
+      <dd>
+<span class="refAuthor">Haberman, B., Ed.</span>, <span class="refTitle">"Multicast Listener Discovery Version 2 (MLDv2) for IPv6"</span>, <span class="seriesInfo">STD 101</span>, <span class="seriesInfo">RFC 9777</span>, <span class="seriesInfo">DOI 10.17487/RFC9777</span>, <time datetime="2025-03" class="refDate">March 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9777">https://www.rfc-editor.org/rfc/rfc9777</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -3789,8 +3789,8 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
             <h5 id="name-lighting-control-in-mld-ena">
 <a href="#appendix-A.2.1.2" class="section-number selfRef">A.2.1.2. </a><a href="#name-lighting-control-in-mld-ena" class="section-name selfRef">Lighting Control in MLD-Enabled Network</a>
             </h5>
-<p id="appendix-A.2.1.2-1">The use case in <a href="#example-lighting-control" class="auto internal xref">Appendix A.2.1.1</a> can also apply in networks where nodes support the MLD protocol <span>[<a href="#RFC3810" class="cite xref">RFC3810</a>]</span>. The lights then take on the role of MLDv2 listener, and the routers (Rtr-1 and Rtr-2) are MLDv2 routers. In the Ethernet-based network configuration, MLD may be available on all involved network interfaces. Use of MLD in the 6LoWPAN-based configuration is also possible but requires MLD support in all nodes in the 6LoWPAN. In current 6LoWPAN implementations, MLD is, however, not supported.<a href="#appendix-A.2.1.2-1" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.1.2-2">The resulting protocol flow is shown in <a href="#fig-joining-lighting-groups-mld" class="auto internal xref">Figure 8</a>. This flow is executed after the commissioning phase, as soon as lights are configured with a group address to listen to. The (unicast) MLD Reports may require periodic refresh activity as specified by the MLD protocol. In the figure, 'LL' denotes link-local communication.<a href="#appendix-A.2.1.2-2" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1.2-1">The use case in <a href="#example-lighting-control" class="auto internal xref">Appendix A.2.1.1</a> can also apply in networks where nodes support the MLDv2 protocol <span>[<a href="#RFC9777" class="cite xref">RFC9777</a>]</span>. The lights then take on the role of MLDv2 listener, and the routers (Rtr-1 and Rtr-2) are MLDv2 routers. In the Ethernet-based network configuration, MLDv2 may be available on all involved network interfaces. Use of MLDv2 in the 6LoWPAN-based configuration is also possible but requires MLDv2 support in all nodes in the 6LoWPAN. In current 6LoWPAN implementations, MLDv2 is, however, not supported.<a href="#appendix-A.2.1.2-1" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1.2-2">The resulting protocol flow is shown in <a href="#fig-joining-lighting-groups-mld" class="auto internal xref">Figure 8</a>. This flow is executed after the commissioning phase, as soon as lights are configured with a group address to listen to. The (unicast) MLD Reports may require periodic refresh activity as specified by the MLDv2 protocol. In the figure, 'LL' denotes link-local communication.<a href="#appendix-A.2.1.2-2" class="pilcrow">¶</a></p>
 <p id="appendix-A.2.1.2-3">After the shown sequence of MLD Report messages has been executed, both Rtr-1 and Rtr-2 are automatically configured to forward IP multicast traffic destined to Room-A-Lights onto their connected subnet. Hence, no manual network configuration of routers, as previously indicated in <a href="#example-lighting-control" class="auto internal xref">Appendix A.2.1.1</a>, Step 2, is needed anymore.<a href="#appendix-A.2.1.2-3" class="pilcrow">¶</a></p>
 <span id="name-joining-lighting-groups-usi"></span><div id="fig-joining-lighting-groups-mld">
 <figure id="figure-8">
@@ -3880,7 +3880,7 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
 </div>
 </div>
 <figcaption><a href="#figure-8" class="selfRef">Figure 8</a>:
-<a href="#name-joining-lighting-groups-usi" class="selfRef">Joining Lighting Groups Using MLD</a>
+<a href="#name-joining-lighting-groups-usi" class="selfRef">Joining Lighting Groups Using MLDv2</a>
               </figcaption></figure>
 </div>
 </section>
