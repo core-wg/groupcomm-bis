@@ -1580,10 +1580,10 @@ Table of Contents
 3.5.3.  Single Group Request to Multiple Proxies
 
    A client might send a group request to multiple proxies at once
-   (e.g., over IP multicast), so that each and every of those proxies
-   forwards it to the servers in the CoAP group.  Assuming that no
-   message loss occurs and that N proxies receive and forward the group
-   request, this has the following implications.
+   (e.g., over IP multicast), so that each of those proxies forwards it
+   to the servers in the CoAP group.  Assuming that no message loss
+   occurs and that N proxies receive and forward the group request, this
+   has the following implications.
 
    *  Each server receives N copies of the group request, i.e., one copy
       from each proxy.
@@ -1613,14 +1613,13 @@ Table of Contents
       such received requests are copies of exactly the same group
       request.
 
-      As a result, each server S accepts only the first copy of the
-      group request received from one of the proxies, say P, while
-      discarding as replay any later copies received from any other
-      proxy.
+      As a result, each server accepts only the first copy of the group
+      request received from one of the proxies, while discarding as
+      replay any later copies received from any other proxy.
 
-      After that, the server S can reply to the accepted request with
+      After that, the server can reply to the accepted request with
       multiple responses over time (see Section 3.1.6).  All those
-      responses are sent to the same proxy P that forwarded the only
+      responses are sent to the same proxy that forwarded the only
       accepted request, and that in turn relays those responses to the
       client.
 

@@ -2324,7 +2324,7 @@ will be unique to this particular server with a high probability. This practical
           <h4 id="name-single-group-request-to-mul">
 <a href="#section-3.5.3" class="section-number selfRef">3.5.3. </a><a href="#name-single-group-request-to-mul" class="section-name selfRef">Single Group Request to Multiple Proxies</a>
           </h4>
-<p id="section-3.5.3-1">A client might send a group request to multiple proxies at once (e.g., over IP multicast), so that each and every of those proxies forwards it to the servers in the CoAP group. Assuming that no message loss occurs and that N proxies receive and forward the group request, this has the following implications.<a href="#section-3.5.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.5.3-1">A client might send a group request to multiple proxies at once (e.g., over IP multicast), so that each of those proxies forwards it to the servers in the CoAP group. Assuming that no message loss occurs and that N proxies receive and forward the group request, this has the following implications.<a href="#section-3.5.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.5.3-2.1">
               <p id="section-3.5.3-2.1.1">Each server receives N copies of the group request, i.e., one copy from each proxy.<a href="#section-3.5.3-2.1.1" class="pilcrow">¶</a></p>
@@ -2343,9 +2343,9 @@ will be unique to this particular server with a high probability. This practical
             <li class="normal" id="section-3.5.3-2.3">
               <p id="section-3.5.3-2.3.1">If secure group communication with Group OSCORE is used (see <a href="#chap-oscore" class="auto internal xref">Section 5</a>), each server is able to determine that each received copy of the group request is in fact originated by the same client. In particular, each server is able to determine that all such received requests are copies of exactly the same group request.<a href="#section-3.5.3-2.3.1" class="pilcrow">¶</a></p>
 <p id="section-3.5.3-2.3.2">
-As a result, each server S accepts only the first copy of the group request received from one of the proxies, say P, while discarding as replay any later copies received from any other proxy.<a href="#section-3.5.3-2.3.2" class="pilcrow">¶</a></p>
+As a result, each server accepts only the first copy of the group request received from one of the proxies, while discarding as replay any later copies received from any other proxy.<a href="#section-3.5.3-2.3.2" class="pilcrow">¶</a></p>
 <p id="section-3.5.3-2.3.3">
-After that, the server S can reply to the accepted request with multiple responses over time (see <a href="#sec-request-response-multi" class="auto internal xref">Section 3.1.6</a>). All those responses are sent to the same proxy P that forwarded the only accepted request, and that in turn relays those responses to the client.<a href="#section-3.5.3-2.3.3" class="pilcrow">¶</a></p>
+After that, the server can reply to the accepted request with multiple responses over time (see <a href="#sec-request-response-multi" class="auto internal xref">Section 3.1.6</a>). All those responses are sent to the same proxy that forwarded the only accepted request, and that in turn relays those responses to the client.<a href="#section-3.5.3-2.3.3" class="pilcrow">¶</a></p>
 <p id="section-3.5.3-2.3.4">
 As a consequence, for each server, the client receives responses originated by that server only from one proxy. That is, the client receives a certain response content only once, like in the case with only one proxy.<a href="#section-3.5.3-2.3.4" class="pilcrow">¶</a></p>
 </li>
