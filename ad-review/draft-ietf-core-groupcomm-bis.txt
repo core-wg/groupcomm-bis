@@ -2020,7 +2020,7 @@ Table of Contents
    multicast groups.
 
    The Internet Group Management Protocol Version 3 (IGMPv3) protocol
-   [RFC3376] is the standard IPv4 method to signal subscriptions to
+   [RFC9776] is the standard IPv4 method to signal subscriptions to
    multicast group.  This SHOULD be used by members of a CoAP group to
    subscribe to its multicast IPv4 address on IPv4 networks unless
    another method is defined for the network interface/technology used.
@@ -2914,11 +2914,6 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
-   [RFC3376]  Cain, B., Deering, S., Kouvelas, I., Fenner, B., and A.
-              Thyagarajan, "Internet Group Management Protocol, Version
-              3", RFC 3376, DOI 10.17487/RFC3376, October 2002,
-              <https://www.rfc-editor.org/rfc/rfc3376>.
-
    [RFC4443]  Conta, A., Deering, S., and M. Gupta, Ed., "Internet
               Control Message Protocol (ICMPv6) for the Internet
               Protocol Version 6 (IPv6) Specification", STD 89,
@@ -3008,6 +3003,10 @@ Table of Contents
               Tag, and Token Processing", RFC 9175,
               DOI 10.17487/RFC9175, February 2022,
               <https://www.rfc-editor.org/rfc/rfc9175>.
+
+   [RFC9776]  Haberman, B., Ed., "Internet Group Management Protocol,
+              Version 3", STD 100, RFC 9776, DOI 10.17487/RFC9776, March
+              2025, <https://www.rfc-editor.org/rfc/rfc9776>.
 
 8.2.  Informative References
 
@@ -4500,6 +4499,8 @@ G.1.  Version -13 to -14
 
    *  Early mentioning Group OSCORE and source authentication of
       messages.
+
+   *  Updated references.
 
    *  Minor fixes and editorial improvements.
 
