@@ -50,6 +50,7 @@ normative:
   RFC4944:
   RFC6282:
   RFC6690:
+  RFC6775:
   RFC7252:
   RFC7641:
   RFC7959:
@@ -502,7 +503,7 @@ How CoAP group messages are carried over various transport layers is the subject
 ### General ###
 A CoAP client is an endpoint able to transmit CoAP requests and receive CoAP responses. Since the underlying UDP transport supports multiplexing by means of UDP port number, there can be multiple independent CoAP clients operational on a single host. On each UDP port, an independent CoAP client can be hosted. Each independent CoAP client sends requests that use the associated endpoint's UDP port number as the UDP source port number of the request.
 
-All CoAP requests that are sent via IP multicast MUST be Non-confirmable, see {{Section 8.1 of RFC7252}}.  The Message ID in an IP multicast CoAP message is used for optional message deduplication by both clients and servers, as detailed in {{Section 4.5 of RFC7252}}. A server MAY send one or more responses to a CoAP group request; these are always unicast messages. The unicast responses received by the CoAP client may carry a mixture of success (e.g., 2.05 (Content)) and failure (e.g., 4.04 (Not Found)) response codes, depending on the individual server processing results.
+All CoAP requests that are sent via IP multicast MUST be Non-confirmable (NON), see {{Section 8.1 of RFC7252}}.  The Message ID in an IP multicast CoAP message is used for optional message deduplication by both clients and servers, as detailed in {{Section 4.5 of RFC7252}}. A server MAY send one or more responses to a CoAP group request; these are always unicast messages. The unicast responses received by the CoAP client may carry a mixture of success (e.g., 2.05 (Content)) and failure (e.g., 4.04 (Not Found)) response codes, depending on the individual server processing results.
 
 ### Response Suppression ###  {#sec-request-response-suppress}
 A server MAY suppress its response for various reasons given in {{Section 8.2 of RFC7252}}. This document adds the requirement that a server SHOULD suppress the response in case of error or in case there is nothing useful to respond, unless the application related to a particular resource requires such a response to be made for that resource.
@@ -1132,15 +1133,278 @@ Service discovery is the discovery and identification of particular services hos
 In CoAP, services are represented as resources and service discovery is implemented using resource discovery ({{Section 7 of RFC7252}}) and the CoAP query interface defined in {{Section 4 of RFC6690}}.
 
 ### Directory Discovery ### {#sec-uc-dirdiscovery}
-This use case is a specific subcase of Distributed Service Discovery ({{sec-uc-sd}}), in which a device needs to identify the location of a Directory on the network to which it
-can e.g., register its own offered services, or to which it can perform queries to identify and locate other devices/services it needs to access on
-the network. {{Section 3.3 of RFC7390}} showed an example of discovering a CoRE Resource Directory using CoAP group communication. As defined in {{RFC9176}}, a resource directory is a web entity that stores information about web resources and implements REST interfaces for registration and lookup of those resources. For example, a device can register itself to a resource directory to let it be found by other devices and/or applications.
+This use case is a specific subcase of Distributed Service Discovery ({{sec-uc-sd}}), in which a device needs to identify the location of a Directory on the network to which it can, e.g., register its own offered services, or to which it can perform queries to identify and locate other devices/services it needs to access on the network.
+
+As defined in {{RFC9176}}, a CoRE Resource Directory (RD) is a web entity that stores information about web resources and implements REST interfaces for registration and lookup of those resources. For example, a device can register itself to an RD to let it be found by other devices and/or applications.
+
+As an example, the following shows two IPv6 network configurations. Both are based on the topology as shown in {{fig-topology-large-room}}. The two configurations using this topology are as follows:
+
+1. Subnets are 6LoWPAN networks; the routers Rtr-1 and Rtr-2 are 6LoWPAN Border Routers (6LBRs) {{RFC6775}}.
+
+2. Subnets are Ethernet links; the routers Rtr-1 and Rtr-2 are multicast-capable Ethernet routers.
+
+Both configurations are further specified by the following:
+
+* A large room (Room-A) with three lights (Light-1, Light-2, Light-3) controlled by a light switch (Light Switch). The devices are organized into two subnets.  In reality, there could be more lights (up to several hundreds) but, for clarity, only three are shown.
+
+* Light-1 and the light switch are connected to a router (Rtr-1).
+
+* Light-2 and Light-3 are connected to another router (Rtr-2).
+
+* The routers are connected to an IPv6 network backbone (Network Backbone) that is also multicast enabled.  In the general case, this means the network backbone and Rtr-1/Rtr-2 support a PIM-based multicast routing protocol and Multicast Listener Discovery (MLD) for forming groups.
+
+* A CoRE RD using CoAP (CoAP Resource Directory) is connected to the network backbone.
+
+* The DNS server (DNS Server) is optional. If the server is there (connected to the network backbone), then certain DNS-based features are available (e.g., DNS resolution of the hostname to the IP multicast address). If the DNS server is not there, then different provisioning of the network is required (e.g., IP multicast addresses are hard-coded into devices, or manually configured, or obtained via a service discovery method).
+
+* A controller using CoAP (CoAP Controller Client) is connected to the backbone, which is able to control various building functions including lighting.
+
+~~~~~~~~~~~ aasvg
+................................................
+:                                       Room-A :
+:       +++++++++++++++++++++++++++            :
+:      /    Subnet-1               \           :            Network
+:     /                             \          :           Backbone
+:    /     +----------+              \         :                  |
+:   /      |  Light   |-------+       \        :                  |
+:  |       |  Switch  |       |        |       :                  |
+:  |       +----------+  +---------+   |       :                  |
+:  |                     |  Rtr-1  |------------------------------+
+:  |                     +---------+   |       :                  |
+:  |                           |       |       :                  |
+:   \      +----------+        |      /        :                  |
+:    \     |  Light-1 |--------+     /         :                  |
+:     \    +----------+             /          :                  |
+:      \                           /           :                  |
+:       +++++++++++++++++++++++++++            :                  |
+:                                              :                  |
+:                                              :                  |
+:       +++++++++++++++++++++++++++            :  +------------+  |
+:      /    Subnet-2               \           :  | DNS Server |  |
+:     /                             \          :  | (Optional) |--+
+:    /     +----------+              \         :  +------------+  |
+:   /      |  Light-2 |-------+       \        :                  |
+:  |       +----------+       |        |       :                  |
+:  |                     +---------+   |       :                  |
+:  |                     |  Rtr-2  |------------------------------+
+:  |                     +---------+   |       :                  |
+:  |                           |       |       :                  |
+:   \      +----------+        |      /        :  +------------+  |
+:    \     |  Light-3 |--------+     /         :  | CoAP       |  |
+:     \    +----------+             /          :  | Controller |--+
+:      \                           /           :  | Client     |  |
+:       +++++++++++++++++++++++++++            :  +------------+  |
+:                                              :                  |
+:..............................................:                  |
+                                                                  |
+                                   +-----------+                  |
+                                   | CoAP      |                  |
+                                   | Resource  |------------------+
+                                   | Directory |
+                                   +-----------+
+~~~~~~~~~~~
+{: #fig-topology-large-room title="Network Topology of a Large Room (Room-A)" artwork-align="center"}
+
+Building on the above, an example of protocol flow for discovery of the RD for the given network (of {{fig-topology-large-room}}) is shown in {{fig-rd-discovery}}:
+
+* Light-2 is installed and powered on for the first time.
+
+* Light-2 will then search for the local RD by sending out a group communication GET request (with the "/.well-known/core?rt=core.rd" request URI) to the site-local "All CoAP Nodes" multicast address (ff05::fd).
+
+* This multicast message will then go to each node in Subnet-2. Rtr-2 will then forward it into the network backbone where it will be received by the RD. All other nodes in Subnet-2 will ignore the group communication GET request because it is qualified by the query string "?rt=core.rd" (which indicates it should only be processed by the endpoint if it contains a resource of type "core.rd").
+
+* The RD will then send back a unicast response containing the requested content, which is a CoRE Link Format representation of a resource of type "core.rd".
+
+* Note that the flow is shown only for Light-2 for clarity. Similar flows will happen for Light-1, Light-3, and Light Switch when they are first installed.
+
+The RD may also be discovered by other means such as by assuming a default location (e.g., on a 6LBR), using DHCP, anycast address, etc. However, these approaches do not invoke CoAP group communication so are not further discussed here.
+
+For other discovery use cases such as discovering local CoAP servers, services, or resources, CoAP group communication can be used in a similar fashion as in the above use case. For example, link-local, realm-local, admin-local, or site-local scoped discovery can be done this way.
+
+~~~~~~~~~~~ aasvg
+                                 Light
+Light-1   Light-2    Light-3     Switch     Rtr-1     Rtr-2       RD
+ |          |          |          |          |          |          |
+ |          |          |          |          |          |          |
+ ..................................          |          |          |
+ :   Light-2 is installed         :          |          |          |
+ :   and powers on for first time :          |          |          |
+ :................................:          |          |          |
+ |                                |          |          |          |
+ |          |          |          |          |          |          |
+ |          |          |          |          |          |          |
+ |          | CoAP NON Mcast(GET                        |          |
+ |          |           /.well-known/core?rt=core.rd)   |          |
+ |          |------------------------------------------>|          |
+ |          |          |          |          |          |--------->|
+ |          |          |          |          |          |          |
+ |          |          |          |          |          |          |
+ |          | CoAP NON (2.05 Content                    |          |
+ |          |         </rd>;rt="core.rd";ct=40)         |<---------|
+ |          |<------------------------------------------|          |
+ |          |          |          |          |          |          |
+ |          |          |          |          |          |          |
+~~~~~~~~~~~
+{: #fig-rd-discovery title="Resource Directory Discovery via Multicast Request" artwork-align="center"}
 
 ## Operational Phase ##
 Operational phase use cases describe those operations that occur most frequently in a networked system, during its operational lifetime and regular operation. Regular usage is when the applications on networked devices perform the tasks they were designed for and exchange of application-related data using group communication occurs. Processes like system reconfiguration, group changes, system/device setup, extra group security changes, etc. are not part of regular operation.
 
 ### Actuator Group Control ###
-Group communication can be beneficial to control actuators that need to act in synchrony, as a cohesive collection, with strict timing (latency) requirements. Examples are office lighting, stage lighting, street lighting, or audio alert/Public Address systems. {{Sections 3.4 and 3.5 of RFC7390}} showed examples of lighting control of a set of 6LoWPAN-connected lights.
+Group communication can be beneficial to control actuators that need to act in synchrony, as a cohesive collection, with strict timing (latency) requirements. Examples are office lighting, stage lighting, street lighting, or audio alert/Public Address systems.
+
+{{example-lighting-control}} and {{example-lighting-control-mld}} show examples of lighting control of a set of 6LoWPAN-connected lights.
+
+#### Lighting Control # {#example-lighting-control}
+
+The protocol flow for a building automation lighting control scenario for the network considered in {{fig-topology-large-room}} is shown in {{fig-light-switch-control-msg}}. The network is assumed to be in a 6LoWPAN configuration.  Also, it is assumed that the CoAP servers in each light are configured to suppress CoAP responses for any IP multicast CoAP requests related to lighting control. (See {{sec-request-response-suppress}} for more details on response suppression by a server.)
+
+In addition, {{fig-lights-response}} shows a protocol flow example for the case where servers do respond to a lighting control IP multicast request with (unicast) CoAP NON responses.  There are two success responses and one 5.00 error response. In this particular case, the light switch does not check that all lights in the group received the IP multicast request by examining the responses.  This is because the light switch is not configured with an exhaustive list of the IP addresses of all lights belonging to the group. However, based on received error responses, it could take additional action such as logging a fault or alerting the user via its LCD display. In case a CoAP message is delivered multiple times to a light, the subsequent CoAP messages can be filtered out as duplicates, based on the CoAP Message ID.
+
+Reliability of IP multicast is not guaranteed. Therefore, one or more lights in the group may not have received the CoAP control request due to packet loss. In this use case, there is no detection nor correction of such situations: the application layer expects that the IP multicast forwarding/routing will be of sufficient quality to provide on average a very high probability of packet delivery to all CoAP endpoints in an IP multicast group. An example protocol to accomplish this using randomized retransmission is the MPL forwarding protocol for LLNs {{RFC7731}}.
+
+We assume the following steps have already occurred before the illustrated flows:
+
+1) Startup phase: 6LoWPANs are formed. IPv6 addresses are assigned to all devices. The CoAP network is formed.
+
+2) Network configuration (application independent): 6LBRs are configured with IP multicast addresses, or address blocks, to filter out or to pass through to/from the 6LoWPAN.
+
+3a) Commissioning phase (application related): The IP multicast address of the group (Room-A-Lights) has been configured in all the lights and in the light switch.
+
+3b) As an alternative to the previous step, when a DNS server is available, the light switch and/or the lights have been configured with a group hostname that each node resolves to the above IP multicast address of the group.
+
+Note for the Commissioning phase: the switch's 6LoWPAN/CoAP software stack supports sending unicast, multicast, or proxied unicast CoAP requests, including processing of the multiple responses that may be generated by an IP multicast CoAP request.
+
+~~~~~~~~~~~ aasvg
+                                 Light                       Network
+Light-1   Light-2    Light-3     Switch    Rtr-1      Rtr-2  Backbone
+ |          |          |          |          |          |          |
+ |          |          |          |          |          |          |
+ |          |          .......................          |          |
+ |          |          :   User flips on     :          |          |
+ |          |          :   light switch to   :          |          |
+ |          |          :   turn on all the   :          |          |
+ |          |          :   lights in Room-A  :          |          |
+ |          |          :.....................:          |          |
+ |          |                                           |          |
+ |          |          |          |          |          |          |
+ |          |          |          |          |          |          |
+ |          |          |    COAP NON Mcast(PUT,         |          |
+ |          |          |    Payload=lights ON)          |          |
+ |<-------------------------------+--------->|          |          |
+ ON         |          |          |          |-------------------->|
+ |          |          |          |          |          |<---------|
+ |          |<---------|<-------------------------------|          |
+ |          ON         ON         |          |          |          |
+ ^          ^          ^          |          |          |          |
+ .......................          |          |          |          |
+ :   Lights in Room-A  :          |          |          |          |
+ :   turn on (nearly   :          |          |          |          |
+ :   simultaneously)   :          |          |          |          |
+ :.....................:          |          |          |          |
+                                  |          |          |          |
+ |          |          |          |          |          |          |
+ |          |          |          |          |          |          |
+~~~~~~~~~~~
+{: #fig-light-switch-control-msg title="Light Switch Sends Multicast Control Message" artwork-align="center"}
+
+~~~~~~~~~~~ aasvg
+                                 Light                       Network
+Light-1   Light-2    Light-3     Switch    Rtr-1      Rtr-2  Backbone
+ |          |          |          |          |          |          |
+ |     COAP NON (2.04 Changed)    |          |          |          |
+ |------------------------------->|          |          |          |
+ |          |          |          |          |          |          |
+ |          |          |          |          |          |          |
+ |          COAP NON (2.04 Changed)          |          |          |
+ |          |------------------------------------------>|          |
+ |          |          |          |          |          |--------->|
+ |          |          |          |          |<--------------------|
+ |          |          |          |<---------|          |          |
+ |          |          |          |          |          |          |
+ |          |        COAP NON (5.00 Internal Server Error)         |
+ |          |          |------------------------------->|          |
+ |          |          |          |          |          |--------->|
+ |          |          |          |          |<--------------------|
+ |          |          |          |<---------|          |          |
+ |          |          |          |          |          |          |
+~~~~~~~~~~~
+{: #fig-lights-response title="Lights (Optionally) Respond to Multicast CoAP Request" artwork-align="center"}
+
+Another, but similar, lighting control use case is shown in {{fig-light-switch-control-msg-2}}. In this case, a controller connected to the network backbone sends a CoAP group communication request to turn on all lights in Room-A. Every light sends back a CoAP response to the controller after being turned on.
+
+~~~~~~~~~~~ aasvg
+                                                            CoAP
+                                                   Network  Controller
+Light-1   Light-2    Light-3     Rtr-1      Rtr-2  Backbone Client
+ |          |          |           |          |          |        |
+ |          |          |           |          |    COAP NON Mcast(PUT,
+ |          |          |           |          |    Payload=lights ON)
+ |          |          |           |          |          |<-------|
+ |          |          |           |<----------<---------|        |
+ |<--------------------------------|          |          |        |
+ ON         |          |           |          |          |        |
+ |          |<----------<---------------------|          |        |
+ |          ON         ON          |          |          |        |
+ ^          ^          ^           |          |          |        |
+ .......................           |          |          |        |
+ :   Lights in Room-A  :           |          |          |        |
+ :   turn on (nearly   :           |          |          |        |
+ :   simultaneously)   :           |          |          |        |
+ :.....................:           |          |          |        |
+                                   |          |          |        |
+ |          |          |           |          |          |        |
+ |          |          |           |          |          |        |
+ |    COAP NON (2.04 Changed)      |          |          |        |
+ |-------------------------------->|          |          |        |
+ |          |          |           |-------------------->|        |
+ |          |  COAP NON (2.04 Changed)        |          |------->|
+ |          |-------------------------------->|          |        |
+ |          |          |           |          |--------->|        |
+ |          |          | COAP NON (2.04 Changed)         |------->|
+ |          |          |--------------------->|          |        |
+ |          |          |           |          |--------->|        |
+ |          |          |           |          |          |------->|
+ |          |          |           |          |          |        |
+~~~~~~~~~~~
+{: #fig-light-switch-control-msg-2 title="Controller on Backbone Sends Multicast Control Message" artwork-align="center"}
+
+#### Lighting Control in MLD-Enabled Network # {#example-lighting-control-mld}
+
+The use case in {{example-lighting-control}} can also apply in networks where nodes support the MLD protocol {{RFC3810}}. The lights then take on the role of MLDv2 listener, and the routers (Rtr-1 and Rtr-2) are MLDv2 routers. In the Ethernet-based network configuration, MLD may be available on all involved network interfaces. Use of MLD in the 6LoWPAN-based configuration is also possible but requires MLD support in all nodes in the 6LoWPAN. In current 6LoWPAN implementations, MLD is, however, not supported.
+
+The resulting protocol flow is shown in {{fig-joining-lighting-groups-mld}}. This flow is executed after the commissioning phase, as soon as lights are configured with a group address to listen to. The (unicast) MLD Reports may require periodic refresh activity as specified by the MLD protocol. In the figure, 'LL' denotes link-local communication.
+
+After the shown sequence of MLD Report messages has been executed, both Rtr-1 and Rtr-2 are automatically configured to forward IP multicast traffic destined to Room-A-Lights onto their connected subnet. Hence, no manual network configuration of routers, as previously indicated in {{example-lighting-control}}, Step 2, is needed anymore.
+
+~~~~~~~~~~~ aasvg
+                                 Light                       Network
+Light-1   Light-2    Light-3     Switch    Rtr-1      Rtr-2  Backbone
+ |          |          |          |          |          |          |
+ |          |          |          |          |          |          |
+ |          |          |          |          |          |          |
+ | MLD Report: Join    |          |          |          |          |
+ | Group (Room-A-Lights)          |          |          |          |
+ |---LL------------------------------------->|          |          |
+ |          |          |          |          |MLD Report: Join     |
+ |          |          |          |          |Group (Room-A-Lights)|
+ |          |          |          |          |---LL---->----LL---->|
+ |          |          |          |          |          |          |
+ |          | MLD Report: Join    |          |          |          |
+ |          | Group (Room-A-Lights)          |          |          |
+ |          |---LL------------------------------------->|          |
+ |          |          |          |          |          |          |
+ |          |          | MLD Report: Join    |          |          |
+ |          |          | Group (Room-A-Lights)          |          |
+ |          |          |---LL-------------------------->|          |
+ |          |          |          |          |          |          |
+ |          |          |          |          |MLD Report: Join     |
+ |          |          |          |          |Group (Room-A-Lights)|
+ |          |          |          |          |<--LL-----+---LL---->|
+ |          |          |          |          |          |          |
+ |          |          |          |          |          |          |
+~~~~~~~~~~~
+{: #fig-joining-lighting-groups-mld title="Joining Lighting Groups Using MLD" artwork-align="center"}
 
 ### Device Group Status Request ###
 To properly monitor the status of systems, there may be a need for ad-hoc, unplanned status updates. Group communication can be used to quickly send out a request to a (potentially large) number of devices for specific information. Each device then responds back with the requested data. Those devices that did not respond to the request can optionally be polled again via reliable unicast communication to complete the dataset. A set of devices may be defined as a CoAP group, e.g., as intended to cover "all temperature sensors on floor 3", or "all lights in wing B". For example, it could be a status request for device temperature, most recent sensor event detected, firmware version, network load, and/or battery level.
@@ -1818,6 +2082,8 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 ## Version -13 to -14 ## {#sec-13-14}
 
 * More context information in the abstract and introduction.
+
+* Imported examples from RFC 7390 into Appendix A "Use Cases".
 
 * Editorial improvements.
 
