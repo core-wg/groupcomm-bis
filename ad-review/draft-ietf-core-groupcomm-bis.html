@@ -1957,7 +1957,7 @@ Full examples are provided in <a href="#sec-examples-app-group-naming-query" cla
               <li class="normal" id="section-2.2.1.2-4.3">
                 <p id="section-2.2.1.2-4.3.1">URI authority component -- If this method is used, the application group is identified by the authority component of the group URI or a subset thereof.<a href="#section-2.2.1.2-4.3.1" class="pilcrow">¶</a></p>
 <p id="section-2.2.1.2-4.3.2">
-Because the CoAP group is also defined by the same authority component (see <a href="#sec-groupnaming-coap" class="auto internal xref">Section 2.2.1.1</a>), a given CoAP group always maps to exactly one application group. (See <a href="#sec-groupdef-grouprelations" class="auto internal xref">Section 2.1.4</a> for background on group relationships.)<a href="#section-2.2.1.2-4.3.2" class="pilcrow">¶</a></p>
+Because the CoAP group is also defined by the same authority component (see <a href="#sec-groupnaming-coap" class="auto internal xref">Section 2.2.1.1</a>), even when using this method, a given application group is always associated with exactly one CoAP group. (See <a href="#sec-groupdef-grouprelations" class="auto internal xref">Section 2.1.4</a> for background on group relationships.)<a href="#section-2.2.1.2-4.3.2" class="pilcrow">¶</a></p>
 <p id="section-2.2.1.2-4.3.3">
 Note that the host subcomponent within the authority component of the Group URI can be a group hostname, or an IP address literal. For constrained networks, using an IP address literal matching the request's destination IP address has the benefit of reducing the size of the CoAP message.
  This is because the Uri-Host Option is elided from the CoAP request in this case, since its default value applies (see Sections <a href="https://rfc-editor.org/rfc/rfc7252#section-5.10.1" class="relref">5.10.1</a> and <a href="https://rfc-editor.org/rfc/rfc7252#section-6.4" class="relref">6.4</a> of <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>).<a href="#section-2.2.1.2-4.3.3" class="pilcrow">¶</a></p>
@@ -5296,7 +5296,7 @@ That is, the client needs to preserve the Token value used for the request also 
             <p id="appendix-G.1-1.3.1">Early mentioning Group OSCORE and source authentication of messages.<a href="#appendix-G.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.4">
-            <p id="appendix-G.1-1.4.1">Editorial improvements.<a href="#appendix-G.1-1.4.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.4.1">Minor fixes and editorial improvements.<a href="#appendix-G.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>

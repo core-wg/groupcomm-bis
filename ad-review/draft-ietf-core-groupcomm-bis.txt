@@ -720,9 +720,9 @@ Table of Contents
       a subset thereof.
 
       Because the CoAP group is also defined by the same authority
-      component (see Section 2.2.1.1), a given CoAP group always maps to
-      exactly one application group.  (See Section 2.1.4 for background
-      on group relationships.)
+      component (see Section 2.2.1.1), even when using this method, a
+      given application group is always associated with exactly one CoAP
+      group.  (See Section 2.1.4 for background on group relationships.)
 
       Note that the host subcomponent within the authority component of
       the Group URI can be a group hostname, or an IP address literal.
@@ -4502,7 +4502,7 @@ G.1.  Version -13 to -14
    *  Early mentioning Group OSCORE and source authentication of
       messages.
 
-   *  Editorial improvements.
+   *  Minor fixes and editorial improvements.
 
 G.2.  Version -12 to -13
 
