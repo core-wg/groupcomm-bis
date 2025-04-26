@@ -81,9 +81,7 @@ informative:
   I-D.ietf-core-coap-pubsub:
   I-D.ietf-core-transport-indication:
   I-D.irtf-t2trg-amplification-attacks:
-  RFC9685: multicast-registration # was I-D.ietf-6lo-multicast-registration:
   RFC1033:
-  RFC3810:
   RFC6092:
   RFC6550:
   RFC6636:
@@ -98,6 +96,8 @@ informative:
   RFC9177:
   RFC9124:
   RFC9200:
+  RFC9685: multicast-registration # was I-D.ietf-6lo-multicast-registration:
+  RFC9777:
   Californium:
     author:
       org: Eclipse Foundation
@@ -805,7 +805,7 @@ CoAP group communication may be used over transports other than UDP/IP multicast
 A CoAP node that is an IP host (i.e., not an IP router) may be unaware of the specific IP multicast routing/forwarding protocol
 being used in its network.  When such a node needs to join a specific (CoAP) multicast group, the application process would typically subscribe to the particular IP multicast group via an API method of the IP stack on the node. Then the IP stack would execute a particular (e.g., default) method to communicate its subscription to on-link IP (multicast) routers.
 
-The Multicast Listener Discovery Version 2 (MLDv2) protocol {{RFC3810}} is the standard IPv6 method to communicate multicast subscriptions, when other methods are not defined. The CoAP server nodes then act in the role of MLD Multicast Address Listener. MLDv2 uses link-local communication between Listeners and IP multicast routers. Constrained IPv6 networks such as ones implementing either RPL (see {{sec-rpl}}) or MPL (see {{sec-mpl}}) typically
+The Multicast Listener Discovery Version 2 (MLDv2) protocol {{RFC9777}} is the standard IPv6 method to communicate multicast subscriptions, when other methods are not defined. The CoAP server nodes then act in the role of MLD Multicast Address Listener. MLDv2 uses link-local communication between Listeners and IP multicast routers. Constrained IPv6 networks such as ones implementing either RPL (see {{sec-rpl}}) or MPL (see {{sec-mpl}}) typically
 do not support MLDv2 as they have their own mechanisms defined for subscribing to multicast groups.
 
 The Internet Group Management Protocol Version 3 (IGMPv3) protocol {{RFC3376}} is the standard IPv4 method to signal subscriptions to multicast group. This SHOULD be used by members of a CoAP group to subscribe to its multicast IPv4 address on IPv4 networks unless another method is defined for the network interface/technology used.
@@ -834,7 +834,7 @@ However, a CoAP multicast request to a CoAP group that originated outside of the
 
 * Manual configuration on each ingress MPL Forwarder.
 
-* MLDv2 protocol {{RFC3810}}, which works only in case all CoAP servers joining a CoAP group are in link-local communication range of an ingress MPL Forwarder.
+* MLDv2 protocol {{RFC9777}}, which works only in case all CoAP servers joining a CoAP group are in link-local communication range of an ingress MPL Forwarder.
 
 * Using 6LoWPAN Neighbor Discovery (ND) and Extended Address Registration Option (EARO) as described in {{-multicast-registration}}, in a network that supports 6LoWPAN-ND, RPL, and MPL.
 
@@ -1373,9 +1373,9 @@ Light-1   Light-2    Light-3     Rtr-1      Rtr-2  Backbone Client
 
 #### Lighting Control in MLD-Enabled Network # {#example-lighting-control-mld}
 
-The use case in {{example-lighting-control}} can also apply in networks where nodes support the MLD protocol {{RFC3810}}. The lights then take on the role of MLDv2 listener, and the routers (Rtr-1 and Rtr-2) are MLDv2 routers. In the Ethernet-based network configuration, MLD may be available on all involved network interfaces. Use of MLD in the 6LoWPAN-based configuration is also possible but requires MLD support in all nodes in the 6LoWPAN. In current 6LoWPAN implementations, MLD is, however, not supported.
+The use case in {{example-lighting-control}} can also apply in networks where nodes support the MLDv2 protocol {{RFC9777}}. The lights then take on the role of MLDv2 listener, and the routers (Rtr-1 and Rtr-2) are MLDv2 routers. In the Ethernet-based network configuration, MLDv2 may be available on all involved network interfaces. Use of MLDv2 in the 6LoWPAN-based configuration is also possible but requires MLDv2 support in all nodes in the 6LoWPAN. In current 6LoWPAN implementations, MLDv2 is, however, not supported.
 
-The resulting protocol flow is shown in {{fig-joining-lighting-groups-mld}}. This flow is executed after the commissioning phase, as soon as lights are configured with a group address to listen to. The (unicast) MLD Reports may require periodic refresh activity as specified by the MLD protocol. In the figure, 'LL' denotes link-local communication.
+The resulting protocol flow is shown in {{fig-joining-lighting-groups-mld}}. This flow is executed after the commissioning phase, as soon as lights are configured with a group address to listen to. The (unicast) MLD Reports may require periodic refresh activity as specified by the MLDv2 protocol. In the figure, 'LL' denotes link-local communication.
 
 After the shown sequence of MLD Report messages has been executed, both Rtr-1 and Rtr-2 are automatically configured to forward IP multicast traffic destined to Room-A-Lights onto their connected subnet. Hence, no manual network configuration of routers, as previously indicated in {{example-lighting-control}}, Step 2, is needed anymore.
 
@@ -1406,7 +1406,7 @@ Light-1   Light-2    Light-3     Switch    Rtr-1      Rtr-2  Backbone
  |          |          |          |          |          |          |
  |          |          |          |          |          |          |
 ~~~~~~~~~~~
-{: #fig-joining-lighting-groups-mld title="Joining Lighting Groups Using MLD" artwork-align="center"}
+{: #fig-joining-lighting-groups-mld title="Joining Lighting Groups Using MLDv2" artwork-align="center"}
 
 ### Device Group Status Request ###
 To properly monitor the status of systems, there may be a need for ad-hoc, unplanned status updates. Group communication can be used to quickly send out a request to a (potentially large) number of devices for specific information. Each device then responds back with the requested data. Those devices that did not respond to the request can optionally be polled again via reliable unicast communication to complete the dataset. A set of devices may be defined as a CoAP group, e.g., as intended to cover "all temperature sensors on floor 3", or "all lights in wing B". For example, it could be a status request for device temperature, most recent sensor event detected, firmware version, network load, and/or battery level.
