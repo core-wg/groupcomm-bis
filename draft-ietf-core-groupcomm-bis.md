@@ -932,7 +932,7 @@ This section provides security considerations for CoAP group communication, in g
 
 CoAP group communication, if not protected, is vulnerable to all the attacks mentioned in {{Section 11 of RFC7252}} for IP multicast. Moreover, as also discussed in {{I-D.irtf-t2trg-amplification-attacks}}, the NoSec mode is susceptible to source IP address spoofing, hence amplification attacks are especially feasible and greatly effective, since a single request can result in multiple responses from multiple servers (see {{ssec-amplification}}).
 
-Therefore, it is NOT RECOMMENDED to use CoAP group communication in NoSec mode, also in order to prevent proliferation of high-volume amplification attacks as further discussed in {{ssec-amplification}}.
+For these reasons and in order to prevent proliferation of high-volume amplification attacks as further discussed in {{ssec-amplification}}, it is NOT RECOMMENDED to use CoAP group communication in NoSec mode.
 The requirement in {{chap-unsecured-groupcomm}} on publically accessible CoAP servers also aims to prevent amplification attacks.
 
 Exceptionally, and only after the security implications have been very well considered and understood, some applications may rely on a limited use of the NoSec mode, when performing specific, well-defined "unsecured steps" (see {{chap-unsecured-groupcomm}}).
