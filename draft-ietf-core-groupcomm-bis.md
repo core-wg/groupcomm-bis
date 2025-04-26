@@ -664,7 +664,7 @@ For the operation of HTTP-to-CoAP reverse proxies, see the last two paragraphs o
 
 ### Single Group Request to Multiple Proxies ### {#multicasting-to-proxies}
 
-A client might send a group request to multiple proxies at once (e.g., over IP multicast), so that each and every of those proxies forwards it to the servers in the CoAP group. Assuming that no message loss occurs and that N proxies receive and forward the group request, this has the following implications.
+A client might send a group request to multiple proxies at once (e.g., over IP multicast), so that each of those proxies forwards it to the servers in the CoAP group. Assuming that no message loss occurs and that N proxies receive and forward the group request, this has the following implications.
 
 * Each server receives N copies of the group request, i.e., one copy from each proxy.
 
@@ -676,9 +676,9 @@ A client might send a group request to multiple proxies at once (e.g., over IP m
 
 * If secure group communication with Group OSCORE is used (see {{chap-oscore}}), each server is able to determine that each received copy of the group request is in fact originated by the same client. In particular, each server is able to determine that all such received requests are copies of exactly the same group request.
 
-   As a result, each server S accepts only the first copy of the group request received from one of the proxies, say P, while discarding as replay any later copies received from any other proxy.
+   As a result, each server accepts only the first copy of the group request received from one of the proxies, while discarding as replay any later copies received from any other proxy.
 
-   After that, the server S can reply to the accepted request with multiple responses over time (see {{sec-request-response-multi}}). All those responses are sent to the same proxy P that forwarded the only accepted request, and that in turn relays those responses to the client.
+   After that, the server can reply to the accepted request with multiple responses over time (see {{sec-request-response-multi}}). All those responses are sent to the same proxy that forwarded the only accepted request, and that in turn relays those responses to the client.
 
    As a consequence, for each server, the client receives responses originated by that server only from one proxy. That is, the client receives a certain response content only once, like in the case with only one proxy.
 
