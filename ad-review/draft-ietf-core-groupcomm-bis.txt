@@ -2354,11 +2354,11 @@ Table of Contents
    especially feasible and greatly effective, since a single request can
    result in multiple responses from multiple servers (see Section 6.3).
 
-   Therefore, it is NOT RECOMMENDED to use CoAP group communication in
-   NoSec mode, also in order to prevent proliferation of high-volume
-   amplification attacks as further discussed in Section 6.3.  The
-   requirement in Section 4 on publically accessible CoAP servers also
-   aims to prevent amplification attacks.
+   For these reasons and in order to prevent proliferation of high-
+   volume amplification attacks as further discussed in Section 6.3, it
+   is NOT RECOMMENDED to use CoAP group communication in NoSec mode.
+   The requirement in Section 4 on publically accessible CoAP servers
+   also aims to prevent amplification attacks.
 
    Exceptionally, and only after the security implications have been
    very well considered and understood, some applications may rely on a
