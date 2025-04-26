@@ -832,8 +832,8 @@ Table of Contents
    experiment is concluded as showing that the protocol has not been
    considered for deployment and use.
 
-   For IPv6 CoAP groups, common multicast address ranges that are used
-   to configure group addresses from are ff1x::/16 and ff3x::/16.
+   For IPv6 CoAP groups, common multicast address ranges from which
+   group addresses can be taken are ff1x::/16 and ff3x::/16.
 
    To create an application group, a configuring entity may configure a
    resource or a set of resources on CoAP endpoints, such that a CoAP
