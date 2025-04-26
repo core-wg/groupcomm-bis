@@ -840,7 +840,7 @@ However, a CoAP multicast request to a CoAP group that originated outside of the
 
 * A new/custom protocol to register multicast groups at an ingress MPL Forwarder. This could be for example a CoAP-based protocol offering multicast group subscription features similar to MLDv2.
 
-For security and performance reasons, also other filtering criteria may be defined at an ingress MPL Forwarder. See {{sec-security-considerations-6lowpan-mpl}} for more details.
+For security and performance reasons, other filtering criteria may also be defined at an ingress MPL Forwarder. See {{sec-security-considerations-6lowpan-mpl}} for more details.
 
 # Unsecured Group Communication (NoSec Mode) # {#chap-unsecured-groupcomm}
 
