@@ -687,7 +687,7 @@ CoAP group requests may result in a multitude of responses from different nodes,
 
 CoAP {{RFC7252}} reduces IP multicast-specific congestion risks through the following measures:
 
-* A server may choose not to respond to an IP multicast request if there is nothing useful to respond to, e.g., error or empty response (see {{Section 8.2 of RFC7252}}).
+* A server may choose not to respond to an IP multicast request if there is nothing useful to respond, e.g., error or empty response (see {{Section 8.2 of RFC7252}}).
 
 * A server should limit the support for IP multicast requests to specific resources where multicast operation is required ({{Section 11.3 of RFC7252}}).
 
