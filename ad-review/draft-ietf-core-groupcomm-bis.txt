@@ -4414,8 +4414,8 @@ Appendix E.  Issues and Limitations with Forward-Proxies
       magnitude), how many members of that group will actually respond,
       or the minimal amount/percentage of those that will respond.
 
-      Therefore, while still capable to forward the group request to the
-      CoAP group and the corresponding responses to the client, the
+      Therefore, while still capable of forwarding the group request to
+      the CoAP group and the corresponding responses to the client, the
       proxy does not know and cannot reliably determine for how long to
       collect responses, before it stops forwarding them to the client.
 
