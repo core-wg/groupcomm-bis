@@ -221,6 +221,8 @@ Further details on identifying a security group are provided in {{sec-groupnamin
 
 If the NoSec mode is used (see {{chap-unsecured-groupcomm}}), group communication does not rely on security at the transport layer nor at the CoAP layer, hence the communicating endpoints do not refer to a security group.
 
+When a security group uses the security protocol Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} to protect group communication (see Section 5), source authentication is achieved for messages exchanged within the group (see {{chap-group-oscore}} and {{chap-security-considerations-sec-mode-sauth}}). That is, even though the endpoints in the security group do share group security material, a recipient CoAP endpoint is able to verify that a message protected with Group OSCORE has actually been originated and sent by a specific and identified CoAP endpoint as a member of the security group.
+
 ### Relationships Between Group Types ## {#sec-groupdef-grouprelations}
 Using the above group type definitions, a CoAP group communication message sent by an endpoint can be associated with a tuple that contains one instance of each group type:
 
@@ -2084,6 +2086,8 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 * More context information in the abstract and introduction.
 
 * Imported examples from RFC 7390 into Appendix A "Use Cases".
+
+* Early mentioning Group OSCORE and source authentication of messages.
 
 * Editorial improvements.
 
