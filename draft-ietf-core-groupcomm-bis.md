@@ -379,13 +379,13 @@ Appendix A of {{RFC9176}} provides an example of a named application group regis
 
 #### Security Groups ### {#sec-groupnaming-sec}
 
-A security group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI, or other types of strings. Such a group name is generally not related to other kinds of group identifiers that may be specific of the security solution used.
+A security group can be named in many ways through different types of identifiers, such as name string, (integer) number, URI, or other types of strings. Such a group name is generally not related to other kinds of group identifiers that may be specific to the security solution used.
 
 The name of a security group is not expected to be used in messages exchanged among its members, unless the application requires otherwise. At the same time, it is useful to identify the security group when performing a number of side tasks related to secure group communication, such as the following ones.
 
-* An administrator may have to request for an authorization to configure security groups at an available Group Manager (see {{chap-oscore}}). During the authorization process, as well as during the interaction between the administrator and the Group Manager, the group name identifies the specific security group that the administrator wishes to configure and is authorized to.
+* An administrator may have to request an authorization to configure security groups at an available Group Manager (see {{chap-oscore}}). During the authorization process, as well as during the interaction between the administrator and the Group Manager, the group name identifies the specific security group that the administrator wishes to configure and is authorized to.
 
-* A CoAP endpoint may have to request for an authorization to join a specific security group through the respective Group Manager, and thus obtain the required group security material (see {{chap-oscore}}). During the authorization process, as well as during the interaction between the CoAP endpoint and the Group Manager, the group name identifies the specific security group that the CoAP endpoint wishes to join and is authorized to.
+* A CoAP endpoint may have to request an authorization to join a specific security group through the respective Group Manager, and thus obtain the required group security material (see {{chap-oscore}}). During the authorization process, as well as during the interaction between the CoAP endpoint and the Group Manager, the group name identifies the specific security group that the CoAP endpoint wishes to join and is authorized to.
 
 * A CoAP endpoint may first need to discover the specific security groups to join through the respective Group Manager (see {{sssec-discovery-from-rd}}). Results from the discovery process include the name of the security groups to join, together with additional information such as a pointer to the respective Group Manager.
 
