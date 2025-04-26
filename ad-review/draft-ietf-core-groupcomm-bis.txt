@@ -1133,7 +1133,7 @@ Table of Contents
    RECOMMENDED that a server supporting this option only takes it into
    account when processing requests that target resources for which
    influencing the default suppression has been predetermined to be
-   appropriate, as useful in the application context.
+   appropriate, as well as useful, in the application context.
 
    Any default response suppression by a server SHOULD be performed
    consistently, as follows: if a request on a resource produces a
