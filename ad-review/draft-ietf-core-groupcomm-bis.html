@@ -1298,7 +1298,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.3.2.10.1"><a href="#section-3.10" class="auto internal xref">3.10</a>. <a href="#name-interworking-with-other-pro" class="internal xref">Interworking with Other Protocols</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.10.2.1">
-                    <p id="section-toc.1-1.3.2.10.2.1.1"><a href="#section-3.10.1" class="auto internal xref">3.10.1</a>.  <a href="#name-mld-mldv2-igmp-igmpv3" class="internal xref">MLD/MLDv2/IGMP/IGMPv3</a></p>
+                    <p id="section-toc.1-1.3.2.10.2.1.1"><a href="#section-3.10.1" class="auto internal xref">3.10.1</a>.  <a href="#name-mldv2-and-igmpv3" class="internal xref">MLDv2 and IGMPv3</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.10.2.2">
                     <p id="section-toc.1-1.3.2.10.2.2.1"><a href="#section-3.10.2" class="auto internal xref">3.10.2</a>.  <a href="#name-rpl" class="internal xref">RPL</a></p>
@@ -2512,17 +2512,17 @@ This requires the individually addressed servers to be reachable via a suitable 
         <h3 id="name-interworking-with-other-pro">
 <a href="#section-3.10" class="section-number selfRef">3.10. </a><a href="#name-interworking-with-other-pro" class="section-name selfRef">Interworking with Other Protocols</a>
         </h3>
-<div id="mldmldv2igmpigmpv3">
+<div id="mldv2-and-igmpv3">
 <section id="section-3.10.1">
-          <h4 id="name-mld-mldv2-igmp-igmpv3">
-<a href="#section-3.10.1" class="section-number selfRef">3.10.1. </a><a href="#name-mld-mldv2-igmp-igmpv3" class="section-name selfRef">MLD/MLDv2/IGMP/IGMPv3</a>
+          <h4 id="name-mldv2-and-igmpv3">
+<a href="#section-3.10.1" class="section-number selfRef">3.10.1. </a><a href="#name-mldv2-and-igmpv3" class="section-name selfRef">MLDv2 and IGMPv3</a>
           </h4>
 <p id="section-3.10.1-1">A CoAP node that is an IP host (i.e., not an IP router) may be unaware of the specific IP multicast routing/forwarding protocol
 being used in its network.  When such a node needs to join a specific (CoAP) multicast group, the application process would typically subscribe to the particular IP multicast group via an API method of the IP stack on the node. Then the IP stack would execute a particular (e.g., default) method to communicate its subscription to on-link IP (multicast) routers.<a href="#section-3.10.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.10.1-2">The Multicast Listener Discovery Version 2 (MLDv2) protocol <span>[<a href="#RFC3810" class="cite xref">RFC3810</a>]</span> is the standard IPv6 method to communicate multicast subscriptions, when other methods are not defined. The CoAP server nodes then act in the role of MLD Multicast Address Listener. MLDv2 uses link-local communication between Listeners and IP multicast routers. Constrained IPv6 networks such as ones implementing either RPL (see <a href="#sec-rpl" class="auto internal xref">Section 3.10.2</a>) or MPL (see <a href="#sec-mpl" class="auto internal xref">Section 3.10.3</a>) typically
 do not support MLDv2 as they have their own mechanisms defined for subscribing to multicast groups.<a href="#section-3.10.1-2" class="pilcrow">¶</a></p>
 <p id="section-3.10.1-3">The Internet Group Management Protocol Version 3 (IGMPv3) protocol <span>[<a href="#RFC3376" class="cite xref">RFC3376</a>]</span> is the standard IPv4 method to signal subscriptions to multicast group. This <span class="bcp14">SHOULD</span> be used by members of a CoAP group to subscribe to its multicast IPv4 address on IPv4 networks unless another method is defined for the network interface/technology used.<a href="#section-3.10.1-3" class="pilcrow">¶</a></p>
-<p id="section-3.10.1-4">The guidelines from <span>[<a href="#RFC6636" class="cite xref">RFC6636</a>]</span> on the tuning of MLD for mobile and wireless networks may be useful when implementing MLD in constrained networks.<a href="#section-3.10.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.10.1-4">The guidelines from <span>[<a href="#RFC6636" class="cite xref">RFC6636</a>]</span> on the tuning of MLDv2 and IGMPv3 for mobile and wireless networks may be useful when implementing MLDv2 and IGMPv3 in constrained networks.<a href="#section-3.10.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-rpl">
