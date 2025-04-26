@@ -799,7 +799,7 @@ CoAP group communication may be used over transports other than UDP/IP multicast
 
 ## Interworking with Other Protocols ## {#sec-other-protocols}
 
-### MLD/MLDv2/IGMP/IGMPv3 ###
+### MLDv2 and IGMPv3 ###
 <!-- Section 4.2 of {{RFC7390}} has the original content -->
 
 A CoAP node that is an IP host (i.e., not an IP router) may be unaware of the specific IP multicast routing/forwarding protocol
@@ -810,7 +810,7 @@ do not support MLDv2 as they have their own mechanisms defined for subscribing t
 
 The Internet Group Management Protocol Version 3 (IGMPv3) protocol {{RFC3376}} is the standard IPv4 method to signal subscriptions to multicast group. This SHOULD be used by members of a CoAP group to subscribe to its multicast IPv4 address on IPv4 networks unless another method is defined for the network interface/technology used.
 
-The guidelines from {{RFC6636}} on the tuning of MLD for mobile and wireless networks may be useful when implementing MLD in constrained networks.
+The guidelines from {{RFC6636}} on the tuning of MLDv2 and IGMPv3 for mobile and wireless networks may be useful when implementing MLDv2 and IGMPv3 in constrained networks.
 
 ### RPL ### {#sec-rpl}
 <!-- see Section 4.3 of {{RFC7390}} for original content -->
