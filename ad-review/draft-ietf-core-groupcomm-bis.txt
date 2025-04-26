@@ -2108,9 +2108,9 @@ Table of Contents
       MPL Forwarder.  This could be for example a CoAP-based protocol
       offering multicast group subscription features similar to MLDv2.
 
-   For security and performance reasons, also other filtering criteria
-   may be defined at an ingress MPL Forwarder.  See Section 6.6 for more
-   details.
+   For security and performance reasons, other filtering criteria may
+   also be defined at an ingress MPL Forwarder.  See Section 6.6 for
+   more details.
 
 4.  Unsecured Group Communication (NoSec Mode)
 
