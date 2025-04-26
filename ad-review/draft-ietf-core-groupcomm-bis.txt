@@ -331,7 +331,7 @@ Table of Contents
       than IP multicast, and defines additional guidelines to reduce
       congestion risks (see Section 3.6).
 
-   *  It explicitly admits the use of the IPv6 multicast address scopes
+   *  It explicitly allows the use of the IPv6 multicast address scopes
       realm-local (3), admin-local (4), and global (E).  In particular,
       it recommends that an IPv6 CoAP server supports at least link-
       local (2), admin-local (4), and site-local (5) scopes with the
