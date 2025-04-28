@@ -3474,416 +3474,308 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
 <a href="#appendix-A.2.1" class="section-number selfRef">A.2.1. </a><a href="#name-actuator-group-control" class="section-name selfRef">Actuator Group Control</a>
           </h4>
 <p id="appendix-A.2.1-1">Group communication can be beneficial to control actuators that need to act in synchrony, as a cohesive collection, with strict timing (latency) requirements. Examples are office lighting, stage lighting, street lighting, or audio alert/Public Address systems.<a href="#appendix-A.2.1-1" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.1-2"><a href="#example-lighting-control" class="auto internal xref">Appendix A.2.1.1</a> and <a href="#example-lighting-control-mld" class="auto internal xref">Appendix A.2.1.2</a> show examples of lighting control of a set of 6LoWPAN-connected lights.<a href="#appendix-A.2.1-2" class="pilcrow">¶</a></p>
-<div id="example-lighting-control">
-<section id="appendix-A.2.1.1">
-            <h5 id="name-lighting-control">
-<a href="#appendix-A.2.1.1" class="section-number selfRef">A.2.1.1. </a><a href="#name-lighting-control" class="section-name selfRef">Lighting Control</a>
-            </h5>
-<p id="appendix-A.2.1.1-1">The protocol flow for a building automation lighting control scenario for the network considered in <a href="#fig-topology-large-room" class="auto internal xref">Figure 3</a> is shown in <a href="#fig-light-switch-control-msg" class="auto internal xref">Figure 5</a>. The network is assumed to be in a 6LoWPAN configuration.  Also, it is assumed that the CoAP servers in each light are configured to suppress CoAP responses for any IP multicast CoAP requests related to lighting control. (See <a href="#sec-request-response-suppress" class="auto internal xref">Section 3.1.2</a> for more details on response suppression by a server.)<a href="#appendix-A.2.1.1-1" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.1.1-2">In addition, <a href="#fig-lights-response" class="auto internal xref">Figure 6</a> shows a protocol flow example for the case where servers do respond to a lighting control IP multicast request with (unicast) CoAP NON responses.  There are two success responses and one 5.00 error response. In this particular case, the light switch does not check that all lights in the group received the IP multicast request by examining the responses.  This is because the light switch is not configured with an exhaustive list of the IP addresses of all lights belonging to the group. However, based on received error responses, it could take additional action such as logging a fault or alerting the user via its LCD display. In case a CoAP message is delivered multiple times to a light, the subsequent CoAP messages can be filtered out as duplicates, based on the CoAP Message ID.<a href="#appendix-A.2.1.1-2" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.1.1-3">Reliability of IP multicast is not guaranteed. Therefore, one or more lights in the group may not have received the CoAP control request due to packet loss. In this use case, there is no detection nor correction of such situations: the application layer expects that the IP multicast forwarding/routing will be of sufficient quality to provide on average a very high probability of packet delivery to all CoAP endpoints in an IP multicast group. An example protocol to accomplish this using randomized retransmission is the MPL forwarding protocol for LLNs <span>[<a href="#RFC7731" class="cite xref">RFC7731</a>]</span>.<a href="#appendix-A.2.1.1-3" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.1.1-4">We assume the following steps have already occurred before the illustrated flows:<a href="#appendix-A.2.1.1-4" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.1.1-5">1) Startup phase: 6LoWPANs are formed. IPv6 addresses are assigned to all devices. The CoAP network is formed.<a href="#appendix-A.2.1.1-5" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.1.1-6">2) Network configuration (application independent): 6LBRs are configured with IP multicast addresses, or address blocks, to filter out or to pass through to/from the 6LoWPAN.<a href="#appendix-A.2.1.1-6" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.1.1-7">3a) Commissioning phase (application related): The IP multicast address of the group (Room-A-Lights) has been configured in all the lights and in the light switch.<a href="#appendix-A.2.1.1-7" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.1.1-8">3b) As an alternative to the previous step, when a DNS server is available, the light switch and/or the lights have been configured with a group hostname that each node resolves to the above IP multicast address of the group.<a href="#appendix-A.2.1.1-8" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.1.1-9">Note for the Commissioning phase: the switch's 6LoWPAN/CoAP software stack supports sending unicast, multicast, or proxied unicast CoAP requests, including processing of the multiple responses that may be generated by an IP multicast CoAP request.<a href="#appendix-A.2.1.1-9" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-2">The following presents examples of lighting control of a set of 6LoWPAN-connected lights.<a href="#appendix-A.2.1-2" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-3"><a href="#fig-light-switch-control-msg" class="auto internal xref">Figure 5</a> shows the protocol flow for a building automation lighting control scenario for the network considered in <a href="#fig-topology-large-room" class="auto internal xref">Figure 3</a>. The network is assumed to be in a 6LoWPAN configuration. Also, it is assumed that the CoAP servers in each light are configured to suppress CoAP responses for any IP multicast CoAP requests related to lighting control. (See <a href="#sec-request-response-suppress" class="auto internal xref">Section 3.1.2</a> for more details on response suppression by a server.)<a href="#appendix-A.2.1-3" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-4">In addition, <a href="#fig-lights-response" class="auto internal xref">Figure 6</a> shows a protocol flow example for the case where servers do respond to a lighting control IP multicast request with (unicast) CoAP NON responses.  There are two success responses and one 5.00 error response. In this particular case, the light switch does not check that all lights in the group received the IP multicast request by examining the responses. This is because the light switch is not configured with an exhaustive list of the IP addresses of all lights belonging to the group. However, based on received error responses, it could take additional action such as logging a fault or alerting the user via its LCD display. In case a CoAP message is delivered multiple times to a light, the subsequent CoAP messages can be filtered out as duplicates, based on the CoAP Message ID.<a href="#appendix-A.2.1-4" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-5">Reliability of IP multicast is not guaranteed. Therefore, one or more lights in the group may not have received the CoAP control request due to packet loss. In this use case, there is no detection nor correction of such situations: the application layer expects that the IP multicast forwarding/routing will be of sufficient quality to provide on average a very high probability of packet delivery to all CoAP endpoints in an IP multicast group. An example protocol to accomplish this using randomized retransmission is the MPL forwarding protocol for LLNs <span>[<a href="#RFC7731" class="cite xref">RFC7731</a>]</span>.<a href="#appendix-A.2.1-5" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-6">We assume the following steps have already occurred before the illustrated flows:<a href="#appendix-A.2.1-6" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-7">1) Startup phase: 6LoWPANs are formed. IPv6 addresses are assigned to all devices. The CoAP network is formed.<a href="#appendix-A.2.1-7" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-8">2) Network configuration (application independent): 6LBRs are configured with IP multicast addresses, or address blocks, to filter out or to pass through to/from the 6LoWPAN.<a href="#appendix-A.2.1-8" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-9">3a) Commissioning phase (application related): The IP multicast address of the group (Room-A-Lights) has been configured in all the lights and in the light switch.<a href="#appendix-A.2.1-9" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-10">3b) As an alternative to the previous step, when a DNS server is available, the light switch and/or the lights have been configured with a group hostname that each node resolves to the above IP multicast address of the group.<a href="#appendix-A.2.1-10" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-11">Note for the Commissioning phase: the switch's 6LoWPAN/CoAP software stack supports sending unicast, multicast, or proxied unicast CoAP requests, including processing of the multiple responses that may be generated by an IP multicast CoAP request.<a href="#appendix-A.2.1-11" class="pilcrow">¶</a></p>
 <span id="name-light-switch-sends-multicas"></span><div id="fig-light-switch-control-msg">
 <figure id="figure-5">
-              <div id="appendix-A.2.1.1-10.1">
-                <div class="alignCenter art-svg artwork" id="appendix-A.2.1.1-10.1.1">
+            <div id="appendix-A.2.1-12.1">
+              <div class="alignCenter art-svg artwork" id="appendix-A.2.1-12.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="496" width="560" viewBox="0 0 560 496" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
-                    <path d="M 16,64 L 16,272" fill="none" stroke="black"></path>
-                    <path d="M 16,304 L 16,336" fill="none" stroke="black"></path>
-                    <path d="M 16,464 L 16,480" fill="none" stroke="black"></path>
-                    <path d="M 104,64 L 104,264" fill="none" stroke="black"></path>
-                    <path d="M 104,280 L 104,320" fill="none" stroke="black"></path>
-                    <path d="M 104,464 L 104,480" fill="none" stroke="black"></path>
-                    <path d="M 192,64 L 192,88" fill="none" stroke="black"></path>
-                    <path d="M 192,208 L 192,264" fill="none" stroke="black"></path>
-                    <path d="M 192,280 L 192,320" fill="none" stroke="black"></path>
-                    <path d="M 192,464 L 192,480" fill="none" stroke="black"></path>
-                    <path d="M 280,64 L 280,88" fill="none" stroke="black"></path>
-                    <path d="M 280,208 L 280,224" fill="none" stroke="black"></path>
-                    <path d="M 280,272 L 280,312" fill="none" stroke="black"></path>
-                    <path d="M 280,328 L 280,480" fill="none" stroke="black"></path>
-                    <path d="M 368,64 L 368,88" fill="none" stroke="black"></path>
-                    <path d="M 368,208 L 368,224" fill="none" stroke="black"></path>
-                    <path d="M 368,264 L 368,312" fill="none" stroke="black"></path>
-                    <path d="M 368,328 L 368,480" fill="none" stroke="black"></path>
-                    <path d="M 456,64 L 456,280" fill="none" stroke="black"></path>
-                    <path d="M 456,296 L 456,480" fill="none" stroke="black"></path>
-                    <path d="M 544,64 L 544,480" fill="none" stroke="black"></path>
-                    <path d="M 24,272 L 360,272" fill="none" stroke="black"></path>
-                    <path d="M 376,288 L 536,288" fill="none" stroke="black"></path>
-                    <path d="M 464,304 L 536,304" fill="none" stroke="black"></path>
-                    <path d="M 112,320 L 184,320" fill="none" stroke="black"></path>
-                    <path d="M 200,320 L 448,320" fill="none" stroke="black"></path>
-                    <polygon class="arrowhead" points="544,288 532,282.4 532,293.6" fill="black" transform="rotate(0,536,288)"></polygon>
-                    <polygon class="arrowhead" points="472,304 460,298.4 460,309.6" fill="black" transform="rotate(180,464,304)"></polygon>
-                    <polygon class="arrowhead" points="368,272 356,266.4 356,277.6" fill="black" transform="rotate(0,360,272)"></polygon>
-                    <polygon class="arrowhead" points="208,320 196,314.4 196,325.6" fill="black" transform="rotate(180,200,320)"></polygon>
-                    <polygon class="arrowhead" points="120,320 108,314.4 108,325.6" fill="black" transform="rotate(180,112,320)"></polygon>
-                    <polygon class="arrowhead" points="32,272 20,266.4 20,277.6" fill="black" transform="rotate(180,24,272)"></polygon>
-                    <g class="text">
-                      <text x="288" y="36">Light</text>
-                      <text x="520" y="36">Network</text>
-                      <text x="32" y="52">Light-1</text>
-                      <text x="112" y="52">Light-2</text>
-                      <text x="200" y="52">Light-3</text>
-                      <text x="292" y="52">Switch</text>
-                      <text x="368" y="52">Rtr-1</text>
-                      <text x="456" y="52">Rtr-2</text>
-                      <text x="524" y="52">Backbone</text>
-                      <text x="280" y="100">.......................</text>
-                      <text x="192" y="116">:</text>
-                      <text x="236" y="116">User</text>
-                      <text x="280" y="116">flips</text>
-                      <text x="316" y="116">on</text>
-                      <text x="368" y="116">:</text>
-                      <text x="192" y="132">:</text>
-                      <text x="240" y="132">light</text>
-                      <text x="292" y="132">switch</text>
-                      <text x="332" y="132">to</text>
-                      <text x="368" y="132">:</text>
-                      <text x="192" y="148">:</text>
-                      <text x="236" y="148">turn</text>
-                      <text x="268" y="148">on</text>
-                      <text x="296" y="148">all</text>
-                      <text x="328" y="148">the</text>
-                      <text x="368" y="148">:</text>
-                      <text x="192" y="164">:</text>
-                      <text x="244" y="164">lights</text>
-                      <text x="284" y="164">in</text>
-                      <text x="324" y="164">Room-A</text>
-                      <text x="368" y="164">:</text>
-                      <text x="280" y="180">:.....................:</text>
-                      <text x="244" y="244">COAP</text>
-                      <text x="280" y="244">NON</text>
-                      <text x="340" y="244">Mcast(PUT,</text>
-                      <text x="284" y="260">Payload=lights</text>
-                      <text x="360" y="260">ON)</text>
-                      <text x="20" y="292">ON</text>
-                      <text x="108" y="340">ON</text>
-                      <text x="196" y="340">ON</text>
-                      <text x="16" y="356">^</text>
-                      <text x="104" y="356">^</text>
-                      <text x="192" y="356">^</text>
-                      <text x="104" y="372">.......................</text>
-                      <text x="16" y="388">:</text>
-                      <text x="68" y="388">Lights</text>
-                      <text x="108" y="388">in</text>
-                      <text x="148" y="388">Room-A</text>
-                      <text x="192" y="388">:</text>
-                      <text x="16" y="404">:</text>
-                      <text x="60" y="404">turn</text>
-                      <text x="92" y="404">on</text>
-                      <text x="136" y="404">(nearly</text>
-                      <text x="192" y="404">:</text>
-                      <text x="16" y="420">:</text>
-                      <text x="104" y="420">simultaneously)</text>
-                      <text x="192" y="420">:</text>
-                      <text x="104" y="436">:.....................:</text>
-                    </g>
-                  </svg><a href="#appendix-A.2.1.1-10.1.1" class="pilcrow">¶</a>
+                  <path d="M 16,64 L 16,272" fill="none" stroke="black"></path>
+                  <path d="M 16,304 L 16,336" fill="none" stroke="black"></path>
+                  <path d="M 16,464 L 16,480" fill="none" stroke="black"></path>
+                  <path d="M 104,64 L 104,264" fill="none" stroke="black"></path>
+                  <path d="M 104,280 L 104,320" fill="none" stroke="black"></path>
+                  <path d="M 104,464 L 104,480" fill="none" stroke="black"></path>
+                  <path d="M 192,64 L 192,88" fill="none" stroke="black"></path>
+                  <path d="M 192,208 L 192,264" fill="none" stroke="black"></path>
+                  <path d="M 192,280 L 192,320" fill="none" stroke="black"></path>
+                  <path d="M 192,464 L 192,480" fill="none" stroke="black"></path>
+                  <path d="M 280,64 L 280,88" fill="none" stroke="black"></path>
+                  <path d="M 280,208 L 280,224" fill="none" stroke="black"></path>
+                  <path d="M 280,272 L 280,312" fill="none" stroke="black"></path>
+                  <path d="M 280,328 L 280,480" fill="none" stroke="black"></path>
+                  <path d="M 368,64 L 368,88" fill="none" stroke="black"></path>
+                  <path d="M 368,208 L 368,224" fill="none" stroke="black"></path>
+                  <path d="M 368,264 L 368,312" fill="none" stroke="black"></path>
+                  <path d="M 368,328 L 368,480" fill="none" stroke="black"></path>
+                  <path d="M 456,64 L 456,280" fill="none" stroke="black"></path>
+                  <path d="M 456,296 L 456,480" fill="none" stroke="black"></path>
+                  <path d="M 544,64 L 544,480" fill="none" stroke="black"></path>
+                  <path d="M 24,272 L 360,272" fill="none" stroke="black"></path>
+                  <path d="M 376,288 L 536,288" fill="none" stroke="black"></path>
+                  <path d="M 464,304 L 536,304" fill="none" stroke="black"></path>
+                  <path d="M 112,320 L 184,320" fill="none" stroke="black"></path>
+                  <path d="M 200,320 L 448,320" fill="none" stroke="black"></path>
+                  <polygon class="arrowhead" points="544,288 532,282.4 532,293.6" fill="black" transform="rotate(0,536,288)"></polygon>
+                  <polygon class="arrowhead" points="472,304 460,298.4 460,309.6" fill="black" transform="rotate(180,464,304)"></polygon>
+                  <polygon class="arrowhead" points="368,272 356,266.4 356,277.6" fill="black" transform="rotate(0,360,272)"></polygon>
+                  <polygon class="arrowhead" points="208,320 196,314.4 196,325.6" fill="black" transform="rotate(180,200,320)"></polygon>
+                  <polygon class="arrowhead" points="120,320 108,314.4 108,325.6" fill="black" transform="rotate(180,112,320)"></polygon>
+                  <polygon class="arrowhead" points="32,272 20,266.4 20,277.6" fill="black" transform="rotate(180,24,272)"></polygon>
+                  <g class="text">
+                    <text x="288" y="36">Light</text>
+                    <text x="520" y="36">Network</text>
+                    <text x="32" y="52">Light-1</text>
+                    <text x="112" y="52">Light-2</text>
+                    <text x="200" y="52">Light-3</text>
+                    <text x="292" y="52">Switch</text>
+                    <text x="368" y="52">Rtr-1</text>
+                    <text x="456" y="52">Rtr-2</text>
+                    <text x="524" y="52">Backbone</text>
+                    <text x="280" y="100">.......................</text>
+                    <text x="192" y="116">:</text>
+                    <text x="236" y="116">User</text>
+                    <text x="280" y="116">flips</text>
+                    <text x="316" y="116">on</text>
+                    <text x="368" y="116">:</text>
+                    <text x="192" y="132">:</text>
+                    <text x="240" y="132">light</text>
+                    <text x="292" y="132">switch</text>
+                    <text x="332" y="132">to</text>
+                    <text x="368" y="132">:</text>
+                    <text x="192" y="148">:</text>
+                    <text x="236" y="148">turn</text>
+                    <text x="268" y="148">on</text>
+                    <text x="296" y="148">all</text>
+                    <text x="328" y="148">the</text>
+                    <text x="368" y="148">:</text>
+                    <text x="192" y="164">:</text>
+                    <text x="244" y="164">lights</text>
+                    <text x="284" y="164">in</text>
+                    <text x="324" y="164">Room-A</text>
+                    <text x="368" y="164">:</text>
+                    <text x="280" y="180">:.....................:</text>
+                    <text x="244" y="244">COAP</text>
+                    <text x="280" y="244">NON</text>
+                    <text x="340" y="244">Mcast(PUT,</text>
+                    <text x="284" y="260">Payload=lights</text>
+                    <text x="360" y="260">ON)</text>
+                    <text x="20" y="292">ON</text>
+                    <text x="108" y="340">ON</text>
+                    <text x="196" y="340">ON</text>
+                    <text x="16" y="356">^</text>
+                    <text x="104" y="356">^</text>
+                    <text x="192" y="356">^</text>
+                    <text x="104" y="372">.......................</text>
+                    <text x="16" y="388">:</text>
+                    <text x="68" y="388">Lights</text>
+                    <text x="108" y="388">in</text>
+                    <text x="148" y="388">Room-A</text>
+                    <text x="192" y="388">:</text>
+                    <text x="16" y="404">:</text>
+                    <text x="60" y="404">turn</text>
+                    <text x="92" y="404">on</text>
+                    <text x="136" y="404">(nearly</text>
+                    <text x="192" y="404">:</text>
+                    <text x="16" y="420">:</text>
+                    <text x="104" y="420">simultaneously)</text>
+                    <text x="192" y="420">:</text>
+                    <text x="104" y="436">:.....................:</text>
+                  </g>
+                </svg><a href="#appendix-A.2.1-12.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
 <a href="#name-light-switch-sends-multicas" class="selfRef">Light Switch Sends Multicast Control Message</a>
-              </figcaption></figure>
+            </figcaption></figure>
 </div>
 <span id="name-lights-optionally-respond-t"></span><div id="fig-lights-response">
 <figure id="figure-6">
-              <div id="appendix-A.2.1.1-11.1">
-                <div class="alignCenter art-svg artwork" id="appendix-A.2.1.1-11.1.1">
+            <div id="appendix-A.2.1-13.1">
+              <div class="alignCenter art-svg artwork" id="appendix-A.2.1-13.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="336" width="560" viewBox="0 0 560 336" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
-                    <path d="M 16,64 L 16,320" fill="none" stroke="black"></path>
-                    <path d="M 104,104 L 104,128" fill="none" stroke="black"></path>
-                    <path d="M 104,160 L 104,320" fill="none" stroke="black"></path>
-                    <path d="M 192,104 L 192,136" fill="none" stroke="black"></path>
-                    <path d="M 192,168 L 192,224" fill="none" stroke="black"></path>
-                    <path d="M 192,256 L 192,320" fill="none" stroke="black"></path>
-                    <path d="M 280,64 L 280,136" fill="none" stroke="black"></path>
-                    <path d="M 280,168 L 280,224" fill="none" stroke="black"></path>
-                    <path d="M 280,264 L 280,320" fill="none" stroke="black"></path>
-                    <path d="M 368,64 L 368,152" fill="none" stroke="black"></path>
-                    <path d="M 368,168 L 368,224" fill="none" stroke="black"></path>
-                    <path d="M 368,264 L 368,320" fill="none" stroke="black"></path>
-                    <path d="M 456,64 L 456,184" fill="none" stroke="black"></path>
-                    <path d="M 456,200 L 456,224" fill="none" stroke="black"></path>
-                    <path d="M 456,256 L 456,280" fill="none" stroke="black"></path>
-                    <path d="M 456,296 L 456,320" fill="none" stroke="black"></path>
-                    <path d="M 544,64 L 544,320" fill="none" stroke="black"></path>
-                    <path d="M 24,96 L 272,96" fill="none" stroke="black"></path>
-                    <path d="M 112,160 L 448,160" fill="none" stroke="black"></path>
-                    <path d="M 464,176 L 536,176" fill="none" stroke="black"></path>
-                    <path d="M 376,192 L 536,192" fill="none" stroke="black"></path>
-                    <path d="M 288,208 L 360,208" fill="none" stroke="black"></path>
-                    <path d="M 200,256 L 448,256" fill="none" stroke="black"></path>
-                    <path d="M 464,272 L 536,272" fill="none" stroke="black"></path>
-                    <path d="M 376,288 L 536,288" fill="none" stroke="black"></path>
-                    <path d="M 288,304 L 360,304" fill="none" stroke="black"></path>
-                    <polygon class="arrowhead" points="544,272 532,266.4 532,277.6" fill="black" transform="rotate(0,536,272)"></polygon>
-                    <polygon class="arrowhead" points="544,176 532,170.4 532,181.6" fill="black" transform="rotate(0,536,176)"></polygon>
-                    <polygon class="arrowhead" points="456,256 444,250.4 444,261.6" fill="black" transform="rotate(0,448,256)"></polygon>
-                    <polygon class="arrowhead" points="456,160 444,154.4 444,165.6" fill="black" transform="rotate(0,448,160)"></polygon>
-                    <polygon class="arrowhead" points="384,288 372,282.4 372,293.6" fill="black" transform="rotate(180,376,288)"></polygon>
-                    <polygon class="arrowhead" points="384,192 372,186.4 372,197.6" fill="black" transform="rotate(180,376,192)"></polygon>
-                    <polygon class="arrowhead" points="296,304 284,298.4 284,309.6" fill="black" transform="rotate(180,288,304)"></polygon>
-                    <polygon class="arrowhead" points="296,208 284,202.4 284,213.6" fill="black" transform="rotate(180,288,208)"></polygon>
-                    <polygon class="arrowhead" points="280,96 268,90.4 268,101.6" fill="black" transform="rotate(0,272,96)"></polygon>
-                    <g class="text">
-                      <text x="288" y="36">Light</text>
-                      <text x="520" y="36">Network</text>
-                      <text x="32" y="52">Light-1</text>
-                      <text x="112" y="52">Light-2</text>
-                      <text x="200" y="52">Light-3</text>
-                      <text x="292" y="52">Switch</text>
-                      <text x="368" y="52">Rtr-1</text>
-                      <text x="456" y="52">Rtr-2</text>
-                      <text x="524" y="52">Backbone</text>
-                      <text x="104" y="68">|</text>
-                      <text x="192" y="68">|</text>
-                      <text x="76" y="84">COAP</text>
-                      <text x="112" y="84">NON</text>
-                      <text x="152" y="84">(2.04</text>
-                      <text x="212" y="84">Changed)</text>
-                      <text x="116" y="148">COAP</text>
-                      <text x="152" y="148">NON</text>
-                      <text x="192" y="148">(2.04</text>
-                      <text x="252" y="148">Changed)</text>
-                      <text x="188" y="244">COAP</text>
-                      <text x="224" y="244">NON</text>
-                      <text x="264" y="244">(5.00</text>
-                      <text x="324" y="244">Internal</text>
-                      <text x="388" y="244">Server</text>
-                      <text x="444" y="244">Error)</text>
-                    </g>
-                  </svg><a href="#appendix-A.2.1.1-11.1.1" class="pilcrow">¶</a>
+                  <path d="M 16,64 L 16,320" fill="none" stroke="black"></path>
+                  <path d="M 104,104 L 104,128" fill="none" stroke="black"></path>
+                  <path d="M 104,160 L 104,320" fill="none" stroke="black"></path>
+                  <path d="M 192,104 L 192,136" fill="none" stroke="black"></path>
+                  <path d="M 192,168 L 192,224" fill="none" stroke="black"></path>
+                  <path d="M 192,256 L 192,320" fill="none" stroke="black"></path>
+                  <path d="M 280,64 L 280,136" fill="none" stroke="black"></path>
+                  <path d="M 280,168 L 280,224" fill="none" stroke="black"></path>
+                  <path d="M 280,264 L 280,320" fill="none" stroke="black"></path>
+                  <path d="M 368,64 L 368,152" fill="none" stroke="black"></path>
+                  <path d="M 368,168 L 368,224" fill="none" stroke="black"></path>
+                  <path d="M 368,264 L 368,320" fill="none" stroke="black"></path>
+                  <path d="M 456,64 L 456,184" fill="none" stroke="black"></path>
+                  <path d="M 456,200 L 456,224" fill="none" stroke="black"></path>
+                  <path d="M 456,256 L 456,280" fill="none" stroke="black"></path>
+                  <path d="M 456,296 L 456,320" fill="none" stroke="black"></path>
+                  <path d="M 544,64 L 544,320" fill="none" stroke="black"></path>
+                  <path d="M 24,96 L 272,96" fill="none" stroke="black"></path>
+                  <path d="M 112,160 L 448,160" fill="none" stroke="black"></path>
+                  <path d="M 464,176 L 536,176" fill="none" stroke="black"></path>
+                  <path d="M 376,192 L 536,192" fill="none" stroke="black"></path>
+                  <path d="M 288,208 L 360,208" fill="none" stroke="black"></path>
+                  <path d="M 200,256 L 448,256" fill="none" stroke="black"></path>
+                  <path d="M 464,272 L 536,272" fill="none" stroke="black"></path>
+                  <path d="M 376,288 L 536,288" fill="none" stroke="black"></path>
+                  <path d="M 288,304 L 360,304" fill="none" stroke="black"></path>
+                  <polygon class="arrowhead" points="544,272 532,266.4 532,277.6" fill="black" transform="rotate(0,536,272)"></polygon>
+                  <polygon class="arrowhead" points="544,176 532,170.4 532,181.6" fill="black" transform="rotate(0,536,176)"></polygon>
+                  <polygon class="arrowhead" points="456,256 444,250.4 444,261.6" fill="black" transform="rotate(0,448,256)"></polygon>
+                  <polygon class="arrowhead" points="456,160 444,154.4 444,165.6" fill="black" transform="rotate(0,448,160)"></polygon>
+                  <polygon class="arrowhead" points="384,288 372,282.4 372,293.6" fill="black" transform="rotate(180,376,288)"></polygon>
+                  <polygon class="arrowhead" points="384,192 372,186.4 372,197.6" fill="black" transform="rotate(180,376,192)"></polygon>
+                  <polygon class="arrowhead" points="296,304 284,298.4 284,309.6" fill="black" transform="rotate(180,288,304)"></polygon>
+                  <polygon class="arrowhead" points="296,208 284,202.4 284,213.6" fill="black" transform="rotate(180,288,208)"></polygon>
+                  <polygon class="arrowhead" points="280,96 268,90.4 268,101.6" fill="black" transform="rotate(0,272,96)"></polygon>
+                  <g class="text">
+                    <text x="288" y="36">Light</text>
+                    <text x="520" y="36">Network</text>
+                    <text x="32" y="52">Light-1</text>
+                    <text x="112" y="52">Light-2</text>
+                    <text x="200" y="52">Light-3</text>
+                    <text x="292" y="52">Switch</text>
+                    <text x="368" y="52">Rtr-1</text>
+                    <text x="456" y="52">Rtr-2</text>
+                    <text x="524" y="52">Backbone</text>
+                    <text x="104" y="68">|</text>
+                    <text x="192" y="68">|</text>
+                    <text x="76" y="84">COAP</text>
+                    <text x="112" y="84">NON</text>
+                    <text x="152" y="84">(2.04</text>
+                    <text x="212" y="84">Changed)</text>
+                    <text x="116" y="148">COAP</text>
+                    <text x="152" y="148">NON</text>
+                    <text x="192" y="148">(2.04</text>
+                    <text x="252" y="148">Changed)</text>
+                    <text x="188" y="244">COAP</text>
+                    <text x="224" y="244">NON</text>
+                    <text x="264" y="244">(5.00</text>
+                    <text x="324" y="244">Internal</text>
+                    <text x="388" y="244">Server</text>
+                    <text x="444" y="244">Error)</text>
+                  </g>
+                </svg><a href="#appendix-A.2.1-13.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
 <a href="#name-lights-optionally-respond-t" class="selfRef">Lights (Optionally) Respond to Multicast CoAP Request</a>
-              </figcaption></figure>
+            </figcaption></figure>
 </div>
-<p id="appendix-A.2.1.1-12">Another, but similar, lighting control use case is shown in <a href="#fig-light-switch-control-msg-2" class="auto internal xref">Figure 7</a>. In this case, a controller connected to the network backbone sends a CoAP group communication request to turn on all lights in Room-A. Every light sends back a CoAP response to the controller after being turned on.<a href="#appendix-A.2.1.1-12" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-14">Another, but similar, lighting control use case is shown in <a href="#fig-light-switch-control-msg-2" class="auto internal xref">Figure 7</a>. In this case, a controller connected to the network backbone sends a CoAP group communication request to turn on all lights in Room-A. Every light sends back a CoAP response to the controller after being turned on.<a href="#appendix-A.2.1-14" class="pilcrow">¶</a></p>
 <span id="name-controller-on-backbone-send"></span><div id="fig-light-switch-control-msg-2">
 <figure id="figure-7">
-              <div id="appendix-A.2.1.1-13.1">
-                <div class="alignCenter art-svg artwork" id="appendix-A.2.1.1-13.1.1">
+            <div id="appendix-A.2.1-15.1">
+              <div class="alignCenter art-svg artwork" id="appendix-A.2.1-15.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="544" width="568" viewBox="0 0 568 544" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
-                    <path d="M 16,80 L 16,160" fill="none" stroke="black"></path>
-                    <path d="M 16,192 L 16,208" fill="none" stroke="black"></path>
-                    <path d="M 16,336 L 16,528" fill="none" stroke="black"></path>
-                    <path d="M 104,80 L 104,152" fill="none" stroke="black"></path>
-                    <path d="M 104,168 L 104,192" fill="none" stroke="black"></path>
-                    <path d="M 104,336 L 104,352" fill="none" stroke="black"></path>
-                    <path d="M 104,392 L 104,528" fill="none" stroke="black"></path>
-                    <path d="M 192,80 L 192,152" fill="none" stroke="black"></path>
-                    <path d="M 192,336 L 192,352" fill="none" stroke="black"></path>
-                    <path d="M 192,440 L 192,528" fill="none" stroke="black"></path>
-                    <path d="M 288,80 L 288,184" fill="none" stroke="black"></path>
-                    <path d="M 288,200 L 288,400" fill="none" stroke="black"></path>
-                    <path d="M 288,488 L 288,528" fill="none" stroke="black"></path>
-                    <path d="M 376,80 L 376,136" fill="none" stroke="black"></path>
-                    <path d="M 376,152 L 376,392" fill="none" stroke="black"></path>
-                    <path d="M 376,408 L 376,448" fill="none" stroke="black"></path>
-                    <path d="M 376,480 L 376,528" fill="none" stroke="black"></path>
-                    <path d="M 464,128 L 464,528" fill="none" stroke="black"></path>
-                    <path d="M 536,128 L 536,528" fill="none" stroke="black"></path>
-                    <path d="M 472,128 L 528,128" fill="none" stroke="black"></path>
-                    <path d="M 296,144 L 456,144" fill="none" stroke="black"></path>
-                    <path d="M 24,160 L 280,160" fill="none" stroke="black"></path>
-                    <path d="M 112,192 L 368,192" fill="none" stroke="black"></path>
-                    <path d="M 24,384 L 280,384" fill="none" stroke="black"></path>
-                    <path d="M 296,400 L 456,400" fill="none" stroke="black"></path>
-                    <path d="M 472,416 L 528,416" fill="none" stroke="black"></path>
-                    <path d="M 112,432 L 368,432" fill="none" stroke="black"></path>
-                    <path d="M 384,448 L 456,448" fill="none" stroke="black"></path>
-                    <path d="M 472,464 L 528,464" fill="none" stroke="black"></path>
-                    <path d="M 200,480 L 368,480" fill="none" stroke="black"></path>
-                    <path d="M 384,496 L 456,496" fill="none" stroke="black"></path>
-                    <path d="M 472,512 L 528,512" fill="none" stroke="black"></path>
-                    <polygon class="arrowhead" points="536,512 524,506.4 524,517.6" fill="black" transform="rotate(0,528,512)"></polygon>
-                    <polygon class="arrowhead" points="536,464 524,458.4 524,469.6" fill="black" transform="rotate(0,528,464)"></polygon>
-                    <polygon class="arrowhead" points="536,416 524,410.4 524,421.6" fill="black" transform="rotate(0,528,416)"></polygon>
-                    <polygon class="arrowhead" points="480,128 468,122.4 468,133.6" fill="black" transform="rotate(180,472,128)"></polygon>
-                    <polygon class="arrowhead" points="464,496 452,490.4 452,501.6" fill="black" transform="rotate(0,456,496)"></polygon>
-                    <polygon class="arrowhead" points="464,448 452,442.4 452,453.6" fill="black" transform="rotate(0,456,448)"></polygon>
-                    <polygon class="arrowhead" points="464,400 452,394.4 452,405.6" fill="black" transform="rotate(0,456,400)"></polygon>
-                    <polygon class="arrowhead" points="392,144 380,138.4 380,149.6" fill="black" transform="rotate(180,384,144)"></polygon>
-                    <polygon class="arrowhead" points="376,480 364,474.4 364,485.6" fill="black" transform="rotate(0,368,480)"></polygon>
-                    <polygon class="arrowhead" points="376,432 364,426.4 364,437.6" fill="black" transform="rotate(0,368,432)"></polygon>
-                    <polygon class="arrowhead" points="304,144 292,138.4 292,149.6" fill="black" transform="rotate(180,296,144)"></polygon>
-                    <polygon class="arrowhead" points="288,384 276,378.4 276,389.6" fill="black" transform="rotate(0,280,384)"></polygon>
-                    <polygon class="arrowhead" points="208,192 196,186.4 196,197.6" fill="black" transform="rotate(180,200,192)"></polygon>
-                    <polygon class="arrowhead" points="120,192 108,186.4 108,197.6" fill="black" transform="rotate(180,112,192)"></polygon>
-                    <polygon class="arrowhead" points="32,160 20,154.4 20,165.6" fill="black" transform="rotate(180,24,160)"></polygon>
-                    <g class="text">
-                      <text x="500" y="36">CoAP</text>
-                      <text x="440" y="52">Network</text>
-                      <text x="524" y="52">Controller</text>
-                      <text x="32" y="68">Light-1</text>
-                      <text x="112" y="68">Light-2</text>
-                      <text x="200" y="68">Light-3</text>
-                      <text x="288" y="68">Rtr-1</text>
-                      <text x="376" y="68">Rtr-2</text>
-                      <text x="444" y="68">Backbone</text>
-                      <text x="508" y="68">Client</text>
-                      <text x="464" y="84">|</text>
-                      <text x="536" y="84">|</text>
-                      <text x="428" y="100">COAP</text>
-                      <text x="464" y="100">NON</text>
-                      <text x="524" y="100">Mcast(PUT,</text>
-                      <text x="468" y="116">Payload=lights</text>
-                      <text x="544" y="116">ON)</text>
-                      <text x="20" y="180">ON</text>
-                      <text x="192" y="180">|</text>
-                      <text x="108" y="212">ON</text>
-                      <text x="196" y="212">ON</text>
-                      <text x="16" y="228">^</text>
-                      <text x="104" y="228">^</text>
-                      <text x="192" y="228">^</text>
-                      <text x="104" y="244">.......................</text>
-                      <text x="16" y="260">:</text>
-                      <text x="68" y="260">Lights</text>
-                      <text x="108" y="260">in</text>
-                      <text x="148" y="260">Room-A</text>
-                      <text x="192" y="260">:</text>
-                      <text x="16" y="276">:</text>
-                      <text x="60" y="276">turn</text>
-                      <text x="92" y="276">on</text>
-                      <text x="136" y="276">(nearly</text>
-                      <text x="192" y="276">:</text>
-                      <text x="16" y="292">:</text>
-                      <text x="104" y="292">simultaneously)</text>
-                      <text x="192" y="292">:</text>
-                      <text x="104" y="308">:.....................:</text>
-                      <text x="68" y="372">COAP</text>
-                      <text x="104" y="372">NON</text>
-                      <text x="144" y="372">(2.04</text>
-                      <text x="204" y="372">Changed)</text>
-                      <text x="192" y="404">|</text>
-                      <text x="140" y="420">COAP</text>
-                      <text x="176" y="420">NON</text>
-                      <text x="216" y="420">(2.04</text>
-                      <text x="276" y="420">Changed)</text>
-                      <text x="288" y="452">|</text>
-                      <text x="220" y="468">COAP</text>
-                      <text x="256" y="468">NON</text>
-                      <text x="296" y="468">(2.04</text>
-                      <text x="356" y="468">Changed)</text>
-                    </g>
-                  </svg><a href="#appendix-A.2.1.1-13.1.1" class="pilcrow">¶</a>
+                  <path d="M 16,80 L 16,160" fill="none" stroke="black"></path>
+                  <path d="M 16,192 L 16,208" fill="none" stroke="black"></path>
+                  <path d="M 16,336 L 16,528" fill="none" stroke="black"></path>
+                  <path d="M 104,80 L 104,152" fill="none" stroke="black"></path>
+                  <path d="M 104,168 L 104,192" fill="none" stroke="black"></path>
+                  <path d="M 104,336 L 104,352" fill="none" stroke="black"></path>
+                  <path d="M 104,392 L 104,528" fill="none" stroke="black"></path>
+                  <path d="M 192,80 L 192,152" fill="none" stroke="black"></path>
+                  <path d="M 192,336 L 192,352" fill="none" stroke="black"></path>
+                  <path d="M 192,440 L 192,528" fill="none" stroke="black"></path>
+                  <path d="M 288,80 L 288,184" fill="none" stroke="black"></path>
+                  <path d="M 288,200 L 288,400" fill="none" stroke="black"></path>
+                  <path d="M 288,488 L 288,528" fill="none" stroke="black"></path>
+                  <path d="M 376,80 L 376,136" fill="none" stroke="black"></path>
+                  <path d="M 376,152 L 376,392" fill="none" stroke="black"></path>
+                  <path d="M 376,408 L 376,448" fill="none" stroke="black"></path>
+                  <path d="M 376,480 L 376,528" fill="none" stroke="black"></path>
+                  <path d="M 464,128 L 464,528" fill="none" stroke="black"></path>
+                  <path d="M 536,128 L 536,528" fill="none" stroke="black"></path>
+                  <path d="M 472,128 L 528,128" fill="none" stroke="black"></path>
+                  <path d="M 296,144 L 456,144" fill="none" stroke="black"></path>
+                  <path d="M 24,160 L 280,160" fill="none" stroke="black"></path>
+                  <path d="M 112,192 L 368,192" fill="none" stroke="black"></path>
+                  <path d="M 24,384 L 280,384" fill="none" stroke="black"></path>
+                  <path d="M 296,400 L 456,400" fill="none" stroke="black"></path>
+                  <path d="M 472,416 L 528,416" fill="none" stroke="black"></path>
+                  <path d="M 112,432 L 368,432" fill="none" stroke="black"></path>
+                  <path d="M 384,448 L 456,448" fill="none" stroke="black"></path>
+                  <path d="M 472,464 L 528,464" fill="none" stroke="black"></path>
+                  <path d="M 200,480 L 368,480" fill="none" stroke="black"></path>
+                  <path d="M 384,496 L 456,496" fill="none" stroke="black"></path>
+                  <path d="M 472,512 L 528,512" fill="none" stroke="black"></path>
+                  <polygon class="arrowhead" points="536,512 524,506.4 524,517.6" fill="black" transform="rotate(0,528,512)"></polygon>
+                  <polygon class="arrowhead" points="536,464 524,458.4 524,469.6" fill="black" transform="rotate(0,528,464)"></polygon>
+                  <polygon class="arrowhead" points="536,416 524,410.4 524,421.6" fill="black" transform="rotate(0,528,416)"></polygon>
+                  <polygon class="arrowhead" points="480,128 468,122.4 468,133.6" fill="black" transform="rotate(180,472,128)"></polygon>
+                  <polygon class="arrowhead" points="464,496 452,490.4 452,501.6" fill="black" transform="rotate(0,456,496)"></polygon>
+                  <polygon class="arrowhead" points="464,448 452,442.4 452,453.6" fill="black" transform="rotate(0,456,448)"></polygon>
+                  <polygon class="arrowhead" points="464,400 452,394.4 452,405.6" fill="black" transform="rotate(0,456,400)"></polygon>
+                  <polygon class="arrowhead" points="392,144 380,138.4 380,149.6" fill="black" transform="rotate(180,384,144)"></polygon>
+                  <polygon class="arrowhead" points="376,480 364,474.4 364,485.6" fill="black" transform="rotate(0,368,480)"></polygon>
+                  <polygon class="arrowhead" points="376,432 364,426.4 364,437.6" fill="black" transform="rotate(0,368,432)"></polygon>
+                  <polygon class="arrowhead" points="304,144 292,138.4 292,149.6" fill="black" transform="rotate(180,296,144)"></polygon>
+                  <polygon class="arrowhead" points="288,384 276,378.4 276,389.6" fill="black" transform="rotate(0,280,384)"></polygon>
+                  <polygon class="arrowhead" points="208,192 196,186.4 196,197.6" fill="black" transform="rotate(180,200,192)"></polygon>
+                  <polygon class="arrowhead" points="120,192 108,186.4 108,197.6" fill="black" transform="rotate(180,112,192)"></polygon>
+                  <polygon class="arrowhead" points="32,160 20,154.4 20,165.6" fill="black" transform="rotate(180,24,160)"></polygon>
+                  <g class="text">
+                    <text x="500" y="36">CoAP</text>
+                    <text x="440" y="52">Network</text>
+                    <text x="524" y="52">Controller</text>
+                    <text x="32" y="68">Light-1</text>
+                    <text x="112" y="68">Light-2</text>
+                    <text x="200" y="68">Light-3</text>
+                    <text x="288" y="68">Rtr-1</text>
+                    <text x="376" y="68">Rtr-2</text>
+                    <text x="444" y="68">Backbone</text>
+                    <text x="508" y="68">Client</text>
+                    <text x="464" y="84">|</text>
+                    <text x="536" y="84">|</text>
+                    <text x="428" y="100">COAP</text>
+                    <text x="464" y="100">NON</text>
+                    <text x="524" y="100">Mcast(PUT,</text>
+                    <text x="468" y="116">Payload=lights</text>
+                    <text x="544" y="116">ON)</text>
+                    <text x="20" y="180">ON</text>
+                    <text x="192" y="180">|</text>
+                    <text x="108" y="212">ON</text>
+                    <text x="196" y="212">ON</text>
+                    <text x="16" y="228">^</text>
+                    <text x="104" y="228">^</text>
+                    <text x="192" y="228">^</text>
+                    <text x="104" y="244">.......................</text>
+                    <text x="16" y="260">:</text>
+                    <text x="68" y="260">Lights</text>
+                    <text x="108" y="260">in</text>
+                    <text x="148" y="260">Room-A</text>
+                    <text x="192" y="260">:</text>
+                    <text x="16" y="276">:</text>
+                    <text x="60" y="276">turn</text>
+                    <text x="92" y="276">on</text>
+                    <text x="136" y="276">(nearly</text>
+                    <text x="192" y="276">:</text>
+                    <text x="16" y="292">:</text>
+                    <text x="104" y="292">simultaneously)</text>
+                    <text x="192" y="292">:</text>
+                    <text x="104" y="308">:.....................:</text>
+                    <text x="68" y="372">COAP</text>
+                    <text x="104" y="372">NON</text>
+                    <text x="144" y="372">(2.04</text>
+                    <text x="204" y="372">Changed)</text>
+                    <text x="192" y="404">|</text>
+                    <text x="140" y="420">COAP</text>
+                    <text x="176" y="420">NON</text>
+                    <text x="216" y="420">(2.04</text>
+                    <text x="276" y="420">Changed)</text>
+                    <text x="288" y="452">|</text>
+                    <text x="220" y="468">COAP</text>
+                    <text x="256" y="468">NON</text>
+                    <text x="296" y="468">(2.04</text>
+                    <text x="356" y="468">Changed)</text>
+                  </g>
+                </svg><a href="#appendix-A.2.1-15.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-7" class="selfRef">Figure 7</a>:
 <a href="#name-controller-on-backbone-send" class="selfRef">Controller on Backbone Sends Multicast Control Message</a>
-              </figcaption></figure>
-</div>
-</section>
-</div>
-<div id="example-lighting-control-mld">
-<section id="appendix-A.2.1.2">
-            <h5 id="name-lighting-control-in-mld-ena">
-<a href="#appendix-A.2.1.2" class="section-number selfRef">A.2.1.2. </a><a href="#name-lighting-control-in-mld-ena" class="section-name selfRef">Lighting Control in MLD-Enabled Network</a>
-            </h5>
-<p id="appendix-A.2.1.2-1">The use case in <a href="#example-lighting-control" class="auto internal xref">Appendix A.2.1.1</a> can also apply in networks where nodes support the MLDv2 protocol <span>[<a href="#RFC9777" class="cite xref">RFC9777</a>]</span>. The lights then take on the role of MLDv2 listener, and the routers (Rtr-1 and Rtr-2) are MLDv2 routers. In the Ethernet-based network configuration, MLDv2 may be available on all involved network interfaces. Use of MLDv2 in the 6LoWPAN-based configuration is also possible but requires MLDv2 support in all nodes in the 6LoWPAN. In current 6LoWPAN implementations, MLDv2 is, however, not supported.<a href="#appendix-A.2.1.2-1" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.1.2-2">The resulting protocol flow is shown in <a href="#fig-joining-lighting-groups-mld" class="auto internal xref">Figure 8</a>. This flow is executed after the commissioning phase, as soon as lights are configured with a group address to listen to. The (unicast) MLD Reports may require periodic refresh activity as specified by the MLDv2 protocol. In the figure, 'LL' denotes link-local communication.<a href="#appendix-A.2.1.2-2" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.1.2-3">After the shown sequence of MLD Report messages has been executed, both Rtr-1 and Rtr-2 are automatically configured to forward IP multicast traffic destined to Room-A-Lights onto their connected subnet. Hence, no manual network configuration of routers, as previously indicated in <a href="#example-lighting-control" class="auto internal xref">Appendix A.2.1.1</a>, Step 2, is needed anymore.<a href="#appendix-A.2.1.2-3" class="pilcrow">¶</a></p>
-<span id="name-joining-lighting-groups-usi"></span><div id="fig-joining-lighting-groups-mld">
-<figure id="figure-8">
-              <div id="appendix-A.2.1.2-4.1">
-                <div class="alignCenter art-svg artwork" id="appendix-A.2.1.2-4.1.1">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="432" width="560" viewBox="0 0 560 432" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
-                    <path d="M 16,64 L 16,416" fill="none" stroke="black"></path>
-                    <path d="M 104,64 L 104,96" fill="none" stroke="black"></path>
-                    <path d="M 104,152 L 104,416" fill="none" stroke="black"></path>
-                    <path d="M 192,64 L 192,120" fill="none" stroke="black"></path>
-                    <path d="M 192,152 L 192,208" fill="none" stroke="black"></path>
-                    <path d="M 192,264 L 192,416" fill="none" stroke="black"></path>
-                    <path d="M 280,64 L 280,136" fill="none" stroke="black"></path>
-                    <path d="M 280,152 L 280,232" fill="none" stroke="black"></path>
-                    <path d="M 280,328 L 280,416" fill="none" stroke="black"></path>
-                    <path d="M 368,64 L 368,248" fill="none" stroke="black"></path>
-                    <path d="M 368,264 L 368,296" fill="none" stroke="black"></path>
-                    <path d="M 368,328 L 368,416" fill="none" stroke="black"></path>
-                    <path d="M 456,64 L 456,144" fill="none" stroke="black"></path>
-                    <path d="M 456,200 L 456,336" fill="none" stroke="black"></path>
-                    <path d="M 456,384 L 456,416" fill="none" stroke="black"></path>
-                    <path d="M 544,64 L 544,416" fill="none" stroke="black"></path>
-                    <path d="M 24,144 L 40,144" fill="none" stroke="black"></path>
-                    <path d="M 64,144 L 360,144" fill="none" stroke="black"></path>
-                    <path d="M 376,192 L 392,192" fill="none" stroke="black"></path>
-                    <path d="M 416,192 L 480,192" fill="none" stroke="black"></path>
-                    <path d="M 504,192 L 536,192" fill="none" stroke="black"></path>
-                    <path d="M 112,256 L 128,256" fill="none" stroke="black"></path>
-                    <path d="M 152,256 L 448,256" fill="none" stroke="black"></path>
-                    <path d="M 200,320 L 216,320" fill="none" stroke="black"></path>
-                    <path d="M 240,320 L 448,320" fill="none" stroke="black"></path>
-                    <path d="M 376,384 L 392,384" fill="none" stroke="black"></path>
-                    <path d="M 416,384 L 480,384" fill="none" stroke="black"></path>
-                    <path d="M 504,384 L 536,384" fill="none" stroke="black"></path>
-                    <polygon class="arrowhead" points="544,384 532,378.4 532,389.6" fill="black" transform="rotate(0,536,384)"></polygon>
-                    <polygon class="arrowhead" points="544,192 532,186.4 532,197.6" fill="black" transform="rotate(0,536,192)"></polygon>
-                    <polygon class="arrowhead" points="456,320 444,314.4 444,325.6" fill="black" transform="rotate(0,448,320)"></polygon>
-                    <polygon class="arrowhead" points="456,256 444,250.4 444,261.6" fill="black" transform="rotate(0,448,256)"></polygon>
-                    <polygon class="arrowhead" points="456,192 444,186.4 444,197.6" fill="black" transform="rotate(0,448,192)"></polygon>
-                    <polygon class="arrowhead" points="384,384 372,378.4 372,389.6" fill="black" transform="rotate(180,376,384)"></polygon>
-                    <polygon class="arrowhead" points="368,144 356,138.4 356,149.6" fill="black" transform="rotate(0,360,144)"></polygon>
-                    <g class="text">
-                      <text x="288" y="36">Light</text>
-                      <text x="520" y="36">Network</text>
-                      <text x="32" y="52">Light-1</text>
-                      <text x="112" y="52">Light-2</text>
-                      <text x="200" y="52">Light-3</text>
-                      <text x="292" y="52">Switch</text>
-                      <text x="368" y="52">Rtr-1</text>
-                      <text x="456" y="52">Rtr-2</text>
-                      <text x="524" y="52">Backbone</text>
-                      <text x="40" y="116">MLD</text>
-                      <text x="88" y="116">Report:</text>
-                      <text x="140" y="116">Join</text>
-                      <text x="48" y="132">Group</text>
-                      <text x="136" y="132">(Room-A-Lights)</text>
-                      <text x="52" y="148">LL</text>
-                      <text x="384" y="164">MLD</text>
-                      <text x="432" y="164">Report:</text>
-                      <text x="484" y="164">Join</text>
-                      <text x="392" y="180">Group</text>
-                      <text x="480" y="180">(Room-A-Lights)</text>
-                      <text x="404" y="196">LL</text>
-                      <text x="492" y="196">LL</text>
-                      <text x="128" y="228">MLD</text>
-                      <text x="176" y="228">Report:</text>
-                      <text x="228" y="228">Join</text>
-                      <text x="136" y="244">Group</text>
-                      <text x="224" y="244">(Room-A-Lights)</text>
-                      <text x="140" y="260">LL</text>
-                      <text x="280" y="276">|</text>
-                      <text x="216" y="292">MLD</text>
-                      <text x="264" y="292">Report:</text>
-                      <text x="316" y="292">Join</text>
-                      <text x="224" y="308">Group</text>
-                      <text x="312" y="308">(Room-A-Lights)</text>
-                      <text x="228" y="324">LL</text>
-                      <text x="384" y="356">MLD</text>
-                      <text x="432" y="356">Report:</text>
-                      <text x="484" y="356">Join</text>
-                      <text x="392" y="372">Group</text>
-                      <text x="480" y="372">(Room-A-Lights)</text>
-                      <text x="404" y="388">LL</text>
-                      <text x="492" y="388">LL</text>
-                    </g>
-                  </svg><a href="#appendix-A.2.1.2-4.1.1" class="pilcrow">¶</a>
-</div>
-</div>
-<figcaption><a href="#figure-8" class="selfRef">Figure 8</a>:
-<a href="#name-joining-lighting-groups-usi" class="selfRef">Joining Lighting Groups Using MLDv2</a>
-              </figcaption></figure>
-</div>
-</section>
+            </figcaption></figure>
 </div>
 </section>
 </div>
@@ -3938,9 +3830,9 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
         <h3 id="name-group-naming-using-the-uri-">
 <a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-group-naming-using-the-uri-" class="section-name selfRef">Group Naming using the URI Path Component</a>
         </h3>
-<p id="appendix-B.1-1"><a href="#fig-gname-path-example" class="auto internal xref">Figure 9</a> provides an example where the URI path component is used for naming application groups.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.1-1"><a href="#fig-gname-path-example" class="auto internal xref">Figure 8</a> provides an example where the URI path component is used for naming application groups.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
 <span id="name-example-of-application-grou"></span><div id="fig-gname-path-example">
-<figure id="figure-9">
+<figure id="figure-8">
           <div class="alignLeft art-text artwork" id="appendix-B.1-2.1">
 <pre>
    Application group name: gp1
@@ -3956,13 +3848,13 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
       Uri-Query: "foo=bar"
 </pre>
 </div>
-<figcaption><a href="#figure-9" class="selfRef">Figure 9</a>:
+<figcaption><a href="#figure-8" class="selfRef">Figure 8</a>:
 <a href="#name-example-of-application-grou" class="selfRef">Example of application group name in the URI path (1/2)</a>
           </figcaption></figure>
 </div>
-<p id="appendix-B.1-3"><a href="#fig-gname-path-example-2" class="auto internal xref">Figure 10</a> provides a different example, where an IPv6 literal address and the default CoAP port number 5683 are used in the authority component, which yields a compact CoAP request. Also, the resource structure is different in this example.<a href="#appendix-B.1-3" class="pilcrow">¶</a></p>
+<p id="appendix-B.1-3"><a href="#fig-gname-path-example-2" class="auto internal xref">Figure 9</a> provides a different example, where an IPv6 literal address and the default CoAP port number 5683 are used in the authority component, which yields a compact CoAP request. Also, the resource structure is different in this example.<a href="#appendix-B.1-3" class="pilcrow">¶</a></p>
 <span id="name-example-of-application-group"></span><div id="fig-gname-path-example-2">
-<figure id="figure-10">
+<figure id="figure-9">
           <div class="alignLeft art-text artwork" id="appendix-B.1-4.1">
 <pre>
    Application group name: gp1
@@ -3976,7 +3868,7 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
       Uri-Path: "li"
 </pre>
 </div>
-<figcaption><a href="#figure-10" class="selfRef">Figure 10</a>:
+<figcaption><a href="#figure-9" class="selfRef">Figure 9</a>:
 <a href="#name-example-of-application-group" class="selfRef">Example of application group name in the URI path (2/2)</a>
           </figcaption></figure>
 </div>
@@ -3987,9 +3879,9 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
         <h3 id="name-group-naming-using-the-uri-q">
 <a href="#appendix-B.2" class="section-number selfRef">B.2. </a><a href="#name-group-naming-using-the-uri-q" class="section-name selfRef">Group Naming using the URI Query Component</a>
         </h3>
-<p id="appendix-B.2-1"><a href="#fig-gname-query1-example" class="auto internal xref">Figure 11</a> provides an example where the URI query component is used for naming application groups. In particular, it considers the first alternative discussed in <a href="#sec-groupnaming-app" class="auto internal xref">Section 2.2.1.2</a>, where the URI query component consists of only one parameter, which has no value and has the name of the application group as its own identifier.<a href="#appendix-B.2-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.2-1"><a href="#fig-gname-query1-example" class="auto internal xref">Figure 10</a> provides an example where the URI query component is used for naming application groups. In particular, it considers the first alternative discussed in <a href="#sec-groupnaming-app" class="auto internal xref">Section 2.2.1.2</a>, where the URI query component consists of only one parameter, which has no value and has the name of the application group as its own identifier.<a href="#appendix-B.2-1" class="pilcrow">¶</a></p>
 <span id="name-example-of-application-group-"></span><div id="fig-gname-query1-example">
-<figure id="figure-11">
+<figure id="figure-10">
           <div class="alignLeft art-text artwork" id="appendix-B.2-2.1">
 <pre>
    Application group name: gp1
@@ -4003,13 +3895,13 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
       Uri-Query: "gp1"
 </pre>
 </div>
-<figcaption><a href="#figure-11" class="selfRef">Figure 11</a>:
+<figcaption><a href="#figure-10" class="selfRef">Figure 10</a>:
 <a href="#name-example-of-application-group-" class="selfRef">Example of application group name in the URI query (1/2)</a>
           </figcaption></figure>
 </div>
-<p id="appendix-B.2-3"><a href="#fig-gname-query2-example" class="auto internal xref">Figure 12</a> provides another example, which considers the second alternative discussed in <a href="#sec-groupnaming-app" class="auto internal xref">Section 2.2.1.2</a>. In particular, the URI query component includes a query parameter "gp" as designated indicator, with value the name of the application group.<a href="#appendix-B.2-3" class="pilcrow">¶</a></p>
+<p id="appendix-B.2-3"><a href="#fig-gname-query2-example" class="auto internal xref">Figure 11</a> provides another example, which considers the second alternative discussed in <a href="#sec-groupnaming-app" class="auto internal xref">Section 2.2.1.2</a>. In particular, the URI query component includes a query parameter "gp" as designated indicator, with value the name of the application group.<a href="#appendix-B.2-3" class="pilcrow">¶</a></p>
 <span id="name-example-of-application-group-n"></span><div id="fig-gname-query2-example">
-<figure id="figure-12">
+<figure id="figure-11">
           <div class="alignLeft art-text artwork" id="appendix-B.2-4.1">
 <pre>
    Application group name: gp1
@@ -4024,7 +3916,7 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
       Uri-Query: "gp=gp1"
 </pre>
 </div>
-<figcaption><a href="#figure-12" class="selfRef">Figure 12</a>:
+<figcaption><a href="#figure-11" class="selfRef">Figure 11</a>:
 <a href="#name-example-of-application-group-n" class="selfRef">Example of application group name in the URI query (2/2)</a>
           </figcaption></figure>
 </div>
@@ -4035,11 +3927,11 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
         <h3 id="name-group-naming-using-the-uri-a">
 <a href="#appendix-B.3" class="section-number selfRef">B.3. </a><a href="#name-group-naming-using-the-uri-a" class="section-name selfRef">Group Naming using the URI Authority Component</a>
         </h3>
-<p id="appendix-B.3-1"><a href="#fig-gname-auth-example" class="auto internal xref">Figure 13</a> provides an example where the URI authority component as a whole is used for encoding the name of the application group.
+<p id="appendix-B.3-1"><a href="#fig-gname-auth-example" class="auto internal xref">Figure 12</a> provides an example where the URI authority component as a whole is used for encoding the name of the application group.
 Note that, although the port information (5685) is not carried as a CoAP Option, it is still transported within the UDP message (in the UDP destination port field).
 So, effectively, the application group name is transported in the UDP message as two parts.<a href="#appendix-B.3-1" class="pilcrow">¶</a></p>
 <span id="name-example-of-application-group-na"></span><div id="fig-gname-auth-example">
-<figure id="figure-13">
+<figure id="figure-12">
           <div class="alignLeft art-text artwork" id="appendix-B.3-2.1">
 <pre>
    Application group name: grp.example:5685
@@ -4053,14 +3945,14 @@ So, effectively, the application group name is transported in the UDP message as
       Uri-Query: "foo=bar"
 </pre>
 </div>
-<figcaption><a href="#figure-13" class="selfRef">Figure 13</a>:
+<figcaption><a href="#figure-12" class="selfRef">Figure 12</a>:
 <a href="#name-example-of-application-group-na" class="selfRef">Example of application group name defined by the URI authority</a>
           </figcaption></figure>
 </div>
-<p id="appendix-B.3-3"><a href="#fig-gname-host-example" class="auto internal xref">Figure 14</a> provides an example where the URI host subcomponent of the URI authority component is used for encoding the name of the application group.
+<p id="appendix-B.3-3"><a href="#fig-gname-host-example" class="auto internal xref">Figure 13</a> provides an example where the URI host subcomponent of the URI authority component is used for encoding the name of the application group.
 Specifically, the first label of the DNS name is used.<a href="#appendix-B.3-3" class="pilcrow">¶</a></p>
 <span id="name-example-of-application-group-nam"></span><div id="fig-gname-host-example">
-<figure id="figure-14">
+<figure id="figure-13">
           <div class="alignLeft art-text artwork" id="appendix-B.3-4.1">
 <pre>
    Application group name: grp42
@@ -4074,14 +3966,14 @@ Specifically, the first label of the DNS name is used.<a href="#appendix-B.3-3" 
       Uri-Query: "foo=bar"
 </pre>
 </div>
-<figcaption><a href="#figure-14" class="selfRef">Figure 14</a>:
+<figcaption><a href="#figure-13" class="selfRef">Figure 13</a>:
 <a href="#name-example-of-application-group-nam" class="selfRef">Example of application group name encoded in the URI host</a>
           </figcaption></figure>
 </div>
-<p id="appendix-B.3-5"><a href="#fig-gname-port-example" class="auto internal xref">Figure 15</a> provides an example where the URI port subcomponent of the URI authority component is used for naming application groups.
+<p id="appendix-B.3-5"><a href="#fig-gname-port-example" class="auto internal xref">Figure 14</a> provides an example where the URI port subcomponent of the URI authority component is used for naming application groups.
 It uses a UDP port from the dynamic port range. Multiple application groups could be defined this way, each represented by a number and associated port in the dynamic port range.<a href="#appendix-B.3-5" class="pilcrow">¶</a></p>
 <span id="name-example-of-application-group-name"></span><div id="fig-gname-port-example">
-<figure id="figure-15">
+<figure id="figure-14">
           <div class="alignLeft art-text artwork" id="appendix-B.3-6.1">
 <pre>
    Application group name: 55685
@@ -4095,7 +3987,7 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
       Uri-Query: "foo=bar"
 </pre>
 </div>
-<figcaption><a href="#figure-15" class="selfRef">Figure 15</a>:
+<figcaption><a href="#figure-14" class="selfRef">Figure 14</a>:
 <a href="#name-example-of-application-group-name" class="selfRef">Example of application group name in the URI port</a>
           </figcaption></figure>
 </div>
@@ -4115,12 +4007,12 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
         <h3 id="name-application-groups-associat">
 <a href="#appendix-C.1" class="section-number selfRef">C.1. </a><a href="#name-application-groups-associat" class="section-name selfRef">Application Groups Associated with a CoAP Group</a>
         </h3>
-<p id="appendix-C.1-1"><a href="#fig-app-gp-discovery-example1" class="auto internal xref">Figure 16</a> provides an example where a CoAP client discovers all the application groups associated with a specific CoAP group.<a href="#appendix-C.1-1" class="pilcrow">¶</a></p>
+<p id="appendix-C.1-1"><a href="#fig-app-gp-discovery-example1" class="auto internal xref">Figure 15</a> provides an example where a CoAP client discovers all the application groups associated with a specific CoAP group.<a href="#appendix-C.1-1" class="pilcrow">¶</a></p>
 <p id="appendix-C.1-2">As a result, the client gains knowledge of: i) the set of servers that are members of the specified CoAP group and member of any of the associated application groups; ii) for each of those servers, the name of the application groups where the server is a member and that are associated with the CoAP group.<a href="#appendix-C.1-2" class="pilcrow">¶</a></p>
 <p id="appendix-C.1-3">Each of the servers S1 and S2 is identified by the IP source address of the CoAP response. If the client wishes to discover resources that a particular server hosts within a particular application group, it may use unicast discovery request(s) to this server, i.e., to its respective unicast IP address. Alternatively the client may use the discovered group resource type (e.g., rt=g.light) to infer which resources are present below the group resource.<a href="#appendix-C.1-3" class="pilcrow">¶</a></p>
 <p id="appendix-C.1-4">The example semantics "g.&lt;GROUPTYPE&gt;" is used for the values of the attribute "rt".<a href="#appendix-C.1-4" class="pilcrow">¶</a></p>
 <span id="name-discovery-of-application-gr"></span><div id="fig-app-gp-discovery-example1">
-<figure id="figure-16">
+<figure id="figure-15">
           <div class="alignLeft art-text artwork" id="appendix-C.1-5.1">
 <pre>
    // Request to all members of the CoAP group
@@ -4144,7 +4036,7 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
    &lt;/gp/gp2&gt;;rt=g.temp
 </pre>
 </div>
-<figcaption><a href="#figure-16" class="selfRef">Figure 16</a>:
+<figcaption><a href="#figure-15" class="selfRef">Figure 15</a>:
 <a href="#name-discovery-of-application-gr" class="selfRef">Discovery of application groups associated with a CoAP group</a>
           </figcaption></figure>
 </div>
@@ -4155,11 +4047,11 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
         <h3 id="name-members-of-a-given-applicat">
 <a href="#appendix-C.2" class="section-number selfRef">C.2. </a><a href="#name-members-of-a-given-applicat" class="section-name selfRef">Members of a Given Application Group</a>
         </h3>
-<p id="appendix-C.2-1"><a href="#fig-app-gp-discovery-example2" class="auto internal xref">Figure 17</a> provides an example where a CoAP client discovers the CoAP servers that are members of a specific application group and the CoAP group associated with the application group.<a href="#appendix-C.2-1" class="pilcrow">¶</a></p>
+<p id="appendix-C.2-1"><a href="#fig-app-gp-discovery-example2" class="auto internal xref">Figure 16</a> provides an example where a CoAP client discovers the CoAP servers that are members of a specific application group and the CoAP group associated with the application group.<a href="#appendix-C.2-1" class="pilcrow">¶</a></p>
 <p id="appendix-C.2-2">Note that, unlike in the example shown in <a href="#sec-examples-group-discovery-1" class="auto internal xref">Appendix C.1</a>, now the servers need to respond with an absolute URI and not a relative URI. This is necessary because the responding CoAP endpoint serving the Link Format document (on port 5683) is a different CoAP endpoint from the one hosting the group resource "gp1" (on port 5685). Due to this situation, the responding server includes the full (absolute) URI in the Link Format response from which the client can conveniently gain knowledge of the CoAP group.<a href="#appendix-C.2-2" class="pilcrow">¶</a></p>
 <p id="appendix-C.2-3">Also note that a server could equally well respond with the literal IPv6 multicast address within square brackets instead of the CoAP group name "grp.example". In that case, the client would still gain knowledge of the CoAP group, albeit in a different representation.<a href="#appendix-C.2-3" class="pilcrow">¶</a></p>
 <span id="name-discovery-of-members-of-an-"></span><div id="fig-app-gp-discovery-example2">
-<figure id="figure-17">
+<figure id="figure-16">
           <div class="alignLeft art-text artwork" id="appendix-C.2-4.1">
 <pre>
    // Request to realm-local members of the application group "gp1"
@@ -4182,7 +4074,7 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
    &lt;coap://grp.example:5685/gp/gp1&gt;;rt=g.light
 </pre>
 </div>
-<figcaption><a href="#figure-17" class="selfRef">Figure 17</a>:
+<figcaption><a href="#figure-16" class="selfRef">Figure 16</a>:
 <a href="#name-discovery-of-members-of-an-" class="selfRef">Discovery of members of an application group, together with the associated CoAP group</a>
           </figcaption></figure>
 </div>
@@ -4193,9 +4085,9 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
         <h3 id="name-members-of-any-application-">
 <a href="#appendix-C.3" class="section-number selfRef">C.3. </a><a href="#name-members-of-any-application-" class="section-name selfRef">Members of any Application Group of a Given Type</a>
         </h3>
-<p id="appendix-C.3-1"><a href="#fig-app-gp-discovery-example3" class="auto internal xref">Figure 18</a> provides an example where a CoAP client discovers the CoAP servers that are members of any application group of a specific type, and the CoAP group associated with those application groups.<a href="#appendix-C.3-1" class="pilcrow">¶</a></p>
+<p id="appendix-C.3-1"><a href="#fig-app-gp-discovery-example3" class="auto internal xref">Figure 17</a> provides an example where a CoAP client discovers the CoAP servers that are members of any application group of a specific type, and the CoAP group associated with those application groups.<a href="#appendix-C.3-1" class="pilcrow">¶</a></p>
 <span id="name-discovery-of-members-of-app"></span><div id="fig-app-gp-discovery-example3">
-<figure id="figure-18">
+<figure id="figure-17">
           <div class="alignLeft art-text artwork" id="appendix-C.3-2.1">
 <pre>
    // Request to realm-local members of application groups
@@ -4220,7 +4112,7 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
    &lt;coap://grp.example:5685/gp/gp2&gt;;rt=g.temp
 </pre>
 </div>
-<figcaption><a href="#figure-18" class="selfRef">Figure 18</a>:
+<figcaption><a href="#figure-17" class="selfRef">Figure 17</a>:
 <a href="#name-discovery-of-members-of-app" class="selfRef">Discovery of members of application groups of a specified type, and of the associated CoAP group</a>
           </figcaption></figure>
 </div>
@@ -4231,10 +4123,10 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
         <h3 id="name-members-of-any-application-g">
 <a href="#appendix-C.4" class="section-number selfRef">C.4. </a><a href="#name-members-of-any-application-g" class="section-name selfRef">Members of any Application Group in the Network</a>
         </h3>
-<p id="appendix-C.4-1"><a href="#fig-app-gp-discovery-example4" class="auto internal xref">Figure 19</a> provides an example where a CoAP client discovers the CoAP servers that are members of any application group configured in the 6LoWPAN network of the client, and the CoAP group associated with each application group. In this example, the scope is realm-local to address all servers in the current 6LoWPAN network of the client.<a href="#appendix-C.4-1" class="pilcrow">¶</a></p>
+<p id="appendix-C.4-1"><a href="#fig-app-gp-discovery-example4" class="auto internal xref">Figure 18</a> provides an example where a CoAP client discovers the CoAP servers that are members of any application group configured in the 6LoWPAN network of the client, and the CoAP group associated with each application group. In this example, the scope is realm-local to address all servers in the current 6LoWPAN network of the client.<a href="#appendix-C.4-1" class="pilcrow">¶</a></p>
 <p id="appendix-C.4-2">The example semantics "g.&lt;GROUPTYPE&gt;" is used for the values of the attribute "rt".<a href="#appendix-C.4-2" class="pilcrow">¶</a></p>
 <span id="name-discovery-of-the-resources-"></span><div id="fig-app-gp-discovery-example4">
-<figure id="figure-19">
+<figure id="figure-18">
           <div class="alignLeft art-text artwork" id="appendix-C.4-3.1">
 <pre>
    // Request to realm-local members of any application group
@@ -4267,14 +4159,14 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
    &lt;coap://grp2.example/gp/gp5&gt;;rt=g.lock
 </pre>
 </div>
-<figcaption><a href="#figure-19" class="selfRef">Figure 19</a>:
+<figcaption><a href="#figure-18" class="selfRef">Figure 18</a>:
 <a href="#name-discovery-of-the-resources-" class="selfRef">Discovery of the resources and members of any application group, and of the associated CoAP group</a>
           </figcaption></figure>
 </div>
 <p id="appendix-C.4-4">Alternatively, some applications may use the "rt" attribute on a parent resource to denote support for a particular REST API to access child resources.<a href="#appendix-C.4-4" class="pilcrow">¶</a></p>
-<p id="appendix-C.4-5">For instance, <a href="#fig-app-gp-discovery-example5" class="auto internal xref">Figure 20</a> provides a different example where a custom Link Format attribute "gpt" is used to denote the group type within the scope of the application/system. An alternative, shorter encoding (not shown in the figure) is to use only the value "1" for each "gpt" attribute, in order to denote that the resource is of type application group. In that case, information about the semantics/API of the group resource is disclosed only via the "rt" attribute as shown in the figure.<a href="#appendix-C.4-5" class="pilcrow">¶</a></p>
+<p id="appendix-C.4-5">For instance, <a href="#fig-app-gp-discovery-example5" class="auto internal xref">Figure 19</a> provides a different example where a custom Link Format attribute "gpt" is used to denote the group type within the scope of the application/system. An alternative, shorter encoding (not shown in the figure) is to use only the value "1" for each "gpt" attribute, in order to denote that the resource is of type application group. In that case, information about the semantics/API of the group resource is disclosed only via the "rt" attribute as shown in the figure.<a href="#appendix-C.4-5" class="pilcrow">¶</a></p>
 <span id="name-example-of-using-a-custom-g"></span><div id="fig-app-gp-discovery-example5">
-<figure id="figure-20">
+<figure id="figure-19">
           <div class="alignLeft art-text artwork" id="appendix-C.4-6.1">
 <pre>
    // Request to realm-local members of any application group
@@ -4307,7 +4199,7 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
    &lt;coap://grp2.example/gp/gp5&gt;;rt=oic.d.smartlock;gpt=lock
 </pre>
 </div>
-<figcaption><a href="#figure-20" class="selfRef">Figure 20</a>:
+<figcaption><a href="#figure-19" class="selfRef">Figure 19</a>:
 <a href="#name-example-of-using-a-custom-g" class="selfRef">Example of using a custom 'gpt' link attribute to denote group type</a>
           </figcaption></figure>
 </div>
@@ -4335,9 +4227,9 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
           <p id="appendix-D-2.4.1">Three servers A, B, and C, all of which are members of the CoAP group above and of the application group "gp1". Each server X (with X equal to A, B, or C): listens to its own address ADDR_X and port number PORT_X; and listens to the address ADDR_GRP and port number PORT_GRP. For each server its PORT_X may be different from PORT_GRP or may be equal to it, in general.<a href="#appendix-D-2.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-D-3">In <a href="#fig-exchange-example" class="auto internal xref">Figure 21</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "temperature" in the application group "gp1".<a href="#appendix-D-3" class="pilcrow">¶</a></p>
+<p id="appendix-D-3">In <a href="#fig-exchange-example" class="auto internal xref">Figure 20</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "temperature" in the application group "gp1".<a href="#appendix-D-3" class="pilcrow">¶</a></p>
 <span id="name-example-of-non-confirmable-"></span><div id="fig-exchange-example">
-<figure id="figure-21">
+<figure id="figure-20">
         <div id="appendix-D-4.1">
           <div class="alignLeft art-svg artwork" id="appendix-D-4.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="736" width="576" viewBox="0 0 576 736" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
@@ -4498,13 +4390,13 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
             </svg><a href="#appendix-D-4.1.1" class="pilcrow">¶</a>
 </div>
 </div>
-<figcaption><a href="#figure-21" class="selfRef">Figure 21</a>:
+<figcaption><a href="#figure-20" class="selfRef">Figure 20</a>:
 <a href="#name-example-of-non-confirmable-" class="selfRef">Example of Non-confirmable group request, followed by Non-confirmable Responses</a>
         </figcaption></figure>
 </div>
-<p id="appendix-D-5">In <a href="#fig-exchange-example-observe" class="auto internal xref">Figure 22</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting and requesting to observe the resource "temperature" in the application group "gp1".<a href="#appendix-D-5" class="pilcrow">¶</a></p>
+<p id="appendix-D-5">In <a href="#fig-exchange-example-observe" class="auto internal xref">Figure 21</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting and requesting to observe the resource "temperature" in the application group "gp1".<a href="#appendix-D-5" class="pilcrow">¶</a></p>
 <span id="name-example-of-non-confirmable-o"></span><div id="fig-exchange-example-observe">
-<figure id="figure-22">
+<figure id="figure-21">
         <div id="appendix-D-6.1">
           <div class="alignLeft art-svg artwork" id="appendix-D-6.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1232" width="576" viewBox="0 0 576 1232" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
@@ -4753,13 +4645,13 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
             </svg><a href="#appendix-D-6.1.1" class="pilcrow">¶</a>
 </div>
 </div>
-<figcaption><a href="#figure-22" class="selfRef">Figure 22</a>:
+<figcaption><a href="#figure-21" class="selfRef">Figure 21</a>:
 <a href="#name-example-of-non-confirmable-o" class="selfRef">Example of Non-confirmable Observe group request, followed by Non-confirmable Responses as Observe notifications</a>
         </figcaption></figure>
 </div>
-<p id="appendix-D-7">In <a href="#fig-exchange-example-blockwise" class="auto internal xref">Figure 23</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "log" in the application group "gp1", and requesting a blockwise transfer.<a href="#appendix-D-7" class="pilcrow">¶</a></p>
+<p id="appendix-D-7">In <a href="#fig-exchange-example-blockwise" class="auto internal xref">Figure 22</a>, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "log" in the application group "gp1", and requesting a blockwise transfer.<a href="#appendix-D-7" class="pilcrow">¶</a></p>
 <span id="name-example-of-non-confirmable-g"></span><div id="fig-exchange-example-blockwise">
-<figure id="figure-23">
+<figure id="figure-22">
         <div id="appendix-D-8.1">
           <div class="alignLeft art-svg artwork" id="appendix-D-8.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="2592" width="576" viewBox="0 0 576 2592" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
@@ -5213,7 +5105,7 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
             </svg><a href="#appendix-D-8.1.1" class="pilcrow">¶</a>
 </div>
 </div>
-<figcaption><a href="#figure-23" class="selfRef">Figure 23</a>:
+<figcaption><a href="#figure-22" class="selfRef">Figure 22</a>:
 <a href="#name-example-of-non-confirmable-g" class="selfRef">Example of Non-confirmable group request starting a blockwise transfer, followed by Non-confirmable Responses with the first block. The transfer continues over confirmable unicast exchanges</a>
         </figcaption></figure>
 </div>

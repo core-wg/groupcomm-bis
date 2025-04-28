@@ -3416,18 +3416,16 @@ A.2.1.  Actuator Group Control
    (latency) requirements.  Examples are office lighting, stage
    lighting, street lighting, or audio alert/Public Address systems.
 
-   Appendix A.2.1.1 and Appendix A.2.1.2 show examples of lighting
-   control of a set of 6LoWPAN-connected lights.
+   The following presents examples of lighting control of a set of
+   6LoWPAN-connected lights.
 
-A.2.1.1.  Lighting Control
-
-   The protocol flow for a building automation lighting control scenario
-   for the network considered in Figure 3 is shown in Figure 5.  The
-   network is assumed to be in a 6LoWPAN configuration.  Also, it is
-   assumed that the CoAP servers in each light are configured to
-   suppress CoAP responses for any IP multicast CoAP requests related to
-   lighting control.  (See Section 3.1.2 for more details on response
-   suppression by a server.)
+   Figure 5 shows the protocol flow for a building automation lighting
+   control scenario for the network considered in Figure 3.  The network
+   is assumed to be in a 6LoWPAN configuration.  Also, it is assumed
+   that the CoAP servers in each light are configured to suppress CoAP
+   responses for any IP multicast CoAP requests related to lighting
+   control.  (See Section 3.1.2 for more details on response suppression
+   by a server.)
 
    In addition, Figure 6 shows a protocol flow example for the case
    where servers do respond to a lighting control IP multicast request
@@ -3572,58 +3570,6 @@ A.2.1.1.  Lighting Control
 
      Figure 7: Controller on Backbone Sends Multicast Control Message
 
-A.2.1.2.  Lighting Control in MLD-Enabled Network
-
-   The use case in Appendix A.2.1.1 can also apply in networks where
-   nodes support the MLDv2 protocol [RFC9777].  The lights then take on
-   the role of MLDv2 listener, and the routers (Rtr-1 and Rtr-2) are
-   MLDv2 routers.  In the Ethernet-based network configuration, MLDv2
-   may be available on all involved network interfaces.  Use of MLDv2 in
-   the 6LoWPAN-based configuration is also possible but requires MLDv2
-   support in all nodes in the 6LoWPAN.  In current 6LoWPAN
-   implementations, MLDv2 is, however, not supported.
-
-   The resulting protocol flow is shown in Figure 8.  This flow is
-   executed after the commissioning phase, as soon as lights are
-   configured with a group address to listen to.  The (unicast) MLD
-   Reports may require periodic refresh activity as specified by the
-   MLDv2 protocol.  In the figure, 'LL' denotes link-local
-   communication.
-
-   After the shown sequence of MLD Report messages has been executed,
-   both Rtr-1 and Rtr-2 are automatically configured to forward IP
-   multicast traffic destined to Room-A-Lights onto their connected
-   subnet.  Hence, no manual network configuration of routers, as
-   previously indicated in Appendix A.2.1.1, Step 2, is needed anymore.
-
-                                    Light                       Network
-   Light-1   Light-2    Light-3     Switch    Rtr-1      Rtr-2  Backbone
-    |          |          |          |          |          |          |
-    |          |          |          |          |          |          |
-    |          |          |          |          |          |          |
-    | MLD Report: Join    |          |          |          |          |
-    | Group (Room-A-Lights)          |          |          |          |
-    |---LL------------------------------------->|          |          |
-    |          |          |          |          |MLD Report: Join     |
-    |          |          |          |          |Group (Room-A-Lights)|
-    |          |          |          |          |---LL---->----LL---->|
-    |          |          |          |          |          |          |
-    |          | MLD Report: Join    |          |          |          |
-    |          | Group (Room-A-Lights)          |          |          |
-    |          |---LL------------------------------------->|          |
-    |          |          |          |          |          |          |
-    |          |          | MLD Report: Join    |          |          |
-    |          |          | Group (Room-A-Lights)          |          |
-    |          |          |---LL-------------------------->|          |
-    |          |          |          |          |          |          |
-    |          |          |          |          |MLD Report: Join     |
-    |          |          |          |          |Group (Room-A-Lights)|
-    |          |          |          |          |<--LL-----+---LL---->|
-    |          |          |          |          |          |          |
-    |          |          |          |          |          |          |
-
-               Figure 8: Joining Lighting Groups Using MLDv2
-
 A.2.2.  Device Group Status Request
 
    To properly monitor the status of systems, there may be a need for
@@ -3714,7 +3660,7 @@ Appendix B.  Examples of Group Naming for Application Groups
 
 B.1.  Group Naming using the URI Path Component
 
-   Figure 9 provides an example where the URI path component is used for
+   Figure 8 provides an example where the URI path component is used for
    naming application groups.
 
       Application group name: gp1
@@ -3729,9 +3675,9 @@ B.1.  Group Naming using the URI Path Component
          Uri-Path: "light"
          Uri-Query: "foo=bar"
 
-     Figure 9: Example of application group name in the URI path (1/2)
+     Figure 8: Example of application group name in the URI path (1/2)
 
-   Figure 10 provides a different example, where an IPv6 literal address
+   Figure 9 provides a different example, where an IPv6 literal address
    and the default CoAP port number 5683 are used in the authority
    component, which yields a compact CoAP request.  Also, the resource
    structure is different in this example.
@@ -3746,11 +3692,11 @@ B.1.  Group Naming using the URI Path Component
          Uri-Path: "gp1"
          Uri-Path: "li"
 
-     Figure 10: Example of application group name in the URI path (2/2)
+     Figure 9: Example of application group name in the URI path (2/2)
 
 B.2.  Group Naming using the URI Query Component
 
-   Figure 11 provides an example where the URI query component is used
+   Figure 10 provides an example where the URI query component is used
    for naming application groups.  In particular, it considers the first
    alternative discussed in Section 2.2.1.2, where the URI query
    component consists of only one parameter, which has no value and has
@@ -3766,9 +3712,9 @@ B.2.  Group Naming using the URI Query Component
          Uri-Path: "light"
          Uri-Query: "gp1"
 
-    Figure 11: Example of application group name in the URI query (1/2)
+    Figure 10: Example of application group name in the URI query (1/2)
 
-   Figure 12 provides another example, which considers the second
+   Figure 11 provides another example, which considers the second
    alternative discussed in Section 2.2.1.2.  In particular, the URI
    query component includes a query parameter "gp" as designated
    indicator, with value the name of the application group.
@@ -3784,11 +3730,11 @@ B.2.  Group Naming using the URI Query Component
          Uri-Query: "foo=bar"
          Uri-Query: "gp=gp1"
 
-    Figure 12: Example of application group name in the URI query (2/2)
+    Figure 11: Example of application group name in the URI query (2/2)
 
 B.3.  Group Naming using the URI Authority Component
 
-   Figure 13 provides an example where the URI authority component as a
+   Figure 12 provides an example where the URI authority component as a
    whole is used for encoding the name of the application group.  Note
    that, although the port information (5685) is not carried as a CoAP
    Option, it is still transported within the UDP message (in the UDP
@@ -3805,10 +3751,10 @@ B.3.  Group Naming using the URI Authority Component
          Uri-Path: "light"
          Uri-Query: "foo=bar"
 
-      Figure 13: Example of application group name defined by the URI
+      Figure 12: Example of application group name defined by the URI
                                  authority
 
-   Figure 14 provides an example where the URI host subcomponent of the
+   Figure 13 provides an example where the URI host subcomponent of the
    URI authority component is used for encoding the name of the
    application group.  Specifically, the first label of the DNS name is
    used.
@@ -3823,9 +3769,9 @@ B.3.  Group Naming using the URI Authority Component
          Uri-Path: "light"
          Uri-Query: "foo=bar"
 
-    Figure 14: Example of application group name encoded in the URI host
+    Figure 13: Example of application group name encoded in the URI host
 
-   Figure 15 provides an example where the URI port subcomponent of the
+   Figure 14 provides an example where the URI port subcomponent of the
    URI authority component is used for naming application groups.  It
    uses a UDP port from the dynamic port range.  Multiple application
    groups could be defined this way, each represented by a number and
@@ -3841,7 +3787,7 @@ B.3.  Group Naming using the URI Authority Component
          Uri-Path: "light"
          Uri-Query: "foo=bar"
 
-        Figure 15: Example of application group name in the URI port
+        Figure 14: Example of application group name in the URI port
 
 Appendix C.  Examples of Group Discovery from CoAP Servers
 
@@ -3855,7 +3801,7 @@ Appendix C.  Examples of Group Discovery from CoAP Servers
 
 C.1.  Application Groups Associated with a CoAP Group
 
-   Figure 16 provides an example where a CoAP client discovers all the
+   Figure 15 provides an example where a CoAP client discovers all the
    application groups associated with a specific CoAP group.
 
    As a result, the client gains knowledge of: i) the set of servers
@@ -3895,12 +3841,12 @@ C.1.  Application Groups Associated with a CoAP Group
       </gp/gp1>;rt=g.light,
       </gp/gp2>;rt=g.temp
 
-     Figure 16: Discovery of application groups associated with a CoAP
+     Figure 15: Discovery of application groups associated with a CoAP
                                    group
 
 C.2.  Members of a Given Application Group
 
-   Figure 17 provides an example where a CoAP client discovers the CoAP
+   Figure 16 provides an example where a CoAP client discovers the CoAP
    servers that are members of a specific application group and the CoAP
    group associated with the application group.
 
@@ -3937,12 +3883,12 @@ C.2.  Members of a Given Application Group
       Payload:
       <coap://grp.example:5685/gp/gp1>;rt=g.light
 
-     Figure 17: Discovery of members of an application group, together
+     Figure 16: Discovery of members of an application group, together
                        with the associated CoAP group
 
 C.3.  Members of any Application Group of a Given Type
 
-   Figure 18 provides an example where a CoAP client discovers the CoAP
+   Figure 17 provides an example where a CoAP client discovers the CoAP
    servers that are members of any application group of a specific type,
    and the CoAP group associated with those application groups.
 
@@ -3967,12 +3913,12 @@ C.3.  Members of any Application Group of a Given Type
       <coap://grp.example:5685/gp/gp1>;rt=g.temp,
       <coap://grp.example:5685/gp/gp2>;rt=g.temp
 
-         Figure 18: Discovery of members of application groups of a
+         Figure 17: Discovery of members of application groups of a
               specified type, and of the associated CoAP group
 
 C.4.  Members of any Application Group in the Network
 
-   Figure 19 provides an example where a CoAP client discovers the CoAP
+   Figure 18 provides an example where a CoAP client discovers the CoAP
    servers that are members of any application group configured in the
    6LoWPAN network of the client, and the CoAP group associated with
    each application group.  In this example, the scope is realm-local to
@@ -4010,14 +3956,14 @@ C.4.  Members of any Application Group in the Network
       Payload:
       <coap://grp2.example/gp/gp5>;rt=g.lock
 
-          Figure 19: Discovery of the resources and members of any
+          Figure 18: Discovery of the resources and members of any
             application group, and of the associated CoAP group
 
    Alternatively, some applications may use the "rt" attribute on a
    parent resource to denote support for a particular REST API to access
    child resources.
 
-   For instance, Figure 20 provides a different example where a custom
+   For instance, Figure 19 provides a different example where a custom
    Link Format attribute "gpt" is used to denote the group type within
    the scope of the application/system.  An alternative, shorter
    encoding (not shown in the figure) is to use only the value "1" for
@@ -4055,7 +4001,7 @@ C.4.  Members of any Application Group in the Network
       Payload:
       <coap://grp2.example/gp/gp5>;rt=oic.d.smartlock;gpt=lock
 
-        Figure 20: Example of using a custom 'gpt' link attribute to
+        Figure 19: Example of using a custom 'gpt' link attribute to
                              denote group type
 
 Appendix D.  Examples of Message Exchanges
@@ -4077,7 +4023,7 @@ Appendix D.  Examples of Message Exchanges
       port number PORT_GRP.  For each server its PORT_X may be different
       from PORT_GRP or may be equal to it, in general.
 
-   In Figure 21, the client sends a Non-confirmable GET request to the
+   In Figure 20, the client sends a Non-confirmable GET request to the
    CoAP group, targeting the resource "temperature" in the application
    group "gp1".
 
@@ -4126,10 +4072,10 @@ Appendix D.  Examples of Message Exchanges
     |                |  |  | Payload: "21.0 C"
     |                |  |  |
 
-    Figure 21: Example of Non-confirmable group request, followed by
+    Figure 20: Example of Non-confirmable group request, followed by
                        Non-confirmable Responses
 
-   In Figure 22, the client sends a Non-confirmable GET request to the
+   In Figure 21, the client sends a Non-confirmable GET request to the
    CoAP group, targeting and requesting to observe the resource
    "temperature" in the application group "gp1".
 
@@ -4209,10 +4155,10 @@ Appendix D.  Examples of Message Exchanges
     |                |  |  | Payload: "31.0 C"
     |                |  |  |
 
-      Figure 22: Example of Non-confirmable Observe group request,
+      Figure 21: Example of Non-confirmable Observe group request,
     followed by Non- confirmable Responses as Observe notifications
 
-   In Figure 23, the client sends a Non-confirmable GET request to the
+   In Figure 22, the client sends a Non-confirmable GET request to the
    CoAP group, targeting the resource "log" in the application group
    "gp1", and requesting a blockwise transfer.
 
@@ -4376,7 +4322,7 @@ Appendix D.  Examples of Message Exchanges
     |                |  |  | Payload: 0x0c02 ...
     |                |  |  |
 
-     Figure 23: Example of Non-confirmable group request starting a
+     Figure 22: Example of Non-confirmable group request starting a
      blockwise transfer, followed by Non-confirmable Responses with
    the first block.  The transfer continues over confirmable unicast
                                exchanges
