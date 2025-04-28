@@ -561,7 +561,7 @@ As part of a message exchange between the client and any of the servers in the C
 
 ## Caching ## {#sec-caching}
 
-CoAP endpoints that are members of a CoAP group MAY cache responses to a group request as defined in {{Section 5.6 of RFC7252}}. The set of request options used as "Cache-Key" is also as defined in {{Section 5.6 of RFC7252}}. In particular, these same rules apply to determine the set of request options used as "Cache-Key".
+CoAP endpoints that are members of a CoAP group MAY cache responses to a group request as defined in {{Section 5.6 of RFC7252}}. The set of request options used as "Cache-Key" is also as defined in {{Section 5.6 of RFC7252}}.
 
 Furthermore, building on what is defined in {{Section 8.2.1 of RFC7252}}:
 
