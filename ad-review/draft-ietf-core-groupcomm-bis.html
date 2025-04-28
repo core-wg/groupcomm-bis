@@ -1049,7 +1049,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Dijk &amp; Tiloca</td>
-<td class="center">Expires 28 October 2025</td>
+<td class="center">Expires 30 October 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7252" class="eref">7252</a>, <a href="https://www.rfc-editor.org/rfc/rfc7641" class="eref">7641</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-04-26" class="published">26 April 2025</time>
+<time datetime="2025-04-28" class="published">28 April 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-10-28">28 October 2025</time></dd>
+<dd class="expires"><time datetime="2025-10-30">30 October 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1126,7 +1126,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 28 October 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 30 October 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1659,7 +1659,7 @@ appear in all capitals, as shown here.<a href="#section-1.2-1" class="pilcrow">�
 <p id="section-2.1.3-3">There can be a many-to-many relationship between security groups and CoAP groups, but often it is one-to-one. Also, there can be a many-to-many relationship between security groups and application groups, but often it is one-to-one. Such relationships are discussed in more detail in <a href="#sec-groupdef-grouprelations" class="auto internal xref">Section 2.1.4</a>.<a href="#section-2.1.3-3" class="pilcrow">¶</a></p>
 <p id="section-2.1.3-4">Further details on identifying a security group are provided in <a href="#sec-groupnaming-sec" class="auto internal xref">Section 2.2.1.3</a>.<a href="#section-2.1.3-4" class="pilcrow">¶</a></p>
 <p id="section-2.1.3-5">If the NoSec mode is used (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section 4</a>), group communication does not rely on security at the transport layer nor at the CoAP layer, hence the communicating endpoints do not refer to a security group.<a href="#section-2.1.3-5" class="pilcrow">¶</a></p>
-<p id="section-2.1.3-6">When a security group uses the security protocol Group OSCORE <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="cite xref">I-D.ietf-core-oscore-groupcomm</a>]</span> to protect group communication (see Section 5), source authentication is achieved for messages exchanged within the group (see <a href="#chap-group-oscore" class="auto internal xref">Section 5.1</a> and <a href="#chap-security-considerations-sec-mode-sauth" class="auto internal xref">Section 6.2.2</a>). That is, even though the endpoints in the security group do share group security material, a recipient CoAP endpoint is able to verify that a message protected with Group OSCORE has actually been originated and sent by a specific and identified CoAP endpoint as a member of the security group.<a href="#section-2.1.3-6" class="pilcrow">¶</a></p>
+<p id="section-2.1.3-6">When a security group uses the security protocol Group OSCORE <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="cite xref">I-D.ietf-core-oscore-groupcomm</a>]</span> to protect group communication (see <a href="#chap-oscore" class="auto internal xref">Section 5</a> of this document), source authentication is achieved for messages exchanged within the group (see <a href="#chap-group-oscore" class="auto internal xref">Section 5.1</a> and <a href="#chap-security-considerations-sec-mode-sauth" class="auto internal xref">Section 6.2.2</a> of this document). That is, even though the endpoints in the security group do share group security material, a recipient CoAP endpoint is able to verify that a message protected with Group OSCORE has actually been originated and sent by a specific and identified CoAP endpoint as a member of the security group.<a href="#section-2.1.3-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-groupdef-grouprelations">
