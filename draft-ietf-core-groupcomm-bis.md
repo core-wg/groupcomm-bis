@@ -1255,13 +1255,11 @@ Operational phase use cases describe those operations that occur most frequently
 ### Actuator Group Control ###
 Group communication can be beneficial to control actuators that need to act in synchrony, as a cohesive collection, with strict timing (latency) requirements. Examples are office lighting, stage lighting, street lighting, or audio alert/Public Address systems.
 
-{{example-lighting-control}} and {{example-lighting-control-mld}} show examples of lighting control of a set of 6LoWPAN-connected lights.
+The following presents examples of lighting control of a set of 6LoWPAN-connected lights.
 
-#### Lighting Control # {#example-lighting-control}
+{{fig-light-switch-control-msg}} shows the protocol flow for a building automation lighting control scenario for the network considered in {{fig-topology-large-room}}. The network is assumed to be in a 6LoWPAN configuration. Also, it is assumed that the CoAP servers in each light are configured to suppress CoAP responses for any IP multicast CoAP requests related to lighting control. (See {{sec-request-response-suppress}} for more details on response suppression by a server.)
 
-The protocol flow for a building automation lighting control scenario for the network considered in {{fig-topology-large-room}} is shown in {{fig-light-switch-control-msg}}. The network is assumed to be in a 6LoWPAN configuration.  Also, it is assumed that the CoAP servers in each light are configured to suppress CoAP responses for any IP multicast CoAP requests related to lighting control. (See {{sec-request-response-suppress}} for more details on response suppression by a server.)
-
-In addition, {{fig-lights-response}} shows a protocol flow example for the case where servers do respond to a lighting control IP multicast request with (unicast) CoAP NON responses.  There are two success responses and one 5.00 error response. In this particular case, the light switch does not check that all lights in the group received the IP multicast request by examining the responses.  This is because the light switch is not configured with an exhaustive list of the IP addresses of all lights belonging to the group. However, based on received error responses, it could take additional action such as logging a fault or alerting the user via its LCD display. In case a CoAP message is delivered multiple times to a light, the subsequent CoAP messages can be filtered out as duplicates, based on the CoAP Message ID.
+In addition, {{fig-lights-response}} shows a protocol flow example for the case where servers do respond to a lighting control IP multicast request with (unicast) CoAP NON responses.  There are two success responses and one 5.00 error response. In this particular case, the light switch does not check that all lights in the group received the IP multicast request by examining the responses. This is because the light switch is not configured with an exhaustive list of the IP addresses of all lights belonging to the group. However, based on received error responses, it could take additional action such as logging a fault or alerting the user via its LCD display. In case a CoAP message is delivered multiple times to a light, the subsequent CoAP messages can be filtered out as duplicates, based on the CoAP Message ID.
 
 Reliability of IP multicast is not guaranteed. Therefore, one or more lights in the group may not have received the CoAP control request due to packet loss. In this use case, there is no detection nor correction of such situations: the application layer expects that the IP multicast forwarding/routing will be of sufficient quality to provide on average a very high probability of packet delivery to all CoAP endpoints in an IP multicast group. An example protocol to accomplish this using randomized retransmission is the MPL forwarding protocol for LLNs {{RFC7731}}.
 
@@ -1370,43 +1368,6 @@ Light-1   Light-2    Light-3     Rtr-1      Rtr-2  Backbone Client
  |          |          |           |          |          |        |
 ~~~~~~~~~~~
 {: #fig-light-switch-control-msg-2 title="Controller on Backbone Sends Multicast Control Message" artwork-align="center"}
-
-#### Lighting Control in MLD-Enabled Network # {#example-lighting-control-mld}
-
-The use case in {{example-lighting-control}} can also apply in networks where nodes support the MLDv2 protocol {{RFC9777}}. The lights then take on the role of MLDv2 listener, and the routers (Rtr-1 and Rtr-2) are MLDv2 routers. In the Ethernet-based network configuration, MLDv2 may be available on all involved network interfaces. Use of MLDv2 in the 6LoWPAN-based configuration is also possible but requires MLDv2 support in all nodes in the 6LoWPAN. In current 6LoWPAN implementations, MLDv2 is, however, not supported.
-
-The resulting protocol flow is shown in {{fig-joining-lighting-groups-mld}}. This flow is executed after the commissioning phase, as soon as lights are configured with a group address to listen to. The (unicast) MLD Reports may require periodic refresh activity as specified by the MLDv2 protocol. In the figure, 'LL' denotes link-local communication.
-
-After the shown sequence of MLD Report messages has been executed, both Rtr-1 and Rtr-2 are automatically configured to forward IP multicast traffic destined to Room-A-Lights onto their connected subnet. Hence, no manual network configuration of routers, as previously indicated in {{example-lighting-control}}, Step 2, is needed anymore.
-
-~~~~~~~~~~~ aasvg
-                                 Light                       Network
-Light-1   Light-2    Light-3     Switch    Rtr-1      Rtr-2  Backbone
- |          |          |          |          |          |          |
- |          |          |          |          |          |          |
- |          |          |          |          |          |          |
- | MLD Report: Join    |          |          |          |          |
- | Group (Room-A-Lights)          |          |          |          |
- |---LL------------------------------------->|          |          |
- |          |          |          |          |MLD Report: Join     |
- |          |          |          |          |Group (Room-A-Lights)|
- |          |          |          |          |---LL---->----LL---->|
- |          |          |          |          |          |          |
- |          | MLD Report: Join    |          |          |          |
- |          | Group (Room-A-Lights)          |          |          |
- |          |---LL------------------------------------->|          |
- |          |          |          |          |          |          |
- |          |          | MLD Report: Join    |          |          |
- |          |          | Group (Room-A-Lights)          |          |
- |          |          |---LL-------------------------->|          |
- |          |          |          |          |          |          |
- |          |          |          |          |MLD Report: Join     |
- |          |          |          |          |Group (Room-A-Lights)|
- |          |          |          |          |<--LL-----+---LL---->|
- |          |          |          |          |          |          |
- |          |          |          |          |          |          |
-~~~~~~~~~~~
-{: #fig-joining-lighting-groups-mld title="Joining Lighting Groups Using MLDv2" artwork-align="center"}
 
 ### Device Group Status Request ###
 To properly monitor the status of systems, there may be a need for ad-hoc, unplanned status updates. Group communication can be used to quickly send out a request to a (potentially large) number of devices for specific information. Each device then responds back with the requested data. Those devices that did not respond to the request can optionally be polled again via reliable unicast communication to complete the dataset. A set of devices may be defined as a CoAP group, e.g., as intended to cover "all temperature sensors on floor 3", or "all lights in wing B". For example, it could be a status request for device temperature, most recent sensor event detected, firmware version, network load, and/or battery level.
