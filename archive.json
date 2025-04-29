@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-30T01:43:15.970699+00:00",
+  "timestamp": "2025-04-29T01:41:40.635805+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -2533,6 +2533,174 @@
               "body": "ok for me, thanks!",
               "createdAt": "2025-02-24T09:27:36Z",
               "updatedAt": "2025-02-24T09:27:36Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 46,
+      "id": "PR_kwDODvYK3c6UHkC4",
+      "title": "AD review",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/46",
+      "state": "OPEN",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR addresses the AD review from Mike Bishop archived at https://mailarchive.ietf.org/arch/msg/core/3rX1951wPB2NLoJcs_gn3iVcMMs/",
+      "createdAt": "2025-04-28T07:40:08Z",
+      "updatedAt": "2025-04-28T20:56:17Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "a79a3222084d7e716bcd3a57a274914a1d50163c",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "ad-review",
+      "headRefOid": "a80308b849ab9f6e0cd16444f93cff01c7c6651d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> I added some change requests to consider.\r\n\r\nThanks; all should have been addressed.",
+          "createdAt": "2025-04-28T20:56:17Z",
+          "updatedAt": "2025-04-28T20:56:17Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDODvYK3c6m6y50",
+          "commit": {
+            "abbreviatedOid": "e068bc1"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-28T19:10:28Z",
+          "updatedAt": "2025-04-28T19:10:28Z",
+          "comments": [
+            {
+              "originalPosition": 93,
+              "body": "Is it Section 5 of this document, or of draft-oscore-groupcomm? That may not be clear after this Markdown is compiled.",
+              "createdAt": "2025-04-28T19:10:28Z",
+              "updatedAt": "2025-04-28T19:10:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6m66v3",
+          "commit": {
+            "abbreviatedOid": "e068bc1"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-28T19:21:32Z",
+          "updatedAt": "2025-04-28T19:21:33Z",
+          "comments": [
+            {
+              "originalPosition": 205,
+              "body": "This doesn't read right now. The last sentence \"In particular, ... Cache-Key.\" exactly repeats the meaning of the sentence before it.   It says effectively:\r\n\r\n \"Options used as X are defined in Y.  In particular, Y defines the options used as X.\"\r\n\r\nAlso not clear what \"these same rules\" really refers to, there are no prior rules mentioned.",
+              "createdAt": "2025-04-28T19:21:32Z",
+              "updatedAt": "2025-04-28T19:21:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6m7OqO",
+          "commit": {
+            "abbreviatedOid": "e068bc1"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-28T19:52:13Z",
+          "updatedAt": "2025-04-28T19:52:13Z",
+          "comments": [
+            {
+              "originalPosition": 591,
+              "body": "I see some issues with this example. It would be best to just remove it, I think:\r\n* as stated, 6LoWPAN nodes today typically don't implement MLDv2 so it would be confusing to have an example here where they do.\r\n   *  Today's 6lowpan nodes have other mechanisms to subscribe to multicast addresses. E.g. Thread has a custom mechanism; and RPL defined a method for it, and there is recent work also in 6lo that we don't want to interfere with.\r\n* MLDv2 is only defined to operate on a single link (LL). So it's use in a mesh network structure is questionable.\r\n* It's not correct protocol to use 2 layers of MLDv2 as shown here. Normally a host would use MLDv2 to talk to a router and the router would use PIM (or other equivalent) to talk to other routers.",
+              "createdAt": "2025-04-28T19:52:13Z",
+              "updatedAt": "2025-04-28T19:52:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6m7QYd",
+          "commit": {
+            "abbreviatedOid": "e068bc1"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Thanks a lot @marco-tiloca-sics for whipping this up!   I added some change requests to consider.",
+          "createdAt": "2025-04-28T19:53:51Z",
+          "updatedAt": "2025-04-28T19:53:51Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDODvYK3c6m7tOX",
+          "commit": {
+            "abbreviatedOid": "e068bc1"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-28T20:27:34Z",
+          "updatedAt": "2025-04-28T20:27:34Z",
+          "comments": [
+            {
+              "originalPosition": 93,
+              "body": "Indeed it's Section 5 of this document. https://github.com/core-wg/groupcomm-bis/commit/136b0f637b7dc48e296701ad7f556966857436ba  fixes that forward reference and two more in the same sentence.",
+              "createdAt": "2025-04-28T20:27:34Z",
+              "updatedAt": "2025-04-28T20:27:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6m75SJ",
+          "commit": {
+            "abbreviatedOid": "e068bc1"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-28T20:35:38Z",
+          "updatedAt": "2025-04-28T20:35:38Z",
+          "comments": [
+            {
+              "originalPosition": 205,
+              "body": "The last sentence \"In particular ...\" was wrongly forgotten there. It was initially intended to replace its previous version in the old text, but then the idea became to instead replace it altogether with the second sentence \"The set of request options ...\". Fixed in https://github.com/core-wg/groupcomm-bis/commit/3e16093ce63eb93b11e9833f1cc0bb30fc7383bc",
+              "createdAt": "2025-04-28T20:35:38Z",
+              "updatedAt": "2025-04-28T20:35:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6m8aoo",
+          "commit": {
+            "abbreviatedOid": "e068bc1"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-28T20:54:45Z",
+          "updatedAt": "2025-04-28T20:54:45Z",
+          "comments": [
+            {
+              "originalPosition": 591,
+              "body": "Agree! https://github.com/core-wg/groupcomm-bis/commit/a80308b849ab9f6e0cd16444f93cff01c7c6651d  has removed that appendix and made some early rephrasing to introduce the remaining text in a consistent way.",
+              "createdAt": "2025-04-28T20:54:45Z",
+              "updatedAt": "2025-04-28T20:54:45Z"
             }
           ]
         }
