@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-29T01:41:40.635805+00:00",
+  "timestamp": "2025-05-06T01:42:35.646848+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -2550,7 +2550,7 @@
       "labels": [],
       "body": "This PR addresses the AD review from Mike Bishop archived at https://mailarchive.ietf.org/arch/msg/core/3rX1951wPB2NLoJcs_gn3iVcMMs/",
       "createdAt": "2025-04-28T07:40:08Z",
-      "updatedAt": "2025-04-28T20:56:17Z",
+      "updatedAt": "2025-05-05T09:36:11Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "a79a3222084d7e716bcd3a57a274914a1d50163c",
@@ -2703,6 +2703,19 @@
               "updatedAt": "2025-04-28T20:54:45Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c6nvqkz",
+          "commit": {
+            "abbreviatedOid": "a80308b"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-05T09:36:11Z",
+          "updatedAt": "2025-05-05T09:36:11Z",
+          "comments": []
         }
       ]
     }
