@@ -81,7 +81,7 @@ informative:
   I-D.ietf-core-coap-pubsub:
   I-D.ietf-core-transport-indication:
   I-D.irtf-t2trg-amplification-attacks:
-  RFC1033:
+  RFC1035:
   RFC6092:
   RFC6550:
   RFC6636:
@@ -336,7 +336,7 @@ Some examples of hierarchical CoAP group FQDN naming (and scoping) for a buildin
 | all.bu036.floor1.west.bldg6.example | "all nodes in office bu036, floor 1, west wing, building 6" |
 {: #table-fqdn-naming title="Examples of Hierarchical Group FQDN Naming" align="center"}
 
-Similarly, if supported, reverse mapping (from IP multicast address to Group FQDN) is possible using the reverse DNS resolution technique {{RFC1033}}. Reverse mapping is important, for example, in troubleshooting to translate IP multicast addresses back to human-readable hostnames to show in a diagnostics user interface.
+Similarly, if supported, reverse mapping (from IP multicast address to Group FQDN) is possible using the reverse DNS resolution technique {{RFC1035}}. Reverse mapping is important, for example, in troubleshooting to translate IP multicast addresses back to human-readable hostnames to show in a diagnostics user interface.
 
 #### Application Groups ### {#sec-groupnaming-app}
 
