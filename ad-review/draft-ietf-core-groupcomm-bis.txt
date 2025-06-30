@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                           28 April 2025
-Expires: 30 October 2025
+Intended status: Standards Track                            30 June 2025
+Expires: 1 January 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 October 2025.
+   This Internet-Draft will expire on 1 January 2026.
 
 Copyright Notice
 
@@ -660,7 +660,7 @@ Table of Contents
 
    Similarly, if supported, reverse mapping (from IP multicast address
    to Group FQDN) is possible using the reverse DNS resolution technique
-   [RFC1033].  Reverse mapping is important, for example, in
+   [RFC1035].  Reverse mapping is important, for example, in
    troubleshooting to translate IP multicast addresses back to human-
    readable hostnames to show in a diagnostics user interface.
 
@@ -3074,9 +3074,9 @@ Table of Contents
               Mattsson, J. P., Selander, G., and C. Amsüss,
               "Amplification Attacks Using the Constrained Application
               Protocol (CoAP)", Work in Progress, Internet-Draft, draft-
-              irtf-t2trg-amplification-attacks-04, 8 December 2024,
+              irtf-t2trg-amplification-attacks-05, 18 June 2025,
               <https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-
-              amplification-attacks-04>.
+              amplification-attacks-05>.
 
    [I-D.tiloca-core-oscore-discovery]
               Tiloca, M., Amsüss, C., and P. Van der Stok, "Discovery of
@@ -3089,9 +3089,9 @@ Table of Contents
    [libcoap]  Bergmann, O., "libcoap", June 2022,
               <https://github.com/obgm/libcoap>.
 
-   [RFC1033]  Lottor, M., "Domain Administrators Operations Guide",
-              RFC 1033, DOI 10.17487/RFC1033, November 1987,
-              <https://www.rfc-editor.org/rfc/rfc1033>.
+   [RFC1035]  Mockapetris, P., "Domain names - implementation and
+              specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
+              November 1987, <https://www.rfc-editor.org/rfc/rfc1035>.
 
    [RFC6092]  Woodyatt, J., Ed., "Recommended Simple Security
               Capabilities in Customer Premises Equipment (CPE) for
