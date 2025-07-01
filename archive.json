@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-06T01:42:35.646848+00:00",
+  "timestamp": "2025-07-01T01:58:58.708721+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -2550,13 +2550,13 @@
       "labels": [],
       "body": "This PR addresses the AD review from Mike Bishop archived at https://mailarchive.ietf.org/arch/msg/core/3rX1951wPB2NLoJcs_gn3iVcMMs/",
       "createdAt": "2025-04-28T07:40:08Z",
-      "updatedAt": "2025-05-05T09:36:11Z",
+      "updatedAt": "2025-06-30T08:18:58Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "a79a3222084d7e716bcd3a57a274914a1d50163c",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "ad-review",
-      "headRefOid": "a80308b849ab9f6e0cd16444f93cff01c7c6651d",
+      "headRefOid": "fb432eae707f5ad46de82e8a869da16bc5e9e3b1",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
