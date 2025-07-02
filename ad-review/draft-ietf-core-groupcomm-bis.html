@@ -1045,11 +1045,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Group Communication for CoAP</td>
-<td class="right">June 2025</td>
+<td class="right">July 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Dijk &amp; Tiloca</td>
-<td class="center">Expires 1 January 2026</td>
+<td class="center">Expires 3 January 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7252" class="eref">7252</a>, <a href="https://www.rfc-editor.org/rfc/rfc7641" class="eref">7641</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-06-30" class="published">30 June 2025</time>
+<time datetime="2025-07-02" class="published">2 July 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-01-01">1 January 2026</time></dd>
+<dd class="expires"><time datetime="2026-01-03">3 January 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1126,7 +1126,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 1 January 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 3 January 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2519,7 +2519,7 @@ This requires the individually addressed servers to be reachable via a suitable 
           </h4>
 <p id="section-3.10.1-1">A CoAP node that is an IP host (i.e., not an IP router) may be unaware of the specific IP multicast routing/forwarding protocol
 being used in its network.  When such a node needs to join a specific (CoAP) multicast group, the application process would typically subscribe to the particular IP multicast group via an API method of the IP stack on the node. Then the IP stack would execute a particular (e.g., default) method to communicate its subscription to on-link IP (multicast) routers.<a href="#section-3.10.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.10.1-2">The Multicast Listener Discovery Version 2 (MLDv2) protocol <span>[<a href="#RFC9777" class="cite xref">RFC9777</a>]</span> is the standard IPv6 method to communicate multicast subscriptions, when other methods are not defined. The CoAP server nodes then act in the role of MLD Multicast Address Listener. MLDv2 uses link-local communication between Listeners and IP multicast routers. Constrained IPv6 networks such as ones implementing either RPL (see <a href="#sec-rpl" class="auto internal xref">Section 3.10.2</a>) or MPL (see <a href="#sec-mpl" class="auto internal xref">Section 3.10.3</a>) typically
+<p id="section-3.10.1-2">The Multicast Listener Discovery Version 2 (MLDv2) protocol <span>[<a href="#RFC9777" class="cite xref">RFC9777</a>]</span> is the standard IPv6 method to communicate multicast subscriptions, when other methods are not defined. The CoAP server nodes then act in the role of MLDv2 Multicast Address Listener. MLDv2 uses link-local communication between Listeners and IP multicast routers. Constrained IPv6 networks such as ones implementing either RPL (see <a href="#sec-rpl" class="auto internal xref">Section 3.10.2</a>) or MPL (see <a href="#sec-mpl" class="auto internal xref">Section 3.10.3</a>) typically
 do not support MLDv2 as they have their own mechanisms defined for subscribing to multicast groups.<a href="#section-3.10.1-2" class="pilcrow">¶</a></p>
 <p id="section-3.10.1-3">The Internet Group Management Protocol Version 3 (IGMPv3) protocol <span>[<a href="#RFC9776" class="cite xref">RFC9776</a>]</span> is the standard IPv4 method to signal subscriptions to multicast group. This <span class="bcp14">SHOULD</span> be used by members of a CoAP group to subscribe to its multicast IPv4 address on IPv4 networks unless another method is defined for the network interface/technology used.<a href="#section-3.10.1-3" class="pilcrow">¶</a></p>
 <p id="section-3.10.1-4">The guidelines from <span>[<a href="#RFC6636" class="cite xref">RFC6636</a>]</span> on the tuning of MLDv2 and IGMPv3 for mobile and wireless networks may be useful when implementing MLDv2 and IGMPv3 in constrained networks.<a href="#section-3.10.1-4" class="pilcrow">¶</a></p>
@@ -3184,7 +3184,7 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
               <p id="appendix-A.1.3-6.3.1">Light-2 and Light-3 are connected to another router (Rtr-2).<a href="#appendix-A.1.3-6.3.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="appendix-A.1.3-6.4">
-              <p id="appendix-A.1.3-6.4.1">The routers are connected to an IPv6 network backbone (Network Backbone) that is also multicast enabled.  In the general case, this means the network backbone and Rtr-1/Rtr-2 support a PIM-based multicast routing protocol and Multicast Listener Discovery (MLD) for forming groups.<a href="#appendix-A.1.3-6.4.1" class="pilcrow">¶</a></p>
+              <p id="appendix-A.1.3-6.4.1">The routers are connected to an IPv6 network backbone (Network Backbone) that is also multicast enabled.  In the general case, this means the network backbone and Rtr-1/Rtr-2 support a PIM-based multicast routing protocol and, e.g., Multicast Listener Discovery v2 (MLDv2) for forming groups.<a href="#appendix-A.1.3-6.4.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="appendix-A.1.3-6.5">
               <p id="appendix-A.1.3-6.5.1">A CoRE RD using CoAP (CoAP Resource Directory) is connected to the network backbone.<a href="#appendix-A.1.3-6.5.1" class="pilcrow">¶</a></p>

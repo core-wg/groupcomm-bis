@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                            30 June 2025
-Expires: 1 January 2026
+Intended status: Standards Track                             2 July 2025
+Expires: 3 January 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 January 2026.
+   This Internet-Draft will expire on 3 January 2026.
 
 Copyright Notice
 
@@ -2011,8 +2011,8 @@ Table of Contents
    The Multicast Listener Discovery Version 2 (MLDv2) protocol [RFC9777]
    is the standard IPv6 method to communicate multicast subscriptions,
    when other methods are not defined.  The CoAP server nodes then act
-   in the role of MLD Multicast Address Listener.  MLDv2 uses link-local
-   communication between Listeners and IP multicast routers.
+   in the role of MLDv2 Multicast Address Listener.  MLDv2 uses link-
+   local communication between Listeners and IP multicast routers.
    Constrained IPv6 networks such as ones implementing either RPL (see
    Section 3.10.2) or MPL (see Section 3.10.3) typically do not support
    MLDv2 as they have their own mechanisms defined for subscribing to
@@ -3273,8 +3273,8 @@ A.1.3.  Directory Discovery
    *  The routers are connected to an IPv6 network backbone (Network
       Backbone) that is also multicast enabled.  In the general case,
       this means the network backbone and Rtr-1/Rtr-2 support a PIM-
-      based multicast routing protocol and Multicast Listener Discovery
-      (MLD) for forming groups.
+      based multicast routing protocol and, e.g., Multicast Listener
+      Discovery v2 (MLDv2) for forming groups.
 
    *  A CoRE RD using CoAP (CoAP Resource Directory) is connected to the
       network backbone.
