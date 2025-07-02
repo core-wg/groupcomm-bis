@@ -805,7 +805,7 @@ CoAP group communication may be used over transports other than UDP/IP multicast
 A CoAP node that is an IP host (i.e., not an IP router) may be unaware of the specific IP multicast routing/forwarding protocol
 being used in its network.  When such a node needs to join a specific (CoAP) multicast group, the application process would typically subscribe to the particular IP multicast group via an API method of the IP stack on the node. Then the IP stack would execute a particular (e.g., default) method to communicate its subscription to on-link IP (multicast) routers.
 
-The Multicast Listener Discovery Version 2 (MLDv2) protocol {{RFC9777}} is the standard IPv6 method to communicate multicast subscriptions, when other methods are not defined. The CoAP server nodes then act in the role of MLD Multicast Address Listener. MLDv2 uses link-local communication between Listeners and IP multicast routers. Constrained IPv6 networks such as ones implementing either RPL (see {{sec-rpl}}) or MPL (see {{sec-mpl}}) typically
+The Multicast Listener Discovery Version 2 (MLDv2) protocol {{RFC9777}} is the standard IPv6 method to communicate multicast subscriptions, when other methods are not defined. The CoAP server nodes then act in the role of MLDv2 Multicast Address Listener. MLDv2 uses link-local communication between Listeners and IP multicast routers. Constrained IPv6 networks such as ones implementing either RPL (see {{sec-rpl}}) or MPL (see {{sec-mpl}}) typically
 do not support MLDv2 as they have their own mechanisms defined for subscribing to multicast groups.
 
 The Internet Group Management Protocol Version 3 (IGMPv3) protocol {{RFC9776}} is the standard IPv4 method to signal subscriptions to multicast group. This SHOULD be used by members of a CoAP group to subscribe to its multicast IPv4 address on IPv4 networks unless another method is defined for the network interface/technology used.
@@ -1153,7 +1153,7 @@ Both configurations are further specified by the following:
 
 * Light-2 and Light-3 are connected to another router (Rtr-2).
 
-* The routers are connected to an IPv6 network backbone (Network Backbone) that is also multicast enabled.  In the general case, this means the network backbone and Rtr-1/Rtr-2 support a PIM-based multicast routing protocol and Multicast Listener Discovery (MLD) for forming groups.
+* The routers are connected to an IPv6 network backbone (Network Backbone) that is also multicast enabled.  In the general case, this means the network backbone and Rtr-1/Rtr-2 support a PIM-based multicast routing protocol and, e.g., Multicast Listener Discovery v2 (MLDv2) for forming groups.
 
 * A CoRE RD using CoAP (CoAP Resource Directory) is connected to the network backbone.
 
