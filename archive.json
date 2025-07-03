@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-01T01:58:58.708721+00:00",
+  "timestamp": "2025-07-03T01:48:23.037355+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -2550,13 +2550,13 @@
       "labels": [],
       "body": "This PR addresses the AD review from Mike Bishop archived at https://mailarchive.ietf.org/arch/msg/core/3rX1951wPB2NLoJcs_gn3iVcMMs/",
       "createdAt": "2025-04-28T07:40:08Z",
-      "updatedAt": "2025-06-30T08:18:58Z",
+      "updatedAt": "2025-07-02T12:16:15Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "a79a3222084d7e716bcd3a57a274914a1d50163c",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "ad-review",
-      "headRefOid": "fb432eae707f5ad46de82e8a869da16bc5e9e3b1",
+      "headRefOid": "62e2b083fa91ce0cd97dc77ef487f9c3dad204c4",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -2568,6 +2568,20 @@
           "body": "> I added some change requests to consider.\r\n\r\nThanks; all should have been addressed.",
           "createdAt": "2025-04-28T20:56:17Z",
           "updatedAt": "2025-04-28T20:56:17Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@cabo Thanks for reviewing again. The remaining uses of \"MLD\" without 'v2' that we could adapt are in line 808 and 1156. Would be ok for me to change this to MLDv2.",
+          "createdAt": "2025-07-02T11:43:28Z",
+          "updatedAt": "2025-07-02T11:43:28Z"
+        },
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Right.\r\n\r\nFor the instance in line 808, that would also be aligned with the use in Section 6.3 of RFC 9777\r\n\r\nOLD (Section 3.10.1)\r\n> The CoAP server nodes then act in the role of MLD Multicast Address Listener.\r\n\r\nNEW (Section 3.10.1)\r\n> The CoAP server nodes then act in the role of MLDv2 Multicast Address Listener.\r\n\r\n\r\nFor the instance in line 1156, @cabo  also suggested the following:\r\n\r\nOLD (Appendix A.1.3)\r\n> and Multicast Listener Discovery (MLD) for forming groups.\r\n\r\nNEW (Appendix A.1.3)\r\n> and, e.g., Multicast Listener Discovery v2 (MLDv2) for forming groups.",
+          "createdAt": "2025-07-02T12:13:32Z",
+          "updatedAt": "2025-07-02T12:13:32Z"
         }
       ],
       "reviews": [
@@ -2715,6 +2729,19 @@
           "body": "",
           "createdAt": "2025-05-05T09:36:11Z",
           "updatedAt": "2025-05-05T09:36:11Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDODvYK3c6xitQ-",
+          "commit": {
+            "abbreviatedOid": "fb432ea"
+          },
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "This looks good.\r\n\r\nNit: Maybe use MLDv2 everywhere (except citation, of course) instead of defining a non-descript MLD as well.",
+          "createdAt": "2025-07-02T10:46:40Z",
+          "updatedAt": "2025-07-02T10:46:40Z",
           "comments": []
         }
       ]
