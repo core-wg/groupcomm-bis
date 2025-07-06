@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-03T01:48:23.037355+00:00",
+  "timestamp": "2025-07-06T01:56:09.103979+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -2543,24 +2543,26 @@
       "id": "PR_kwDODvYK3c6UHkC4",
       "title": "AD review",
       "url": "https://github.com/core-wg/groupcomm-bis/pull/46",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "marco-tiloca-sics",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR addresses the AD review from Mike Bishop archived at https://mailarchive.ietf.org/arch/msg/core/3rX1951wPB2NLoJcs_gn3iVcMMs/",
       "createdAt": "2025-04-28T07:40:08Z",
-      "updatedAt": "2025-07-02T12:16:15Z",
+      "updatedAt": "2025-07-03T06:37:19Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "a79a3222084d7e716bcd3a57a274914a1d50163c",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "ad-review",
       "headRefOid": "62e2b083fa91ce0cd97dc77ef487f9c3dad204c4",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-07-03T06:37:19Z",
+      "mergedAt": "2025-07-03T06:37:19Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "a7dcd7cec22dbd584fc0f31c753f801a531de43c"
+      },
       "comments": [
         {
           "author": "marco-tiloca-sics",
