@@ -1484,7 +1484,7 @@ So, effectively, the application group name is transported in the UDP message as
 ~~~~~~~~~~~
 {: #fig-gname-auth-example title="Example of application group name defined by the URI authority"}
 
-{{fig-gname-host-example}} provides an example where the URI host subcomponent of the URI authority component is used for encoding the name of the application group. Specifically, the first label of the registered name is used.
+{{fig-gname-host-example}} provides an example where the URI host subcomponent of the URI authority component is used for encoding the name of the application group. Specifically, the leftmost label of the registered name is used.
 
 ~~~~~~~~~~~
 
