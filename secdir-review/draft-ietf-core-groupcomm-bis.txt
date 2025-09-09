@@ -2400,10 +2400,10 @@ Table of Contents
    are accepted, can be limited as well.  Furthermore, the scope is also
    limited: only link-local requests are accepted.
 
-   Except for the class of applications discussed above, and all the
-   more so in applications that obviously have hard security
-   requirements (e.g., health monitoring systems and alarm monitoring
-   systems), CoAP group communication MUST NOT be used in NoSec mode.
+   Except for the class of applications discussed above (in which
+   unsecured communication is required or is not harmful for specific,
+   well-defined "unsecured steps"), CoAP group communication MUST NOT be
+   used in NoSec mode.
 
 6.2.  Group OSCORE
 
