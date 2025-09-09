@@ -922,7 +922,8 @@ Table of Contents
    resource links.
 
    The following discusses a number of methods to discover application
-   groups and CoAP groups, building on the following assumptions.
+   groups and CoAP groups.  When discussing the different methods, the
+   two assumptions below hold:
 
    *  Application group names are encoded in the path component of Group
       URIs (see Section 2.2.1.2).  In examples in this document, the
