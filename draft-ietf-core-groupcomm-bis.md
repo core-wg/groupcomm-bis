@@ -907,7 +907,7 @@ As part of group maintenance operations (see {{sec-group-maintenance}}), additio
 
    Also, this ensures that the members intended to remain in the OSCORE group are able to confidently verify the group membership of other sender nodes, when receiving protected messages in the OSCORE group after the distribution and installation of the new security material (see {{Section 12.2 of I-D.ietf-core-oscore-groupcomm}}).
 
-The key management operations mentioned above are entrusted to the Group Manager responsible for the OSCORE group {{I-D.ietf-core-oscore-groupcomm}}, and it is RECOMMENDED to perform them as defined in {{I-D.ietf-ace-key-groupcomm-oscore}}.
+The key management operations mentioned above are entrusted to the Group Manager responsible for the OSCORE group {{I-D.ietf-core-oscore-groupcomm}}. For example, they can be performed as defined in {{I-D.ietf-ace-key-groupcomm-oscore}}.
 
 ## Proxy Security # {#chap-proxy-security}
 
