@@ -3761,8 +3761,8 @@ B.3.  Group Naming using the URI Authority Component
 
    Figure 13 provides an example where the URI host subcomponent of the
    URI authority component is used for encoding the name of the
-   application group.  Specifically, the first label of the registered
-   name is used.
+   application group.  Specifically, the leftmost label of the
+   registered name is used.
 
       Application group name: grp42
 
