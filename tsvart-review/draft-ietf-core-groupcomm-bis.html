@@ -1543,7 +1543,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-scope" class="section-name selfRef">Scope</a>
         </h3>
 <p id="section-1.1-1">For group communication, only those solutions that use CoAP messages over a "one-to-many" (i.e., non-unicast) transport protocol are in the scope of this document. There are alternative methods to achieve group communication using CoAP, using unicast only. One example is Publish-Subscribe <span>[<a href="#I-D.ietf-core-coap-pubsub" class="cite xref">I-D.ietf-core-coap-pubsub</a>]</span> which uses a central broker server that CoAP clients access via unicast communication. These alternative methods may be usable for the same or similar use cases as the ones targeted in this document.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
-<p id="section-1.1-2">This document defines UDP/IP multicast as the default transport protocol for CoAP group requests, as in <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>. Other transport protocols (which may include broadcast, non-IP multicast, geocast, etc.) are not described in detail and are not considered. Although UDP/IP multicast transport is assumed in most of the text in this document, we expect many of the considerations for UDP/IP multicast can be re-used for alternative transport protocols.<a href="#section-1.1-2" class="pilcrow">¶</a></p>
+<p id="section-1.1-2">This document defines UDP/IP multicast as the default transport protocol for CoAP group requests, as in <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>. Only the Any Source Multicast (ASM) mode <span>[<a href="#RFC5110" class="cite xref">RFC5110</a>]</span> of IP multicast operation is in scope. Other transport protocols (which may include broadcast, non-IP multicast, geocast, etc.) are not described in detail and are not considered. Although UDP/IP multicast transport is assumed in most of the text in this document, we expect many of the considerations for UDP/IP multicast can be re-used for alternative transport protocols.<a href="#section-1.1-2" class="pilcrow">¶</a></p>
 <p id="section-1.1-3">Furthermore, this document defines Group OSCORE <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="cite xref">I-D.ietf-core-oscore-groupcomm</a>]</span> as the default group communication security solution for CoAP. Security solutions for group communication and configuration other than Group OSCORE are not considered. General principles for secure group configuration are in scope.<a href="#section-1.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2927,6 +2927,10 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
 <dt id="RFC4944">[RFC4944]</dt>
         <dd>
 <span class="refAuthor">Montenegro, G.</span>, <span class="refAuthor">Kushalnagar, N.</span>, <span class="refAuthor">Hui, J.</span>, and <span class="refAuthor">D. Culler</span>, <span class="refTitle">"Transmission of IPv6 Packets over IEEE 802.15.4 Networks"</span>, <span class="seriesInfo">RFC 4944</span>, <span class="seriesInfo">DOI 10.17487/RFC4944</span>, <time datetime="2007-09" class="refDate">September 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4944">https://www.rfc-editor.org/rfc/rfc4944</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5110">[RFC5110]</dt>
+        <dd>
+<span class="refAuthor">Savola, P.</span>, <span class="refTitle">"Overview of the Internet Multicast Routing Architecture"</span>, <span class="seriesInfo">RFC 5110</span>, <span class="seriesInfo">DOI 10.17487/RFC5110</span>, <time datetime="2008-01" class="refDate">January 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5110">https://www.rfc-editor.org/rfc/rfc5110</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6282">[RFC6282]</dt>
         <dd>
