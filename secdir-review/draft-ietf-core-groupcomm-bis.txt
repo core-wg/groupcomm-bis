@@ -2304,7 +2304,7 @@ Table of Contents
    listed.
 
    For a client performing a group communication request via a forward-
-   proxy, end-to-end security should be implemented.  The client then
+   proxy, end-to-end security SHOULD be implemented.  The client then
    creates a group request protected with Group OSCORE and unicasts this
    to the proxy.  The proxy adapts the request from a forward-proxy
    request to a regular request and multicasts this adapted request to
