@@ -660,10 +660,12 @@ Table of Contents
            Table 1: Examples of Hierarchical Group FQDN Naming
 
    Similarly, if supported, reverse mapping (from IP multicast address
-   to Group FQDN) is also possible, e.g., by using the reverse DNS
-   resolution technique [RFC1035].  Reverse mapping is important, for
-   example, in troubleshooting to translate IP multicast addresses back
-   to human-readable hostnames to show in a diagnostics user interface.
+   to Group FQDN) is also possible.  For example, when using an IPv6
+   multicast address, the reverse mapping can rely on DNS and the
+   IP6.ARPA domain (see Section 2.5 of [RFC3596]).  Reverse mapping is
+   important, for example, in troubleshooting to translate IP multicast
+   addresses back to human-readable hostnames to show in a diagnostics
+   user interface.
 
 2.2.1.2.  Application Groups
 
@@ -3090,9 +3092,10 @@ Table of Contents
    [libcoap]  Bergmann, O., "libcoap", June 2022,
               <https://github.com/obgm/libcoap>.
 
-   [RFC1035]  Mockapetris, P., "Domain names - implementation and
-              specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
-              November 1987, <https://www.rfc-editor.org/rfc/rfc1035>.
+   [RFC3596]  Thomson, S., Huitema, C., Ksinant, V., and M. Souissi,
+              "DNS Extensions to Support IP Version 6", STD 88,
+              RFC 3596, DOI 10.17487/RFC3596, October 2003,
+              <https://www.rfc-editor.org/rfc/rfc3596>.
 
    [RFC6092]  Woodyatt, J., Ed., "Recommended Simple Security
               Capabilities in Customer Premises Equipment (CPE) for
