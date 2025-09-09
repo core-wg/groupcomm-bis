@@ -1071,7 +1071,7 @@ For these reasons, a large IPv6 multicast packet is a possible attack vector in 
 
 ## Wi-Fi ##
 In a home automation scenario using Wi-Fi, Wi-Fi security
-   should be enabled to prevent rogue nodes from joining.  The Customer
+   SHOULD be enabled to prevent rogue nodes from joining.  The Customer
    Premises Equipment (CPE) that enables access to the Internet should
    also have its IP multicast filters set so that it enforces multicast
    scope boundaries to isolate local multicast groups from the rest of
