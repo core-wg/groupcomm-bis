@@ -2292,8 +2292,8 @@ Table of Contents
 
    The key management operations mentioned above are entrusted to the
    Group Manager responsible for the OSCORE group
-   [I-D.ietf-core-oscore-groupcomm], and it is RECOMMENDED to perform
-   them as defined in [I-D.ietf-ace-key-groupcomm-oscore].
+   [I-D.ietf-core-oscore-groupcomm].  For example, they can be performed
+   as defined in [I-D.ietf-ace-key-groupcomm-oscore].
 
 5.3.  Proxy Security
 
