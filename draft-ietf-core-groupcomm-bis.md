@@ -325,7 +325,7 @@ Also note that, when using the "coap" scheme, the two authority components \<HOS
 * group1.alias.example:5683
 * \[ff15::1234\]:5683
 
-When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal, instead of a group hostname. This is because an infrastructure providing a name resolution service, such as DNS) may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via a name resolution service. For example, this can rely on the DNS resolution process, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.
+When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal, instead of a group hostname. This is because an infrastructure providing a name resolution service, such as DNS, may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via a name resolution service. For example, this can rely on the DNS resolution process, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.
 
 Some examples of hierarchical CoAP group FQDN naming (and scoping) for a building control application are shown below.
 
@@ -1484,7 +1484,7 @@ So, effectively, the application group name is transported in the UDP message as
 ~~~~~~~~~~~
 {: #fig-gname-auth-example title="Example of application group name defined by the URI authority"}
 
-{{fig-gname-host-example}} provides an example where the URI host subcomponent of the URI authority component is used for encoding the name of the application group. Specifically, the first label of the **registered** name is used.
+{{fig-gname-host-example}} provides an example where the URI host subcomponent of the URI authority component is used for encoding the name of the application group. Specifically, the first label of the registered name is used.
 
 ~~~~~~~~~~~
 
