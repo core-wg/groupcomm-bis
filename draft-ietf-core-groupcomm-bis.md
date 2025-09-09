@@ -943,7 +943,7 @@ As a further example, the NoSec mode may be useful and acceptable in simple read
 
 In the exception cases where NoSec mode is used, high-volume and harmful amplifications need to be prevented through appropriate and conservative device configurations: taking the early discovery query as an example, only a few CoAP servers are expected to be configured for responding to multicast group requests that are sent for discovery. And the time window during which such unsecured requests are accepted, can be limited as well. Furthermore, the scope is also limited: only link-local requests are accepted.
 
-Except for the class of applications discussed above, and all the more so in applications that obviously have hard security requirements (e.g., health monitoring systems and alarm monitoring systems), CoAP group communication MUST NOT be used in NoSec mode.
+Except for the class of applications discussed above (in which unsecured communication is required or is not harmful for specific, well-defined "unsecured steps"), CoAP group communication MUST NOT be used in NoSec mode.
 
 ## Group OSCORE ## {#chap-security-considerations-sec-mode}
 
