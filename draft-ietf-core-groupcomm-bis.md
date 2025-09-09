@@ -434,7 +434,7 @@ As discussed below, such a GET request may be sent to the IP multicast address o
 
 These particular details concerning the GET request depend on the specific discovery action intended by the client and on application-specific means used to encode names of application groups and CoAP groups, e.g., in group URIs and/or CoRE target attributes used with resource links.
 
-The following discusses a number of methods to discover application groups and CoAP groups, building on the following assumptions.
+The following discusses a number of methods to discover application groups and CoAP groups. When discussing the different methods, the two assumptions below hold:
 
 * Application group names are encoded in the path component of Group URIs (see {{sec-groupnaming-app}}). In examples in this document, the path segment "gp" is used as designated delimiter.
 
