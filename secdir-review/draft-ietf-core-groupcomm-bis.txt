@@ -2138,7 +2138,7 @@ Table of Contents
    circumstances, the security implications in Section 6.1 must be very
    well considered and understood, especially as to the risk and impact
    of amplification attacks (see Section 6.3).  Consistent with such
-   security implications, the use of the NoSec mode should still be
+   security implications, the use of the NoSec mode SHOULD still be
    avoided whenever possible.
 
 5.  Secured Group Communication using Group OSCORE
