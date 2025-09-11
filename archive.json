@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-06T01:56:09.103979+00:00",
+  "timestamp": "2025-09-11T01:37:08.289052+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -2747,6 +2747,58 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 47,
+      "id": "PR_kwDODvYK3c6niXot",
+      "title": "SECDIR review",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/47",
+      "state": "OPEN",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR addresses the SECDIR review from Sean Turner archived at https://mailarchive.ietf.org/arch/msg/core/7kr9PgRrFcKdiBGn0maKN_jilKY/",
+      "createdAt": "2025-09-09T07:39:40Z",
+      "updatedAt": "2025-09-09T07:39:58Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "a7dcd7cec22dbd584fc0f31c753f801a531de43c",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "secdir-review",
+      "headRefOid": "4e91176d22f885b31544611b6cbf6c27fd9f9e36",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 48,
+      "id": "PR_kwDODvYK3c6ni8s2",
+      "title": "DNSDIR review",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/48",
+      "state": "OPEN",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR addresses the DNSDIR review from Petr \u0160pa\u010dek archived at https://mailarchive.ietf.org/arch/msg/core/4wW96soPecXOhTToMZWFSZHeK_A/",
+      "createdAt": "2025-09-09T08:26:38Z",
+      "updatedAt": "2025-09-09T08:26:43Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "a7dcd7cec22dbd584fc0f31c753f801a531de43c",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "dnsdir-review",
+      "headRefOid": "8bef2ee697196f2fde497497fce65248833752b9",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
