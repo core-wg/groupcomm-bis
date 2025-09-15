@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                        9 September 2025
-Expires: 13 March 2026
+Intended status: Standards Track                       15 September 2025
+Expires: 19 March 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 March 2026.
+   This Internet-Draft will expire on 19 March 2026.
 
 Copyright Notice
 
@@ -2658,10 +2658,15 @@ Table of Contents
    responses from each of the responding servers, throughout the
    observation lifetime.
 
-   Thus, consistent with Section 7 of [RFC7641], a server in a CoAP
-   group MUST strictly limit the number of notifications it sends
-   between receiving acknowledgements that confirm the actual interest
-   of the client in continuing the observation.
+   When CoAP group communication is combined with resource observation
+   [RFC7641], a server in a CoAP group MUST strictly limit the number of
+   notifications it sends between receiving acknowledgements that
+   confirm the actual interest of the client in continuing the
+   observation (see Section 7 of [RFC7641]).  That is, any notifications
+   sent in non-confirmable messages MUST be interspersed with
+   confirmable messages.  Note that an attacker may still spoof the
+   acknowledgements if the confirmable messages are sufficiently
+   predictable.
 
    Moreover, it is especially easy to perform an amplification attack
    when the NoSec mode is used.  Therefore, also in order to prevent an
@@ -2896,9 +2901,9 @@ Table of Contents
               Tiloca, M., Selander, G., Palombini, F., Mattsson, J. P.,
               and R. Höglund, "Group Object Security for Constrained
               RESTful Environments (Group OSCORE)", Work in Progress,
-              Internet-Draft, draft-ietf-core-oscore-groupcomm-26, 5
-              July 2025, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-core-oscore-groupcomm-26>.
+              Internet-Draft, draft-ietf-core-oscore-groupcomm-27, 12
+              September 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-core-oscore-groupcomm-27>.
 
    [Resource.Type.Link.Target.Attribute.Values]
               IANA, "Resource Type (rt=) Link Target Attribute Values",
