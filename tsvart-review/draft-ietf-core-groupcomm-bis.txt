@@ -1745,7 +1745,7 @@ Table of Contents
    suitable for the specific use case.  The equation from that section
    for computing a rough lower bound for Leisure is:
 
-   lb_Leisure = S * G / R
+       lb_Leisure = S * G / R
 
    for a group size estimate G, a target data transfer rate R (which
    both should be chosen conservatively), and an estimated response size
@@ -1755,8 +1755,7 @@ Table of Contents
    the Leisure is not computed or configured, the default value
    DEFAULT_LEISURE MAY be used.  In [RFC7252], the default is calculated
    based on a baseline IEEE 802.15.4 6LoWPAN network situation with
-   G=50, S=100 and R=1000 although this is not explicitly written down
-   in [RFC7252].
+   G=50, S=100 and R=1000, although this is not explicitly written down.
 
    This document updates the calculation for DEFAULT_LEISURE by
    modifying the estimated response size (S) parameter to account for
@@ -1765,7 +1764,8 @@ Table of Contents
    mode, an additional 100 bytes of security overhead is typically
    expected, so that S becomes 200.  In pairwise mode, an additional 30
    bytes of overhead is expected, so that S becomes 130.  Using these
-   new values for S in the calculation yields:
+   new values for S in the calculation yields the following new default
+   parameter values:
 
    *  DEFAULT_LEISURE = 20 seconds, if the OSCORE group is set to (also)
       use the group mode.
