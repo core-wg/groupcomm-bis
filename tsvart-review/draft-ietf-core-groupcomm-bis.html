@@ -1049,7 +1049,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Dijk &amp; Tiloca</td>
-<td class="center">Expires 19 March 2026</td>
+<td class="center">Expires 21 March 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7252" class="eref">7252</a>, <a href="https://www.rfc-editor.org/rfc/rfc7641" class="eref">7641</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-09-15" class="published">15 September 2025</time>
+<time datetime="2025-09-17" class="published">17 September 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-03-19">19 March 2026</time></dd>
+<dd class="expires"><time datetime="2026-03-21">21 March 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1126,7 +1126,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 19 March 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 21 March 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1267,6 +1267,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.6">
                 <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-congestion-control" class="internal xref">Congestion Control</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.6.2.1">
+                    <p id="section-toc.1-1.3.2.6.2.1.1"><a href="#section-3.6.1" class="auto internal xref">3.6.1</a>.  <a href="#name-default-leisure-updates" class="internal xref">Default Leisure Updates</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.7">
                 <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="auto internal xref">3.7</a>.  <a href="#name-observing-resources" class="internal xref">Observing Resources</a></p>
@@ -2151,8 +2156,11 @@ Full examples are provided in <a href="#sec-examples-group-discovery-4" class="a
 <a href="#section-3.1.3" class="section-number selfRef">3.1.3. </a><a href="#name-repeating-a-request" class="section-name selfRef">Repeating a Request</a>
           </h4>
 <p id="section-3.1.3-1">Group requests sent over IP multicast generally have much higher loss rates than messages sent over unicast, particularly in constrained networks. Therefore, it is more urgent to have a strategy in place for handling the loss of group requests than the loss of unicast responses. To this end, CoAP clients can rely on the following two approaches.<a href="#section-3.1.3-1" class="pilcrow">¶</a></p>
-<p id="section-3.1.3-2">A CoAP client <span class="bcp14">MAY</span> repeat a group request using the same Token value and same Message ID value, in order to ensure that enough (or all) members of the CoAP group have been reached with the request. This is useful in case a number of members of the CoAP group did not respond to the initial request and the client suspects that the request did not reach these group members. However, in case one or more servers did receive the initial request but the response to that request was lost, this repeat does not help to retrieve the lost response(s) if the server(s) implement the optional Message ID based deduplication (<span><a href="https://rfc-editor.org/rfc/rfc7252#section-4.5" class="relref">Section 4.5</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>).<a href="#section-3.1.3-2" class="pilcrow">¶</a></p>
-<p id="section-3.1.3-3">A CoAP client <span class="bcp14">MAY</span> repeat a group request using a different Message ID (and the same or a different Token value), in which case all servers that received the initial request will again process the repeated request since it appears within a new CoAP message. This is useful in case a client suspects that one or more response(s) to its original request were lost and the client needs to collect more, or even all, responses from members of the CoAP group, even if this comes at the cost of the overhead of certain group members responding twice (once to the original request, and once to the repeated request with different Message ID).<a href="#section-3.1.3-3" class="pilcrow">¶</a></p>
+<p id="section-3.1.3-2">The first approach is the default, used in case there is no explicit preference of the implementer. It is supported already by all CoAP stacks. The application in this case implements a custom retransmission logic that <span class="bcp14">MAY</span> trigger a new API request for transmission (of a CoAP request) to the CoAP stack, if less responses than expected were received.
+The CoAP client then sends this group request using a different Message ID (and the same or a different Token value), in which case all servers that received the initial request will again process the repeated request since it appears within a new CoAP message with a new Message ID. This is useful in case a client suspects that one or more response(s) to its original request were lost and the client needs to collect more, or even all, responses from members of the CoAP group, even if this comes at the cost of the overhead of certain group members responding twice (once to the original request, and once to the repeated request with different Message ID).<a href="#section-3.1.3-2" class="pilcrow">¶</a></p>
+<p id="section-3.1.3-3">The second approach that <span class="bcp14">MAY</span> be implemented requires specific support in the CoAP stack. The application layer in this case also implements a custom retransmission logic that <span class="bcp14">MAY</span> trigger a new API request to the stack if less responses than expected were received.
+If this specific API request is made, the CoAP client repeats a group request using the same Token value and same Message ID value. This ensures that enough (or all) members of the CoAP group have been reached with the request. This is useful in case a number of members of the CoAP group did not respond to the initial request and the client/application suspects that the request did not reach these group members. However, in case one or more servers did receive the initial request but the response to that request was lost, this repeat does not help to retrieve the lost response(s) if the server(s) implement the optional Message ID based deduplication (<span><a href="https://rfc-editor.org/rfc/rfc7252#section-4.5" class="relref">Section 4.5</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>).<a href="#section-3.1.3-3" class="pilcrow">¶</a></p>
+<p id="section-3.1.3-4">In summary, even though the CoAP message is Non-confirmable, the CoAP stack now provides a mechanism to retransmit the CoAP message, which is normally never done for Non-confirmable messages.<a href="#section-3.1.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="requestresponse-matching-and-distinguishing-responses">
@@ -2372,31 +2380,61 @@ As a consequence, for each server, the client receives responses originated by t
             <p id="section-3.6-3.3.1">An IP multicast request <span class="bcp14">MUST</span> be Non-confirmable (<span><a href="https://rfc-editor.org/rfc/rfc7252#section-8.1" class="relref">Section 8.1</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>).<a href="#section-3.6-3.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.6-3.4">
-            <p id="section-3.6-3.4.1">The same rationale for enforcing congestion control based on the transmission parameter PROBING_RATE defined in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-4.7" class="relref">Section 4.7</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> holds for CoAP group communication. In particular, group requests are the Non-confirmable requests in question, and an average data rate PROBING_RATE is not to be exceeded by a client that does not receive a response from any server in the targeted CoAP group.<a href="#section-3.6-3.4.1" class="pilcrow">¶</a></p>
+            <p id="section-3.6-3.4.1">A response to an IP multicast request <span class="bcp14">SHOULD</span> be Non-confirmable (<span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.2.3" class="relref">Section 5.2.3</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>).<a href="#section-3.6-3.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.6-3.5">
-            <p id="section-3.6-3.5.1">A response to an IP multicast request <span class="bcp14">SHOULD</span> be Non-confirmable (<span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.2.3" class="relref">Section 5.2.3</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>).<a href="#section-3.6-3.5.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-3.6-3.6">
-            <p id="section-3.6-3.6.1">A server does not respond immediately to an IP multicast request and should first wait for a time that is randomly picked within a predetermined time interval called the Leisure (<span><a href="https://rfc-editor.org/rfc/rfc7252#section-8.2" class="relref">Section 8.2</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>).<a href="#section-3.6-3.6.1" class="pilcrow">¶</a></p>
+            <p id="section-3.6-3.5.1">A server does not respond immediately to an IP multicast request and should first wait for a time that is randomly picked within a predetermined time interval called the Leisure (<span><a href="https://rfc-editor.org/rfc/rfc7252#section-8.2" class="relref">Section 8.2</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>). The transmission parameter DEFAULT_LEISURE may be used to define a Leisure interval when it cannot be computed otherwise.<a href="#section-3.6-3.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-3.6-4">This document also defines these measures to be applicable to alternative transports (other than IP multicast), if not defined otherwise.<a href="#section-3.6-4" class="pilcrow">¶</a></p>
-<p id="section-3.6-5">Independently of the transport used, additional guidelines to reduce congestion risks defined in this document are as follows:<a href="#section-3.6-5" class="pilcrow">¶</a></p>
+<p id="section-3.6-4">This document also defines these measures to be applicable to alternative transports (other than IP multicast), if not defined otherwise. Updates related to Leisure are done in <a href="#sec-leisure" class="auto internal xref">Section 3.6.1</a>.<a href="#section-3.6-4" class="pilcrow">¶</a></p>
+<p id="section-3.6-5">CoAP also defines non-multicast-specific congestion control measures that also apply to the IP multicast case:<a href="#section-3.6-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.6-6.1">
-            <p id="section-3.6-6.1.1">A server in a constrained network <span class="bcp14">SHOULD</span> only support group requests for resources that have a small representation (where the representation may be retrieved via a GET, FETCH, or POST method in the request). For example, "small" can be defined as a response payload limited to approximately 5% of the IP Maximum Transmit Unit (MTU) size, so that it fits into a single link-layer frame in case IPv6 over Low-Power Wireless Personal Area Networks (6LoWPAN, see <a href="#sec-6lowpan" class="auto internal xref">Section 3.9.2</a>) is used on the constrained network.<a href="#section-3.6-6.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.6-6.1.1">The transmission parameter NSTART defined in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-4.7" class="relref">Section 4.7</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> limits "the number of simultaneous outstanding interactions to a given server". For the IP multicast case, "given server" is to be understood as a "given IP multicast group". The same default value of NSTART=1 (<span><a href="https://rfc-editor.org/rfc/rfc7252#section-4.8" class="relref">Section 4.8</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>) applies for the group communication case.<a href="#section-3.6-6.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.6-6.2">
-            <p id="section-3.6-6.2.1">A server <span class="bcp14">SHOULD</span> minimize the payload size of a response to a group GET or FETCH request on "/.well-known/core" by using hierarchy in arranging link descriptions for the response. An example of this is given in <span><a href="https://rfc-editor.org/rfc/rfc6690#section-5" class="relref">Section 5</a> of [<a href="#RFC6690" class="cite xref">RFC6690</a>]</span>.<a href="#section-3.6-6.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-3.6-6.3">
-            <p id="section-3.6-6.3.1">A server <span class="bcp14">MAY</span> minimize the payload size of a response to a group GET or FETCH request (e.g., on "/.well-known/core") by using CoAP block-wise transfers <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>]</span> in case the payload is long, returning only a first block of the CoRE Link Format description.  For this reason, a CoAP client sending a CoAP group request to "/.well-known/core" <span class="bcp14">SHOULD</span> support block-wise transfers. See also <a href="#sec-block-wise" class="auto internal xref">Section 3.8</a>.<a href="#section-3.6-6.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-3.6-6.4">
-            <p id="section-3.6-6.4.1">A client <span class="bcp14">SHOULD</span> be configured to use CoAP groups with the smallest possible IP multicast scope that fulfills the application needs. As an example, site-local scope is always preferred over global scope IP multicast if this fulfills the application needs. Similarly, realm-local scope is always preferred over site-local scope if this fulfills the application needs.<a href="#section-3.6-6.4.1" class="pilcrow">¶</a></p>
+            <p id="section-3.6-6.2.1">The transmission parameter PROBING_RATE (<span><a href="https://rfc-editor.org/rfc/rfc7252#section-4.7" class="relref">Section 4.7</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>) limits the average data rate for Non-confirmable requests. In particular, group requests are Non-confirmable requests, and an average transmission data rate PROBING_RATE is not to be exceeded by a client that does not receive a response from any server in the targeted CoAP group. The same default value of PROBING_RATE=1 byte/second (<span><a href="https://rfc-editor.org/rfc/rfc7252#section-4.8" class="relref">Section 4.8</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>) applies for the group communication case.<a href="#section-3.6-6.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
+<p id="section-3.6-7">Note that the transmission parameter values for NSTART, DEFAULT_LEISURE, and PROBING_RATE may be configured to values specific to the application environment (including dynamically adjusted values); however, the configuration method is out of scope of this document. This is unchanged from <span><a href="https://rfc-editor.org/rfc/rfc7252#section-4.8.1" class="relref">Section 4.8.1</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>.<a href="#section-3.6-7" class="pilcrow">¶</a></p>
+<p id="section-3.6-8">Independently of the transport used, additional guidelines to reduce congestion risks defined in this document are as follows:<a href="#section-3.6-8" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.6-9.1">
+            <p id="section-3.6-9.1.1">A server in a constrained network <span class="bcp14">SHOULD</span> only support group requests for resources that have a small representation (where the representation may be retrieved via a GET, FETCH, or POST method in the request). For example, "small" can be defined as a response payload limited to approximately 5% of the IP Maximum Transmit Unit (MTU) size, so that it fits into a single link-layer frame in case IPv6 over Low-Power Wireless Personal Area Networks (6LoWPAN, see <a href="#sec-6lowpan" class="auto internal xref">Section 3.9.2</a>) is used on the constrained network.<a href="#section-3.6-9.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.6-9.2">
+            <p id="section-3.6-9.2.1">A server <span class="bcp14">SHOULD</span> minimize the payload size of a response to a group GET or FETCH request on "/.well-known/core" by using hierarchy in arranging link descriptions for the response. An example of this is given in <span><a href="https://rfc-editor.org/rfc/rfc6690#section-5" class="relref">Section 5</a> of [<a href="#RFC6690" class="cite xref">RFC6690</a>]</span>.<a href="#section-3.6-9.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.6-9.3">
+            <p id="section-3.6-9.3.1">A server <span class="bcp14">MAY</span> minimize the payload size of a response to a group GET or FETCH request (e.g., on "/.well-known/core") by using CoAP block-wise transfers <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>]</span> in case the payload is long, returning only a first block of the CoRE Link Format description.  For this reason, a CoAP client sending a CoAP group request to "/.well-known/core" <span class="bcp14">SHOULD</span> support block-wise transfers. See also <a href="#sec-block-wise" class="auto internal xref">Section 3.8</a>.<a href="#section-3.6-9.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.6-9.4">
+            <p id="section-3.6-9.4.1">A client <span class="bcp14">SHOULD</span> be configured to use CoAP groups with the smallest possible IP multicast scope that fulfills the application needs. As an example, site-local scope is always preferred over global scope IP multicast if this fulfills the application needs. Similarly, realm-local scope is always preferred over site-local scope if this fulfills the application needs.<a href="#section-3.6-9.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<div id="sec-leisure">
+<section id="section-3.6.1">
+          <h4 id="name-default-leisure-updates">
+<a href="#section-3.6.1" class="section-number selfRef">3.6.1. </a><a href="#name-default-leisure-updates" class="section-name selfRef">Default Leisure Updates</a>
+          </h4>
+<p id="section-3.6.1-1">The Leisure time period as defined in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-8.2" class="relref">Section 8.2</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> is preferably computed or configured on the CoAP server with a value suitable for the specific use case. The equation from that section for computing a rough lower bound for Leisure is:<a href="#section-3.6.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.6.1-2">
+<pre>
+lb_Leisure = S * G / R
+</pre><a href="#section-3.6.1-2" class="pilcrow">¶</a>
+</div>
+<p id="section-3.6.1-3">for a group size estimate G, a target data transfer rate R (which both should be chosen conservatively), and an estimated response size S. Note that S is the estimated average response size for all responding servers for the given group request, not necessarily the known response size of the server's own response to the request. If the Leisure is not computed or configured, the default value DEFAULT_LEISURE <span class="bcp14">MAY</span> be used. In <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>, the default is calculated based on a baseline IEEE 802.15.4 6LoWPAN network situation with G=50, S=100 and R=1000 although this is not explicitly written down in <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>.<a href="#section-3.6.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.6.1-4">This document updates the calculation for DEFAULT_LEISURE by modifying the estimated response size (S) parameter to account for Group OSCORE (<a href="#chap-group-oscore" class="auto internal xref">Section 5.1</a>) protected responses. In particular, the two cases of group mode and pairwise mode are considered. For group mode, an additional 100 bytes of security overhead is typically expected, so that S becomes 200. In pairwise mode, an additional 30 bytes of overhead is expected, so that S becomes 130. Using these new values for S in the calculation yields:<a href="#section-3.6.1-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.6.1-5.1">
+              <p id="section-3.6.1-5.1.1">DEFAULT_LEISURE = 20 seconds, if the OSCORE group is set to (also) use the group mode.<a href="#section-3.6.1-5.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.6.1-5.2">
+              <p id="section-3.6.1-5.2.1">DEFAULT_LEISURE = 13 seconds, if the OSCORE group is set to use only the pairwise mode.<a href="#section-3.6.1-5.2.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
 </section>
 </div>
 <div id="sec-observe">
@@ -2544,7 +2582,7 @@ do not support MLDv2 as they have their own mechanisms defined for subscribing t
 <a href="#section-3.10.3" class="section-number selfRef">3.10.3. </a><a href="#name-mpl" class="section-name selfRef">MPL</a>
           </h4>
 <p id="section-3.10.3-1">The Multicast Protocol for Low-Power and Lossy Networks (MPL) <span>[<a href="#RFC7731" class="cite xref">RFC7731</a>]</span> can be used for propagation of IPv6 multicast packets throughout a defined network domain, over multiple hops. MPL is designed to work in LLNs and can operate alone or in combination with RPL. The protocol involves a predefined group of MPL Forwarders to collectively distribute IPv6 multicast packets throughout their MPL Domain. An MPL Forwarder may be associated with multiple MPL Domains at the same time. Non-Forwarders will receive IPv6 multicast packets from one or more of their neighboring Forwarders. Therefore, MPL can be used to propagate a CoAP multicast group request to all members of the CoAP group.<a href="#section-3.10.3-1" class="pilcrow">¶</a></p>
-<p id="section-3.10.3-2">However, a CoAP multicast request to a CoAP group that originated outside of the MPL Domain will not be propagated by MPL -- unless an MPL Forwarder is explicitly configured as an ingress point that introduces external multicast packets into the MPL Domain. Such an ingress point could be located on an edge router (e.g., 6LBR). Methods to configure which multicast groups are to be propagated into the MPL Domain could be:<a href="#section-3.10.3-2" class="pilcrow">¶</a></p>
+<p id="section-3.10.3-2">However, a CoAP multicast request to a CoAP group that originated outside of the MPL Domain will not be propagated by MPL -- unless an MPL Forwarder is explicitly configured as an ingress point that introduces external multicast packets into the MPL Domain. Such an ingress point could be located on an edge router (e.g., 6LBR). Methods to configure which IPv6 multicast groups are to be propagated into the MPL Domain could be:<a href="#section-3.10.3-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.10.3-3.1">
               <p id="section-3.10.3-3.1.1">Manual configuration on each ingress MPL Forwarder.<a href="#section-3.10.3-3.1.1" class="pilcrow">¶</a></p>
