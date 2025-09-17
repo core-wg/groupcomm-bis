@@ -224,8 +224,14 @@ Table of Contents
    "libcoap" [libcoap].
 
    Both unsecured and secured CoAP group communication are specified in
-   this document.  Security is achieved by using Group Object Security
-   for Constrained RESTful Environments (Group OSCORE)
+   this document.
+
+   Unsecured group communication relies on the NoSec mode, whose use is
+   strongly discouraged and is limited to specific cases (see
+   Section 4).
+
+   Secured group communication is achieved by using Group Object
+   Security for Constrained RESTful Environments (Group OSCORE)
    [I-D.ietf-core-oscore-groupcomm], which in turn builds on Object
    Security for Constrained Restful Environments (OSCORE) [RFC8613].
    This method provides end-to-end application-layer security protection
