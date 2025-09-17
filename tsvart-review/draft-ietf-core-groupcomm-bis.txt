@@ -1801,8 +1801,9 @@ Table of Contents
    A client that sends a group GET or FETCH request with the Observe
    Option MAY repeat this request using the same Token value and the
    same Observe Option value, in order to ensure that enough (or all)
-   members of the CoAP group have been reached with the request.  This
-   is useful in case a number of members of the CoAP group did not
+   members of the CoAP group have been reached with the request.
+   Repeating a request is discussed in more detail in Section 3.1.3.
+   This is useful in case a number of members of the CoAP group did not
    respond to the initial request.  The client MAY additionally use the
    same Message ID in the repeated request, to avoid that members of the
    CoAP group that had already received the initial request would
@@ -1865,13 +1866,30 @@ Table of Contents
    Option [RFC7967] specified by the client in the GET or FETCH request
    (see Section 3.1.2).
 
+   When responding, a server SHOULD apply the Leisure period defined in
+   Section 8.2 of [RFC7252].  This holds not only for the first response
+   to the multicast Observe request, but also for the subsequent Observe
+   notifications.  The Observe notifications in this case are the
+   "further responses" mentioned in that section: "If further responses
+   need to be sent based on the same multicast address membership, a new
+   leisure period starts at the earliest after the previous one
+   finishes".  This implies that while a server is still waiting during
+   a random leisure period to send an Observe notification, a new
+   Observe notification related to a different CoAP group but related to
+   the same IP multicast group as the pending notification cannot be
+   sent yet.
+
    A server SHOULD have a mechanism to verify the aliveness of its
    observing clients and the continued interest of these clients in
    receiving the Observe notifications.  This can be implemented by
    sending notifications occasionally using a Confirmable message (see
    Section 4.5 of [RFC7641] for details).  This requirement overrides
    the regular behavior of sending Non-confirmable notifications in
-   response to a Non-confirmable request.
+   response to a Non-confirmable request.  Obviously, the requirement to
+   insert a random leisure period as described above does not apply to
+   retransmissions of a Confirmable notification, but only to the
+   initial CoAP message transmission when the CoAP retransmission
+   counter is 0.
 
    A client can use the unicast cancellation methods of Section 3.6 of
    [RFC7641] and stop the ongoing observation of a particular resource
