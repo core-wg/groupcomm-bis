@@ -174,7 +174,7 @@ This document obsoletes and replaces {{RFC7390}} as follows.
 
 * It updates all sections on transport protocols and interworking with other protocols based on new IETF work done for these protocols (see {{sec-transport}} and {{sec-other-protocols}}).
 
-* It strongly discourages unsecured group communication for CoAP based on the CoAP NoSec (No Security) mode (see {{chap-unsecured-groupcomm}} and {{chap-security-considerations-nosec-mode}}), and highlights the risk of amplification attacks (see {{ssec-amplification}}).
+* It strongly discourages unsecured group communication for CoAP based on the CoAP NoSec (No Security) mode (see {{chap-unsecured-groupcomm}} and {{chap-security-considerations-nosec-mode}}), and highlights the risk of amplification attacks together with mitigations against those (see {{ssec-amplification}}).
 
 * It defines the use of Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} as the security protocol to protect group communication for CoAP, together with high-level guidelines on secure group maintenance (see {{chap-oscore}}).
 
@@ -512,6 +512,8 @@ A CoAP client is an endpoint able to transmit CoAP requests and receive CoAP res
 
 All CoAP requests that are sent via IP multicast MUST be Non-confirmable (NON), see {{Section 8.1 of RFC7252}}.  The Message ID in an IP multicast CoAP message is used for optional message deduplication by both clients and servers, as detailed in {{Section 4.5 of RFC7252}}. A server MAY send one or more responses to a CoAP group request; these are always unicast messages. The unicast responses received by the CoAP client may carry a mixture of success (e.g., 2.05 (Content)) and failure (e.g., 4.04 (Not Found)) response codes, depending on the individual server processing results.
 
+When using CoAP group communication, an amplification attack becomes more effective than when sending a unicast request to a single server. That is, by spoofing the source IP address of a designated victim in the group request sent via IP multicast, the attack may result in multiple servers within the CoAP group sending responses to the victim. This is further discussed in {{ssec-amplification}}, together with mitigations that are possible to adopt.
+
 ### Response Suppression ###  {#sec-request-response-suppress}
 A server MAY suppress its response for various reasons given in {{Section 8.2 of RFC7252}}. This document adds the requirement that a server SHOULD suppress the response in case of error or in case there is nothing useful to respond, unless the application related to a particular resource requires such a response to be made for that resource.
 
@@ -770,6 +772,8 @@ When responding, a server SHOULD apply the Leisure period defined in {{Section 8
 A server SHOULD have a mechanism to verify the aliveness of its observing clients and the continued interest of these clients in receiving the Observe notifications. This can be implemented by sending notifications occasionally using a Confirmable message (see {{Section 4.5 of RFC7641}} for details). This requirement overrides the regular behavior of sending Non-confirmable notifications in response to a Non-confirmable request. Obviously, the requirement to insert a random leisure period as described above does not apply to retransmissions of a Confirmable notification, but only to the initial CoAP message transmission when the CoAP retransmission counter is 0.
 
 A client can use the unicast cancellation methods of {{Section 3.6 of RFC7641}} and stop the ongoing observation of a particular resource on members of a CoAP group. This can be used to remove specific observed servers, or even all servers in the CoAP group (using serial unicast to each known group member). In addition, a client MAY explicitly deregister from all those servers at once, by sending a group/multicast GET or FETCH request that includes the Token value of the observation to be canceled and includes an Observe Option with the value set to 1 (deregister). In case not all the servers in the CoAP group received this deregistration request, either the unicast cancellation methods can be used at a later point in time or the group/multicast deregistration request MAY be repeated upon receiving another observe response from a server.
+
+When combining CoAP group communication and Observe as described above, an amplification attack can become particularly effective. That is, by spoofing the source IP address of a designated victim in the group request conveying the Observe Option, the attack may result in multiple servers within the CoAP group sending multiple Observe notifications to the victim, throughout the observation lifetime. This is further discussed in {{ssec-amplification}}, together with mitigations that are possible to adopt.
 
 For observing at servers that are members of a CoAP group through a CoAP-to-CoAP proxy, the limitations stated in {{sec-proxy}} apply. The method defined in {{I-D.ietf-core-groupcomm-proxy}} enables group communication including resource observation through proxies and addresses those limitations.
 
