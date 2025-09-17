@@ -319,7 +319,7 @@ Table of Contents
    *  It strongly discourages unsecured group communication for CoAP
       based on the CoAP NoSec (No Security) mode (see Section 4 and
       Section 6.1), and highlights the risk of amplification attacks
-      (see Section 6.3).
+      together with mitigations against those (see Section 6.3).
 
    *  It defines the use of Group OSCORE
       [I-D.ietf-core-oscore-groupcomm] as the security protocol to
@@ -1128,6 +1128,14 @@ Table of Contents
    (e.g., 2.05 (Content)) and failure (e.g., 4.04 (Not Found)) response
    codes, depending on the individual server processing results.
 
+   When using CoAP group communication, an amplification attack becomes
+   more effective than when sending a unicast request to a single
+   server.  That is, by spoofing the source IP address of a designated
+   victim in the group request sent via IP multicast, the attack may
+   result in multiple servers within the CoAP group sending responses to
+   the victim.  This is further discussed in Section 6.3, together with
+   mitigations that are possible to adopt.
+
 3.1.2.  Response Suppression
 
    A server MAY suppress its response for various reasons given in
@@ -1910,6 +1918,15 @@ Table of Contents
    cancellation methods can be used at a later point in time or the
    group/multicast deregistration request MAY be repeated upon receiving
    another observe response from a server.
+
+   When combining CoAP group communication and Observe as described
+   above, an amplification attack can become particularly effective.
+   That is, by spoofing the source IP address of a designated victim in
+   the group request conveying the Observe Option, the attack may result
+   in multiple servers within the CoAP group sending multiple Observe
+   notifications to the victim, throughout the observation lifetime.
+   This is further discussed in Section 6.3, together with mitigations
+   that are possible to adopt.
 
    For observing at servers that are members of a CoAP group through a
    CoAP-to-CoAP proxy, the limitations stated in Section 3.5 apply.  The
