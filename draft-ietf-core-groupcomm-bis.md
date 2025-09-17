@@ -521,9 +521,10 @@ Group requests sent over IP multicast generally have much higher loss rates than
 The first approach is the default, used in case there is no explicit preference of the implementer. It is supported already by all CoAP stacks. The application in this case implements a custom retransmission logic that MAY trigger a new API request for transmission (of a CoAP request) to the CoAP stack, if less responses than expected were received.
 The CoAP client then sends this group request using a different Message ID (and the same or a different Token value), in which case all servers that received the initial request will again process the repeated request since it appears within a new CoAP message with a new Message ID. This is useful in case a client suspects that one or more response(s) to its original request were lost and the client needs to collect more, or even all, responses from members of the CoAP group, even if this comes at the cost of the overhead of certain group members responding twice (once to the original request, and once to the repeated request with different Message ID).
 
-The second approach that MAY be implemented requires specific support in the CoAP stack. The application layer in this case also implements a custom retransmission logic that MAY trigger a new API request to the stack if less responses than expected were received. 
+The second approach that MAY be implemented requires specific support in the CoAP stack. The application layer in this case also implements a custom retransmission logic that MAY trigger a new API request to the stack if less responses than expected were received.
 If this specific API request is made, the CoAP client repeats a group request using the same Token value and same Message ID value. This ensures that enough (or all) members of the CoAP group have been reached with the request. This is useful in case a number of members of the CoAP group did not respond to the initial request and the client/application suspects that the request did not reach these group members. However, in case one or more servers did receive the initial request but the response to that request was lost, this repeat does not help to retrieve the lost response(s) if the server(s) implement the optional Message ID based deduplication ({{Section 4.5 of RFC7252}}).
-In summary, even though the CoAP message is Non-confirmable, the CoAP stack now provides a mechanism to retransmit the CoAP message, which is normally never done for Non-confirmable messages. 
+
+In summary, even though the CoAP message is Non-confirmable, the CoAP stack now provides a mechanism to retransmit the CoAP message, which is normally never done for Non-confirmable messages.
 
 ### Request/Response Matching and Distinguishing Responses ###
 A CoAP client can distinguish the origin of multiple server responses by the source IP address of the message containing the CoAP response and/or any other available application-specific source identifiers contained in the CoAP response payload or CoAP response options, such as an application-level unique ID associated with the server. If secure communication is provided with Group OSCORE (see {{chap-oscore}}), additional security-related identifiers in the CoAP response enable the client to retrieve the right security material for decrypting each response and authenticating its source.
@@ -697,13 +698,19 @@ CoAP {{RFC7252}} reduces IP multicast-specific congestion risks through the foll
 
 * An IP multicast request MUST be Non-confirmable ({{Section 8.1 of RFC7252}}).
 
-* The same rationale for enforcing congestion control based on the transmission parameter PROBING_RATE defined in {{Section 4.7 of RFC7252}} holds for CoAP group communication. In particular, group requests are the Non-confirmable requests in question, and an average data rate PROBING_RATE is not to be exceeded by a client that does not receive a response from any server in the targeted CoAP group.
-
 * A response to an IP multicast request SHOULD be Non-confirmable ({{Section 5.2.3 of RFC7252}}).
 
-* A server does not respond immediately to an IP multicast request and should first wait for a time that is randomly picked within a predetermined time interval called the Leisure ({{Section 8.2 of RFC7252}}).
+* A server does not respond immediately to an IP multicast request and should first wait for a time that is randomly picked within a predetermined time interval called the Leisure ({{Section 8.2 of RFC7252}}). The transmission parameter DEFAULT_LEISURE may be used to define a Leisure interval when it cannot be computed otherwise.
 
-This document also defines these measures to be applicable to alternative transports (other than IP multicast), if not defined otherwise.
+This document also defines these measures to be applicable to alternative transports (other than IP multicast), if not defined otherwise. Updates related to Leisure are done in {{sec-leisure}}.
+
+CoAP also defines non-multicast-specific congestion control measures that also apply to the IP multicast case:
+
+* The transmission parameter NSTART defined in {{Section 4.7 of RFC7252}} limits "the number of simultaneous outstanding interactions to a given server". For the IP multicast case, "given server" is to be understood as a "given IP multicast group". The same default value of NSTART=1 ({{Section 4.8 of RFC7252}}) applies for the group communication case.
+
+* The transmission parameter PROBING_RATE ({{Section 4.7 of RFC7252}}) limits the average data rate for Non-confirmable requests. In particular, group requests are Non-confirmable requests, and an average transmission data rate PROBING_RATE is not to be exceeded by a client that does not receive a response from any server in the targeted CoAP group. The same default value of PROBING_RATE=1 byte/second ({{Section 4.8 of RFC7252}}) applies for the group communication case.
+
+Note that the transmission parameter values for NSTART, DEFAULT_LEISURE, and PROBING_RATE may be configured to values specific to the application environment (including dynamically adjusted values); however, the configuration method is out of scope of this document. This is unchanged from {{Section 4.8.1 of RFC7252}}.
 
 Independently of the transport used, additional guidelines to reduce congestion risks defined in this document are as follows:
 
@@ -714,6 +721,22 @@ Independently of the transport used, additional guidelines to reduce congestion 
 * A server MAY minimize the payload size of a response to a group GET or FETCH request (e.g., on "/.well-known/core") by using CoAP block-wise transfers {{RFC7959}} in case the payload is long, returning only a first block of the CoRE Link Format description.  For this reason, a CoAP client sending a CoAP group request to "/.well-known/core" SHOULD support block-wise transfers. See also {{sec-block-wise}}.
 
 * A client SHOULD be configured to use CoAP groups with the smallest possible IP multicast scope that fulfills the application needs. As an example, site-local scope is always preferred over global scope IP multicast if this fulfills the application needs. Similarly, realm-local scope is always preferred over site-local scope if this fulfills the application needs.
+
+### Default Leisure Updates ### {#sec-leisure}
+
+The Leisure time period as defined in {{Section 8.2 of RFC7252}} is preferably computed or configured on the CoAP server with a value suitable for the specific use case. The equation from that section for computing a rough lower bound for Leisure is:
+
+~~~
+    lb_Leisure = S * G / R
+~~~
+
+for a group size estimate G, a target data transfer rate R (which both should be chosen conservatively), and an estimated response size S. Note that S is the estimated average response size for all responding servers for the given group request, not necessarily the known response size of the server's own response to the request. If the Leisure is not computed or configured, the default value DEFAULT_LEISURE MAY be used. In {{RFC7252}}, the default is calculated based on a baseline IEEE 802.15.4 6LoWPAN network situation with G=50, S=100 and R=1000, although this is not explicitly written down.
+
+This document updates the calculation for DEFAULT_LEISURE by modifying the estimated response size (S) parameter to account for Group OSCORE ({{chap-group-oscore}}) protected responses. In particular, the two cases of group mode and pairwise mode are considered. For group mode, an additional 100 bytes of security overhead is typically expected, so that S becomes 200. In pairwise mode, an additional 30 bytes of overhead is expected, so that S becomes 130. Using these new values for S in the calculation yields the following new default parameter values:
+
+* DEFAULT_LEISURE = 20 seconds, if the OSCORE group is set to (also) use the group mode.
+
+* DEFAULT_LEISURE = 13 seconds, if the OSCORE group is set to use only the pairwise mode.
 
 ## Observing Resources ## {#sec-observe}
 The CoAP Observe Option {{RFC7641}} is a protocol extension of CoAP, which allows a CoAP client to retrieve a representation of a resource and automatically keep this representation up-to-date over a longer period of time. The client gets notified when the representation has changed. {{RFC7641}} does not mention whether the Observe Option can be combined with CoAP (multicast) group communication.
@@ -834,7 +857,7 @@ See {{-multicast-registration}} for more details on RPL Mode 5, and on subscribi
 ### MPL ### {#sec-mpl}
 The Multicast Protocol for Low-Power and Lossy Networks (MPL) {{RFC7731}} can be used for propagation of IPv6 multicast packets throughout a defined network domain, over multiple hops. MPL is designed to work in LLNs and can operate alone or in combination with RPL. The protocol involves a predefined group of MPL Forwarders to collectively distribute IPv6 multicast packets throughout their MPL Domain. An MPL Forwarder may be associated with multiple MPL Domains at the same time. Non-Forwarders will receive IPv6 multicast packets from one or more of their neighboring Forwarders. Therefore, MPL can be used to propagate a CoAP multicast group request to all members of the CoAP group.
 
-However, a CoAP multicast request to a CoAP group that originated outside of the MPL Domain will not be propagated by MPL -- unless an MPL Forwarder is explicitly configured as an ingress point that introduces external multicast packets into the MPL Domain. Such an ingress point could be located on an edge router (e.g., 6LBR). Methods to configure which multicast groups are to be propagated into the MPL Domain could be:
+However, a CoAP multicast request to a CoAP group that originated outside of the MPL Domain will not be propagated by MPL -- unless an MPL Forwarder is explicitly configured as an ingress point that introduces external multicast packets into the MPL Domain. Such an ingress point could be located on an edge router (e.g., 6LBR). Methods to configure which IPv6 multicast groups are to be propagated into the MPL Domain could be:
 
 * Manual configuration on each ingress MPL Forwarder.
 
