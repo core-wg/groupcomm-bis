@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                       17 September 2025
-Expires: 21 March 2026
+Intended status: Standards Track                       18 September 2025
+Expires: 22 March 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 March 2026.
+   This Internet-Draft will expire on 22 March 2026.
 
 Copyright Notice
 
@@ -1717,8 +1717,9 @@ Table of Contents
    Note that the transmission parameter values for NSTART,
    DEFAULT_LEISURE, and PROBING_RATE may be configured to values
    specific to the application environment (including dynamically
-   adjusted values); however, the configuration method is out of scope
-   of this document.  This is unchanged from Section 4.8.1 of [RFC7252].
+   adjusted values); however, the configuration method is out of the
+   scope of this document.  This is unchanged from Section 4.8.1 of
+   [RFC7252].
 
    Independently of the transport used, additional guidelines to reduce
    congestion risks defined in this document are as follows:
@@ -1769,20 +1770,23 @@ Table of Contents
    the Leisure is not computed or configured, the default value
    DEFAULT_LEISURE MAY be used.  In [RFC7252], the default is calculated
    based on a baseline IEEE 802.15.4 6LoWPAN network situation with
-   G=50, S=100 and R=1000, although this is not explicitly written down.
+   G=50, S=100, and R=1000, although this is not explicitly written
+   down.
 
-   This document updates the calculation for DEFAULT_LEISURE by
+   This document updates the calculation for DEFAULT_LEISURE, by
    modifying the estimated response size (S) parameter to account for
-   Group OSCORE (Section 5.1) protected responses.  In particular, the
-   two cases of group mode and pairwise mode are considered.  For group
-   mode, an additional 100 bytes of security overhead is typically
-   expected, so that S becomes 200.  In pairwise mode, an additional 30
-   bytes of overhead is expected, so that S becomes 130.  Using these
-   new values for S in the calculation yields the following new default
-   parameter values:
+   responses protected with Group OSCORE (see Section 5.1).  In
+   particular, the two cases of group mode and pairwise mode are
+   considered.
 
-   *  DEFAULT_LEISURE = 20 seconds, if the OSCORE group is set to (also)
-      use the group mode.
+   For the group mode, an additional 100 bytes of security overhead is
+   typically expected, so that S becomes 200.  For the pairwise mode, an
+   additional 30 bytes of overhead is expected, so that S becomes 130.
+   Using these new values for S in the calculation yields the following
+   new default parameter values:
+
+   *  DEFAULT_LEISURE = 20 seconds, if the OSCORE group is set to use
+      (also) the group mode.
 
    *  DEFAULT_LEISURE = 13 seconds, if the OSCORE group is set to use
       only the pairwise mode.
