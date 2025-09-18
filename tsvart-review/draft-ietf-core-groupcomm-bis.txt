@@ -1779,8 +1779,9 @@ Table of Contents
    particular, the two cases of group mode and pairwise mode are
    considered.
 
-   For the group mode, an additional 100 bytes of security overhead is
-   typically expected, so that S becomes 200.  For the pairwise mode, an
+   When the group mode is used to protect a response, an additional 100
+   bytes of security overhead is typically expected, so that S becomes
+   200.  When the pairwise mode is used to protect a response, an
    additional 30 bytes of overhead is expected, so that S becomes 130.
    Using these new values for S in the calculation yields the following
    new default parameter values:
