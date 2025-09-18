@@ -184,7 +184,7 @@ This document updates {{RFC7252}} as follows.
 
 * It updates the freshness model and validation model to use for cached responses (see {{sec-caching-freshness}} and {{sec-caching-validation}}).
 
-* It defines the measures against congestion risk specified in {{RFC7252}} to be applicable also to alternative transports other than IP multicast, and defines additional guidelines to reduce congestion risks (see {{sec-congestion}}).
+* It defines the measures against congestion risk specified in {{RFC7252}} to be applicable also to alternative transports other than IP multicast and defines additional guidelines to reduce congestion risks (see {{sec-congestion}}), including new values for the transmission parameter DEFAULT_LEISURE that account for secure communication with Group OSCORE (see {{sec-leisure}}).
 
 * It explicitly allows the use of the IPv6 multicast address scopes realm-local (3), admin-local (4), and global (E). In particular, it recommends that an IPv6 CoAP server supports at least link-local (2), admin-local (4), and site-local (5) scopes with the "All CoAP Nodes" multicast CoAP group (see {{sec-udptransport}}). Also, it recommends that the realm-local (3) scope is supported by an IPv6 CoAP server on a 6LoWPAN node (see {{sec-udptransport}}).
 
@@ -706,15 +706,15 @@ CoAP {{RFC7252}} reduces IP multicast-specific congestion risks through the foll
 
 * A response to an IP multicast request SHOULD be Non-confirmable ({{Section 5.2.3 of RFC7252}}).
 
-* A server does not respond immediately to an IP multicast request and should first wait for a time that is randomly picked within a predetermined time interval called the Leisure ({{Section 8.2 of RFC7252}}). The transmission parameter DEFAULT_LEISURE may be used to define a Leisure interval when it cannot be computed otherwise.
+* A server does not respond immediately to an IP multicast request and should first wait for a time that is randomly picked within a predetermined time interval called the Leisure ({{Section 8.2 of RFC7252}}). The transmission parameter DEFAULT_LEISURE may be used to define a Leisure period when it cannot be computed otherwise.
 
 This document also defines these measures to be applicable to alternative transports (other than IP multicast), if not defined otherwise. Updates related to Leisure are done in {{sec-leisure}}.
 
 CoAP also defines non-multicast-specific congestion control measures that also apply to the IP multicast case:
 
-* The transmission parameter NSTART defined in {{Section 4.7 of RFC7252}} limits "the number of simultaneous outstanding interactions to a given server". For the IP multicast case, "given server" is to be understood as a "given IP multicast group". The same default value of NSTART=1 ({{Section 4.8 of RFC7252}}) applies for the group communication case.
+* The transmission parameter NSTART defined in {{Section 4.7 of RFC7252}} limits "the number of simultaneous outstanding interactions to a given server". For the IP multicast case, "given server" is to be understood as a "given CoAP group", i.e., a set of CoAP endpoints where each endpoint is configured to receive CoAP group messages that are sent to the group's associated IP multicast address and UDP port (see {{sec-groupdef-coapgroup}}). The same default value of NSTART=1 ({{Section 4.8 of RFC7252}}) applies for the group communication case.
 
-* The transmission parameter PROBING_RATE ({{Section 4.7 of RFC7252}}) limits the average data rate for Non-confirmable requests. In particular, group requests are Non-confirmable requests, and an average transmission data rate PROBING_RATE is not to be exceeded by a client that does not receive a response from any server in the targeted CoAP group. The same default value of PROBING_RATE=1 byte/second ({{Section 4.8 of RFC7252}}) applies for the group communication case.
+* The transmission parameter PROBING_RATE ({{Section 4.7 of RFC7252}}) limits the average data rate in sending to another endpoint that does not respond, e.g., to a Non-confirmable request such as a group request. Therefore, an average transmission data rate PROBING_RATE is not to be exceeded by a client that does not receive a response from any server in the targeted CoAP group. The same default value of PROBING_RATE=1 byte/second ({{Section 4.8 of RFC7252}}) applies for the group communication case.
 
 Note that the transmission parameter values for NSTART, DEFAULT_LEISURE, and PROBING_RATE may be configured to values specific to the application environment (including dynamically adjusted values); however, the configuration method is out of the scope of this document. This is unchanged from {{Section 4.8.1 of RFC7252}}.
 
@@ -746,6 +746,8 @@ When the group mode is used to protect a response, it is largely cautious to acc
 
 * DEFAULT_LEISURE = 13 seconds, if the OSCORE group is set to use only the pairwise mode.
 
+Obviously, the requirement to insert a random leisure period as described above does not apply to retransmissions of a Confirmable separate response (see {{Section 5.2.2 of RFC7252}}), but only to the initial CoAP message transmission when the CoAP retransmission counter is 0 (see {{Section 4.2 of RFC7252}}).
+
 ## Observing Resources ## {#sec-observe}
 The CoAP Observe Option {{RFC7641}} is a protocol extension of CoAP, which allows a CoAP client to retrieve a representation of a resource and automatically keep this representation up-to-date over a longer period of time. The client gets notified when the representation has changed. {{RFC7641}} does not mention whether the Observe Option can be combined with CoAP (multicast) group communication.
 
@@ -774,9 +776,9 @@ When responding, a server SHOULD apply the Leisure period defined in {{Section 8
 {:quote}
 > If further responses need to be sent based on the same multicast address membership, a new leisure period starts at the earliest after the previous one finishes.
 
-This implies that while a server is still waiting during a random leisure period to send an Observe notification, a new Observe notification related to a different CoAP group but related to the same IP multicast group as the pending notification cannot be sent yet.
+This implies that, while a server is still waiting for the random point in time chosen to send an Observe notification within a leisure period, a new Observe notification cannot be sent yet and remains pending, if it is related to a different observation but to the same CoAP group.
 
-A server SHOULD have a mechanism to verify the aliveness of its observing clients and the continued interest of these clients in receiving the Observe notifications. This can be implemented by sending notifications occasionally using a Confirmable message (see {{Section 4.5 of RFC7641}} for details). This requirement overrides the regular behavior of sending Non-confirmable notifications in response to a Non-confirmable request. Obviously, the requirement to insert a random leisure period as described above does not apply to retransmissions of a Confirmable notification, but only to the initial CoAP message transmission when the CoAP retransmission counter is 0.
+A server SHOULD have a mechanism to verify the aliveness of its observing clients and the continued interest of these clients in receiving the Observe notifications. This can be implemented by sending notifications occasionally using a Confirmable message (see {{Section 4.5 of RFC7641}} for details). This requirement overrides the regular behavior of sending Non-confirmable notifications in response to a Non-confirmable request. Obviously, the requirement to insert a random leisure period as described above does not apply to retransmissions of a Confirmable notification, but only to the initial CoAP message transmission when the CoAP retransmission counter is 0 (see {{Section 4.2 of RFC7252}}).
 
 A client can use the unicast cancellation methods of {{Section 3.6 of RFC7641}} and stop the ongoing observation of a particular resource on members of a CoAP group. This can be used to remove specific observed servers, or even all servers in the CoAP group (using serial unicast to each known group member). In addition, a client MAY explicitly deregister from all those servers at once, by sending a group/multicast GET or FETCH request that includes the Token value of the observation to be canceled and includes an Observe Option with the value set to 1 (deregister). In case not all the servers in the CoAP group received this deregistration request, either the unicast cancellation methods can be used at a later point in time or the group/multicast deregistration request MAY be repeated upon receiving another observe response from a server.
 
