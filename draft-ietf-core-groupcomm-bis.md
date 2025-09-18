@@ -716,7 +716,7 @@ CoAP also defines non-multicast-specific congestion control measures that also a
 
 * The transmission parameter PROBING_RATE ({{Section 4.7 of RFC7252}}) limits the average data rate for Non-confirmable requests. In particular, group requests are Non-confirmable requests, and an average transmission data rate PROBING_RATE is not to be exceeded by a client that does not receive a response from any server in the targeted CoAP group. The same default value of PROBING_RATE=1 byte/second ({{Section 4.8 of RFC7252}}) applies for the group communication case.
 
-Note that the transmission parameter values for NSTART, DEFAULT_LEISURE, and PROBING_RATE may be configured to values specific to the application environment (including dynamically adjusted values); however, the configuration method is out of scope of this document. This is unchanged from {{Section 4.8.1 of RFC7252}}.
+Note that the transmission parameter values for NSTART, DEFAULT_LEISURE, and PROBING_RATE may be configured to values specific to the application environment (including dynamically adjusted values); however, the configuration method is out of the scope of this document. This is unchanged from {{Section 4.8.1 of RFC7252}}.
 
 Independently of the transport used, additional guidelines to reduce congestion risks defined in this document are as follows:
 
@@ -736,11 +736,13 @@ The Leisure time period as defined in {{Section 8.2 of RFC7252}} is preferably c
     lb_Leisure = S * G / R
 ~~~
 
-for a group size estimate G, a target data transfer rate R (which both should be chosen conservatively), and an estimated response size S. Note that S is the estimated average response size for all responding servers for the given group request, not necessarily the known response size of the server's own response to the request. If the Leisure is not computed or configured, the default value DEFAULT_LEISURE MAY be used. In {{RFC7252}}, the default is calculated based on a baseline IEEE 802.15.4 6LoWPAN network situation with G=50, S=100 and R=1000, although this is not explicitly written down.
+for a group size estimate G, a target data transfer rate R (which both should be chosen conservatively), and an estimated response size S. Note that S is the estimated average response size for all responding servers for the given group request, not necessarily the known response size of the server's own response to the request. If the Leisure is not computed or configured, the default value DEFAULT_LEISURE MAY be used. In {{RFC7252}}, the default is calculated based on a baseline IEEE 802.15.4 6LoWPAN network situation with G=50, S=100, and R=1000, although this is not explicitly written down.
 
-This document updates the calculation for DEFAULT_LEISURE by modifying the estimated response size (S) parameter to account for Group OSCORE ({{chap-group-oscore}}) protected responses. In particular, the two cases of group mode and pairwise mode are considered. For group mode, an additional 100 bytes of security overhead is typically expected, so that S becomes 200. In pairwise mode, an additional 30 bytes of overhead is expected, so that S becomes 130. Using these new values for S in the calculation yields the following new default parameter values:
+This document updates the calculation for DEFAULT_LEISURE, by modifying the estimated response size (S) parameter to account for responses protected with Group OSCORE (see {{chap-group-oscore}}). In particular, the two cases of group mode and pairwise mode are considered.
 
-* DEFAULT_LEISURE = 20 seconds, if the OSCORE group is set to (also) use the group mode.
+For the group mode, an additional 100 bytes of security overhead is typically expected, so that S becomes 200. For the pairwise mode, an additional 30 bytes of overhead is expected, so that S becomes 130. Using these new values for S in the calculation yields the following new default parameter values:
+
+* DEFAULT_LEISURE = 20 seconds, if the OSCORE group is set to use (also) the group mode.
 
 * DEFAULT_LEISURE = 13 seconds, if the OSCORE group is set to use only the pairwise mode.
 
