@@ -1101,7 +1101,7 @@ As a further mitigation against amplification attacks, a server can also rely on
 
 In particular, {{Section 2.6 of RFC9175}} updates {{Section 11.3 of RFC7252}} as normatively recommending that CoAP servers use the Echo Option to mitigate amplification attacks, by replying to unauthenticated CoAP clients with a 4.01 (Unauthorized) response including an Echo Option.
 
-Consistent with the above, a server in a CoAP group SHOULD mitigate potential amplification attacks, by replying to unauthenticated CoAP clients with a 4.01 (Unauthorized) response including an Echo Option, as described in item 3 in {{Section 2.4 of RFC9175}}.
+Consistent with the above, a server in a CoAP group SHOULD mitigate potential amplification attacks, by replying to unauthenticated CoAP clients with a 4.01 (Unauthorized) response including an Echo Option, as described in {{Section 2.3 of RFC9175}} and in item 3 in {{Section 2.4 of RFC9175}}.
 
 In the limited, exceptional cases where the NoSec mode is used (see {{chap-unsecured-groupcomm}}), relying on the Echo Option makes it possible to mitigate amplification attacks launched by an off-path adversary.
 
@@ -1109,7 +1109,7 @@ When using secure communications protected with Group OSCORE, source authenticat
 
 Nevertheless, also when using Group OSCORE, a server in a CoAP group SHOULD mitigate potential amplification attacks by using the Echo Option. In particular, the server does so after having successfully decrypted and verified an incoming group request by using an OSCORE Recipient Context that is not associated with a validated network address, or is associated with a validated network address different from the source address of the present group request.
 
-The server uses the Echo Option as specified in item 3 in {{Section 2.4 of RFC9175}}, with the following difference: the 4.01 (Unauthorized) response including the Echo Option is protected with Group OSCORE and MUST be an inner option (i.e., it is also protected by means of Group OSCORE).
+The server uses the Echo Option as specified in {{Section 2.3 of RFC9175}} and in item 3 in {{Section 2.4 of RFC9175}}. In particular, the 4.01 (Unauthorized) response including the Echo Option is protected with Group OSCORE and MUST be an inner option (i.e., it is also protected by means of Group OSCORE).
 
 If the server receives a new request conveying the Echo Option and recognizes the stored option value as associated with the source address of the present request, then the server associates that source address with the OSCORE Recipient Context used to process the request, after having successfully decrypted and verified it with Group OSCORE.
 
