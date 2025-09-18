@@ -740,7 +740,7 @@ for a group size estimate G, a target data transfer rate R (which both should be
 
 This document updates the calculation for DEFAULT_LEISURE, by modifying the estimated response size (S) parameter to account for responses protected with Group OSCORE (see {{chap-group-oscore}}). In particular, the two cases of group mode and pairwise mode are considered.
 
-When the group mode is used to protect a response, an additional 100 bytes of security overhead is typically expected, so that S becomes 200. When the pairwise mode is used to protect a response, an additional 30 bytes of overhead is expected, so that S becomes 130. Using these new values for S in the calculation yields the following new default parameter values:
+When the group mode is used to protect a response, it is largely cautious to account for additional 100 bytes of security overhead, so that S becomes 200. When the pairwise mode is used to protect a response, it is largely cautious to account for additional 30 bytes of overhead is expected, so that S becomes 130. Using these new values for S in the calculation yields the following new default parameter values:
 
 * DEFAULT_LEISURE = 20 seconds, if the OSCORE group is set to use (also) the group mode.
 
