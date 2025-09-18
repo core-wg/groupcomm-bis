@@ -136,6 +136,7 @@ Table of Contents
        6.2.2.  Source Authentication
        6.2.3.  Countering Attacks
      6.3.  Risk of Amplification
+       6.3.1.  Mitigation with the Echo Option
      6.4.  Replay of Group Requests
      6.5.  Use of CoAP No-Response Option
      6.6.  6LoWPAN and MPL
@@ -1134,7 +1135,7 @@ Table of Contents
    victim in the group request sent via IP multicast, the attack may
    result in multiple servers within the CoAP group sending responses to
    the victim.  This is further discussed in Section 6.3, together with
-   mitigations that are possible to adopt.
+   available mitigations.
 
 3.1.2.  Response Suppression
 
@@ -1934,8 +1935,8 @@ Table of Contents
    the group request conveying the Observe Option, the attack may result
    in multiple servers within the CoAP group sending multiple Observe
    notifications to the victim, throughout the observation lifetime.
-   This is further discussed in Section 6.3, together with mitigations
-   that are possible to adopt.
+   This is further discussed in Section 6.3, together with available
+   mitigations.
 
    For observing at servers that are members of a CoAP group through a
    CoAP-to-CoAP proxy, the limitations stated in Section 3.5 apply.  The
@@ -2634,13 +2635,13 @@ Table of Contents
       CoAP options according to the same classification in U/I/E
       classes.
 
-   *  Group OSCORE limits the feasibility and impact of amplification
-      attacks (see Section 6.3 of this document and Section 11.3 of
-      [RFC7252]), thanks to the handling of protected group requests on
-      the server side.  That is, upon receiving a group request
-      protected with Group OSCORE, a server verifies whether the request
-      is not a replay, and whether it has been originated by the alleged
-      CoAP endpoint in the OSCORE group.
+   *  Thanks to the handling of protected group requests on the server
+      side, Group OSCORE limits the feasibility and impact of
+      amplification attacks (see Section 11.3 of [RFC7252]).
+
+      Upon receiving a group request protected with Group OSCORE, a
+      server verifies whether the request is not a replay and has been
+      originated by the alleged CoAP endpoint in the OSCORE group.
 
       In order to perform the latter check of source authentication, the
       server either: i) verifies the signature included in the request
@@ -2660,10 +2661,11 @@ Table of Contents
       request was indeed sent to the whole CoAP group (e.g., over IP
       multicast); or the server is not able to determine it altogether.
 
-      Such a message processing on the server limits an adversary to
+      With respect to amplification attacks, such a message processing
+      on the server limits an external adversary to being on-path and
       leveraging an intercepted group request protected with Group
-      OSCORE, and then altering the source address to be the one of the
-      intended amplification victim.
+      OSCORE, by altering the source address of the request to be the
+      one of the intended amplification victim.
 
       Furthermore, the adversary needs to consider a group request that
       specifically targets a resource for which the CoAP servers are
@@ -2673,27 +2675,8 @@ Table of Contents
       Query CoAP Options conveying the respective components of the
       target URI.
 
-      As a further mitigation against amplification attacks, a server
-      can also rely on the Echo Option for CoAP defined in [RFC9175] and
-      include it in a response to a group request.  By doing so, the
-      server can verify whether the alleged sender of the group request
-      (i.e., the CoAP client associated with a certain authentication
-      credential including the corresponding public key) is indeed
-      reachable at the claimed source address of the group request,
-      especially if such an address differs from the one used in
-      previous group requests from the same (authenticated) device.
-      Although responses including the Echo Option do still result in
-      amplification, this is limited in volume compared to when all
-      servers reply with a full response.
-
-      Using the Echo Option does not provide authentication of source
-      addressing information about the sender of a CoAP message.  Also,
-      using the Echo Option in itself does not provide source
-      authentication of exchanged messages, which is achieved by means
-      of Group OSCORE (see Section 6.2.2).  Using the Echo Option
-      together with Group OSCORE allows a CoAP server in the OSCORE
-      group to verify the freshness of CoAP requests received from other
-      members in the group.
+      Amplification attacks are further discussed in Section 6.3,
+      together with available mitigations.
 
    *  Group OSCORE limits the impact of attacks based on IP spoofing
       over IP multicast (see Section 11.4 of [RFC7252]).  In fact,
@@ -2705,16 +2688,29 @@ Table of Contents
       strictly provides only group-level authentication.  However,
       source authentication of messages is also ensured, both in the
       group mode by means of signatures (see Sections 7.1 and 7.3 of
-      [I-D.ietf-core-oscore-groupcomm]), and in the pairwise mode by
+      [I-D.ietf-core-oscore-groupcomm]) and in the pairwise mode by
       using additionally derived pairwise keys (see Sections 8.3 and 8.5
       of [I-D.ietf-core-oscore-groupcomm]).  Thus, recipient endpoints
       can verify a message to have been originated and sent by the
       alleged, identifiable CoAP endpoint in the OSCORE group.
 
-      As noted above, the server may additionally rely on the Echo
-      Option for CoAP defined in [RFC9175], in order to verify the
-      aliveness and reachability of the client sending a request from a
-      particular IP address.
+      The server may additionally rely on the Echo Option for CoAP
+      defined in [RFC9175], in order to verify the reachability of the
+      client sending a request from a particular IP address.  As
+      discussed in Section 6.3, this also helps mitigate amplification
+      attacks.
+
+      Note that using the Echo Option does not provide authentication of
+      source addressing information about the sender of a CoAP message.
+      Also, using the Echo Option in itself does not provide source
+      authentication of exchanged messages, which is achieved by means
+      of Group OSCORE (see Section 6.2.2).
+
+      Using the Echo Option together with Group OSCORE also allows a
+      CoAP server in the OSCORE group to verify the freshness of CoAP
+      requests received from other members in the group (see Section 9
+      of [I-D.ietf-core-oscore-groupcomm]), thereby verifying the
+      aliveness of CoAP clients sending those requests.
 
    *  Group OSCORE does not require members of an OSCORE group to be
       equipped with a good source of entropy for generating security
@@ -2725,8 +2721,8 @@ Table of Contents
       same HMAC-based HKDF scheme used for OSCORE (see Section 3.2 of
       [RFC8613]).  Besides, the OSCORE Master Secret used in such
       derivation is securely generated by the Group Manager responsible
-      for the OSCORE group, and securely provided to the CoAP endpoints
-      when they join the OSCORE group.
+      for the OSCORE group and is securely provided to the CoAP
+      endpoints when they join the OSCORE group.
 
    *  Group OSCORE prevents any single member of an OSCORE group from
       being a target for subverting security in the whole group (see
@@ -2747,15 +2743,30 @@ Table of Contents
    attacks, especially in the form of a high-volume amplification
    attack, by using all the servers in the CoAP group as attack vectors.
 
-   That is, following a group request sent to a CoAP group, each of the
-   servers in the group may reply with a response which is likely larger
-   in size than the group request.  Thus, an attacker sending a single
-   group request may achieve a high amplification factor, i.e., a high
-   ratio between the size of the group request and the total size of the
-   corresponding responses intended to the attack victim.
+   In particular, an adversary can send a group request via IP multicast
+   to a CoAP group, spoofing the source IP address to be the one of a
+   designated victim (within the local network or on the Internet).
 
-   Thus, consistent with Section 11.3 of [RFC7252], a server in a CoAP
-   group:
+   After receiving the group request, each of the servers in the group
+   may reply to the victim with a response that is likely larger in size
+   than the group request.  In terms of attack effectiveness, an
+   adversary sending a single group request may therefore achieve a
+   large amplification factor, i.e., a high ratio between the total size
+   of the responses sent to the attack victim and the size of the
+   corresponding group request.
+
+   When performing such an attack, the amplification factor would become
+   even larger if CoAP group communication is combined with resource
+   observation [RFC7641], as described in Section 3.7 of this document.
+   That is, a single group request conveying the Observe Option may
+   result in multiple notification responses from each of the responding
+   servers in the CoAP group, throughout the observation lifetime.
+
+   Further discussion and examples of amplification attacks using CoAP
+   are provided in [I-D.irtf-t2trg-amplification-attacks].
+
+   Consistent with the mitigations defined in Section 11.3 of [RFC7252],
+   a server in a CoAP group:
 
    *  SHOULD limit the support for CoAP group requests only to the group
       resources of the application group(s) using that CoAP group;
@@ -2763,36 +2774,31 @@ Table of Contents
    *  SHOULD NOT accept group requests that cannot be authenticated in
       some way, i.e., for which it is not possible to securely verify
       that they have been originated and sent by the alleged,
-      identifiable CoAP endpoint in the OSCORE group;
+      identifiable CoAP endpoint in the OSCORE group; and
 
    *  SHOULD NOT provide large amplification factors through its
       responses to a non-authenticated group request, possibly employing
       CoAP block-wise transfers [RFC7959] to reduce the amount of
-      amplification.
+      amplification provided.
 
-   Amplification attacks using CoAP are further discussed in
-   [I-D.irtf-t2trg-amplification-attacks], which also highlights how the
-   amplification factor would become even higher when CoAP group
-   communication is combined with resource observation [RFC7641].  That
-   is, a single group request may result in multiple notification
-   responses from each of the responding servers, throughout the
-   observation lifetime.
+   Furthermore, when CoAP group communication is combined with resource
+   observation [RFC7641], a server in a CoAP group MUST strictly limit
+   the number of notifications it sends between receiving CoAP
+   Acknowledgements that confirm the actual interest of the client in
+   continuing the observation (see Section 7 of [RFC7641]).  That is,
+   any notifications sent in Non-confirmable messages MUST be
+   interspersed with Confirmable messages.  Note that an adversary may
+   still spoof the CoAP Acknowledgements if the Confirmable messages are
+   sufficiently predictable.
 
-   When CoAP group communication is combined with resource observation
-   [RFC7641], a server in a CoAP group MUST strictly limit the number of
-   notifications it sends between receiving acknowledgements that
-   confirm the actual interest of the client in continuing the
-   observation (see Section 7 of [RFC7641]).  That is, any notifications
-   sent in non-confirmable messages MUST be interspersed with
-   confirmable messages.  Note that an attacker may still spoof the
-   acknowledgements if the confirmable messages are sufficiently
-   predictable.
+   Section 6.3.1 describes how amplification attacks can be mitigated by
+   using the Echo Option for CoAP defined in [RFC9175].
 
-   Moreover, it is especially easy to perform an amplification attack
-   when the NoSec mode is used.  Therefore, also in order to prevent an
-   easy proliferation of high-volume amplification attacks, it is
-   generally NOT RECOMMENDED to use CoAP group communication in NoSec
-   mode (see Section 6.1).
+   Evidently, it is especially easy to perform an amplification attack
+   when the NoSec mode is used (see Section 4).  Therefore, also in
+   order to prevent an easy proliferation of high-volume amplification
+   attacks, it is generally NOT RECOMMENDED to use CoAP group
+   communication in NoSec mode (see Section 6.1).
 
    Besides building on very well understood security implications and
    being limited to specific, well-defined "unsecured steps" (see
@@ -2805,14 +2811,14 @@ Table of Contents
    discovery of hosts such as a Group Manager or a Resource Directory
    [RFC9176], by probing for them through a group request sent to the
    CoAP group.  This early, unprotected step is relevant for a CoAP
-   client that does not know the address of such hosts in advance, and
+   client that does not know the address of such hosts in advance and
    that does not yet have configured a mutual security relationship with
    them.  In this kind of deployments, such a discovery procedure does
    not result in a considerable and harmful amplification, since only
    the few CoAP servers that are the object of discovery are going to
    respond to the group request targeting that specific resource.  In
    particular, those hosts can be the only CoAP servers in that specific
-   CoAP group (hence listening for group requests sent to that group),
+   CoAP group (hence listening for group requests sent to that group)
    and/or the only CoAP servers explicitly configured to respond to
    group requests targeting specific group resources.
 
@@ -2820,6 +2826,83 @@ Table of Contents
    MUST be secured using Group OSCORE [I-D.ietf-core-oscore-groupcomm],
    see Section 5.  As discussed in Section 6.2.3, this limits the
    feasibility and impact of amplification attacks.
+
+6.3.1.  Mitigation with the Echo Option
+
+   As a further mitigation against amplification attacks, a server can
+   also rely on the Echo Option for CoAP [RFC9175], including it in a
+   response to a group request.  By doing so, the server can verify
+   whether the alleged sender of the group request is indeed reachable
+   at the claimed source address of the group request.
+
+   In particular, Section 2.6 of [RFC9175] updates Section 11.3 of
+   [RFC7252] as normatively recommending that CoAP servers use the Echo
+   Option to mitigate amplification attacks, by replying to
+   unauthenticated CoAP clients with a 4.01 (Unauthorized) response
+   including an Echo Option.
+
+   Consistent with the above, a server in a CoAP group SHOULD mitigate
+   potential amplification attacks, by replying to unauthenticated CoAP
+   clients with a 4.01 (Unauthorized) response including an Echo Option,
+   as described in item 3 in Section 2.4 of [RFC9175].
+
+   In the limited, exceptional cases where the NoSec mode is used (see
+   Section 4), relying on the Echo Option makes it possible to mitigate
+   amplification attacks launched by an off-path adversary.
+
+   When using secure communications protected with Group OSCORE, source
+   authentication of messages is ensured.  Hence, upon receiving a valid
+   group request, a server always authenticates the CoAP client that has
+   sent the request.
+
+   Nevertheless, also when using Group OSCORE, a server in a CoAP group
+   SHOULD mitigate potential amplification attacks by using the Echo
+   Option.  In particular, the server does so after having successfully
+   decrypted and verified an incoming group request by using an OSCORE
+   Recipient Context that is not associated with a validated network
+   address, or is associated with a validated network address different
+   from the source address of the present group request.
+
+   The server uses the Echo Option as specified in item 3 in Section 2.4
+   of [RFC9175], with the following difference: the 4.01 (Unauthorized)
+   response including the Echo Option is protected with Group OSCORE and
+   MUST be an inner option (i.e., it is also protected by means of Group
+   OSCORE).
+
+   If the server receives a new request conveying the Echo Option and
+   recognizes the stored option value as associated with the source
+   address of the present request, then the server associates that
+   source address with the OSCORE Recipient Context used to process the
+   request, after having successfully decrypted and verified it with
+   Group OSCORE.
+
+   By doing so, the server can verify whether the alleged sender of the
+   group request (i.e., the CoAP client associated with a certain
+   authentication credential including the corresponding public key) is
+   indeed reachable at the claimed source address of the group request,
+   especially if such an address differs from the one used in previous
+   group requests from the same (authenticated) device.
+
+   Note that the above is achieved also when the server uses the Echo
+   Option due to other reasons, when running the challenge-response
+   method defined in Section 9 of [I-D.ietf-core-oscore-groupcomm].
+
+   When using Group OSCORE, relying on the Echo Option makes it possible
+   to mitigate amplification attacks launched by an external on-path
+   adversary (see also Section 6.2.3) or by an internal off-path
+   adversary.  Instead, it is not effective against attacks launched by
+   an internal on-path adversary.
+
+   Note that an internal adversary, being a member of the security
+   group, considerably exposes itself in an identifiable and accountable
+   way, due to the source authentication of the protected requests that
+   it sends.  This raises the chances that such an adversary is detected
+   and consequently evicted from the security group, i.e., through group
+   rekeying (see Section 6.2.1).
+
+   Although CoAP responses including the Echo Option may still result in
+   amplification, this is limited in volume compared to when all servers
+   in a CoAP group reply with larger, full responses.
 
 6.4.  Replay of Group Requests
 
