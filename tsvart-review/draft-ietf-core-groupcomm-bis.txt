@@ -2799,8 +2799,10 @@ Table of Contents
    continuing the observation (see Section 7 of [RFC7641]).  That is,
    any notifications sent in Non-confirmable messages MUST be
    interspersed with Confirmable messages.  Note that an adversary may
-   still spoof the CoAP Acknowledgements if the Confirmable messages are
-   sufficiently predictable.
+   still spoof the CoAP Acknowledgements, e.g., if it is on-path and can
+   read the Message ID values, or if the time when Confirmable messages
+   are sent by the server and their Message ID values are sufficiently
+   predictable.
 
    Section 6.3.1 describes how amplification attacks can be mitigated by
    using the Echo Option for CoAP defined in [RFC9175].
