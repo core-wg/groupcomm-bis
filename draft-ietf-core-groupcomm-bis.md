@@ -1083,7 +1083,7 @@ Consistent with the mitigations defined in {{Section 11.3 of RFC7252}}, a server
 
 * SHOULD NOT provide large amplification factors through its responses to a non-authenticated group request, possibly employing CoAP block-wise transfers {{RFC7959}} to reduce the amount of amplification provided.
 
-Furthermore, when CoAP group communication is combined with resource observation {{RFC7641}}, a server in a CoAP group MUST strictly limit the number of notifications it sends between receiving CoAP Acknowledgements that confirm the actual interest of the client in continuing the observation (see {{Section 7 of RFC7641}}). That is, any notifications sent in Non-confirmable messages MUST be interspersed with Confirmable messages. Note that an adversary may still spoof the CoAP Acknowledgements if the Confirmable messages are sufficiently predictable.
+Furthermore, when CoAP group communication is combined with resource observation {{RFC7641}}, a server in a CoAP group MUST strictly limit the number of notifications it sends between receiving CoAP Acknowledgements that confirm the actual interest of the client in continuing the observation (see {{Section 7 of RFC7641}}). That is, any notifications sent in Non-confirmable messages MUST be interspersed with Confirmable messages. Note that an adversary may still spoof the CoAP Acknowledgements, e.g., if it is on-path and can read the Message ID values, or if the time when Confirmable messages are sent by the server and their Message ID values are sufficiently predictable.
 
 {{ssec-amplification-echo}} describes how amplification attacks can be mitigated by using the Echo Option for CoAP defined in {{RFC9175}}.
 
