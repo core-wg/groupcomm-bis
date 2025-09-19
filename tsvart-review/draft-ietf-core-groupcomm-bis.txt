@@ -276,6 +276,16 @@ Table of Contents
    considered.  General principles for secure group configuration are in
    scope.
 
+   Finally, this document defines the foundation of how proxies operate
+   in a group communication scenario (see Section 3.5) and compiles
+   related issues and limitations to account for (see Appendix E and
+   Appendix F).  While further details that are relevant to operate such
+   proxies are not defined here, other specifications can build on the
+   common denominator provided by this document and define specific
+   realizations of proxies that operate in a group communication
+   scenario.  For example, a possible realization of proxy for CoAP
+   group communication is specified in [I-D.ietf-core-groupcomm-proxy].
+
 1.2.  Terminology
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -1357,8 +1367,9 @@ Table of Contents
    different responses to a group request, as well as to distinguish the
    different origin servers that responded.  This in turn requires
    additional means to provide the client with information about the
-   origin server of each response, e.g., using the forward-proxying
-   method defined in [I-D.ietf-core-groupcomm-proxy].
+   origin server of each response.  As an example, this is accomplished
+   when using the forward-proxying method provided by the realization of
+   proxy specified in [I-D.ietf-core-groupcomm-proxy].
 
    The following subsections define the freshness model and validation
    model to use for cached responses, which update the models defined in
@@ -1391,8 +1402,9 @@ Table of Contents
    document.  It may be, for example, via a Group Manager, or by
    monitoring group joining protocol exchanges.
 
-   For caching at proxies, the freshness model defined in
-   [I-D.ietf-core-groupcomm-proxy] can be used.
+   For caching at proxies, a possible freshness model is defined as part
+   of the realization of proxy specified in
+   [I-D.ietf-core-groupcomm-proxy].
 
 3.2.2.  Validation Model
 
@@ -1403,8 +1415,9 @@ Table of Contents
    document updates [RFC7252] by allowing a group request to contain
    ETag Options as specified below.
 
-   For validation at proxies, the validation model defined in
-   [I-D.ietf-core-groupcomm-proxy] can be used.
+   For validation at proxies, a possible validation model is defined as
+   part of the realization of proxy specified in
+   [I-D.ietf-core-groupcomm-proxy].
 
 3.2.2.1.  ETag Option in a Group Request/Response
 
@@ -1501,12 +1514,21 @@ Table of Contents
 
 3.5.  Proxy Operation
 
-   This section defines how proxies operate in a group communication
-   scenario.  In particular, Section 3.5.1 defines operations of
-   forward-proxies, while Section 3.5.2 defines operations of reverse-
-   proxies.  Furthermore, Section 3.5.3 discusses the case where a
-   client sends a group request to multiple proxies at once.  Security
-   operations for a proxy are discussed later in Section 5.3.
+   This section defines the foundation of how proxies operate in a group
+   communication scenario.
+
+   In particular, forward-proxies and reverse-proxies are separately
+   considered in Section 3.5.1 and Section 3.5.2, respectively.
+   Furthermore, Section 3.5.3 discusses the case where a client sends a
+   group request to multiple proxies at once.  Security considerations
+   that apply when using a proxy are discussed later in Section 5.3.
+
+   Further details that are relevant to operate such proxies are not
+   defined here.  Other specifications can build on the common
+   denominator provided by this document and define specific
+   realizations of proxies that operate in a group communication
+   scenario.  As an example, a realization of such proxy is specified in
+   [I-D.ietf-core-groupcomm-proxy].
 
 3.5.1.  Forward-Proxies
 
@@ -1525,8 +1547,9 @@ Table of Contents
    all the individual (unicast) responses back to the client.
 
    Issues and limitations of this approach are compiled in Appendix E.
-   A forward-proxying method using this approach and addressing such
-   issues and limitations is defined in [I-D.ietf-core-groupcomm-proxy].
+   The forward-proxying method provided by the realization of proxy
+   specified in [I-D.ietf-core-groupcomm-proxy] uses this approach and
+   addresses such issues and limitations.
 
    An alternative approach is for the proxy to collect all the
    individual (unicast) responses to a CoAP group request and then send
@@ -1549,8 +1572,9 @@ Table of Contents
    back to the HTTP client.  Resulting issues and limitations are also
    compiled in Appendix E.
 
-   A forward-proxying method for HTTP-to-CoAP proxies addressing such
-   issues and limitations is defined in [I-D.ietf-core-groupcomm-proxy].
+   The forward-proxying method for HTTP-to-CoAP proxies provided by the
+   realization of proxy specified in [I-D.ietf-core-groupcomm-proxy]
+   addresses such issues and limitations.
 
 3.5.2.  Reverse-Proxies
 
@@ -1591,8 +1615,9 @@ Table of Contents
    For a reverse-proxy that sends a group request to servers in a CoAP
    group, the considerations as defined in Section 5.7.3 of [RFC7252]
    hold.  Resulting issues and limitations are compiled in Appendix F.
-   A reverse-proxying method addressing such issues and limitations is
-   defined in [I-D.ietf-core-groupcomm-proxy].
+   The reverse-proxying method provided by the realization of proxy
+   specified in [I-D.ietf-core-groupcomm-proxy] uses this approach and
+   addresses such issues and limitations.
 
    A client might re-use a Token value in a valid new request to the
    reverse-proxy, while the reverse-proxy still has an ongoing group
@@ -1635,9 +1660,10 @@ Table of Contents
       -  From each proxy, the client receives all the responses to the
          group request that each server has sent to that proxy.  Even in
          case the client is able to distinguish the different servers
-         originating the responses (e.g., by using the approach defined
-         in [I-D.ietf-core-groupcomm-proxy]), the client would receive
-         the same response content originated by each server N times, as
+         originating the responses (e.g., leveraging the approach used
+         by the realization of proxy specified in
+         [I-D.ietf-core-groupcomm-proxy]), the client would receive the
+         same response content originated by each server N times, as
          relayed by the N proxies.
 
    *  If secure group communication with Group OSCORE is used (see
@@ -1951,9 +1977,9 @@ Table of Contents
 
    For observing at servers that are members of a CoAP group through a
    CoAP-to-CoAP proxy, the limitations stated in Section 3.5 apply.  The
-   method defined in [I-D.ietf-core-groupcomm-proxy] enables group
-   communication including resource observation through proxies and
-   addresses those limitations.
+   realization of proxy specified in [I-D.ietf-core-groupcomm-proxy]
+   enables group communication including resource observation through
+   proxies and addresses those limitations.
 
 3.8.  Block-Wise Transfer
 
@@ -2470,8 +2496,9 @@ Table of Contents
    confined to a particular network domain and the client is outside
    this domain.
 
-   For all the above cases, more details on using Group OSCORE are
-   defined in [I-D.ietf-core-groupcomm-proxy].
+   The realization of proxy specified in [I-D.ietf-core-groupcomm-proxy]
+   provides further details on using Group OSCORE for all the above
+   cases.
 
 6.  Security Considerations
 
@@ -4642,10 +4669,12 @@ Appendix F.  Issues and Limitations with Reverse-Proxies
       used for collecting server responses and forwarding these back to
       the client.  These duration(s) may be set as global configuration
       or as resource-specific configurations.  If there is such
-      preconfiguration, then an explicit signaling of the time period in
-      the client's request as defined in [I-D.ietf-core-groupcomm-proxy]
-      is not necessarily needed.  Note that a reverse-proxy is in an
-      explicit relationship with the origin servers it stands in for.
+      preconfiguration, then it is not necessarily needed that the
+      client's request explicitly indicates the time duration that the
+      reverse-proxy has to use (e.g., like it is indicated when using
+      the realization of proxy specified in
+      [I-D.ietf-core-groupcomm-proxy]).  Note that a reverse-proxy is in
+      an explicit relationship with the origin servers it stands in for.
       Thus, compared to a forward-proxy, it has a much better basis for
       determining and configuring such time durations.
 
