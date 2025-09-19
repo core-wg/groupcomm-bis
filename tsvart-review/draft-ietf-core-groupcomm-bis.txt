@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                       18 September 2025
-Expires: 22 March 2026
+Intended status: Standards Track                       19 September 2025
+Expires: 23 March 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 March 2026.
+   This Internet-Draft will expire on 23 March 2026.
 
 Copyright Notice
 
@@ -2813,10 +2813,11 @@ Table of Contents
 
    Besides building on very well understood security implications and
    being limited to specific, well-defined "unsecured steps" (see
-   Section 4), possible exceptions should also be limited to use cases
-   where accesses to a group resource have a specific, narrow, and well
-   understood scope, and where only a few CoAP servers (or, ideally,
-   only one) would possibly respond to a group request.
+   Section 4), possible exceptions to the above rule should also be
+   limited to use cases where accesses to a group resource have a
+   specific, narrow, and well understood scope, and where only a few
+   CoAP servers (or, ideally, only one) would possibly respond to a
+   group request.
 
    A relevant exceptional example is a CoAP client performing the
    discovery of hosts such as a Group Manager or a Resource Directory
