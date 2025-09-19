@@ -152,6 +152,8 @@ This document defines UDP/IP multicast as the default transport protocol for CoA
 
 Furthermore, this document defines Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} as the default group communication security solution for CoAP. Security solutions for group communication and configuration other than Group OSCORE are not considered. General principles for secure group configuration are in scope.
 
+Finally, this document defines the foundation of how proxies operate in a group communication scenario (see {{sec-proxy}}) and compiles related issues and limitations to account for (see {{sec-issues-forward-proxies}} and {{sec-issues-reverse-proxies}}). While further details that are relevant to operate such proxies are not defined here, other specifications can build on the common denominator provided by this document and define specific realizations of proxies that operate in a group communication scenario. For example, a possible realization of proxy for CoAP group communication is specified in {{I-D.ietf-core-groupcomm-proxy}}.
+
 ## Terminology ## {#terminology}
 
 {::boilerplate bcp14-tagged}
@@ -582,7 +584,7 @@ Furthermore, building on what is defined in {{Section 8.2.1 of RFC7252}}:
 
 * A client MAY revalidate a cached response by making a GET or FETCH request on the related unicast request URI.
 
-Note that, in the presence of proxies, doing any of the above (optional) unicast requests requires the client to distinguish the different responses to a group request, as well as to distinguish the different origin servers that responded. This in turn requires additional means to provide the client with information about the origin server of each response, e.g., using the forward-proxying method defined in {{I-D.ietf-core-groupcomm-proxy}}.
+Note that, in the presence of proxies, doing any of the above (optional) unicast requests requires the client to distinguish the different responses to a group request, as well as to distinguish the different origin servers that responded. This in turn requires additional means to provide the client with information about the origin server of each response. As an example, this is accomplished when using the forward-proxying method provided by the realization of proxy specified in {{I-D.ietf-core-groupcomm-proxy}}.
 
 The following subsections define the freshness model and validation model to use for cached responses, which update the models defined in {{Sections 5.6.1 and 5.6.2 of RFC7252}}, respectively.
 
@@ -598,14 +600,14 @@ That is, a request is never served from cached responses only. This document upd
 
 How the client in the case above determines the CoAP servers that are currently members of the CoAP group is out of scope for this document. It may be, for example, via a Group Manager, or by monitoring group joining protocol exchanges.
 
-For caching at proxies, the freshness model defined in {{I-D.ietf-core-groupcomm-proxy}} can be used.
+For caching at proxies, a possible freshness model is defined as part of the realization of proxy specified in {{I-D.ietf-core-groupcomm-proxy}}.
 
 ### Validation Model ### {#sec-caching-validation}
 
 For validation of cached group communication responses at client endpoints, the multicast validation rules in {{Section 8.2.1 of RFC7252}} apply, except for the last paragraph which states "A GET request to a multicast group MUST NOT contain an ETag option".
 This document updates {{RFC7252}} by allowing a group request to contain ETag Options as specified below.
 
-For validation at proxies, the validation model defined in {{I-D.ietf-core-groupcomm-proxy}} can be used.
+For validation at proxies, a possible validation model is defined as part of the realization of proxy specified in {{I-D.ietf-core-groupcomm-proxy}}.
 
 #### ETag Option in a Group Request/Response ####
 A client endpoint MAY include one or more ETag Options in a GET or FETCH group request, to validate one or more stored responses it has cached.
@@ -635,7 +637,11 @@ For a CoAP server node that supports resource discovery as defined in {{Section 
 
 ## Proxy Operation ## {#sec-proxy}
 
-This section defines how proxies operate in a group communication scenario. In particular, {{sec-proxy-forward}} defines operations of forward-proxies, while {{sec-proxy-reverse}} defines operations of reverse-proxies. Furthermore, {{multicasting-to-proxies}} discusses the case where a client sends a group request to multiple proxies at once. Security operations for a proxy are discussed later in {{chap-proxy-security}}.
+This section defines the foundation of how proxies operate in a group communication scenario.
+
+In particular, forward-proxies and reverse-proxies are separately considered in {{sec-proxy-forward}} and {{sec-proxy-reverse}}, respectively. Furthermore, {{multicasting-to-proxies}} discusses the case where a client sends a group request to multiple proxies at once. Security considerations that apply when using a proxy are discussed later in {{chap-proxy-security}}.
+
+Further details that are relevant to operate such proxies are not defined here. Other specifications can build on the common denominator provided by this document and define specific realizations of proxies that operate in a group communication scenario. As an example, a realization of such proxy is specified in {{I-D.ietf-core-groupcomm-proxy}}.
 
 ### Forward-Proxies ### {#sec-proxy-forward}
 
@@ -643,7 +649,7 @@ CoAP enables a client to request a forward-proxy to process a CoAP request on it
 
 When intending to reach a CoAP group through a proxy, the client sends a unicast CoAP group request to the proxy. The group URI where the request has to be forwarded to is specified in the request, either as a string in the Proxy-Uri Option, or through the Proxy-Scheme Option with the group URI constructed from the usual Uri-* Options. Then, the forward-proxy resolves the group URI to a destination CoAP group, i.e., it sends (e.g., multicasts) the CoAP group request to the group URI, receives the responses and forwards all the individual (unicast) responses back to the client.
 
-Issues and limitations of this approach are compiled in {{sec-issues-forward-proxies}}. A forward-proxying method using this approach and addressing such issues and limitations is defined in {{I-D.ietf-core-groupcomm-proxy}}.
+Issues and limitations of this approach are compiled in {{sec-issues-forward-proxies}}. The forward-proxying method provided by the realization of proxy specified in {{I-D.ietf-core-groupcomm-proxy}} uses this approach and addresses such issues and limitations.
 
 An alternative approach is for the proxy to collect all the individual (unicast) responses to a CoAP group request and then send back only a single (aggregated) response to the client. Issues and limitations of this alternative approach are also compiled in {{sec-issues-forward-proxies}}.
 
@@ -651,7 +657,7 @@ It is RECOMMENDED that a CoAP proxy processes a request to be forwarded to a gro
 
 The operation of HTTP-to-CoAP proxies for multicast CoAP requests is specified in {{Sections 8.4 and 10.1 of RFC8075}}. In this case, the "application/http" media type is used to let the proxy return multiple CoAP responses -- each translated to an HTTP response -- back to the HTTP client. Resulting issues and limitations are also compiled in {{sec-issues-forward-proxies}}.
 
-A forward-proxying method for HTTP-to-CoAP proxies addressing such issues and limitations is defined in {{I-D.ietf-core-groupcomm-proxy}}.
+The forward-proxying method for HTTP-to-CoAP proxies provided by the realization of proxy specified in {{I-D.ietf-core-groupcomm-proxy}} addresses such issues and limitations.
 
 ### Reverse-Proxies ### {#sec-proxy-reverse}
 
@@ -665,7 +671,7 @@ In general, using the URI path to select application group and/or CoAP group is 
 
 The reverse-proxy practically stands in for a CoAP group, thus preventing the client from reaching the group as a whole with a single group request directly addressed to that group (e.g., via multicast). In addition to that, the reverse-proxy may also stand in for each of the individual servers in the CoAP group (e.g., if acting as firewall), thus also preventing the client from individually reaching any server in the group with a unicast request directly addressed to that server.
 
-For a reverse-proxy that sends a group request to servers in a CoAP group, the considerations as defined in {{Section 5.7.3 of RFC7252}} hold. Resulting issues and limitations are compiled in {{sec-issues-reverse-proxies}}. A reverse-proxying method addressing such issues and limitations is defined in {{I-D.ietf-core-groupcomm-proxy}}.
+For a reverse-proxy that sends a group request to servers in a CoAP group, the considerations as defined in {{Section 5.7.3 of RFC7252}} hold. Resulting issues and limitations are compiled in {{sec-issues-reverse-proxies}}. The reverse-proxying method provided by the realization of proxy specified in {{I-D.ietf-core-groupcomm-proxy}} uses this approach and addresses such issues and limitations.
 
 A client might re-use a Token value in a valid new request to the reverse-proxy, while the reverse-proxy still has an ongoing group communication request for this client with the same Token value (i.e., its time period for response collection has not ended yet).
 
@@ -683,7 +689,7 @@ A client might send a group request to multiple proxies at once (e.g., over IP m
 
    - Each server can reply to each of the N received requests with multiple responses over time (see {{sec-request-response-multi}}). All the responses to the same received request are sent to the same proxy that has forwarded that request, which in turn relays those responses to the client.
 
-   - From each proxy, the client receives all the responses to the group request that each server has sent to that proxy. Even in case the client is able to distinguish the different servers originating the responses (e.g., by using the approach defined in {{I-D.ietf-core-groupcomm-proxy}}), the client would receive the same response content originated by each server N times, as relayed by the N proxies.
+   - From each proxy, the client receives all the responses to the group request that each server has sent to that proxy. Even in case the client is able to distinguish the different servers originating the responses (e.g., leveraging the approach used by the realization of proxy specified in {{I-D.ietf-core-groupcomm-proxy}}), the client would receive the same response content originated by each server N times, as relayed by the N proxies.
 
 * If secure group communication with Group OSCORE is used (see {{chap-oscore}}), each server is able to determine that each received copy of the group request is in fact originated by the same client. In particular, each server is able to determine that all such received requests are copies of exactly the same group request.
 
@@ -784,7 +790,7 @@ A client can use the unicast cancellation methods of {{Section 3.6 of RFC7641}} 
 
 When combining CoAP group communication and Observe as described above, an amplification attack can become particularly effective. That is, by spoofing the source IP address of a designated victim in the group request conveying the Observe Option, the attack may result in multiple servers within the CoAP group sending multiple Observe notifications to the victim, throughout the observation lifetime. This is further discussed in {{ssec-amplification}}, together with available mitigations.
 
-For observing at servers that are members of a CoAP group through a CoAP-to-CoAP proxy, the limitations stated in {{sec-proxy}} apply. The method defined in {{I-D.ietf-core-groupcomm-proxy}} enables group communication including resource observation through proxies and addresses those limitations.
+For observing at servers that are members of a CoAP group through a CoAP-to-CoAP proxy, the limitations stated in {{sec-proxy}} apply. The realization of proxy specified in {{I-D.ietf-core-groupcomm-proxy}} enables group communication including resource observation through proxies and addresses those limitations.
 
 ## Block-Wise Transfer ## {#sec-block-wise}
 
@@ -968,7 +974,7 @@ The case of hop-by-hop security is only possible if the proxy is considered trus
 
 The first leg of communication between client and proxy is then protected with a security method for CoAP unicast, such as (D)TLS, OSCORE, or a combination of such methods. The second leg between proxy and servers is protected using Group OSCORE. This can be useful in applications where for example the origin client does not implement Group OSCORE, or the group management operations are confined to a particular network domain and the client is outside this domain.
 
-For all the above cases, more details on using Group OSCORE are defined in {{I-D.ietf-core-groupcomm-proxy}}.
+The realization of proxy specified in {{I-D.ietf-core-groupcomm-proxy}} provides further details on using Group OSCORE for all the above cases.
 
 # Security Considerations # {#chap-security-considerations}
 
@@ -2117,7 +2123,7 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 
 * The three issues and limitations defined in {{sec-proxy-forward}} for a forward proxy apply to a reverse-proxy as well.
 
-* A reverse-proxy may have preconfigured time duration(s) that are used for collecting server responses and forwarding these back to the client. These duration(s) may be set as global configuration or as resource-specific configurations. If there is such preconfiguration, then an explicit signaling of the time period in the client's request as defined in {{I-D.ietf-core-groupcomm-proxy}} is not necessarily needed. Note that a reverse-proxy is in an explicit relationship with the origin servers it stands in for. Thus, compared to a forward-proxy, it has a much better basis for determining and configuring such time durations.
+* A reverse-proxy may have preconfigured time duration(s) that are used for collecting server responses and forwarding these back to the client. These duration(s) may be set as global configuration or as resource-specific configurations. If there is such preconfiguration, then it is not necessarily needed that the client's request explicitly indicates the time duration that the reverse-proxy has to use (e.g., like it is indicated when using the realization of proxy specified in {{I-D.ietf-core-groupcomm-proxy}}). Note that a reverse-proxy is in an explicit relationship with the origin servers it stands in for. Thus, compared to a forward-proxy, it has a much better basis for determining and configuring such time durations.
 
 * A client that is configured to access a reverse-proxy resource (i.e., one that triggers a CoAP group communication request) should be configured also to handle potentially multiple responses with the same Token value caused by a single request.
 
