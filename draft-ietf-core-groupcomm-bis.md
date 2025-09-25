@@ -2131,6 +2131,42 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
 
+## Version -14 to -15 ## {#sec-14-15}
+
+* DNS is only one possible name resolution service.
+
+* DNS and IP6.ARPA can be used for IPv6 reverse mapping.
+
+* Appropriate use of normative language.
+
+* Discouraged the NoSec mode already in Section 1.
+
+* Clarifications:
+
+  - Only Any Source Multicast (ASM) is in scope.
+
+  - Scope of the document about proxy operations.
+
+  - Strategies for repeating a group request.
+
+  - Interspersing confirmable Observe notifications.
+
+  - How the leisure period applies to Observe notifications.
+
+* Revised definitions of parameters for congestion control.
+
+* More content on amplification attacks:
+
+  - Early heads-up and forward pointers.
+
+  - Revised presentation of attacks and mitigations.
+
+  - New section on mitigating the attacks with the Echo option.
+
+* Updated references.
+
+* Editorial improvements.
+
 ## Version -13 to -14 ## {#sec-13-14}
 
 * More context information in the abstract and introduction.
