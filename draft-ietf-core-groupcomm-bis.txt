@@ -650,12 +650,13 @@ Table of Contents
 
    When configuring a CoAP group membership, it is recommended to
    configure an endpoint with an IP multicast address literal, instead
-   of a group hostname.  This is because DNS infrastructure may not be
-   deployed in many constrained networks.  In case a group hostname is
-   configured, it can be uniquely mapped to an IP multicast address via
-   DNS resolution, if DNS client functionality is available in the
-   endpoint being configured and the DNS service is supported in the
-   network.
+   of a group hostname.  This is because an infrastructure providing a
+   name resolution service, such as DNS, may not be deployed in many
+   constrained networks.  In case a group hostname is configured, it can
+   be uniquely mapped to an IP multicast address via a name resolution
+   service.  For example, this can rely on the DNS resolution process,
+   if DNS client functionality is available in the endpoint being
+   configured and the DNS service is supported in the network.
 
    Some examples of hierarchical CoAP group FQDN naming (and scoping)
    for a building control application are shown below.
@@ -681,10 +682,12 @@ Table of Contents
            Table 1: Examples of Hierarchical Group FQDN Naming
 
    Similarly, if supported, reverse mapping (from IP multicast address
-   to Group FQDN) is possible using the reverse DNS resolution technique
-   [RFC1035].  Reverse mapping is important, for example, in
-   troubleshooting to translate IP multicast addresses back to human-
-   readable hostnames to show in a diagnostics user interface.
+   to Group FQDN) is also possible.  For example, when using an IPv6
+   multicast address, the reverse mapping can rely on DNS and the
+   IP6.ARPA domain (see Section 2.5 of [RFC3596]).  Reverse mapping is
+   important, for example, in troubleshooting to translate IP multicast
+   addresses back to human-readable hostnames to show in a diagnostics
+   user interface.
 
 2.2.1.2.  Application Groups
 
@@ -3346,9 +3349,10 @@ Table of Contents
    [libcoap]  Bergmann, O., "libcoap", June 2022,
               <https://github.com/obgm/libcoap>.
 
-   [RFC1035]  Mockapetris, P., "Domain names - implementation and
-              specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
-              November 1987, <https://www.rfc-editor.org/rfc/rfc1035>.
+   [RFC3596]  Thomson, S., Huitema, C., Ksinant, V., and M. Souissi,
+              "DNS Extensions to Support IP Version 6", STD 88,
+              RFC 3596, DOI 10.17487/RFC3596, October 2003,
+              <https://www.rfc-editor.org/rfc/rfc3596>.
 
    [RFC6092]  Woodyatt, J., Ed., "Recommended Simple Security
               Capabilities in Customer Premises Equipment (CPE) for
@@ -3539,7 +3543,8 @@ A.1.3.  Directory Discovery
    *  The DNS server (DNS Server) is optional.  If the server is there
       (connected to the network backbone), then certain DNS-based
       features are available (e.g., DNS resolution of the hostname to
-      the IP multicast address).  If the DNS server is not there, then
+      the IP multicast address).  If the DNS server is not there and no
+      alternative name resolution service is available to use, then
       different provisioning of the network is required (e.g., IP
       multicast addresses are hard-coded into devices, or manually
       configured, or obtained via a service discovery method).
@@ -3722,10 +3727,10 @@ A.2.1.  Actuator Group Control
    address of the group (Room-A-Lights) has been configured in all the
    lights and in the light switch.
 
-   3b) As an alternative to the previous step, when a DNS server is
-   available, the light switch and/or the lights have been configured
-   with a group hostname that each node resolves to the above IP
-   multicast address of the group.
+   3b) As an alternative to the previous step, when a DNS server or an
+   alternative name resolution service is available, the light switch
+   and/or the lights have been configured with a group hostname that
+   each node resolves to the above IP multicast address of the group.
 
    Note for the Commissioning phase: the switch's 6LoWPAN/CoAP software
    stack supports sending unicast, multicast, or proxied unicast CoAP
@@ -4013,8 +4018,8 @@ B.3.  Group Naming using the URI Authority Component
 
    Figure 13 provides an example where the URI host subcomponent of the
    URI authority component is used for encoding the name of the
-   application group.  Specifically, the first label of the DNS name is
-   used.
+   application group.  Specifically, the leftmost label of the
+   registered name is used.
 
       Application group name: grp42
 
@@ -5000,8 +5005,8 @@ Acknowledgements
 
    The authors sincerely thank Christian Amsüss, Mike Bishop, Carsten
    Bormann, Thomas Fossati, Rikard Höglund, Jaime Jiménez, John Preuß
-   Mattsson, Jim Schaad, Jon Shallow, Sean Turner, and Magnus Westerlund
-   for their comments and feedback.
+   Mattsson, Jim Schaad, Jon Shallow, Petr Špaček, Sean Turner, and
+   Magnus Westerlund for their comments and feedback.
 
    The work on this document has been partly supported by the Sweden's
    Innovation Agency VINNOVA and the Celtic-Next projects CRITISEC and

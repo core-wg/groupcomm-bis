@@ -1901,7 +1901,7 @@ The host subcomponent indirectly defines the IP multicast address of the CoAP gr
                 <p id="section-2.2.1.1-6.6.1">[ff15::1234]:5683<a href="#section-2.2.1.1-6.6.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
-<p id="section-2.2.1.1-7">When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal, instead of a group hostname. This is because DNS infrastructure may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via DNS resolution, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.<a href="#section-2.2.1.1-7" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.1-7">When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal, instead of a group hostname. This is because an infrastructure providing a name resolution service, such as DNS, may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via a name resolution service. For example, this can rely on the DNS resolution process, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.<a href="#section-2.2.1.1-7" class="pilcrow">¶</a></p>
 <p id="section-2.2.1.1-8">Some examples of hierarchical CoAP group FQDN naming (and scoping) for a building control application are shown below.<a href="#section-2.2.1.1-8" class="pilcrow">¶</a></p>
 <span id="name-examples-of-hierarchical-gr"></span><div id="_table-fqdn-naming">
 <table class="center" id="table-1">
@@ -1935,7 +1935,7 @@ The host subcomponent indirectly defines the IP multicast address of the CoAP gr
               </tbody>
             </table>
 </div>
-<p id="section-2.2.1.1-10">Similarly, if supported, reverse mapping (from IP multicast address to Group FQDN) is possible using the reverse DNS resolution technique <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>. Reverse mapping is important, for example, in troubleshooting to translate IP multicast addresses back to human-readable hostnames to show in a diagnostics user interface.<a href="#section-2.2.1.1-10" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.1-10">Similarly, if supported, reverse mapping (from IP multicast address to Group FQDN) is also possible. For example, when using an IPv6 multicast address, the reverse mapping can rely on DNS and the IP6.ARPA domain (see <span><a href="https://rfc-editor.org/rfc/rfc3596#section-2.5" class="relref">Section 2.5</a> of [<a href="#RFC3596" class="cite xref">RFC3596</a>]</span>). Reverse mapping is important, for example, in troubleshooting to translate IP multicast addresses back to human-readable hostnames to show in a diagnostics user interface.<a href="#section-2.2.1.1-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-groupnaming-app">
@@ -3141,9 +3141,9 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
         <dd>
 <span class="refAuthor">Bergmann, O.</span>, <span class="refTitle">"libcoap"</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://github.com/obgm/libcoap">https://github.com/obgm/libcoap</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC1035">[RFC1035]</dt>
+<dt id="RFC3596">[RFC3596]</dt>
         <dd>
-<span class="refAuthor">Mockapetris, P.</span>, <span class="refTitle">"Domain names - implementation and specification"</span>, <span class="seriesInfo">STD 13</span>, <span class="seriesInfo">RFC 1035</span>, <span class="seriesInfo">DOI 10.17487/RFC1035</span>, <time datetime="1987-11" class="refDate">November 1987</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc1035">https://www.rfc-editor.org/rfc/rfc1035</a>&gt;</span>. </dd>
+<span class="refAuthor">Thomson, S.</span>, <span class="refAuthor">Huitema, C.</span>, <span class="refAuthor">Ksinant, V.</span>, and <span class="refAuthor">M. Souissi</span>, <span class="refTitle">"DNS Extensions to Support IP Version 6"</span>, <span class="seriesInfo">STD 88</span>, <span class="seriesInfo">RFC 3596</span>, <span class="seriesInfo">DOI 10.17487/RFC3596</span>, <time datetime="2003-10" class="refDate">October 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3596">https://www.rfc-editor.org/rfc/rfc3596</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6092">[RFC6092]</dt>
         <dd>
@@ -3278,7 +3278,7 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
               <p id="appendix-A.1.3-6.5.1">A CoRE RD using CoAP (CoAP Resource Directory) is connected to the network backbone.<a href="#appendix-A.1.3-6.5.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="appendix-A.1.3-6.6">
-              <p id="appendix-A.1.3-6.6.1">The DNS server (DNS Server) is optional. If the server is there (connected to the network backbone), then certain DNS-based features are available (e.g., DNS resolution of the hostname to the IP multicast address). If the DNS server is not there, then different provisioning of the network is required (e.g., IP multicast addresses are hard-coded into devices, or manually configured, or obtained via a service discovery method).<a href="#appendix-A.1.3-6.6.1" class="pilcrow">¶</a></p>
+              <p id="appendix-A.1.3-6.6.1">The DNS server (DNS Server) is optional. If the server is there (connected to the network backbone), then certain DNS-based features are available (e.g., DNS resolution of the hostname to the IP multicast address). If the DNS server is not there and no alternative name resolution service is available to use, then different provisioning of the network is required (e.g., IP multicast addresses are hard-coded into devices, or manually configured, or obtained via a service discovery method).<a href="#appendix-A.1.3-6.6.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="appendix-A.1.3-6.7">
               <p id="appendix-A.1.3-6.7.1">A controller using CoAP (CoAP Controller Client) is connected to the backbone, which is able to control various building functions including lighting.<a href="#appendix-A.1.3-6.7.1" class="pilcrow">¶</a></p>
@@ -3570,7 +3570,7 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
 <p id="appendix-A.2.1-7">1) Startup phase: 6LoWPANs are formed. IPv6 addresses are assigned to all devices. The CoAP network is formed.<a href="#appendix-A.2.1-7" class="pilcrow">¶</a></p>
 <p id="appendix-A.2.1-8">2) Network configuration (application independent): 6LBRs are configured with IP multicast addresses, or address blocks, to filter out or to pass through to/from the 6LoWPAN.<a href="#appendix-A.2.1-8" class="pilcrow">¶</a></p>
 <p id="appendix-A.2.1-9">3a) Commissioning phase (application related): The IP multicast address of the group (Room-A-Lights) has been configured in all the lights and in the light switch.<a href="#appendix-A.2.1-9" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.1-10">3b) As an alternative to the previous step, when a DNS server is available, the light switch and/or the lights have been configured with a group hostname that each node resolves to the above IP multicast address of the group.<a href="#appendix-A.2.1-10" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-10">3b) As an alternative to the previous step, when a DNS server or an alternative name resolution service is available, the light switch and/or the lights have been configured with a group hostname that each node resolves to the above IP multicast address of the group.<a href="#appendix-A.2.1-10" class="pilcrow">¶</a></p>
 <p id="appendix-A.2.1-11">Note for the Commissioning phase: the switch's 6LoWPAN/CoAP software stack supports sending unicast, multicast, or proxied unicast CoAP requests, including processing of the multiple responses that may be generated by an IP multicast CoAP request.<a href="#appendix-A.2.1-11" class="pilcrow">¶</a></p>
 <span id="name-light-switch-sends-multicas"></span><div id="fig-light-switch-control-msg">
 <figure id="figure-5">
@@ -4037,8 +4037,7 @@ So, effectively, the application group name is transported in the UDP message as
 <a href="#name-example-of-application-group-na" class="selfRef">Example of application group name defined by the URI authority</a>
           </figcaption></figure>
 </div>
-<p id="appendix-B.3-3"><a href="#fig-gname-host-example" class="auto internal xref">Figure 13</a> provides an example where the URI host subcomponent of the URI authority component is used for encoding the name of the application group.
-Specifically, the first label of the DNS name is used.<a href="#appendix-B.3-3" class="pilcrow">¶</a></p>
+<p id="appendix-B.3-3"><a href="#fig-gname-host-example" class="auto internal xref">Figure 13</a> provides an example where the URI host subcomponent of the URI authority component is used for encoding the name of the application group. Specifically, the leftmost label of the registered name is used.<a href="#appendix-B.3-3" class="pilcrow">¶</a></p>
 <span id="name-example-of-application-group-nam"></span><div id="fig-gname-host-example">
 <figure id="figure-13">
           <div class="alignLeft art-text artwork" id="appendix-B.3-4.1">
@@ -5747,7 +5746,7 @@ That is, the client needs to preserve the Token value used for the request also 
       <h2 id="name-acknowledgements">
 <a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
       </h2>
-<p id="appendix-H-1">The authors sincerely thank <span class="contact-name">Christian Amsüss</span>, <span class="contact-name">Mike Bishop</span>, <span class="contact-name">Carsten Bormann</span>, <span class="contact-name">Thomas Fossati</span>, <span class="contact-name">Rikard Höglund</span>, <span class="contact-name">Jaime Jiménez</span>, <span class="contact-name">John Preuß Mattsson</span>, <span class="contact-name">Jim Schaad</span>, <span class="contact-name">Jon Shallow</span>, <span class="contact-name">Sean Turner</span>, and <span class="contact-name">Magnus Westerlund</span> for their comments and feedback.<a href="#appendix-H-1" class="pilcrow">¶</a></p>
+<p id="appendix-H-1">The authors sincerely thank <span class="contact-name">Christian Amsüss</span>, <span class="contact-name">Mike Bishop</span>, <span class="contact-name">Carsten Bormann</span>, <span class="contact-name">Thomas Fossati</span>, <span class="contact-name">Rikard Höglund</span>, <span class="contact-name">Jaime Jiménez</span>, <span class="contact-name">John Preuß Mattsson</span>, <span class="contact-name">Jim Schaad</span>, <span class="contact-name">Jon Shallow</span>, <span class="contact-name">Petr Špaček</span>, <span class="contact-name">Sean Turner</span>, and <span class="contact-name">Magnus Westerlund</span> for their comments and feedback.<a href="#appendix-H-1" class="pilcrow">¶</a></p>
 <p id="appendix-H-2">The work on this document has been partly supported by the Sweden's Innovation Agency VINNOVA and the Celtic-Next projects CRITISEC and CYPRESS; and by the H2020 projects SIFIS-Home (Grant agreement 952652) and ARCADIAN-IoT (Grant agreement 101020259).<a href="#appendix-H-2" class="pilcrow">¶</a></p>
 </section>
 </div>
