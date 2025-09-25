@@ -441,7 +441,7 @@ As discussed below, such a GET request may be sent to the IP multicast address o
 
 These particular details concerning the GET request depend on the specific discovery action intended by the client and on application-specific means used to encode names of application groups and CoAP groups, e.g., in group URIs and/or CoRE target attributes used with resource links.
 
-The following discusses a number of methods to discover application groups and CoAP groups, building on the following assumptions.
+The following discusses a number of methods to discover application groups and CoAP groups. When discussing the different methods, the two assumptions below hold:
 
 * Application group names are encoded in the path component of Group URIs (see {{sec-groupnaming-app}}). In examples in this document, the path segment "gp" is used as designated delimiter.
 
@@ -905,7 +905,7 @@ It is NOT RECOMMENDED to use CoAP group communication in NoSec mode.
 
 The possible, exceptional use of the NoSec mode ought to be limited to specific, well-defined "unsecured steps" that unquestionably do not require security or are not able to attain it, e.g., early discovery of devices and resources (see {{chap-security-considerations-nosec-mode}}).
 
-Before possibly and exceptionally using the NoSec mode in such circumstances, the security implications in {{chap-security-considerations-nosec-mode}} must be very well considered and understood, especially as to the risk and impact of amplification attacks (see {{ssec-amplification}}). Consistent with such security implications, the use of the NoSec mode should still be avoided whenever possible.
+Before possibly and exceptionally using the NoSec mode in such circumstances, the security implications in {{chap-security-considerations-nosec-mode}} must be very well considered and understood, especially as to the risk and impact of amplification attacks (see {{ssec-amplification}}). Consistent with such security implications, the use of the NoSec mode SHOULD still be avoided whenever possible.
 
 # Secured Group Communication using Group OSCORE # {#chap-oscore}
 
@@ -959,13 +959,13 @@ As part of group maintenance operations (see {{sec-group-maintenance}}), additio
 
    Also, this ensures that the members intended to remain in the OSCORE group are able to confidently verify the group membership of other sender nodes, when receiving protected messages in the OSCORE group after the distribution and installation of the new security material (see {{Section 12.2 of I-D.ietf-core-oscore-groupcomm}}).
 
-The key management operations mentioned above are entrusted to the Group Manager responsible for the OSCORE group {{I-D.ietf-core-oscore-groupcomm}}, and it is RECOMMENDED to perform them as defined in {{I-D.ietf-ace-key-groupcomm-oscore}}.
+The key management operations mentioned above are entrusted to the Group Manager responsible for the OSCORE group {{I-D.ietf-core-oscore-groupcomm}}. For example, they can be performed as defined in {{I-D.ietf-ace-key-groupcomm-oscore}}.
 
 ## Proxy Security # {#chap-proxy-security}
 
 Different solutions may be selected for secure group communication via a proxy depending on proxy type, use case, and deployment requirements. In this section the options based on Group OSCORE are listed.
 
-For a client performing a group communication request via a forward-proxy, end-to-end security should be implemented. The client then creates a group request protected with Group OSCORE and unicasts this to the proxy. The proxy adapts the request from a forward-proxy request to a regular request and multicasts this adapted request to the indicated CoAP group. During the adaptation, the security provided by Group OSCORE persists, in either case of using the group mode or using the pairwise mode. The first leg of communication from client to proxy can optionally be further protected, e.g., by using (D)TLS and/or OSCORE.
+For a client performing a group communication request via a forward-proxy, end-to-end security SHOULD be implemented. The client then creates a group request protected with Group OSCORE and unicasts this to the proxy. The proxy adapts the request from a forward-proxy request to a regular request and multicasts this adapted request to the indicated CoAP group. During the adaptation, the security provided by Group OSCORE persists, in either case of using the group mode or using the pairwise mode. The first leg of communication from client to proxy can optionally be further protected, e.g., by using (D)TLS and/or OSCORE.
 
 For a client performing a group communication request via a reverse-proxy, either end-to-end-security or hop-by-hop security can be implemented.
 The case of end-to-end security is the same as for the forward-proxy case.
@@ -995,7 +995,7 @@ As a further example, the NoSec mode may be useful and acceptable in simple read
 
 In the exception cases where NoSec mode is used, high-volume and harmful amplifications need to be prevented through appropriate and conservative device configurations: taking the early discovery query as an example, only a few CoAP servers are expected to be configured for responding to multicast group requests that are sent for discovery. And the time window during which such unsecured requests are accepted, can be limited as well. Furthermore, the scope is also limited: only link-local requests are accepted.
 
-Except for the class of applications discussed above, and all the more so in applications that obviously have hard security requirements (e.g., health monitoring systems and alarm monitoring systems), CoAP group communication MUST NOT be used in NoSec mode.
+Except for the class of applications discussed above (in which unsecured communication is required or is not harmful for specific, well-defined "unsecured steps"), CoAP group communication MUST NOT be used in NoSec mode.
 
 ## Group OSCORE ## {#chap-security-considerations-sec-mode}
 
@@ -1161,7 +1161,7 @@ For these reasons, a large IPv6 multicast packet is a possible attack vector in 
 
 ## Wi-Fi ##
 In a home automation scenario using Wi-Fi, Wi-Fi security
-   should be enabled to prevent rogue nodes from joining.  The Customer
+   SHOULD be enabled to prevent rogue nodes from joining.  The Customer
    Premises Equipment (CPE) that enables access to the Internet should
    also have its IP multicast filters set so that it enforces multicast
    scope boundaries to isolate local multicast groups from the rest of
@@ -2399,7 +2399,7 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 # Acknowledgements # {#acknowledgements}
 {:numbered="false"}
 
-The authors sincerely thank {{{Christian Amsüss}}}, {{{Mike Bishop}}}, {{{Carsten Bormann}}}, {{{Thomas Fossati}}}, {{{Rikard Höglund}}}, {{{Jaime Jiménez}}}, {{{John Preuß Mattsson}}}, {{{Jim Schaad}}}, {{{Jon Shallow}}}, and {{{Magnus Westerlund}}} for their comments and feedback.
+The authors sincerely thank {{{Christian Amsüss}}}, {{{Mike Bishop}}}, {{{Carsten Bormann}}}, {{{Thomas Fossati}}}, {{{Rikard Höglund}}}, {{{Jaime Jiménez}}}, {{{John Preuß Mattsson}}}, {{{Jim Schaad}}}, {{{Jon Shallow}}}, {{{Sean Turner}}}, and {{{Magnus Westerlund}}} for their comments and feedback.
 
 The work on this document has been partly supported by the Sweden's Innovation Agency VINNOVA and the Celtic-Next projects CRITISEC and CYPRESS; and by the H2020 projects SIFIS-Home (Grant agreement 952652) and ARCADIAN-IoT (Grant agreement 101020259).
 
