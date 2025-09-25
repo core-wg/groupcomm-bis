@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                        9 September 2025
-Expires: 13 March 2026
+Intended status: Standards Track                       25 September 2025
+Expires: 29 March 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 March 2026.
+   This Internet-Draft will expire on 29 March 2026.
 
 Copyright Notice
 
@@ -111,6 +111,7 @@ Table of Contents
        3.5.2.  Reverse-Proxies
        3.5.3.  Single Group Request to Multiple Proxies
      3.6.  Congestion Control
+       3.6.1.  Default Leisure Updates
      3.7.  Observing Resources
      3.8.  Block-Wise Transfer
      3.9.  Transport Protocols
@@ -135,6 +136,7 @@ Table of Contents
        6.2.2.  Source Authentication
        6.2.3.  Countering Attacks
      6.3.  Risk of Amplification
+       6.3.1.  Mitigation with the Echo Option
      6.4.  Replay of Group Requests
      6.5.  Use of CoAP No-Response Option
      6.6.  6LoWPAN and MPL
@@ -223,8 +225,14 @@ Table of Contents
    "libcoap" [libcoap].
 
    Both unsecured and secured CoAP group communication are specified in
-   this document.  Security is achieved by using Group Object Security
-   for Constrained RESTful Environments (Group OSCORE)
+   this document.
+
+   Unsecured group communication relies on the NoSec mode, whose use is
+   strongly discouraged and is limited to specific cases (see
+   Section 4).
+
+   Secured group communication is achieved by using Group Object
+   Security for Constrained RESTful Environments (Group OSCORE)
    [I-D.ietf-core-oscore-groupcomm], which in turn builds on Object
    Security for Constrained Restful Environments (OSCORE) [RFC8613].
    This method provides end-to-end application-layer security protection
@@ -252,12 +260,14 @@ Table of Contents
    cases as the ones targeted in this document.
 
    This document defines UDP/IP multicast as the default transport
-   protocol for CoAP group requests, as in [RFC7252].  Other transport
-   protocols (which may include broadcast, non-IP multicast, geocast,
-   etc.) are not described in detail and are not considered.  Although
-   UDP/IP multicast transport is assumed in most of the text in this
-   document, we expect many of the considerations for UDP/IP multicast
-   can be re-used for alternative transport protocols.
+   protocol for CoAP group requests, as in [RFC7252].  Only the Any
+   Source Multicast (ASM) mode [RFC5110] of IP multicast operation is in
+   scope.  Other transport protocols (which may include broadcast, non-
+   IP multicast, geocast, etc.) are not described in detail and are not
+   considered.  Although UDP/IP multicast transport is assumed in most
+   of the text in this document, we expect many of the considerations
+   for UDP/IP multicast can be re-used for alternative transport
+   protocols.
 
    Furthermore, this document defines Group OSCORE
    [I-D.ietf-core-oscore-groupcomm] as the default group communication
@@ -265,6 +275,16 @@ Table of Contents
    communication and configuration other than Group OSCORE are not
    considered.  General principles for secure group configuration are in
    scope.
+
+   Finally, this document defines the foundation of how proxies operate
+   in a group communication scenario (see Section 3.5) and compiles
+   related issues and limitations to account for (see Appendix E and
+   Appendix F).  While further details that are relevant to operate such
+   proxies are not defined here, other specifications can build on the
+   common denominator provided by this document and define specific
+   realizations of proxies that operate in a group communication
+   scenario.  For example, a possible realization of proxy for CoAP
+   group communication is specified in [I-D.ietf-core-groupcomm-proxy].
 
 1.2.  Terminology
 
@@ -310,7 +330,7 @@ Table of Contents
    *  It strongly discourages unsecured group communication for CoAP
       based on the CoAP NoSec (No Security) mode (see Section 4 and
       Section 6.1), and highlights the risk of amplification attacks
-      (see Section 6.3).
+      together with mitigations against those (see Section 6.3).
 
    *  It defines the use of Group OSCORE
       [I-D.ietf-core-oscore-groupcomm] as the security protocol to
@@ -328,8 +348,10 @@ Table of Contents
 
    *  It defines the measures against congestion risk specified in
       [RFC7252] to be applicable also to alternative transports other
-      than IP multicast, and defines additional guidelines to reduce
-      congestion risks (see Section 3.6).
+      than IP multicast and defines additional guidelines to reduce
+      congestion risks (see Section 3.6), including new values for the
+      transmission parameter DEFAULT_LEISURE that account for secure
+      communication with Group OSCORE (see Section 3.6.1).
 
    *  It explicitly allows the use of the IPv6 multicast address scopes
       realm-local (3), admin-local (4), and global (E).  In particular,
@@ -1120,6 +1142,14 @@ Table of Contents
    (e.g., 2.05 (Content)) and failure (e.g., 4.04 (Not Found)) response
    codes, depending on the individual server processing results.
 
+   When using CoAP group communication, an amplification attack becomes
+   more effective than when sending a unicast request to a single
+   server.  That is, by spoofing the source IP address of a designated
+   victim in the group request sent via IP multicast, the attack may
+   result in multiple servers within the CoAP group sending responses to
+   the victim.  This is further discussed in Section 6.3, together with
+   available mitigations.
+
 3.1.2.  Response Suppression
 
    A server MAY suppress its response for various reasons given in
@@ -1155,27 +1185,42 @@ Table of Contents
    responses.  To this end, CoAP clients can rely on the following two
    approaches.
 
-   A CoAP client MAY repeat a group request using the same Token value
-   and same Message ID value, in order to ensure that enough (or all)
-   members of the CoAP group have been reached with the request.  This
-   is useful in case a number of members of the CoAP group did not
-   respond to the initial request and the client suspects that the
-   request did not reach these group members.  However, in case one or
-   more servers did receive the initial request but the response to that
-   request was lost, this repeat does not help to retrieve the lost
-   response(s) if the server(s) implement the optional Message ID based
-   deduplication (Section 4.5 of [RFC7252]).
+   The first approach is the default, used in case there is no explicit
+   preference of the implementer.  It is supported already by all CoAP
+   stacks.  The application in this case implements a custom
+   retransmission logic that MAY trigger a new API request for
+   transmission (of a CoAP request) to the CoAP stack, if less responses
+   than expected were received.  The CoAP client then sends this group
+   request using a different Message ID (and the same or a different
+   Token value), in which case all servers that received the initial
+   request will again process the repeated request since it appears
+   within a new CoAP message with a new Message ID.  This is useful in
+   case a client suspects that one or more response(s) to its original
+   request were lost and the client needs to collect more, or even all,
+   responses from members of the CoAP group, even if this comes at the
+   cost of the overhead of certain group members responding twice (once
+   to the original request, and once to the repeated request with
+   different Message ID).
 
-   A CoAP client MAY repeat a group request using a different Message ID
-   (and the same or a different Token value), in which case all servers
-   that received the initial request will again process the repeated
-   request since it appears within a new CoAP message.  This is useful
-   in case a client suspects that one or more response(s) to its
-   original request were lost and the client needs to collect more, or
-   even all, responses from members of the CoAP group, even if this
-   comes at the cost of the overhead of certain group members responding
-   twice (once to the original request, and once to the repeated request
-   with different Message ID).
+   The second approach that MAY be implemented requires specific support
+   in the CoAP stack.  The application layer in this case also
+   implements a custom retransmission logic that MAY trigger a new API
+   request to the stack if less responses than expected were received.
+   If this specific API request is made, the CoAP client repeats a group
+   request using the same Token value and same Message ID value.  This
+   ensures that enough (or all) members of the CoAP group have been
+   reached with the request.  This is useful in case a number of members
+   of the CoAP group did not respond to the initial request and the
+   client/application suspects that the request did not reach these
+   group members.  However, in case one or more servers did receive the
+   initial request but the response to that request was lost, this
+   repeat does not help to retrieve the lost response(s) if the
+   server(s) implement the optional Message ID based deduplication
+   (Section 4.5 of [RFC7252]).
+
+   In summary, even though the CoAP message is Non-confirmable, the CoAP
+   stack now provides a mechanism to retransmit the CoAP message, which
+   is normally never done for Non-confirmable messages.
 
 3.1.4.  Request/Response Matching and Distinguishing Responses
 
@@ -1323,8 +1368,9 @@ Table of Contents
    different responses to a group request, as well as to distinguish the
    different origin servers that responded.  This in turn requires
    additional means to provide the client with information about the
-   origin server of each response, e.g., using the forward-proxying
-   method defined in [I-D.ietf-core-groupcomm-proxy].
+   origin server of each response.  As an example, this is accomplished
+   when using the forward-proxying method provided by the realization of
+   proxy specified in [I-D.ietf-core-groupcomm-proxy].
 
    The following subsections define the freshness model and validation
    model to use for cached responses, which update the models defined in
@@ -1357,8 +1403,9 @@ Table of Contents
    document.  It may be, for example, via a Group Manager, or by
    monitoring group joining protocol exchanges.
 
-   For caching at proxies, the freshness model defined in
-   [I-D.ietf-core-groupcomm-proxy] can be used.
+   For caching at proxies, a possible freshness model is defined as part
+   of the realization of proxy specified in
+   [I-D.ietf-core-groupcomm-proxy].
 
 3.2.2.  Validation Model
 
@@ -1369,8 +1416,9 @@ Table of Contents
    document updates [RFC7252] by allowing a group request to contain
    ETag Options as specified below.
 
-   For validation at proxies, the validation model defined in
-   [I-D.ietf-core-groupcomm-proxy] can be used.
+   For validation at proxies, a possible validation model is defined as
+   part of the realization of proxy specified in
+   [I-D.ietf-core-groupcomm-proxy].
 
 3.2.2.1.  ETag Option in a Group Request/Response
 
@@ -1467,12 +1515,21 @@ Table of Contents
 
 3.5.  Proxy Operation
 
-   This section defines how proxies operate in a group communication
-   scenario.  In particular, Section 3.5.1 defines operations of
-   forward-proxies, while Section 3.5.2 defines operations of reverse-
-   proxies.  Furthermore, Section 3.5.3 discusses the case where a
-   client sends a group request to multiple proxies at once.  Security
-   operations for a proxy are discussed later in Section 5.3.
+   This section defines the foundation of how proxies operate in a group
+   communication scenario.
+
+   In particular, forward-proxies and reverse-proxies are separately
+   considered in Section 3.5.1 and Section 3.5.2, respectively.
+   Furthermore, Section 3.5.3 discusses the case where a client sends a
+   group request to multiple proxies at once.  Security considerations
+   that apply when using a proxy are discussed later in Section 5.3.
+
+   Further details that are relevant to operate such proxies are not
+   defined here.  Other specifications can build on the common
+   denominator provided by this document and define specific
+   realizations of proxies that operate in a group communication
+   scenario.  As an example, a realization of such proxy is specified in
+   [I-D.ietf-core-groupcomm-proxy].
 
 3.5.1.  Forward-Proxies
 
@@ -1491,8 +1548,9 @@ Table of Contents
    all the individual (unicast) responses back to the client.
 
    Issues and limitations of this approach are compiled in Appendix E.
-   A forward-proxying method using this approach and addressing such
-   issues and limitations is defined in [I-D.ietf-core-groupcomm-proxy].
+   The forward-proxying method provided by the realization of proxy
+   specified in [I-D.ietf-core-groupcomm-proxy] uses this approach and
+   addresses such issues and limitations.
 
    An alternative approach is for the proxy to collect all the
    individual (unicast) responses to a CoAP group request and then send
@@ -1515,8 +1573,9 @@ Table of Contents
    back to the HTTP client.  Resulting issues and limitations are also
    compiled in Appendix E.
 
-   A forward-proxying method for HTTP-to-CoAP proxies addressing such
-   issues and limitations is defined in [I-D.ietf-core-groupcomm-proxy].
+   The forward-proxying method for HTTP-to-CoAP proxies provided by the
+   realization of proxy specified in [I-D.ietf-core-groupcomm-proxy]
+   addresses such issues and limitations.
 
 3.5.2.  Reverse-Proxies
 
@@ -1557,8 +1616,9 @@ Table of Contents
    For a reverse-proxy that sends a group request to servers in a CoAP
    group, the considerations as defined in Section 5.7.3 of [RFC7252]
    hold.  Resulting issues and limitations are compiled in Appendix F.
-   A reverse-proxying method addressing such issues and limitations is
-   defined in [I-D.ietf-core-groupcomm-proxy].
+   The reverse-proxying method provided by the realization of proxy
+   specified in [I-D.ietf-core-groupcomm-proxy] uses this approach and
+   addresses such issues and limitations.
 
    A client might re-use a Token value in a valid new request to the
    reverse-proxy, while the reverse-proxy still has an ongoing group
@@ -1601,9 +1661,10 @@ Table of Contents
       -  From each proxy, the client receives all the responses to the
          group request that each server has sent to that proxy.  Even in
          case the client is able to distinguish the different servers
-         originating the responses (e.g., by using the approach defined
-         in [I-D.ietf-core-groupcomm-proxy]), the client would receive
-         the same response content originated by each server N times, as
+         originating the responses (e.g., leveraging the approach used
+         by the realization of proxy specified in
+         [I-D.ietf-core-groupcomm-proxy]), the client would receive the
+         same response content originated by each server N times, as
          relayed by the N proxies.
 
    *  If secure group communication with Group OSCORE is used (see
@@ -1650,25 +1711,48 @@ Table of Contents
    *  An IP multicast request MUST be Non-confirmable (Section 8.1 of
       [RFC7252]).
 
-   *  The same rationale for enforcing congestion control based on the
-      transmission parameter PROBING_RATE defined in Section 4.7 of
-      [RFC7252] holds for CoAP group communication.  In particular,
-      group requests are the Non-confirmable requests in question, and
-      an average data rate PROBING_RATE is not to be exceeded by a
-      client that does not receive a response from any server in the
-      targeted CoAP group.
-
    *  A response to an IP multicast request SHOULD be Non-confirmable
       (Section 5.2.3 of [RFC7252]).
 
    *  A server does not respond immediately to an IP multicast request
       and should first wait for a time that is randomly picked within a
       predetermined time interval called the Leisure (Section 8.2 of
-      [RFC7252]).
+      [RFC7252]).  The transmission parameter DEFAULT_LEISURE may be
+      used to define a Leisure period when it cannot be computed
+      otherwise.
 
    This document also defines these measures to be applicable to
    alternative transports (other than IP multicast), if not defined
-   otherwise.
+   otherwise.  Updates related to Leisure are done in Section 3.6.1.
+
+   CoAP also defines non-multicast-specific congestion control measures
+   that also apply to the IP multicast case:
+
+   *  The transmission parameter NSTART defined in Section 4.7 of
+      [RFC7252] limits "the number of simultaneous outstanding
+      interactions to a given server".  For the IP multicast case,
+      "given server" is to be understood as a "given CoAP group", i.e.,
+      a set of CoAP endpoints where each endpoint is configured to
+      receive CoAP group messages that are sent to the group's
+      associated IP multicast address and UDP port (see Section 2.1.1).
+      The same default value of NSTART=1 (Section 4.8 of [RFC7252])
+      applies for the group communication case.
+
+   *  The transmission parameter PROBING_RATE (Section 4.7 of [RFC7252])
+      limits the average data rate in sending to another endpoint that
+      does not respond, e.g., to a Non-confirmable request such as a
+      group request.  Therefore, an average transmission data rate
+      PROBING_RATE is not to be exceeded by a client that does not
+      receive a response from any server in the targeted CoAP group.
+      The same default value of PROBING_RATE=1 byte/second (Section 4.8
+      of [RFC7252]) applies for the group communication case.
+
+   Note that the transmission parameter values for NSTART,
+   DEFAULT_LEISURE, and PROBING_RATE may be configured to values
+   specific to the application environment (including dynamically
+   adjusted values); however, the configuration method is out of the
+   scope of this document.  This is unchanged from Section 4.8.1 of
+   [RFC7252].
 
    Independently of the transport used, additional guidelines to reduce
    congestion risks defined in this document are as follows:
@@ -1702,6 +1786,52 @@ Table of Contents
       Similarly, realm-local scope is always preferred over site-local
       scope if this fulfills the application needs.
 
+3.6.1.  Default Leisure Updates
+
+   The Leisure time period as defined in Section 8.2 of [RFC7252] is
+   preferably computed or configured on the CoAP server with a value
+   suitable for the specific use case.  The equation from that section
+   for computing a rough lower bound for Leisure is:
+
+       lb_Leisure = S * G / R
+
+   for a group size estimate G, a target data transfer rate R (which
+   both should be chosen conservatively), and an estimated response size
+   S.  Note that S is the estimated average response size for all
+   responding servers for the given group request, not necessarily the
+   known response size of the server's own response to the request.  If
+   the Leisure is not computed or configured, the default value
+   DEFAULT_LEISURE MAY be used.  In [RFC7252], the default is calculated
+   based on a baseline IEEE 802.15.4 6LoWPAN network situation with
+   G=50, S=100, and R=1000, although this is not explicitly written
+   down.
+
+   This document updates the calculation for DEFAULT_LEISURE, by
+   modifying the estimated response size (S) parameter to account for
+   responses protected with Group OSCORE (see Section 5.1).  In
+   particular, the two cases of group mode and pairwise mode are
+   considered.
+
+   When the group mode is used to protect a response, it is largely
+   cautious to account for additional 100 bytes of security overhead, so
+   that S becomes 200.  When the pairwise mode is used to protect a
+   response, it is largely cautious to account for additional 30 bytes
+   of overhead is expected, so that S becomes 130.  Using these new
+   values for S in the calculation yields the following new default
+   parameter values:
+
+   *  DEFAULT_LEISURE = 20 seconds, if the OSCORE group is set to use
+      (also) the group mode.
+
+   *  DEFAULT_LEISURE = 13 seconds, if the OSCORE group is set to use
+      only the pairwise mode.
+
+   Obviously, the requirement to insert a random leisure period as
+   described above does not apply to retransmissions of a Confirmable
+   separate response (see Section 5.2.2 of [RFC7252]), but only to the
+   initial CoAP message transmission when the CoAP retransmission
+   counter is 0 (see Section 4.2 of [RFC7252]).
+
 3.7.  Observing Resources
 
    The CoAP Observe Option [RFC7641] is a protocol extension of CoAP,
@@ -1730,8 +1860,9 @@ Table of Contents
    A client that sends a group GET or FETCH request with the Observe
    Option MAY repeat this request using the same Token value and the
    same Observe Option value, in order to ensure that enough (or all)
-   members of the CoAP group have been reached with the request.  This
-   is useful in case a number of members of the CoAP group did not
+   members of the CoAP group have been reached with the request.
+   Repeating a request is discussed in more detail in Section 3.1.3.
+   This is useful in case a number of members of the CoAP group did not
    respond to the initial request.  The client MAY additionally use the
    same Message ID in the repeated request, to avoid that members of the
    CoAP group that had already received the initial request would
@@ -1794,13 +1925,33 @@ Table of Contents
    Option [RFC7967] specified by the client in the GET or FETCH request
    (see Section 3.1.2).
 
+   When responding, a server SHOULD apply the Leisure period defined in
+   Section 8.2 of [RFC7252].  This holds not only for the first response
+   to the multicast Observe request, but also for the subsequent Observe
+   notifications.  The Observe notifications in this case are the
+   "further responses" mentioned in that section:
+
+   |  If further responses need to be sent based on the same multicast
+   |  address membership, a new leisure period starts at the earliest
+   |  after the previous one finishes.
+
+   This implies that, while a server is still waiting for the random
+   point in time chosen to send an Observe notification within a leisure
+   period, a new Observe notification cannot be sent yet and remains
+   pending, if it is related to a different observation but to the same
+   CoAP group.
+
    A server SHOULD have a mechanism to verify the aliveness of its
    observing clients and the continued interest of these clients in
    receiving the Observe notifications.  This can be implemented by
    sending notifications occasionally using a Confirmable message (see
    Section 4.5 of [RFC7641] for details).  This requirement overrides
    the regular behavior of sending Non-confirmable notifications in
-   response to a Non-confirmable request.
+   response to a Non-confirmable request.  Obviously, the requirement to
+   insert a random leisure period as described above does not apply to
+   retransmissions of a Confirmable notification, but only to the
+   initial CoAP message transmission when the CoAP retransmission
+   counter is 0 (see Section 4.2 of [RFC7252]).
 
    A client can use the unicast cancellation methods of Section 3.6 of
    [RFC7641] and stop the ongoing observation of a particular resource
@@ -1816,11 +1967,20 @@ Table of Contents
    group/multicast deregistration request MAY be repeated upon receiving
    another observe response from a server.
 
+   When combining CoAP group communication and Observe as described
+   above, an amplification attack can become particularly effective.
+   That is, by spoofing the source IP address of a designated victim in
+   the group request conveying the Observe Option, the attack may result
+   in multiple servers within the CoAP group sending multiple Observe
+   notifications to the victim, throughout the observation lifetime.
+   This is further discussed in Section 6.3, together with available
+   mitigations.
+
    For observing at servers that are members of a CoAP group through a
    CoAP-to-CoAP proxy, the limitations stated in Section 3.5 apply.  The
-   method defined in [I-D.ietf-core-groupcomm-proxy] enables group
-   communication including resource observation through proxies and
-   addresses those limitations.
+   realization of proxy specified in [I-D.ietf-core-groupcomm-proxy]
+   enables group communication including resource observation through
+   proxies and addresses those limitations.
 
 3.8.  Block-Wise Transfer
 
@@ -2092,8 +2252,8 @@ Table of Contents
    MPL Forwarder is explicitly configured as an ingress point that
    introduces external multicast packets into the MPL Domain.  Such an
    ingress point could be located on an edge router (e.g., 6LBR).
-   Methods to configure which multicast groups are to be propagated into
-   the MPL Domain could be:
+   Methods to configure which IPv6 multicast groups are to be propagated
+   into the MPL Domain could be:
 
    *  Manual configuration on each ingress MPL Forwarder.
 
@@ -2337,8 +2497,9 @@ Table of Contents
    confined to a particular network domain and the client is outside
    this domain.
 
-   For all the above cases, more details on using Group OSCORE are
-   defined in [I-D.ietf-core-groupcomm-proxy].
+   The realization of proxy specified in [I-D.ietf-core-groupcomm-proxy]
+   provides further details on using Group OSCORE for all the above
+   cases.
 
 6.  Security Considerations
 
@@ -2513,13 +2674,13 @@ Table of Contents
       CoAP options according to the same classification in U/I/E
       classes.
 
-   *  Group OSCORE limits the feasibility and impact of amplification
-      attacks (see Section 6.3 of this document and Section 11.3 of
-      [RFC7252]), thanks to the handling of protected group requests on
-      the server side.  That is, upon receiving a group request
-      protected with Group OSCORE, a server verifies whether the request
-      is not a replay, and whether it has been originated by the alleged
-      CoAP endpoint in the OSCORE group.
+   *  Thanks to the handling of protected group requests on the server
+      side, Group OSCORE limits the feasibility and impact of
+      amplification attacks (see Section 11.3 of [RFC7252]).
+
+      Upon receiving a group request protected with Group OSCORE, a
+      server verifies whether the request is not a replay and has been
+      originated by the alleged CoAP endpoint in the OSCORE group.
 
       In order to perform the latter check of source authentication, the
       server either: i) verifies the signature included in the request
@@ -2539,10 +2700,11 @@ Table of Contents
       request was indeed sent to the whole CoAP group (e.g., over IP
       multicast); or the server is not able to determine it altogether.
 
-      Such a message processing on the server limits an adversary to
+      With respect to amplification attacks, such a message processing
+      on the server limits an external adversary to being on-path and
       leveraging an intercepted group request protected with Group
-      OSCORE, and then altering the source address to be the one of the
-      intended amplification victim.
+      OSCORE, by altering the source address of the request to be the
+      one of the intended amplification victim.
 
       Furthermore, the adversary needs to consider a group request that
       specifically targets a resource for which the CoAP servers are
@@ -2552,27 +2714,8 @@ Table of Contents
       Query CoAP Options conveying the respective components of the
       target URI.
 
-      As a further mitigation against amplification attacks, a server
-      can also rely on the Echo Option for CoAP defined in [RFC9175] and
-      include it in a response to a group request.  By doing so, the
-      server can verify whether the alleged sender of the group request
-      (i.e., the CoAP client associated with a certain authentication
-      credential including the corresponding public key) is indeed
-      reachable at the claimed source address of the group request,
-      especially if such an address differs from the one used in
-      previous group requests from the same (authenticated) device.
-      Although responses including the Echo Option do still result in
-      amplification, this is limited in volume compared to when all
-      servers reply with a full response.
-
-      Using the Echo Option does not provide authentication of source
-      addressing information about the sender of a CoAP message.  Also,
-      using the Echo Option in itself does not provide source
-      authentication of exchanged messages, which is achieved by means
-      of Group OSCORE (see Section 6.2.2).  Using the Echo Option
-      together with Group OSCORE allows a CoAP server in the OSCORE
-      group to verify the freshness of CoAP requests received from other
-      members in the group.
+      Amplification attacks are further discussed in Section 6.3,
+      together with available mitigations.
 
    *  Group OSCORE limits the impact of attacks based on IP spoofing
       over IP multicast (see Section 11.4 of [RFC7252]).  In fact,
@@ -2584,16 +2727,29 @@ Table of Contents
       strictly provides only group-level authentication.  However,
       source authentication of messages is also ensured, both in the
       group mode by means of signatures (see Sections 7.1 and 7.3 of
-      [I-D.ietf-core-oscore-groupcomm]), and in the pairwise mode by
+      [I-D.ietf-core-oscore-groupcomm]) and in the pairwise mode by
       using additionally derived pairwise keys (see Sections 8.3 and 8.5
       of [I-D.ietf-core-oscore-groupcomm]).  Thus, recipient endpoints
       can verify a message to have been originated and sent by the
       alleged, identifiable CoAP endpoint in the OSCORE group.
 
-      As noted above, the server may additionally rely on the Echo
-      Option for CoAP defined in [RFC9175], in order to verify the
-      aliveness and reachability of the client sending a request from a
-      particular IP address.
+      The server may additionally rely on the Echo Option for CoAP
+      defined in [RFC9175], in order to verify the reachability of the
+      client sending a request from a particular IP address.  As
+      discussed in Section 6.3, this also helps mitigate amplification
+      attacks.
+
+      Note that using the Echo Option does not provide authentication of
+      source addressing information about the sender of a CoAP message.
+      Also, using the Echo Option in itself does not provide source
+      authentication of exchanged messages, which is achieved by means
+      of Group OSCORE (see Section 6.2.2).
+
+      Using the Echo Option together with Group OSCORE also allows a
+      CoAP server in the OSCORE group to verify the freshness of CoAP
+      requests received from other members in the group (see Section 9
+      of [I-D.ietf-core-oscore-groupcomm]), thereby verifying the
+      aliveness of CoAP clients sending those requests.
 
    *  Group OSCORE does not require members of an OSCORE group to be
       equipped with a good source of entropy for generating security
@@ -2604,8 +2760,8 @@ Table of Contents
       same HMAC-based HKDF scheme used for OSCORE (see Section 3.2 of
       [RFC8613]).  Besides, the OSCORE Master Secret used in such
       derivation is securely generated by the Group Manager responsible
-      for the OSCORE group, and securely provided to the CoAP endpoints
-      when they join the OSCORE group.
+      for the OSCORE group and is securely provided to the CoAP
+      endpoints when they join the OSCORE group.
 
    *  Group OSCORE prevents any single member of an OSCORE group from
       being a target for subverting security in the whole group (see
@@ -2626,15 +2782,30 @@ Table of Contents
    attacks, especially in the form of a high-volume amplification
    attack, by using all the servers in the CoAP group as attack vectors.
 
-   That is, following a group request sent to a CoAP group, each of the
-   servers in the group may reply with a response which is likely larger
-   in size than the group request.  Thus, an attacker sending a single
-   group request may achieve a high amplification factor, i.e., a high
-   ratio between the size of the group request and the total size of the
-   corresponding responses intended to the attack victim.
+   In particular, an adversary can send a group request via IP multicast
+   to a CoAP group, spoofing the source IP address to be the one of a
+   designated victim (within the local network or on the Internet).
 
-   Thus, consistent with Section 11.3 of [RFC7252], a server in a CoAP
-   group:
+   After receiving the group request, each of the servers in the group
+   may reply to the victim with a response that is likely larger in size
+   than the group request.  In terms of attack effectiveness, an
+   adversary sending a single group request may therefore achieve a
+   large amplification factor, i.e., a high ratio between the total size
+   of the responses sent to the attack victim and the size of the
+   corresponding group request.
+
+   When performing such an attack, the amplification factor would become
+   even larger if CoAP group communication is combined with resource
+   observation [RFC7641], as described in Section 3.7 of this document.
+   That is, a single group request conveying the Observe Option may
+   result in multiple notification responses from each of the responding
+   servers in the CoAP group, throughout the observation lifetime.
+
+   Further discussion and examples of amplification attacks using CoAP
+   are provided in [I-D.irtf-t2trg-amplification-attacks].
+
+   Consistent with the mitigations defined in Section 11.3 of [RFC7252],
+   a server in a CoAP group:
 
    *  SHOULD limit the support for CoAP group requests only to the group
       resources of the application group(s) using that CoAP group;
@@ -2642,51 +2813,54 @@ Table of Contents
    *  SHOULD NOT accept group requests that cannot be authenticated in
       some way, i.e., for which it is not possible to securely verify
       that they have been originated and sent by the alleged,
-      identifiable CoAP endpoint in the OSCORE group;
+      identifiable CoAP endpoint in the OSCORE group; and
 
    *  SHOULD NOT provide large amplification factors through its
       responses to a non-authenticated group request, possibly employing
       CoAP block-wise transfers [RFC7959] to reduce the amount of
-      amplification.
+      amplification provided.
 
-   Amplification attacks using CoAP are further discussed in
-   [I-D.irtf-t2trg-amplification-attacks], which also highlights how the
-   amplification factor would become even higher when CoAP group
-   communication is combined with resource observation [RFC7641].  That
-   is, a single group request may result in multiple notification
-   responses from each of the responding servers, throughout the
-   observation lifetime.
+   Furthermore, when CoAP group communication is combined with resource
+   observation [RFC7641], a server in a CoAP group MUST strictly limit
+   the number of notifications it sends between receiving CoAP
+   Acknowledgements that confirm the actual interest of the client in
+   continuing the observation (see Section 7 of [RFC7641]).  That is,
+   any notifications sent in Non-confirmable messages MUST be
+   interspersed with Confirmable messages.  Note that an adversary may
+   still spoof the CoAP Acknowledgements, e.g., if it is on-path and can
+   read the Message ID values, or if the time when Confirmable messages
+   are sent by the server and their Message ID values are sufficiently
+   predictable.
 
-   Thus, consistent with Section 7 of [RFC7641], a server in a CoAP
-   group MUST strictly limit the number of notifications it sends
-   between receiving acknowledgements that confirm the actual interest
-   of the client in continuing the observation.
+   Section 6.3.1 describes how amplification attacks can be mitigated by
+   using the Echo Option for CoAP defined in [RFC9175].
 
-   Moreover, it is especially easy to perform an amplification attack
-   when the NoSec mode is used.  Therefore, also in order to prevent an
-   easy proliferation of high-volume amplification attacks, it is
-   generally NOT RECOMMENDED to use CoAP group communication in NoSec
-   mode (see Section 6.1).
+   Evidently, it is especially easy to perform an amplification attack
+   when the NoSec mode is used (see Section 4).  Therefore, also in
+   order to prevent an easy proliferation of high-volume amplification
+   attacks, it is generally NOT RECOMMENDED to use CoAP group
+   communication in NoSec mode (see Section 6.1).
 
    Besides building on very well understood security implications and
    being limited to specific, well-defined "unsecured steps" (see
-   Section 4), possible exceptions should also be limited to use cases
-   where accesses to a group resource have a specific, narrow, and well
-   understood scope, and where only a few CoAP servers (or, ideally,
-   only one) would possibly respond to a group request.
+   Section 4), possible exceptions to the above rule should also be
+   limited to use cases where accesses to a group resource have a
+   specific, narrow, and well understood scope, and where only a few
+   CoAP servers (or, ideally, only one) would possibly respond to a
+   group request.
 
    A relevant exceptional example is a CoAP client performing the
    discovery of hosts such as a Group Manager or a Resource Directory
    [RFC9176], by probing for them through a group request sent to the
    CoAP group.  This early, unprotected step is relevant for a CoAP
-   client that does not know the address of such hosts in advance, and
+   client that does not know the address of such hosts in advance and
    that does not yet have configured a mutual security relationship with
    them.  In this kind of deployments, such a discovery procedure does
    not result in a considerable and harmful amplification, since only
    the few CoAP servers that are the object of discovery are going to
    respond to the group request targeting that specific resource.  In
    particular, those hosts can be the only CoAP servers in that specific
-   CoAP group (hence listening for group requests sent to that group),
+   CoAP group (hence listening for group requests sent to that group)
    and/or the only CoAP servers explicitly configured to respond to
    group requests targeting specific group resources.
 
@@ -2694,6 +2868,84 @@ Table of Contents
    MUST be secured using Group OSCORE [I-D.ietf-core-oscore-groupcomm],
    see Section 5.  As discussed in Section 6.2.3, this limits the
    feasibility and impact of amplification attacks.
+
+6.3.1.  Mitigation with the Echo Option
+
+   As a further mitigation against amplification attacks, a server can
+   also rely on the Echo Option for CoAP [RFC9175], including it in a
+   response to a group request.  By doing so, the server can verify
+   whether the alleged sender of the group request is indeed reachable
+   at the claimed source address of the group request.
+
+   In particular, Section 2.6 of [RFC9175] updates Section 11.3 of
+   [RFC7252] as normatively recommending that CoAP servers use the Echo
+   Option to mitigate amplification attacks, by replying to
+   unauthenticated CoAP clients with a 4.01 (Unauthorized) response
+   including an Echo Option.
+
+   Consistent with the above, a server in a CoAP group SHOULD mitigate
+   potential amplification attacks, by replying to unauthenticated CoAP
+   clients with a 4.01 (Unauthorized) response including an Echo Option,
+   as described in Section 2.3 of [RFC9175] and in item 3 in Section 2.4
+   of [RFC9175].
+
+   In the limited, exceptional cases where the NoSec mode is used (see
+   Section 4), relying on the Echo Option makes it possible to mitigate
+   amplification attacks launched by an off-path adversary.
+
+   When using secure communications protected with Group OSCORE, source
+   authentication of messages is ensured.  Hence, upon receiving a valid
+   group request, a server always authenticates the CoAP client that has
+   sent the request.
+
+   Nevertheless, also when using Group OSCORE, a server in a CoAP group
+   SHOULD mitigate potential amplification attacks by using the Echo
+   Option.  In particular, the server does so after having successfully
+   decrypted and verified an incoming group request by using an OSCORE
+   Recipient Context that is not associated with a validated network
+   address, or is associated with a validated network address different
+   from the source address of the present group request.
+
+   The server uses the Echo Option as specified in Section 2.3 of
+   [RFC9175] and in item 3 in Section 2.4 of [RFC9175].  In particular,
+   the 4.01 (Unauthorized) response including the Echo Option is
+   protected with Group OSCORE and MUST be an inner option (i.e., it is
+   also protected by means of Group OSCORE).
+
+   If the server receives a new request conveying the Echo Option and
+   recognizes the stored option value as associated with the source
+   address of the present request, then the server associates that
+   source address with the OSCORE Recipient Context used to process the
+   request, after having successfully decrypted and verified it with
+   Group OSCORE.
+
+   By doing so, the server can verify whether the alleged sender of the
+   group request (i.e., the CoAP client associated with a certain
+   authentication credential including the corresponding public key) is
+   indeed reachable at the claimed source address of the group request,
+   especially if such an address differs from the one used in previous
+   group requests from the same (authenticated) device.
+
+   Note that the above is achieved also when the server uses the Echo
+   Option due to other reasons, when running the challenge-response
+   method defined in Section 9 of [I-D.ietf-core-oscore-groupcomm].
+
+   When using Group OSCORE, relying on the Echo Option makes it possible
+   to mitigate amplification attacks launched by an external on-path
+   adversary (see also Section 6.2.3) or by an internal off-path
+   adversary.  Instead, it is not effective against attacks launched by
+   an internal on-path adversary.
+
+   Note that an internal adversary, being a member of the security
+   group, considerably exposes itself in an identifiable and accountable
+   way, due to the source authentication of the protected requests that
+   it sends.  This raises the chances that such an adversary is detected
+   and consequently evicted from the security group, i.e., through group
+   rekeying (see Section 6.2.1).
+
+   Although CoAP responses including the Echo Option may still result in
+   amplification, this is limited in volume compared to when all servers
+   in a CoAP group reply with larger, full responses.
 
 6.4.  Replay of Group Requests
 
@@ -2895,9 +3147,9 @@ Table of Contents
               Tiloca, M., Selander, G., Palombini, F., Mattsson, J. P.,
               and R. Höglund, "Group Object Security for Constrained
               RESTful Environments (Group OSCORE)", Work in Progress,
-              Internet-Draft, draft-ietf-core-oscore-groupcomm-26, 5
-              July 2025, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-core-oscore-groupcomm-26>.
+              Internet-Draft, draft-ietf-core-oscore-groupcomm-27, 12
+              September 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-core-oscore-groupcomm-27>.
 
    [Resource.Type.Link.Target.Attribute.Values]
               IANA, "Resource Type (rt=) Link Target Attribute Values",
@@ -2924,6 +3176,10 @@ Table of Contents
               "Transmission of IPv6 Packets over IEEE 802.15.4
               Networks", RFC 4944, DOI 10.17487/RFC4944, September 2007,
               <https://www.rfc-editor.org/rfc/rfc4944>.
+
+   [RFC5110]  Savola, P., "Overview of the Internet Multicast Routing
+              Architecture", RFC 5110, DOI 10.17487/RFC5110, January
+              2008, <https://www.rfc-editor.org/rfc/rfc5110>.
 
    [RFC6282]  Hui, J., Ed. and P. Thubert, "Compression Format for IPv6
               Datagrams over IEEE 802.15.4-Based Networks", RFC 6282,
@@ -4414,10 +4670,12 @@ Appendix F.  Issues and Limitations with Reverse-Proxies
       used for collecting server responses and forwarding these back to
       the client.  These duration(s) may be set as global configuration
       or as resource-specific configurations.  If there is such
-      preconfiguration, then an explicit signaling of the time period in
-      the client's request as defined in [I-D.ietf-core-groupcomm-proxy]
-      is not necessarily needed.  Note that a reverse-proxy is in an
-      explicit relationship with the origin servers it stands in for.
+      preconfiguration, then it is not necessarily needed that the
+      client's request explicitly indicates the time duration that the
+      reverse-proxy has to use (e.g., like it is indicated when using
+      the realization of proxy specified in
+      [I-D.ietf-core-groupcomm-proxy]).  Note that a reverse-proxy is in
+      an explicit relationship with the origin servers it stands in for.
       Thus, compared to a forward-proxy, it has a much better basis for
       determining and configuring such time durations.
 
@@ -4742,8 +5000,8 @@ Acknowledgements
 
    The authors sincerely thank Christian Amsüss, Mike Bishop, Carsten
    Bormann, Thomas Fossati, Rikard Höglund, Jaime Jiménez, John Preuß
-   Mattsson, Jim Schaad, Jon Shallow, and Sean Turner for their comments
-   and feedback.
+   Mattsson, Jim Schaad, Jon Shallow, Sean Turner, and Magnus Westerlund
+   for their comments and feedback.
 
    The work on this document has been partly supported by the Sweden's
    Innovation Agency VINNOVA and the Celtic-Next projects CRITISEC and
