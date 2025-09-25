@@ -944,7 +944,8 @@ Table of Contents
    resource links.
 
    The following discusses a number of methods to discover application
-   groups and CoAP groups, building on the following assumptions.
+   groups and CoAP groups.  When discussing the different methods, the
+   two assumptions below hold:
 
    *  Application group names are encoded in the path component of Group
       URIs (see Section 2.2.1.2).  In examples in this document, the
@@ -2297,7 +2298,7 @@ Table of Contents
    circumstances, the security implications in Section 6.1 must be very
    well considered and understood, especially as to the risk and impact
    of amplification attacks (see Section 6.3).  Consistent with such
-   security implications, the use of the NoSec mode should still be
+   security implications, the use of the NoSec mode SHOULD still be
    avoided whenever possible.
 
 5.  Secured Group Communication using Group OSCORE
@@ -2452,8 +2453,8 @@ Table of Contents
 
    The key management operations mentioned above are entrusted to the
    Group Manager responsible for the OSCORE group
-   [I-D.ietf-core-oscore-groupcomm], and it is RECOMMENDED to perform
-   them as defined in [I-D.ietf-ace-key-groupcomm-oscore].
+   [I-D.ietf-core-oscore-groupcomm].  For example, they can be performed
+   as defined in [I-D.ietf-ace-key-groupcomm-oscore].
 
 5.3.  Proxy Security
 
@@ -2463,7 +2464,7 @@ Table of Contents
    listed.
 
    For a client performing a group communication request via a forward-
-   proxy, end-to-end security should be implemented.  The client then
+   proxy, end-to-end security SHOULD be implemented.  The client then
    creates a group request protected with Group OSCORE and unicasts this
    to the proxy.  The proxy adapts the request from a forward-proxy
    request to a regular request and multicasts this adapted request to
@@ -2560,10 +2561,10 @@ Table of Contents
    are accepted, can be limited as well.  Furthermore, the scope is also
    limited: only link-local requests are accepted.
 
-   Except for the class of applications discussed above, and all the
-   more so in applications that obviously have hard security
-   requirements (e.g., health monitoring systems and alarm monitoring
-   systems), CoAP group communication MUST NOT be used in NoSec mode.
+   Except for the class of applications discussed above (in which
+   unsecured communication is required or is not harmful for specific,
+   well-defined "unsecured steps"), CoAP group communication MUST NOT be
+   used in NoSec mode.
 
 6.2.  Group OSCORE
 
@@ -3066,7 +3067,7 @@ Table of Contents
 
 6.7.  Wi-Fi
 
-   In a home automation scenario using Wi-Fi, Wi-Fi security should be
+   In a home automation scenario using Wi-Fi, Wi-Fi security SHOULD be
    enabled to prevent rogue nodes from joining.  The Customer Premises
    Equipment (CPE) that enables access to the Internet should also have
    its IP multicast filters set so that it enforces multicast scope
@@ -4999,8 +5000,8 @@ Acknowledgements
 
    The authors sincerely thank Christian Amsüss, Mike Bishop, Carsten
    Bormann, Thomas Fossati, Rikard Höglund, Jaime Jiménez, John Preuß
-   Mattsson, Jim Schaad, Jon Shallow, and Magnus Westerlund for their
-   comments and feedback.
+   Mattsson, Jim Schaad, Jon Shallow, Sean Turner, and Magnus Westerlund
+   for their comments and feedback.
 
    The work on this document has been partly supported by the Sweden's
    Innovation Agency VINNOVA and the Celtic-Next projects CRITISEC and
