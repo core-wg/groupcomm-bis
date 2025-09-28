@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-21T01:43:31.677287+00:00",
+  "timestamp": "2025-09-28T01:44:28.901217+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -2753,24 +2753,26 @@
       "id": "PR_kwDODvYK3c6niXot",
       "title": "SECDIR review",
       "url": "https://github.com/core-wg/groupcomm-bis/pull/47",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "marco-tiloca-sics",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR addresses the SECDIR review from Sean Turner archived at https://mailarchive.ietf.org/arch/msg/core/7kr9PgRrFcKdiBGn0maKN_jilKY/",
       "createdAt": "2025-09-09T07:39:40Z",
-      "updatedAt": "2025-09-09T07:39:58Z",
+      "updatedAt": "2025-09-25T17:31:18Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
-      "baseRefOid": "a7dcd7cec22dbd584fc0f31c753f801a531de43c",
+      "baseRefOid": "33ca37f5ef2bc03bb46b065cbf7e8c1a13468b58",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "secdir-review",
-      "headRefOid": "4e91176d22f885b31544611b6cbf6c27fd9f9e36",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "f17f39e4e67bec7d1e5e7488d6eb3122643189e1",
+      "closedAt": "2025-09-25T17:31:18Z",
+      "mergedAt": "2025-09-25T17:31:18Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "d2f68744cacd9c1ee38a7118633808baae3e766a"
+      },
       "comments": [],
       "reviews": []
     },
@@ -2779,24 +2781,26 @@
       "id": "PR_kwDODvYK3c6ni8s2",
       "title": "DNSDIR review",
       "url": "https://github.com/core-wg/groupcomm-bis/pull/48",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "marco-tiloca-sics",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR addresses the DNSDIR review from Petr \u0160pa\u010dek archived at https://mailarchive.ietf.org/arch/msg/core/4wW96soPecXOhTToMZWFSZHeK_A/",
       "createdAt": "2025-09-09T08:26:38Z",
-      "updatedAt": "2025-09-09T08:26:43Z",
+      "updatedAt": "2025-09-25T17:34:31Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
-      "baseRefOid": "a7dcd7cec22dbd584fc0f31c753f801a531de43c",
+      "baseRefOid": "d2f68744cacd9c1ee38a7118633808baae3e766a",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "dnsdir-review",
-      "headRefOid": "8bef2ee697196f2fde497497fce65248833752b9",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "4573c911d06d824e01e4df594d9c20ace17b6dc0",
+      "closedAt": "2025-09-25T17:34:31Z",
+      "mergedAt": "2025-09-25T17:34:31Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "71f92d55132aadb2a7a5a5cc1fc5ac27e0a32bde"
+      },
       "comments": [],
       "reviews": []
     },
@@ -2805,26 +2809,42 @@
       "id": "PR_kwDODvYK3c6piTls",
       "title": "TSVART review",
       "url": "https://github.com/core-wg/groupcomm-bis/pull/49",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "marco-tiloca-sics",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR addresses the TSVART review from Magnus Westerlund archived at https://mailarchive.ietf.org/arch/msg/core/q9R5w2zGsiPu-wflXImSr9xFNX8/",
       "createdAt": "2025-09-19T15:56:52Z",
-      "updatedAt": "2025-09-19T15:57:07Z",
+      "updatedAt": "2025-09-25T17:28:07Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "a7dcd7cec22dbd584fc0f31c753f801a531de43c",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "tsvart-review",
       "headRefOid": "699083e0f7276b081548334a88240dbd6a35964d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-09-25T17:28:07Z",
+      "mergedAt": "2025-09-25T17:28:07Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "33ca37f5ef2bc03bb46b065cbf7e8c1a13468b58"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDODvYK3c7Ctz7w",
+          "commit": {
+            "abbreviatedOid": "699083e"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-09-25T09:44:50Z",
+          "updatedAt": "2025-09-25T09:44:50Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
