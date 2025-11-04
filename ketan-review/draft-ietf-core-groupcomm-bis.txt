@@ -3171,11 +3171,6 @@ Table of Contents
               September 2025, <https://datatracker.ietf.org/doc/html/
               draft-ietf-core-oscore-groupcomm-27>.
 
-   [Resource.Type.Link.Target.Attribute.Values]
-              IANA, "Resource Type (rt=) Link Target Attribute Values",
-              <https://www.iana.org/assignments/core-parameters/core-
-              parameters.xhtml#rt-link-target-att-value>.
-
    [RFC1122]  Braden, R., Ed., "Requirements for Internet Hosts -
               Communication Layers", STD 3, RFC 1122,
               DOI 10.17487/RFC1122, October 1989,
@@ -3365,6 +3360,11 @@ Table of Contents
 
    [libcoap]  Bergmann, O., "libcoap", June 2022,
               <https://github.com/obgm/libcoap>.
+
+   [Resource.Type.Link.Target.Attribute.Values]
+              IANA, "Resource Type (rt=) Link Target Attribute Values",
+              <https://www.iana.org/assignments/core-parameters/core-
+              parameters.xhtml#rt-link-target-att-value>.
 
    [RFC3596]  Thomson, S., Huitema, C., Ksinant, V., and M. Souissi,
               "DNS Extensions to Support IP Version 6", STD 88,
