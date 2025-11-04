@@ -65,12 +65,6 @@ normative:
   RFC9175:
   RFC9776:
   I-D.ietf-core-oscore-groupcomm:
-  Resource.Type.Link.Target.Attribute.Values:
-    author:
-      org: IANA
-    date: false
-    title: Resource Type (rt=) Link Target Attribute Values
-    target: https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#rt-link-target-att-value
 
 informative:
   I-D.bormann-core-responses:
@@ -99,6 +93,12 @@ informative:
   RFC9200:
   RFC9685: multicast-registration # was I-D.ietf-6lo-multicast-registration:
   RFC9777:
+  Resource.Type.Link.Target.Attribute.Values:
+    author:
+      org: IANA
+    date: false
+    title: Resource Type (rt=) Link Target Attribute Values
+    target: https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#rt-link-target-att-value
   Californium:
     author:
       org: Eclipse Foundation
