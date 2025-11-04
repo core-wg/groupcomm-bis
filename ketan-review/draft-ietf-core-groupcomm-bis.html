@@ -10,23 +10,22 @@
 <meta content="
        The Constrained Application Protocol (CoAP) is a web transfer protocol for constrained devices and constrained networks. In a number of use cases, constrained devices often naturally operate in groups (e.g., in a building automation scenario, all lights in a given room may need to be switched on/off as a group). This document specifies the use of CoAP for group communication, including the use of UDP/IP multicast as the default underlying data transport. Both unsecured and secured CoAP group communication are specified. Security is achieved by use of the Group Object Security for Constrained RESTful Environments (Group OSCORE) protocol. The target application area of this specification is any group communication use cases that involve resource-constrained devices or networks that support CoAP. This document replaces and obsoletes RFC 7390, while it updates RFC 7252 and RFC 7641. 
     " name="description">
-<meta content="xml2rfc 3.30.2" name="generator">
+<meta content="xml2rfc 3.31.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-core-groupcomm-bis-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.2
-    Python 3.12.11
+  xml2rfc 3.31.0
+    Python 3.12.12
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
     lxml 5.3.1
-    platformdirs 4.4.0
+    platformdirs 4.5.0
     pycountry 24.6.1
     PyYAML 6.0.2
     requests 2.32.5
-    setuptools 80.9.0
-    wcwidth 0.2.13
+    wcwidth 0.2.14
 -->
 <link href="draft-ietf-core-groupcomm-bis.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1045,11 +1044,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Group Communication for CoAP</td>
-<td class="right">September 2025</td>
+<td class="right">November 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Dijk &amp; Tiloca</td>
-<td class="center">Expires 29 March 2026</td>
+<td class="center">Expires 8 May 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1067,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7252" class="eref">7252</a>, <a href="https://www.rfc-editor.org/rfc/rfc7641" class="eref">7641</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-09-25" class="published">25 September 2025</time>
+<time datetime="2025-11-04" class="published">4 November 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-03-29">29 March 2026</time></dd>
+<dd class="expires"><time datetime="2026-05-08">8 May 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1126,7 +1125,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 29 March 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 8 May 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1482,46 +1481,49 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.15.1"><a href="#appendix-G" class="auto internal xref">Appendix G</a>.  <a href="#name-document-updates" class="internal xref">Document Updates</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.1">
-                <p id="section-toc.1-1.15.2.1.1"><a href="#appendix-G.1" class="auto internal xref">G.1</a>.  <a href="#name-version-13-to-14" class="internal xref">Version -13 to -14</a></p>
+                <p id="section-toc.1-1.15.2.1.1"><a href="#appendix-G.1" class="auto internal xref">G.1</a>.  <a href="#name-version-14-to-15" class="internal xref">Version -14 to -15</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.2">
-                <p id="section-toc.1-1.15.2.2.1"><a href="#appendix-G.2" class="auto internal xref">G.2</a>.  <a href="#name-version-12-to-13" class="internal xref">Version -12 to -13</a></p>
+                <p id="section-toc.1-1.15.2.2.1"><a href="#appendix-G.2" class="auto internal xref">G.2</a>.  <a href="#name-version-13-to-14" class="internal xref">Version -13 to -14</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.3">
-                <p id="section-toc.1-1.15.2.3.1"><a href="#appendix-G.3" class="auto internal xref">G.3</a>.  <a href="#name-version-11-to-12" class="internal xref">Version -11 to -12</a></p>
+                <p id="section-toc.1-1.15.2.3.1"><a href="#appendix-G.3" class="auto internal xref">G.3</a>.  <a href="#name-version-12-to-13" class="internal xref">Version -12 to -13</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.4">
-                <p id="section-toc.1-1.15.2.4.1"><a href="#appendix-G.4" class="auto internal xref">G.4</a>.  <a href="#name-version-10-to-11" class="internal xref">Version -10 to -11</a></p>
+                <p id="section-toc.1-1.15.2.4.1"><a href="#appendix-G.4" class="auto internal xref">G.4</a>.  <a href="#name-version-11-to-12" class="internal xref">Version -11 to -12</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.5">
-                <p id="section-toc.1-1.15.2.5.1"><a href="#appendix-G.5" class="auto internal xref">G.5</a>.  <a href="#name-version-09-to-10" class="internal xref">Version -09 to -10</a></p>
+                <p id="section-toc.1-1.15.2.5.1"><a href="#appendix-G.5" class="auto internal xref">G.5</a>.  <a href="#name-version-10-to-11" class="internal xref">Version -10 to -11</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.6">
-                <p id="section-toc.1-1.15.2.6.1"><a href="#appendix-G.6" class="auto internal xref">G.6</a>.  <a href="#name-version-08-to-09" class="internal xref">Version -08 to -09</a></p>
+                <p id="section-toc.1-1.15.2.6.1"><a href="#appendix-G.6" class="auto internal xref">G.6</a>.  <a href="#name-version-09-to-10" class="internal xref">Version -09 to -10</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.7">
-                <p id="section-toc.1-1.15.2.7.1"><a href="#appendix-G.7" class="auto internal xref">G.7</a>.  <a href="#name-version-07-to-08" class="internal xref">Version -07 to -08</a></p>
+                <p id="section-toc.1-1.15.2.7.1"><a href="#appendix-G.7" class="auto internal xref">G.7</a>.  <a href="#name-version-08-to-09" class="internal xref">Version -08 to -09</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.8">
-                <p id="section-toc.1-1.15.2.8.1"><a href="#appendix-G.8" class="auto internal xref">G.8</a>.  <a href="#name-version-06-to-07" class="internal xref">Version -06 to -07</a></p>
+                <p id="section-toc.1-1.15.2.8.1"><a href="#appendix-G.8" class="auto internal xref">G.8</a>.  <a href="#name-version-07-to-08" class="internal xref">Version -07 to -08</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.9">
-                <p id="section-toc.1-1.15.2.9.1"><a href="#appendix-G.9" class="auto internal xref">G.9</a>.  <a href="#name-version-05-to-06" class="internal xref">Version -05 to -06</a></p>
+                <p id="section-toc.1-1.15.2.9.1"><a href="#appendix-G.9" class="auto internal xref">G.9</a>.  <a href="#name-version-06-to-07" class="internal xref">Version -06 to -07</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.10">
-                <p id="section-toc.1-1.15.2.10.1"><a href="#appendix-G.10" class="auto internal xref">G.10</a>. <a href="#name-version-04-to-05" class="internal xref">Version -04 to -05</a></p>
+                <p id="section-toc.1-1.15.2.10.1"><a href="#appendix-G.10" class="auto internal xref">G.10</a>. <a href="#name-version-05-to-06" class="internal xref">Version -05 to -06</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.11">
-                <p id="section-toc.1-1.15.2.11.1"><a href="#appendix-G.11" class="auto internal xref">G.11</a>. <a href="#name-version-03-to-04" class="internal xref">Version -03 to -04</a></p>
+                <p id="section-toc.1-1.15.2.11.1"><a href="#appendix-G.11" class="auto internal xref">G.11</a>. <a href="#name-version-04-to-05" class="internal xref">Version -04 to -05</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.12">
-                <p id="section-toc.1-1.15.2.12.1"><a href="#appendix-G.12" class="auto internal xref">G.12</a>. <a href="#name-version-02-to-03" class="internal xref">Version -02 to -03</a></p>
+                <p id="section-toc.1-1.15.2.12.1"><a href="#appendix-G.12" class="auto internal xref">G.12</a>. <a href="#name-version-03-to-04" class="internal xref">Version -03 to -04</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.13">
-                <p id="section-toc.1-1.15.2.13.1"><a href="#appendix-G.13" class="auto internal xref">G.13</a>. <a href="#name-version-01-to-02" class="internal xref">Version -01 to -02</a></p>
+                <p id="section-toc.1-1.15.2.13.1"><a href="#appendix-G.13" class="auto internal xref">G.13</a>. <a href="#name-version-02-to-03" class="internal xref">Version -02 to -03</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.14">
-                <p id="section-toc.1-1.15.2.14.1"><a href="#appendix-G.14" class="auto internal xref">G.14</a>. <a href="#name-version-00-to-01" class="internal xref">Version -00 to -01</a></p>
+                <p id="section-toc.1-1.15.2.14.1"><a href="#appendix-G.14" class="auto internal xref">G.14</a>. <a href="#name-version-01-to-02" class="internal xref">Version -01 to -02</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.15">
+                <p id="section-toc.1-1.15.2.15.1"><a href="#appendix-G.15" class="auto internal xref">G.15</a>. <a href="#name-version-00-to-01" class="internal xref">Version -00 to -01</a></p>
 </li>
             </ul>
 </li>
@@ -1901,7 +1903,7 @@ The host subcomponent indirectly defines the IP multicast address of the CoAP gr
                 <p id="section-2.2.1.1-6.6.1">[ff15::1234]:5683<a href="#section-2.2.1.1-6.6.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
-<p id="section-2.2.1.1-7">When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal, instead of a group hostname. This is because DNS infrastructure may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via DNS resolution, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.<a href="#section-2.2.1.1-7" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.1-7">When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal, instead of a group hostname. This is because an infrastructure providing a name resolution service, such as DNS, may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via a name resolution service. For example, this can rely on the DNS resolution process, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.<a href="#section-2.2.1.1-7" class="pilcrow">¶</a></p>
 <p id="section-2.2.1.1-8">Some examples of hierarchical CoAP group FQDN naming (and scoping) for a building control application are shown below.<a href="#section-2.2.1.1-8" class="pilcrow">¶</a></p>
 <span id="name-examples-of-hierarchical-gr"></span><div id="_table-fqdn-naming">
 <table class="center" id="table-1">
@@ -1935,7 +1937,7 @@ The host subcomponent indirectly defines the IP multicast address of the CoAP gr
               </tbody>
             </table>
 </div>
-<p id="section-2.2.1.1-10">Similarly, if supported, reverse mapping (from IP multicast address to Group FQDN) is possible using the reverse DNS resolution technique <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>. Reverse mapping is important, for example, in troubleshooting to translate IP multicast addresses back to human-readable hostnames to show in a diagnostics user interface.<a href="#section-2.2.1.1-10" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.1-10">Similarly, if supported, reverse mapping (from IP multicast address to Group FQDN) is also possible. For example, when using an IPv6 multicast address, the reverse mapping can rely on DNS and the IP6.ARPA domain (see <span><a href="https://rfc-editor.org/rfc/rfc3596#section-2.5" class="relref">Section 2.5</a> of [<a href="#RFC3596" class="cite xref">RFC3596</a>]</span>). Reverse mapping is important, for example, in troubleshooting to translate IP multicast addresses back to human-readable hostnames to show in a diagnostics user interface.<a href="#section-2.2.1.1-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-groupnaming-app">
@@ -2211,7 +2213,7 @@ MIN_TOKEN_REUSE_TIME = (NON_LIFETIME + MAX_LATENCY +
 <p id="section-3.1.6-2">For example, if the client sends a group request specifying the Observe option set to 0 (see <span><a href="https://rfc-editor.org/rfc/rfc7641#section-3.1" class="relref">Section 3.1</a> of [<a href="#RFC7641" class="cite xref">RFC7641</a>]</span>) and this server adds the client to the list of observers for the targeted resource, then the server is set up to send multiple responses as Observe notifications to notify the client of changes to the resource state (see <span><a href="https://rfc-editor.org/rfc/rfc7641#section-4.2" class="relref">Section 4.2</a> of [<a href="#RFC7641" class="cite xref">RFC7641</a>]</span>). The use of Observe with group communication is discussed in more details in <a href="#sec-observe" class="auto internal xref">Section 3.7</a>. As another example, a server might not implement the optional CoAP message deduplication based on Message ID; or it might be acting out of specification as a malicious, compromised or faulty server.<a href="#section-3.1.6-2" class="pilcrow">¶</a></p>
 <p id="section-3.1.6-3">When this happens, it is up to the specific client implementation to decide at which layer deduplication of responses is performed, or whether it is necessary in an application at all. If the processing of a response is successful, the client delivers the response to the application as usual.<a href="#section-3.1.6-3" class="pilcrow">¶</a></p>
 <p id="section-3.1.6-4">The application itself can be in a good position to decide what to do, depending on the available context information. For instance, it might accept and process all the responses from the same server, even if they are not Observe notifications (i.e., they do not include an Observe option). Alternatively, the application might accept and process only one of those responses, e.g., when this can trigger a change of state within the application.<a href="#section-3.1.6-4" class="pilcrow">¶</a></p>
-<p id="section-3.1.6-5">As part of a message exchange between the client and any of the servers in the CoAP group, the multiple responses considered above are examples of the more general concept elaborated in <span><a href="https://datatracker.ietf.org/doc/html/draft-bormann-core-responses-05#section-2" class="relref">Section 2</a> of [<a href="#I-D.bormann-core-responses" class="cite xref">I-D.bormann-core-responses</a>]</span>.<a href="#section-3.1.6-5" class="pilcrow">¶</a></p>
+<p id="section-3.1.6-5">As part of a message exchange between the client and any of the servers in the CoAP group, the multiple responses considered above are examples of the more general concept elaborated in <span><a href="https://datatracker.ietf.org/doc/html/draft-bormann-core-responses-06#section-2" class="relref">Section 2</a> of [<a href="#I-D.bormann-core-responses" class="cite xref">I-D.bormann-core-responses</a>]</span>.<a href="#section-3.1.6-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -3103,7 +3105,7 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
 <dd class="break"></dd>
 <dt id="I-D.bormann-core-responses">[I-D.bormann-core-responses]</dt>
         <dd>
-<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">C. Amsüss</span>, <span class="refTitle">"CoAP: Non-traditional response forms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-bormann-core-responses-05</span>, <time datetime="2025-08-30" class="refDate">30 August 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-bormann-core-responses-05">https://datatracker.ietf.org/doc/html/draft-bormann-core-responses-05</a>&gt;</span>. </dd>
+<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">C. Amsüss</span>, <span class="refTitle">"CoAP: Non-traditional response forms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-bormann-core-responses-06</span>, <time datetime="2025-10-20" class="refDate">20 October 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-bormann-core-responses-06">https://datatracker.ietf.org/doc/html/draft-bormann-core-responses-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-ace-key-groupcomm-oscore">[I-D.ietf-ace-key-groupcomm-oscore]</dt>
         <dd>
@@ -3115,7 +3117,7 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
 <dd class="break"></dd>
 <dt id="I-D.ietf-anima-constrained-voucher">[I-D.ietf-anima-constrained-voucher]</dt>
         <dd>
-<span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Van der Stok, P.</span>, <span class="refAuthor">Kampanakis, P.</span>, and <span class="refAuthor">E. Dijk</span>, <span class="refTitle">"Constrained Bootstrapping Remote Secure Key Infrastructure (cBRSKI)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-anima-constrained-voucher-28</span>, <time datetime="2025-07-06" class="refDate">6 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-anima-constrained-voucher-28">https://datatracker.ietf.org/doc/html/draft-ietf-anima-constrained-voucher-28</a>&gt;</span>. </dd>
+<span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Van der Stok, P.</span>, <span class="refAuthor">Kampanakis, P.</span>, and <span class="refAuthor">E. Dijk</span>, <span class="refTitle">"Constrained Bootstrapping Remote Secure Key Infrastructure (cBRSKI)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-anima-constrained-voucher-29</span>, <time datetime="2025-10-18" class="refDate">18 October 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-anima-constrained-voucher-29">https://datatracker.ietf.org/doc/html/draft-ietf-anima-constrained-voucher-29</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-core-coap-pubsub">[I-D.ietf-core-coap-pubsub]</dt>
         <dd>
@@ -3141,9 +3143,9 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
         <dd>
 <span class="refAuthor">Bergmann, O.</span>, <span class="refTitle">"libcoap"</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://github.com/obgm/libcoap">https://github.com/obgm/libcoap</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC1035">[RFC1035]</dt>
+<dt id="RFC3596">[RFC3596]</dt>
         <dd>
-<span class="refAuthor">Mockapetris, P.</span>, <span class="refTitle">"Domain names - implementation and specification"</span>, <span class="seriesInfo">STD 13</span>, <span class="seriesInfo">RFC 1035</span>, <span class="seriesInfo">DOI 10.17487/RFC1035</span>, <time datetime="1987-11" class="refDate">November 1987</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc1035">https://www.rfc-editor.org/rfc/rfc1035</a>&gt;</span>. </dd>
+<span class="refAuthor">Thomson, S.</span>, <span class="refAuthor">Huitema, C.</span>, <span class="refAuthor">Ksinant, V.</span>, and <span class="refAuthor">M. Souissi</span>, <span class="refTitle">"DNS Extensions to Support IP Version 6"</span>, <span class="seriesInfo">STD 88</span>, <span class="seriesInfo">RFC 3596</span>, <span class="seriesInfo">DOI 10.17487/RFC3596</span>, <time datetime="2003-10" class="refDate">October 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3596">https://www.rfc-editor.org/rfc/rfc3596</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6092">[RFC6092]</dt>
         <dd>
@@ -3278,7 +3280,7 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
               <p id="appendix-A.1.3-6.5.1">A CoRE RD using CoAP (CoAP Resource Directory) is connected to the network backbone.<a href="#appendix-A.1.3-6.5.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="appendix-A.1.3-6.6">
-              <p id="appendix-A.1.3-6.6.1">The DNS server (DNS Server) is optional. If the server is there (connected to the network backbone), then certain DNS-based features are available (e.g., DNS resolution of the hostname to the IP multicast address). If the DNS server is not there, then different provisioning of the network is required (e.g., IP multicast addresses are hard-coded into devices, or manually configured, or obtained via a service discovery method).<a href="#appendix-A.1.3-6.6.1" class="pilcrow">¶</a></p>
+              <p id="appendix-A.1.3-6.6.1">The DNS server (DNS Server) is optional. If the server is there (connected to the network backbone), then certain DNS-based features are available (e.g., DNS resolution of the hostname to the IP multicast address). If the DNS server is not there and no alternative name resolution service is available to use, then different provisioning of the network is required (e.g., IP multicast addresses are hard-coded into devices, or manually configured, or obtained via a service discovery method).<a href="#appendix-A.1.3-6.6.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="appendix-A.1.3-6.7">
               <p id="appendix-A.1.3-6.7.1">A controller using CoAP (CoAP Controller Client) is connected to the backbone, which is able to control various building functions including lighting.<a href="#appendix-A.1.3-6.7.1" class="pilcrow">¶</a></p>
@@ -3570,7 +3572,7 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
 <p id="appendix-A.2.1-7">1) Startup phase: 6LoWPANs are formed. IPv6 addresses are assigned to all devices. The CoAP network is formed.<a href="#appendix-A.2.1-7" class="pilcrow">¶</a></p>
 <p id="appendix-A.2.1-8">2) Network configuration (application independent): 6LBRs are configured with IP multicast addresses, or address blocks, to filter out or to pass through to/from the 6LoWPAN.<a href="#appendix-A.2.1-8" class="pilcrow">¶</a></p>
 <p id="appendix-A.2.1-9">3a) Commissioning phase (application related): The IP multicast address of the group (Room-A-Lights) has been configured in all the lights and in the light switch.<a href="#appendix-A.2.1-9" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.1-10">3b) As an alternative to the previous step, when a DNS server is available, the light switch and/or the lights have been configured with a group hostname that each node resolves to the above IP multicast address of the group.<a href="#appendix-A.2.1-10" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-10">3b) As an alternative to the previous step, when a DNS server or an alternative name resolution service is available, the light switch and/or the lights have been configured with a group hostname that each node resolves to the above IP multicast address of the group.<a href="#appendix-A.2.1-10" class="pilcrow">¶</a></p>
 <p id="appendix-A.2.1-11">Note for the Commissioning phase: the switch's 6LoWPAN/CoAP software stack supports sending unicast, multicast, or proxied unicast CoAP requests, including processing of the multiple responses that may be generated by an IP multicast CoAP request.<a href="#appendix-A.2.1-11" class="pilcrow">¶</a></p>
 <span id="name-light-switch-sends-multicas"></span><div id="fig-light-switch-control-msg">
 <figure id="figure-5">
@@ -4037,8 +4039,7 @@ So, effectively, the application group name is transported in the UDP message as
 <a href="#name-example-of-application-group-na" class="selfRef">Example of application group name defined by the URI authority</a>
           </figcaption></figure>
 </div>
-<p id="appendix-B.3-3"><a href="#fig-gname-host-example" class="auto internal xref">Figure 13</a> provides an example where the URI host subcomponent of the URI authority component is used for encoding the name of the application group.
-Specifically, the first label of the DNS name is used.<a href="#appendix-B.3-3" class="pilcrow">¶</a></p>
+<p id="appendix-B.3-3"><a href="#fig-gname-host-example" class="auto internal xref">Figure 13</a> provides an example where the URI host subcomponent of the URI authority component is used for encoding the name of the application group. Specifically, the leftmost label of the registered name is used.<a href="#appendix-B.3-3" class="pilcrow">¶</a></p>
 <span id="name-example-of-application-group-nam"></span><div id="fig-gname-host-example">
 <figure id="figure-13">
           <div class="alignLeft art-text artwork" id="appendix-B.3-4.1">
@@ -5260,482 +5261,546 @@ That is, the client needs to preserve the Token value used for the request also 
 <a href="#appendix-G" class="section-number selfRef">Appendix G. </a><a href="#name-document-updates" class="section-name selfRef">Document Updates</a>
       </h2>
 <p id="appendix-G-1">This section is to be removed before publishing as an RFC.<a href="#appendix-G-1" class="pilcrow">¶</a></p>
-<div id="sec-13-14">
+<div id="sec-14-15">
 <section id="appendix-G.1">
-        <h3 id="name-version-13-to-14">
-<a href="#appendix-G.1" class="section-number selfRef">G.1. </a><a href="#name-version-13-to-14" class="section-name selfRef">Version -13 to -14</a>
+        <h3 id="name-version-14-to-15">
+<a href="#appendix-G.1" class="section-number selfRef">G.1. </a><a href="#name-version-14-to-15" class="section-name selfRef">Version -14 to -15</a>
         </h3>
 <ul class="normal">
 <li class="normal" id="appendix-G.1-1.1">
-            <p id="appendix-G.1-1.1.1">More context information in the abstract and introduction.<a href="#appendix-G.1-1.1.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.1.1">DNS is only one possible name resolution service.<a href="#appendix-G.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.2">
-            <p id="appendix-G.1-1.2.1">Imported examples from RFC 7390 into Appendix A "Use Cases".<a href="#appendix-G.1-1.2.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.2.1">DNS and IP6.ARPA can be used for IPv6 reverse mapping.<a href="#appendix-G.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.3">
-            <p id="appendix-G.1-1.3.1">Early mentioning Group OSCORE and source authentication of messages.<a href="#appendix-G.1-1.3.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.3.1">Appropriate use of normative language.<a href="#appendix-G.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.4">
-            <p id="appendix-G.1-1.4.1">Updated references.<a href="#appendix-G.1-1.4.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.4.1">Discouraged the NoSec mode already in Section 1.<a href="#appendix-G.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.5">
-            <p id="appendix-G.1-1.5.1">Minor fixes and editorial improvements.<a href="#appendix-G.1-1.5.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.5.1">Clarifications:<a href="#appendix-G.1-1.5.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-G.1-1.5.2.1">
+                <p id="appendix-G.1-1.5.2.1.1">Only Any Source Multicast (ASM) is in scope.<a href="#appendix-G.1-1.5.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="appendix-G.1-1.5.2.2">
+                <p id="appendix-G.1-1.5.2.2.1">Scope of the document about proxy operations.<a href="#appendix-G.1-1.5.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="appendix-G.1-1.5.2.3">
+                <p id="appendix-G.1-1.5.2.3.1">Strategies for repeating a group request.<a href="#appendix-G.1-1.5.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="appendix-G.1-1.5.2.4">
+                <p id="appendix-G.1-1.5.2.4.1">Interspersing confirmable Observe notifications.<a href="#appendix-G.1-1.5.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="appendix-G.1-1.5.2.5">
+                <p id="appendix-G.1-1.5.2.5.1">How the leisure period applies to Observe notifications.<a href="#appendix-G.1-1.5.2.5.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="appendix-G.1-1.6">
+            <p id="appendix-G.1-1.6.1">Revised definitions of parameters for congestion control.<a href="#appendix-G.1-1.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-G.1-1.7">
+            <p id="appendix-G.1-1.7.1">More content on amplification attacks:<a href="#appendix-G.1-1.7.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-G.1-1.7.2.1">
+                <p id="appendix-G.1-1.7.2.1.1">Early heads-up and forward pointers.<a href="#appendix-G.1-1.7.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="appendix-G.1-1.7.2.2">
+                <p id="appendix-G.1-1.7.2.2.1">Revised presentation of attacks and mitigations.<a href="#appendix-G.1-1.7.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="appendix-G.1-1.7.2.3">
+                <p id="appendix-G.1-1.7.2.3.1">New section on mitigating the attacks with the Echo option.<a href="#appendix-G.1-1.7.2.3.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="appendix-G.1-1.8">
+            <p id="appendix-G.1-1.8.1">Updated references.<a href="#appendix-G.1-1.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-G.1-1.9">
+            <p id="appendix-G.1-1.9.1">Editorial improvements.<a href="#appendix-G.1-1.9.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="sec-13-14">
+<section id="appendix-G.2">
+        <h3 id="name-version-13-to-14">
+<a href="#appendix-G.2" class="section-number selfRef">G.2. </a><a href="#name-version-13-to-14" class="section-name selfRef">Version -13 to -14</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="appendix-G.2-1.1">
+            <p id="appendix-G.2-1.1.1">More context information in the abstract and introduction.<a href="#appendix-G.2-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-G.2-1.2">
+            <p id="appendix-G.2-1.2.1">Imported examples from RFC 7390 into Appendix A "Use Cases".<a href="#appendix-G.2-1.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-G.2-1.3">
+            <p id="appendix-G.2-1.3.1">Early mentioning Group OSCORE and source authentication of messages.<a href="#appendix-G.2-1.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-G.2-1.4">
+            <p id="appendix-G.2-1.4.1">Updated references.<a href="#appendix-G.2-1.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-G.2-1.5">
+            <p id="appendix-G.2-1.5.1">Minor fixes and editorial improvements.<a href="#appendix-G.2-1.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-12-13">
-<section id="appendix-G.2">
+<section id="appendix-G.3">
         <h3 id="name-version-12-to-13">
-<a href="#appendix-G.2" class="section-number selfRef">G.2. </a><a href="#name-version-12-to-13" class="section-name selfRef">Version -12 to -13</a>
+<a href="#appendix-G.3" class="section-number selfRef">G.3. </a><a href="#name-version-12-to-13" class="section-name selfRef">Version -12 to -13</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-G.2-1.1">
-            <p id="appendix-G.2-1.1.1">Updated author list.<a href="#appendix-G.2-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-G.3-1.1">
+            <p id="appendix-G.3-1.1.1">Updated author list.<a href="#appendix-G.3-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.2-1.2">
-            <p id="appendix-G.2-1.2.1">Registering Resource Type values is not strictly required.<a href="#appendix-G.2-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.3-1.2">
+            <p id="appendix-G.3-1.2.1">Registering Resource Type values is not strictly required.<a href="#appendix-G.3-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.2-1.3">
-            <p id="appendix-G.2-1.3.1">Highlighted what is used simply as an example.<a href="#appendix-G.2-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.3-1.3">
+            <p id="appendix-G.3-1.3.1">Highlighted what is used simply as an example.<a href="#appendix-G.3-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.2-1.4">
-            <p id="appendix-G.2-1.4.1">Added further alternative to follow-up with group requests using the Block2 Option.<a href="#appendix-G.2-1.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.3-1.4">
+            <p id="appendix-G.3-1.4.1">Added further alternative to follow-up with group requests using the Block2 Option.<a href="#appendix-G.3-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.2-1.5">
-            <p id="appendix-G.2-1.5.1">Justified importance of possibly repeating requests.<a href="#appendix-G.2-1.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.3-1.5">
+            <p id="appendix-G.3-1.5.1">Justified importance of possibly repeating requests.<a href="#appendix-G.3-1.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.2-1.6">
-            <p id="appendix-G.2-1.6.1">Explicitly mentioned Observe as a reason for follow-on responses.<a href="#appendix-G.2-1.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.3-1.6">
+            <p id="appendix-G.3-1.6.1">Explicitly mentioned Observe as a reason for follow-on responses.<a href="#appendix-G.3-1.6.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.2-1.7">
-            <p id="appendix-G.2-1.7.1">Recommended use of a mitigation against abuses of the No-Response Option.<a href="#appendix-G.2-1.7.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.3-1.7">
+            <p id="appendix-G.3-1.7.1">Recommended use of a mitigation against abuses of the No-Response Option.<a href="#appendix-G.3-1.7.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.2-1.8">
-            <p id="appendix-G.2-1.8.1">Described the use of the Echo option like done in draft-ietf-core-oscore-groupcomm.<a href="#appendix-G.2-1.8.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.3-1.8">
+            <p id="appendix-G.3-1.8.1">Described the use of the Echo option like done in draft-ietf-core-oscore-groupcomm.<a href="#appendix-G.3-1.8.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.2-1.9">
-            <p id="appendix-G.2-1.9.1">Clarified possible use of CoAP over reliable transports.<a href="#appendix-G.2-1.9.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.3-1.9">
+            <p id="appendix-G.3-1.9.1">Clarified possible use of CoAP over reliable transports.<a href="#appendix-G.3-1.9.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.2-1.10">
-            <p id="appendix-G.2-1.10.1">Given more context around prioritized packet forwarding in 6LoWPAN.<a href="#appendix-G.2-1.10.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.3-1.10">
+            <p id="appendix-G.3-1.10.1">Given more context around prioritized packet forwarding in 6LoWPAN.<a href="#appendix-G.3-1.10.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.2-1.11">
-            <p id="appendix-G.2-1.11.1">Expanded considerations about replayed group requests.<a href="#appendix-G.2-1.11.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.3-1.11">
+            <p id="appendix-G.3-1.11.1">Expanded considerations about replayed group requests.<a href="#appendix-G.3-1.11.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.2-1.12">
-            <p id="appendix-G.2-1.12.1">Clarifications and editorial improvements.<a href="#appendix-G.2-1.12.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.3-1.12">
+            <p id="appendix-G.3-1.12.1">Clarifications and editorial improvements.<a href="#appendix-G.3-1.12.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-11-12">
-<section id="appendix-G.3">
+<section id="appendix-G.4">
         <h3 id="name-version-11-to-12">
-<a href="#appendix-G.3" class="section-number selfRef">G.3. </a><a href="#name-version-11-to-12" class="section-name selfRef">Version -11 to -12</a>
+<a href="#appendix-G.4" class="section-number selfRef">G.4. </a><a href="#name-version-11-to-12" class="section-name selfRef">Version -11 to -12</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-G.3-1.1">
-            <p id="appendix-G.3-1.1.1">Clarified how a group name can be included in a URI path for reverse proxies; removed reference to URI templates for reverse proxies.<a href="#appendix-G.3-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-G.4-1.1">
+            <p id="appendix-G.4-1.1.1">Clarified how a group name can be included in a URI path for reverse proxies; removed reference to URI templates for reverse proxies.<a href="#appendix-G.4-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.2">
-            <p id="appendix-G.3-1.2.1">Clarified the issue of identical ETags from multiple servers and added strategies to cope with this. Removed recommendation to not use such duplicate ETags.<a href="#appendix-G.3-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.2">
+            <p id="appendix-G.4-1.2.1">Clarified the issue of identical ETags from multiple servers and added strategies to cope with this. Removed recommendation to not use such duplicate ETags.<a href="#appendix-G.4-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.3">
-            <p id="appendix-G.3-1.3.1">Simplified section on application group naming using URI authority and corresponding appendix examples; declaring new Option solution out of scope.<a href="#appendix-G.3-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.3">
+            <p id="appendix-G.4-1.3.1">Simplified section on application group naming using URI authority and corresponding appendix examples; declaring new Option solution out of scope.<a href="#appendix-G.4-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.4">
-            <p id="appendix-G.3-1.4.1">Added application group resource URI path(s) in Figure 1.<a href="#appendix-G.3-1.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.4">
+            <p id="appendix-G.4-1.4.1">Added application group resource URI path(s) in Figure 1.<a href="#appendix-G.4-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.5">
-            <p id="appendix-G.3-1.5.1">Clarified outcome of the RFC 7390 experiment on group membership configuration protocol.<a href="#appendix-G.3-1.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.5">
+            <p id="appendix-G.4-1.5.1">Clarified outcome of the RFC 7390 experiment on group membership configuration protocol.<a href="#appendix-G.4-1.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.6">
-            <p id="appendix-G.3-1.6.1">Clarified that rt=g.&lt;GROUPTYPE&gt; is used just as an example.<a href="#appendix-G.3-1.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.6">
+            <p id="appendix-G.4-1.6.1">Clarified that rt=g.&lt;GROUPTYPE&gt; is used just as an example.<a href="#appendix-G.4-1.6.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.7">
-            <p id="appendix-G.3-1.7.1">Made RFC 7967 a normative reference.<a href="#appendix-G.3-1.7.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.7">
+            <p id="appendix-G.4-1.7.1">Made RFC 7967 a normative reference.<a href="#appendix-G.4-1.7.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.8">
-            <p id="appendix-G.3-1.8.1">Generalized resending of a group request with different Message ID.<a href="#appendix-G.3-1.8.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.8">
+            <p id="appendix-G.4-1.8.1">Generalized resending of a group request with different Message ID.<a href="#appendix-G.4-1.8.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.9">
-            <p id="appendix-G.3-1.9.1">Switched <span class="bcp14">SHOULD</span> to <span class="bcp14">MAY</span> on changing port number from group request to response.<a href="#appendix-G.3-1.9.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.9">
+            <p id="appendix-G.4-1.9.1">Switched <span class="bcp14">SHOULD</span> to <span class="bcp14">MAY</span> on changing port number from group request to response.<a href="#appendix-G.4-1.9.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.10">
-            <p id="appendix-G.3-1.10.1">Further generalized the handling of multiple responses from the same server to the same request.<a href="#appendix-G.3-1.10.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.10">
+            <p id="appendix-G.4-1.10.1">Further generalized the handling of multiple responses from the same server to the same request.<a href="#appendix-G.4-1.10.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.11">
-            <p id="appendix-G.3-1.11.1">Clarifications on response suppression.<a href="#appendix-G.3-1.11.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.11">
+            <p id="appendix-G.4-1.11.1">Clarifications on response suppression.<a href="#appendix-G.4-1.11.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.12">
-            <p id="appendix-G.3-1.12.1">Issues and limitations with Forward-Proxies compiled in an appendix.<a href="#appendix-G.3-1.12.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.12">
+            <p id="appendix-G.4-1.12.1">Issues and limitations with Forward-Proxies compiled in an appendix.<a href="#appendix-G.4-1.12.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.13">
-            <p id="appendix-G.3-1.13.1">Issues and limitations with Reverse-Proxies compiled in an appendix.<a href="#appendix-G.3-1.13.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.13">
+            <p id="appendix-G.4-1.13.1">Issues and limitations with Reverse-Proxies compiled in an appendix.<a href="#appendix-G.4-1.13.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.14">
-            <p id="appendix-G.3-1.14.1">Mentioned PROBING_RATE as a means to enforce congestion control.<a href="#appendix-G.3-1.14.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.14">
+            <p id="appendix-G.4-1.14.1">Mentioned PROBING_RATE as a means to enforce congestion control.<a href="#appendix-G.4-1.14.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.15">
-            <p id="appendix-G.3-1.15.1">Consideration on how eventual consistency from Observe compensates for lost notifications.<a href="#appendix-G.3-1.15.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.15">
+            <p id="appendix-G.4-1.15.1">Consideration on how eventual consistency from Observe compensates for lost notifications.<a href="#appendix-G.4-1.15.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.16">
-            <p id="appendix-G.3-1.16.1">Admitted resource retrieval through consecutive group requests with the Block2 Option.<a href="#appendix-G.3-1.16.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.16">
+            <p id="appendix-G.4-1.16.1">Admitted resource retrieval through consecutive group requests with the Block2 Option.<a href="#appendix-G.4-1.16.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.17">
-            <p id="appendix-G.3-1.17.1">Clarified relationship with TCP/TLS/WebSockets.<a href="#appendix-G.3-1.17.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.17">
+            <p id="appendix-G.4-1.17.1">Clarified relationship with TCP/TLS/WebSockets.<a href="#appendix-G.4-1.17.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.18">
-            <p id="appendix-G.3-1.18.1">Clarified security on the different legs with a proxy.<a href="#appendix-G.3-1.18.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.18">
+            <p id="appendix-G.4-1.18.1">Clarified security on the different legs with a proxy.<a href="#appendix-G.4-1.18.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.3-1.19">
-            <p id="appendix-G.3-1.19.1">Editorial improvements.<a href="#appendix-G.3-1.19.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.4-1.19">
+            <p id="appendix-G.4-1.19.1">Editorial improvements.<a href="#appendix-G.4-1.19.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-10-11">
-<section id="appendix-G.4">
+<section id="appendix-G.5">
         <h3 id="name-version-10-to-11">
-<a href="#appendix-G.4" class="section-number selfRef">G.4. </a><a href="#name-version-10-to-11" class="section-name selfRef">Version -10 to -11</a>
+<a href="#appendix-G.5" class="section-number selfRef">G.5. </a><a href="#name-version-10-to-11" class="section-name selfRef">Version -10 to -11</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-G.4-1.1">
-            <p id="appendix-G.4-1.1.1">Updated references.<a href="#appendix-G.4-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-G.5-1.1">
+            <p id="appendix-G.5-1.1.1">Updated references.<a href="#appendix-G.5-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.4-1.2">
-            <p id="appendix-G.4-1.2.1">Editorial improvements.<a href="#appendix-G.4-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.5-1.2">
+            <p id="appendix-G.5-1.2.1">Editorial improvements.<a href="#appendix-G.5-1.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-09-10">
-<section id="appendix-G.5">
+<section id="appendix-G.6">
         <h3 id="name-version-09-to-10">
-<a href="#appendix-G.5" class="section-number selfRef">G.5. </a><a href="#name-version-09-to-10" class="section-name selfRef">Version -09 to -10</a>
+<a href="#appendix-G.6" class="section-number selfRef">G.6. </a><a href="#name-version-09-to-10" class="section-name selfRef">Version -09 to -10</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-G.5-1.1">
-            <p id="appendix-G.5-1.1.1">Clarified use of NoSec for 'early discovery' and refer to cBRSKI.<a href="#appendix-G.5-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-G.6-1.1">
+            <p id="appendix-G.6-1.1.1">Clarified use of NoSec for 'early discovery' and refer to cBRSKI.<a href="#appendix-G.6-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.5-1.2">
-            <p id="appendix-G.5-1.2.1">Clarified mandatory vs optional elements in CoAP group and CoAP group URI.<a href="#appendix-G.5-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.6-1.2">
+            <p id="appendix-G.6-1.2.1">Clarified mandatory vs optional elements in CoAP group and CoAP group URI.<a href="#appendix-G.6-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.5-1.3">
-            <p id="appendix-G.5-1.3.1">Replaced "GROUPNAME" with "APPNAME".<a href="#appendix-G.5-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.6-1.3">
+            <p id="appendix-G.6-1.3.1">Replaced "GROUPNAME" with "APPNAME".<a href="#appendix-G.6-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.5-1.4">
-            <p id="appendix-G.5-1.4.1">Explicitly mentioning of the type of group (CoAP/application/security).<a href="#appendix-G.5-1.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.6-1.4">
+            <p id="appendix-G.6-1.4.1">Explicitly mentioning of the type of group (CoAP/application/security).<a href="#appendix-G.6-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.5-1.5">
-            <p id="appendix-G.5-1.5.1">Use of .example for example hostnames.<a href="#appendix-G.5-1.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.6-1.5">
+            <p id="appendix-G.6-1.5.1">Use of .example for example hostnames.<a href="#appendix-G.6-1.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.5-1.6">
-            <p id="appendix-G.5-1.6.1">The name of a security group is not necessarily a string.<a href="#appendix-G.5-1.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.6-1.6">
+            <p id="appendix-G.6-1.6.1">The name of a security group is not necessarily a string.<a href="#appendix-G.6-1.6.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.5-1.7">
-            <p id="appendix-G.5-1.7.1">Changed "has to" to "should" for enforcing access control based on membership to security groups.<a href="#appendix-G.5-1.7.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.6-1.7">
+            <p id="appendix-G.6-1.7.1">Changed "has to" to "should" for enforcing access control based on membership to security groups.<a href="#appendix-G.6-1.7.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.5-1.8">
-            <p id="appendix-G.5-1.8.1">Used normative language for policies about group rekeying.<a href="#appendix-G.5-1.8.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.6-1.8">
+            <p id="appendix-G.6-1.8.1">Used normative language for policies about group rekeying.<a href="#appendix-G.6-1.8.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.5-1.9">
-            <p id="appendix-G.5-1.9.1">Further stressed that group communication ought to be secured.<a href="#appendix-G.5-1.9.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.6-1.9">
+            <p id="appendix-G.6-1.9.1">Further stressed that group communication ought to be secured.<a href="#appendix-G.6-1.9.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.5-1.10">
-            <p id="appendix-G.5-1.10.1">Avoid calling applications as "(non-)sensitive" and "(non-)critical".<a href="#appendix-G.5-1.10.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.6-1.10">
+            <p id="appendix-G.6-1.10.1">Avoid calling applications as "(non-)sensitive" and "(non-)critical".<a href="#appendix-G.6-1.10.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.5-1.11">
-            <p id="appendix-G.5-1.11.1">Clarification on source authentication, source addresses, and Echo Option.<a href="#appendix-G.5-1.11.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.6-1.11">
+            <p id="appendix-G.6-1.11.1">Clarification on source authentication, source addresses, and Echo Option.<a href="#appendix-G.6-1.11.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.5-1.12">
-            <p id="appendix-G.5-1.12.1">Editorial fixes and improvements.<a href="#appendix-G.5-1.12.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.6-1.12">
+            <p id="appendix-G.6-1.12.1">Editorial fixes and improvements.<a href="#appendix-G.6-1.12.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-08-09">
-<section id="appendix-G.6">
+<section id="appendix-G.7">
         <h3 id="name-version-08-to-09">
-<a href="#appendix-G.6" class="section-number selfRef">G.6. </a><a href="#name-version-08-to-09" class="section-name selfRef">Version -08 to -09</a>
+<a href="#appendix-G.7" class="section-number selfRef">G.7. </a><a href="#name-version-08-to-09" class="section-name selfRef">Version -08 to -09</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-G.6-1.1">
-            <p id="appendix-G.6-1.1.1">Multiple responses in long exchanges are non-traditional responses.<a href="#appendix-G.6-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-G.7-1.1">
+            <p id="appendix-G.7-1.1.1">Multiple responses in long exchanges are non-traditional responses.<a href="#appendix-G.7-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.6-1.2">
-            <p id="appendix-G.6-1.2.1">Updated references.<a href="#appendix-G.6-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.7-1.2">
+            <p id="appendix-G.7-1.2.1">Updated references.<a href="#appendix-G.7-1.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-07-08">
-<section id="appendix-G.7">
+<section id="appendix-G.8">
         <h3 id="name-version-07-to-08">
-<a href="#appendix-G.7" class="section-number selfRef">G.7. </a><a href="#name-version-07-to-08" class="section-name selfRef">Version -07 to -08</a>
+<a href="#appendix-G.8" class="section-number selfRef">G.8. </a><a href="#name-version-07-to-08" class="section-name selfRef">Version -07 to -08</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-G.7-1.1">
-            <p id="appendix-G.7-1.1.1">Updated references.<a href="#appendix-G.7-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-G.8-1.1">
+            <p id="appendix-G.8-1.1.1">Updated references.<a href="#appendix-G.8-1.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-06-07">
-<section id="appendix-G.8">
+<section id="appendix-G.9">
         <h3 id="name-version-06-to-07">
-<a href="#appendix-G.8" class="section-number selfRef">G.8. </a><a href="#name-version-06-to-07" class="section-name selfRef">Version -06 to -07</a>
+<a href="#appendix-G.9" class="section-number selfRef">G.9. </a><a href="#name-version-06-to-07" class="section-name selfRef">Version -06 to -07</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-G.8-1.1">
-            <p id="appendix-G.8-1.1.1">Updated list of changes to other documents.<a href="#appendix-G.8-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-G.9-1.1">
+            <p id="appendix-G.9-1.1.1">Updated list of changes to other documents.<a href="#appendix-G.9-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.8-1.2">
-            <p id="appendix-G.8-1.2.1">Added real-life context and clarifications to examples.<a href="#appendix-G.8-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.9-1.2">
+            <p id="appendix-G.9-1.2.1">Added real-life context and clarifications to examples.<a href="#appendix-G.9-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.8-1.3">
-            <p id="appendix-G.8-1.3.1">Clarified aliasing of CoAP group names.<a href="#appendix-G.8-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.9-1.3">
+            <p id="appendix-G.9-1.3.1">Clarified aliasing of CoAP group names.<a href="#appendix-G.9-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.8-1.4">
-            <p id="appendix-G.8-1.4.1">Clarified use of security group names.<a href="#appendix-G.8-1.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.9-1.4">
+            <p id="appendix-G.9-1.4.1">Clarified use of security group names.<a href="#appendix-G.9-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.8-1.5">
-            <p id="appendix-G.8-1.5.1">Clarified response suppression.<a href="#appendix-G.8-1.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.9-1.5">
+            <p id="appendix-G.9-1.5.1">Clarified response suppression.<a href="#appendix-G.9-1.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.8-1.6">
-            <p id="appendix-G.8-1.6.1">Clarified response revalidation.<a href="#appendix-G.8-1.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.9-1.6">
+            <p id="appendix-G.9-1.6.1">Clarified response revalidation.<a href="#appendix-G.9-1.6.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.8-1.7">
-            <p id="appendix-G.8-1.7.1">Clarified limitations and peculiarities when using proxies.<a href="#appendix-G.8-1.7.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.9-1.7">
+            <p id="appendix-G.9-1.7.1">Clarified limitations and peculiarities when using proxies.<a href="#appendix-G.9-1.7.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.8-1.8">
-            <p id="appendix-G.8-1.8.1">Discussed the case of group request sent to multiple proxies at once.<a href="#appendix-G.8-1.8.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.9-1.8">
+            <p id="appendix-G.9-1.8.1">Discussed the case of group request sent to multiple proxies at once.<a href="#appendix-G.9-1.8.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.8-1.9">
-            <p id="appendix-G.8-1.9.1">Discussed limited use of reliable transports with block-wise transfer.<a href="#appendix-G.8-1.9.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.9-1.9">
+            <p id="appendix-G.9-1.9.1">Discussed limited use of reliable transports with block-wise transfer.<a href="#appendix-G.9-1.9.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.8-1.10">
-            <p id="appendix-G.8-1.10.1">Revised text on joining CoAP groups and multicast routing.<a href="#appendix-G.8-1.10.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.9-1.10">
+            <p id="appendix-G.9-1.10.1">Revised text on joining CoAP groups and multicast routing.<a href="#appendix-G.9-1.10.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.8-1.11">
-            <p id="appendix-G.8-1.11.1">Clarified use/avoidance of the CoAP NoSec mode.<a href="#appendix-G.8-1.11.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.9-1.11">
+            <p id="appendix-G.9-1.11.1">Clarified use/avoidance of the CoAP NoSec mode.<a href="#appendix-G.9-1.11.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.8-1.12">
-            <p id="appendix-G.8-1.12.1">Moved examples of application group naming and group discovery to appendix sections.<a href="#appendix-G.8-1.12.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.9-1.12">
+            <p id="appendix-G.9-1.12.1">Moved examples of application group naming and group discovery to appendix sections.<a href="#appendix-G.9-1.12.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.8-1.13">
-            <p id="appendix-G.8-1.13.1">Revised list of references.<a href="#appendix-G.8-1.13.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.9-1.13">
+            <p id="appendix-G.9-1.13.1">Revised list of references.<a href="#appendix-G.9-1.13.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.8-1.14">
-            <p id="appendix-G.8-1.14.1">Updated list of implementations supporting group communication.<a href="#appendix-G.8-1.14.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.9-1.14">
+            <p id="appendix-G.9-1.14.1">Updated list of implementations supporting group communication.<a href="#appendix-G.9-1.14.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.8-1.15">
-            <p id="appendix-G.8-1.15.1">Editorial improvements.<a href="#appendix-G.8-1.15.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.9-1.15">
+            <p id="appendix-G.9-1.15.1">Editorial improvements.<a href="#appendix-G.9-1.15.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-05-06">
-<section id="appendix-G.9">
+<section id="appendix-G.10">
         <h3 id="name-version-05-to-06">
-<a href="#appendix-G.9" class="section-number selfRef">G.9. </a><a href="#name-version-05-to-06" class="section-name selfRef">Version -05 to -06</a>
+<a href="#appendix-G.10" class="section-number selfRef">G.10. </a><a href="#name-version-05-to-06" class="section-name selfRef">Version -05 to -06</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-G.9-1.1">
-            <p id="appendix-G.9-1.1.1">Harmonized use of "group URI".<a href="#appendix-G.9-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-G.10-1.1">
+            <p id="appendix-G.10-1.1.1">Harmonized use of "group URI".<a href="#appendix-G.10-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.9-1.2">
-            <p id="appendix-G.9-1.2.1">Clarifications about different group types.<a href="#appendix-G.9-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.10-1.2">
+            <p id="appendix-G.10-1.2.1">Clarifications about different group types.<a href="#appendix-G.10-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.9-1.3">
-            <p id="appendix-G.9-1.3.1">Revised methods to perform group naming.<a href="#appendix-G.9-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.10-1.3">
+            <p id="appendix-G.10-1.3.1">Revised methods to perform group naming.<a href="#appendix-G.10-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.9-1.4">
-            <p id="appendix-G.9-1.4.1">Revised methods to discover application groups and CoAP groups.<a href="#appendix-G.9-1.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.10-1.4">
+            <p id="appendix-G.10-1.4.1">Revised methods to discover application groups and CoAP groups.<a href="#appendix-G.10-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.9-1.5">
-            <p id="appendix-G.9-1.5.1">Explicit difference between "authentication credential" and "public key".<a href="#appendix-G.9-1.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.10-1.5">
+            <p id="appendix-G.10-1.5.1">Explicit difference between "authentication credential" and "public key".<a href="#appendix-G.10-1.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.9-1.6">
-            <p id="appendix-G.9-1.6.1">Added examples of application group naming.<a href="#appendix-G.9-1.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.10-1.6">
+            <p id="appendix-G.10-1.6.1">Added examples of application group naming.<a href="#appendix-G.10-1.6.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.9-1.7">
-            <p id="appendix-G.9-1.7.1">Added examples of application/CoAP group discovery.<a href="#appendix-G.9-1.7.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.10-1.7">
+            <p id="appendix-G.10-1.7.1">Added examples of application/CoAP group discovery.<a href="#appendix-G.10-1.7.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.9-1.8">
-            <p id="appendix-G.9-1.8.1">Added examples of message exchanges.<a href="#appendix-G.9-1.8.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.10-1.8">
+            <p id="appendix-G.10-1.8.1">Added examples of message exchanges.<a href="#appendix-G.10-1.8.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.9-1.9">
-            <p id="appendix-G.9-1.9.1">Reference to draft-mattsson-core-coap-attacks replaced with reference to draft-mattsson-t2trg-amplification-attacks.<a href="#appendix-G.9-1.9.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.10-1.9">
+            <p id="appendix-G.10-1.9.1">Reference to draft-mattsson-core-coap-attacks replaced with reference to draft-mattsson-t2trg-amplification-attacks.<a href="#appendix-G.10-1.9.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.9-1.10">
-            <p id="appendix-G.9-1.10.1">Editorial improvements.<a href="#appendix-G.9-1.10.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.10-1.10">
+            <p id="appendix-G.10-1.10.1">Editorial improvements.<a href="#appendix-G.10-1.10.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-04-05">
-<section id="appendix-G.10">
+<section id="appendix-G.11">
         <h3 id="name-version-04-to-05">
-<a href="#appendix-G.10" class="section-number selfRef">G.10. </a><a href="#name-version-04-to-05" class="section-name selfRef">Version -04 to -05</a>
+<a href="#appendix-G.11" class="section-number selfRef">G.11. </a><a href="#name-version-04-to-05" class="section-name selfRef">Version -04 to -05</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-G.10-1.1">
-            <p id="appendix-G.10-1.1.1">Clarified changes to other documents.<a href="#appendix-G.10-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-G.11-1.1">
+            <p id="appendix-G.11-1.1.1">Clarified changes to other documents.<a href="#appendix-G.11-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.10-1.2">
-            <p id="appendix-G.10-1.2.1">Clarified relationship between different group types.<a href="#appendix-G.10-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.11-1.2">
+            <p id="appendix-G.11-1.2.1">Clarified relationship between different group types.<a href="#appendix-G.11-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.10-1.3">
-            <p id="appendix-G.10-1.3.1">Clarified discovery of application groups.<a href="#appendix-G.10-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.11-1.3">
+            <p id="appendix-G.11-1.3.1">Clarified discovery of application groups.<a href="#appendix-G.11-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.10-1.4">
-            <p id="appendix-G.10-1.4.1">Discussed methods to express application group names in requests.<a href="#appendix-G.10-1.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.11-1.4">
+            <p id="appendix-G.11-1.4.1">Discussed methods to express application group names in requests.<a href="#appendix-G.11-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.10-1.5">
-            <p id="appendix-G.10-1.5.1">Revised and extended text on the NoSec mode and amplification attacks.<a href="#appendix-G.10-1.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.11-1.5">
+            <p id="appendix-G.11-1.5.1">Revised and extended text on the NoSec mode and amplification attacks.<a href="#appendix-G.11-1.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.10-1.6">
-            <p id="appendix-G.10-1.6.1">Rephrased backward/forward security as properties.<a href="#appendix-G.10-1.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.11-1.6">
+            <p id="appendix-G.11-1.6.1">Rephrased backward/forward security as properties.<a href="#appendix-G.11-1.6.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.10-1.7">
-            <p id="appendix-G.10-1.7.1">Removed appendix on Multi-ETag Option for response revalidation.<a href="#appendix-G.10-1.7.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.11-1.7">
+            <p id="appendix-G.11-1.7.1">Removed appendix on Multi-ETag Option for response revalidation.<a href="#appendix-G.11-1.7.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.10-1.8">
-            <p id="appendix-G.10-1.8.1">Editorial improvements.<a href="#appendix-G.10-1.8.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.11-1.8">
+            <p id="appendix-G.11-1.8.1">Editorial improvements.<a href="#appendix-G.11-1.8.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-03-04">
-<section id="appendix-G.11">
+<section id="appendix-G.12">
         <h3 id="name-version-03-to-04">
-<a href="#appendix-G.11" class="section-number selfRef">G.11. </a><a href="#name-version-03-to-04" class="section-name selfRef">Version -03 to -04</a>
+<a href="#appendix-G.12" class="section-number selfRef">G.12. </a><a href="#name-version-03-to-04" class="section-name selfRef">Version -03 to -04</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-G.11-1.1">
-            <p id="appendix-G.11-1.1.1">Multi-ETag Option for response revalidation moved to appendix.<a href="#appendix-G.11-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-G.12-1.1">
+            <p id="appendix-G.12-1.1.1">Multi-ETag Option for response revalidation moved to appendix.<a href="#appendix-G.12-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.11-1.2">
-            <p id="appendix-G.11-1.2.1">ETag Option usage added.<a href="#appendix-G.11-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.12-1.2">
+            <p id="appendix-G.12-1.2.1">ETag Option usage added.<a href="#appendix-G.12-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.11-1.3">
-            <p id="appendix-G.11-1.3.1">Q-Block Options added in the block-wise transfer section.<a href="#appendix-G.11-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.12-1.3">
+            <p id="appendix-G.12-1.3.1">Q-Block Options added in the block-wise transfer section.<a href="#appendix-G.12-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.11-1.4">
-            <p id="appendix-G.11-1.4.1">Caching at proxies moved to draft-tiloca-core-groupcomm-proxy.<a href="#appendix-G.11-1.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.12-1.4">
+            <p id="appendix-G.12-1.4.1">Caching at proxies moved to draft-tiloca-core-groupcomm-proxy.<a href="#appendix-G.12-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.11-1.5">
-            <p id="appendix-G.11-1.5.1">Client-Proxy response revalidation with the Group-ETag Option moved to draft-tiloca-core-groupcomm-proxy.<a href="#appendix-G.11-1.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.12-1.5">
+            <p id="appendix-G.12-1.5.1">Client-Proxy response revalidation with the Group-ETag Option moved to draft-tiloca-core-groupcomm-proxy.<a href="#appendix-G.12-1.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.11-1.6">
-            <p id="appendix-G.11-1.6.1">Security considerations on amplification attacks.<a href="#appendix-G.11-1.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.12-1.6">
+            <p id="appendix-G.12-1.6.1">Security considerations on amplification attacks.<a href="#appendix-G.12-1.6.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.11-1.7">
-            <p id="appendix-G.11-1.7.1">Generalized transport protocols to include others than UDP/IP multicast; and security protocols other than Group OSCORE.<a href="#appendix-G.11-1.7.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.12-1.7">
+            <p id="appendix-G.12-1.7.1">Generalized transport protocols to include others than UDP/IP multicast; and security protocols other than Group OSCORE.<a href="#appendix-G.12-1.7.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.11-1.8">
-            <p id="appendix-G.11-1.8.1">Overview of security cases with proxies.<a href="#appendix-G.11-1.8.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.12-1.8">
+            <p id="appendix-G.12-1.8.1">Overview of security cases with proxies.<a href="#appendix-G.12-1.8.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.11-1.9">
-            <p id="appendix-G.11-1.9.1">Editorial improvements.<a href="#appendix-G.11-1.9.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.12-1.9">
+            <p id="appendix-G.12-1.9.1">Editorial improvements.<a href="#appendix-G.12-1.9.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-02-03">
-<section id="appendix-G.12">
+<section id="appendix-G.13">
         <h3 id="name-version-02-to-03">
-<a href="#appendix-G.12" class="section-number selfRef">G.12. </a><a href="#name-version-02-to-03" class="section-name selfRef">Version -02 to -03</a>
+<a href="#appendix-G.13" class="section-number selfRef">G.13. </a><a href="#name-version-02-to-03" class="section-name selfRef">Version -02 to -03</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-G.12-1.1">
-            <p id="appendix-G.12-1.1.1">Multiple responses from same server handled at the application.<a href="#appendix-G.12-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-G.13-1.1">
+            <p id="appendix-G.13-1.1.1">Multiple responses from same server handled at the application.<a href="#appendix-G.13-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.12-1.2">
-            <p id="appendix-G.12-1.2.1">Clarifications about issues with forward-proxies.<a href="#appendix-G.12-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.13-1.2">
+            <p id="appendix-G.13-1.2.1">Clarifications about issues with forward-proxies.<a href="#appendix-G.13-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.12-1.3">
-            <p id="appendix-G.12-1.3.1">Operations for reverse-proxies.<a href="#appendix-G.12-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.13-1.3">
+            <p id="appendix-G.13-1.3.1">Operations for reverse-proxies.<a href="#appendix-G.13-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.12-1.4">
-            <p id="appendix-G.12-1.4.1">Caching of responses at proxies.<a href="#appendix-G.12-1.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.13-1.4">
+            <p id="appendix-G.13-1.4.1">Caching of responses at proxies.<a href="#appendix-G.13-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.12-1.5">
-            <p id="appendix-G.12-1.5.1">Client-Server response revalidation, with Multi-ETag Option.<a href="#appendix-G.12-1.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.13-1.5">
+            <p id="appendix-G.13-1.5.1">Client-Server response revalidation, with Multi-ETag Option.<a href="#appendix-G.13-1.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.12-1.6">
-            <p id="appendix-G.12-1.6.1">Client-Proxy response revalidation, with the Group-ETag Option.<a href="#appendix-G.12-1.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.13-1.6">
+            <p id="appendix-G.13-1.6.1">Client-Proxy response revalidation, with the Group-ETag Option.<a href="#appendix-G.13-1.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-01-02">
-<section id="appendix-G.13">
+<section id="appendix-G.14">
         <h3 id="name-version-01-to-02">
-<a href="#appendix-G.13" class="section-number selfRef">G.13. </a><a href="#name-version-01-to-02" class="section-name selfRef">Version -01 to -02</a>
+<a href="#appendix-G.14" class="section-number selfRef">G.14. </a><a href="#name-version-01-to-02" class="section-name selfRef">Version -01 to -02</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-G.13-1.1">
-            <p id="appendix-G.13-1.1.1">Clarified relationship between security groups and application groups.<a href="#appendix-G.13-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-G.14-1.1">
+            <p id="appendix-G.14-1.1.1">Clarified relationship between security groups and application groups.<a href="#appendix-G.14-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.13-1.2">
-            <p id="appendix-G.13-1.2.1">Considered also FETCH for requests over IP multicast.<a href="#appendix-G.13-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.14-1.2">
+            <p id="appendix-G.14-1.2.1">Considered also FETCH for requests over IP multicast.<a href="#appendix-G.14-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.13-1.3">
-            <p id="appendix-G.13-1.3.1">More details on Observe re-registration.<a href="#appendix-G.13-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.14-1.3">
+            <p id="appendix-G.14-1.3.1">More details on Observe re-registration.<a href="#appendix-G.14-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.13-1.4">
-            <p id="appendix-G.13-1.4.1">More details on Proxy intermediaries.<a href="#appendix-G.13-1.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.14-1.4">
+            <p id="appendix-G.14-1.4.1">More details on Proxy intermediaries.<a href="#appendix-G.14-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.13-1.5">
-            <p id="appendix-G.13-1.5.1">More details on servers changing port number in the response.<a href="#appendix-G.13-1.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.14-1.5">
+            <p id="appendix-G.14-1.5.1">More details on servers changing port number in the response.<a href="#appendix-G.14-1.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.13-1.6">
-            <p id="appendix-G.13-1.6.1">Usage of the Uri-Host Option to indicate an application group.<a href="#appendix-G.13-1.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.14-1.6">
+            <p id="appendix-G.14-1.6.1">Usage of the Uri-Host Option to indicate an application group.<a href="#appendix-G.14-1.6.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.13-1.7">
-            <p id="appendix-G.13-1.7.1">Response suppression based on classes of error codes.<a href="#appendix-G.13-1.7.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.14-1.7">
+            <p id="appendix-G.14-1.7.1">Response suppression based on classes of error codes.<a href="#appendix-G.14-1.7.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-00-01">
-<section id="appendix-G.14">
+<section id="appendix-G.15">
         <h3 id="name-version-00-to-01">
-<a href="#appendix-G.14" class="section-number selfRef">G.14. </a><a href="#name-version-00-to-01" class="section-name selfRef">Version -00 to -01</a>
+<a href="#appendix-G.15" class="section-number selfRef">G.15. </a><a href="#name-version-00-to-01" class="section-name selfRef">Version -00 to -01</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-G.14-1.1">
-            <p id="appendix-G.14-1.1.1">Clarifications on group memberships for the different group types.<a href="#appendix-G.14-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-G.15-1.1">
+            <p id="appendix-G.15-1.1.1">Clarifications on group memberships for the different group types.<a href="#appendix-G.15-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.14-1.2">
-            <p id="appendix-G.14-1.2.1">Simplified description of Token reusage, compared to the unicast case.<a href="#appendix-G.14-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.15-1.2">
+            <p id="appendix-G.15-1.2.1">Simplified description of Token reusage, compared to the unicast case.<a href="#appendix-G.15-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.14-1.3">
-            <p id="appendix-G.14-1.3.1">More details on the rationale for response suppression.<a href="#appendix-G.14-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.15-1.3">
+            <p id="appendix-G.15-1.3.1">More details on the rationale for response suppression.<a href="#appendix-G.15-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.14-1.4">
-            <p id="appendix-G.14-1.4.1">Clarifications of creation and management of security groups.<a href="#appendix-G.14-1.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.15-1.4">
+            <p id="appendix-G.15-1.4.1">Clarifications of creation and management of security groups.<a href="#appendix-G.15-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.14-1.5">
-            <p id="appendix-G.14-1.5.1">Clients more knowledgeable than proxies about stopping receiving responses.<a href="#appendix-G.14-1.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.15-1.5">
+            <p id="appendix-G.15-1.5.1">Clients more knowledgeable than proxies about stopping receiving responses.<a href="#appendix-G.15-1.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.14-1.6">
-            <p id="appendix-G.14-1.6.1">Cancellation of group observations.<a href="#appendix-G.14-1.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.15-1.6">
+            <p id="appendix-G.15-1.6.1">Cancellation of group observations.<a href="#appendix-G.15-1.6.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.14-1.7">
-            <p id="appendix-G.14-1.7.1">Clarification on multicast scope to use.<a href="#appendix-G.14-1.7.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.15-1.7">
+            <p id="appendix-G.15-1.7.1">Clarification on multicast scope to use.<a href="#appendix-G.15-1.7.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.14-1.8">
-            <p id="appendix-G.14-1.8.1">Both the group mode and pairwise mode of Group OSCORE are considered.<a href="#appendix-G.14-1.8.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.15-1.8">
+            <p id="appendix-G.15-1.8.1">Both the group mode and pairwise mode of Group OSCORE are considered.<a href="#appendix-G.15-1.8.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.14-1.9">
-            <p id="appendix-G.14-1.9.1">Updated security considerations.<a href="#appendix-G.14-1.9.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.15-1.9">
+            <p id="appendix-G.15-1.9.1">Updated security considerations.<a href="#appendix-G.15-1.9.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.14-1.10">
-            <p id="appendix-G.14-1.10.1">Editorial improvements.<a href="#appendix-G.14-1.10.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.15-1.10">
+            <p id="appendix-G.15-1.10.1">Editorial improvements.<a href="#appendix-G.15-1.10.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -5747,7 +5812,7 @@ That is, the client needs to preserve the Token value used for the request also 
       <h2 id="name-acknowledgements">
 <a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
       </h2>
-<p id="appendix-H-1">The authors sincerely thank <span class="contact-name">Christian Amsüss</span>, <span class="contact-name">Mike Bishop</span>, <span class="contact-name">Carsten Bormann</span>, <span class="contact-name">Thomas Fossati</span>, <span class="contact-name">Rikard Höglund</span>, <span class="contact-name">Jaime Jiménez</span>, <span class="contact-name">John Preuß Mattsson</span>, <span class="contact-name">Jim Schaad</span>, <span class="contact-name">Jon Shallow</span>, <span class="contact-name">Sean Turner</span>, and <span class="contact-name">Magnus Westerlund</span> for their comments and feedback.<a href="#appendix-H-1" class="pilcrow">¶</a></p>
+<p id="appendix-H-1">The authors sincerely thank <span class="contact-name">Christian Amsüss</span>, <span class="contact-name">Mike Bishop</span>, <span class="contact-name">Carsten Bormann</span>, <span class="contact-name">Roni Even</span>, <span class="contact-name">Thomas Fossati</span>, <span class="contact-name">Rikard Höglund</span>, <span class="contact-name">Jaime Jiménez</span>, <span class="contact-name">John Preuß Mattsson</span>, <span class="contact-name">Jim Schaad</span>, <span class="contact-name">Jon Shallow</span>, <span class="contact-name">Petr Špaček</span>, <span class="contact-name">Ketan Talaulikar</span>, <span class="contact-name">Sean Turner</span>, and <span class="contact-name">Magnus Westerlund</span> for their comments and feedback.<a href="#appendix-H-1" class="pilcrow">¶</a></p>
 <p id="appendix-H-2">The work on this document has been partly supported by the Sweden's Innovation Agency VINNOVA and the Celtic-Next projects CRITISEC and CYPRESS; and by the H2020 projects SIFIS-Home (Grant agreement 952652) and ARCADIAN-IoT (Grant agreement 101020259).<a href="#appendix-H-2" class="pilcrow">¶</a></p>
 </section>
 </div>

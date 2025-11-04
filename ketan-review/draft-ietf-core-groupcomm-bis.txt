@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                       19 September 2025
-Expires: 23 March 2026
+Intended status: Standards Track                         4 November 2025
+Expires: 8 May 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 March 2026.
+   This Internet-Draft will expire on 8 May 2026.
 
 Copyright Notice
 
@@ -172,20 +172,21 @@ Table of Contents
    Appendix E.  Issues and Limitations with Forward-Proxies
    Appendix F.  Issues and Limitations with Reverse-Proxies
    Appendix G.  Document Updates
-     G.1.  Version -13 to -14
-     G.2.  Version -12 to -13
-     G.3.  Version -11 to -12
-     G.4.  Version -10 to -11
-     G.5.  Version -09 to -10
-     G.6.  Version -08 to -09
-     G.7.  Version -07 to -08
-     G.8.  Version -06 to -07
-     G.9.  Version -05 to -06
-     G.10. Version -04 to -05
-     G.11. Version -03 to -04
-     G.12. Version -02 to -03
-     G.13. Version -01 to -02
-     G.14. Version -00 to -01
+     G.1.  Version -14 to -15
+     G.2.  Version -13 to -14
+     G.3.  Version -12 to -13
+     G.4.  Version -11 to -12
+     G.5.  Version -10 to -11
+     G.6.  Version -09 to -10
+     G.7.  Version -08 to -09
+     G.8.  Version -07 to -08
+     G.9.  Version -06 to -07
+     G.10. Version -05 to -06
+     G.11. Version -04 to -05
+     G.12. Version -03 to -04
+     G.13. Version -02 to -03
+     G.14. Version -01 to -02
+     G.15. Version -00 to -01
    Acknowledgements
    Authors' Addresses
 
@@ -650,12 +651,13 @@ Table of Contents
 
    When configuring a CoAP group membership, it is recommended to
    configure an endpoint with an IP multicast address literal, instead
-   of a group hostname.  This is because DNS infrastructure may not be
-   deployed in many constrained networks.  In case a group hostname is
-   configured, it can be uniquely mapped to an IP multicast address via
-   DNS resolution, if DNS client functionality is available in the
-   endpoint being configured and the DNS service is supported in the
-   network.
+   of a group hostname.  This is because an infrastructure providing a
+   name resolution service, such as DNS, may not be deployed in many
+   constrained networks.  In case a group hostname is configured, it can
+   be uniquely mapped to an IP multicast address via a name resolution
+   service.  For example, this can rely on the DNS resolution process,
+   if DNS client functionality is available in the endpoint being
+   configured and the DNS service is supported in the network.
 
    Some examples of hierarchical CoAP group FQDN naming (and scoping)
    for a building control application are shown below.
@@ -681,10 +683,12 @@ Table of Contents
            Table 1: Examples of Hierarchical Group FQDN Naming
 
    Similarly, if supported, reverse mapping (from IP multicast address
-   to Group FQDN) is possible using the reverse DNS resolution technique
-   [RFC1035].  Reverse mapping is important, for example, in
-   troubleshooting to translate IP multicast addresses back to human-
-   readable hostnames to show in a diagnostics user interface.
+   to Group FQDN) is also possible.  For example, when using an IPv6
+   multicast address, the reverse mapping can rely on DNS and the
+   IP6.ARPA domain (see Section 2.5 of [RFC3596]).  Reverse mapping is
+   important, for example, in troubleshooting to translate IP multicast
+   addresses back to human-readable hostnames to show in a diagnostics
+   user interface.
 
 2.2.1.2.  Application Groups
 
@@ -944,7 +948,8 @@ Table of Contents
    resource links.
 
    The following discusses a number of methods to discover application
-   groups and CoAP groups, building on the following assumptions.
+   groups and CoAP groups.  When discussing the different methods, the
+   two assumptions below hold:
 
    *  Application group names are encoded in the path component of Group
       URIs (see Section 2.2.1.2).  In examples in this document, the
@@ -2297,7 +2302,7 @@ Table of Contents
    circumstances, the security implications in Section 6.1 must be very
    well considered and understood, especially as to the risk and impact
    of amplification attacks (see Section 6.3).  Consistent with such
-   security implications, the use of the NoSec mode should still be
+   security implications, the use of the NoSec mode SHOULD still be
    avoided whenever possible.
 
 5.  Secured Group Communication using Group OSCORE
@@ -2452,8 +2457,8 @@ Table of Contents
 
    The key management operations mentioned above are entrusted to the
    Group Manager responsible for the OSCORE group
-   [I-D.ietf-core-oscore-groupcomm], and it is RECOMMENDED to perform
-   them as defined in [I-D.ietf-ace-key-groupcomm-oscore].
+   [I-D.ietf-core-oscore-groupcomm].  For example, they can be performed
+   as defined in [I-D.ietf-ace-key-groupcomm-oscore].
 
 5.3.  Proxy Security
 
@@ -2463,7 +2468,7 @@ Table of Contents
    listed.
 
    For a client performing a group communication request via a forward-
-   proxy, end-to-end security should be implemented.  The client then
+   proxy, end-to-end security SHOULD be implemented.  The client then
    creates a group request protected with Group OSCORE and unicasts this
    to the proxy.  The proxy adapts the request from a forward-proxy
    request to a regular request and multicasts this adapted request to
@@ -2560,10 +2565,10 @@ Table of Contents
    are accepted, can be limited as well.  Furthermore, the scope is also
    limited: only link-local requests are accepted.
 
-   Except for the class of applications discussed above, and all the
-   more so in applications that obviously have hard security
-   requirements (e.g., health monitoring systems and alarm monitoring
-   systems), CoAP group communication MUST NOT be used in NoSec mode.
+   Except for the class of applications discussed above (in which
+   unsecured communication is required or is not harmful for specific,
+   well-defined "unsecured steps"), CoAP group communication MUST NOT be
+   used in NoSec mode.
 
 6.2.  Group OSCORE
 
@@ -3066,7 +3071,7 @@ Table of Contents
 
 6.7.  Wi-Fi
 
-   In a home automation scenario using Wi-Fi, Wi-Fi security should be
+   In a home automation scenario using Wi-Fi, Wi-Fi security SHOULD be
    enabled to prevent rogue nodes from joining.  The Customer Premises
    Equipment (CPE) that enables access to the Internet should also have
    its IP multicast filters set so that it enforces multicast scope
@@ -3275,9 +3280,9 @@ Table of Contents
    [I-D.bormann-core-responses]
               Bormann, C. and C. Amsüss, "CoAP: Non-traditional response
               forms", Work in Progress, Internet-Draft, draft-bormann-
-              core-responses-05, 30 August 2025,
+              core-responses-06, 20 October 2025,
               <https://datatracker.ietf.org/doc/html/draft-bormann-core-
-              responses-05>.
+              responses-06>.
 
    [I-D.ietf-ace-key-groupcomm-oscore]
               Tiloca, M. and F. Palombini, "Key Management for Group
@@ -3300,9 +3305,9 @@ Table of Contents
               Richardson, M., Van der Stok, P., Kampanakis, P., and E.
               Dijk, "Constrained Bootstrapping Remote Secure Key
               Infrastructure (cBRSKI)", Work in Progress, Internet-
-              Draft, draft-ietf-anima-constrained-voucher-28, 6 July
+              Draft, draft-ietf-anima-constrained-voucher-29, 18 October
               2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              anima-constrained-voucher-28>.
+              anima-constrained-voucher-29>.
 
    [I-D.ietf-core-coap-pubsub]
               Jimenez, J., Koster, M., and A. Keränen, "A publish-
@@ -3345,9 +3350,10 @@ Table of Contents
    [libcoap]  Bergmann, O., "libcoap", June 2022,
               <https://github.com/obgm/libcoap>.
 
-   [RFC1035]  Mockapetris, P., "Domain names - implementation and
-              specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
-              November 1987, <https://www.rfc-editor.org/rfc/rfc1035>.
+   [RFC3596]  Thomson, S., Huitema, C., Ksinant, V., and M. Souissi,
+              "DNS Extensions to Support IP Version 6", STD 88,
+              RFC 3596, DOI 10.17487/RFC3596, October 2003,
+              <https://www.rfc-editor.org/rfc/rfc3596>.
 
    [RFC6092]  Woodyatt, J., Ed., "Recommended Simple Security
               Capabilities in Customer Premises Equipment (CPE) for
@@ -3538,7 +3544,8 @@ A.1.3.  Directory Discovery
    *  The DNS server (DNS Server) is optional.  If the server is there
       (connected to the network backbone), then certain DNS-based
       features are available (e.g., DNS resolution of the hostname to
-      the IP multicast address).  If the DNS server is not there, then
+      the IP multicast address).  If the DNS server is not there and no
+      alternative name resolution service is available to use, then
       different provisioning of the network is required (e.g., IP
       multicast addresses are hard-coded into devices, or manually
       configured, or obtained via a service discovery method).
@@ -3721,10 +3728,10 @@ A.2.1.  Actuator Group Control
    address of the group (Room-A-Lights) has been configured in all the
    lights and in the light switch.
 
-   3b) As an alternative to the previous step, when a DNS server is
-   available, the light switch and/or the lights have been configured
-   with a group hostname that each node resolves to the above IP
-   multicast address of the group.
+   3b) As an alternative to the previous step, when a DNS server or an
+   alternative name resolution service is available, the light switch
+   and/or the lights have been configured with a group hostname that
+   each node resolves to the above IP multicast address of the group.
 
    Note for the Commissioning phase: the switch's 6LoWPAN/CoAP software
    stack supports sending unicast, multicast, or proxied unicast CoAP
@@ -4012,8 +4019,8 @@ B.3.  Group Naming using the URI Authority Component
 
    Figure 13 provides an example where the URI host subcomponent of the
    URI authority component is used for encoding the name of the
-   application group.  Specifically, the first label of the DNS name is
-   used.
+   application group.  Specifically, the leftmost label of the
+   registered name is used.
 
       Application group name: grp42
 
@@ -4694,7 +4701,43 @@ Appendix G.  Document Updates
 
    This section is to be removed before publishing as an RFC.
 
-G.1.  Version -13 to -14
+G.1.  Version -14 to -15
+
+   *  DNS is only one possible name resolution service.
+
+   *  DNS and IP6.ARPA can be used for IPv6 reverse mapping.
+
+   *  Appropriate use of normative language.
+
+   *  Discouraged the NoSec mode already in Section 1.
+
+   *  Clarifications:
+
+      -  Only Any Source Multicast (ASM) is in scope.
+
+      -  Scope of the document about proxy operations.
+
+      -  Strategies for repeating a group request.
+
+      -  Interspersing confirmable Observe notifications.
+
+      -  How the leisure period applies to Observe notifications.
+
+   *  Revised definitions of parameters for congestion control.
+
+   *  More content on amplification attacks:
+
+      -  Early heads-up and forward pointers.
+
+      -  Revised presentation of attacks and mitigations.
+
+      -  New section on mitigating the attacks with the Echo option.
+
+   *  Updated references.
+
+   *  Editorial improvements.
+
+G.2.  Version -13 to -14
 
    *  More context information in the abstract and introduction.
 
@@ -4707,7 +4750,7 @@ G.1.  Version -13 to -14
 
    *  Minor fixes and editorial improvements.
 
-G.2.  Version -12 to -13
+G.3.  Version -12 to -13
 
    *  Updated author list.
 
@@ -4737,7 +4780,7 @@ G.2.  Version -12 to -13
 
    *  Clarifications and editorial improvements.
 
-G.3.  Version -11 to -12
+G.4.  Version -11 to -12
 
    *  Clarified how a group name can be included in a URI path for
       reverse proxies; removed reference to URI templates for reverse
@@ -4791,13 +4834,13 @@ G.3.  Version -11 to -12
 
    *  Editorial improvements.
 
-G.4.  Version -10 to -11
+G.5.  Version -10 to -11
 
    *  Updated references.
 
    *  Editorial improvements.
 
-G.5.  Version -09 to -10
+G.6.  Version -09 to -10
 
    *  Clarified use of NoSec for 'early discovery' and refer to cBRSKI.
 
@@ -4828,18 +4871,18 @@ G.5.  Version -09 to -10
 
    *  Editorial fixes and improvements.
 
-G.6.  Version -08 to -09
+G.7.  Version -08 to -09
 
    *  Multiple responses in long exchanges are non-traditional
       responses.
 
    *  Updated references.
 
-G.7.  Version -07 to -08
+G.8.  Version -07 to -08
 
    *  Updated references.
 
-G.8.  Version -06 to -07
+G.9.  Version -06 to -07
 
    *  Updated list of changes to other documents.
 
@@ -4874,7 +4917,7 @@ G.8.  Version -06 to -07
 
    *  Editorial improvements.
 
-G.9.  Version -05 to -06
+G.10.  Version -05 to -06
 
    *  Harmonized use of "group URI".
 
@@ -4898,7 +4941,7 @@ G.9.  Version -05 to -06
 
    *  Editorial improvements.
 
-G.10.  Version -04 to -05
+G.11.  Version -04 to -05
 
    *  Clarified changes to other documents.
 
@@ -4917,7 +4960,7 @@ G.10.  Version -04 to -05
 
    *  Editorial improvements.
 
-G.11.  Version -03 to -04
+G.12.  Version -03 to -04
 
    *  Multi-ETag Option for response revalidation moved to appendix.
 
@@ -4939,7 +4982,7 @@ G.11.  Version -03 to -04
 
    *  Editorial improvements.
 
-G.12.  Version -02 to -03
+G.13.  Version -02 to -03
 
    *  Multiple responses from same server handled at the application.
 
@@ -4953,7 +4996,7 @@ G.12.  Version -02 to -03
 
    *  Client-Proxy response revalidation, with the Group-ETag Option.
 
-G.13.  Version -01 to -02
+G.14.  Version -01 to -02
 
    *  Clarified relationship between security groups and application
       groups.
@@ -4970,7 +5013,7 @@ G.13.  Version -01 to -02
 
    *  Response suppression based on classes of error codes.
 
-G.14.  Version -00 to -01
+G.15.  Version -00 to -01
 
    *  Clarifications on group memberships for the different group types.
 
@@ -4998,9 +5041,10 @@ G.14.  Version -00 to -01
 Acknowledgements
 
    The authors sincerely thank Christian Amsüss, Mike Bishop, Carsten
-   Bormann, Thomas Fossati, Rikard Höglund, Jaime Jiménez, John Preuß
-   Mattsson, Jim Schaad, Jon Shallow, and Magnus Westerlund for their
-   comments and feedback.
+   Bormann, Roni Even, Thomas Fossati, Rikard Höglund, Jaime Jiménez,
+   John Preuß Mattsson, Jim Schaad, Jon Shallow, Petr Špaček, Ketan
+   Talaulikar, Sean Turner, and Magnus Westerlund for their comments and
+   feedback.
 
    The work on this document has been partly supported by the Sweden's
    Innovation Agency VINNOVA and the Celtic-Next projects CRITISEC and
