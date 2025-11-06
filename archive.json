@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-28T01:44:28.901217+00:00",
+  "timestamp": "2025-11-06T01:43:43.853678+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -2845,6 +2845,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 50,
+      "id": "PR_kwDODvYK3c6xioII",
+      "title": "Ketan Talaulikar's review",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/50",
+      "state": "OPEN",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR addresses the review from Ketan Talaulikar archived at https://mailarchive.ietf.org/arch/msg/core/SG7fpMILV2a4qrJYHz0xhUw-V50/",
+      "createdAt": "2025-11-05T02:45:00Z",
+      "updatedAt": "2025-11-05T02:45:08Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "ketan-review",
+      "headRefOid": "2ffd8a180d8ec717fa2b5703763e377275603aff",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
