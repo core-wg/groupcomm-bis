@@ -133,7 +133,7 @@ In a number of use cases, constrained devices can be large in number as well as 
 
 This document specifies the use of CoAP for group communication, together with UDP/IP multicast as the default transport for CoAP group communication messages.
 
-One-to-many group communication can be achieved in CoAP, by a client using UDP/IP multicast data transport to send multicast CoAP request messages. In response, each server in the addressed group sends a response message back to the client over UDP/IP unicast. Notable CoAP implementations that support group communication include "Eclipse Californium" {{Californium}}, "Go-CoAP" {{Go-CoAP}} as well as "libcoap" {{libcoap}}.
+One-to-many group communication can be achieved in CoAP, by a client using UDP/IP multicast data transport to send multicast CoAP request messages to all servers in a group. Within a given group, multiple clients can send multicast CoAP request messages. In response, each server in the addressed group sends a response message back to the client over UDP/IP unicast. Notable CoAP implementations that support group communication include "Eclipse Californium" {{Californium}}, "Go-CoAP" {{Go-CoAP}} as well as "libcoap" {{libcoap}}.
 
 Both unsecured and secured CoAP group communication are specified in this document.
 
@@ -146,7 +146,9 @@ This document replaces and obsoletes {{RFC7390}}, while it updates both {{RFC725
 All sections in the body of this document are normative, while appendices are informative. For additional background about use cases for CoAP group communication in resource-constrained devices and networks, see {{appendix-usecases}}.
 
 ## Scope ## {#scope}
-For group communication, only those solutions that use CoAP messages over a "one-to-many" (i.e., non-unicast) transport protocol are in the scope of this document. There are alternative methods to achieve group communication using CoAP, using unicast only. One example is Publish-Subscribe {{I-D.ietf-core-coap-pubsub}} which uses a central broker server that CoAP clients access via unicast communication. These alternative methods may be usable for the same or similar use cases as the ones targeted in this document.
+For group communication, only those solutions that use CoAP messages over a "one-to-many" (i.e., non-unicast) transport protocol are in the scope of this document. By using such a transport protocol, any client in a group can send a multicast CoAP request message to all servers in the group. That is, "one-to-many" refers to the delivery of a given message from one sender to multiple recipients, and the sender, the recipients, or both can change on a per-message basis.
+
+There are alternative methods to achieve group communication using CoAP, using unicast only. One example is Publish-Subscribe {{I-D.ietf-core-coap-pubsub}} which uses a central broker server that CoAP clients access via unicast communication. These alternative methods may be usable for the same or similar use cases as the ones targeted in this document.
 
 This document defines UDP/IP multicast as the default transport protocol for CoAP group requests, as in {{RFC7252}}. Only the Any Source Multicast (ASM) mode {{RFC5110}} of IP multicast operation is in scope. Other transport protocols (which may include broadcast, non-IP multicast, geocast, etc.) are not described in detail and are not considered. Although UDP/IP multicast transport is assumed in most of the text in this document, we expect many of the considerations for UDP/IP multicast can be re-used for alternative transport protocols.
 
