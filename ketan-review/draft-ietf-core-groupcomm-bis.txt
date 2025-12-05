@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                         4 November 2025
-Expires: 8 May 2026
+Intended status: Standards Track                         5 December 2025
+Expires: 8 June 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 May 2026.
+   This Internet-Draft will expire on 8 June 2026.
 
 Copyright Notice
 
@@ -566,12 +566,11 @@ Table of Contents
    report humidity.
 
    All the shown application groups may use the same CoAP group (not
-   shown in the figure), for example the CoAP group with site-local,
-   site-specific multicast IP address ff05::db8:0:3456 and default UDP
-   port number 5683 on which all the shown resources are hosted for each
-   server.  Other floors of the same building may replicate the shown
-   structure, but using different security groups and different CoAP
-   groups.
+   shown in the figure), for example the CoAP group with site-local
+   multicast IP address ff05::db8:0:3456 and default UDP port number
+   5683 on which all the shown resources are hosted for each server.
+   Other floors of the same building may replicate the shown structure,
+   but using different security groups and different CoAP groups.
 
     .------------------------------.   .-----------------------------.
    |                                | |                               |
