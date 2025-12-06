@@ -83,6 +83,8 @@ informative:
   I-D.ietf-core-transport-indication:
   I-D.irtf-t2trg-amplification-attacks:
   RFC3596:
+  RFC4787:
+  RFC5128:
   RFC6092:
   RFC6550:
   RFC6636:
@@ -536,6 +538,8 @@ While processing a response on the client, the source endpoint of the response i
 Also, when UDP transport is used, a server MAY respond from a UDP port number that differs from the destination UDP port number of the request.
 
 In case a single client has sent multiple group requests and concurrent CoAP transactions are ongoing, the responses received by that client are matched to an active request using only the Token value. Due to UDP level multiplexing, the UDP destination port number of the response MUST match to the client endpoint's UDP port number, i.e., to the UDP source port number of the client's request.
+
+Note that some responses to a group request might be filtered out and not reach the client if a NAT device is used with restrictive filtering in place. For example, this is the case if the NAT device employs "Endpoint-Dependent Filtering" (see {{Section 2.6 of RFC5128}}), i.e., the combination of "Address-Dependent Filtering" and "Address and Port-Dependent Filtering" as defined in {{Section 5 of RFC4787}}.
 
 ### Token Reuse ### {#sec-token-reuse}
 For CoAP group requests, there are additional constraints on the reuse of Token values at the client, compared to the unicast case defined in {{RFC7252}} and updated by {{RFC9175}}. Since for CoAP group requests the number of responses is not bounded a priori, the client cannot use the reception of a response as a trigger to "free up" a Token value for reuse.
