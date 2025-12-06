@@ -502,9 +502,13 @@ Table of Contents
 
    Beyond this particular case, applications should be careful in
    associating a single application group to multiple security groups.
-   In particular, it is NOT RECOMMENDED to use different security groups
-   to reflect different access policies for resources in the same
-   application group.
+   In particular, different security groups are not meant to reflect
+   different access policies, e.g., for enforcing access control to
+   resources that are hosted at servers in the same application group.
+   Therefore, it is NOT RECOMMENDED to simply take into account
+   memberships to security groups as a way to enforce access control
+   within an application group, which instead should rely on separate
+   means.
 
    In fact, being a member of a security group actually grants access
    only to exchange secured messages and enables authentication of group
