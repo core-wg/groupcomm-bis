@@ -845,7 +845,7 @@ CoAP over TCP, TLS, and WebSockets is defined in {{RFC8323}}. Although it suppor
   This requires the individually addressed servers to be reachable via a suitable cross-proxy or to also support CoAP over TCP/TLS/WebSockets for the targeted resource. While those transports do not support multicast, it is possible to rely on multicast for discovering that a server has those transports available and that they allow accessing the targeted resource, possibly with block-wise transfer used for random access to blocks within the resource representation. Such discovering can rely on means defined in {{I-D.ietf-core-transport-indication}}.
 
 ### Other Transports ###
-CoAP group communication may be used over transports other than UDP/IP multicast. For example broadcast, non-UDP multicast, geocast, serial unicast, etc. In such cases the particular considerations for UDP/IP multicast in this document may need to be applied to that particular transport.
+CoAP group communication may be used over transports other than UDP/IP multicast. For example broadcast, non-UDP multicast, geocast, serial unicast, etc. In such cases the particular considerations for UDP/IP multicast in this document may need to be applied to that particular transport. Further details about such alternative transports and their use for CoAP group communication are out of scope for this document.
 
 ## Interworking with Other Protocols ## {#sec-other-protocols}
 
