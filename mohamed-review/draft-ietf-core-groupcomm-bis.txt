@@ -220,10 +220,7 @@ Table of Contents
    One-to-many group communication can be achieved in CoAP, by a client
    using UDP/IP multicast data transport to send multicast CoAP request
    messages.  In response, each server in the addressed group sends a
-   response message back to the client over UDP/IP unicast.  Notable
-   CoAP implementations that support group communication include
-   "Eclipse Californium" [Californium], "Go-CoAP" [Go-CoAP] as well as
-   "libcoap" [libcoap].
+   response message back to the client over UDP/IP unicast.
 
    Both unsecured and secured CoAP group communication are specified in
    this document.
@@ -3270,13 +3267,6 @@ Table of Contents
 
 8.2.  Informative References
 
-   [Californium]
-              Eclipse Foundation, "Eclipse Californium", June 2022,
-              <https://github.com/eclipse/californium>.
-
-   [Go-CoAP]  Open Connectivity Foundation (OCF), "Go-CoAP", June 2022,
-              <https://github.com/go-ocf/go-coap>.
-
    [I-D.bormann-core-responses]
               Bormann, C. and C. Amsüss, "CoAP: Non-traditional response
               forms", Work in Progress, Internet-Draft, draft-bormann-
@@ -3346,9 +3336,6 @@ Table of Contents
               discovery-18, 3 September 2025,
               <https://datatracker.ietf.org/doc/html/draft-tiloca-core-
               oscore-discovery-18>.
-
-   [libcoap]  Bergmann, O., "libcoap", June 2022,
-              <https://github.com/obgm/libcoap>.
 
    [RFC3596]  Thomson, S., Huitema, C., Ksinant, V., and M. Souissi,
               "DNS Extensions to Support IP Version 6", STD 88,
