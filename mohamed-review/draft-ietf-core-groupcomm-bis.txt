@@ -1724,13 +1724,15 @@ Table of Contents
    *  If secure group communication with Group OSCORE is used (see
       Section 5), each server is able to determine that each received
       copy of the group request is in fact originated by the same
-      client.  In particular, each server is able to determine that all
-      such received requests are copies of exactly the same group
+      client.  In particular, by leveraging the replay protection
+      provided by Group OSCORE, each server is able to determine that
+      all such received requests are copies of exactly the same group
       request.
 
-      As a result, each server accepts only the first copy of the group
-      request received from one of the proxies, while discarding as
-      replay any later copies received from any other proxy.
+      As a result, each server accepts only the first verified copy of
+      the group request received from one of the proxies, while
+      discarding as replay any later copies received from any other
+      proxy.
 
       After that, the server can reply to the accepted request with
       multiple responses over time (see Section 3.1.6).  All those
