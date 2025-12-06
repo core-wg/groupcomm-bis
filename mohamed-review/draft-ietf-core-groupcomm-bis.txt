@@ -1171,12 +1171,15 @@ Table of Contents
    CoAP client sends requests that use the associated endpoint's UDP
    port number as the UDP source port number of the request.
 
-   All CoAP requests that are sent via IP multicast MUST be Non-
-   confirmable (NON), see Section 8.1 of [RFC7252].  The Message ID in
-   an IP multicast CoAP message is used for optional message
-   deduplication by both clients and servers, as detailed in Section 4.5
-   of [RFC7252].  A server MAY send one or more responses to a CoAP
-   group request; these are always unicast messages.  The unicast
+   All CoAP requests that are sent via IP multicast must be Non-
+   confirmable (NON), see Section 8.1 of [RFC7252].  Although a
+   corresponding response should be returned in a Non-confirmable
+   message as well, clients must be prepared to receive Confirmable
+   responses in reply to those requests, see Section 5.2.3 of [RFC7252].
+   The Message ID in an IP multicast CoAP message is used for optional
+   message deduplication by both clients and servers, as detailed in
+   Section 4.5 of [RFC7252].  A server MAY send one or more responses to
+   a CoAP group request; these are always unicast messages.  The unicast
    responses received by the CoAP client may carry a mixture of success
    (e.g., 2.05 (Content)) and failure (e.g., 4.04 (Not Found)) response
    codes, depending on the individual server processing results.
