@@ -511,7 +511,7 @@ All CoAP requests that are sent via IP multicast must be Non-confirmable (NON), 
 When using CoAP group communication, an amplification attack becomes more effective than when sending a unicast request to a single server. That is, by spoofing the source IP address of a designated victim in the group request sent via IP multicast, the attack may result in multiple servers within the CoAP group sending responses to the victim. This is further discussed in {{ssec-amplification}}, together with available mitigations.
 
 ### Response Suppression ###  {#sec-request-response-suppress}
-A server MAY suppress its response for various reasons given in {{Section 8.2 of RFC7252}}. This document adds the requirement that a server SHOULD suppress the response in case of error or in case there is nothing useful to respond, unless the application related to a particular resource requires such a response to be made for that resource.
+A server MAY suppress its response for various reasons given in {{Section 8.2 of RFC7252}}. This document adds the requirement that a server SHOULD suppress the response in case of error or in case there is nothing useful to respond, unless the application related to a particular resource requires such a response to be made for that resource. Such exceptions are application-specific and defined by corresponding application policies.
 
 The CoAP No-Response Option {{RFC7967}} can be used by a client to influence the default response suppression on the server side. It is RECOMMENDED that a server supporting this option only takes it into account when processing requests that target resources for which influencing the default suppression has been predetermined to be appropriate, as well as useful, in the application context.
 
