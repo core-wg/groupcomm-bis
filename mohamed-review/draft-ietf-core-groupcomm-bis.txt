@@ -2210,7 +2210,9 @@ Table of Contents
    IP multicast.  For example broadcast, non-UDP multicast, geocast,
    serial unicast, etc.  In such cases the particular considerations for
    UDP/IP multicast in this document may need to be applied to that
-   particular transport.
+   particular transport.  Further details about such alternative
+   transports and their use for CoAP group communication are out of
+   scope for this document.
 
 3.10.  Interworking with Other Protocols
 
