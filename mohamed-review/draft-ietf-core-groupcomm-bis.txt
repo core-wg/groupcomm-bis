@@ -250,12 +250,16 @@ Table of Contents
 
    For group communication, only those solutions that use CoAP messages
    over a "one-to-many" (i.e., non-unicast) transport protocol are in
-   the scope of this document.  There are alternative methods to achieve
-   group communication using CoAP, using unicast only.  One example is
-   Publish-Subscribe [I-D.ietf-core-coap-pubsub] which uses a central
-   broker server that CoAP clients access via unicast communication.
-   These alternative methods may be usable for the same or similar use
-   cases as the ones targeted in this document.
+   the scope of this document.  Such solutions are desirable for
+   applications that need a request message to be delivered with low
+   latency and/or in a synchronous way to multiple recipient servers at
+   once.  For applications that do not have those requirements, there
+   are alternative methods to achieve group communication using CoAP,
+   using unicast only.  One example is Publish-Subscribe
+   [I-D.ietf-core-coap-pubsub] which uses a central broker server that
+   CoAP clients access via unicast communication.  These alternative
+   methods may be usable for the same or similar use cases as the ones
+   targeted in this document.
 
    This document defines UDP/IP multicast as the default transport
    protocol for CoAP group requests, as in [RFC7252].  Only the Any
