@@ -852,6 +852,11 @@ Table of Contents
 
 2.2.2.  Group Creation and Membership
 
+   This section discusses the creation of different types of groups, as
+   entrusted to a "configuring entity".  The same configuring entity
+   might be responsible for creating groups of different types, e.g.,
+   both CoAP groups and application groups.
+
    To create a CoAP group, a configuring entity defines an IP multicast
    address (or hostname) for the group and optionally a UDP port number
    in case it differs from the default CoAP port number 5683.  Then, it
