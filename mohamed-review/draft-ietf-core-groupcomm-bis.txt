@@ -2339,9 +2339,7 @@ Table of Contents
    Section 9 of [RFC7252].
 
    The NoSec mode does not require and does not make use of a security
-   group.  Indications that endpoints can use the NoSec mode MUST NOT
-   rely on setting up and advertising a pseudo security group with name
-   "NoSec" or any of its lowercase/uppercase combinations.
+   group (see Section 2.2.1.3).
 
    A CoAP server in NoSec mode MUST NOT be accessible through the public
    Internet.  It is NOT RECOMMENDED to use CoAP group communication in
