@@ -1903,8 +1903,9 @@ The host subcomponent indirectly defines the IP multicast address of the CoAP gr
                 <p id="section-2.2.1.1-6.6.1">[ff15::1234]:5683<a href="#section-2.2.1.1-6.6.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
-<p id="section-2.2.1.1-7">When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal, instead of a group hostname. This is because an infrastructure providing a name resolution service, such as DNS, may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via a name resolution service. For example, this can rely on the DNS resolution process, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.<a href="#section-2.2.1.1-7" class="pilcrow">¶</a></p>
-<p id="section-2.2.1.1-8">Some examples of hierarchical CoAP group FQDN naming (and scoping) for a building control application are shown below.<a href="#section-2.2.1.1-8" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.1-7">When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal instead of a group hostname, to avoid network load due to name resolution queries. In fact, an infrastructure providing a name resolution service, such as DNS, may not be deployed in many constrained networks. In such cases, using an IP multicast address literal is the only viable option for the configuring entity that creates a CoAP group.<a href="#section-2.2.1.1-7" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.1-8">If a group hostname is configured, it can be uniquely mapped to an IP multicast address via a name resolution service. For example, this can rely on the DNS resolution process, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.<a href="#section-2.2.1.1-8" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.1-9">Some examples of hierarchical CoAP group FQDN naming (and scoping) for a building control application are shown below.<a href="#section-2.2.1.1-9" class="pilcrow">¶</a></p>
 <span id="name-examples-of-hierarchical-gr"></span><div id="_table-fqdn-naming">
 <table class="center" id="table-1">
               <caption>
@@ -1937,7 +1938,7 @@ The host subcomponent indirectly defines the IP multicast address of the CoAP gr
               </tbody>
             </table>
 </div>
-<p id="section-2.2.1.1-10">Similarly, if supported, reverse mapping (from IP multicast address to Group FQDN) is also possible. For example, when using an IPv6 multicast address, the reverse mapping can rely on DNS and the IP6.ARPA domain (see <span><a href="https://rfc-editor.org/rfc/rfc3596#section-2.5" class="relref">Section 2.5</a> of [<a href="#RFC3596" class="cite xref">RFC3596</a>]</span>). Reverse mapping is important, for example, in troubleshooting to translate IP multicast addresses back to human-readable hostnames to show in a diagnostics user interface.<a href="#section-2.2.1.1-10" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.1-11">Similarly, if supported, reverse mapping (from IP multicast address to Group FQDN) is also possible. For example, when using an IPv6 multicast address, the reverse mapping can rely on DNS and the IP6.ARPA domain (see <span><a href="https://rfc-editor.org/rfc/rfc3596#section-2.5" class="relref">Section 2.5</a> of [<a href="#RFC3596" class="cite xref">RFC3596</a>]</span>). Reverse mapping is important, for example, in troubleshooting to translate IP multicast addresses back to human-readable hostnames to show in a diagnostics user interface.<a href="#section-2.2.1.1-11" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-groupnaming-app">
