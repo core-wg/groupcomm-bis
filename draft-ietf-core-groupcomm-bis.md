@@ -689,9 +689,9 @@ A client might send a group request to multiple proxies at once (e.g., over IP m
 
    - From each proxy, the client receives all the responses to the group request that each server has sent to that proxy. Even in case the client is able to distinguish the different servers originating the responses (e.g., leveraging the approach used by the realization of proxy specified in {{I-D.ietf-core-groupcomm-proxy}}), the client would receive the same response content originated by each server N times, as relayed by the N proxies.
 
-* If secure group communication with Group OSCORE is used (see {{chap-oscore}}), each server is able to determine that each received copy of the group request is in fact originated by the same client. In particular, each server is able to determine that all such received requests are copies of exactly the same group request.
+* If secure group communication with Group OSCORE is used (see {{chap-oscore}}), each server is able to determine that each received copy of the group request is in fact originated by the same client. In particular, by leveraging the replay protection provided by Group OSCORE, each server is able to determine that all such received requests are copies of exactly the same group request.
 
-   As a result, each server accepts only the first copy of the group request received from one of the proxies, while discarding as replay any later copies received from any other proxy.
+   As a result, each server accepts only the first verified copy of the group request received from one of the proxies, while discarding as replay any later copies received from any other proxy.
 
    After that, the server can reply to the accepted request with multiple responses over time (see {{sec-request-response-multi}}). All those responses are sent to the same proxy that forwarded the only accepted request, and that in turn relays those responses to the client.
 
