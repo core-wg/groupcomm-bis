@@ -1544,8 +1544,8 @@ Table of Contents
    or alternatively another non-default UDP port number if configured.
    Regardless of the method that is used for selecting the group's port
    number, the same port number is used as the destination port number
-   for requests across all CoAP servers that are members of a CoAP group
-   and across all CoAP clients sending group requests to that group.
+   by all CoAP clients when sending group requests to the CoAP group,
+   thus addressing all CoAP servers that are members of that group.
 
    One way to create multiple CoAP groups is using different UDP ports
    with the same IP multicast address, in case the devices' network
