@@ -789,8 +789,8 @@ Table of Contents
    option to be defined.  Such an approach is out of the scope of this
    document.
 
-   Finally, it is also possible to not encode the application group name
-   in the CoAP request, yielding the most compact representation on the
+   Finally, it is also possible to omit the application group name from
+   the CoAP request, yielding the most compact representation on the
    wire.  In this case, each CoAP server needs to determine the right
    application group based on contextual information, such as the CoAP
    group, and/or the client identity and/or the target resource.  For
