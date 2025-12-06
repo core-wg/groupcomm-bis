@@ -922,7 +922,13 @@ Table of Contents
    different moments in the life-cycle of a device.  For example, it can
    occur during product (software) creation, in the factory, at a
    reseller, on-site during first deployment, or on-site during a system
-   reconfiguration operation.
+   reconfiguration operation.  These configurations are likely performed
+   by different configuring entities, possibly with minimal or no
+   coordination.  Therefore, it is important that means are available
+   and supported for controlling, retrieving, updating, and retiring
+   configurations, as well as for performing related troubleshooting
+   procedures.  Further details on such means are out of the scope of
+   this document.
 
 2.2.3.  Group Discovery
 
