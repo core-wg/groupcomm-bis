@@ -46,8 +46,8 @@ author:
 normative:
   RFC1122:
   RFC4443:
+  RFC4607:
   RFC4944:
-  RFC5110:
   RFC6282:
   RFC6690:
   RFC6775:
@@ -148,7 +148,7 @@ All sections in the body of this document are normative, while appendices are in
 ## Scope ## {#scope}
 For group communication, only those solutions that use CoAP messages over a "one-to-many" (i.e., non-unicast) transport protocol are in the scope of this document. There are alternative methods to achieve group communication using CoAP, using unicast only. One example is Publish-Subscribe {{I-D.ietf-core-coap-pubsub}} which uses a central broker server that CoAP clients access via unicast communication. These alternative methods may be usable for the same or similar use cases as the ones targeted in this document.
 
-This document defines UDP/IP multicast as the default transport protocol for CoAP group requests, as in {{RFC7252}}. Only the Any Source Multicast (ASM) mode {{RFC5110}} of IP multicast operation is in scope. Other transport protocols (which may include broadcast, non-IP multicast, geocast, etc.) are not described in detail and are not considered. Although UDP/IP multicast transport is assumed in most of the text in this document, we expect many of the considerations for UDP/IP multicast can be re-used for alternative transport protocols.
+This document defines UDP/IP multicast as the default transport protocol for CoAP group requests, as in {{RFC7252}}. Only the Any Source Multicast (ASM) mode {{RFC4607}} of IP multicast operation is in scope. Other transport protocols (which may include broadcast, non-IP multicast, geocast, etc.) are not described in detail and are not considered. Although UDP/IP multicast transport is assumed in most of the text in this document, we expect many of the considerations for UDP/IP multicast can be re-used for alternative transport protocols.
 
 Furthermore, this document defines Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} as the default group communication security solution for CoAP. Security solutions for group communication and configuration other than Group OSCORE are not considered. General principles for secure group configuration are in scope.
 
