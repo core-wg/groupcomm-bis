@@ -390,6 +390,9 @@ The name of a security group is not expected to be used in messages exchanged am
 It is discouraged to use "NoSec" and any of its lowercase/uppercase combinations as name of a security group. Indications that endpoints can use the NoSec mode MUST NOT rely on setting up and advertising a pseudo security group with name "NoSec" or any of its lowercase/uppercase combinations.
 
 ### Group Creation and Membership ### {#sssec-group-creation}
+
+This section discusses the creation of different types of groups, as entrusted to a "configuring entity". The same configuring entity might be responsible for creating groups of different types, e.g., both CoAP groups and application groups.
+
 To create a CoAP group, a configuring entity defines an IP multicast address (or hostname) for the group and optionally a UDP port number in case it differs from the default CoAP port number 5683. Then, it configures one or more devices as listeners to that IP multicast address, with a CoAP endpoint listening on the CoAP group's associated UDP port. These endpoints/devices are the group members.
 
 A configuring entity can be, for example, a local application with pre-configuration, a user, a software developer, a cloud service, or a local commissioning tool. In general, the creation of a CoAP group can involve multiple configuring entities that might be of different types. If the configuring entities are different from the ones entrusted with the device deployment, care has to be taken in order to avoid configurations that are conflicting or stale.
