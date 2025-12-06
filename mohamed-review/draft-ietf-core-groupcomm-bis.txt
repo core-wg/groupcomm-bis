@@ -1199,7 +1199,8 @@ Table of Contents
    server SHOULD suppress the response in case of error or in case there
    is nothing useful to respond, unless the application related to a
    particular resource requires such a response to be made for that
-   resource.
+   resource.  Such exceptions are application-specific and defined by
+   corresponding application policies.
 
    The CoAP No-Response Option [RFC7967] can be used by a client to
    influence the default response suppression on the server side.  It is
