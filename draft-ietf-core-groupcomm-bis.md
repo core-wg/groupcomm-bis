@@ -99,6 +99,14 @@ informative:
   RFC9200:
   RFC9685: multicast-registration # was I-D.ietf-6lo-multicast-registration:
   RFC9777:
+  UML:
+    author:
+      org: Object Management Group Standards Development Organization
+    title: OMG Unified Modeling Language (OMG UML) Version 2.5.1
+    seriesinfo:
+      OMG Document Number: formal/2017-12-05
+    date: 2017-12
+    target: https://www.omg.org/spec/UML/2.5.1/PDF
 
 --- abstract
 
@@ -226,7 +234,7 @@ Beyond this particular case, applications should be careful in associating a sin
 
 In fact, being a member of a security group actually grants access only to exchange secured messages and enables authentication of group members, while access control (authorization) to use resources in the application group belongs to a separate security domain. Therefore, access control to use resources in the application group should be separately enforced by leveraging the resource properties or through dedicated access control credentials assessed by separate means.
 
-{{fig-group-relation}} summarizes the relationships between the different types of groups described above in Unified Modeling Language (UML) class diagram notation. The class attributes in square brackets are optionally defined.
+{{fig-group-relation}} summarizes the relationships between the different types of groups described above in Unified Modeling Language (UML) class diagram notation {{UML}}. When creating groups (see {{sssec-group-creation}}), a configuring entity follows and maintains the view depicted in {{fig-group-relation}}. The class attributes in square brackets are optionally defined.
 
 ~~~~~~~~~~~ aasvg
 +------------------------------+              +--------------------+
