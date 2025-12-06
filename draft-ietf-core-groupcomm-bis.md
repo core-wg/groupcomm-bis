@@ -99,25 +99,6 @@ informative:
   RFC9200:
   RFC9685: multicast-registration # was I-D.ietf-6lo-multicast-registration:
   RFC9777:
-  Californium:
-    author:
-      org: Eclipse Foundation
-    title: Eclipse Californium
-    date: 2022-06
-    target: https://github.com/eclipse/californium
-  Go-CoAP:
-    author:
-      org: Open Connectivity Foundation (OCF)
-    title: Go-CoAP
-    date: 2022-06
-    target: https://github.com/go-ocf/go-coap
-  libcoap:
-    author:
-      name: Olaf Bergmann
-      org: TZI
-    title: libcoap
-    date: 2022-06
-    target: https://github.com/obgm/libcoap
 
 --- abstract
 
@@ -133,7 +114,7 @@ In a number of use cases, constrained devices can be large in number as well as 
 
 This document specifies the use of CoAP for group communication, together with UDP/IP multicast as the default transport for CoAP group communication messages.
 
-One-to-many group communication can be achieved in CoAP, by a client using UDP/IP multicast data transport to send multicast CoAP request messages. In response, each server in the addressed group sends a response message back to the client over UDP/IP unicast. Notable CoAP implementations that support group communication include "Eclipse Californium" {{Californium}}, "Go-CoAP" {{Go-CoAP}} as well as "libcoap" {{libcoap}}.
+One-to-many group communication can be achieved in CoAP, by a client using UDP/IP multicast data transport to send multicast CoAP request messages. In response, each server in the addressed group sends a response message back to the client over UDP/IP unicast.
 
 Both unsecured and secured CoAP group communication are specified in this document.
 
