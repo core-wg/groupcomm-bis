@@ -1293,6 +1293,14 @@ Table of Contents
    number of the response MUST match to the client endpoint's UDP port
    number, i.e., to the UDP source port number of the client's request.
 
+   Note that some responses to a group request might be filtered out and
+   not reach the client if a NAT device is used with restrictive
+   filtering in place.  For example, this is the case if the NAT device
+   employs "Endpoint-Dependent Filtering" (see Section 2.6 of
+   [RFC5128]), i.e., the combination of "Address-Dependent Filtering"
+   and "Address and Port-Dependent Filtering" as defined in Section 5 of
+   [RFC4787].
+
 3.1.5.  Token Reuse
 
    For CoAP group requests, there are additional constraints on the
@@ -3383,6 +3391,16 @@ Table of Contents
               "DNS Extensions to Support IP Version 6", STD 88,
               RFC 3596, DOI 10.17487/RFC3596, October 2003,
               <https://www.rfc-editor.org/rfc/rfc3596>.
+
+   [RFC4787]  Audet, F., Ed. and C. Jennings, "Network Address
+              Translation (NAT) Behavioral Requirements for Unicast
+              UDP", BCP 127, RFC 4787, DOI 10.17487/RFC4787, January
+              2007, <https://www.rfc-editor.org/rfc/rfc4787>.
+
+   [RFC5128]  Srisuresh, P., Ford, B., and D. Kegel, "State of Peer-to-
+              Peer (P2P) Communication across Network Address
+              Translators (NATs)", RFC 5128, DOI 10.17487/RFC5128, March
+              2008, <https://www.rfc-editor.org/rfc/rfc5128>.
 
    [RFC6092]  Woodyatt, J., Ed., "Recommended Simple Security
               Capabilities in Customer Premises Equipment (CPE) for

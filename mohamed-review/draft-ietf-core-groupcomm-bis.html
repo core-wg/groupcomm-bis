@@ -2185,6 +2185,7 @@ If this specific API request is made, the CoAP client repeats a group request us
 <p id="section-3.1.4-2">While processing a response on the client, the source endpoint of the response is not matched to the destination endpoint of the request, since for a group request these will never match. This is specified in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-8.2" class="relref">Section 8.2</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>, with reference to IP multicast.<a href="#section-3.1.4-2" class="pilcrow">¶</a></p>
 <p id="section-3.1.4-3">Also, when UDP transport is used, a server <span class="bcp14">MAY</span> respond from a UDP port number that differs from the destination UDP port number of the request.<a href="#section-3.1.4-3" class="pilcrow">¶</a></p>
 <p id="section-3.1.4-4">In case a single client has sent multiple group requests and concurrent CoAP transactions are ongoing, the responses received by that client are matched to an active request using only the Token value. Due to UDP level multiplexing, the UDP destination port number of the response <span class="bcp14">MUST</span> match to the client endpoint's UDP port number, i.e., to the UDP source port number of the client's request.<a href="#section-3.1.4-4" class="pilcrow">¶</a></p>
+<p id="section-3.1.4-5">Note that some responses to a group request might be filtered out and not reach the client if a NAT device is used with restrictive filtering in place. For example, this is the case if the NAT device employs "Endpoint-Dependent Filtering" (see <span><a href="https://rfc-editor.org/rfc/rfc5128#section-2.6" class="relref">Section 2.6</a> of [<a href="#RFC5128" class="cite xref">RFC5128</a>]</span>), i.e., the combination of "Address-Dependent Filtering" and "Address and Port-Dependent Filtering" as defined in <span><a href="https://rfc-editor.org/rfc/rfc4787#section-5" class="relref">Section 5</a> of [<a href="#RFC4787" class="cite xref">RFC4787</a>]</span>.<a href="#section-3.1.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-token-reuse">
@@ -3136,6 +3137,14 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
 <dt id="RFC3596">[RFC3596]</dt>
         <dd>
 <span class="refAuthor">Thomson, S.</span>, <span class="refAuthor">Huitema, C.</span>, <span class="refAuthor">Ksinant, V.</span>, and <span class="refAuthor">M. Souissi</span>, <span class="refTitle">"DNS Extensions to Support IP Version 6"</span>, <span class="seriesInfo">STD 88</span>, <span class="seriesInfo">RFC 3596</span>, <span class="seriesInfo">DOI 10.17487/RFC3596</span>, <time datetime="2003-10" class="refDate">October 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3596">https://www.rfc-editor.org/rfc/rfc3596</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4787">[RFC4787]</dt>
+        <dd>
+<span class="refAuthor">Audet, F., Ed.</span> and <span class="refAuthor">C. Jennings</span>, <span class="refTitle">"Network Address Translation (NAT) Behavioral Requirements for Unicast UDP"</span>, <span class="seriesInfo">BCP 127</span>, <span class="seriesInfo">RFC 4787</span>, <span class="seriesInfo">DOI 10.17487/RFC4787</span>, <time datetime="2007-01" class="refDate">January 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4787">https://www.rfc-editor.org/rfc/rfc4787</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5128">[RFC5128]</dt>
+        <dd>
+<span class="refAuthor">Srisuresh, P.</span>, <span class="refAuthor">Ford, B.</span>, and <span class="refAuthor">D. Kegel</span>, <span class="refTitle">"State of Peer-to-Peer (P2P) Communication across Network Address Translators (NATs)"</span>, <span class="seriesInfo">RFC 5128</span>, <span class="seriesInfo">DOI 10.17487/RFC5128</span>, <time datetime="2008-03" class="refDate">March 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5128">https://www.rfc-editor.org/rfc/rfc5128</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6092">[RFC6092]</dt>
         <dd>
