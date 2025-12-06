@@ -392,7 +392,7 @@ It is discouraged to use "NoSec" and any of its lowercase/uppercase combinations
 ### Group Creation and Membership ### {#sssec-group-creation}
 To create a CoAP group, a configuring entity defines an IP multicast address (or hostname) for the group and optionally a UDP port number in case it differs from the default CoAP port number 5683. Then, it configures one or more devices as listeners to that IP multicast address, with a CoAP endpoint listening on the CoAP group's associated UDP port. These endpoints/devices are the group members.
 
-The configuring entity can be, for example, a local application with pre-configuration, a user, a software developer, a cloud service, or a local commissioning tool.
+A configuring entity can be, for example, a local application with pre-configuration, a user, a software developer, a cloud service, or a local commissioning tool. In general, the creation of a CoAP group can involve multiple configuring entities that might be of different types. If the configuring entities are different from the ones entrusted with the device deployment, care has to be taken in order to avoid configurations that are conflicting or stale.
 
 The devices sending CoAP requests to the CoAP group in the role of CoAP client also need to be configured with the same information, even though they are not necessarily group members. One way to configure a client is to supply it with a group URI.
 
