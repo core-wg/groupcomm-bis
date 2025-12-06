@@ -82,6 +82,7 @@ informative:
   I-D.ietf-core-coap-pubsub:
   I-D.ietf-core-transport-indication:
   I-D.irtf-t2trg-amplification-attacks:
+  I-D.ietf-intarea-multicast-application-port:
   RFC3596:
   RFC6092:
   RFC6550:
@@ -627,7 +628,9 @@ Note: a CoAP server implementation that is unaware of the updates to {{RFC7252}}
 The URI Path used in a group request is preferably a path that is known to be supported across all members of a CoAP group. However, there are valid use cases where a group request is known to be successful only for a subset of the CoAP group. For instance, the subset may include only members of a specific application group, while the members of the CoAP group for which the request is unsuccessful (for example because they are outside the target application group) either suppress a response as per the default behavior from {{sec-request-response-suppress}}, or reply with an error response, e.g., when the default behavior is overridden by a No-Response Option {{RFC7967}} included in the group request.
 
 ## Port Selection for UDP Transport ##
-A server that is a member of a CoAP group listens for CoAP request messages on the group's IP multicast address and port number. The group's port number is usually the CoAP default UDP port number 5683, or alternatively another non-default UDP port number if configured. Regardless of the method that is used for selecting the group's port number, the same port number is used as the destination port number for requests across all CoAP servers that are members of a CoAP group and across all CoAP clients sending group requests to that group.
+A server that is a member of a CoAP group listens for CoAP request messages on the group's IP multicast address and port number. The group's port number is usually the CoAP default UDP port number 5683, or alternatively another non-default UDP port number if configured. If any is assigned in the future, a UDP port number designated for multicast applications can be used as the group's port number (e.g., see {{I-D.ietf-intarea-multicast-application-port}}).
+
+Regardless of the method that is used for selecting the group's port number, the same port number is used as the destination port number for requests across all CoAP servers that are members of a CoAP group and across all CoAP clients sending group requests to that group.
 
 One way to create multiple CoAP groups is using different UDP ports with the same IP multicast address, in case the devices' network stack only supports a limited number of multicast address subscriptions. However, it must be taken into account that this incurs additional processing overhead on each CoAP server participating in at least one of these groups: messages to groups that are not of interest to the node are only discarded at the higher transport (UDP) layer instead of directly at the Internet (IP) layer. Also, a constrained network may be additionally burdened in this case with multicast traffic that is eventually discarded at the UDP layer by most nodes.
 
