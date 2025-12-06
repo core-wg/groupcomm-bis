@@ -411,7 +411,7 @@ To participate in a security group, CoAP endpoints have to be configured with th
 
 For unsecure group communication using the NoSec mode (see {{chap-unsecured-groupcomm}}), there is no security material to be provided, hence there is no security group for CoAP endpoints to participate in.
 
-The configuration of groups and membership may be performed at different moments in the life-cycle of a device. For example, it can occur during product (software) creation, in the factory, at a reseller, on-site during first deployment, or on-site during a system reconfiguration operation.
+The configuration of groups and membership may be performed at different moments in the life-cycle of a device. For example, it can occur during product (software) creation, in the factory, at a reseller, on-site during first deployment, or on-site during a system reconfiguration operation. These configurations are likely performed by different configuring entities, possibly with minimal or no coordination. Therefore, it is important that means are available and supported for controlling, retrieving, updating, and retiring configurations, as well as for performing related troubleshooting procedures. Further details on such means are out of the scope of this document.
 
 ### Group Discovery ###
 
