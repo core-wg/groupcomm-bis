@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-30T01:55:01.978666+00:00",
+  "timestamp": "2025-12-07T01:55:40.808548+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -2858,19 +2858,53 @@
       "labels": [],
       "body": "This PR addresses the review from Ketan Talaulikar archived at https://mailarchive.ietf.org/arch/msg/core/SG7fpMILV2a4qrJYHz0xhUw-V50/",
       "createdAt": "2025-11-05T02:45:00Z",
-      "updatedAt": "2025-11-05T02:45:08Z",
+      "updatedAt": "2025-12-05T12:17:10Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "ketan-review",
-      "headRefOid": "2ffd8a180d8ec717fa2b5703763e377275603aff",
+      "headRefOid": "2e3f796577264aaaf382ae9f845e8a738d396f80",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDODvYK3c7TRITB",
+          "commit": {
+            "abbreviatedOid": "2ffd8a1"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-05T12:10:33Z",
+          "updatedAt": "2025-12-05T12:10:34Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "```suggestion\r\nAll the shown application groups may use the same CoAP group (not shown in the figure), for example the CoAP group with site-local multicast IP address ff05::db8:0:3456 and default UDP port number 5683 on which all the shown resources are hosted for each server. Other floors of the same building may replicate the shown structure, but using different security groups and different CoAP groups.\r\n```",
+              "createdAt": "2025-12-05T12:10:33Z",
+              "updatedAt": "2025-12-05T12:10:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7TROp-",
+          "commit": {
+            "abbreviatedOid": "2e3f796"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-05T12:17:10Z",
+          "updatedAt": "2025-12-05T12:17:10Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 51,
@@ -2884,13 +2918,105 @@
       "labels": [],
       "body": "This PR addresses the INTDIR review from Brian Haberman archived at https://mailarchive.ietf.org/arch/msg/core/lXv9zpyB3LxGrLyYdMWTyDalkhQ/\r\n\r\n(The point about the IPv6 address used in RFC 9176 is addressed in https://github.com/core-wg/groupcomm-bis/pull/50 , see commit https://github.com/core-wg/groupcomm-bis/commit/330949121919a790a6397a095221b883de79fdac#diff-e9763af996c2597da4d48083e55a8c2d9e47750929f9f4b785b81bd041d44b93R382-R383 . It is not re-addressed in this PR to minimize conflicts when merging)",
       "createdAt": "2025-11-27T11:30:24Z",
-      "updatedAt": "2025-11-27T11:30:42Z",
+      "updatedAt": "2025-12-05T12:21:40Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "intdir-review",
       "headRefOid": "52fa03b11a40e2b7b4a72b2c72ec80f963e275b6",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDODvYK3c7TRSxi",
+          "commit": {
+            "abbreviatedOid": "52fa03b"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-05T12:21:40Z",
+          "updatedAt": "2025-12-05T12:21:40Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 52,
+      "id": "PR_kwDODvYK3c63a8kS",
+      "title": "Roman Danyliw's review",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/52",
+      "state": "OPEN",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR addresses the review from Roman Danyliw archived at https://mailarchive.ietf.org/arch/msg/core/j64DzV2O4c2pypW0GVKwO_Ickk0/",
+      "createdAt": "2025-12-06T09:59:53Z",
+      "updatedAt": "2025-12-06T10:00:04Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "roman-review",
+      "headRefOid": "5bd3d5baaa3680ee0d8428c2eb04b9ba8f094ef0",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 53,
+      "id": "PR_kwDODvYK3c63bCBu",
+      "title": "Erik Kline's review",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/53",
+      "state": "OPEN",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR addresses the review from Erik Kline archived at https://datatracker.ietf.org/doc/draft-ietf-core-groupcomm-bis/ballot/#draft-ietf-core-groupcomm-bis_erik-kline",
+      "createdAt": "2025-12-06T10:21:28Z",
+      "updatedAt": "2025-12-06T10:21:44Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "erik-kline-review",
+      "headRefOid": "4a1d86eb2a0e3e81f7559b11fad441f0ba03bb00",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 54,
+      "id": "PR_kwDODvYK3c63bKa1",
+      "title": "Gunter Van de Velde's review",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/54",
+      "state": "OPEN",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR addresses the review from Gunter Van de Velde archived at https://mailarchive.ietf.org/arch/msg/core/d-WWC-v8uHGI73SCr6Sk4OrddaY/",
+      "createdAt": "2025-12-06T10:50:32Z",
+      "updatedAt": "2025-12-06T10:50:41Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "gunter-review",
+      "headRefOid": "d8e768a025eccd0ae2817384b55a25caa6330470",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
