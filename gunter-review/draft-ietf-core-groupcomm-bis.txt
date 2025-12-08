@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                         6 December 2025
-Expires: 9 June 2026
+Intended status: Standards Track                         8 December 2025
+Expires: 11 June 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 June 2026.
+   This Internet-Draft will expire on 11 June 2026.
 
 Copyright Notice
 
@@ -406,8 +406,8 @@ Table of Contents
 
    A CoAP group is identified by information encoded within a group URI,
    which can contain a UDP port number in the authority component (see
-   Section 1.2).  If that is not the case, then the port number used to
-   identify the CoAP group is the default port number 5683.
+   Section 1.2).  If no UDP port number is present, then the port number
+   used to identify the CoAP group is the default port number 5683.
 
    Consequently, a configuring entity can choose to rely only on IP
    multicast addresses (or corresponding hostnames) in order to
