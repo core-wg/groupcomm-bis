@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-07T01:55:40.808548+00:00",
+  "timestamp": "2025-12-09T01:47:28.116564+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -2958,7 +2958,7 @@
       "labels": [],
       "body": "This PR addresses the review from Roman Danyliw archived at https://mailarchive.ietf.org/arch/msg/core/j64DzV2O4c2pypW0GVKwO_Ickk0/",
       "createdAt": "2025-12-06T09:59:53Z",
-      "updatedAt": "2025-12-06T10:00:04Z",
+      "updatedAt": "2025-12-08T09:50:17Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
@@ -2970,7 +2970,21 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDODvYK3c7TqdcO",
+          "commit": {
+            "abbreviatedOid": "5bd3d5b"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-08T09:50:17Z",
+          "updatedAt": "2025-12-08T09:50:17Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 53,
@@ -2984,7 +2998,7 @@
       "labels": [],
       "body": "This PR addresses the review from Erik Kline archived at https://datatracker.ietf.org/doc/draft-ietf-core-groupcomm-bis/ballot/#draft-ietf-core-groupcomm-bis_erik-kline",
       "createdAt": "2025-12-06T10:21:28Z",
-      "updatedAt": "2025-12-06T10:21:44Z",
+      "updatedAt": "2025-12-08T09:54:00Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
@@ -2996,7 +3010,21 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDODvYK3c7TqiV1",
+          "commit": {
+            "abbreviatedOid": "4a1d86e"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-08T09:54:00Z",
+          "updatedAt": "2025-12-08T09:54:00Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 54,
@@ -3010,19 +3038,73 @@
       "labels": [],
       "body": "This PR addresses the review from Gunter Van de Velde archived at https://mailarchive.ietf.org/arch/msg/core/d-WWC-v8uHGI73SCr6Sk4OrddaY/",
       "createdAt": "2025-12-06T10:50:32Z",
-      "updatedAt": "2025-12-06T10:50:41Z",
+      "updatedAt": "2025-12-08T10:10:13Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "gunter-review",
-      "headRefOid": "d8e768a025eccd0ae2817384b55a25caa6330470",
+      "headRefOid": "d81ea9587c24c0d0d7ad37bca1b75281106e413f",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDODvYK3c7TqqX-",
+          "commit": {
+            "abbreviatedOid": "d8e768a"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2025-12-08T10:01:13Z",
+          "updatedAt": "2025-12-08T10:02:04Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "```suggestion\r\nA CoAP group is identified by information encoded within a group URI, which can contain a UDP port number in the authority component (see {{terminology}}). If no UDP port number is present, then the port number used to identify the CoAP group is the default port number 5683.\r\n```\r\n\r\nNeed to be more specific about the \"If *that* is not the case\". It could also refer to the former \"A CoAP group is identifier ....\" which would be incorrect.",
+              "createdAt": "2025-12-08T10:01:13Z",
+              "updatedAt": "2025-12-08T10:02:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7TqxA3",
+          "commit": {
+            "abbreviatedOid": "d8e768a"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-08T10:08:28Z",
+          "updatedAt": "2025-12-08T10:08:29Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "Yes, good point!",
+              "createdAt": "2025-12-08T10:08:28Z",
+              "updatedAt": "2025-12-08T10:08:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7TqyqL",
+          "commit": {
+            "abbreviatedOid": "d81ea95"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-08T10:10:13Z",
+          "updatedAt": "2025-12-08T10:10:13Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
