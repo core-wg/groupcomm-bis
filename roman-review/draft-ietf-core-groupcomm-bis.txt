@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                         6 December 2025
-Expires: 9 June 2026
+Intended status: Standards Track                         9 December 2025
+Expires: 12 June 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 June 2026.
+   This Internet-Draft will expire on 12 June 2026.
 
 Copyright Notice
 
@@ -262,13 +262,13 @@ Table of Contents
 
    This document defines UDP/IP multicast as the default transport
    protocol for CoAP group requests, as in [RFC7252].  Only the Any
-   Source Multicast (ASM) mode [RFC4607] of IP multicast operation is in
-   scope.  Other transport protocols (which may include broadcast, non-
-   IP multicast, geocast, etc.) are not described in detail and are not
-   considered.  Although UDP/IP multicast transport is assumed in most
-   of the text in this document, we expect many of the considerations
-   for UDP/IP multicast can be re-used for alternative transport
-   protocols.
+   Source Multicast (ASM) mode of IP multicast operation is in scope, as
+   defined in [RFC1112] and referred by that name in [RFC8085].  Other
+   transport protocols (which may include broadcast, non-IP multicast,
+   geocast, etc.) are not described in detail and are not considered.
+   Although UDP/IP multicast transport is assumed in most of the text in
+   this document, we expect many of the considerations for UDP/IP
+   multicast can be re-used for alternative transport protocols.
 
    Furthermore, this document defines Group OSCORE
    [I-D.ietf-core-oscore-groupcomm] as the default group communication
@@ -3160,6 +3160,10 @@ Table of Contents
               <https://www.iana.org/assignments/core-parameters/core-
               parameters.xhtml#rt-link-target-att-value>.
 
+   [RFC1112]  Deering, S., "Host extensions for IP multicasting", STD 5,
+              RFC 1112, DOI 10.17487/RFC1112, August 1989,
+              <https://www.rfc-editor.org/rfc/rfc1112>.
+
    [RFC1122]  Braden, R., Ed., "Requirements for Internet Hosts -
               Communication Layers", STD 3, RFC 1122,
               DOI 10.17487/RFC1122, October 1989,
@@ -3175,10 +3179,6 @@ Table of Contents
               Protocol Version 6 (IPv6) Specification", STD 89,
               RFC 4443, DOI 10.17487/RFC4443, March 2006,
               <https://www.rfc-editor.org/rfc/rfc4443>.
-
-   [RFC4607]  Holbrook, H. and B. Cain, "Source-Specific Multicast for
-              IP", RFC 4607, DOI 10.17487/RFC4607, August 2006,
-              <https://www.rfc-editor.org/rfc/rfc4607>.
 
    [RFC4944]  Montenegro, G., Kushalnagar, N., Hui, J., and D. Culler,
               "Transmission of IPv6 Packets over IEEE 802.15.4
@@ -3225,6 +3225,10 @@ Table of Contents
               the Constrained Application Protocol (CoAP)", RFC 8075,
               DOI 10.17487/RFC8075, February 2017,
               <https://www.rfc-editor.org/rfc/rfc8075>.
+
+   [RFC8085]  Eggert, L., Fairhurst, G., and G. Shepherd, "UDP Usage
+              Guidelines", BCP 145, RFC 8085, DOI 10.17487/RFC8085,
+              March 2017, <https://www.rfc-editor.org/rfc/rfc8085>.
 
    [RFC8132]  van der Stok, P., Bormann, C., and A. Sehgal, "PATCH and
               FETCH Methods for the Constrained Application Protocol
