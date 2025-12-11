@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-09T01:47:28.116564+00:00",
+  "timestamp": "2025-12-11T01:50:45.138376+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -2958,13 +2958,13 @@
       "labels": [],
       "body": "This PR addresses the review from Roman Danyliw archived at https://mailarchive.ietf.org/arch/msg/core/j64DzV2O4c2pypW0GVKwO_Ickk0/",
       "createdAt": "2025-12-06T09:59:53Z",
-      "updatedAt": "2025-12-08T09:50:17Z",
+      "updatedAt": "2025-12-10T13:18:33Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "roman-review",
-      "headRefOid": "5bd3d5baaa3680ee0d8428c2eb04b9ba8f094ef0",
+      "headRefOid": "09c76ba562d0911744bf337eb93c7d1d02082224",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -2982,6 +2982,19 @@
           "body": "",
           "createdAt": "2025-12-08T09:50:17Z",
           "updatedAt": "2025-12-08T09:50:17Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDODvYK3c7UV6XN",
+          "commit": {
+            "abbreviatedOid": "09c76ba"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-10T13:18:33Z",
+          "updatedAt": "2025-12-10T13:18:33Z",
           "comments": []
         }
       ]
