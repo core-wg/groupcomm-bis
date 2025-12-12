@@ -223,7 +223,7 @@ For secure group communication, a security group is required. A security group c
 
 That is, a client endpoint needs to be a member of a security group in order to send a valid secured group communication message to that group. A server endpoint needs to be a member of a security group in order to receive and correctly verify a secured group communication message sent to that group. An endpoint may be a member of multiple security groups.
 
-There can be a many-to-many relationship between security groups and CoAP groups, but often it is one-to-one. Also, there can be a many-to-many relationship between security groups and application groups, but often it is one-to-one. Such relationships are discussed in more detail in {{sec-groupdef-grouprelations}}.
+Between CoAP groups and security groups, there can be a many-to-many, one-to-many, many-to-one, or one-to-one relationship. Also, between application groups and security groups, there can be a many-to-many, one-to-many, many-to-one, or one-to-one relationship. Such relationships are discussed in more detail in {{sec-groupdef-grouprelations}}.
 
 Further details on identifying a security group are provided in {{sec-groupnaming-sec}}.
 
