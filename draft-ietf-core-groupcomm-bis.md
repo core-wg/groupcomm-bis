@@ -318,7 +318,7 @@ However, a CoAP group is for practical purposes identified and named by the auth
 The host subcomponent directly defines the IP multicast address of the CoAP group, in case the host consists of an IP literal.
 The host subcomponent indirectly defines the IP multicast address of the CoAP group, in case the host consists of a hostname. Resolving the hostname to an IP address in this case produces the IP multicast address.
 If the hostname resolves to multiple multicast addresses, then the authority component of the group URI identifies (names) multiple CoAP groups: one for each resolved address.
-                                                                                     
+
 It follows that one name can be used for multiple CoAP groups.
 Conversely, a single CoAP group might also have multiple names, which can be simultaneously and interchangeably used within a network. For example, if the two hostnames group1.example and group1.alias.example both resolve to the IP multicast address \[ff15::1234\], then the following authority components are all names for the same CoAP group.
 
