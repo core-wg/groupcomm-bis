@@ -4179,7 +4179,7 @@ C.3.  Members of any Application Group of a Given Type
    Figure 17 provides an example where a CoAP client discovers the CoAP
    servers that are members of any application group of a specific type,
    and the CoAP group(s) associated with those application groups.  Note
-   that because a hostname "grp.example" is returned, this may
+   that, because a hostname "grp.example" is returned, this may
    potentially resolve to multiple multicast IP addresses, hence
    multiple CoAP groups.
 
