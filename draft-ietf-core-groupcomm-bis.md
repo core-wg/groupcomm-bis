@@ -1662,7 +1662,7 @@ The example semantics "g.\<GROUPTYPE\>" is used for the values of the attribute 
 Note that, unlike in the example shown in {{sec-examples-group-discovery-1}}, now the servers need to respond with an absolute URI and not a relative URI. This is necessary because the responding CoAP endpoint serving the Link Format document (on port 5683) is a different CoAP endpoint from the one hosting the group resource "gp1" (on port 5685). Due to this situation, the responding server includes the full (absolute) URI in the Link Format response from which the client can conveniently gain knowledge of the CoAP group.
 
 Also note that a server could equally well respond with the literal IPv6 multicast address within square brackets instead of the CoAP group name "grp.example". In that case, the client would still gain knowledge of the CoAP group, albeit in a different representation.
-Note that if an address literal is returned, it identifies exactly one CoAP group, while in the case that a hostname is returned (as in the example), it potentially identifies multiple CoAP groups.
+If an address literal is returned, it identifies exactly one CoAP group. Instead, in the case that a hostname is returned (as in the example), it potentially identifies multiple CoAP groups.
 
 ~~~~~~~~~~~
 
