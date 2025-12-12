@@ -4148,9 +4148,9 @@ C.2.  Members of a Given Application Group
    IPv6 multicast address within square brackets instead of the CoAP
    group name "grp.example".  In that case, the client would still gain
    knowledge of the CoAP group, albeit in a different representation.
-   Note that if an address literal is returned, it identifies exactly
-   one CoAP group, while in the case that a hostname is returned (as in
-   the example), it potentially identifies multiple CoAP groups.
+   If an address literal is returned, it identifies exactly one CoAP
+   group.  Instead, in the case that a hostname is returned (as in the
+   example), it potentially identifies multiple CoAP groups.
 
       // Request to realm-local members of the application group "gp1"
       Req: GET coap://[ff03::fd]/.well-known/core?href=/gp/gp1
