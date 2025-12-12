@@ -406,7 +406,7 @@ It is discouraged to use "NoSec" and any of its lowercase/uppercase combinations
 To create a CoAP group, a configuring entity defines an IP multicast address (or hostname) for the group and optionally a UDP port number in case it differs from the default CoAP port number 5683.
 Then, the configuring entity configures one or more devices as listeners to that IP multicast address, with a CoAP endpoint listening on the CoAP group's associated UDP port. These endpoints/devices are the group members.
 
-Note that for some use cases, multiple CoAP groups can be created to serve the same purpose. For example on dual-stack group members, the configuring entity can define a CoAP group with an IPv4 multicast address and one with an IPv6 multicast address, which can be interchangeably used by CoAP clients. Another example is creating multiple CoAP groups using multicast IPv6 addresses of different scopes.
+Note that, for some use cases, multiple CoAP groups can be created to serve the same purpose. For example, to accommodate dual-stack group members, the configuring entity can define one CoAP group with an IPv4 multicast address and another one with an IPv6 multicast address, which can be interchangeably used by CoAP clients. Another example consists of creating multiple CoAP groups using multicast IPv6 addresses of different scopes.
 
 The configuring entity can be, for example, a local application with pre-configuration, a user, a software developer, a cloud service, or a local commissioning tool.
 
