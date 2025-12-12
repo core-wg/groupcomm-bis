@@ -1690,7 +1690,7 @@ If an address literal is returned, it identifies exactly one CoAP group. Instead
 ## Members of any Application Group of a Given Type # {#sec-examples-group-discovery-3}
 
 {{fig-app-gp-discovery-example3}} provides an example where a CoAP client discovers the CoAP servers that are members of any application group of a specific type, and the CoAP group(s) associated with those application groups.
-Note that because a hostname "grp.example" is returned, this may potentially resolve to multiple multicast IP addresses, hence multiple CoAP groups.
+Note that, because a hostname "grp.example" is returned, this may potentially resolve to multiple multicast IP addresses, hence multiple CoAP groups.
 
 ~~~~~~~~~~~
 
