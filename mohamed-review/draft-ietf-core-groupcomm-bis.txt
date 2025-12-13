@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                         6 December 2025
-Expires: 9 June 2026
+Intended status: Standards Track                        13 December 2025
+Expires: 16 June 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 June 2026.
+   This Internet-Draft will expire on 16 June 2026.
 
 Copyright Notice
 
@@ -495,10 +495,16 @@ Table of Contents
    the application group can be protected with different security
    material.  This can be convenient, for example, if the security
    groups differ with respect to the cryptographic algorithms and
-   related parameters they use.  In this case, a CoAP client can join
-   just one of the security groups, based on what it supports and
-   prefers, while a CoAP server in the application group would rather
-   have to join all of them.
+   related parameters they use.  In this case, a CoAP client can join a
+   subset of these security groups, e.g., selected according to a local
+   policy or determined by a local configuration.  This subset needs to
+   be consistent with the security algorithms that the client supports.
+   A CoAP server in the application group has to join all of the
+   security groups, in order to successfully process group requests from
+   any CoAP clients that have been configured to use the application
+   group.  This particular case can be useful if different CoAP clients
+   have different, incompatible requirements for the security algorithms
+   that can be supported.
 
    Beyond this particular case, applications should be careful in
    associating a single application group to multiple security groups.

@@ -1048,7 +1048,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Dijk &amp; Tiloca</td>
-<td class="center">Expires 9 June 2026</td>
+<td class="center">Expires 16 June 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1067,12 +1067,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7252" class="eref">7252</a>, <a href="https://www.rfc-editor.org/rfc/rfc7641" class="eref">7641</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-12-06" class="published">6 December 2025</time>
+<time datetime="2025-12-13" class="published">13 December 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-06-09">9 June 2026</time></dd>
+<dd class="expires"><time datetime="2026-06-16">16 June 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1125,7 +1125,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 9 June 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 16 June 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1690,7 +1690,7 @@ appear in all capitals, as shown here.<a href="#section-1.2-1" class="pilcrow">�
 </div>
 <p id="section-2.1.4-3">A special note is appropriate about the possible relationship between security groups and application groups.<a href="#section-2.1.4-3" class="pilcrow">¶</a></p>
 <p id="section-2.1.4-4">On one hand, multiple application groups may use the same security group. Thus, the same group security material is used to protect the messages targeting any of those application groups. This has the benefit that typically less storage, configuration, and updating are required for security material. In this case, a CoAP endpoint is supposed to know the exact application group to refer to for each message that is sent or received, based on, e.g., the server port number used, the targeted resource, or the content and structure of the message payload.<a href="#section-2.1.4-4" class="pilcrow">¶</a></p>
-<p id="section-2.1.4-5">On the other hand, a single application group may use multiple security groups. Thus, different messages targeting the resources of the application group can be protected with different security material. This can be convenient, for example, if the security groups differ with respect to the cryptographic algorithms and related parameters they use. In this case, a CoAP client can join just one of the security groups, based on what it supports and prefers, while a CoAP server in the application group would rather have to join all of them.<a href="#section-2.1.4-5" class="pilcrow">¶</a></p>
+<p id="section-2.1.4-5">On the other hand, a single application group may use multiple security groups. Thus, different messages targeting the resources of the application group can be protected with different security material. This can be convenient, for example, if the security groups differ with respect to the cryptographic algorithms and related parameters they use. In this case, a CoAP client can join a subset of these security groups, e.g., selected according to a local policy or determined by a local configuration. This subset needs to be consistent with the security algorithms that the client supports. A CoAP server in the application group has to join all of the security groups, in order to successfully process group requests from any CoAP clients that have been configured to use the application group. This particular case can be useful if different CoAP clients have different, incompatible requirements for the security algorithms that can be supported.<a href="#section-2.1.4-5" class="pilcrow">¶</a></p>
 <p id="section-2.1.4-6">Beyond this particular case, applications should be careful in associating a single application group to multiple security groups. In particular, different security groups are not meant to reflect different access policies, e.g., for enforcing access control to resources that are hosted at servers in the same application group. Therefore, it is <span class="bcp14">NOT RECOMMENDED</span> to simply take into account memberships to security groups as a way to enforce access control within an application group, which instead should rely on separate means.<a href="#section-2.1.4-6" class="pilcrow">¶</a></p>
 <p id="section-2.1.4-7">In fact, being a member of a security group actually grants access only to exchange secured messages and enables authentication of group members, while access control (authorization) to use resources in the application group belongs to a separate security domain. Therefore, access control to use resources in the application group should be separately enforced by leveraging the resource properties or through dedicated access control credentials assessed by separate means.<a href="#section-2.1.4-7" class="pilcrow">¶</a></p>
 <p id="section-2.1.4-8"><a href="#fig-group-relation" class="auto internal xref">Figure 1</a> summarizes the relationships between the different types of groups described above in Unified Modeling Language (UML) class diagram notation <span>[<a href="#UML" class="cite xref">UML</a>]</span>. When creating groups (see <a href="#sssec-group-creation" class="auto internal xref">Section 2.2.2</a>), a configuring entity follows and maintains the view depicted in <a href="#fig-group-relation" class="auto internal xref">Figure 1</a>. The class attributes in square brackets are optionally defined.<a href="#section-2.1.4-8" class="pilcrow">¶</a></p>
