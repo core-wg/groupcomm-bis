@@ -1649,8 +1649,9 @@ appear in all capitals, as shown here.<a href="#section-1.2-1" class="pilcrow">�
 <a href="#section-2.1.1" class="section-number selfRef">2.1.1. </a><a href="#name-coap-group" class="section-name selfRef">CoAP Group</a>
           </h4>
 <p id="section-2.1.1-1">A CoAP group is defined as a set of CoAP endpoints, where each endpoint is configured to receive CoAP group messages that are sent to the group's associated IP multicast address and UDP port. That is, CoAP groups have relevance at the level of IP networks and CoAP endpoints.<a href="#section-2.1.1-1" class="pilcrow">¶</a></p>
-<p id="section-2.1.1-2">An endpoint may be a member of multiple CoAP groups, by subscribing to multiple IP multicast addresses. A node may be a member of multiple CoAP groups, by hosting multiple CoAP server endpoints on different UDP ports. Membership(s) of an endpoint or node to a CoAP group may dynamically change over time. A node or endpoint sending a CoAP group message to a CoAP group is not necessarily itself a member of that CoAP group: it is a member only if it also has a CoAP endpoint listening on the associated IP multicast address and UDP port associated with the CoAP group.<a href="#section-2.1.1-2" class="pilcrow">¶</a></p>
-<p id="section-2.1.1-3">A CoAP group is identified by information encoded within a group URI. Further details on identifying a CoAP group are provided in <a href="#sec-groupnaming-coap" class="auto internal xref">Section 2.2.1.1</a>.<a href="#section-2.1.1-3" class="pilcrow">¶</a></p>
+<p id="section-2.1.1-2">This is aligned with the notion of CoAP endpoint as identified by an IP address and a UDP port number, both for unsecure group communication using the NoSec mode and secure group communication using Group OSCORE. In either case, the default port number is 5683.<a href="#section-2.1.1-2" class="pilcrow">¶</a></p>
+<p id="section-2.1.1-3">An endpoint may be a member of multiple CoAP groups, by subscribing to multiple IP multicast addresses. A node may be a member of multiple CoAP groups, by hosting multiple CoAP server endpoints on different UDP ports. Membership(s) of an endpoint or node to a CoAP group may dynamically change over time. A node or endpoint sending a CoAP group message to a CoAP group is not necessarily itself a member of that CoAP group: it is a member only if it also has a CoAP endpoint listening on the associated IP multicast address and UDP port associated with the CoAP group.<a href="#section-2.1.1-3" class="pilcrow">¶</a></p>
+<p id="section-2.1.1-4">A CoAP group is identified by information encoded within a group URI. Further details on identifying a CoAP group are provided in <a href="#sec-groupnaming-coap" class="auto internal xref">Section 2.2.1.1</a>.<a href="#section-2.1.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-groupdef-applicationgroup">
@@ -1870,7 +1871,7 @@ appear in all capitals, as shown here.<a href="#section-1.2-1" class="pilcrow">�
 <p id="section-2.2.1.1-2">However, a CoAP group is for practical purposes identified and named by the authority component in the group URI. This component includes the host subcomponent and an optional UDP port number.
 The host subcomponent directly defines the IP multicast address of the CoAP group, in case the host consists of an IP literal.
 The host subcomponent indirectly defines the IP multicast address of the CoAP group, in case the host consists of a hostname: resolving the hostname to an IP address in this case produces the IP multicast address.<a href="#section-2.2.1.1-2" class="pilcrow">¶</a></p>
-<p id="section-2.2.1.1-3">It follows that the same CoAP group might have multiple names, which can be simultaneously and interchangeably used. For example, if the two hostnames group1.example and group1.alias.example both resolve to the IP multicast address [ff15::1234], then the following authority components are all names for the same CoAP group.<a href="#section-2.2.1.1-3" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.1-3">It follows that the same CoAP group might have multiple names, which can be simultaneously and interchangeably used. For example, if the two hostnames group1.example and group1.alias.example both resolve to the IP multicast address [ff05::db8:0:1], then the following authority components are all names for the same CoAP group.<a href="#section-2.2.1.1-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2.2.1.1-4.1">
                 <p id="section-2.2.1.1-4.1.1">group1.example:7700<a href="#section-2.2.1.1-4.1.1" class="pilcrow">¶</a></p>
@@ -1879,7 +1880,7 @@ The host subcomponent indirectly defines the IP multicast address of the CoAP gr
                 <p id="section-2.2.1.1-4.2.1">group1.alias.example:7700<a href="#section-2.2.1.1-4.2.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-2.2.1.1-4.3">
-                <p id="section-2.2.1.1-4.3.1">[ff15::1234]:7700<a href="#section-2.2.1.1-4.3.1" class="pilcrow">¶</a></p>
+                <p id="section-2.2.1.1-4.3.1">[ff05::db8:0:1]:7700<a href="#section-2.2.1.1-4.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 <p id="section-2.2.1.1-5">Also note that, when using the "coap" scheme, the two authority components &lt;HOST&gt; and &lt;HOST&gt;:5683 both identify the same CoAP group, whose members listen to the CoAP default port number 5683. Therefore, building on the above, the following authority components are all names for the same CoAP group.<a href="#section-2.2.1.1-5" class="pilcrow">¶</a></p>
@@ -1891,7 +1892,7 @@ The host subcomponent indirectly defines the IP multicast address of the CoAP gr
                 <p id="section-2.2.1.1-6.2.1">group1.alias.example<a href="#section-2.2.1.1-6.2.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-2.2.1.1-6.3">
-                <p id="section-2.2.1.1-6.3.1">[ff15::1234]<a href="#section-2.2.1.1-6.3.1" class="pilcrow">¶</a></p>
+                <p id="section-2.2.1.1-6.3.1">[ff05::db8:0:1]<a href="#section-2.2.1.1-6.3.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-2.2.1.1-6.4">
                 <p id="section-2.2.1.1-6.4.1">group1.example:5683<a href="#section-2.2.1.1-6.4.1" class="pilcrow">¶</a></p>
@@ -1900,7 +1901,7 @@ The host subcomponent indirectly defines the IP multicast address of the CoAP gr
                 <p id="section-2.2.1.1-6.5.1">group1.alias.example:5683<a href="#section-2.2.1.1-6.5.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-2.2.1.1-6.6">
-                <p id="section-2.2.1.1-6.6.1">[ff15::1234]:5683<a href="#section-2.2.1.1-6.6.1" class="pilcrow">¶</a></p>
+                <p id="section-2.2.1.1-6.6.1">[ff05::db8:0:1]:5683<a href="#section-2.2.1.1-6.6.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 <p id="section-2.2.1.1-7">When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal, instead of a group hostname. This is because an infrastructure providing a name resolution service, such as DNS, may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via a name resolution service. For example, this can rely on the DNS resolution process, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.<a href="#section-2.2.1.1-7" class="pilcrow">¶</a></p>

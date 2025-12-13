@@ -389,6 +389,11 @@ Table of Contents
    is, CoAP groups have relevance at the level of IP networks and CoAP
    endpoints.
 
+   This is aligned with the notion of CoAP endpoint as identified by an
+   IP address and a UDP port number, both for unsecure group
+   communication using the NoSec mode and secure group communication
+   using Group OSCORE.  In either case, the default port number is 5683.
+
    An endpoint may be a member of multiple CoAP groups, by subscribing
    to multiple IP multicast addresses.  A node may be a member of
    multiple CoAP groups, by hosting multiple CoAP server endpoints on
@@ -622,14 +627,14 @@ Table of Contents
    It follows that the same CoAP group might have multiple names, which
    can be simultaneously and interchangeably used.  For example, if the
    two hostnames group1.example and group1.alias.example both resolve to
-   the IP multicast address [ff15::1234], then the following authority
-   components are all names for the same CoAP group.
+   the IP multicast address [ff05::db8:0:1], then the following
+   authority components are all names for the same CoAP group.
 
    *  group1.example:7700
 
    *  group1.alias.example:7700
 
-   *  [ff15::1234]:7700
+   *  [ff05::db8:0:1]:7700
 
    Also note that, when using the "coap" scheme, the two authority
    components <HOST> and <HOST>:5683 both identify the same CoAP group,
@@ -641,13 +646,13 @@ Table of Contents
 
    *  group1.alias.example
 
-   *  [ff15::1234]
+   *  [ff05::db8:0:1]
 
    *  group1.example:5683
 
    *  group1.alias.example:5683
 
-   *  [ff15::1234]:5683
+   *  [ff05::db8:0:1]:5683
 
    When configuring a CoAP group membership, it is recommended to
    configure an endpoint with an IP multicast address literal, instead
