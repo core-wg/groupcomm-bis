@@ -266,9 +266,9 @@ Table of Contents
    scope.  Other transport protocols (which may include broadcast, non-
    IP multicast, geocast, etc.) are not described in detail and are not
    considered.  Although UDP/IP multicast transport is assumed in most
-   of the text in this document, we expect many of the considerations
-   for UDP/IP multicast can be re-used for alternative transport
-   protocols.
+   of the text in this document, it is expected that many of the
+   considerations for UDP/IP multicast can be re-used for alternative
+   transport protocols.
 
    Furthermore, this document defines Group OSCORE
    [I-D.ietf-core-oscore-groupcomm] as the default group communication
