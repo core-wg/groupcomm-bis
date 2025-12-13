@@ -1832,9 +1832,9 @@ Table of Contents
    known response size of the server's own response to the request.  If
    the Leisure is not computed or configured, the default value
    DEFAULT_LEISURE MAY be used.  In [RFC7252], the default is calculated
-   based on a baseline IEEE 802.15.4 6LoWPAN network situation with
-   G=50, S=100, and R=1000, although this is not explicitly written
-   down.
+   based on a baseline IEEE 802.15.4 [IEEE802.15.4] 6LoWPAN network
+   situation with G=50, S=100, and R=1000, although this is not
+   explicitly written down.
 
    This document updates the calculation for DEFAULT_LEISURE, by
    modifying the estimated response size (S) parameter to account for
@@ -2099,7 +2099,7 @@ Table of Contents
    In 6LoWPAN [RFC4944] [RFC6282] networks, an IPv6 packet (up to 1280
    bytes) may be fragmented into multiple 6LoWPAN fragments, each
    fragment small enough to be carried over an IEEE 802.15.4 MAC frame
-   (up to 127 bytes).
+   (up to 127 bytes) [IEEE802.15.4].
 
    These 6LoWPAN fragments are exchanged between 6LoWPAN nodes,
    potentially involving 6LoWPAN routers operating in a multi-hop
@@ -3379,6 +3379,11 @@ Table of Contents
               discovery-18, 3 September 2025,
               <https://datatracker.ietf.org/doc/html/draft-tiloca-core-
               oscore-discovery-18>.
+
+   [IEEE802.15.4]
+              IEEE, "802.15.4-2024 - IEEE Standard for Low-Rate Wireless
+              Networks", DOI 10.1109/IEEESTD.2024.10794632, December
+              2024, <https://ieeexplore.ieee.org/document/10794632>.
 
    [libcoap]  Bergmann, O., "libcoap", June 2022,
               <https://github.com/obgm/libcoap>.
