@@ -100,6 +100,14 @@ informative:
   RFC9200:
   RFC9685: multicast-registration # was I-D.ietf-6lo-multicast-registration:
   RFC9777:
+  IEEE802.15.4:
+    author:
+      org: IEEE
+    date: 2024-12
+    title: 802.15.4-2024 - IEEE Standard for Low-Rate Wireless Networks
+    seriesinfo:
+      DOI: 10.1109/IEEESTD.2024.10794632
+    target: https://ieeexplore.ieee.org/document/10794632
   Californium:
     author:
       org: Eclipse Foundation
@@ -751,7 +759,7 @@ The Leisure time period as defined in {{Section 8.2 of RFC7252}} is preferably c
     lb_Leisure = S * G / R
 ~~~
 
-for a group size estimate G, a target data transfer rate R (which both should be chosen conservatively), and an estimated response size S. Note that S is the estimated average response size for all responding servers for the given group request, not necessarily the known response size of the server's own response to the request. If the Leisure is not computed or configured, the default value DEFAULT_LEISURE MAY be used. In {{RFC7252}}, the default is calculated based on a baseline IEEE 802.15.4 6LoWPAN network situation with G=50, S=100, and R=1000, although this is not explicitly written down.
+for a group size estimate G, a target data transfer rate R (which both should be chosen conservatively), and an estimated response size S. Note that S is the estimated average response size for all responding servers for the given group request, not necessarily the known response size of the server's own response to the request. If the Leisure is not computed or configured, the default value DEFAULT_LEISURE MAY be used. In {{RFC7252}}, the default is calculated based on a baseline IEEE 802.15.4 {{IEEE802.15.4}} 6LoWPAN network situation with G=50, S=100, and R=1000, although this is not explicitly written down.
 
 This document updates the calculation for DEFAULT_LEISURE, by modifying the estimated response size (S) parameter to account for responses protected with Group OSCORE (see {{chap-group-oscore}}). In particular, the two cases of group mode and pairwise mode are considered.
 
@@ -830,7 +838,7 @@ For a CoAP server node that supports resource discovery as defined in {{Section 
 Note that a client sending an IPv6 multicast CoAP message to a port number that is not supported by the server will not receive an ICMPv6 Port Unreachable error message from that server, because the server does not send it in this case, per {{Section 2.4 of RFC4443}}.
 
 ### UDP/IPv6 Multicast Transport over 6LoWPAN ### {#sec-6lowpan}
-In 6LoWPAN {{RFC4944}} {{RFC6282}} networks, an IPv6 packet (up to 1280 bytes) may be fragmented into multiple 6LoWPAN fragments, each fragment small enough to be carried over an IEEE 802.15.4 MAC frame (up to 127 bytes).
+In 6LoWPAN {{RFC4944}} {{RFC6282}} networks, an IPv6 packet (up to 1280 bytes) may be fragmented into multiple 6LoWPAN fragments, each fragment small enough to be carried over an IEEE 802.15.4 MAC frame (up to 127 bytes) {{IEEE802.15.4}}.
 
 These 6LoWPAN fragments are exchanged between 6LoWPAN nodes, potentially involving 6LoWPAN routers operating in a multi-hop network topology. Although 6LoWPAN multicast routing protocols usually define mechanisms to compensate for the loss of transmitted fragments (e.g., using link-layer unicast acknowledgements, or repeated link-layer broadcast transmissions as in MPL -- see {{sec-mpl}}) a fragment may still be lost in transit. The loss of a single fragment implies the loss of the entire IPv6 packet, because the reassembly back into IPv6 packet will fail in that case. Also, if this fragment loss causes the application-layer retransmission of the entire multi-fragment IPv6 packet, it may happen that much of the same data is transmitted yet again over the constrained network.
 
