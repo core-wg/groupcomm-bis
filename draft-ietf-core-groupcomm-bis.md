@@ -205,6 +205,8 @@ Three types of groups and their mutual relationships are defined in this section
 ### CoAP Group ## {#sec-groupdef-coapgroup}
 A CoAP group is defined as a set of CoAP endpoints, where each endpoint is configured to receive CoAP group messages that are sent to the group's associated IP multicast address and UDP port. That is, CoAP groups have relevance at the level of IP networks and CoAP endpoints.
 
+This is aligned with the notion of CoAP endpoint as identified by an IP address and a UDP port number, both for unsecure group communication using the NoSec mode and secure group communication using Group OSCORE. In either case, the default port number is 5683.
+
 An endpoint may be a member of multiple CoAP groups, by subscribing to multiple IP multicast addresses. A node may be a member of multiple CoAP groups, by hosting multiple CoAP server endpoints on different UDP ports. Membership(s) of an endpoint or node to a CoAP group may dynamically change over time. A node or endpoint sending a CoAP group message to a CoAP group is not necessarily itself a member of that CoAP group: it is a member only if it also has a CoAP endpoint listening on the associated IP multicast address and UDP port associated with the CoAP group.
 
 A CoAP group is identified by information encoded within a group URI. Further details on identifying a CoAP group are provided in {{sec-groupnaming-coap}}.
@@ -318,20 +320,20 @@ However, a CoAP group is for practical purposes identified and named by the auth
 The host subcomponent directly defines the IP multicast address of the CoAP group, in case the host consists of an IP literal.
 The host subcomponent indirectly defines the IP multicast address of the CoAP group, in case the host consists of a hostname: resolving the hostname to an IP address in this case produces the IP multicast address.
 
-It follows that the same CoAP group might have multiple names, which can be simultaneously and interchangeably used. For example, if the two hostnames group1.example and group1.alias.example both resolve to the IP multicast address \[ff15::1234\], then the following authority components are all names for the same CoAP group.
+It follows that the same CoAP group might have multiple names, which can be simultaneously and interchangeably used. For example, if the two hostnames group1.example and group1.alias.example both resolve to the IP multicast address \[ff05::db8:0:1\], then the following authority components are all names for the same CoAP group.
 
 * group1.example:7700
 * group1.alias.example:7700
-* \[ff15::1234\]:7700
+* \[ff05::db8:0:1\]:7700
 
 Also note that, when using the "coap" scheme, the two authority components \<HOST\> and \<HOST\>:5683 both identify the same CoAP group, whose members listen to the CoAP default port number 5683. Therefore, building on the above, the following authority components are all names for the same CoAP group.
 
 * group1.example
 * group1.alias.example
-* \[ff15::1234\]
+* \[ff05::db8:0:1\]
 * group1.example:5683
 * group1.alias.example:5683
-* \[ff15::1234\]:5683
+* \[ff05::db8:0:1\]:5683
 
 When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal, instead of a group hostname. This is because an infrastructure providing a name resolution service, such as DNS, may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via a name resolution service. For example, this can rely on the DNS resolution process, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.
 
