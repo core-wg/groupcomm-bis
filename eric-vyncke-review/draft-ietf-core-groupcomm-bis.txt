@@ -225,7 +225,7 @@ Table of Contents
    "Eclipse Californium" [Californium], "Go-CoAP" [Go-CoAP] as well as
    "libcoap" [libcoap].
 
-   Both unsecured and secured CoAP group communication are specified in
+   Both unsecured and secured CoAP group communication are covered in
    this document.
 
    Unsecured group communication relies on the NoSec mode, whose use is
