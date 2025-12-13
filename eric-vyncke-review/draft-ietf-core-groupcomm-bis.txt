@@ -1495,6 +1495,10 @@ Table of Contents
    messages on the group's IP multicast address and port number.  The
    group's port number is usually the CoAP default UDP port number 5683,
    or alternatively another non-default UDP port number if configured.
+   If any is assigned in the future, a UDP port number designated for
+   multicast applications can be used as the group's port number (e.g.,
+   see [I-D.ietf-intarea-multicast-application-port]).
+
    Regardless of the method that is used for selecting the group's port
    number, the same port number is used as the destination port number
    for requests across all CoAP servers that are members of a CoAP group
@@ -3333,6 +3337,13 @@ Table of Contents
               transport-indication-09, 7 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
               transport-indication-09>.
+
+   [I-D.ietf-intarea-multicast-application-port]
+              Karstens, N., Cheshire, S., and M. McBride, "The Multicast
+              Application Port", Work in Progress, Internet-Draft,
+              draft-ietf-intarea-multicast-application-port-01, 13
+              September 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-intarea-multicast-application-port-01>.
 
    [I-D.irtf-t2trg-amplification-attacks]
               Mattsson, J. P., Selander, G., and C. Amsüss,
