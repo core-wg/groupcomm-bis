@@ -955,11 +955,12 @@ Table of Contents
 
    As discussed below, such a GET request may be sent to the IP
    multicast address of an already known CoAP group associated with one
-   or more application groups; or to the "All CoAP Nodes" multicast
-   address (see Section 12.8 of [RFC7252]), thus targeting all reachable
-   CoAP servers in any CoAP group.  Also, the GET request may specify a
-   query component, in order to filter the application groups of
-   interest.
+   or more application groups.  Alternatively, the GET request may be
+   sent to the "All CoAP Nodes" IPv4 multicast address 224.0.1.187 or
+   IPv6 multicast address ff0x::fd (see Section 12.8 of [RFC7252]), thus
+   targeting all reachable CoAP servers in any CoAP group.  Also, the
+   GET request may specify a query component, in order to filter the
+   application groups of interest.
 
    These particular details concerning the GET request depend on the
    specific discovery action intended by the client and on application-
