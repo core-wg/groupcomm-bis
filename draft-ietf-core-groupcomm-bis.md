@@ -209,7 +209,11 @@ This is aligned with the notion of CoAP endpoint as identified by an IP address 
 
 An endpoint may be a member of multiple CoAP groups, by subscribing to multiple IP multicast addresses. A node may be a member of multiple CoAP groups, by hosting multiple CoAP server endpoints on different UDP ports. Membership(s) of an endpoint or node to a CoAP group may dynamically change over time. A node or endpoint sending a CoAP group message to a CoAP group is not necessarily itself a member of that CoAP group: it is a member only if it also has a CoAP endpoint listening on the associated IP multicast address and UDP port associated with the CoAP group.
 
-A CoAP group is identified by information encoded within a group URI. Further details on identifying a CoAP group are provided in {{sec-groupnaming-coap}}.
+A CoAP group is identified by information encoded within a group URI, which can contain a UDP port number in the authority component (see {{terminology}}). If no UDP port number is present, then the port number used to identify the CoAP group is the default port number 5683.
+
+Consequently, a configuring entity can choose to rely only on IP multicast addresses (or corresponding hostnames) in order to practically identify different CoAP groups, without specifying port numbers. As a result, those CoAP groups will be identified by a pair (IP address, port number), where different CoAP groups use a different IP multicast address and all use the same default port number 5683.
+
+Further details on identifying a CoAP group are provided in {{sec-groupnaming-coap}}.
 
 ### Application Group ## {#sec-groupdef-applicationgroup}
 An application group is a set of CoAP server endpoints (hosted on different nodes) that share a common set of CoAP resources. That is, an application group has relevance at the application level. For example, an application group could denote all lights in an office room or all sensors in a hallway.
