@@ -136,7 +136,7 @@ This document specifies the use of CoAP for group communication, together with U
 
 One-to-many group communication can be achieved in CoAP, by a client using UDP/IP multicast data transport to send multicast CoAP request messages. In response, each server in the addressed group sends a response message back to the client over UDP/IP unicast. Notable CoAP implementations that support group communication include "Eclipse Californium" {{Californium}}, "Go-CoAP" {{Go-CoAP}} as well as "libcoap" {{libcoap}}.
 
-Both unsecured and secured CoAP group communication are specified in this document.
+Both unsecured and secured CoAP group communication are covered in this document.
 
 Unsecured group communication relies on the NoSec mode, whose use is strongly discouraged and is limited to specific cases (see {{chap-unsecured-groupcomm}}).
 
