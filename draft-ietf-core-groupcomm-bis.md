@@ -711,7 +711,7 @@ A client might send a group request to multiple proxies at once (e.g., over IP m
    As a consequence, for each server, the client receives responses originated by that server only from one proxy. That is, the client receives a certain response content only once, like in the case with only one proxy.
 
 ## Congestion Control ## {#sec-congestion}
-CoAP group requests may result in a multitude of responses from different nodes, potentially causing congestion. Therefore, both the sending of CoAP group requests and the sending of the unicast CoAP responses to these group requests SHOULD be conservatively controlled.
+CoAP group requests could result in a multitude of responses from different nodes, potentially causing congestion. Therefore, both the sending of CoAP group requests and the sending of the unicast CoAP responses to these group requests SHOULD be conservatively controlled.
 
 CoAP {{RFC7252}} reduces IP multicast-specific congestion risks through the following measures, which the present document inherits and extends as appropriate:
 
