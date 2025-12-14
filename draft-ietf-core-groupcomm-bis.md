@@ -182,17 +182,19 @@ This document obsoletes and replaces {{RFC7390}} as follows.
 
 This document updates {{RFC7252}} as follows.
 
-* It updates the request/response model for group communication, as to response suppression (see {{sec-request-response-suppress}}) and token reuse time (see {{sec-token-reuse}}).
+* With reference to {{Section 8.2 of RFC7252}}, it updates the request/response layer for group communication, as to response suppression (see {{sec-request-response-suppress}} of the present document).
 
-* It updates the freshness model and validation model to use for cached responses (see {{sec-caching-freshness}} and {{sec-caching-validation}}).
+* With reference to {{Section 5.3.1 of RFC7252}}, it updates the token requirements on request/response matching, as to token reuse time (see {{sec-token-reuse}} of the present document).
 
-* It defines the measures against congestion risk specified in {{RFC7252}} to be applicable also to alternative transports other than IP multicast and defines additional guidelines to reduce congestion risks (see {{sec-congestion}}), including new values for the transmission parameter DEFAULT_LEISURE that account for secure communication with Group OSCORE (see {{sec-leisure}}).
+* With reference to {{Section 8.2.1 of RFC7252}}, it updates the freshness model and validation model to use for cached responses (see  {{sec-caching-freshness}} and {{sec-caching-validation}} of the present document).
 
-* It explicitly allows the use of the IPv6 multicast address scopes realm-local (3), admin-local (4), and global (E). In particular, it recommends that an IPv6 CoAP server supports at least link-local (2), admin-local (4), and site-local (5) scopes with the "All CoAP Nodes" multicast CoAP group (see {{sec-udptransport}}). Also, it recommends that the realm-local (3) scope is supported by an IPv6 CoAP server on a 6LoWPAN node (see {{sec-udptransport}}).
+* With reference to the measures against congestion risk specified in {{Sections 5.2.3, 8.1, 8.2 and 11.3 of RFC7252}}, it defines such measures to be applicable also to alternative transports (other than IP multicast) and defines additional guidelines to reduce congestion risks (see {{sec-congestion}} of the present document). These guidelines include new values for the transmission parameter DEFAULT_LEISURE that account for secure communication with Group OSCORE (see {{sec-leisure}} of the present document).
+
+* With reference to {{Section 12.8 of RFC7252}}, it explicitly allows the use of the IPv6 multicast address scopes realm-local (3), admin-local (4), and global (E). In particular, it recommends that an IPv6 CoAP server supports at least link-local (2), admin-local (4), and site-local (5) scopes with the "All CoAP Nodes" multicast CoAP group (see {{sec-udptransport}} of the present document). Also, it recommends that the realm-local (3) scope is supported by an IPv6 CoAP server on a 6LoWPAN node (see {{sec-udptransport}} of the present document).
 
 This document updates {{RFC7641}} as follows.
 
-* It defines the use of the CoAP Observe Option in group requests, for both the GET method and the FETCH method {{RFC8132}}, together with normative behavior for both CoAP clients and CoAP servers (see {{sec-observe}}).
+* With reference to {{Sections 3 and 4 of RFC7641}}, it defines the use of the CoAP Observe Option in group requests, for both the GET method and the FETCH method {{RFC8132}}, together with normative behavior for both CoAP clients and CoAP servers (see {{sec-observe}} of the present document).
 
 # Types of Groups and Their Configuration # {#chap-general-groupcomm}
 
