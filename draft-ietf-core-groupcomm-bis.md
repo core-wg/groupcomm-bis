@@ -749,7 +749,7 @@ The Leisure time period as defined in {{Section 8.2 of RFC7252}} is preferably c
     lb_Leisure = S * G / R
 ~~~
 
-for a group size estimate G, a target data transfer rate R (which both should be chosen conservatively), and an estimated response size S. Note that S is the estimated average response size for all responding servers for the given group request, not necessarily the known response size of the server's own response to the request. If the Leisure is not computed or configured, the default value DEFAULT_LEISURE MAY be used. In {{RFC7252}}, the default is calculated based on a baseline IEEE 802.15.4 6LoWPAN network situation with G=50, S=100, and R=1000, although this is not explicitly written down.
+for a group size estimate G, a target data transfer rate R (which both should be chosen conservatively), and an estimated response size S. Note that S is the estimated average response size for all responding servers for the given group request, not necessarily the known response size of the server's own response to the request. If the Leisure is not computed, then a configured/predefined value is used, which MAY be the default value DEFAULT_LEISURE in case no better or more suitable value is known. In {{RFC7252}}, the default is calculated based on a baseline IEEE 802.15.4 6LoWPAN network situation with G=50, S=100, and R=1000, although this is not explicitly written down.
 
 This document updates the calculation for DEFAULT_LEISURE, by modifying the estimated response size (S) parameter to account for responses protected with Group OSCORE (see {{chap-group-oscore}}). In particular, the two cases of group mode and pairwise mode are considered.
 
