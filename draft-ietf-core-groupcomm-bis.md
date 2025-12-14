@@ -189,7 +189,7 @@ This document updates {{RFC7252}} as follows.
 
 * With reference to {{Section 8.2.1 of RFC7252}}, it updates the freshness model and validation model to use for cached responses (see  {{sec-caching-freshness}} and {{sec-caching-validation}} of the present document).
 
-* With reference to the measures against congestion risk specified in {{Sections 5.2.3, 8.1, 8.2 and 11.3 of RFC7252}}, it defines such measures to be applicable also to alternative transports (other than IP multicast) and defines additional guidelines to reduce congestion risks (see {{sec-congestion}} of the present document). These guidelines include new values for the transmission parameter DEFAULT_LEISURE that account for secure communication with Group OSCORE (see {{sec-leisure}} of the present document).
+* With reference to the measures against congestion risk specified in {{Sections 5.2.3, 8.1, 8.2 and 11.3 of RFC7252}}, it defines such measures to be applicable also to alternative transports (other than IP multicast) and defines additional requirements to reduce congestion risks (see {{sec-congestion}} of the present document). It also defines new values for the transmission parameter DEFAULT_LEISURE that account for secure communication with Group OSCORE (see {{sec-leisure}} of the present document).
 
 * With reference to {{Section 12.8 of RFC7252}}, it explicitly allows the use of the IPv6 multicast address scopes realm-local (3), admin-local (4), and global (E). In particular, it recommends that an IPv6 CoAP server supports at least link-local (2), admin-local (4), and site-local (5) scopes with the "All CoAP Nodes" multicast CoAP group (see {{sec-udptransport}} of the present document). Also, it recommends that the realm-local (3) scope is supported by an IPv6 CoAP server on a 6LoWPAN node (see {{sec-udptransport}} of the present document).
 
@@ -707,19 +707,19 @@ A client might send a group request to multiple proxies at once (e.g., over IP m
    As a consequence, for each server, the client receives responses originated by that server only from one proxy. That is, the client receives a certain response content only once, like in the case with only one proxy.
 
 ## Congestion Control ## {#sec-congestion}
-CoAP group requests may result in a multitude of responses from different nodes, potentially causing congestion. Therefore, both the sending of CoAP group requests and the sending of the unicast CoAP responses to these group requests should be conservatively controlled.
+CoAP group requests may result in a multitude of responses from different nodes, potentially causing congestion. Therefore, both the sending of CoAP group requests and the sending of the unicast CoAP responses to these group requests SHOULD be conservatively controlled.
 
-CoAP {{RFC7252}} reduces IP multicast-specific congestion risks through the following measures:
+CoAP {{RFC7252}} reduces IP multicast-specific congestion risks through the following measures, which the present document inherits and extends as appropriate:
 
 * A server may choose not to respond to an IP multicast request if there is nothing useful to respond, e.g., error or empty response (see {{Section 8.2 of RFC7252}}).
 
-* A server should limit the support for IP multicast requests to specific resources where multicast operation is required ({{Section 11.3 of RFC7252}}).
+* A server should limit the support for IP multicast requests to specific resources where multicast operation is required (see {{Section 11.3 of RFC7252}}).
 
-* An IP multicast request MUST be Non-confirmable ({{Section 8.1 of RFC7252}}).
+* An IP multicast request must be Non-confirmable (see {{Section 8.1 of RFC7252}}).
 
-* A response to an IP multicast request SHOULD be Non-confirmable ({{Section 5.2.3 of RFC7252}}).
+* A response to an IP multicast request should be Non-confirmable (see {{Section 5.2.3 of RFC7252}}).
 
-* A server does not respond immediately to an IP multicast request and should first wait for a time that is randomly picked within a predetermined time interval called the Leisure ({{Section 8.2 of RFC7252}}). The transmission parameter DEFAULT_LEISURE may be used to define a Leisure period when it cannot be computed otherwise.
+* A server does not respond immediately to an IP multicast request and should first wait for a time that is randomly picked within a predetermined time interval called the Leisure (see {{Section 8.2 of RFC7252}}). The transmission parameter DEFAULT_LEISURE MAY be used to define a Leisure period when it cannot be computed otherwise (see {{sec-leisure}}).
 
 This document also defines these measures to be applicable to alternative transports (other than IP multicast), if not defined otherwise. Updates related to Leisure are done in {{sec-leisure}}.
 
@@ -731,7 +731,7 @@ CoAP also defines non-multicast-specific congestion control measures that also a
 
 Note that the transmission parameter values for NSTART, DEFAULT_LEISURE, and PROBING_RATE may be configured to values specific to the application environment (including dynamically adjusted values); however, the configuration method is out of the scope of this document. This is unchanged from {{Section 4.8.1 of RFC7252}}.
 
-Independently of the transport used, additional guidelines to reduce congestion risks defined in this document are as follows:
+Independently of the transport used, additional requirements to reduce congestion risks defined in this document are as follows:
 
 * A server in a constrained network SHOULD only support group requests for resources that have a small representation (where the representation may be retrieved via a GET, FETCH, or POST method in the request). For example, "small" can be defined as a response payload limited to approximately 5% of the IP Maximum Transmit Unit (MTU) size, so that it fits into a single link-layer frame in case IPv6 over Low-Power Wireless Personal Area Networks (6LoWPAN, see {{sec-6lowpan}}) is used on the constrained network.
 
