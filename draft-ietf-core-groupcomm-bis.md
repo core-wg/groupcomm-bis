@@ -784,7 +784,7 @@ Before repeating a request as specified above, the client SHOULD wait for at lea
 
 A server that receives a GET or FETCH request with the Observe Option, for which request processing is successful, SHOULD respond to this request and not suppress the response. If a server adds a client (as a new entry) to the list of observers for a resource due to an Observe request, the server SHOULD respond to this request and SHOULD NOT suppress the response. An exception to the above is the overriding of response suppression according to a CoAP No-Response Option {{RFC7967}} specified by the client in the GET or FETCH request (see {{sec-request-response-suppress}}).
 
-When responding, a server SHOULD apply the Leisure period defined in {{Section 8.2 of RFC7252}}. This holds not only for the first response to the multicast Observe request, but also for the subsequent Observe notifications. The Observe notifications in this case are the "further responses" mentioned in that section:
+When responding, a server SHOULD apply the Leisure period defined in {{Section 8.2 of RFC7252}} (if DEFAULT_LEISURE is used, it is computed as defined in Section 3.6.1 of this document). This holds not only for the first response to the multicast Observe request, but also for the subsequent Observe notifications. The Observe notifications in this case are the "further responses" mentioned in that section:
 
 {:quote}
 > If further responses need to be sent based on the same multicast address membership, a new leisure period starts at the earliest after the previous one finishes.
