@@ -1658,9 +1658,8 @@ Table of Contents
    is a reverse-proxy resource, and that for this reason immediate Token
    re-use is not possible.
 
-   For the operation of HTTP-to-CoAP reverse proxies, see the last two
-   paragraphs of Section 3.5.1, which apply also to the case of reverse-
-   proxies.
+   The last two paragraphs of Section 3.5.1 also apply for the operation
+   of HTTP-to-CoAP reverse-proxies.
 
 3.5.3.  Single Group Request to Multiple Proxies
 
