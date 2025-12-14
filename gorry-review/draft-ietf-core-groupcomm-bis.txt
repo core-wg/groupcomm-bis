@@ -361,12 +361,12 @@ Table of Contents
       DEFAULT_LEISURE that account for secure communication with Group
       OSCORE (see Section 3.6.1 of the present document).
 
-   *  With reference to Section 12.8 of [RFC7252], it explicitly allows
-      the use of the IPv6 multicast address scopes realm-local (3),
-      admin-local (4), and global (E).  In particular, it recommends
-      that an IPv6 CoAP server supports at least link-local (2), admin-
-      local (4), and site-local (5) scopes with the "All CoAP Nodes"
-      multicast CoAP group (see Section 3.9.1 of the present document).
+   *  It explicitly allows the use of the IPv6 multicast address scopes
+      realm-local (3), admin-local (4), and global (E).  In particular,
+      with reference to Section 12.8 of [RFC7252], it recommends that an
+      IPv6 CoAP server supports at least the link-local (2), admin-local
+      (4), and site-local (5) scopes with the "All CoAP Nodes" IPv6
+      multicast addresses (see Section 3.9.1 of the present document).
       Also, it recommends that the realm-local (3) scope is supported by
       an IPv6 CoAP server on a 6LoWPAN node (see Section 3.9.1 of the
       present document).
@@ -950,7 +950,7 @@ Table of Contents
 
    As discussed below, such a GET request may be sent to the IP
    multicast address of an already known CoAP group associated with one
-   or more application groups; or to the "All CoAP Nodes" multicast
+   or more application groups; or to an "All CoAP Nodes" IP multicast
    address (see Section 12.8 of [RFC7252]), thus targeting all reachable
    CoAP servers in any CoAP group.  Also, the GET request may specify a
    query component, in order to filter the application groups of
@@ -1025,7 +1025,7 @@ Table of Contents
       application group, and optionally the resources that those servers
       host for each application group.
 
-      This is achieved by sending the GET request above to the "All CoAP
+      This is achieved by sending the GET request above to an "All CoAP
       Nodes" IP multicast address (see Section 12.8 of [RFC7252]), with
       a particular chosen scope (e.g., site-local or realm-local) if
       IPv6 is used.  Also, the request specifies the application group
@@ -1054,7 +1054,7 @@ Table of Contents
       resources that those servers host as members of those application
       groups.
 
-      This is achieved by sending the GET request above to the "All CoAP
+      This is achieved by sending the GET request above to an "All CoAP
       Nodes" IP multicast address (see Section 12.8 of [RFC7252]), with
       a particular chosen scope (e.g., site-local or realm-local) if
       IPv6 is used.  Also, the request can specify the application group
@@ -1088,7 +1088,7 @@ Table of Contents
       specifying a wildcarded group type in the URI query parameter for
       "rt".  For example, the request can use a Group URI with path and
       query components "/.well-known/core?rt=g.*", so that the query
-      matches any application group type.  The request is sent to the
+      matches any application group type.  The request is sent to an
       "All CoAP Nodes" IP multicast address (see Section 12.8 of
       [RFC7252]), with a particular chosen scope if IPv6 is used.
 
@@ -2084,14 +2084,14 @@ Table of Contents
    Section 3.10.2 describes the potential limited support of RPL for
    multicast, depending on how the protocol is configured.
 
-   For a CoAP server node that supports resource discovery as defined in
-   Section 2.4 of [RFC7252], the default port number 5683 MUST be
-   supported as per Sections 7.1 and 12.8 of [RFC7252] for the "All CoAP
-   Nodes" multicast CoAP group.  An IPv6 CoAP server SHOULD support the
-   "All CoAP Nodes" multicast CoAP group with at least link-local (2),
-   admin-local (4), and site-local (5) scopes.  An IPv6 CoAP server on a
-   6LoWPAN node (see Section 3.9.2) SHOULD also support the realm-local
-   (3) scope.
+   For a CoAP server node that offers resources for resource discovery
+   as defined in Section 2.4 of [RFC7252], the default port number 5683
+   MUST be supported as per Section 7.1 of [RFC7252] for the "All CoAP
+   Nodes" IPv6 multicast addresses (see Section 12.8 of [RFC7252]).  An
+   IPv6 CoAP server SHOULD support the "All CoAP Nodes" IPv6 multicast
+   addresses with at least the link-local (2), admin-local (4), and
+   site-local (5) scopes.  An IPv6 CoAP server on a 6LoWPAN node (see
+   Section 3.9.2) SHOULD also support the realm-local (3) scope.
 
    Note that a client sending an IPv6 multicast CoAP message to a port
    number that is not supported by the server will not receive an ICMPv6
@@ -2131,18 +2131,18 @@ Table of Contents
    to the local 6LoWPAN network/subnet.  In other words, a multicast
    request to that CoAP group does not propagate beyond the 6LoWPAN
    network segment where the request originated.  For example, a
-   multicast discovery request can be sent to the realm-local "All CoAP
-   Nodes" IPv6 multicast CoAP group (see Section 3.9.1) in order to
-   discover only CoAP servers on the local 6LoWPAN network.
+   multicast discovery request can be sent to the "All CoAP Nodes" IPv6
+   multicast address (see Section 3.9.1) with realm-local scope, in
+   order to discover only CoAP servers on the local 6LoWPAN network.
 
 3.9.3.  UDP/IPv4 Multicast Transport
 
    CoAP group communication can use UDP over IPv4 as a transport
    protocol, provided that IPv4 multicast is enabled.  For a CoAP server
-   node that supports resource discovery as defined in Section 2.4 of
-   [RFC7252], the default port number 5683 MUST be supported as per
-   Sections 7.1 and 12.8 of [RFC7252], for the "All CoAP Nodes" IPv4
-   multicast CoAP group.
+   node that offers resources for resource discovery as defined in
+   Section 2.4 of [RFC7252], the default port number 5683 MUST be
+   supported as per Section 7.1 of [RFC7252] for the "All CoAP Nodes"
+   IPv4 multicast address (see Section 12.8 of [RFC7252]).
 
    Note that a client sending an IPv4 multicast CoAP message to a port
    number that is not supported by the server will not receive an ICMP
@@ -3644,8 +3644,8 @@ A.1.3.  Directory Discovery
 
    *  Light-2 will then search for the local RD by sending out a group
       communication GET request (with the "/.well-known/core?rt=core.rd"
-      request URI) to the site-local "All CoAP Nodes" multicast address
-      (ff05::fd).
+      request URI) to the site-local "All CoAP Nodes" IP multicast
+      address (ff05::fd).
 
    *  This multicast message will then go to each node in Subnet-2.
       Rtr-2 will then forward it into the network backbone where it will
