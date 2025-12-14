@@ -892,8 +892,8 @@ Table of Contents
    configured with the group security material used to protect
    communications in the associated application/CoAP groups.  The part
    of the process that involves secure distribution of group security
-   material MAY use standardized communication with a Group Manager as
-   defined in Section 5.
+   material for Group OSCORE is entrusted to the Group Manager
+   responsible for the security group (see Section 5).
 
    For unsecure group communication using the NoSec mode (see
    Section 4), there is no security material to be provided, hence there
