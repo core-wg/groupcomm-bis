@@ -884,7 +884,7 @@ Table of Contents
    group properties including the cryptographic algorithms and
    parameters used in the security group, as well as additional
    information relevant throughout the group life-cycle, such as the
-   security group name and description.  This task MAY be entrusted to a
+   security group name and description.  This task can be entrusted to a
    dedicated administrator, that interacts with a Group Manager as
    defined in Section 5.  After that, further security materials to
    protect group communications have to be generated, compatible with
