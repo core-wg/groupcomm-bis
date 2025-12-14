@@ -2062,6 +2062,10 @@ Table of Contents
    Block1 is non-trivial due to potential message loss (leading to
    missing blocks or missing confirmations), and potential diverging
    block size preferences of different members of the CoAP group.
+   Besides addressing such issues, a future solution for group/multicast
+   block-wise transfer using the Block1 Option needs to conform to the
+   congestion control requirements compiled in Section 3.6 of this
+   document.
 
    [RFC9177] specifies a specialized alternative method for CoAP block-
    wise transfer.  It specifies that "servers MUST ignore multicast
