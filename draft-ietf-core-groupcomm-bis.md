@@ -646,7 +646,7 @@ It is NOT RECOMMENDED to create multiple CoAP groups by using different UDP port
 
 The port number 5684 is dedicated for DTLS-secured unicast CoAP {{Port.Number}} and MUST NOT be used for any CoAP group communication.
 
-For a CoAP server node that supports resource discovery as defined in {{Section 2.4 of RFC7252}}, the default port number 5683 MUST be supported (see {{Section 7.1 of RFC7252}}) for the "All CoAP Nodes" CoAP group as detailed in {{sec-transport}}.
+For a CoAP server node that offers resources for resource discovery (see {{Section 2.4 of RFC7252}}), the default port number 5683 MUST be supported (see {{Section 7.1 of RFC7252}}) for the "All CoAP Nodes" IP multicast addresses (see {{Section 12.8 of RFC7252}}), as detailed in {{sec-transport}}.
 
 ## Proxy Operation ## {#sec-proxy}
 
