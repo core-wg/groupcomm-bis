@@ -1616,7 +1616,7 @@ Table of Contents
    In a group communication scenario, a reverse-proxy can rely on its
    configuration and/or on information in a request from a client, in
    order to determine that a group request has to be sent to servers in
-   a CoAP group, over a one-to-many transport such as IP/UDP multicast.
+   a CoAP group, over a one-to-many transport such as UDP/IP multicast.
 
    One typical implementation is to allocate specific resources on the
    reverse-proxy to application groups.  A client can then select the
@@ -4707,7 +4707,7 @@ Appendix E.  Issues and Limitations with Forward-Proxies
 Appendix F.  Issues and Limitations with Reverse-Proxies
 
    Section 3.5.2 defines how a reverse-proxy sends a group request to
-   servers in a CoAP group, over a one-to-many transport such as IP/UDP
+   servers in a CoAP group, over a one-to-many transport such as UDP/IP
    multicast.  This results in certain issues and limitations:
 
    *  The three issues and limitations defined in Section 3.5.1 for a
