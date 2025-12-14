@@ -2069,8 +2069,8 @@ Table of Contents
 3.9.1.  UDP/IPv6 Multicast Transport
 
    CoAP group communication can use UDP over IPv6 as a transport
-   protocol, provided that IPv6 multicast is enabled.  IPv6 multicast
-   MAY be supported in a network only for a limited scope.  For example,
+   protocol, provided that IPv6 multicast is enabled.  A network might
+   support IPv6 multicast only for a limited scope.  For example,
    Section 3.10.2 describes the potential limited support of RPL for
    multicast, depending on how the protocol is configured.
 
