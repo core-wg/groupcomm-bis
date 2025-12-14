@@ -1946,10 +1946,11 @@ Table of Contents
    (see Section 3.1.2).
 
    When responding, a server SHOULD apply the Leisure period defined in
-   Section 8.2 of [RFC7252].  This holds not only for the first response
-   to the multicast Observe request, but also for the subsequent Observe
-   notifications.  The Observe notifications in this case are the
-   "further responses" mentioned in that section:
+   Section 8.2 of [RFC7252] (if DEFAULT_LEISURE is used, it is computed
+   as defined in Section 3.6.1 of this document).  This holds not only
+   for the first response to the multicast Observe request, but also for
+   the subsequent Observe notifications.  The Observe notifications in
+   this case are the "further responses" mentioned in that section:
 
    |  If further responses need to be sent based on the same multicast
    |  address membership, a new leisure period starts at the earliest
