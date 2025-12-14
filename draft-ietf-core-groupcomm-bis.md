@@ -652,7 +652,7 @@ For a CoAP server node that offers resources for resource discovery (see {{Secti
 
 This section defines the foundation of how proxies operate in a group communication scenario.
 
-In particular, forward-proxies and reverse-proxies are separately considered in {{sec-proxy-forward}} and {{sec-proxy-reverse}}, respectively. Furthermore, {{multicasting-to-proxies}} discusses the case where a client sends a group request to multiple proxies at once. Security considerations that apply when using a proxy are discussed later in {{chap-proxy-security}}.
+In particular, forward-proxies and reverse-proxies are separately considered in {{sec-proxy-forward}} and {{sec-proxy-reverse}}, respectively. Furthermore, {{multicasting-to-proxies}} discusses the case where a client sends a group request to multiple proxies at once. When sending a CoAP group request over UDP/IP multicast, a proxy MUST conform to the congestion control requirements compiled in {{sec-congestion}} of this document. Security considerations that apply when using a proxy are discussed later in {{chap-proxy-security}}.
 
 Further details that are relevant to operate such proxies are not defined here. Other specifications can build on the common denominator provided by this document and define specific realizations of proxies that operate in a group communication scenario. As an example, a realization of such proxy is specified in {{I-D.ietf-core-groupcomm-proxy}}.
 
