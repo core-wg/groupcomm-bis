@@ -512,11 +512,11 @@ Table of Contents
    to reflect different access policies for resources in the same
    application group.
 
-   In fact, being a member of a security group actually grants access
-   only to exchange secured messages and enables authentication of group
-   members, while access control (authorization) to use resources in the
-   application group belongs to a separate security domain.  Therefore,
-   access control to use resources in the application group should be
+   Being a member of a security group grants access only to exchange
+   secured messages and enables authentication of group members, while
+   access control (authorization) to use resources in the application
+   group belongs to a separate security domain.  Therefore, access
+   control to use resources in the application group should be
    separately enforced by leveraging the resource properties or through
    dedicated access control credentials assessed by separate means.
 
