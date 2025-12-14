@@ -686,9 +686,7 @@ The reverse-proxy practically stands in for a CoAP group, thus preventing the cl
 
 For a reverse-proxy that sends a group request to servers in a CoAP group, the considerations as defined in {{Section 5.7.3 of RFC7252}} hold. Resulting issues and limitations are compiled in {{sec-issues-reverse-proxies}}. The reverse-proxying method provided by the realization of proxy specified in {{I-D.ietf-core-groupcomm-proxy}} uses this approach and addresses such issues and limitations.
 
-A client might re-use a Token value in a valid new request to the reverse-proxy, while the reverse-proxy still has an ongoing group communication request for this client with the same Token value (i.e., its time period for response collection has not ended yet).
-
-If this happens, the reverse-proxy MUST stop the ongoing request and associated response forwarding, it MUST NOT forward the new request to the servers in the CoAP group, and it MUST send a 4.00 (Bad Request) error response to the client. The diagnostic payload of the error response SHOULD indicate to the client that the resource is a reverse-proxy resource, and that for this reason immediate Token re-use is not possible.
+A client might re-use a Token value in a valid new request to the reverse-proxy, while the reverse-proxy still has an ongoing group communication request for this client with the same Token value (i.e., its time period for response collection has not ended yet). If the client does so, the reverse-proxy MUST stop the ongoing request and associated response forwarding, it MUST NOT forward the new request to the servers in the CoAP group, and it MUST send a 4.00 (Bad Request) error response to the client. The diagnostic payload of the error response SHOULD indicate to the client that the resource is a reverse-proxy resource, and that for this reason immediate Token re-use is not possible.
 
 For the operation of HTTP-to-CoAP reverse proxies, see the last two paragraphs of {{sec-proxy-forward}}, which apply also to the case of reverse-proxies.
 
