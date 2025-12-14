@@ -1715,7 +1715,7 @@ Table of Contents
 
 3.6.  Congestion Control
 
-   CoAP group requests may result in a multitude of responses from
+   CoAP group requests could result in a multitude of responses from
    different nodes, potentially causing congestion.  Therefore, both the
    sending of CoAP group requests and the sending of the unicast CoAP
    responses to these group requests SHOULD be conservatively
