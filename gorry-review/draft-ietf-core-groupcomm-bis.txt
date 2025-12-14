@@ -2034,7 +2034,9 @@ Table of Contents
    block-wise transfer (Block2 Option) at its own initiative, to limit
    the size of the initial response.  That is the case when a client
    sends a multicast GET or FETCH request that does not include a Block2
-   Option.
+   Option.  In such a situation, unless the implementer of the server is
+   aware that its clients do not support Block-wise transfer, the server
+   SHOULD use Block-wise transfer at its own initiative.
 
    After a client receives responses that include a Block2 Option to the
    first group request that did not include a Block2 Option, the client
