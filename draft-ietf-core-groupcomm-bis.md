@@ -502,7 +502,7 @@ Maintenance of a group includes any necessary operations to cope with changes in
 
 For unsecured group communication (see {{chap-unsecured-groupcomm}}), i.e., when the NoSec mode is used, addition/removal of CoAP group members is simply done by configuring these devices to start/stop listening to the group IP multicast address on the group's UDP port.
 
-For secured group communication (see {{chap-oscore}}), the maintenance operations of the protocol Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} MUST be implemented as well. When using Group OSCORE, CoAP endpoints participating in group communication are also members of a corresponding OSCORE security group, and thus share common security material. Additional related maintenance operations are discussed in {{chap-sec-group-maintenance}}.
+For secured group communication (see {{chap-oscore}}), the maintenance operations of the protocol Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} MUST be performed as well. When using Group OSCORE, CoAP endpoints participating in group communication are also members of a corresponding OSCORE security group, and thus share common security material. Additional related maintenance operations are discussed in {{chap-sec-group-maintenance}}.
 
 # CoAP Usage in Group Communication # {#sec-coap-usage}
 
@@ -940,7 +940,7 @@ A Group Manager is responsible for managing one or multiple OSCORE groups. In pa
 
 As defined in {{I-D.ietf-ace-oscore-gm-admin}}, an administrator entity can interact with the Group Manager to create OSCORE groups and specify their configuration (see {{sssec-group-creation}}). During the lifetime of the OSCORE group, the administrator can further interact with the Group Manager, in order to possibly update the configuration of the security group and eventually delete the group.
 
-As recommended in {{I-D.ietf-core-oscore-groupcomm}}, a CoAP endpoint can join an OSCORE group by using the method described in {{I-D.ietf-ace-key-groupcomm-oscore}} and based on the ACE framework for Authentication and Authorization in constrained environments {{RFC9200}}.
+As mentioned in {{I-D.ietf-core-oscore-groupcomm}}, a CoAP endpoint can join an OSCORE group through the realization of a Group Manager specified in {{I-D.ietf-ace-key-groupcomm-oscore}} and based on the ACE framework for Authentication and Authorization in constrained environments {{RFC9200}}.
 
 A CoAP endpoint can discover OSCORE groups and retrieve information to join them through their respective Group Managers by using the method described in {{I-D.tiloca-core-oscore-discovery}} and based on the CoRE Resource Directory {{RFC9176}}.
 
