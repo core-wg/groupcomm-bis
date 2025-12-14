@@ -1451,16 +1451,19 @@ Table of Contents
    items from its cache to make space for newer resource
    representations.
 
-   There are various strategies to avoid problems caused by identical
-   ETag values: one strategy is for a client to repeat a request if a
-   particular server returned 2.03 (Valid) with an ETag value that is
-   not in the client's cache (for that server).  The repeated request
-   excludes the "duplicate" ETag, and it may be a group request or a
-   unicast request to the particular server.  Another strategy is to
-   mark a cached ETag value as "duplicated - not to be used for
-   revalidation" as soon as another server responds with the same ETag
-   value.  Finally, the recommended strategy is for the servers to
-   generate unique ETags as specified below.
+   A client that uses the ETag Option for validating stored responses
+   SHOULD perform the following actions, in order to avoid problems
+   caused by identical ETag values.
+
+   *  The client repeats a request if a particular server returned 2.03
+      (Valid) with an ETag value that is not in the client's cache (for
+      that server).  The repeated request excludes the "duplicate" ETag,
+      and it can be a group request or a unicast request to the
+      particular server.
+
+   *  The client marks a cached ETag value as "duplicated - not to be
+      used for revalidation" as soon as another server responds with the
+      same ETag value.
 
    A server endpoint MUST process an ETag Option in a GET or FETCH group
    request in the same way it processes an ETag Option for a unicast
