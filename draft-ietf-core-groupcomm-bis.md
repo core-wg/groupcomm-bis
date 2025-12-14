@@ -644,7 +644,7 @@ A server that is a member of a CoAP group listens for CoAP request messages on t
 
 It is NOT RECOMMENDED to create multiple CoAP groups by using different UDP ports with the same IP multicast address. An allowed exception is the presence of constrained devices whose network stack only supports a limited number of multicast address subscriptions. The use of such an approach for creating CoAP groups incurs additional processing overhead on each CoAP server participating in at least one of these groups: messages to groups that are not of interest to the node are only discarded at the higher transport (UDP) layer instead of directly at the Internet (IP) layer. Also, a constrained network may be additionally burdened in this case with multicast traffic that is eventually discarded at the UDP layer by most nodes.
 
-The port number 5684 is dedicated for DTLS-secured unicast CoAP and MUST NOT be used for any CoAP group communication.
+The port number 5684 is dedicated for DTLS-secured unicast CoAP {{Port.Number}} and MUST NOT be used for any CoAP group communication.
 
 For a CoAP server node that supports resource discovery as defined in {{Section 2.4 of RFC7252}}, the default port number 5683 MUST be supported (see {{Section 7.1 of RFC7252}}) for the "All CoAP Nodes" CoAP group as detailed in {{sec-transport}}.
 
