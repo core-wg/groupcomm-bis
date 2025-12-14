@@ -578,12 +578,11 @@ Table of Contents
    report humidity.
 
    All the shown application groups may use the same CoAP group (not
-   shown in the figure), for example the CoAP group with site-local,
-   site-specific multicast IP address ff15::3456 and default UDP port
-   number 5683 on which all the shown resources are hosted for each
-   server.  Other floors of the same building may replicate the shown
-   structure, but using different security groups and different CoAP
-   groups.
+   shown in the figure), for example the CoAP group with site-local
+   multicast IP address ff05::db8:0:3456 and default UDP port number
+   5683 on which all the shown resources are hosted for each server.
+   Other floors of the same building may replicate the shown structure,
+   but using different security groups and different CoAP groups.
 
     .------------------------------.   .-----------------------------.
    |                                | |                               |
@@ -634,14 +633,14 @@ Table of Contents
    It follows that the same CoAP group might have multiple names, which
    can be simultaneously and interchangeably used.  For example, if the
    two hostnames group1.example and group1.alias.example both resolve to
-   the IP multicast address [ff15::1234], then the following authority
-   components are all names for the same CoAP group.
+   the IP multicast address [ff05::db8:0:1], then the following
+   authority components are all names for the same CoAP group.
 
    *  group1.example:7700
 
    *  group1.alias.example:7700
 
-   *  [ff15::1234]:7700
+   *  [ff05::db8:0:1]:7700
 
    Also note that, when using the "coap" scheme, the two authority
    components <HOST> and <HOST>:5683 both identify the same CoAP group,
@@ -653,13 +652,13 @@ Table of Contents
 
    *  group1.alias.example
 
-   *  [ff15::1234]
+   *  [ff05::db8:0:1]
 
    *  group1.example:5683
 
    *  group1.alias.example:5683
 
-   *  [ff15::1234]:5683
+   *  [ff05::db8:0:1]:5683
 
    When configuring a CoAP group membership, it is recommended to
    configure an endpoint with an IP multicast address literal, instead
@@ -796,12 +795,12 @@ Table of Contents
    Resource Directory (RD), along with the CoAP group it uses and the
    resources it supports.  In that example, an application group name
    "lights" is encoded in the "ep" (endpoint) attribute of the RD
-   registration entry, while the CoAP group ff35:30:2001:db8:f1:0:8000:1
+   registration entry, while the CoAP group ff35:30:2001:db8:f1::8000:1
    is specified in the authority component of the URI encoded in the
    "base" attribute.  In subsequent group requests by a client to the
    "lights" group, the name of the group is not present in the request
    message.  Rather, the URI authority component that selects the CoAP
-   group ff35:30:2001:db8:f1:0:8000:1 will implicitly also select the
+   group ff35:30:2001:db8:f1::8000:1 will implicitly also select the
    "lights" application group.
 
 2.2.1.3.  Security Groups
@@ -3932,8 +3931,8 @@ Appendix B.  Examples of Group Naming for Application Groups
 
    The shown examples consider a CoAP group identified by the group
    hostname grp.example.  Its members are CoAP servers listening to the
-   associated IP multicast address ff35:30:2001:db8:f1:0:8000:1 and port
-   number 5685.
+   associated IP multicast address ff05::db8:8000:1 and port number
+   5685.
 
    Note that a group hostname is used in most examples to improve
    readability.  In practice, as discussed in Section 2.2.1.2, using an
@@ -3972,7 +3971,7 @@ B.1.  Group Naming using the URI Path Component
 
       Application group name: gp1
 
-      Group URI: coap://[ff35:30:2001:db8:f1:0:8000:1]/g/gp1/li
+      Group URI: coap://[ff05::db8:8000:1]/g/gp1/li
 
       CoAP group request
          Header: POST (T=NON, Code=0.02, MID=0x7d41)

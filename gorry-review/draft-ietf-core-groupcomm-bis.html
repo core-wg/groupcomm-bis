@@ -1769,7 +1769,7 @@ appear in all capitals, as shown here.<a href="#section-1.2-1" class="pilcrow">�
 </div>
 <p id="section-2.1.4-10"><a href="#fig-group-relation-example" class="auto internal xref">Figure 2</a> provides a deployment example of the relationships between the different types of groups. It shows six CoAP servers (Srv1-Srv6) and their respective resources hosted (/resX). Although in real-life deployments using group communication the number of servers and resources would usually be higher, only limited numbers are shown here for ease of representation.<a href="#section-2.1.4-10" class="pilcrow">¶</a></p>
 <p id="section-2.1.4-11">There are three application groups (1, 2, 3) and two security groups (1, 2). The Security Group 1 may, for example, include all lighting devices on a floor of an office building, while Security Group 2 includes all Heating, Ventilation, and Air Conditioning (HVAC) devices of that floor. Security Group 1 is used by both Application Group 1 and 2. The Application Group 1 for example may consist of all lights in a hallway, while Application Group 2 includes all lights in a storage room. Three clients (Cli1, Cli2, Cli3) are configured with security material for Security Group 1. These clients may be motion sensors and a control panel (Cli3), that send multicast messages to /resA to inform the lights of any motion or user activity detected. The control panel Cli3 additionally sends a multicast message to /resB to communicate the latest light preset selected by a user. The latter action only influences the lighting in the storage room (Application Group 2). Two clients (Cli2, Cli4) are configured with security material for Security Group 2. These clients may be temperature/humidity sensors that report measurements periodically to all HVAC devices (Srv5, Srv6) in the Application Group 3, using for example /resC to report temperature and /resD to report humidity.<a href="#section-2.1.4-11" class="pilcrow">¶</a></p>
-<p id="section-2.1.4-12">All the shown application groups may use the same CoAP group (not shown in the figure), for example the CoAP group with site-local, site-specific multicast IP address ff15::3456 and default UDP port number 5683 on which all the shown resources are hosted for each server. Other floors of the same building may replicate the shown structure, but using different security groups and different CoAP groups.<a href="#section-2.1.4-12" class="pilcrow">¶</a></p>
+<p id="section-2.1.4-12">All the shown application groups may use the same CoAP group (not shown in the figure), for example the CoAP group with site-local multicast IP address ff05::db8:0:3456 and default UDP port number 5683 on which all the shown resources are hosted for each server. Other floors of the same building may replicate the shown structure, but using different security groups and different CoAP groups.<a href="#section-2.1.4-12" class="pilcrow">¶</a></p>
 <span id="name-deployment-example-of-diffe"></span><div id="fig-group-relation-example">
 <figure id="figure-2">
             <div id="section-2.1.4-13.1">
@@ -1873,7 +1873,7 @@ appear in all capitals, as shown here.<a href="#section-1.2-1" class="pilcrow">�
 <p id="section-2.2.1.1-2">However, a CoAP group is for practical purposes identified and named by the authority component in the group URI. This component includes the host subcomponent and an optional UDP port number.
 The host subcomponent directly defines the IP multicast address of the CoAP group, in case the host consists of an IP literal.
 The host subcomponent indirectly defines the IP multicast address of the CoAP group, in case the host consists of a hostname: resolving the hostname to an IP address in this case produces the IP multicast address.<a href="#section-2.2.1.1-2" class="pilcrow">¶</a></p>
-<p id="section-2.2.1.1-3">It follows that the same CoAP group might have multiple names, which can be simultaneously and interchangeably used. For example, if the two hostnames group1.example and group1.alias.example both resolve to the IP multicast address [ff15::1234], then the following authority components are all names for the same CoAP group.<a href="#section-2.2.1.1-3" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.1-3">It follows that the same CoAP group might have multiple names, which can be simultaneously and interchangeably used. For example, if the two hostnames group1.example and group1.alias.example both resolve to the IP multicast address [ff05::db8:0:1], then the following authority components are all names for the same CoAP group.<a href="#section-2.2.1.1-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2.2.1.1-4.1">
                 <p id="section-2.2.1.1-4.1.1">group1.example:7700<a href="#section-2.2.1.1-4.1.1" class="pilcrow">¶</a></p>
@@ -1882,7 +1882,7 @@ The host subcomponent indirectly defines the IP multicast address of the CoAP gr
                 <p id="section-2.2.1.1-4.2.1">group1.alias.example:7700<a href="#section-2.2.1.1-4.2.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-2.2.1.1-4.3">
-                <p id="section-2.2.1.1-4.3.1">[ff15::1234]:7700<a href="#section-2.2.1.1-4.3.1" class="pilcrow">¶</a></p>
+                <p id="section-2.2.1.1-4.3.1">[ff05::db8:0:1]:7700<a href="#section-2.2.1.1-4.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 <p id="section-2.2.1.1-5">Also note that, when using the "coap" scheme, the two authority components &lt;HOST&gt; and &lt;HOST&gt;:5683 both identify the same CoAP group, whose members listen to the CoAP default port number 5683. Therefore, building on the above, the following authority components are all names for the same CoAP group.<a href="#section-2.2.1.1-5" class="pilcrow">¶</a></p>
@@ -1894,7 +1894,7 @@ The host subcomponent indirectly defines the IP multicast address of the CoAP gr
                 <p id="section-2.2.1.1-6.2.1">group1.alias.example<a href="#section-2.2.1.1-6.2.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-2.2.1.1-6.3">
-                <p id="section-2.2.1.1-6.3.1">[ff15::1234]<a href="#section-2.2.1.1-6.3.1" class="pilcrow">¶</a></p>
+                <p id="section-2.2.1.1-6.3.1">[ff05::db8:0:1]<a href="#section-2.2.1.1-6.3.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-2.2.1.1-6.4">
                 <p id="section-2.2.1.1-6.4.1">group1.example:5683<a href="#section-2.2.1.1-6.4.1" class="pilcrow">¶</a></p>
@@ -1903,7 +1903,7 @@ The host subcomponent indirectly defines the IP multicast address of the CoAP gr
                 <p id="section-2.2.1.1-6.5.1">group1.alias.example:5683<a href="#section-2.2.1.1-6.5.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-2.2.1.1-6.6">
-                <p id="section-2.2.1.1-6.6.1">[ff15::1234]:5683<a href="#section-2.2.1.1-6.6.1" class="pilcrow">¶</a></p>
+                <p id="section-2.2.1.1-6.6.1">[ff05::db8:0:1]:5683<a href="#section-2.2.1.1-6.6.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 <p id="section-2.2.1.1-7">When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal, instead of a group hostname. This is because an infrastructure providing a name resolution service, such as DNS, may not be deployed in many constrained networks. In case a group hostname is configured, it can be uniquely mapped to an IP multicast address via a name resolution service. For example, this can rely on the DNS resolution process, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.<a href="#section-2.2.1.1-7" class="pilcrow">¶</a></p>
@@ -1986,7 +1986,7 @@ Full examples are provided in <a href="#sec-examples-app-group-naming-authority"
 <p id="section-2.2.1.2-5">Due to the CoAP client's encoding of the request URI into CoAP options (per <span><a href="https://rfc-editor.org/rfc/rfc7252#section-6.4" class="relref">Section 6.4</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>) and the possibility of the CoAP server to compose the URI again based on the options received (see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-6.5" class="relref">Section 6.5</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>), the application group name information can be transported to the server and used to select the intended application group.<a href="#section-2.2.1.2-5" class="pilcrow">¶</a></p>
 <p id="section-2.2.1.2-6">Any other method to transport the application group name within a CoAP request, but not using the group URI, would require a new CoAP option to be defined. Such an approach is out of the scope of this document.<a href="#section-2.2.1.2-6" class="pilcrow">¶</a></p>
 <p id="section-2.2.1.2-7">Finally, it is also possible to not encode the application group name in the CoAP request, yielding the most compact representation on the wire. In this case, each CoAP server needs to determine the right application group based on contextual information, such as the CoAP group, and/or the client identity and/or the target resource. For example, each application group on a server could support a unique set of resources, such that it does not overlap with the set of resources of any other application group.
-Appendix A of <span>[<a href="#RFC9176" class="cite xref">RFC9176</a>]</span> provides an example of a named application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources it supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry, while the CoAP group ff35:30:2001:db8:f1:0:8000:1 is specified in the authority component of the URI encoded in the "base" attribute. In subsequent group requests by a client to the "lights" group, the name of the group is not present in the request message. Rather, the URI authority component that selects the CoAP group ff35:30:2001:db8:f1:0:8000:1 will implicitly also select the "lights" application group.<a href="#section-2.2.1.2-7" class="pilcrow">¶</a></p>
+Appendix A of <span>[<a href="#RFC9176" class="cite xref">RFC9176</a>]</span> provides an example of a named application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources it supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry, while the CoAP group ff35:30:2001:db8:f1::8000:1 is specified in the authority component of the URI encoded in the "base" attribute. In subsequent group requests by a client to the "lights" group, the name of the group is not present in the request message. Rather, the URI authority component that selects the CoAP group ff35:30:2001:db8:f1::8000:1 will implicitly also select the "lights" application group.<a href="#section-2.2.1.2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-groupnaming-sec">
@@ -3927,7 +3927,7 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
       </h2>
 <p id="appendix-B-1">This section provides examples for the different methods that can be used to name application groups, as defined in <a href="#sec-groupnaming-app" class="auto internal xref">Section 2.2.1.2</a>.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <p id="appendix-B-2">The content of this section is purely illustrative and has no ambition to be comprehensive. That is, while the methods defined in <a href="#sec-groupnaming-app" class="auto internal xref">Section 2.2.1.2</a> are presented as viable to use, further viable methods might exist and can be defined in the future. Furthermore, this section does not provide guidelines on how to choose between the different methods, for which a decision is application-specific.<a href="#appendix-B-2" class="pilcrow">¶</a></p>
-<p id="appendix-B-3">The shown examples consider a CoAP group identified by the group hostname grp.example. Its members are CoAP servers listening to the associated IP multicast address ff35:30:2001:db8:f1:0:8000:1 and port number 5685.<a href="#appendix-B-3" class="pilcrow">¶</a></p>
+<p id="appendix-B-3">The shown examples consider a CoAP group identified by the group hostname grp.example. Its members are CoAP servers listening to the associated IP multicast address ff05::db8:8000:1 and port number 5685.<a href="#appendix-B-3" class="pilcrow">¶</a></p>
 <p id="appendix-B-4">Note that a group hostname is used in most examples to improve readability. In practice, as discussed in <a href="#sec-groupnaming-app" class="auto internal xref">Section 2.2.1.2</a>, using an IP address literal as the host subcomponent of the Group URI can reduce the size of the CoAP request message, in case the Uri-Host Option can be elided.<a href="#appendix-B-4" class="pilcrow">¶</a></p>
 <p id="appendix-B-5">Also note that the Uri-Port Option does not appear in the examples, since the port number 5685 is already included in the CoAP request's UDP header (which is not shown in the examples) in the destination port field.<a href="#appendix-B-5" class="pilcrow">¶</a></p>
 <div id="sec-examples-app-group-naming-path">
@@ -3964,7 +3964,7 @@ mode (see <a href="#chap-unsecured-groupcomm" class="auto internal xref">Section
 <pre>
    Application group name: gp1
 
-   Group URI: coap://[ff35:30:2001:db8:f1:0:8000:1]/g/gp1/li
+   Group URI: coap://[ff05::db8:8000:1]/g/gp1/li
 
    CoAP group request
       Header: POST (T=NON, Code=0.02, MID=0x7d41)
