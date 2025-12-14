@@ -608,7 +608,7 @@ For caching at proxies, a possible freshness model is defined as part of the rea
 ### Validation Model ### {#sec-caching-validation}
 
 For validation of cached group communication responses at client endpoints, the multicast validation rules in {{Section 8.2.1 of RFC7252}} apply, except for the last paragraph which states "A GET request to a multicast group MUST NOT contain an ETag option".
-This document updates {{RFC7252}} by allowing a group request to contain ETag Options as specified below.
+This document updates {{Section 8.2.1 of RFC7252}} by allowing a group request to contain ETag Options as specified below.
 
 For validation at proxies, a possible validation model is defined as part of the realization of proxy specified in {{I-D.ietf-core-groupcomm-proxy}}.
 
