@@ -1547,8 +1547,11 @@ Table of Contents
    In particular, forward-proxies and reverse-proxies are separately
    considered in Section 3.5.1 and Section 3.5.2, respectively.
    Furthermore, Section 3.5.3 discusses the case where a client sends a
-   group request to multiple proxies at once.  Security considerations
-   that apply when using a proxy are discussed later in Section 5.3.
+   group request to multiple proxies at once.  When sending a CoAP group
+   request over UDP/IP multicast, a proxy MUST conform to the congestion
+   control requirements compiled in Section 3.6 of this document.
+   Security considerations that apply when using a proxy are discussed
+   later in Section 5.3.
 
    Further details that are relevant to operate such proxies are not
    defined here.  Other specifications can build on the common
