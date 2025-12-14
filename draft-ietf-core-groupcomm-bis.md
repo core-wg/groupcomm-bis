@@ -517,7 +517,7 @@ A CoAP client is an endpoint able to transmit CoAP requests and receive CoAP res
 
 All CoAP requests that are sent via IP multicast MUST be Non-confirmable (NON), see {{Section 8.1 of RFC7252}}.  The Message ID in an IP multicast CoAP message is used for optional message deduplication by both clients and servers, as detailed in {{Section 4.5 of RFC7252}}. A server MAY send one or more responses to a CoAP group request; these are always unicast messages. The unicast responses received by the CoAP client may carry a mixture of success (e.g., 2.05 (Content)) and failure (e.g., 4.04 (Not Found)) response codes, depending on the individual server processing results.
 
-When using CoAP group communication, an amplification attack becomes more effective than when sending a unicast request to a single server. That is, by spoofing the source IP address of a designated victim in the group request sent via IP multicast, the attack may result in multiple servers within the CoAP group sending responses to the victim. This is further discussed in {{ssec-amplification}}, together with available mitigations.
+When using CoAP group communication, an amplification attack becomes more harmful than when sending a unicast request to a single server. That is, by spoofing the source IP address of a designated victim in the group request sent via IP multicast, the attack may result in multiple servers within the CoAP group sending responses to the victim. This is further discussed in {{ssec-amplification}}, together with available mitigations.
 
 ### Response Suppression ###  {#sec-request-response-suppress}
 A server MAY suppress its response for various reasons given in {{Section 8.2 of RFC7252}}. This document adds the requirement that a server SHOULD suppress the response in case of error or in case there is nothing useful to respond, unless the application related to a particular resource requires such a response to be made for that resource.
@@ -795,7 +795,7 @@ Throughout the lifetime of an observation, a server MUST verify the aliveness of
 
 A client can use the unicast cancellation methods of {{Section 3.6 of RFC7641}} and stop the ongoing observation of a particular resource on members of a CoAP group. This can be used to remove specific observed servers, or even all servers in the CoAP group (using serial unicast to each known group member). In addition, a client MAY explicitly deregister from all those servers at once, by sending a group/multicast GET or FETCH request that includes the Token value of the observation to be canceled and includes an Observe Option with the value set to 1 (deregister). In case not all the servers in the CoAP group received this deregistration request, either the unicast cancellation methods can be used at a later point in time or the group/multicast deregistration request MAY be repeated upon receiving another observe response from a server.
 
-When combining CoAP group communication and Observe as described above, an amplification attack can become particularly effective. That is, by spoofing the source IP address of a designated victim in the group request conveying the Observe Option, the attack may result in multiple servers within the CoAP group sending multiple Observe notifications to the victim, throughout the observation lifetime. This is further discussed in {{ssec-amplification}}, together with available mitigations.
+When combining CoAP group communication and Observe as described above, an amplification attack can become particularly harmful. That is, by spoofing the source IP address of a designated victim in the group request conveying the Observe Option, the attack may result in multiple servers within the CoAP group sending multiple Observe notifications to the victim, throughout the observation lifetime. This is further discussed in {{ssec-amplification}}, together with available mitigations.
 
 For observing at servers that are members of a CoAP group through a CoAP-to-CoAP proxy, the limitations stated in {{sec-proxy}} apply. The realization of proxy specified in {{I-D.ietf-core-groupcomm-proxy}} enables group communication including resource observation through proxies and addresses those limitations.
 
@@ -990,7 +990,7 @@ This section provides security considerations for CoAP group communication, in g
 
 ## CoAP NoSec Mode ## {#chap-security-considerations-nosec-mode}
 
-CoAP group communication, if not protected, is vulnerable to all the attacks mentioned in {{Section 11 of RFC7252}} for IP multicast. Moreover, as also discussed in {{I-D.irtf-t2trg-amplification-attacks}}, the NoSec mode is susceptible to source IP address spoofing, hence amplification attacks are especially feasible and greatly effective, since a single request can result in multiple responses from multiple servers (see {{ssec-amplification}}).
+CoAP group communication, if not protected, is vulnerable to all the attacks mentioned in {{Section 11 of RFC7252}} for IP multicast. Moreover, as also discussed in {{I-D.irtf-t2trg-amplification-attacks}}, the NoSec mode is susceptible to source IP address spoofing, hence amplification attacks are especially feasible and greatly harmful, since a single request can result in multiple responses from multiple servers (see {{ssec-amplification}}).
 
 For these reasons and in order to prevent proliferation of high-volume amplification attacks as further discussed in {{ssec-amplification}}, it is NOT RECOMMENDED to use CoAP group communication in NoSec mode.
 The requirement in {{chap-unsecured-groupcomm}} on publically accessible CoAP servers also aims to prevent amplification attacks.
@@ -1083,7 +1083,7 @@ As discussed below, Group OSCORE addresses a number of security attacks mentione
 
 In particular, an adversary can send a group request via IP multicast to a CoAP group, spoofing the source IP address to be the one of a designated victim (within the local network or on the Internet).
 
-After receiving the group request, each of the servers in the group may reply to the victim with a response that is likely larger in size than the group request. In terms of attack effectiveness, an adversary sending a single group request may therefore achieve a large amplification factor, i.e., a high ratio between the total size of the responses sent to the attack victim and the size of the corresponding group request.
+After receiving the group request, each of the servers in the group may reply to the victim with a response that is likely larger in size than the group request. In terms of attack impact, an adversary sending a single group request may therefore achieve a large amplification factor, i.e., a high ratio between the total size of the responses sent to the attack victim and the size of the corresponding group request.
 
 When performing such an attack, the amplification factor would become even larger if CoAP group communication is combined with resource observation {{RFC7641}}, as described in {{sec-observe}} of this document. That is, a single group request conveying the Observe Option may result in multiple notification responses from each of the responding servers in the CoAP group, throughout the observation lifetime.
 
@@ -1147,7 +1147,7 @@ After a client has sent a group request over IP multicast, an adversary might ca
 
 * If the adversary re-injects the group request after the client has freed up the corresponding Token value, the client would not have anymore a valid, active request matching with responses that the servers sent to the replayed group request.
 
-It follows that, in either case, this replay attack would not accomplish anything on the client, although it does effectively target the servers in the group that do not implement the optional Message ID based deduplication.
+It follows that, in either case, this replay attack would not accomplish anything on the client, although it does target the servers in the group that do not implement the optional Message ID based deduplication.
 
 If Group OSCORE is used, such a replay attack is prevented on all servers, since a client protects each different request with a different Sequence Number value, which is in turn included as Partial IV in the protected message and takes part in the construction of the AEAD cipher nonce. Thus, a server would be able to detect the replayed request, by checking the conveyed Partial IV against its own replay window in the OSCORE Recipient Context associated with the client.
 
