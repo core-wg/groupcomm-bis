@@ -1164,7 +1164,7 @@ Table of Contents
    When using CoAP group communication, an amplification attack becomes
    more harmful than when sending a unicast request to a single server.
    That is, by spoofing the source IP address of a designated victim in
-   the group request sent via IP multicast, the attack may result in
+   the group request sent via IP multicast, the attack could result in
    multiple servers within the CoAP group sending responses to the
    victim.  This is further discussed in Section 6.3, together with
    available mitigations.
@@ -1997,8 +1997,8 @@ Table of Contents
    When combining CoAP group communication and Observe as described
    above, an amplification attack can become particularly harmful.  That
    is, by spoofing the source IP address of a designated victim in the
-   group request conveying the Observe Option, the attack may result in
-   multiple servers within the CoAP group sending multiple Observe
+   group request conveying the Observe Option, the attack could result
+   in multiple servers within the CoAP group sending multiple Observe
    notifications to the victim, throughout the observation lifetime.
    This is further discussed in Section 6.3, together with available
    mitigations.
