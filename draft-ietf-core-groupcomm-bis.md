@@ -229,7 +229,7 @@ There can be a many-to-many relationship between security groups and CoAP groups
 
 Further details on identifying a security group are provided in {{sec-groupnaming-sec}}.
 
-If the NoSec mode is used (see {{chap-unsecured-groupcomm}}), group communication does not rely on security at the transport layer nor at the CoAP layer, hence the communicating endpoints do not refer to a security group.
+It is strongly discouraged to have unsecure group communication through the NoSec mode (see {{chap-unsecured-groupcomm}}), whose possible exceptional use ought to be limited to specific circumstances (see {{chap-unsecured-groupcomm}} and {{chap-security-considerations-nosec-mode}}). When the NoSec mode is nevertheless used, the communicating endpoints do not refer to a security group.
 
 When a security group uses the security protocol Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} to protect group communication (see {{chap-oscore}} of this document), source authentication is achieved for messages exchanged within the group (see {{chap-group-oscore}} and {{chap-security-considerations-sec-mode-sauth}} of this document). That is, even though the endpoints in the security group do share group security material, a recipient CoAP endpoint is able to verify that a message protected with Group OSCORE has actually been originated and sent by a specific and identified CoAP endpoint as a member of the security group.
 
@@ -903,16 +903,17 @@ For security and performance reasons, other filtering criteria may also be defin
 
 # Unsecured Group Communication (NoSec Mode) # {#chap-unsecured-groupcomm}
 
-CoAP group communication can operate in CoAP NoSec (No Security) mode, without using application-layer and transport-layer security mechanisms. The NoSec mode uses the "coap" scheme, and is defined in {{Section 9 of RFC7252}}.
+CoAP group communication can operate in CoAP NoSec (No Security) mode, i.e., without using application-layer and transport-layer security mechanisms.
 
-The NoSec mode does not require and does not make use of a security group. Indications that endpoints can use the NoSec mode MUST NOT rely on setting up and advertising a pseudo security group with name "NoSec" or any of its lowercase/uppercase combinations.
-
-A CoAP server in NoSec mode MUST NOT be accessible through the public Internet.
 It is NOT RECOMMENDED to use CoAP group communication in NoSec mode.
 
 The possible, exceptional use of the NoSec mode ought to be limited to specific, well-defined "unsecured steps" that unquestionably do not require security or are not able to attain it, e.g., early discovery of devices and resources (see {{chap-security-considerations-nosec-mode}}).
 
 Before possibly and exceptionally using the NoSec mode in such circumstances, the security implications in {{chap-security-considerations-nosec-mode}} must be very well considered and understood, especially as to the risk and impact of amplification attacks (see {{ssec-amplification}}). Consistent with such security implications, the use of the NoSec mode SHOULD still be avoided whenever possible.
+
+The NoSec mode uses the "coap" scheme, and is defined in {{Section 9 of RFC7252}}. The NoSec mode does not require and does not make use of a security group (see {{sec-groupnaming-sec}}).
+
+A CoAP server MUST NOT be accessible in NoSec mode through the public Internet.
 
 # Secured Group Communication using Group OSCORE # {#chap-oscore}
 
