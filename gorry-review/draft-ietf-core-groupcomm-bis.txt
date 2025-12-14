@@ -382,7 +382,7 @@ Table of Contents
 2.  Types of Groups and Their Configuration
 
    In the following, different group types are first defined in
-   Section 2.1.  Then, Group configuration, including group creation and
+   Section 2.1.  Then, group configuration, including group creation and
    maintenance by an application, user, or commissioning entity is
    considered in Section 2.2.
 
