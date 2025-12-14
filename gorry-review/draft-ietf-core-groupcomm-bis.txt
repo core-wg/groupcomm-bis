@@ -1962,17 +1962,18 @@ Table of Contents
    pending, if it is related to a different observation but to the same
    CoAP group.
 
-   A server SHOULD have a mechanism to verify the aliveness of its
-   observing clients and the continued interest of these clients in
-   receiving the Observe notifications.  This can be implemented by
-   sending notifications occasionally using a Confirmable message (see
-   Section 4.5 of [RFC7641] for details).  This requirement overrides
-   the regular behavior of sending Non-confirmable notifications in
-   response to a Non-confirmable request.  Obviously, the requirement to
-   insert a random leisure period as described above does not apply to
-   retransmissions of a Confirmable notification, but only to the
-   initial CoAP message transmission when the CoAP retransmission
-   counter is 0 (see Section 4.2 of [RFC7252]).
+   Throughout the lifetime of an observation, a server MUST verify the
+   aliveness of its observing clients and the continued interest of
+   these clients in receiving the Observe notifications.  To this end,
+   the server occasionally sends a notification to a given observing
+   client in a Confirmable message (see Section 4.5 of [RFC7641] for
+   details).  This requirement overrides the regular behavior of sending
+   Non-confirmable notifications in response to a Non-confirmable
+   request.  Obviously, the requirement to insert a random leisure
+   period as described above does not apply to retransmissions of a
+   Confirmable notification, but only to the initial CoAP message
+   transmission when the CoAP retransmission counter is 0 (see
+   Section 4.2 of [RFC7252]).
 
    A client can use the unicast cancellation methods of Section 3.6 of
    [RFC7641] and stop the ongoing observation of a particular resource
