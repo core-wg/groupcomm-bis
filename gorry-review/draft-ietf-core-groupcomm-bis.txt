@@ -1292,29 +1292,29 @@ Table of Contents
    the Token reuse time MUST be greater than 250 seconds plus
    MAX_SERVER_RESPONSE_DELAY.
 
-   A preferred solution to meet this requirement is to generate a new
-   unique Token for every new group request, such that a Token value is
-   never reused.  If a client has to reuse Token values for some reason,
-   and also MAX_SERVER_RESPONSE_DELAY is unknown, then using
+   To meet this requirement, a client can simply generate a new unique
+   Token for every new group request, such that a Token value is never
+   reused.  If a client has to reuse Token values for some reason, and
+   also MAX_SERVER_RESPONSE_DELAY is unknown, then using
    MAX_SERVER_RESPONSE_DELAY = 250 seconds is a reasonable guideline.
    The time between Token reuses is in that case set to a value greater
    than MIN_TOKEN_REUSE_TIME = 500 seconds.
 
    When securing CoAP group communication with Group OSCORE
    [I-D.ietf-core-oscore-groupcomm], secure binding between requests and
-   responses is ensured (see Section 5).  Thus, a client may reuse a
-   Token value after it has been freed up, as discussed above and
-   considering a reuse time greater than MIN_TOKEN_REUSE_TIME.  If an
-   alternative security protocol for CoAP group communication is used
+   responses is ensured (see Section 5).  Thus, a client can safely
+   reuse a Token value after it has been freed up, as discussed above
+   and considering a reuse time greater than MIN_TOKEN_REUSE_TIME.  If
+   an alternative security protocol for CoAP group communication is used
    which does not ensure secure binding between requests and responses,
    a client MUST follow the Token processing requirements as defined in
    [RFC9175].
 
-   Another method to more easily meet the above constraint is to
-   instantiate multiple CoAP clients at multiple UDP ports on the same
-   host.  The Token values only have to be unique within the context of
-   a single CoAP client, so using multiple clients can make it easier to
-   meet the constraint.
+   An alternative method that meets the requirement above consists in
+   instantiating multiple CoAP clients at multiple UDP ports on the same
+   host.  This is consistent with what is defined in Section 5.3.1 of
+   [RFC7252], i.e., Token values currently in use only have to be unique
+   for a given source/destination endpoint pair.
 
 3.1.6.  Client Handling of Multiple Responses With Same Token
 
