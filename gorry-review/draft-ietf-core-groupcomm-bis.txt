@@ -355,9 +355,9 @@ Table of Contents
    *  With reference to the measures against congestion risk specified
       in Sections 5.2.3, 8.1, 8.2 and 11.3 of [RFC7252], it defines such
       measures to be applicable also to alternative transports (other
-      than IP multicast) and defines additional guidelines to reduce
-      congestion risks (see Section 3.6 of the present document).  These
-      guidelines include new values for the transmission parameter
+      than IP multicast) and defines additional requirements to reduce
+      congestion risks (see Section 3.6 of the present document).  It
+      also defines new values for the transmission parameter
       DEFAULT_LEISURE that account for secure communication with Group
       OSCORE (see Section 3.6.1 of the present document).
 
@@ -1712,32 +1712,33 @@ Table of Contents
    CoAP group requests may result in a multitude of responses from
    different nodes, potentially causing congestion.  Therefore, both the
    sending of CoAP group requests and the sending of the unicast CoAP
-   responses to these group requests should be conservatively
+   responses to these group requests SHOULD be conservatively
    controlled.
 
    CoAP [RFC7252] reduces IP multicast-specific congestion risks through
-   the following measures:
+   the following measures, which the present document inherits and
+   extends as appropriate:
 
    *  A server may choose not to respond to an IP multicast request if
       there is nothing useful to respond, e.g., error or empty response
       (see Section 8.2 of [RFC7252]).
 
    *  A server should limit the support for IP multicast requests to
-      specific resources where multicast operation is required
-      (Section 11.3 of [RFC7252]).
+      specific resources where multicast operation is required (see
+      Section 11.3 of [RFC7252]).
 
-   *  An IP multicast request MUST be Non-confirmable (Section 8.1 of
-      [RFC7252]).
+   *  An IP multicast request must be Non-confirmable (see Section 8.1
+      of [RFC7252]).
 
-   *  A response to an IP multicast request SHOULD be Non-confirmable
-      (Section 5.2.3 of [RFC7252]).
+   *  A response to an IP multicast request should be Non-confirmable
+      (see Section 5.2.3 of [RFC7252]).
 
    *  A server does not respond immediately to an IP multicast request
       and should first wait for a time that is randomly picked within a
-      predetermined time interval called the Leisure (Section 8.2 of
-      [RFC7252]).  The transmission parameter DEFAULT_LEISURE may be
+      predetermined time interval called the Leisure (see Section 8.2 of
+      [RFC7252]).  The transmission parameter DEFAULT_LEISURE MAY be
       used to define a Leisure period when it cannot be computed
-      otherwise.
+      otherwise (see Section 3.6.1).
 
    This document also defines these measures to be applicable to
    alternative transports (other than IP multicast), if not defined
@@ -1772,8 +1773,8 @@ Table of Contents
    scope of this document.  This is unchanged from Section 4.8.1 of
    [RFC7252].
 
-   Independently of the transport used, additional guidelines to reduce
-   congestion risks defined in this document are as follows:
+   Independently of the transport used, additional requirements to
+   reduce congestion risks defined in this document are as follows:
 
    *  A server in a constrained network SHOULD only support group
       requests for resources that have a small representation (where the
