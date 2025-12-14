@@ -199,7 +199,7 @@ This document updates {{RFC7641}} as follows.
 
 # Types of Groups and Their Configuration # {#chap-general-groupcomm}
 
-In the following, different group types are first defined in {{sec-groupdef}}. Then, Group configuration, including group creation and maintenance by an application, user, or commissioning entity is considered in {{sec-groupconf}}.
+In the following, different group types are first defined in {{sec-groupdef}}. Then, group configuration, including group creation and maintenance by an application, user, or commissioning entity is considered in {{sec-groupconf}}.
 
 ## Types of Groups ## {#sec-groupdef}
 Three types of groups and their mutual relationships are defined in this section: CoAP group, application group, and security group.
