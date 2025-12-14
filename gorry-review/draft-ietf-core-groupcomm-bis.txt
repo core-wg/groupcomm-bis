@@ -1116,7 +1116,7 @@ Table of Contents
 
    For secured group communication (see Section 5), the maintenance
    operations of the protocol Group OSCORE
-   [I-D.ietf-core-oscore-groupcomm] MUST be implemented as well.  When
+   [I-D.ietf-core-oscore-groupcomm] MUST be performed as well.  When
    using Group OSCORE, CoAP endpoints participating in group
    communication are also members of a corresponding OSCORE security
    group, and thus share common security material.  Additional related
@@ -2406,11 +2406,11 @@ Table of Contents
    Group Manager, in order to possibly update the configuration of the
    security group and eventually delete the group.
 
-   As recommended in [I-D.ietf-core-oscore-groupcomm], a CoAP endpoint
-   can join an OSCORE group by using the method described in
-   [I-D.ietf-ace-key-groupcomm-oscore] and based on the ACE framework
-   for Authentication and Authorization in constrained environments
-   [RFC9200].
+   As mentioned in [I-D.ietf-core-oscore-groupcomm], a CoAP endpoint can
+   join an OSCORE group through the realization of a Group Manager
+   specified in [I-D.ietf-ace-key-groupcomm-oscore] and based on the ACE
+   framework for Authentication and Authorization in constrained
+   environments [RFC9200].
 
    A CoAP endpoint can discover OSCORE groups and retrieve information
    to join them through their respective Group Managers by using the
