@@ -1517,17 +1517,18 @@ Table of Contents
    members of a CoAP group and across all CoAP clients sending group
    requests to that group.
 
-   One way to create multiple CoAP groups is using different UDP ports
-   with the same IP multicast address, in case the devices' network
-   stack only supports a limited number of multicast address
-   subscriptions.  However, it must be taken into account that this
-   incurs additional processing overhead on each CoAP server
-   participating in at least one of these groups: messages to groups
-   that are not of interest to the node are only discarded at the higher
-   transport (UDP) layer instead of directly at the Internet (IP) layer.
-   Also, a constrained network may be additionally burdened in this case
-   with multicast traffic that is eventually discarded at the UDP layer
-   by most nodes.
+   It is NOT RECOMMENDED to create multiple CoAP groups by using
+   different UDP ports with the same IP multicast address.  An allowed
+   exception is the presence of constrained devices whose network stack
+   only supports a limited number of multicast address subscriptions.
+   The use of such an approach for creating CoAP groups incurs
+   additional processing overhead on each CoAP server participating in
+   at least one of these groups: messages to groups that are not of
+   interest to the node are only discarded at the higher transport (UDP)
+   layer instead of directly at the Internet (IP) layer.  Also, a
+   constrained network may be additionally burdened in this case with
+   multicast traffic that is eventually discarded at the UDP layer by
+   most nodes.
 
    The port number 5684 is dedicated for DTLS-secured unicast CoAP and
    MUST NOT be used for any CoAP group communication.
