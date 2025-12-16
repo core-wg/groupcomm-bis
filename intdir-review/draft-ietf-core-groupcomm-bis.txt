@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                        27 November 2025
-Expires: 31 May 2026
+Intended status: Standards Track                        16 December 2025
+Expires: 19 June 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 May 2026.
+   This Internet-Draft will expire on 19 June 2026.
 
 Copyright Notice
 
@@ -868,9 +868,9 @@ Table of Contents
    For IPv6 CoAP groups, this document does not suggest or recommend any
    particular multicast address ranges from which group addresses can be
    taken.  It is up to network operators and managers to appropriately
-   select addresses from the multicast address space, according with the
-   intended multicast address scope.  Guidelines for selecting and
-   assigning IPv6 multicast addresses are compiled in [RFC3307].
+   select addresses from the multicast address space with the intended
+   multicast address scope.  Guidelines for selecting and assigning IPv6
+   multicast addresses are compiled in [RFC3307].
 
    To create an application group, a configuring entity may configure a
    resource or a set of resources on CoAP endpoints, such that a CoAP
