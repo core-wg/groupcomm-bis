@@ -410,7 +410,7 @@ The devices sending CoAP requests to the CoAP group in the role of CoAP client a
 
 The IETF does not define a mandatory protocol to accomplish CoAP group creation. {{RFC7390}} defined an experimental protocol for configuring memberships of CoAP groups for unsecured group communication, based on JSON-formatted configuration resources. The experiment is concluded as showing that the protocol has not been considered for deployment and use.
 
-For IPv6 CoAP groups, this document does not suggest or recommend any particular multicast address ranges from which group addresses can be taken. It is up to network operators and managers to appropriately select addresses from the multicast address space, according with the intended multicast address scope. Guidelines for selecting and assigning IPv6 multicast addresses are compiled in {{RFC3307}}.
+For IPv6 CoAP groups, this document does not suggest or recommend any particular multicast address ranges from which group addresses can be taken. It is up to network operators and managers to appropriately select addresses from the multicast address space with the intended multicast address scope. Guidelines for selecting and assigning IPv6 multicast addresses are compiled in {{RFC3307}}.
 
 To create an application group, a configuring entity may configure a resource or a set of resources on CoAP endpoints, such that a CoAP request sent to a group URI by a configured CoAP client will be processed by one or more CoAP servers that have the matching URI path configured. These servers are the members of the application group.
 
