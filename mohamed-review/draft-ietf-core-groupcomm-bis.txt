@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                        13 December 2025
-Expires: 16 June 2026
+Intended status: Standards Track                        16 December 2025
+Expires: 19 June 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 June 2026.
+   This Internet-Draft will expire on 19 June 2026.
 
 Copyright Notice
 
@@ -859,9 +859,9 @@ Table of Contents
 2.2.2.  Group Creation and Membership
 
    This section discusses the creation of different types of groups, as
-   entrusted to a "configuring entity".  The same configuring entity
-   might be responsible for creating groups of different types, e.g.,
-   both CoAP groups and application groups.
+   entrusted to a "configuring entity".  The same configuring entity can
+   be responsible for creating groups of different types, e.g., both
+   CoAP groups and application groups.
 
    To create a CoAP group, a configuring entity defines an IP multicast
    address (or hostname) for the group and optionally a UDP port number
