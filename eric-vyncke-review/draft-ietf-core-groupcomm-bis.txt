@@ -959,8 +959,8 @@ Table of Contents
    sent to the "All CoAP Nodes" IPv4 multicast address 224.0.1.187 or
    IPv6 multicast address ff0x::fd (see Section 12.8 of [RFC7252]), thus
    targeting all reachable CoAP servers in any CoAP group.  Also, the
-   GET request may specify a query component, in order to filter the
-   application groups of interest.
+   GET request may specify a query component (see Section 4.1 of
+   [RFC6690]), in order to filter the application groups of interest.
 
    These particular details concerning the GET request depend on the
    specific discovery action intended by the client and on application-
