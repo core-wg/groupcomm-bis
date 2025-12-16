@@ -917,7 +917,7 @@ Before possibly and exceptionally using the NoSec mode in such circumstances, th
 
 The NoSec mode uses the "coap" scheme, and is defined in {{Section 9 of RFC7252}}. The NoSec mode does not require and does not make use of a security group (see {{sec-groupnaming-sec}}).
 
-A CoAP server MUST NOT be accessible in NoSec mode through the public Internet.
+A CoAP server MUST NOT be accessible for group communication in NoSec mode through the public Internet.
 
 # Secured Group Communication using Group OSCORE # {#chap-oscore}
 
