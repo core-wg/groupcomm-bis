@@ -452,7 +452,7 @@ In particular, the responsible OSCORE Group Manager registers its security group
 
 It is possible for CoAP endpoints to discover application groups and CoAP groups from the CoAP servers that are members of such groups, by using a GET request targeting the /.well-known/core resource.
 
-As discussed below, such a GET request may be sent to the IP multicast address of an already known CoAP group associated with one or more application groups. Alternatively, the GET request may be sent to the "All CoAP Nodes" IPv4 multicast address 224.0.1.187 or IPv6 multicast address ff0x::fd (see {{Section 12.8 of RFC7252}}), thus targeting all reachable CoAP servers in any CoAP group. Also, the GET request may specify a query component, in order to filter the application groups of interest.
+As discussed below, such a GET request may be sent to the IP multicast address of an already known CoAP group associated with one or more application groups. Alternatively, the GET request may be sent to the "All CoAP Nodes" IPv4 multicast address 224.0.1.187 or IPv6 multicast address ff0x::fd (see {{Section 12.8 of RFC7252}}), thus targeting all reachable CoAP servers in any CoAP group. Also, the GET request may specify a query component (see {{Section 4.1 of RFC6690}}), in order to filter the application groups of interest.
 
 These particular details concerning the GET request depend on the specific discovery action intended by the client and on application-specific means used to encode names of application groups and CoAP groups, e.g., in group URIs and/or CoRE target attributes used with resource links.
 
