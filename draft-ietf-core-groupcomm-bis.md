@@ -596,7 +596,7 @@ That is, a request is never served from cached responses only. This document upd
 
 * The client knows all current CoAP servers that are members of the CoAP group; and, for each group member, the client's cache currently stores a fresh response.
 
-The client in the case above can use different possible methods to determine the CoAP servers that are currently members of the CoAP group. For example, consistent with enforced policies, the client can retrieve that information from the entity responsible for the CoAP group (e.g., the corresponding configuring entity), or be able to monitor group joining protocol exchanges. The specific method used by the client is out of the scope of this document.
+The client in the case above can use different possible methods to determine the CoAP servers that are currently members of the CoAP group. For example, consistent with enforced policies, the client can retrieve that information from the group's configuring entity, or the client may be able to monitor group joining protocol exchanges. The specific method used by the client is out of the scope of this document.
 
 For caching at proxies, a possible freshness model is defined as part of the realization of proxy specified in {{I-D.ietf-core-groupcomm-proxy}}.
 
