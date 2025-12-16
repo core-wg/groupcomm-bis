@@ -893,8 +893,8 @@ Table of Contents
    For IPv6 CoAP groups, this document does not suggest or recommend any
    particular multicast address ranges from which group addresses can be
    taken.  It is up to network operators and managers to appropriately
-   select addresses from the multicast address space, according with the
-   intended multicast address scope.
+   select addresses from the multicast address space with the intended
+   multicast address scope.
 
    To create an application group, a configuring entity may configure a
    resource or a set of resources on CoAP endpoints, such that a CoAP
