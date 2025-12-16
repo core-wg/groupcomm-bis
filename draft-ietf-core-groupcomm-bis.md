@@ -625,7 +625,7 @@ wishes to validate, using a group request, a response from server 1 with an ETag
 
 A client that uses the ETag Option for validating stored responses SHOULD perform the following actions, in order to avoid problems caused by identical ETag values.
 
-* The client repeats a request if a particular server returned 2.03 (Valid) with an ETag value that is not in the client's cache (for that server). The repeated request excludes the "duplicate" ETag, and it can be a group request or a unicast request to the particular server.
+* The client repeats a request if a particular server returned 2.03 (Valid) with an ETag value that is not in the client's cache (for that server). The repeated request excludes the "duplicate" ETag value. It can be either a group request or a unicast request to the particular server.
 
 * The client marks a cached ETag value as "duplicated - not to be used for revalidation" as soon as another server responds with the same ETag value.
 
