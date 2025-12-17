@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                        16 December 2025
-Expires: 19 June 2026
+Intended status: Standards Track                        17 December 2025
+Expires: 20 June 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 June 2026.
+   This Internet-Draft will expire on 20 June 2026.
 
 Copyright Notice
 
@@ -1569,7 +1569,7 @@ Table of Contents
    MUST NOT be used for any CoAP group communication.
 
    For a CoAP server node that supports resource discovery as defined in
-   Section 2.4 of [RFC7252], the default port number 5683 MUST be
+   Section 2.4 of [RFC7252], the default port number 5683 must be
    supported (see Section 7.1 of [RFC7252]) for the "All CoAP Nodes"
    CoAP group as detailed in Section 3.9.
 
@@ -2113,7 +2113,7 @@ Table of Contents
    multicast, depending on how the protocol is configured.
 
    For a CoAP server node that supports resource discovery as defined in
-   Section 2.4 of [RFC7252], the default port number 5683 MUST be
+   Section 2.4 of [RFC7252], the default port number 5683 must be
    supported as per Sections 7.1 and 12.8 of [RFC7252] for the "All CoAP
    Nodes" multicast CoAP group.  An IPv6 CoAP server SHOULD support the
    "All CoAP Nodes" multicast CoAP group with at least link-local (2),
@@ -2168,7 +2168,7 @@ Table of Contents
    CoAP group communication can use UDP over IPv4 as a transport
    protocol, provided that IPv4 multicast is enabled.  For a CoAP server
    node that supports resource discovery as defined in Section 2.4 of
-   [RFC7252], the default port number 5683 MUST be supported as per
+   [RFC7252], the default port number 5683 must be supported as per
    Sections 7.1 and 12.8 of [RFC7252], for the "All CoAP Nodes" IPv4
    multicast CoAP group.
 
