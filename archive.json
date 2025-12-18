@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-16T01:50:53.692469+00:00",
+  "timestamp": "2025-12-18T01:46:48.286144+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -2874,13 +2874,13 @@
       "labels": [],
       "body": "This PR addresses the review from Ketan Talaulikar archived at https://mailarchive.ietf.org/arch/msg/core/SG7fpMILV2a4qrJYHz0xhUw-V50/",
       "createdAt": "2025-11-05T02:45:00Z",
-      "updatedAt": "2025-12-05T12:17:10Z",
+      "updatedAt": "2025-12-16T18:35:07Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "ketan-review",
-      "headRefOid": "2e3f796577264aaaf382ae9f845e8a738d396f80",
+      "headRefOid": "c8f62574de0a0d8ee2c73ccd4ec3be0f16c26423",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -2934,13 +2934,13 @@
       "labels": [],
       "body": "This PR addresses the INTDIR review from Brian Haberman archived at https://mailarchive.ietf.org/arch/msg/core/lXv9zpyB3LxGrLyYdMWTyDalkhQ/\r\n\r\n(The point about the IPv6 address used in RFC 9176 is addressed in https://github.com/core-wg/groupcomm-bis/pull/50 , see commit https://github.com/core-wg/groupcomm-bis/commit/330949121919a790a6397a095221b883de79fdac#diff-e9763af996c2597da4d48083e55a8c2d9e47750929f9f4b785b81bd041d44b93R382-R383 . It is not re-addressed in this PR to minimize conflicts when merging)",
       "createdAt": "2025-11-27T11:30:24Z",
-      "updatedAt": "2025-12-05T12:21:40Z",
+      "updatedAt": "2025-12-16T18:30:26Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "intdir-review",
-      "headRefOid": "52fa03b11a40e2b7b4a72b2c72ec80f963e275b6",
+      "headRefOid": "3c6047b0ad644554added96130dae136e316ef00",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -3267,19 +3267,126 @@
       "labels": [],
       "body": "This PR addresses the review from Mohamed Boucadair archived at https://mailarchive.ietf.org/arch/msg/core/6bjFRbSwzAvfdQqupIn9hCxB_OA/\r\n\r\n(The separate PR #56 tracks the updates that address the comment on \"dual-stack\" and on the relation between application groups and CoAP groups)",
       "createdAt": "2025-12-13T16:01:22Z",
-      "updatedAt": "2025-12-13T16:01:31Z",
+      "updatedAt": "2025-12-17T13:55:47Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "mohamed-review",
-      "headRefOid": "6001aa9e3de4529ca89716a31f306fef109e7f3d",
+      "headRefOid": "e57399efb2e9ae5e7a821e7c83ee324ef184769a",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDODvYK3c7VgtIk",
+          "commit": {
+            "abbreviatedOid": "6001aa9"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T09:22:06Z",
+          "updatedAt": "2025-12-16T09:22:07Z",
+          "comments": [
+            {
+              "originalPosition": 120,
+              "body": "```suggestion\r\nThis section discusses the creation of different types of groups, as entrusted to a \"configuring entity\". The same configuring entity can be responsible for creating groups of different types, e.g., both CoAP groups and application groups.\r\n```\r\n\r\n\"might\" here sounds too uncertain. \"can\" sounds better.",
+              "createdAt": "2025-12-16T09:22:07Z",
+              "updatedAt": "2025-12-16T09:22:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7VgxMz",
+          "commit": {
+            "abbreviatedOid": "6001aa9"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T09:26:07Z",
+          "updatedAt": "2025-12-16T09:26:07Z",
+          "comments": [
+            {
+              "originalPosition": 132,
+              "body": "```suggestion\r\nFor IPv6 CoAP groups, this document does not suggest or recommend any particular multicast address ranges from which group addresses can be taken. It is up to network operators and managers to appropriately select addresses from the multicast address space with the intended multicast address scope.\r\n```\r\n\r\nLanguage fix suggested. Each address selected may have its own (different) intended scope. So the total set of addresses may have a mix of scopes. The rewording wants to avoid the suggestion that there's a single scope selected for all the addresses. The \"with the ...\" now applies to each selected address, or at least that is the intention.\r\nIf there's a single scope decision for all the addresses, where the decision is made once, then that would also be covered by the proposal I think.",
+              "createdAt": "2025-12-16T09:26:07Z",
+              "updatedAt": "2025-12-16T09:26:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7Vg35B",
+          "commit": {
+            "abbreviatedOid": "6001aa9"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T09:33:13Z",
+          "updatedAt": "2025-12-16T09:33:14Z",
+          "comments": [
+            {
+              "originalPosition": 182,
+              "body": "```suggestion\r\nThe client in the case above can use different possible methods to determine the CoAP servers that are currently members of the CoAP group. For example, consistent with enforced policies, the client can retrieve that information from the group's configuring entity, or the client may be able to monitor group joining protocol exchanges. The specific method used by the client is out of the scope of this document.\r\n```\r\n\r\nTried to simplify sentence and avoid the double-nested example (First \"Example\" and then \"e.g.\" subcase). I think this was too complex.  And \"configuring entity\" includes any and all possibilities so need not be an example.",
+              "createdAt": "2025-12-16T09:33:13Z",
+              "updatedAt": "2025-12-16T09:33:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7VhCmx",
+          "commit": {
+            "abbreviatedOid": "6001aa9"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Thanks @marco-tiloca-sics , proposed a few sentence edits - rest is ok!",
+          "createdAt": "2025-12-16T09:43:49Z",
+          "updatedAt": "2025-12-16T09:43:49Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDODvYK3c7Vm_Zt",
+          "commit": {
+            "abbreviatedOid": "cf44db1"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T15:43:56Z",
+          "updatedAt": "2025-12-16T15:43:56Z",
+          "comments": [
+            {
+              "originalPosition": 132,
+              "body": "Agree, the new text is clearer. I'll make the same change in other PRs where this paragraph was added.",
+              "createdAt": "2025-12-16T15:43:56Z",
+              "updatedAt": "2025-12-16T15:43:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7V2Tr0",
+          "commit": {
+            "abbreviatedOid": "661a81d"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "For some reason I don't see my prior comments anymore here, but I'll just approve assuming it's ok now.",
+          "createdAt": "2025-12-17T13:33:52Z",
+          "updatedAt": "2025-12-17T13:33:52Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 58,
@@ -3293,19 +3400,106 @@
       "labels": [],
       "body": "This PR addresses the review from \u00c9ric Vyncke archived at https://mailarchive.ietf.org/arch/msg/core/N0x5gyVLzepZA_aTdsXZcYJyGyY/",
       "createdAt": "2025-12-13T17:37:17Z",
-      "updatedAt": "2025-12-13T17:37:24Z",
+      "updatedAt": "2025-12-17T13:34:53Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "eric-vyncke-review",
-      "headRefOid": "7a7c968b4c8042ee6ee2e814ea725a81bb52100b",
+      "headRefOid": "6f5fe697f8983a65b584b914e746a918fb563abc",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDODvYK3c7VhFSC",
+          "commit": {
+            "abbreviatedOid": "7a7c968"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T09:46:30Z",
+          "updatedAt": "2025-12-16T09:46:31Z",
+          "comments": [
+            {
+              "originalPosition": 97,
+              "body": "See text update proposal in Med's review - same here.",
+              "createdAt": "2025-12-16T09:46:30Z",
+              "updatedAt": "2025-12-16T09:46:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7VhS8y",
+          "commit": {
+            "abbreviatedOid": "7a7c968"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T10:00:14Z",
+          "updatedAt": "2025-12-16T10:00:14Z",
+          "comments": [
+            {
+              "originalPosition": 106,
+              "body": "```suggestion\r\nAs discussed below, such a GET request may be sent to the IP multicast address of an already known CoAP group associated with one or more application groups. Alternatively, the GET request may be sent to the \"All CoAP Nodes\" IPv4 multicast address 224.0.1.187 or IPv6 multicast address ff0x::fd (see {{Section 12.8 of RFC7252}}), thus targeting all reachable CoAP servers in any CoAP group. Also, the GET request may specify a query component (see {{Section 4.1 of RFC6690}}), in order to filter the application groups of interest.\r\n```\r\n\r\nI added here an extra link to 4.1 of 6690. I noticed that this specific reference was barely used yet; and this seems a good place to point out where the discovery queries are defined.  The 6690 is already a normative reference and this addition also makes explicit why it's normative.",
+              "createdAt": "2025-12-16T10:00:14Z",
+              "updatedAt": "2025-12-16T10:00:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7VhV1c",
+          "commit": {
+            "abbreviatedOid": "7a7c968"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "See comments; almost ready!",
+          "createdAt": "2025-12-16T10:03:23Z",
+          "updatedAt": "2025-12-16T10:03:23Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDODvYK3c7VofVU",
+          "commit": {
+            "abbreviatedOid": "7a7c968"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T17:17:39Z",
+          "updatedAt": "2025-12-16T17:17:40Z",
+          "comments": [
+            {
+              "originalPosition": 97,
+              "body": "Fixed in https://github.com/core-wg/groupcomm-bis/pull/58/commits/6b08cb36fbe00d884dcdd869fcf1bb4c0f1e8a21",
+              "createdAt": "2025-12-16T17:17:39Z",
+              "updatedAt": "2025-12-16T17:17:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7V2VE3",
+          "commit": {
+            "abbreviatedOid": "6f5fe69"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks!",
+          "createdAt": "2025-12-17T13:34:53Z",
+          "updatedAt": "2025-12-17T13:34:53Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 59,
@@ -3319,19 +3513,366 @@
       "labels": [],
       "body": "This PR addresses the review from Gorry Fairhurst archived at https://mailarchive.ietf.org/arch/msg/core/irEzlcDwuZtzgpTWgDE0n5nw3Wg/",
       "createdAt": "2025-12-14T16:38:37Z",
-      "updatedAt": "2025-12-14T16:38:46Z",
+      "updatedAt": "2025-12-17T13:36:24Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "gorry-review",
-      "headRefOid": "ba558dd8b7fcfb6aa5a5e57a31d50133a56a514a",
+      "headRefOid": "88bfbed5b1604d601a37bc55a9b7c030a577b283",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDODvYK3c7VhbpG",
+          "commit": {
+            "abbreviatedOid": "ba558dd"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T10:08:45Z",
+          "updatedAt": "2025-12-16T10:08:45Z",
+          "comments": [
+            {
+              "originalPosition": 138,
+              "body": "see comment in Med's review - same change here",
+              "createdAt": "2025-12-16T10:08:45Z",
+              "updatedAt": "2025-12-16T10:08:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7Vhj08",
+          "commit": {
+            "abbreviatedOid": "ba558dd"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T10:17:28Z",
+          "updatedAt": "2025-12-16T10:17:29Z",
+          "comments": [
+            {
+              "originalPosition": 251,
+              "body": "```suggestion\r\n* The client repeats a request if a particular server returned 2.03 (Valid) with an ETag value that is not in the client's cache (for that server). The repeated request excludes the \"duplicate\" ETag value. It can be either a group request or a unicast request to the particular server.\r\n```\r\n\r\nSome wordsmithing to make it (hopefully) more clear.",
+              "createdAt": "2025-12-16T10:17:28Z",
+              "updatedAt": "2025-12-16T10:17:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7VhnVn",
+          "commit": {
+            "abbreviatedOid": "ba558dd"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T10:21:18Z",
+          "updatedAt": "2025-12-16T10:21:18Z",
+          "comments": [
+            {
+              "originalPosition": 271,
+              "body": "What's our policy on using \"MUST\" vs \"must\" for requirements imported from 7252 or other RFCs?\r\nDo we have a mixed policy now? Do we need to ask IESG what their preferred policy is?\r\n\r\nChanging to \"must\" is ok but we probably need to say in the Terminology section that the lowercase versions of these words are used to refer to requirements from other RFCs in case accompanied by a reference to such RFC.",
+              "createdAt": "2025-12-16T10:21:18Z",
+              "updatedAt": "2025-12-16T10:21:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7Vhp-J",
+          "commit": {
+            "abbreviatedOid": "ba558dd"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T10:23:56Z",
+          "updatedAt": "2025-12-16T10:23:57Z",
+          "comments": [
+            {
+              "originalPosition": 354,
+              "body": "reference \"3.6.1\" should be a symbolic reference?",
+              "createdAt": "2025-12-16T10:23:57Z",
+              "updatedAt": "2025-12-16T10:23:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7Vhs7V",
+          "commit": {
+            "abbreviatedOid": "ba558dd"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T10:27:04Z",
+          "updatedAt": "2025-12-16T10:27:05Z",
+          "comments": [
+            {
+              "originalPosition": 393,
+              "body": "\"MUST\" vs \"must\" question again (see above)  - since the 1st requirement looks unchanged by our document.",
+              "createdAt": "2025-12-16T10:27:05Z",
+              "updatedAt": "2025-12-16T10:27:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7Vht6T",
+          "commit": {
+            "abbreviatedOid": "ba558dd"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T10:28:08Z",
+          "updatedAt": "2025-12-16T10:28:09Z",
+          "comments": [
+            {
+              "originalPosition": 406,
+              "body": "\"MUST\" vs \"must\" question again",
+              "createdAt": "2025-12-16T10:28:08Z",
+              "updatedAt": "2025-12-16T10:28:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7Vhydi",
+          "commit": {
+            "abbreviatedOid": "ba558dd"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T10:32:53Z",
+          "updatedAt": "2025-12-16T10:32:53Z",
+          "comments": [
+            {
+              "originalPosition": 428,
+              "body": "```suggestion\r\nA CoAP server MUST NOT be accessible for group communication in NoSec mode through the public Internet.\r\n```\r\n\r\nOriginal requirement seems too wide - for any and all CoAP (unicast) communication. This restrains it to the scope of our draft.",
+              "createdAt": "2025-12-16T10:32:53Z",
+              "updatedAt": "2025-12-16T10:32:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7VhzVF",
+          "commit": {
+            "abbreviatedOid": "ba558dd"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Left some comments and suggestions.",
+          "createdAt": "2025-12-16T10:33:52Z",
+          "updatedAt": "2025-12-16T10:33:52Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDODvYK3c7VoqSh",
+          "commit": {
+            "abbreviatedOid": "ba558dd"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T17:28:56Z",
+          "updatedAt": "2025-12-16T17:28:56Z",
+          "comments": [
+            {
+              "originalPosition": 138,
+              "body": "Fixed in https://github.com/core-wg/groupcomm-bis/pull/59/commits/6d3782ec471ecfb1e7e70b8373d439c3c6752661",
+              "createdAt": "2025-12-16T17:28:56Z",
+              "updatedAt": "2025-12-16T17:28:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7VpHbW",
+          "commit": {
+            "abbreviatedOid": "5e024d7"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T17:59:00Z",
+          "updatedAt": "2025-12-16T17:59:00Z",
+          "comments": [
+            {
+              "originalPosition": 271,
+              "body": "TLDR: s/MUST/must\r\n\r\n\r\nI think that this should be \"must\". We simply missed this instance in Section 3.4 and the two next ones in Sections 3.9.1 and 3.9.3 commented below.\r\n\r\n\r\nAs far as I understand, the expected policy is aligned with the comment \"This is not a new behavior\" from Med's review about Section 3.1.1: if the referred document defines the normative requirement, the text of the present document has to use non-normative text to avoid a normative restatement.\r\n\r\nAn alternative that is less often applicable (and that Med also suggested in a review of another document) is to cite the text of the referred document verbatim among quotes.\r\n\r\nSince that should be the expectation anyway, I think it's better to not have an ad-hoc explanation in the Terminology, which might in turn create more discussions on its formulation. However, it's probably a good clarification to have in general for document authors, like in one more document under BCP 14 :-)",
+              "createdAt": "2025-12-16T17:59:00Z",
+              "updatedAt": "2025-12-16T18:02:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7VpQgA",
+          "commit": {
+            "abbreviatedOid": "5e024d7"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T18:07:48Z",
+          "updatedAt": "2025-12-16T18:07:48Z",
+          "comments": [
+            {
+              "originalPosition": 354,
+              "body": "Indeed. Fixed in https://github.com/core-wg/groupcomm-bis/pull/59/commits/6a7e2334a24b8425c839bb08c8be63dc1b2362d0",
+              "createdAt": "2025-12-16T18:07:48Z",
+              "updatedAt": "2025-12-16T18:07:49Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7VpSFR",
+          "commit": {
+            "abbreviatedOid": "5e024d7"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T18:09:18Z",
+          "updatedAt": "2025-12-16T18:09:18Z",
+          "comments": [
+            {
+              "originalPosition": 393,
+              "body": "See reply above: s/MUST/must",
+              "createdAt": "2025-12-16T18:09:18Z",
+              "updatedAt": "2025-12-16T18:09:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7VpSzT",
+          "commit": {
+            "abbreviatedOid": "5e024d7"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T18:10:03Z",
+          "updatedAt": "2025-12-16T18:10:04Z",
+          "comments": [
+            {
+              "originalPosition": 406,
+              "body": "See reply above: s/MUST/must",
+              "createdAt": "2025-12-16T18:10:03Z",
+              "updatedAt": "2025-12-16T18:10:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7VpULY",
+          "commit": {
+            "abbreviatedOid": "5e024d7"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T18:11:32Z",
+          "updatedAt": "2025-12-16T18:11:32Z",
+          "comments": [
+            {
+              "originalPosition": 428,
+              "body": "Yes, good point!",
+              "createdAt": "2025-12-16T18:11:32Z",
+              "updatedAt": "2025-12-16T18:11:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7VsQuP",
+          "commit": {
+            "abbreviatedOid": "ba558dd"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T22:02:54Z",
+          "updatedAt": "2025-12-16T22:02:54Z",
+          "comments": [
+            {
+              "originalPosition": 271,
+              "body": "Yes, ok! We can update (in this PR?) and also highlight this new convention in our reply email. And I would highlight it also back to the CoRE WG since it (superficially) looks like a very big change in normative language use.",
+              "createdAt": "2025-12-16T22:02:54Z",
+              "updatedAt": "2025-12-16T22:02:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7Vsf0T",
+          "commit": {
+            "abbreviatedOid": "ba558dd"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T22:25:23Z",
+          "updatedAt": "2025-12-16T22:25:23Z",
+          "comments": [
+            {
+              "originalPosition": 271,
+              "body": "Great! Also thinking about the reply mail, I think it's actually best to make this update in the PR https://github.com/core-wg/groupcomm-bis/pull/57 for Med's review, as part of addressing his comment \"This is not a new behavior\" about Section 3.1.1.\r\n\r\nWhen responding to Med (with CoRE and others in CC), the reply to that comment can cover both the update made in Section 3.1.1 (see https://github.com/core-wg/groupcomm-bis/commit/ad7b0329dcfa77c5fa033bd3e3225ec36a56e1cc ) due to that comment as well as the new, related update in Sections 3.4, 3.9.1, and 3.9.3.",
+              "createdAt": "2025-12-16T22:25:23Z",
+              "updatedAt": "2025-12-16T22:25:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7V2WJh",
+          "commit": {
+            "abbreviatedOid": "88bfbed"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-17T13:35:54Z",
+          "updatedAt": "2025-12-17T13:35:54Z",
+          "comments": [
+            {
+              "originalPosition": 271,
+              "body": "Ok, I'll resolve this comment now.",
+              "createdAt": "2025-12-17T13:35:54Z",
+              "updatedAt": "2025-12-17T13:35:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7V2WwN",
+          "commit": {
+            "abbreviatedOid": "88bfbed"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-17T13:36:24Z",
+          "updatedAt": "2025-12-17T13:36:24Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
