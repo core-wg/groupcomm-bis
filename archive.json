@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-18T01:46:48.286144+00:00",
+  "timestamp": "2025-12-21T01:56:22.227939+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -3267,7 +3267,7 @@
       "labels": [],
       "body": "This PR addresses the review from Mohamed Boucadair archived at https://mailarchive.ietf.org/arch/msg/core/6bjFRbSwzAvfdQqupIn9hCxB_OA/\r\n\r\n(The separate PR #56 tracks the updates that address the comment on \"dual-stack\" and on the relation between application groups and CoAP groups)",
       "createdAt": "2025-12-13T16:01:22Z",
-      "updatedAt": "2025-12-17T13:55:47Z",
+      "updatedAt": "2025-12-19T14:15:46Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
@@ -3385,6 +3385,26 @@
           "createdAt": "2025-12-17T13:33:52Z",
           "updatedAt": "2025-12-17T13:33:52Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDODvYK3c7WgOIx",
+          "commit": {
+            "abbreviatedOid": "e57399e"
+          },
+          "author": "boucadair",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "Thank for meticulously tracking review points.\r\n\r\nLook good to me. I have one minor suggestion, but I'm OK even without it.",
+          "createdAt": "2025-12-19T14:14:15Z",
+          "updatedAt": "2025-12-19T14:15:46Z",
+          "comments": [
+            {
+              "originalPosition": 172,
+              "body": "```suggestion\r\nNote that some responses to a group request might be filtered out and not reach the client if a NAT device is used with restrictive filtering in place. For example, this is the case if the NAT device employs \"Address and Port-Dependent Filtering\" (see {{Section 5 of RFC4787}}), i.e., the combination of \"Address-Dependent Filtering\" and \"Address and Port-Dependent Filtering\" as defined in {{Section 5 of RFC4787}}.\r\n```\r\n\r\nThe OLD is OK but better to use BEHAVE terms as these are well-established in the industry.",
+              "createdAt": "2025-12-19T14:14:15Z",
+              "updatedAt": "2025-12-19T14:15:46Z"
+            }
+          ]
         }
       ]
     },
