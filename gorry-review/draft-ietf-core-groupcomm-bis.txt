@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                        16 December 2025
-Expires: 19 June 2026
+Intended status: Standards Track                        22 December 2025
+Expires: 25 June 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 June 2026.
+   This Internet-Draft will expire on 25 June 2026.
 
 Copyright Notice
 
@@ -1975,12 +1975,12 @@ Table of Contents
    aliveness of its observing clients and the continued interest of
    these clients in receiving the Observe notifications.  To this end,
    the server occasionally sends a notification to a given observing
-   client in a Confirmable message (see Section 4.5 of [RFC7641] for
-   details).  This requirement overrides the regular behavior of sending
-   Non-confirmable notifications in response to a Non-confirmable
-   request.  Obviously, the requirement to insert a random leisure
-   period as described above does not apply to retransmissions of a
-   Confirmable notification, but only to the initial CoAP message
+   client in a Confirmable message (see Sections 4.5 and 7 of [RFC7641]
+   for details).  This requirement overrides the regular behavior of
+   sending Non-confirmable notifications in response to a Non-
+   confirmable request.  Obviously, the requirement to insert a random
+   leisure period as described above does not apply to retransmissions
+   of a Confirmable notification, but only to the initial CoAP message
    transmission when the CoAP retransmission counter is 0 (see
    Section 4.2 of [RFC7252]).
 
