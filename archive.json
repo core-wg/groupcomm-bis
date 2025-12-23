@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-21T01:56:22.227939+00:00",
+  "timestamp": "2025-12-23T01:51:06.947823+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -3267,7 +3267,7 @@
       "labels": [],
       "body": "This PR addresses the review from Mohamed Boucadair archived at https://mailarchive.ietf.org/arch/msg/core/6bjFRbSwzAvfdQqupIn9hCxB_OA/\r\n\r\n(The separate PR #56 tracks the updates that address the comment on \"dual-stack\" and on the relation between application groups and CoAP groups)",
       "createdAt": "2025-12-13T16:01:22Z",
-      "updatedAt": "2025-12-19T14:15:46Z",
+      "updatedAt": "2025-12-22T12:44:57Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
@@ -3405,6 +3405,26 @@
               "updatedAt": "2025-12-19T14:15:46Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7W0AzO",
+          "commit": {
+            "abbreviatedOid": "e57399e"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-22T12:44:57Z",
+          "updatedAt": "2025-12-22T12:44:57Z",
+          "comments": [
+            {
+              "originalPosition": 172,
+              "body": "@boucadair Thanks, I like this suggestion. Will be included!",
+              "createdAt": "2025-12-22T12:44:57Z",
+              "updatedAt": "2025-12-22T12:44:57Z"
+            }
+          ]
         }
       ]
     },
@@ -3533,18 +3553,33 @@
       "labels": [],
       "body": "This PR addresses the review from Gorry Fairhurst archived at https://mailarchive.ietf.org/arch/msg/core/irEzlcDwuZtzgpTWgDE0n5nw3Wg/",
       "createdAt": "2025-12-14T16:38:37Z",
-      "updatedAt": "2025-12-17T13:36:24Z",
+      "updatedAt": "2025-12-22T15:44:09Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "gorry-review",
-      "headRefOid": "88bfbed5b1604d601a37bc55a9b7c030a577b283",
+      "headRefOid": "2f675b1a587b049be3e3c7b49e9f74e2a0cd97cd",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@marco-tiloca-sics I really wanted to add the \"Section 7\" RFC 7641 reference as per the last commit.\r\nBecause two sections both have crucial MUST requirements related to validating client interest. But I can't seem to find the right syntax to do this - in the past, this worked easily for me.",
+          "createdAt": "2025-12-22T14:11:17Z",
+          "updatedAt": "2025-12-22T14:11:17Z"
+        },
+        {
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> @marco-tiloca-sics I really wanted to add the \"Section 7\" RFC 7641 reference as per the last commit. Because two sections both have crucial MUST requirements related to validating client interest. But I can't seem to find the right syntax to do this - in the past, this worked easily for me.\r\n\r\nNow fixed in https://github.com/core-wg/groupcomm-bis/commit/2f675b1a587b049be3e3c7b49e9f74e2a0cd97cd\r\n\r\nThe notation is `{{Sections 4.5 and 7 of RFC7641}}`,  or `{{Sections 1, 4.5 and 7 of RFC7641}}` if there were more than two sections.",
+          "createdAt": "2025-12-22T15:44:09Z",
+          "updatedAt": "2025-12-22T15:44:09Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDODvYK3c7VhbpG",
