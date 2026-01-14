@@ -1370,7 +1370,7 @@ In addition, {{fig-lights-response}} shows a protocol flow example for the case 
 
 Reliability of IP multicast is not guaranteed. Therefore, one or more lights in the group may not have received the CoAP control request due to packet loss. In this use case, there is no detection nor correction of such situations: the application layer expects that the IP multicast forwarding/routing will be of sufficient quality to provide on average a very high probability of packet delivery to all CoAP endpoints in an IP multicast group. An example protocol to accomplish this using randomized retransmission is the MPL forwarding protocol for LLNs {{RFC7731}}.
 
-We assume the following steps have already occurred before the illustrated flows:
+It is assumed that the following steps have already occurred before the illustrated flows:
 
 1) Startup phase: 6LoWPANs are formed. IPv6 addresses are assigned to all devices. The CoAP network is formed.
 
