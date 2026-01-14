@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                       25 September 2025
-Expires: 29 March 2026
+Intended status: Standards Track                         14 January 2026
+Expires: 18 July 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,11 +60,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 March 2026.
+   This Internet-Draft will expire on 18 July 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -566,12 +566,11 @@ Table of Contents
    report humidity.
 
    All the shown application groups may use the same CoAP group (not
-   shown in the figure), for example the CoAP group with site-local,
-   site-specific multicast IP address ff15::3456 and default UDP port
-   number 5683 on which all the shown resources are hosted for each
-   server.  Other floors of the same building may replicate the shown
-   structure, but using different security groups and different CoAP
-   groups.
+   shown in the figure), for example the CoAP group with site-local
+   multicast IP address ff05::db8:0:3456 and default UDP port number
+   5683 on which all the shown resources are hosted for each server.
+   Other floors of the same building may replicate the shown structure,
+   but using different security groups and different CoAP groups.
 
     .------------------------------.   .-----------------------------.
    |                                | |                               |
@@ -622,14 +621,14 @@ Table of Contents
    It follows that the same CoAP group might have multiple names, which
    can be simultaneously and interchangeably used.  For example, if the
    two hostnames group1.example and group1.alias.example both resolve to
-   the IP multicast address [ff15::1234], then the following authority
-   components are all names for the same CoAP group.
+   the IP multicast address [ff05::db8:0:1], then the following
+   authority components are all names for the same CoAP group.
 
    *  group1.example:7700
 
    *  group1.alias.example:7700
 
-   *  [ff15::1234]:7700
+   *  [ff05::db8:0:1]:7700
 
    Also note that, when using the "coap" scheme, the two authority
    components <HOST> and <HOST>:5683 both identify the same CoAP group,
@@ -641,13 +640,13 @@ Table of Contents
 
    *  group1.alias.example
 
-   *  [ff15::1234]
+   *  [ff05::db8:0:1]
 
    *  group1.example:5683
 
    *  group1.alias.example:5683
 
-   *  [ff15::1234]:5683
+   *  [ff05::db8:0:1]:5683
 
    When configuring a CoAP group membership, it is recommended to
    configure an endpoint with an IP multicast address literal, instead
@@ -784,12 +783,12 @@ Table of Contents
    Resource Directory (RD), along with the CoAP group it uses and the
    resources it supports.  In that example, an application group name
    "lights" is encoded in the "ep" (endpoint) attribute of the RD
-   registration entry, while the CoAP group ff35:30:2001:db8:f1:0:8000:1
+   registration entry, while the CoAP group ff35:30:2001:db8:f1::8000:1
    is specified in the authority component of the URI encoded in the
    "base" attribute.  In subsequent group requests by a client to the
    "lights" group, the name of the group is not present in the request
    message.  Rather, the URI authority component that selects the CoAP
-   group ff35:30:2001:db8:f1:0:8000:1 will implicitly also select the
+   group ff35:30:2001:db8:f1::8000:1 will implicitly also select the
    "lights" application group.
 
 2.2.1.3.  Security Groups
@@ -858,8 +857,11 @@ Table of Contents
    experiment is concluded as showing that the protocol has not been
    considered for deployment and use.
 
-   For IPv6 CoAP groups, common multicast address ranges from which
-   group addresses can be taken are ff1x::/16 and ff3x::/16.
+   For IPv6 CoAP groups, this document does not suggest or recommend any
+   particular multicast address ranges from which group addresses can be
+   taken.  It is up to network operators and managers to appropriately
+   select addresses from the multicast address space with the intended
+   multicast address scope.
 
    To create an application group, a configuring entity may configure a
    resource or a set of resources on CoAP endpoints, such that a CoAP
@@ -3141,7 +3143,20 @@ Table of Contents
 
 7.  IANA Considerations
 
-   This document has no actions for IANA.
+   As per the IANA considerations of [RFC7390], the Resource Type (rt=)
+   Link Target Attribute Value "core.gp" and the media type
+   "application/coap-group+json" were registered.
+
+   Those registrations were made in the interest of the experimental
+   protocol defined in [RFC7390] for configuring memberships of CoAP
+   groups for unsecured group communication.  As noted in Section 2.2.2
+   of the present document, that protocol has not been considered for
+   deployment and use.
+
+   The two registrations mentioned above remain in place, although the
+   Resource Type Link Target Attribute Value "core.gp" and the media
+   type "application/coap-group+json" are not expected to be used by
+   applications and are not used by the present document.
 
 8.  References
 
@@ -3151,14 +3166,9 @@ Table of Contents
               Tiloca, M., Selander, G., Palombini, F., Mattsson, J. P.,
               and R. Höglund, "Group Object Security for Constrained
               RESTful Environments (Group OSCORE)", Work in Progress,
-              Internet-Draft, draft-ietf-core-oscore-groupcomm-27, 12
-              September 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-core-oscore-groupcomm-27>.
-
-   [Resource.Type.Link.Target.Attribute.Values]
-              IANA, "Resource Type (rt=) Link Target Attribute Values",
-              <https://www.iana.org/assignments/core-parameters/core-
-              parameters.xhtml#rt-link-target-att-value>.
+              Internet-Draft, draft-ietf-core-oscore-groupcomm-28, 23
+              December 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-core-oscore-groupcomm-28>.
 
    [RFC1122]  Braden, R., Ed., "Requirements for Internet Hosts -
               Communication Layers", STD 3, RFC 1122,
@@ -3280,9 +3290,9 @@ Table of Contents
    [I-D.bormann-core-responses]
               Bormann, C. and C. Amsüss, "CoAP: Non-traditional response
               forms", Work in Progress, Internet-Draft, draft-bormann-
-              core-responses-05, 30 August 2025,
+              core-responses-06, 20 October 2025,
               <https://datatracker.ietf.org/doc/html/draft-bormann-core-
-              responses-05>.
+              responses-06>.
 
    [I-D.ietf-ace-key-groupcomm-oscore]
               Tiloca, M. and F. Palombini, "Key Management for Group
@@ -3305,9 +3315,9 @@ Table of Contents
               Richardson, M., Van der Stok, P., Kampanakis, P., and E.
               Dijk, "Constrained Bootstrapping Remote Secure Key
               Infrastructure (cBRSKI)", Work in Progress, Internet-
-              Draft, draft-ietf-anima-constrained-voucher-28, 6 July
+              Draft, draft-ietf-anima-constrained-voucher-29, 18 October
               2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              anima-constrained-voucher-28>.
+              anima-constrained-voucher-29>.
 
    [I-D.ietf-core-coap-pubsub]
               Jimenez, J., Koster, M., and A. Keränen, "A publish-
@@ -3349,6 +3359,11 @@ Table of Contents
 
    [libcoap]  Bergmann, O., "libcoap", June 2022,
               <https://github.com/obgm/libcoap>.
+
+   [Resource.Type.Link.Target.Attribute.Values]
+              IANA, "Resource Type (rt=) Link Target Attribute Values",
+              <https://www.iana.org/assignments/core-parameters/core-
+              parameters.xhtml#rt-link-target-att-value>.
 
    [RFC3596]  Thomson, S., Huitema, C., Ksinant, V., and M. Souissi,
               "DNS Extensions to Support IP Version 6", STD 88,
@@ -3907,8 +3922,8 @@ Appendix B.  Examples of Group Naming for Application Groups
 
    The shown examples consider a CoAP group identified by the group
    hostname grp.example.  Its members are CoAP servers listening to the
-   associated IP multicast address ff35:30:2001:db8:f1:0:8000:1 and port
-   number 5685.
+   associated IP multicast address ff05::db8:8000:1 and port number
+   5685.
 
    Note that a group hostname is used in most examples to improve
    readability.  In practice, as discussed in Section 2.2.1.2, using an
@@ -3947,7 +3962,7 @@ B.1.  Group Naming using the URI Path Component
 
       Application group name: gp1
 
-      Group URI: coap://[ff35:30:2001:db8:f1:0:8000:1]/g/gp1/li
+      Group URI: coap://[ff05::db8:8000:1]/g/gp1/li
 
       CoAP group request
          Header: POST (T=NON, Code=0.02, MID=0x7d41)
@@ -5042,8 +5057,9 @@ Acknowledgements
 
    The authors sincerely thank Christian Amsüss, Mike Bishop, Carsten
    Bormann, Roni Even, Thomas Fossati, Rikard Höglund, Jaime Jiménez,
-   John Preuß Mattsson, Jim Schaad, Jon Shallow, Petr Špaček, Sean
-   Turner, and Magnus Westerlund for their comments and feedback.
+   John Preuß Mattsson, Jim Schaad, Jon Shallow, Petr Špaček, Ketan
+   Talaulikar, Sean Turner, and Magnus Westerlund for their comments and
+   feedback.
 
    The work on this document has been partly supported by the Sweden's
    Innovation Agency VINNOVA and the Celtic-Next projects CRITISEC and
