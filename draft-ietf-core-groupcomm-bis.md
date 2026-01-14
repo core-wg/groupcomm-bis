@@ -44,10 +44,10 @@ author:
         email: marco.tiloca@ri.se
 
 normative:
+  RFC1112:
   RFC1122:
   RFC4443:
   RFC4944:
-  RFC5110:
   RFC6282:
   RFC6690:
   RFC6775:
@@ -56,6 +56,7 @@ normative:
   RFC7959:
   RFC7967:
   RFC8075:
+  RFC8085:
   RFC8132:
   RFC8613:
   RFC9052:
@@ -65,12 +66,6 @@ normative:
   RFC9175:
   RFC9776:
   I-D.ietf-core-oscore-groupcomm:
-  Resource.Type.Link.Target.Attribute.Values:
-    author:
-      org: IANA
-    date: false
-    title: Resource Type (rt=) Link Target Attribute Values
-    target: https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#rt-link-target-att-value
 
 informative:
   I-D.bormann-core-responses:
@@ -82,6 +77,8 @@ informative:
   I-D.ietf-core-coap-pubsub:
   I-D.ietf-core-transport-indication:
   I-D.irtf-t2trg-amplification-attacks:
+  I-D.ietf-intarea-multicast-application-port:
+  RFC3307:
   RFC3596:
   RFC4787:
   RFC6092:
@@ -100,6 +97,12 @@ informative:
   RFC9200:
   RFC9685: multicast-registration # was I-D.ietf-6lo-multicast-registration:
   RFC9777:
+  Resource.Type.Link.Target.Attribute.Values:
+    author:
+      org: IANA
+    date: false
+    title: Resource Type (rt=) Link Target Attribute Values
+    target: https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#rt-link-target-att-value
   UML:
     author:
       org: Object Management Group Standards Development Organization
@@ -123,7 +126,7 @@ In a number of use cases, constrained devices can be large in number as well as 
 
 This document specifies the use of CoAP for group communication, together with UDP/IP multicast as the default transport for CoAP group communication messages.
 
-One-to-many group communication can be achieved in CoAP, by a client using UDP/IP multicast data transport to send multicast CoAP request messages. In response, each server in the addressed group sends a response message back to the client over UDP/IP unicast.
+One-to-many group communication can be achieved in CoAP, by a client using UDP/IP multicast data transport to send multicast CoAP request messages to all servers in a group. Within a given group, multiple clients can send multicast CoAP request messages. In response, each server in the addressed group sends a response message back to the client over UDP/IP unicast.
 
 Both unsecured and secured CoAP group communication are specified in this document.
 
@@ -136,9 +139,11 @@ This document replaces and obsoletes {{RFC7390}}, while it updates both {{RFC725
 All sections in the body of this document are normative, while appendices are informative. For additional background about use cases for CoAP group communication in resource-constrained devices and networks, see {{appendix-usecases}}.
 
 ## Scope ## {#scope}
-For group communication, only those solutions that use CoAP messages over a "one-to-many" (i.e., non-unicast) transport protocol are in the scope of this document. Such solutions are desirable for applications that need a request message to be delivered with low latency and/or in a synchronous way to multiple recipient servers at once. For applications that do not have those requirements, there are alternative methods to achieve group communication using CoAP, using unicast only. One example is Publish-Subscribe {{I-D.ietf-core-coap-pubsub}} which uses a central broker server that CoAP clients access via unicast communication. These alternative methods may be usable for the same or similar use cases as the ones targeted in this document.
+For group communication, only those solutions that use CoAP messages over a "one-to-many" (i.e., non-unicast) transport protocol are in the scope of this document. By using such a transport protocol, any client in a group can send a multicast CoAP request message to all servers in the group. That is, "one-to-many" refers to the delivery of a given message from one sender to multiple recipients, and the sender, the recipients, or both can change on a per-message basis. Such solutions are desirable for applications that need a request message to be delivered with low latency and/or in a synchronous way to multiple recipient servers at once.
 
-This document defines UDP/IP multicast as the default transport protocol for CoAP group requests, as in {{RFC7252}}. Only the Any Source Multicast (ASM) mode {{RFC5110}} of IP multicast operation is in scope. Other transport protocols (which may include broadcast, non-IP multicast, geocast, etc.) are not described in detail and are not considered. Although UDP/IP multicast transport is assumed in most of the text in this document, we expect many of the considerations for UDP/IP multicast can be re-used for alternative transport protocols.
+For applications that do not have those requirements, there are alternative methods to achieve group communication using CoAP, using unicast only. One example is Publish-Subscribe {{I-D.ietf-core-coap-pubsub}} which uses a central broker server that CoAP clients access via unicast communication. These alternative methods may be usable for the same or similar use cases as the ones targeted in this document.
+
+This document defines UDP/IP multicast as the default transport protocol for CoAP group requests, as in {{RFC7252}}. Only the Any Source Multicast (ASM) mode of IP multicast operation is in scope, as defined in {{RFC1112}} and referred by that name in {{RFC8085}}. Other transport protocols (which may include broadcast, non-IP multicast, geocast, etc.) are not described in detail and are not considered. Although UDP/IP multicast transport is assumed in most of the text in this document, we expect many of the considerations for UDP/IP multicast can be re-used for alternative transport protocols.
 
 Furthermore, this document defines Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} as the default group communication security solution for CoAP. Security solutions for group communication and configuration other than Group OSCORE are not considered. General principles for secure group configuration are in scope.
 
@@ -178,7 +183,7 @@ This document updates {{RFC7252}} as follows.
 
 * It defines the measures against congestion risk specified in {{RFC7252}} to be applicable also to alternative transports other than IP multicast and defines additional guidelines to reduce congestion risks (see {{sec-congestion}}), including new values for the transmission parameter DEFAULT_LEISURE that account for secure communication with Group OSCORE (see {{sec-leisure}}).
 
-* It explicitly allows the use of the IPv6 multicast address scopes realm-local (3), admin-local (4), and global (E). In particular, it recommends that an IPv6 CoAP server supports at least link-local (2), admin-local (4), and site-local (5) scopes with the "All CoAP Nodes" multicast CoAP group (see {{sec-udptransport}}). Also, it recommends that the realm-local (3) scope is supported by an IPv6 CoAP server on a 6LoWPAN node (see {{sec-udptransport}}).
+* It explicitly allows the use of the IPv6 multicast address scopes realm-local (3), admin-local (4), and global (E). In particular, it recommends that an IPv6 CoAP server supports at least the link-local (2), admin-local (4), and site-local (5) scope "All CoAP Nodes" multicast addresses (see {{sec-udptransport}}). Also, it recommends that the realm-local (3) scope is supported by an IPv6 CoAP server on a 6LoWPAN node (see {{sec-udptransport}}).
 
 This document updates {{RFC7641}} as follows.
 
@@ -194,16 +199,23 @@ Three types of groups and their mutual relationships are defined in this section
 ### CoAP Group ## {#sec-groupdef-coapgroup}
 A CoAP group is defined as a set of CoAP endpoints, where each endpoint is configured to receive CoAP group messages that are sent to the group's associated IP multicast address and UDP port. That is, CoAP groups have relevance at the level of IP networks and CoAP endpoints.
 
+This is aligned with the notion of CoAP endpoint as identified by an IP address and a UDP port number, both for unsecure group communication using the NoSec mode and secure group communication using Group OSCORE. In either case, the default port number is 5683.
+
 An endpoint may be a member of multiple CoAP groups, e.g., by subscribing to multiple IP multicast addresses. A node may be a member of multiple CoAP groups, by hosting multiple CoAP server endpoints on different combinations of IP address and UDP port. Membership(s) of an endpoint or node to a CoAP group may dynamically change over time. A node or endpoint sending a CoAP group message to a CoAP group is not necessarily itself a member of that CoAP group: it is a member only if it also has a CoAP endpoint listening on the associated IP multicast address and UDP port associated with the CoAP group.
 
-A CoAP group is identified by information encoded within a group URI. Further details on identifying a CoAP group are provided in {{sec-groupnaming-coap}}.
+A CoAP group is identified by information encoded within a group URI, which can contain a UDP port number in the authority component (see {{terminology}}). If no UDP port number is present, then the port number used to identify the CoAP group is the default port number 5683.
+
+Consequently, a configuring entity can choose to rely only on IP multicast addresses (or corresponding hostnames) in order to practically identify different CoAP groups, without specifying port numbers. As a result, those CoAP groups will be identified by a pair (IP address, port number), where different CoAP groups use a different IP multicast address and all use the same default port number 5683.
+
+Further details on identifying a CoAP group are provided in {{sec-groupnaming-coap}}.
 
 ### Application Group ## {#sec-groupdef-applicationgroup}
 An application group is a set of CoAP server endpoints (hosted on different nodes) that share a common set of CoAP resources. That is, an application group has relevance at the application level. For example, an application group could denote all lights in an office room or all sensors in a hallway.
 
 An endpoint may be a member of multiple application groups. A client endpoint that sends a group communication message to an application group is not necessarily itself a member of this application group.
 
-There can be a one-to-one or a one-to-many relationship between a CoAP group and application group(s). Such relationships are discussed in more detail in {{sec-groupdef-grouprelations}}.
+Between CoAP groups and application groups, there can be a many-to-many, one-to-many, many-to-one, or one-to-one relationship.
+Such relationships are discussed in more detail in {{sec-groupdef-grouprelations}}.
 
 An application group name may be explicitly encoded in the group URI of a CoAP request, for example in the URI path component. If this is not the case, the application group is implicitly derived by the receiver, e.g., based on information in the CoAP request or other contextual information. Further details on identifying an application group are provided in {{sec-groupnaming-app}}.
 
@@ -212,7 +224,7 @@ For secure group communication, a security group is required. A security group c
 
 That is, a client endpoint needs to be a member of a security group in order to send a valid secured group communication message to that group. A server endpoint needs to be a member of a security group in order to receive and correctly verify a secured group communication message sent to that group. An endpoint may be a member of multiple security groups.
 
-Between security groups and CoAP groups, there can be a many-to-many relationship or a one-to-one relationship. Also, between security groups and application groups, there can be a many-to-many relationship or a one-to-one relationship. Configuring entities can establish relationships between groups of different types as appropriate for the specific deployment and with no restriction by design. Endpoints that are members of security groups are expected to support all such relationships, which are discussed in more detail in {{sec-groupdef-grouprelations}}.
+Between CoAP groups and security groups, there can be a many-to-many, one-to-many, many-to-one, or one-to-one relationship. Also, between application groups and security groups, there can be a many-to-many, one-to-many, many-to-one, or one-to-one relationship. Configuring entities can establish relationships between groups of different types as appropriate for the specific deployment and with no restriction by design. Endpoints that are members of security groups are expected to support all such relationships, which are discussed in more detail in {{sec-groupdef-grouprelations}}.
 
 Further details on identifying a security group are provided in {{sec-groupnaming-sec}}.
 
@@ -241,9 +253,9 @@ In fact, being a member of a security group actually grants access only to excha
 +------------------------------+              +--------------------+
 |   Application group          |              |    CoAP group      |
 |..............................|              |....................|
-|                              |              |                    |
+|                              |        1...N |                    |
 | [ - Application group name ] +--------------+ - IP mcast address |
-|                              |  1...N    1  | - UDP port number  |
+|                              | 1...N        | - UDP port number  |
 | - Resource URI path(s)       |              |                    |
 |                              |              |                    |
 +-------------+----------------+              +---------+----------+
@@ -266,7 +278,7 @@ In fact, being a member of a security group actually grants access only to excha
 
 There are three application groups (1, 2, 3) and two security groups (1, 2). The Security Group 1 may, for example, include all lighting devices on a floor of an office building, while Security Group 2 includes all Heating, Ventilation, and Air Conditioning (HVAC) devices of that floor. Security Group 1 is used by both Application Group 1 and 2. The Application Group 1 for example may consist of all lights in a hallway, while Application Group 2 includes all lights in a storage room. Three clients (Cli1, Cli2, Cli3) are configured with security material for Security Group 1. These clients may be motion sensors and a control panel (Cli3), that send multicast messages to /resA to inform the lights of any motion or user activity detected. The control panel Cli3 additionally sends a multicast message to /resB to communicate the latest light preset selected by a user. The latter action only influences the lighting in the storage room (Application Group 2). Two clients (Cli2, Cli4) are configured with security material for Security Group 2. These clients may be temperature/humidity sensors that report measurements periodically to all HVAC devices (Srv5, Srv6) in the Application Group 3, using for example /resC to report temperature and /resD to report humidity.
 
-All the shown application groups may use the same CoAP group (not shown in the figure), for example the CoAP group with site-local, site-specific multicast IP address ff15::3456 and default UDP port number 5683 on which all the shown resources are hosted for each server. Other floors of the same building may replicate the shown structure, but using different security groups and different CoAP groups.
+All the shown application groups may use the same CoAP group (not shown in the figure), for example the CoAP group with site-local multicast IP address ff05::db8:0:3456 and default UDP port number 5683 on which all the shown resources are hosted for each server. Other floors of the same building may replicate the shown structure, but using different security groups and different CoAP groups.
 
 ~~~~~~~~~~~ aasvg
  .------------------------------.   .-----------------------------.
@@ -301,32 +313,35 @@ Different types of groups are named as specified below, separately for CoAP grou
 
 #### CoAP Groups ### {#sec-groupnaming-coap}
 
-A CoAP group is always defined by the two properties of IP multicast address and UDP port number (see {{sec-groupdef-coapgroup}}).
+A CoAP group is always defined by two properties: an IP multicast address and a UDP port number (see {{sec-groupdef-coapgroup}}).
 
 However, a CoAP group is for practical purposes identified and named by the authority component in the group URI. This component includes the host subcomponent and an optional UDP port number.
 The host subcomponent directly defines the IP multicast address of the CoAP group, in case the host consists of an IP literal.
-The host subcomponent indirectly defines the IP multicast address of the CoAP group, in case the host consists of a hostname: resolving the hostname to an IP address in this case produces the IP multicast address.
+The host subcomponent indirectly defines the IP multicast address of the CoAP group, in case the host consists of a hostname. Resolving the hostname to an IP address in this case produces the IP multicast address.
+If the hostname resolves to multiple multicast addresses, then the authority component of the group URI identifies (names) multiple CoAP groups: one for each resolved address.
 
-It follows that the same CoAP group might have multiple names, which can be simultaneously and interchangeably used. For example, if the two hostnames group1.example and group1.alias.example both resolve to the IP multicast address \[ff15::1234\], then the following authority components are all names for the same CoAP group.
+It follows that one name can be used for multiple CoAP groups.
+Conversely, a single CoAP group might also have multiple names, which can be simultaneously and interchangeably used within a network. For example, if the two hostnames group1.example and group1.alias.example both resolve to the IP multicast address \[ff15::1234\], then the following authority components are all names for the same CoAP group.
 
 * group1.example:7700
 * group1.alias.example:7700
-* \[ff15::1234\]:7700
+* \[ff05::db8:0:1\]:7700
 
 Also note that, when using the "coap" scheme, the two authority components \<HOST\> and \<HOST\>:5683 both identify the same CoAP group, whose members listen to the CoAP default port number 5683. Therefore, building on the above, the following authority components are all names for the same CoAP group.
 
 * group1.example
 * group1.alias.example
-* \[ff15::1234\]
+* \[ff05::db8:0:1\]
 * group1.example:5683
 * group1.alias.example:5683
-* \[ff15::1234\]:5683
+* \[ff05::db8:0:1\]:5683
 
-When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal instead of a group hostname, to avoid network load due to name resolution queries. In fact, an infrastructure providing a name resolution service, such as DNS, may not be deployed in many constrained networks. In such cases, using an IP multicast address literal is the only viable option for the configuring entity that creates a CoAP group.
+When configuring a CoAP group membership, it is recommended to configure an endpoint with an IP multicast address literal instead of a group hostname, to avoid network load due to name resolution queries. In fact, an infrastructure providing a name resolution service, such as DNS, may not be deployed in some constrained networks. In such cases, using an IP multicast address literal is the only viable option for the configuring entity that creates a CoAP group.
 
 If a group hostname is configured, it can be uniquely mapped to an IP multicast address via a name resolution service. For example, this can rely on the DNS resolution process, if DNS client functionality is available in the endpoint being configured and the DNS service is supported in the network.
 
 Some examples of hierarchical CoAP group FQDN naming (and scoping) for a building control application are shown below.
+For all these example CoAP groups, the associated port number is the default CoAP port number 5683.
 
 | URI authority                       | Targeted group of nodes                                     |
 | all.bldg6.example                   | "all nodes in building 6"                                   |
@@ -361,10 +376,10 @@ An application group name can be explicitly encoded in a group URI. Specifically
 
 * URI authority component -- If this method is used, the application group is identified by the authority component of the group URI or a subset thereof.
 
-   Because the CoAP group is also defined by the same authority component (see {{sec-groupnaming-coap}}), even when using this method, a given application group is always associated with exactly one CoAP group. (See {{sec-groupdef-grouprelations}} for background on group relationships.)
-
    Note that the host subcomponent within the authority component of the Group URI can be a group hostname, or an IP address literal. For constrained networks, using an IP address literal matching the request's destination IP address has the benefit of reducing the size of the CoAP message.
    This is because the Uri-Host Option is elided from the CoAP request in this case, since its default value applies (see {{Sections 5.10.1 and 6.4 of RFC7252}}).
+
+   The CoAP group is also defined by the same authority component (see {{sec-groupnaming-coap}}). If the authority component of the Group URI is an IP address literal, then the identified application group is associated with exactly one CoAP group. But if the authority component of the Group URI is a hostname, then the identified application group can be associated with one or more CoAP groups as per the result of the name resolution process (see {{sec-groupnaming-coap}}). See {{sec-groupdef-grouprelations}} for further background on group relationships.
 
    Full examples are provided in {{sec-examples-app-group-naming-authority}}.
 
@@ -373,7 +388,7 @@ Due to the CoAP client's encoding of the request URI into CoAP options (per {{Se
 Any other method to transport the application group name within a CoAP request, but not using the group URI, would require a new CoAP option to be defined. Such an approach is out of the scope of this document.
 
 Finally, it is also possible to omit the application group name from the CoAP request, yielding the most compact representation on the wire. In this case, each CoAP server needs to determine the right application group based on contextual information, such as the CoAP group, and/or the client identity and/or the target resource. For example, each application group on a server could support a unique set of resources, such that it does not overlap with the set of resources of any other application group.
-Appendix A of {{RFC9176}} provides an example of a named application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources it supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry, while the CoAP group ff35:30:2001:db8:f1:0:8000:1 is specified in the authority component of the URI encoded in the "base" attribute. In subsequent group requests by a client to the "lights" group, the name of the group is not present in the request message. Rather, the URI authority component that selects the CoAP group ff35:30:2001:db8:f1:0:8000:1 will implicitly also select the "lights" application group.
+{{Section A of RFC9176}} provides an example of a named application group registered to a Resource Directory (RD), along with the CoAP group it uses and the resources it supports. In that example, an application group name "lights" is encoded in the "ep" (endpoint) attribute of the RD registration entry, while the CoAP group ff35:30:2001:db8:f1::8000:1 with default port number 5683 is specified in the authority component of the URI encoded in the "base" attribute. In subsequent group requests by a client to the "lights" group, the name of the group is not present in the request message. Rather, the URI authority component that selects the CoAP group ff35:30:2001:db8:f1::8000:1 will implicitly also select the "lights" application group.
 
 
 #### Security Groups ### {#sec-groupnaming-sec}
@@ -391,10 +406,11 @@ The name of a security group is not expected to be used in messages exchanged am
 It is discouraged to use "NoSec" and any of its lowercase/uppercase combinations as name of a security group. Indications that endpoints can use the NoSec mode MUST NOT rely on setting up and advertising a pseudo security group with name "NoSec" or any of its lowercase/uppercase combinations.
 
 ### Group Creation and Membership ### {#sssec-group-creation}
-
 This section discusses the creation of different types of groups, as entrusted to a "configuring entity". The same configuring entity can be responsible for creating groups of different types, e.g., both CoAP groups and application groups.
 
-To create a CoAP group, a configuring entity defines an IP multicast address (or hostname) for the group and optionally a UDP port number in case it differs from the default CoAP port number 5683. Then, it configures one or more devices as listeners to that IP multicast address, with a CoAP endpoint listening on the CoAP group's associated UDP port. These endpoints/devices are the group members.
+To create a CoAP group, a configuring entity defines an IP multicast address (or hostname) for the group and optionally a UDP port number in case it differs from the default CoAP port number 5683. Then, the configuring entity configures one or more devices as listeners to that IP multicast address, with a CoAP endpoint listening on the CoAP group's associated UDP port. These endpoints/devices are the group members.
+
+Note that, for some use cases, multiple CoAP groups can be created to serve the same purpose. For example, to accommodate dual-stack group members, the configuring entity can define one CoAP group with an IPv4 multicast address and another one with an IPv6 multicast address, which can be interchangeably used by CoAP clients. Another example consists of creating multiple CoAP groups using multicast IPv6 addresses of different scopes.
 
 A configuring entity can be, for example, a local application with pre-configuration, a user, a software developer, a cloud service, or a local commissioning tool. In general, the creation of a CoAP group can involve multiple configuring entities that might be of different types. If the configuring entities are different from the ones entrusted with the device deployment, care has to be taken in order to avoid configurations that are conflicting or stale.
 
@@ -402,7 +418,7 @@ The devices sending CoAP requests to the CoAP group in the role of CoAP client a
 
 The IETF does not define a mandatory protocol to accomplish CoAP group creation. {{RFC7390}} defined an experimental protocol for configuring memberships of CoAP groups for unsecured group communication, based on JSON-formatted configuration resources. The experiment is concluded as showing that the protocol has not been considered for deployment and use.
 
-For IPv6 CoAP groups, this document does not suggest or recommend any particular multicast address ranges from which group addresses can be taken. It is up to network operators and managers to appropriately select addresses from the multicast address space with the intended multicast address scope.
+For IPv6 CoAP groups, this document does not suggest or recommend any particular multicast address ranges from which group addresses can be taken. It is up to network operators and managers to appropriately select addresses from the multicast address space with the intended multicast address scope. Guidelines for selecting and assigning IPv6 multicast addresses are compiled in {{RFC3307}}.
 
 To create an application group, a configuring entity may configure a resource or a set of resources on CoAP endpoints, such that a CoAP request sent to a group URI by a configured CoAP client will be processed by one or more CoAP servers that have the matching URI path configured. These servers are the members of the application group.
 
@@ -420,9 +436,9 @@ The following describes how a CoAP endpoint can discover groups by different mea
 
 #### Discovery through a Resource Directory ### {#sssec-discovery-from-rd}
 
-It is possible for CoAP endpoints to discover application groups as well as CoAP groups, by using the RD-Groups usage pattern of the CoRE Resource Directory (RD), as defined in Appendix A of {{RFC9176}}.
+It is possible for CoAP endpoints to discover application groups as well as CoAP groups, by using the RD-Groups usage pattern of the CoRE Resource Directory (RD), as defined in {{Section A of RFC9176}}.
 
-In particular, an application group can be registered to the RD, specifying the reference IP multicast address of its associated CoAP group. The registration of groups to the RD is typically performed by a Commissioning Tool. Later on, CoAP endpoints can discover the registered application groups and related CoAP group(s), by using the lookup interface of the RD.
+In particular, an application group can be registered to the RD, specifying the reference IP multicast address(es) of its associated CoAP group(s). The registration of groups to the RD is typically performed by a Commissioning Tool. Later on, CoAP endpoints can discover the registered application groups and related CoAP group(s), by using the lookup interface of the RD.
 
 When secure communication is provided with Group OSCORE (see {{chap-oscore}}), the approach described in {{I-D.tiloca-core-oscore-discovery}} also based on the RD can be used in order to discover the security group to join.
 
@@ -458,32 +474,32 @@ Full examples for the different methods are provided in {{sec-examples-group-dis
 
    A full example is provided in {{sec-examples-group-discovery-1}}.
 
-* A CoAP client can discover the CoAP servers that are members of a specific application group, the CoAP group associated with the application group, and optionally the resources that those servers host for each application group.
+* A CoAP client can discover the CoAP servers that are members of a specific application group, the CoAP group(s) associated with the application group, and optionally the resources that those servers host for each application group.
 
    This is achieved by sending the GET request above to the "All CoAP Nodes" IP multicast address (see {{Section 12.8 of RFC7252}}), with a particular chosen scope (e.g., site-local or realm-local) if IPv6 is used. Also, the request specifies the application group name of interest in the URI query component, as defined in {{sec-groupnaming-app}}. For example, the request can use a Group URI with path and query components "/.well-known/core?href=/gp/gp1" to specify the application group with name "gp1".
 
-   Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of the specified application group and for each application group the associated CoAP group. That is, the client gains knowledge of: i) the set of servers that are members of the specified application group and of the associated CoAP group; ii) for each of those servers, optionally the resources it hosts within the application group.
+   Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of the specified application group and for each application group the associated CoAP group(s). That is, the client gains knowledge of: i) the set of servers that are members of the specified application group and of the associated CoAP group(s); ii) for each of those servers, optionally the resources it hosts within the application group.
 
    If the client wishes to discover resources that a particular server hosts within a particular application group, it may use unicast discovery request(s) to this server.
 
    A full example is provided in {{sec-examples-group-discovery-2}}.
 
-* A CoAP client can discover the CoAP servers that are members of any application group of a specific type, the CoAP group associated with those application groups, and optionally the resources that those servers host as members of those application groups.
+* A CoAP client can discover the CoAP servers that are members of any application group of a specific type, the CoAP group(s) associated with those application groups, and optionally the resources that those servers host as members of those application groups.
 
    This is achieved by sending the GET request above to the "All CoAP Nodes" IP multicast address (see {{Section 12.8 of RFC7252}}), with a particular chosen scope (e.g., site-local or realm-local) if IPv6 is used. Also, the request can specify the application group type of interest in the URI query component as value of a query parameter "rt". For example, the request can use a Group URI with path and query components "/.well-known/core?rt=TypeA" to specify the application group type "TypeA".
 
-   Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of any application group of the specified type and of the CoAP group associated with each of those application groups. That is, the client gains knowledge of: i) the set of servers that are members of the application groups of the specified type and of the associated CoAP group; ii) optionally for each of those servers, the resources it hosts within each of those application groups.
+   Through the corresponding responses, the query result is a list of resources at CoAP servers that are members of any application group of the specified type and of the CoAP group(s) associated with each of those application groups. That is, the client gains knowledge of: i) the set of servers that are members of the application groups of the specified type and of the associated CoAP group(s); ii) optionally for each of those servers, the resources it hosts within each of those application groups.
 
    If the client wishes to discover resources that a particular server hosts within a particular application group, it may use unicast discovery request(s) to this server.
 
    A full example is provided in {{sec-examples-group-discovery-3}}.
 
-* A CoAP client can discover the CoAP servers that are members of any application group configured in the 6LoWPAN network of the client, the CoAP group associated with each application group, and optionally the resources that those servers host as members of the application group.
+* A CoAP client can discover the CoAP servers that are members of any application group configured in the 6LoWPAN network of the client, the CoAP group(s) associated with each application group, and optionally the resources that those servers host as members of the application group.
 
    This is achieved by sending the GET request above with a query specifying a wildcarded group type in the URI query parameter for "rt". For example, the request can use a Group URI with path and query components "/.well-known/core?rt=g.\*", so that the query matches any application group type.
-   The request is sent to the "All CoAP Nodes" IP multicast address (see {{Section 12.8 of RFC7252}}), with a particular chosen scope if IPv6 is used.
+   The request is sent to an "All CoAP Nodes" IP multicast address (see {{Section 12.8 of RFC7252}}), with a particular chosen scope if IPv6 is used.
 
-   Through the corresponding responses, the query result is a list of group resources hosted by any server in the 6LoWPAN network. Each group resource denotes one application group membership of a server. For each application group, the associated CoAP group is obtained as the URI authority component of the corresponding returned link.
+   Through the corresponding responses, the query result is a list of group resources hosted by any server in the 6LoWPAN network. Each group resource denotes one application group membership of a server. For each application group, the associated CoAP group(s) are obtained as the URI authority component of the corresponding returned link.
 
    If the client wishes to discover resources that a particular server hosts within a particular application group, it may use unicast discovery request(s) to this server.
 
@@ -624,7 +640,9 @@ Note: a CoAP server implementation that is unaware of the updates to {{RFC7252}}
 The URI Path used in a group request is preferably a path that is known to be supported across all members of a CoAP group. However, there are valid use cases where a group request is known to be successful only for a subset of the CoAP group. For instance, the subset may include only members of a specific application group, while the members of the CoAP group for which the request is unsuccessful (for example because they are outside the target application group) either suppress a response as per the default behavior from {{sec-request-response-suppress}}, or reply with an error response, e.g., when the default behavior is overridden by a No-Response Option {{RFC7967}} included in the group request.
 
 ## Port Selection for UDP Transport ##
-A server that is a member of a CoAP group listens for CoAP request messages on the group's IP multicast address and port number. The group's port number is usually the CoAP default UDP port number 5683, or alternatively another non-default UDP port number if configured. Regardless of the method that is used for selecting the group's port number, the same port number is used as the destination port number by all CoAP clients when sending group requests to the CoAP group, thus addressing all CoAP servers that are members of that group.
+A server that is a member of a CoAP group listens for CoAP request messages on the group's IP multicast address and port number. The group's port number is usually the CoAP default UDP port number 5683, or alternatively another non-default UDP port number if configured. If any is assigned in the future, a UDP port number designated for multicast applications can be used as the group's port number (e.g., see {{I-D.ietf-intarea-multicast-application-port}}).
+
+Regardless of the method that is used for selecting the group's port number, the same port number is used as the destination port number by all CoAP clients when sending group requests to the CoAP group, thus addressing all CoAP servers that are members of that group.
 
 One way to create multiple CoAP groups is using different UDP ports with the same IP multicast address, in case the devices' network stack only supports a limited number of multicast address subscriptions. However, it must be taken into account that this incurs additional processing overhead on each CoAP server participating in at least one of these groups: messages to groups that are not of interest to the node are only discarded at the higher transport (UDP) layer instead of directly at the Internet (IP) layer. Also, a constrained network may be additionally burdened in this case with multicast traffic that is eventually discarded at the UDP layer by most nodes.
 
@@ -1200,7 +1218,11 @@ In a home automation scenario using Wi-Fi, Wi-Fi security
 
 # IANA Considerations # {#iana}
 
-This document has no actions for IANA.
+As per the IANA considerations of {{RFC7390}}, the Resource Type (rt=) Link Target Attribute Value "core.gp" and the media type "application/coap-group+json" were registered.
+
+Those registrations were made in the interest of the experimental protocol defined in {{RFC7390}} for configuring memberships of CoAP groups for unsecured group communication. As noted in {{sssec-group-creation}} of the present document, that protocol has not been considered for deployment and use.
+
+The two registrations mentioned above remain in place, although the Resource Type Link Target Attribute Value "core.gp" and the media type "application/coap-group+json" are not expected to be used by applications and are not used by the present document.
 
 --- back
 
@@ -1474,7 +1496,7 @@ This section provides examples for the different methods that can be used to nam
 
 The content of this section is purely illustrative and has no ambition to be comprehensive. That is, while the methods defined in {{sec-groupnaming-app}} are presented as viable to use, further viable methods might exist and can be defined in the future. Furthermore, this section does not provide guidelines on how to choose between the different methods, for which a decision is application-specific.
 
-The shown examples consider a CoAP group identified by the group hostname grp.example. Its members are CoAP servers listening to the associated IP multicast address ff35:30:2001:db8:f1:0:8000:1 and port number 5685.
+The shown examples consider a CoAP group identified by the group hostname grp.example that resolves to the IPv6 address ff05::db8:8000:1. Its members are CoAP servers listening to the associated IP multicast address ff05::db8:8000:1 and port number 5685.
 
 Note that a group hostname is used in most examples to improve readability. In practice, as discussed in {{sec-groupnaming-app}}, using an IP address literal as the host subcomponent of the Group URI can reduce the size of the CoAP request message, in case the Uri-Host Option can be elided.
 
@@ -1506,7 +1528,7 @@ Also note that the Uri-Port Option does not appear in the examples, since the po
 
    Application group name: gp1
 
-   Group URI: coap://[ff35:30:2001:db8:f1:0:8000:1]/g/gp1/li
+   Group URI: coap://[ff05::db8:8000:1]/g/gp1/li
 
    CoAP group request
       Header: POST (T=NON, Code=0.02, MID=0x7d41)
@@ -1609,6 +1631,7 @@ It uses a UDP port from the dynamic port range. Multiple application groups coul
 This section provides examples for the different methods that a CoAP client can use to discover application groups and CoAP groups by interacting with CoAP servers, as defined in {{sssec-discovery-from-servers}}.
 
 The examples build on the same assumptions considered in {{sssec-discovery-from-servers}}. In addition, a CoAP group is used and is identified by the URI authority grp.example:5685.
+In the examples, the group hostname grp.example resolves to a single IP address, hence "grp.example:5685" identifies a single CoAP group.
 
 ## Application Groups Associated with a CoAP Group # {#sec-examples-group-discovery-1}
 
@@ -1651,6 +1674,7 @@ The example semantics "g.\<GROUPTYPE\>" is used for the values of the attribute 
 Note that, unlike in the example shown in {{sec-examples-group-discovery-1}}, now the servers need to respond with an absolute URI and not a relative URI. This is necessary because the responding CoAP endpoint serving the Link Format document (on port 5683) is a different CoAP endpoint from the one hosting the group resource "gp1" (on port 5685). Due to this situation, the responding server includes the full (absolute) URI in the Link Format response from which the client can conveniently gain knowledge of the CoAP group.
 
 Also note that a server could equally well respond with the literal IPv6 multicast address within square brackets instead of the CoAP group name "grp.example". In that case, the client would still gain knowledge of the CoAP group, albeit in a different representation.
+If an address literal is returned, it identifies exactly one CoAP group. Instead, in the case that a hostname is returned (as in the example), it potentially identifies multiple CoAP groups.
 
 ~~~~~~~~~~~
 
@@ -1677,7 +1701,8 @@ Also note that a server could equally well respond with the literal IPv6 multica
 
 ## Members of any Application Group of a Given Type # {#sec-examples-group-discovery-3}
 
-{{fig-app-gp-discovery-example3}} provides an example where a CoAP client discovers the CoAP servers that are members of any application group of a specific type, and the CoAP group associated with those application groups.
+{{fig-app-gp-discovery-example3}} provides an example where a CoAP client discovers the CoAP servers that are members of any application group of a specific type, and the CoAP group(s) associated with those application groups.
+Note that, because a hostname "grp.example" is returned, this may potentially resolve to multiple multicast IP addresses, hence multiple CoAP groups.
 
 ~~~~~~~~~~~
 
@@ -1702,11 +1727,12 @@ Also note that a server could equally well respond with the literal IPv6 multica
    <coap://grp.example:5685/gp/gp1>;rt=g.temp,
    <coap://grp.example:5685/gp/gp2>;rt=g.temp
 ~~~~~~~~~~~
-{: #fig-app-gp-discovery-example3 title="Discovery of members of application groups of a specified type, and of the associated CoAP group"}
+{: #fig-app-gp-discovery-example3 title="Discovery of members of application groups of a specified type, and of the associated CoAP group(s)"}
 
 ## Members of any Application Group in the Network # {#sec-examples-group-discovery-4}
 
-{{fig-app-gp-discovery-example4}} provides an example where a CoAP client discovers the CoAP servers that are members of any application group configured in the 6LoWPAN network of the client, and the CoAP group associated with each application group. In this example, the scope is realm-local to address all servers in the current 6LoWPAN network of the client.
+{{fig-app-gp-discovery-example4}} provides an example where a CoAP client discovers the CoAP servers that are members of any application group configured in the 6LoWPAN network of the client, and the CoAP group(s) associated with each application group. In this example, the scope is realm-local to address all servers in the current 6LoWPAN network of the client.
+Also, the group hostname grp2.example resolves to a single IP address, hence "grp2.example" identifies a single CoAP group.
 
 The example semantics "g.\<GROUPTYPE\>" is used for the values of the attribute "rt".
 
@@ -1741,7 +1767,7 @@ The example semantics "g.\<GROUPTYPE\>" is used for the values of the attribute 
    Payload:
    <coap://grp2.example/gp/gp5>;rt=g.lock
 ~~~~~~~~~~~
-{: #fig-app-gp-discovery-example4 title="Discovery of the resources and members of any application group, and of the associated CoAP group"}
+{: #fig-app-gp-discovery-example4 title="Discovery of the resources and members of any application group, and of the associated CoAP group(s)"}
 
 Alternatively, some applications may use the "rt" attribute on a parent resource to denote support for a particular REST API to access child resources.
 
@@ -2431,7 +2457,7 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 # Acknowledgements # {#acknowledgements}
 {:numbered="false"}
 
-The authors sincerely thank {{{Christian Amsüss}}}, {{{Mike Bishop}}}, {{{Carsten Bormann}}}, {{{Mohamed Boucadair}}}, {{{Roni Even}}}, {{{Thomas Fossati}}}, {{{Rikard Höglund}}}, {{{Jaime Jiménez}}}, {{{John Preuß Mattsson}}}, {{{Jim Schaad}}}, {{{Jon Shallow}}}, {{{Petr Špaček}}}, {{{Sean Turner}}}, and {{{Magnus Westerlund}}} for their comments and feedback.
+The authors sincerely thank {{{Christian Amsüss}}}, {{{Mike Bishop}}}, {{{Carsten Bormann}}}, {{{Mohamed Boucadair}}}, {{{Roman Danyliw}}}, {{{Roni Even}}}, {{{Thomas Fossati}}}, {{{Brian Haberman}}}, {{{Rikard Höglund}}}, {{{Jaime Jiménez}}}, {{{Erik Kline}}}, {{{John Preuß Mattsson}}}, {{{Jim Schaad}}}, {{{Jon Shallow}}}, {{{Petr Špaček}}}, {{{Ketan Talaulikar}}}, {{{Sean Turner}}}, {{{Gunter Van de Velde}}}, and {{{Magnus Westerlund}}} for their comments and feedback.
 
 The work on this document has been partly supported by the Sweden's Innovation Agency VINNOVA and the Celtic-Next projects CRITISEC and CYPRESS; and by the H2020 projects SIFIS-Home (Grant agreement 952652) and ARCADIAN-IoT (Grant agreement 101020259).
 
