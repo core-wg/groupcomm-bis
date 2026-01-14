@@ -224,7 +224,7 @@ Table of Contents
    server in the addressed group sends a response message back to the
    client over UDP/IP unicast.
 
-   Both unsecured and secured CoAP group communication are specified in
+   Both unsecured and secured CoAP group communication are covered in
    this document.
 
    Unsecured group communication relies on the NoSec mode, whose use is
@@ -276,8 +276,8 @@ Table of Contents
    transport protocols (which may include broadcast, non-IP multicast,
    geocast, etc.) are not described in detail and are not considered.
    Although UDP/IP multicast transport is assumed in most of the text in
-   this document, we expect many of the considerations for UDP/IP
-   multicast can be re-used for alternative transport protocols.
+   this document, it is expected that many of the considerations for
+   UDP/IP multicast can be re-used for alternative transport protocols.
 
    Furthermore, this document defines Group OSCORE
    [I-D.ietf-core-oscore-groupcomm] as the default group communication
@@ -667,7 +667,7 @@ Table of Contents
    Conversely, a single CoAP group might also have multiple names, which
    can be simultaneously and interchangeably used within a network.  For
    example, if the two hostnames group1.example and group1.alias.example
-   both resolve to the IP multicast address [ff15::1234], then the
+   both resolve to the IP multicast address [ff05::db8:0:1], then the
    following authority components are all names for the same CoAP group.
 
    *  group1.example:7700
@@ -841,13 +841,13 @@ Table of Contents
    Resource Directory (RD), along with the CoAP group it uses and the
    resources it supports.  In that example, an application group name
    "lights" is encoded in the "ep" (endpoint) attribute of the RD
-   registration entry, while the CoAP group ff35:30:2001:db8:f1::8000:1
-   with default port number 5683 is specified in the authority component
-   of the URI encoded in the "base" attribute.  In subsequent group
-   requests by a client to the "lights" group, the name of the group is
-   not present in the request message.  Rather, the URI authority
-   component that selects the CoAP group ff35:30:2001:db8:f1::8000:1
-   will implicitly also select the "lights" application group.
+   registration entry, while the multicast address identifying the CoAP
+   group is specified in the authority component of the URI encoded in
+   the "base" attribute.  In subsequent group requests by a client to
+   the "lights" group, the name of the group is not present in the
+   request message.  Rather, the URI authority component that selects
+   the CoAP group will implicitly also select the "lights" application
+   group.
 
 2.2.1.3.  Security Groups
 
@@ -1020,11 +1020,12 @@ Table of Contents
 
    As discussed below, such a GET request may be sent to the IP
    multicast address of an already known CoAP group associated with one
-   or more application groups; or to the "All CoAP Nodes" multicast
-   address (see Section 12.8 of [RFC7252]), thus targeting all reachable
-   CoAP servers in any CoAP group.  Also, the GET request may specify a
-   query component, in order to filter the application groups of
-   interest.
+   or more application groups.  Alternatively, the GET request may be
+   sent to the "All CoAP Nodes" IPv4 multicast address 224.0.1.187 or
+   IPv6 multicast address ff0x::fd (see Section 12.8 of [RFC7252]), thus
+   targeting all reachable CoAP servers in any CoAP group.  Also, the
+   GET request may specify a query component (see Section 4.1 of
+   [RFC6690]), in order to filter the application groups of interest.
 
    These particular details concerning the GET request depend on the
    specific discovery action intended by the client and on application-
@@ -1599,17 +1600,18 @@ Table of Contents
    by all CoAP clients when sending group requests to the CoAP group,
    thus addressing all CoAP servers that are members of that group.
 
-   One way to create multiple CoAP groups is using different UDP ports
-   with the same IP multicast address, in case the devices' network
-   stack only supports a limited number of multicast address
-   subscriptions.  However, it must be taken into account that this
-   incurs additional processing overhead on each CoAP server
-   participating in at least one of these groups: messages to groups
-   that are not of interest to the node are only discarded at the higher
-   transport (UDP) layer instead of directly at the Internet (IP) layer.
-   Also, a constrained network may be additionally burdened in this case
-   with multicast traffic that is eventually discarded at the UDP layer
-   by most nodes.
+   It is NOT RECOMMENDED to create multiple CoAP groups by using
+   different UDP ports with the same IP multicast address.  An allowed
+   exception is the presence of constrained devices whose network stack
+   only supports a limited number of multicast address subscriptions.
+   The use of such an approach for creating CoAP groups incurs
+   additional processing overhead on each CoAP server participating in
+   at least one of these groups: messages to groups that are not of
+   interest to the node are only discarded at the higher transport (UDP)
+   layer instead of directly at the Internet (IP) layer.  Also, a
+   constrained network may be additionally burdened in this case with
+   multicast traffic that is eventually discarded at the UDP layer by
+   most nodes.
 
    The port number 5684 is dedicated for DTLS-secured unicast CoAP and
    MUST NOT be used for any CoAP group communication.
@@ -1910,9 +1912,9 @@ Table of Contents
    known response size of the server's own response to the request.  If
    the Leisure is not computed or configured, the default value
    DEFAULT_LEISURE MAY be used.  In [RFC7252], the default is calculated
-   based on a baseline IEEE 802.15.4 6LoWPAN network situation with
-   G=50, S=100, and R=1000, although this is not explicitly written
-   down.
+   based on a baseline IEEE 802.15.4 [IEEE802.15.4] 6LoWPAN network
+   situation with G=50, S=100, and R=1000, although this is not
+   explicitly written down.
 
    This document updates the calculation for DEFAULT_LEISURE, by
    modifying the estimated response size (S) parameter to account for
@@ -2177,7 +2179,7 @@ Table of Contents
    In 6LoWPAN [RFC4944] [RFC6282] networks, an IPv6 packet (up to 1280
    bytes) may be fragmented into multiple 6LoWPAN fragments, each
    fragment small enough to be carried over an IEEE 802.15.4 MAC frame
-   (up to 127 bytes).
+   (up to 127 bytes) [IEEE802.15.4].
 
    These 6LoWPAN fragments are exchanged between 6LoWPAN nodes,
    potentially involving 6LoWPAN routers operating in a multi-hop
@@ -3443,9 +3445,9 @@ Table of Contents
    [I-D.ietf-intarea-multicast-application-port]
               Karstens, N., Cheshire, S., and M. McBride, "The Multicast
               Application Port", Work in Progress, Internet-Draft,
-              draft-ietf-intarea-multicast-application-port-02, 13
+              draft-ietf-intarea-multicast-application-port-03, 14
               January 2026, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-intarea-multicast-application-port-02>.
+              draft-ietf-intarea-multicast-application-port-03>.
 
    [I-D.irtf-t2trg-amplification-attacks]
               Mattsson, J. P., Selander, G., and C. Amsüss,
@@ -3462,6 +3464,11 @@ Table of Contents
               discovery-18, 3 September 2025,
               <https://datatracker.ietf.org/doc/html/draft-tiloca-core-
               oscore-discovery-18>.
+
+   [IEEE802.15.4]
+              IEEE, "802.15.4-2024 - IEEE Standard for Low-Rate Wireless
+              Networks", DOI 10.1109/IEEESTD.2024.10794632, December
+              2024, <https://ieeexplore.ieee.org/document/10794632>.
 
    [Resource.Type.Link.Target.Attribute.Values]
               IANA, "Resource Type (rt=) Link Target Attribute Values",
@@ -3846,8 +3853,8 @@ A.2.1.  Actuator Group Control
    accomplish this using randomized retransmission is the MPL forwarding
    protocol for LLNs [RFC7731].
 
-   We assume the following steps have already occurred before the
-   illustrated flows:
+   It is assumed that the following steps have already occurred before
+   the illustrated flows:
 
    1) Startup phase: 6LoWPANs are formed.  IPv6 addresses are assigned
    to all devices.  The CoAP network is formed.
@@ -5187,8 +5194,8 @@ Acknowledgements
    Bormann, Mohamed Boucadair, Roman Danyliw, Roni Even, Thomas Fossati,
    Brian Haberman, Rikard Höglund, Jaime Jiménez, Erik Kline, John Preuß
    Mattsson, Jim Schaad, Jon Shallow, Petr Špaček, Ketan Talaulikar,
-   Sean Turner, Gunter Van de Velde, and Magnus Westerlund for their
-   comments and feedback.
+   Sean Turner, Gunter Van de Velde, Éric Vyncke, and Magnus Westerlund
+   for their comments and feedback.
 
    The work on this document has been partly supported by the Sweden's
    Innovation Agency VINNOVA and the Celtic-Next projects CRITISEC and
