@@ -1301,9 +1301,9 @@ Table of Contents
 
    Note that some responses to a group request might be filtered out and
    not reach the client if a NAT device is used with restrictive
-   filtering in place.  For example, this can be the case if the NAT
-   device employs "Address-Dependent Filtering" or "Address and Port-
-   Dependent Filtering" (see Section 5 of [RFC4787]).
+   filtering in place.  For example, this is the case if the NAT device
+   employs "Address-Dependent Filtering" or "Address and Port-Dependent
+   Filtering" (see Section 5 of [RFC4787]).
 
 3.1.5.  Token Reuse
 
