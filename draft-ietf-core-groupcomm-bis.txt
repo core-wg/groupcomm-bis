@@ -269,13 +269,13 @@ Table of Contents
 
    This document defines UDP/IP multicast as the default transport
    protocol for CoAP group requests, as in [RFC7252].  Only the Any
-   Source Multicast (ASM) mode [RFC5110] of IP multicast operation is in
-   scope.  Other transport protocols (which may include broadcast, non-
-   IP multicast, geocast, etc.) are not described in detail and are not
-   considered.  Although UDP/IP multicast transport is assumed in most
-   of the text in this document, we expect many of the considerations
-   for UDP/IP multicast can be re-used for alternative transport
-   protocols.
+   Source Multicast (ASM) mode of IP multicast operation is in scope, as
+   defined in [RFC1112] and referred by that name in [RFC8085].  Other
+   transport protocols (which may include broadcast, non-IP multicast,
+   geocast, etc.) are not described in detail and are not considered.
+   Although UDP/IP multicast transport is assumed in most of the text in
+   this document, we expect many of the considerations for UDP/IP
+   multicast can be re-used for alternative transport protocols.
 
    Furthermore, this document defines Group OSCORE
    [I-D.ietf-core-oscore-groupcomm] as the default group communication
@@ -3178,6 +3178,10 @@ Table of Contents
               December 2025, <https://datatracker.ietf.org/doc/html/
               draft-ietf-core-oscore-groupcomm-28>.
 
+   [RFC1112]  Deering, S., "Host extensions for IP multicasting", STD 5,
+              RFC 1112, DOI 10.17487/RFC1112, August 1989,
+              <https://www.rfc-editor.org/rfc/rfc1112>.
+
    [RFC1122]  Braden, R., Ed., "Requirements for Internet Hosts -
               Communication Layers", STD 3, RFC 1122,
               DOI 10.17487/RFC1122, October 1989,
@@ -3198,10 +3202,6 @@ Table of Contents
               "Transmission of IPv6 Packets over IEEE 802.15.4
               Networks", RFC 4944, DOI 10.17487/RFC4944, September 2007,
               <https://www.rfc-editor.org/rfc/rfc4944>.
-
-   [RFC5110]  Savola, P., "Overview of the Internet Multicast Routing
-              Architecture", RFC 5110, DOI 10.17487/RFC5110, January
-              2008, <https://www.rfc-editor.org/rfc/rfc5110>.
 
    [RFC6282]  Hui, J., Ed. and P. Thubert, "Compression Format for IPv6
               Datagrams over IEEE 802.15.4-Based Networks", RFC 6282,
@@ -3243,6 +3243,10 @@ Table of Contents
               the Constrained Application Protocol (CoAP)", RFC 8075,
               DOI 10.17487/RFC8075, February 2017,
               <https://www.rfc-editor.org/rfc/rfc8075>.
+
+   [RFC8085]  Eggert, L., Fairhurst, G., and G. Shepherd, "UDP Usage
+              Guidelines", BCP 145, RFC 8085, DOI 10.17487/RFC8085,
+              March 2017, <https://www.rfc-editor.org/rfc/rfc8085>.
 
    [RFC8132]  van der Stok, P., Bormann, C., and A. Sehgal, "PATCH and
               FETCH Methods for the Constrained Application Protocol
@@ -5068,10 +5072,10 @@ G.15.  Version -00 to -01
 Acknowledgements
 
    The authors sincerely thank Christian Amsüss, Mike Bishop, Carsten
-   Bormann, Roni Even, Thomas Fossati, Brian Haberman, Rikard Höglund,
-   Jaime Jiménez, John Preuß Mattsson, Jim Schaad, Jon Shallow, Petr
-   Špaček, Ketan Talaulikar, Sean Turner, and Magnus Westerlund for
-   their comments and feedback.
+   Bormann, Roman Danyliw, Roni Even, Thomas Fossati, Brian Haberman,
+   Rikard Höglund, Jaime Jiménez, John Preuß Mattsson, Jim Schaad, Jon
+   Shallow, Petr Špaček, Ketan Talaulikar, Sean Turner, and Magnus
+   Westerlund for their comments and feedback.
 
    The work on this document has been partly supported by the Sweden's
    Innovation Agency VINNOVA and the Celtic-Next projects CRITISEC and
