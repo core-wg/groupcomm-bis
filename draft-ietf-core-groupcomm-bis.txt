@@ -1502,6 +1502,10 @@ Table of Contents
    messages on the group's IP multicast address and port number.  The
    group's port number is usually the CoAP default UDP port number 5683,
    or alternatively another non-default UDP port number if configured.
+   If any is assigned in the future, a UDP port number designated for
+   multicast applications can be used as the group's port number (e.g.,
+   see [I-D.ietf-intarea-multicast-application-port]).
+
    Regardless of the method that is used for selecting the group's port
    number, the same port number is used as the destination port number
    for requests across all CoAP servers that are members of a CoAP group
@@ -3353,6 +3357,13 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
               transport-indication-09>.
 
+   [I-D.ietf-intarea-multicast-application-port]
+              Karstens, N., Cheshire, S., and M. McBride, "The Multicast
+              Application Port", Work in Progress, Internet-Draft,
+              draft-ietf-intarea-multicast-application-port-02, 13
+              January 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-intarea-multicast-application-port-02>.
+
    [I-D.irtf-t2trg-amplification-attacks]
               Mattsson, J. P., Selander, G., and C. Amsüss,
               "Amplification Attacks Using the Constrained Application
@@ -5073,9 +5084,9 @@ Acknowledgements
 
    The authors sincerely thank Christian Amsüss, Mike Bishop, Carsten
    Bormann, Roman Danyliw, Roni Even, Thomas Fossati, Brian Haberman,
-   Rikard Höglund, Jaime Jiménez, John Preuß Mattsson, Jim Schaad, Jon
-   Shallow, Petr Špaček, Ketan Talaulikar, Sean Turner, and Magnus
-   Westerlund for their comments and feedback.
+   Rikard Höglund, Jaime Jiménez, Erik Kline, John Preuß Mattsson, Jim
+   Schaad, Jon Shallow, Petr Špaček, Ketan Talaulikar, Sean Turner, and
+   Magnus Westerlund for their comments and feedback.
 
    The work on this document has been partly supported by the Sweden's
    Innovation Agency VINNOVA and the Celtic-Next projects CRITISEC and
