@@ -222,9 +222,7 @@ Table of Contents
    messages to all servers in a group.  Within a given group, multiple
    clients can send multicast CoAP request messages.  In response, each
    server in the addressed group sends a response message back to the
-   client over UDP/IP unicast.  Notable CoAP implementations that
-   support group communication include "Eclipse Californium"
-   [Californium], "Go-CoAP" [Go-CoAP] as well as "libcoap" [libcoap].
+   client over UDP/IP unicast.
 
    Both unsecured and secured CoAP group communication are specified in
    this document.
@@ -259,9 +257,13 @@ Table of Contents
    servers in the group.  That is, "one-to-many" refers to the delivery
    of a given message from one sender to multiple recipients, and the
    sender, the recipients, or both can change on a per-message basis.
+   Such solutions are desirable for applications that need a request
+   message to be delivered with low latency and/or in a synchronous way
+   to multiple recipient servers at once.
 
-   There are alternative methods to achieve group communication using
-   CoAP, using unicast only.  One example is Publish-Subscribe
+   For applications that do not have those requirements, there are
+   alternative methods to achieve group communication using CoAP, using
+   unicast only.  One example is Publish-Subscribe
    [I-D.ietf-core-coap-pubsub] which uses a central broker server that
    CoAP clients access via unicast communication.  These alternative
    methods may be usable for the same or similar use cases as the ones
@@ -401,15 +403,16 @@ Table of Contents
    communication using the NoSec mode and secure group communication
    using Group OSCORE.  In either case, the default port number is 5683.
 
-   An endpoint may be a member of multiple CoAP groups, by subscribing
-   to multiple IP multicast addresses.  A node may be a member of
-   multiple CoAP groups, by hosting multiple CoAP server endpoints on
-   different UDP ports.  Membership(s) of an endpoint or node to a CoAP
-   group may dynamically change over time.  A node or endpoint sending a
-   CoAP group message to a CoAP group is not necessarily itself a member
-   of that CoAP group: it is a member only if it also has a CoAP
-   endpoint listening on the associated IP multicast address and UDP
-   port associated with the CoAP group.
+   An endpoint may be a member of multiple CoAP groups, e.g., by
+   subscribing to multiple IP multicast addresses.  A node may be a
+   member of multiple CoAP groups, by hosting multiple CoAP server
+   endpoints on different combinations of IP address and UDP port.
+   Membership(s) of an endpoint or node to a CoAP group may dynamically
+   change over time.  A node or endpoint sending a CoAP group message to
+   a CoAP group is not necessarily itself a member of that CoAP group:
+   it is a member only if it also has a CoAP endpoint listening on the
+   associated IP multicast address and UDP port associated with the CoAP
+   group.
 
    A CoAP group is identified by information encoded within a group URI,
    which can contain a UDP port number in the authority component (see
@@ -467,8 +470,12 @@ Table of Contents
    Between CoAP groups and security groups, there can be a many-to-many,
    one-to-many, many-to-one, or one-to-one relationship.  Also, between
    application groups and security groups, there can be a many-to-many,
-   one-to-many, many-to-one, or one-to-one relationship.  Such
-   relationships are discussed in more detail in Section 2.1.4.
+   one-to-many, many-to-one, or one-to-one relationship.  Configuring
+   entities can establish relationships between groups of different
+   types as appropriate for the specific deployment and with no
+   restriction by design.  Endpoints that are members of security groups
+   are expected to support all such relationships, which are discussed
+   in more detail in Section 2.1.4.
 
    Further details on identifying a security group are provided in
    Section 2.2.1.3.
@@ -513,16 +520,26 @@ Table of Contents
    the application group can be protected with different security
    material.  This can be convenient, for example, if the security
    groups differ with respect to the cryptographic algorithms and
-   related parameters they use.  In this case, a CoAP client can join
-   just one of the security groups, based on what it supports and
-   prefers, while a CoAP server in the application group would rather
-   have to join all of them.
+   related parameters they use.  In this case, a CoAP client can join a
+   subset of these security groups, e.g., selected according to a local
+   policy or determined by a local configuration.  This subset needs to
+   be consistent with the security algorithms that the client supports.
+   A CoAP server in the application group has to join all of the
+   security groups, in order to successfully process group requests from
+   any CoAP clients that have been configured to use the application
+   group.  This particular case can be useful if different CoAP clients
+   have different, incompatible requirements for the security algorithms
+   that can be supported.
 
    Beyond this particular case, applications should be careful in
    associating a single application group to multiple security groups.
-   In particular, it is NOT RECOMMENDED to use different security groups
-   to reflect different access policies for resources in the same
-   application group.
+   In particular, different security groups are not meant to reflect
+   different access policies, e.g., for enforcing access control to
+   resources that are hosted at servers in the same application group.
+   Therefore, it is NOT RECOMMENDED to simply take into account
+   memberships to security groups as a way to enforce access control
+   within an application group, which instead should rely on separate
+   means.
 
    In fact, being a member of a security group actually grants access
    only to exchange secured messages and enables authentication of group
@@ -534,8 +551,10 @@ Table of Contents
 
    Figure 1 summarizes the relationships between the different types of
    groups described above in Unified Modeling Language (UML) class
-   diagram notation.  The class attributes in square brackets are
-   optionally defined.
+   diagram notation [UML].  When creating groups (see Section 2.2.2), a
+   configuring entity follows and maintains the view depicted in
+   Figure 1.  The class attributes in square brackets are optionally
+   defined.
 
    +------------------------------+              +--------------------+
    |   Application group          |              |    CoAP group      |
@@ -676,14 +695,19 @@ Table of Contents
    *  [ff05::db8:0:1]:5683
 
    When configuring a CoAP group membership, it is recommended to
-   configure an endpoint with an IP multicast address literal, instead
-   of a group hostname.  This is because an infrastructure providing a
-   name resolution service, such as DNS, may not be deployed in some
-   constrained networks.  In case a group hostname is configured, it can
-   be uniquely mapped to an IP multicast address via a name resolution
-   service.  For example, this can rely on the DNS resolution process,
-   if DNS client functionality is available in the endpoint being
-   configured and DNS service is supported in the network.
+   configure an endpoint with an IP multicast address literal instead of
+   a group hostname, to avoid network load due to name resolution
+   queries.  In fact, an infrastructure providing a name resolution
+   service, such as DNS, may not be deployed in some constrained
+   networks.  In such cases, using an IP multicast address literal is
+   the only viable option for the configuring entity that creates a CoAP
+   group.
+
+   If a group hostname is configured, it can be uniquely mapped to an IP
+   multicast address via a name resolution service.  For example, this
+   can rely on the DNS resolution process, if DNS client functionality
+   is available in the endpoint being configured and the DNS service is
+   supported in the network.
 
    Some examples of hierarchical CoAP group FQDN naming (and scoping)
    for a building control application are shown below.  For all these
@@ -805,8 +829,8 @@ Table of Contents
    option to be defined.  Such an approach is out of the scope of this
    document.
 
-   Finally, it is also possible to not encode the application group name
-   in the CoAP request, yielding the most compact representation on the
+   Finally, it is also possible to omit the application group name from
+   the CoAP request, yielding the most compact representation on the
    wire.  In this case, each CoAP server needs to determine the right
    application group based on contextual information, such as the CoAP
    group, and/or the client identity and/or the target resource.  For
@@ -868,6 +892,11 @@ Table of Contents
 
 2.2.2.  Group Creation and Membership
 
+   This section discusses the creation of different types of groups, as
+   entrusted to a "configuring entity".  The same configuring entity can
+   be responsible for creating groups of different types, e.g., both
+   CoAP groups and application groups.
+
    To create a CoAP group, a configuring entity defines an IP multicast
    address (or hostname) for the group and optionally a UDP port number
    in case it differs from the default CoAP port number 5683.  Then, the
@@ -884,9 +913,13 @@ Table of Contents
    example consists of creating multiple CoAP groups using multicast
    IPv6 addresses of different scopes.
 
-   The configuring entity can be, for example, a local application with
+   A configuring entity can be, for example, a local application with
    pre-configuration, a user, a software developer, a cloud service, or
-   a local commissioning tool.
+   a local commissioning tool.  In general, the creation of a CoAP group
+   can involve multiple configuring entities that might be of different
+   types.  If the configuring entities are different from the ones
+   entrusted with the device deployment, care has to be taken in order
+   to avoid configurations that are conflicting or stale.
 
    The devices sending CoAP requests to the CoAP group in the role of
    CoAP client also need to be configured with the same information,
@@ -939,7 +972,13 @@ Table of Contents
    different moments in the life-cycle of a device.  For example, it can
    occur during product (software) creation, in the factory, at a
    reseller, on-site during first deployment, or on-site during a system
-   reconfiguration operation.
+   reconfiguration operation.  These configurations are likely performed
+   by different configuring entities, possibly with minimal or no
+   coordination.  Therefore, it is important that means are available
+   and supported for controlling, retrieving, updating, and retiring
+   configurations, as well as for performing related troubleshooting
+   procedures.  Further details on such means are out of the scope of
+   this document.
 
 2.2.3.  Group Discovery
 
@@ -1182,12 +1221,15 @@ Table of Contents
    CoAP client sends requests that use the associated endpoint's UDP
    port number as the UDP source port number of the request.
 
-   All CoAP requests that are sent via IP multicast MUST be Non-
-   confirmable (NON), see Section 8.1 of [RFC7252].  The Message ID in
-   an IP multicast CoAP message is used for optional message
-   deduplication by both clients and servers, as detailed in Section 4.5
-   of [RFC7252].  A server MAY send one or more responses to a CoAP
-   group request; these are always unicast messages.  The unicast
+   All CoAP requests that are sent via IP multicast must be Non-
+   confirmable (NON), see Section 8.1 of [RFC7252].  Although a
+   corresponding response should be returned in a Non-confirmable
+   message as well, clients must be prepared to receive Confirmable
+   responses in reply to those requests, see Section 5.2.3 of [RFC7252].
+   The Message ID in an IP multicast CoAP message is used for optional
+   message deduplication by both clients and servers, as detailed in
+   Section 4.5 of [RFC7252].  A server MAY send one or more responses to
+   a CoAP group request; these are always unicast messages.  The unicast
    responses received by the CoAP client may carry a mixture of success
    (e.g., 2.05 (Content)) and failure (e.g., 4.04 (Not Found)) response
    codes, depending on the individual server processing results.
@@ -1207,7 +1249,8 @@ Table of Contents
    server SHOULD suppress the response in case of error or in case there
    is nothing useful to respond, unless the application related to a
    particular resource requires such a response to be made for that
-   resource.
+   resource.  Such exceptions are application-specific and defined by
+   corresponding application policies.
 
    The CoAP No-Response Option [RFC7967] can be used by a client to
    influence the default response suppression on the server side.  It is
@@ -1230,10 +1273,10 @@ Table of Contents
 
    Group requests sent over IP multicast generally have much higher loss
    rates than messages sent over unicast, particularly in constrained
-   networks.  Therefore, it is more urgent to have a strategy in place
-   for handling the loss of group requests than the loss of unicast
-   responses.  To this end, CoAP clients can rely on the following two
-   approaches.
+   networks.  Therefore, having a strategy in place for handling the
+   loss of group requests is even more important than one for handling
+   the loss of unicast responses.  To this end, CoAP clients can rely on
+   the following two approaches.
 
    The first approach is the default, used in case there is no explicit
    preference of the implementer.  It is supported already by all CoAP
@@ -1299,6 +1342,12 @@ Table of Contents
    value.  Due to UDP level multiplexing, the UDP destination port
    number of the response MUST match to the client endpoint's UDP port
    number, i.e., to the UDP source port number of the client's request.
+
+   Note that some responses to a group request might be filtered out and
+   not reach the client if a NAT device is used with restrictive
+   filtering in place.  For example, this can be the case if the NAT
+   device employs "Address-Dependent Filtering" or "Address and Port-
+   Dependent Filtering" (see Section 5 of [RFC4787]).
 
 3.1.5.  Token Reuse
 
@@ -1448,10 +1497,13 @@ Table of Contents
       CoAP group; and, for each group member, the client's cache
       currently stores a fresh response.
 
-   How the client in the case above determines the CoAP servers that are
-   currently members of the CoAP group is out of scope for this
-   document.  It may be, for example, via a Group Manager, or by
-   monitoring group joining protocol exchanges.
+   The client in the case above can use different possible methods to
+   determine the CoAP servers that are currently members of the CoAP
+   group.  For example, consistent with enforced policies, the client
+   can retrieve that information from the group's configuring entity, or
+   the client may be able to monitor group joining protocol exchanges.
+   The specific method used by the client is out of the scope of this
+   document.
 
    For caching at proxies, a possible freshness model is defined as part
    of the realization of proxy specified in
@@ -1544,8 +1596,8 @@ Table of Contents
 
    Regardless of the method that is used for selecting the group's port
    number, the same port number is used as the destination port number
-   for requests across all CoAP servers that are members of a CoAP group
-   and across all CoAP clients sending group requests to that group.
+   by all CoAP clients when sending group requests to the CoAP group,
+   thus addressing all CoAP servers that are members of that group.
 
    One way to create multiple CoAP groups is using different UDP ports
    with the same IP multicast address, in case the devices' network
@@ -1563,7 +1615,7 @@ Table of Contents
    MUST NOT be used for any CoAP group communication.
 
    For a CoAP server node that supports resource discovery as defined in
-   Section 2.4 of [RFC7252], the default port number 5683 MUST be
+   Section 2.4 of [RFC7252], the default port number 5683 must be
    supported (see Section 7.1 of [RFC7252]) for the "All CoAP Nodes"
    CoAP group as detailed in Section 3.9.
 
@@ -1724,13 +1776,15 @@ Table of Contents
    *  If secure group communication with Group OSCORE is used (see
       Section 5), each server is able to determine that each received
       copy of the group request is in fact originated by the same
-      client.  In particular, each server is able to determine that all
-      such received requests are copies of exactly the same group
+      client.  In particular, by leveraging the replay protection
+      provided by Group OSCORE, each server is able to determine that
+      all such received requests are copies of exactly the same group
       request.
 
-      As a result, each server accepts only the first copy of the group
-      request received from one of the proxies, while discarding as
-      replay any later copies received from any other proxy.
+      As a result, each server accepts only the first verified copy of
+      the group request received from one of the proxies, while
+      discarding as replay any later copies received from any other
+      proxy.
 
       After that, the server can reply to the accepted request with
       multiple responses over time (see Section 3.1.6).  All those
@@ -2105,7 +2159,7 @@ Table of Contents
    multicast, depending on how the protocol is configured.
 
    For a CoAP server node that supports resource discovery as defined in
-   Section 2.4 of [RFC7252], the default port number 5683 MUST be
+   Section 2.4 of [RFC7252], the default port number 5683 must be
    supported as per Sections 7.1 and 12.8 of [RFC7252] for the "All CoAP
    Nodes" multicast CoAP group.  An IPv6 CoAP server SHOULD support the
    "All CoAP Nodes" multicast CoAP group with at least link-local (2),
@@ -2160,7 +2214,7 @@ Table of Contents
    CoAP group communication can use UDP over IPv4 as a transport
    protocol, provided that IPv4 multicast is enabled.  For a CoAP server
    node that supports resource discovery as defined in Section 2.4 of
-   [RFC7252], the default port number 5683 MUST be supported as per
+   [RFC7252], the default port number 5683 must be supported as per
    Sections 7.1 and 12.8 of [RFC7252], for the "All CoAP Nodes" IPv4
    multicast CoAP group.
 
@@ -2208,7 +2262,9 @@ Table of Contents
    IP multicast.  For example broadcast, non-UDP multicast, geocast,
    serial unicast, etc.  In such cases the particular considerations for
    UDP/IP multicast in this document may need to be applied to that
-   particular transport.
+   particular transport.  Further details about such alternative
+   transports and their use for CoAP group communication are out of
+   scope for this document.
 
 3.10.  Interworking with Other Protocols
 
@@ -2335,9 +2391,7 @@ Table of Contents
    Section 9 of [RFC7252].
 
    The NoSec mode does not require and does not make use of a security
-   group.  Indications that endpoints can use the NoSec mode MUST NOT
-   rely on setting up and advertising a pseudo security group with name
-   "NoSec" or any of its lowercase/uppercase combinations.
+   group (see Section 2.2.1.3).
 
    A CoAP server in NoSec mode MUST NOT be accessible through the public
    Internet.  It is NOT RECOMMENDED to use CoAP group communication in
@@ -3332,13 +3386,6 @@ Table of Contents
 
 8.2.  Informative References
 
-   [Californium]
-              Eclipse Foundation, "Eclipse Californium", June 2022,
-              <https://github.com/eclipse/californium>.
-
-   [Go-CoAP]  Open Connectivity Foundation (OCF), "Go-CoAP", June 2022,
-              <https://github.com/go-ocf/go-coap>.
-
    [I-D.bormann-core-responses]
               Bormann, C. and C. Amsüss, "CoAP: Non-traditional response
               forms", Work in Progress, Internet-Draft, draft-bormann-
@@ -3416,9 +3463,6 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-tiloca-core-
               oscore-discovery-18>.
 
-   [libcoap]  Bergmann, O., "libcoap", June 2022,
-              <https://github.com/obgm/libcoap>.
-
    [Resource.Type.Link.Target.Attribute.Values]
               IANA, "Resource Type (rt=) Link Target Attribute Values",
               <https://www.iana.org/assignments/core-parameters/core-
@@ -3432,6 +3476,11 @@ Table of Contents
               "DNS Extensions to Support IP Version 6", STD 88,
               RFC 3596, DOI 10.17487/RFC3596, October 2003,
               <https://www.rfc-editor.org/rfc/rfc3596>.
+
+   [RFC4787]  Audet, F., Ed. and C. Jennings, "Network Address
+              Translation (NAT) Behavioral Requirements for Unicast
+              UDP", BCP 127, RFC 4787, DOI 10.17487/RFC4787, January
+              2007, <https://www.rfc-editor.org/rfc/rfc4787>.
 
    [RFC6092]  Woodyatt, J., Ed., "Recommended Simple Security
               Capabilities in Customer Premises Equipment (CPE) for
@@ -3515,6 +3564,11 @@ Table of Contents
               (MLDv2) for IPv6", STD 101, RFC 9777,
               DOI 10.17487/RFC9777, March 2025,
               <https://www.rfc-editor.org/rfc/rfc9777>.
+
+   [UML]      Object Management Group Standards Development
+              Organization, "OMG Unified Modeling Language (OMG UML)
+              Version 2.5.1", OMG Document Number formal/2017-12-05,
+              December 2017, <https://www.omg.org/spec/UML/2.5.1/PDF>.
 
 Appendix A.  Use Cases
 
@@ -5130,11 +5184,11 @@ G.15.  Version -00 to -01
 Acknowledgements
 
    The authors sincerely thank Christian Amsüss, Mike Bishop, Carsten
-   Bormann, Roman Danyliw, Roni Even, Thomas Fossati, Brian Haberman,
-   Rikard Höglund, Jaime Jiménez, Erik Kline, John Preuß Mattsson, Jim
-   Schaad, Jon Shallow, Petr Špaček, Ketan Talaulikar, Sean Turner,
-   Gunter Van de Velde, and Magnus Westerlund for their comments and
-   feedback.
+   Bormann, Mohamed Boucadair, Roman Danyliw, Roni Even, Thomas Fossati,
+   Brian Haberman, Rikard Höglund, Jaime Jiménez, Erik Kline, John Preuß
+   Mattsson, Jim Schaad, Jon Shallow, Petr Špaček, Ketan Talaulikar,
+   Sean Turner, Gunter Van de Velde, and Magnus Westerlund for their
+   comments and feedback.
 
    The work on this document has been partly supported by the Sweden's
    Innovation Agency VINNOVA and the Celtic-Next projects CRITISEC and
