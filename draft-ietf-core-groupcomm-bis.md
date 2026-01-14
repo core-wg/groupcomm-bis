@@ -209,9 +209,15 @@ Three types of groups and their mutual relationships are defined in this section
 ### CoAP Group ## {#sec-groupdef-coapgroup}
 A CoAP group is defined as a set of CoAP endpoints, where each endpoint is configured to receive CoAP group messages that are sent to the group's associated IP multicast address and UDP port. That is, CoAP groups have relevance at the level of IP networks and CoAP endpoints.
 
+This is aligned with the notion of CoAP endpoint as identified by an IP address and a UDP port number, both for unsecure group communication using the NoSec mode and secure group communication using Group OSCORE. In either case, the default port number is 5683.
+
 An endpoint may be a member of multiple CoAP groups, by subscribing to multiple IP multicast addresses. A node may be a member of multiple CoAP groups, by hosting multiple CoAP server endpoints on different UDP ports. Membership(s) of an endpoint or node to a CoAP group may dynamically change over time. A node or endpoint sending a CoAP group message to a CoAP group is not necessarily itself a member of that CoAP group: it is a member only if it also has a CoAP endpoint listening on the associated IP multicast address and UDP port associated with the CoAP group.
 
-A CoAP group is identified by information encoded within a group URI. Further details on identifying a CoAP group are provided in {{sec-groupnaming-coap}}.
+A CoAP group is identified by information encoded within a group URI, which can contain a UDP port number in the authority component (see {{terminology}}). If no UDP port number is present, then the port number used to identify the CoAP group is the default port number 5683.
+
+Consequently, a configuring entity can choose to rely only on IP multicast addresses (or corresponding hostnames) in order to practically identify different CoAP groups, without specifying port numbers. As a result, those CoAP groups will be identified by a pair (IP address, port number), where different CoAP groups use a different IP multicast address and all use the same default port number 5683.
+
+Further details on identifying a CoAP group are provided in {{sec-groupnaming-coap}}.
 
 ### Application Group ## {#sec-groupdef-applicationgroup}
 An application group is a set of CoAP server endpoints (hosted on different nodes) that share a common set of CoAP resources. That is, an application group has relevance at the application level. For example, an application group could denote all lights in an office room or all sensors in a hallway.
@@ -2444,7 +2450,7 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 # Acknowledgements # {#acknowledgements}
 {:numbered="false"}
 
-The authors sincerely thank {{{Christian Amsüss}}}, {{{Mike Bishop}}}, {{{Carsten Bormann}}}, {{{Roman Danyliw}}}, {{{Roni Even}}}, {{{Thomas Fossati}}}, {{{Brian Haberman}}}, {{{Rikard Höglund}}}, {{{Jaime Jiménez}}}, {{{Erik Kline}}}, {{{John Preuß Mattsson}}}, {{{Jim Schaad}}}, {{{Jon Shallow}}}, {{{Petr Špaček}}}, {{{Ketan Talaulikar}}}, {{{Sean Turner}}}, and {{{Magnus Westerlund}}} for their comments and feedback.
+The authors sincerely thank {{{Christian Amsüss}}}, {{{Mike Bishop}}}, {{{Carsten Bormann}}}, {{{Roman Danyliw}}}, {{{Roni Even}}}, {{{Thomas Fossati}}}, {{{Brian Haberman}}}, {{{Rikard Höglund}}}, {{{Jaime Jiménez}}}, {{{Erik Kline}}}, {{{John Preuß Mattsson}}}, {{{Jim Schaad}}}, {{{Jon Shallow}}}, {{{Petr Špaček}}}, {{{Ketan Talaulikar}}}, {{{Sean Turner}}}, {{{Gunter Van de Velde}}}, and {{{Magnus Westerlund}}} for their comments and feedback.
 
 The work on this document has been partly supported by the Sweden's Innovation Agency VINNOVA and the Celtic-Next projects CRITISEC and CYPRESS; and by the H2020 projects SIFIS-Home (Grant agreement 952652) and ARCADIAN-IoT (Grant agreement 101020259).
 
