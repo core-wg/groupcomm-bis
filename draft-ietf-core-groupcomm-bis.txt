@@ -219,11 +219,12 @@ Table of Contents
 
    One-to-many group communication can be achieved in CoAP, by a client
    using UDP/IP multicast data transport to send multicast CoAP request
-   messages.  In response, each server in the addressed group sends a
-   response message back to the client over UDP/IP unicast.  Notable
-   CoAP implementations that support group communication include
-   "Eclipse Californium" [Californium], "Go-CoAP" [Go-CoAP] as well as
-   "libcoap" [libcoap].
+   messages to all servers in a group.  Within a given group, multiple
+   clients can send multicast CoAP request messages.  In response, each
+   server in the addressed group sends a response message back to the
+   client over UDP/IP unicast.  Notable CoAP implementations that
+   support group communication include "Eclipse Californium"
+   [Californium], "Go-CoAP" [Go-CoAP] as well as "libcoap" [libcoap].
 
    Both unsecured and secured CoAP group communication are specified in
    this document.
@@ -253,12 +254,18 @@ Table of Contents
 
    For group communication, only those solutions that use CoAP messages
    over a "one-to-many" (i.e., non-unicast) transport protocol are in
-   the scope of this document.  There are alternative methods to achieve
-   group communication using CoAP, using unicast only.  One example is
-   Publish-Subscribe [I-D.ietf-core-coap-pubsub] which uses a central
-   broker server that CoAP clients access via unicast communication.
-   These alternative methods may be usable for the same or similar use
-   cases as the ones targeted in this document.
+   the scope of this document.  By using such a transport protocol, any
+   client in a group can send a multicast CoAP request message to all
+   servers in the group.  That is, "one-to-many" refers to the delivery
+   of a given message from one sender to multiple recipients, and the
+   sender, the recipients, or both can change on a per-message basis.
+
+   There are alternative methods to achieve group communication using
+   CoAP, using unicast only.  One example is Publish-Subscribe
+   [I-D.ietf-core-coap-pubsub] which uses a central broker server that
+   CoAP clients access via unicast communication.  These alternative
+   methods may be usable for the same or similar use cases as the ones
+   targeted in this document.
 
    This document defines UDP/IP multicast as the default transport
    protocol for CoAP group requests, as in [RFC7252].  Only the Any
@@ -861,7 +868,8 @@ Table of Contents
    particular multicast address ranges from which group addresses can be
    taken.  It is up to network operators and managers to appropriately
    select addresses from the multicast address space with the intended
-   multicast address scope.
+   multicast address scope.  Guidelines for selecting and assigning IPv6
+   multicast addresses are compiled in [RFC3307].
 
    To create an application group, a configuring entity may configure a
    resource or a set of resources on CoAP endpoints, such that a CoAP
@@ -3365,6 +3373,10 @@ Table of Contents
               <https://www.iana.org/assignments/core-parameters/core-
               parameters.xhtml#rt-link-target-att-value>.
 
+   [RFC3307]  Haberman, B., "Allocation Guidelines for IPv6 Multicast
+              Addresses", RFC 3307, DOI 10.17487/RFC3307, August 2002,
+              <https://www.rfc-editor.org/rfc/rfc3307>.
+
    [RFC3596]  Thomson, S., Huitema, C., Ksinant, V., and M. Souissi,
               "DNS Extensions to Support IP Version 6", STD 88,
               RFC 3596, DOI 10.17487/RFC3596, October 2003,
@@ -5056,10 +5068,10 @@ G.15.  Version -00 to -01
 Acknowledgements
 
    The authors sincerely thank Christian Amsüss, Mike Bishop, Carsten
-   Bormann, Roni Even, Thomas Fossati, Rikard Höglund, Jaime Jiménez,
-   John Preuß Mattsson, Jim Schaad, Jon Shallow, Petr Špaček, Ketan
-   Talaulikar, Sean Turner, and Magnus Westerlund for their comments and
-   feedback.
+   Bormann, Roni Even, Thomas Fossati, Brian Haberman, Rikard Höglund,
+   Jaime Jiménez, John Preuß Mattsson, Jim Schaad, Jon Shallow, Petr
+   Špaček, Ketan Talaulikar, Sean Turner, and Magnus Westerlund for
+   their comments and feedback.
 
    The work on this document has been partly supported by the Sweden's
    Innovation Agency VINNOVA and the Celtic-Next projects CRITISEC and
