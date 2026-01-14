@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                        17 December 2025
-Expires: 20 June 2026
+Intended status: Standards Track                         14 January 2026
+Expires: 18 July 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,11 +60,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 June 2026.
+   This Internet-Draft will expire on 18 July 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1301,11 +1301,9 @@ Table of Contents
 
    Note that some responses to a group request might be filtered out and
    not reach the client if a NAT device is used with restrictive
-   filtering in place.  For example, this is the case if the NAT device
-   employs "Endpoint-Dependent Filtering" (see Section 2.6 of
-   [RFC5128]), i.e., the combination of "Address-Dependent Filtering"
-   and "Address and Port-Dependent Filtering" as defined in Section 5 of
-   [RFC4787].
+   filtering in place.  For example, this can be the case if the NAT
+   device employs "Address-Dependent Filtering" or "Address and Port-
+   Dependent Filtering" (see Section 5 of [RFC4787]).
 
 3.1.5.  Token Reuse
 
@@ -3209,9 +3207,9 @@ Table of Contents
               Tiloca, M., Selander, G., Palombini, F., Mattsson, J. P.,
               and R. Höglund, "Group Object Security for Constrained
               RESTful Environments (Group OSCORE)", Work in Progress,
-              Internet-Draft, draft-ietf-core-oscore-groupcomm-27, 12
-              September 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-core-oscore-groupcomm-27>.
+              Internet-Draft, draft-ietf-core-oscore-groupcomm-28, 23
+              December 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-core-oscore-groupcomm-28>.
 
    [Resource.Type.Link.Target.Attribute.Values]
               IANA, "Resource Type (rt=) Link Target Attribute Values",
@@ -3407,11 +3405,6 @@ Table of Contents
               Translation (NAT) Behavioral Requirements for Unicast
               UDP", BCP 127, RFC 4787, DOI 10.17487/RFC4787, January
               2007, <https://www.rfc-editor.org/rfc/rfc4787>.
-
-   [RFC5128]  Srisuresh, P., Ford, B., and D. Kegel, "State of Peer-to-
-              Peer (P2P) Communication across Network Address
-              Translators (NATs)", RFC 5128, DOI 10.17487/RFC5128, March
-              2008, <https://www.rfc-editor.org/rfc/rfc5128>.
 
    [RFC6092]  Woodyatt, J., Ed., "Recommended Simple Security
               Capabilities in Customer Premises Equipment (CPE) for
