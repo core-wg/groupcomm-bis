@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                        16 December 2025
-Expires: 19 June 2026
+Intended status: Standards Track                         14 January 2026
+Expires: 18 July 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,11 +60,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 June 2026.
+   This Internet-Draft will expire on 18 July 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -801,13 +801,13 @@ Table of Contents
    Resource Directory (RD), along with the CoAP group it uses and the
    resources it supports.  In that example, an application group name
    "lights" is encoded in the "ep" (endpoint) attribute of the RD
-   registration entry, while the CoAP group ff35:30:2001:db8:f1::8000:1
-   is specified in the authority component of the URI encoded in the
-   "base" attribute.  In subsequent group requests by a client to the
-   "lights" group, the name of the group is not present in the request
-   message.  Rather, the URI authority component that selects the CoAP
-   group ff35:30:2001:db8:f1::8000:1 will implicitly also select the
-   "lights" application group.
+   registration entry, while the multicast address identifying the CoAP
+   group is specified in the authority component of the URI encoded in
+   the "base" attribute.  In subsequent group requests by a client to
+   the "lights" group, the name of the group is not present in the
+   request message.  Rather, the URI authority component that selects
+   the CoAP group will implicitly also select the "lights" application
+   group.
 
 2.2.1.3.  Security Groups
 
@@ -3177,9 +3177,9 @@ Table of Contents
               Tiloca, M., Selander, G., Palombini, F., Mattsson, J. P.,
               and R. Höglund, "Group Object Security for Constrained
               RESTful Environments (Group OSCORE)", Work in Progress,
-              Internet-Draft, draft-ietf-core-oscore-groupcomm-27, 12
-              September 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-core-oscore-groupcomm-27>.
+              Internet-Draft, draft-ietf-core-oscore-groupcomm-28, 23
+              December 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-core-oscore-groupcomm-28>.
 
    [Resource.Type.Link.Target.Attribute.Values]
               IANA, "Resource Type (rt=) Link Target Attribute Values",
@@ -3360,9 +3360,9 @@ Table of Contents
    [I-D.ietf-intarea-multicast-application-port]
               Karstens, N., Cheshire, S., and M. McBride, "The Multicast
               Application Port", Work in Progress, Internet-Draft,
-              draft-ietf-intarea-multicast-application-port-01, 13
-              September 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-intarea-multicast-application-port-01>.
+              draft-ietf-intarea-multicast-application-port-02, 13
+              January 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-intarea-multicast-application-port-02>.
 
    [I-D.irtf-t2trg-amplification-attacks]
               Mattsson, J. P., Selander, G., and C. Amsüss,
@@ -3752,8 +3752,8 @@ A.2.1.  Actuator Group Control
    accomplish this using randomized retransmission is the MPL forwarding
    protocol for LLNs [RFC7731].
 
-   We assume the following steps have already occurred before the
-   illustrated flows:
+   It is assumed that the following steps have already occurred before
+   the illustrated flows:
 
    1) Startup phase: 6LoWPANs are formed.  IPv6 addresses are assigned
    to all devices.  The CoAP network is formed.
