@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-23T01:51:06.947823+00:00",
+  "timestamp": "2026-01-15T01:53:30.785834+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -899,9 +899,17 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-12-11T10:43:33Z",
-      "updatedAt": "2025-12-11T10:43:33Z",
+      "updatedAt": "2026-01-13T09:21:46Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Reason: official spelling in RFC 7959 is \"block-wise\"",
+          "createdAt": "2026-01-13T09:21:46Z",
+          "updatedAt": "2026-01-13T09:21:46Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -2867,24 +2875,26 @@
       "id": "PR_kwDODvYK3c6xioII",
       "title": "Ketan Talaulikar's review",
       "url": "https://github.com/core-wg/groupcomm-bis/pull/50",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "marco-tiloca-sics",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR addresses the review from Ketan Talaulikar archived at https://mailarchive.ietf.org/arch/msg/core/SG7fpMILV2a4qrJYHz0xhUw-V50/",
       "createdAt": "2025-11-05T02:45:00Z",
-      "updatedAt": "2025-12-16T18:35:07Z",
+      "updatedAt": "2026-01-14T15:18:26Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
       "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "ketan-review",
       "headRefOid": "c8f62574de0a0d8ee2c73ccd4ec3be0f16c26423",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-01-14T15:18:26Z",
+      "mergedAt": "2026-01-14T15:18:26Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "c6fc926e23b317085538497ff5b3aa0ea6563a33"
+      },
       "comments": [],
       "reviews": [
         {
@@ -2927,24 +2937,26 @@
       "id": "PR_kwDODvYK3c611UHj",
       "title": "INTDIR review",
       "url": "https://github.com/core-wg/groupcomm-bis/pull/51",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "marco-tiloca-sics",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR addresses the INTDIR review from Brian Haberman archived at https://mailarchive.ietf.org/arch/msg/core/lXv9zpyB3LxGrLyYdMWTyDalkhQ/\r\n\r\n(The point about the IPv6 address used in RFC 9176 is addressed in https://github.com/core-wg/groupcomm-bis/pull/50 , see commit https://github.com/core-wg/groupcomm-bis/commit/330949121919a790a6397a095221b883de79fdac#diff-e9763af996c2597da4d48083e55a8c2d9e47750929f9f4b785b81bd041d44b93R382-R383 . It is not re-addressed in this PR to minimize conflicts when merging)",
       "createdAt": "2025-11-27T11:30:24Z",
-      "updatedAt": "2025-12-16T18:30:26Z",
+      "updatedAt": "2026-01-14T15:25:06Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
-      "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
+      "baseRefOid": "c6fc926e23b317085538497ff5b3aa0ea6563a33",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "intdir-review",
-      "headRefOid": "3c6047b0ad644554added96130dae136e316ef00",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "c2004044b28693adbc4d76ce75cda58cb17f92f5",
+      "closedAt": "2026-01-14T15:25:06Z",
+      "mergedAt": "2026-01-14T15:25:05Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "718e96f1c25b160875f164e10fd7f2e029d7fe89"
+      },
       "comments": [],
       "reviews": [
         {
@@ -2967,24 +2979,26 @@
       "id": "PR_kwDODvYK3c63a8kS",
       "title": "Roman Danyliw's review",
       "url": "https://github.com/core-wg/groupcomm-bis/pull/52",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "marco-tiloca-sics",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR addresses the review from Roman Danyliw archived at https://mailarchive.ietf.org/arch/msg/core/j64DzV2O4c2pypW0GVKwO_Ickk0/",
       "createdAt": "2025-12-06T09:59:53Z",
-      "updatedAt": "2025-12-10T13:18:33Z",
+      "updatedAt": "2026-01-14T15:28:37Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
-      "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
+      "baseRefOid": "718e96f1c25b160875f164e10fd7f2e029d7fe89",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "roman-review",
-      "headRefOid": "09c76ba562d0911744bf337eb93c7d1d02082224",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "20c78669831b1175083a165d59a040725adec84b",
+      "closedAt": "2026-01-14T15:28:37Z",
+      "mergedAt": "2026-01-14T15:28:37Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "72d0597c8e6ce791bc010131467cd6f3aaa0a325"
+      },
       "comments": [],
       "reviews": [
         {
@@ -3020,24 +3034,26 @@
       "id": "PR_kwDODvYK3c63bCBu",
       "title": "Erik Kline's review",
       "url": "https://github.com/core-wg/groupcomm-bis/pull/53",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "marco-tiloca-sics",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR addresses the review from Erik Kline archived at https://datatracker.ietf.org/doc/draft-ietf-core-groupcomm-bis/ballot/#draft-ietf-core-groupcomm-bis_erik-kline",
       "createdAt": "2025-12-06T10:21:28Z",
-      "updatedAt": "2025-12-08T09:54:00Z",
+      "updatedAt": "2026-01-14T15:33:32Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
-      "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
+      "baseRefOid": "72d0597c8e6ce791bc010131467cd6f3aaa0a325",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "erik-kline-review",
-      "headRefOid": "4a1d86eb2a0e3e81f7559b11fad441f0ba03bb00",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "e79918623396a3e1e55404fe6f7a63b7390a9996",
+      "closedAt": "2026-01-14T15:33:32Z",
+      "mergedAt": "2026-01-14T15:33:32Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "21cc00a16761a25fa5fc369ac415f26d1b81326d"
+      },
       "comments": [],
       "reviews": [
         {
@@ -3060,24 +3076,26 @@
       "id": "PR_kwDODvYK3c63bKa1",
       "title": "Gunter Van de Velde's review",
       "url": "https://github.com/core-wg/groupcomm-bis/pull/54",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "marco-tiloca-sics",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR addresses the review from Gunter Van de Velde archived at https://mailarchive.ietf.org/arch/msg/core/d-WWC-v8uHGI73SCr6Sk4OrddaY/",
       "createdAt": "2025-12-06T10:50:32Z",
-      "updatedAt": "2025-12-08T10:10:13Z",
+      "updatedAt": "2026-01-14T15:38:28Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
-      "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
+      "baseRefOid": "21cc00a16761a25fa5fc369ac415f26d1b81326d",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "gunter-review",
-      "headRefOid": "d81ea9587c24c0d0d7ad37bca1b75281106e413f",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "3a2f0092709aef838231a4144333dc9395ff5c36",
+      "closedAt": "2026-01-14T15:38:28Z",
+      "mergedAt": "2026-01-14T15:38:28Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "7688f8acd30dff8fcf499b4f5027c8480328b59d"
+      },
       "comments": [],
       "reviews": [
         {
@@ -3140,24 +3158,26 @@
       "id": "PR_kwDODvYK3c64hKZb",
       "title": "Update the 'groups' model to allow multiple CoAP groups for one application group",
       "url": "https://github.com/core-wg/groupcomm-bis/pull/56",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "EskoDijk",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Also this clarifies (DNS) resolution of a single hostname to potentially multiple CoAP groups, and potentially mixed IPv4/IPv6 addresses.",
       "createdAt": "2025-12-12T08:19:57Z",
-      "updatedAt": "2025-12-12T15:47:20Z",
+      "updatedAt": "2026-01-14T16:11:42Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
-      "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
+      "baseRefOid": "7688f8acd30dff8fcf499b4f5027c8480328b59d",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "pr-groups-model-update",
-      "headRefOid": "9894d998a3bc6b09085500020edcab30efa0cb7a",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "70eaa3675ae92c27bc72e60d37530aee558a6edc",
+      "closedAt": "2026-01-14T16:11:42Z",
+      "mergedAt": "2026-01-14T16:11:42Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "37f0d3fd5c4e02da2b89a5e1bb93e30e1c795915"
+      },
       "comments": [],
       "reviews": [
         {
@@ -3260,24 +3280,26 @@
       "id": "PR_kwDODvYK3c64tFRt",
       "title": "Mohamed Boucadair's review",
       "url": "https://github.com/core-wg/groupcomm-bis/pull/57",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "marco-tiloca-sics",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR addresses the review from Mohamed Boucadair archived at https://mailarchive.ietf.org/arch/msg/core/6bjFRbSwzAvfdQqupIn9hCxB_OA/\r\n\r\n(The separate PR #56 tracks the updates that address the comment on \"dual-stack\" and on the relation between application groups and CoAP groups)",
       "createdAt": "2025-12-13T16:01:22Z",
-      "updatedAt": "2025-12-22T12:44:57Z",
+      "updatedAt": "2026-01-14T17:47:40Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
-      "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
+      "baseRefOid": "37f0d3fd5c4e02da2b89a5e1bb93e30e1c795915",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "mohamed-review",
-      "headRefOid": "e57399efb2e9ae5e7a821e7c83ee324ef184769a",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "5ece571df23bfdf0724cf34dd9c4f0933224e41b",
+      "closedAt": "2026-01-14T17:47:40Z",
+      "mergedAt": "2026-01-14T17:47:40Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "dbb9c256eff0998b0d71ce1e09b43d9e5abad0b3"
+      },
       "comments": [],
       "reviews": [
         {
@@ -3425,6 +3447,26 @@
               "updatedAt": "2025-12-22T12:44:57Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDODvYK3c7aJY3f",
+          "commit": {
+            "abbreviatedOid": "e57399e"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-01-14T10:08:41Z",
+          "updatedAt": "2026-01-14T10:08:41Z",
+          "comments": [
+            {
+              "originalPosition": 172,
+              "body": "@boucadair @marco-tiloca-sics  Suggestion is now included in modified form:\r\n\r\nNote that some responses to a group request might be filtered out and not reach the client if a NAT device is used with restrictive filtering in place. For example, this can be the case if the NAT device employs \"Address-Dependent Filtering\" or \"Address and Port-Dependent Filtering\" (see {{Section 5 of RFC4787}}).\r\n\r\nReading the details I realized that 'Address-Dependent Filtering' will also block any responses of servers that are behind such a NAT. Because the NAT didn't see the server's source address before. In some cases it will work if (due to previous unicast communication) the NAT did see the server's address before in a destination-address field of a packet. Hence it's worded as \"can be the case\" now.  Whether port filtering kicks in depends on whether the server changes the port number or not (the \"MAY\" feature to change port number also noted in the draft).\r\n",
+              "createdAt": "2026-01-14T10:08:41Z",
+              "updatedAt": "2026-01-14T10:08:42Z"
+            }
+          ]
         }
       ]
     },
@@ -3433,24 +3475,26 @@
       "id": "PR_kwDODvYK3c64tWB2",
       "title": "\u00c9ric Vyncke's review",
       "url": "https://github.com/core-wg/groupcomm-bis/pull/58",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "marco-tiloca-sics",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR addresses the review from \u00c9ric Vyncke archived at https://mailarchive.ietf.org/arch/msg/core/N0x5gyVLzepZA_aTdsXZcYJyGyY/",
       "createdAt": "2025-12-13T17:37:17Z",
-      "updatedAt": "2025-12-17T13:34:53Z",
+      "updatedAt": "2026-01-14T19:24:19Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
-      "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
+      "baseRefOid": "dbb9c256eff0998b0d71ce1e09b43d9e5abad0b3",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "eric-vyncke-review",
-      "headRefOid": "6f5fe697f8983a65b584b914e746a918fb563abc",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "31f7608b1fb7a64996cca20b385c96cc091ed2b4",
+      "closedAt": "2026-01-14T19:24:18Z",
+      "mergedAt": "2026-01-14T19:24:18Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "1ae7ad8d8477b67e680e89dc6bb87096f84d7359"
+      },
       "comments": [],
       "reviews": [
         {
