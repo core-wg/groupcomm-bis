@@ -1967,7 +1967,7 @@ Client              A  B  C
 ~~~~~~~~~~~
 {: #fig-exchange-example-observe title="Example of Non-confirmable Observe group request, followed by Non-confirmable Responses as Observe notifications"}
 
-In {{fig-exchange-example-blockwise}}, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "log" in the application group "gp1", and requesting a blockwise transfer.
+In {{fig-exchange-example-blockwise}}, the client sends a Non-confirmable GET request to the CoAP group, targeting the resource "log" in the application group "gp1", and requesting a block-wise transfer.
 
 ~~~~~~~~~~~ aasvg
 Client              A  B  C
@@ -2131,7 +2131,7 @@ Client              A  B  C
    |                |  |  |
 
 ~~~~~~~~~~~
-{: #fig-exchange-example-blockwise title="Example of Non-confirmable group request starting a blockwise transfer, followed by Non-confirmable Responses with the first block. The transfer continues over confirmable unicast exchanges"}
+{: #fig-exchange-example-blockwise title="Example of Non-confirmable group request starting a block-wise transfer, followed by Non-confirmable Responses with the first block. The transfer continues over confirmable unicast exchanges"}
 
 # Issues and Limitations with Forward-Proxies # {#sec-issues-forward-proxies}
 
