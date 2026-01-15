@@ -2172,6 +2172,60 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
 
+## Version -15 to -16 ## {#sec-15-16}
+
+* Updated group relationship model: multiple CoAP groups can be associated with the same application group.
+
+* Added pointers to updated sections of RFC 7252 and RFC 7641.
+
+* Recommended approach for re-sending group requests.
+
+* Recommended use of block-wise at the server's initiative for large responses.
+
+* Mentioned possible port numbers designated for multicast applications.
+
+* CoAP groups with same address and different port number are not recommended.
+
+* Use of IP addresses:
+
+  * Use IPv6 addresses intended for examples in documentation.
+
+  * Reference to guidelines, but no suggestion/recommendation on multicast addresses to use.
+
+* Clarifications:
+
+  * Meaning of "One-to-many".
+
+  * A CoAP endpoint is identified by (IP address, port number).
+
+  * Use of port number for identifying CoAP groups.
+
+  * Operational considerations on relationships with security groups.
+
+  * Generalization about configuring entities.
+
+  * Possible impact of a NAT employing "Endpoint-Dependent Filtering".
+
+  * A hostname in a Group URI might identify multiple CoAP groups (following the name resolution process).
+
+* Preserve IANA registrations specified in RFC 7390.
+
+* Updated references:
+
+  * For "ASM", used normative references to RFC 1112 and RFC 8085, instead of to RFC 5110.
+
+  * Added references to UML, IEEE 802.15.4, and the IANA registry "Service Name and Transport Protocol Port Number Registry".
+
+  * Moved implementation references to the Datatracker page.
+
+  * Changed the reference to the "Resource Type (rt=) Link Target Attribute Values" IANA registry from normative to informative.
+
+* Improved use of normative/non-normative language about congestion control.
+
+* Avoid normative language for inherited, already defined behavior.
+
+* Minor clarifications and editorial improvements.
+
 ## Version -14 to -15 ## {#sec-14-15}
 
 * DNS is only one possible name resolution service.
