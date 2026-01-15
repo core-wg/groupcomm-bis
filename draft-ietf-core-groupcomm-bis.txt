@@ -5225,12 +5225,13 @@ G.15.  Version -00 to -01
 
 Acknowledgements
 
-   The authors sincerely thank Christian Amsüss, Mike Bishop, Carsten
-   Bormann, Mohamed Boucadair, Roman Danyliw, Roni Even, Gorry
-   Fairhurst, Thomas Fossati, Brian Haberman, Rikard Höglund, Jaime
-   Jiménez, Erik Kline, John Preuß Mattsson, Jim Schaad, Jon Shallow,
-   Petr Špaček, Ketan Talaulikar, Sean Turner, Gunter Van de Velde, Éric
-   Vyncke, and Magnus Westerlund for their comments and feedback.
+   The authors sincerely thank Claudio Allocchio, Christian Amsüss, Mike
+   Bishop, Carsten Bormann, Mohamed Boucadair, Roman Danyliw, Roni Even,
+   Gorry Fairhurst, Thomas Fossati, Brian Haberman, Rikard Höglund,
+   Jaime Jiménez, Erik Kline, John Preuß Mattsson, Jim Schaad, Jon
+   Shallow, Petr Špaček, Ketan Talaulikar, Sean Turner, Gunter Van de
+   Velde, Éric Vyncke, and Magnus Westerlund for their comments and
+   feedback.
 
    The work on this document has been partly supported by the Sweden's
    Innovation Agency VINNOVA and the Celtic-Next projects CRITISEC and
