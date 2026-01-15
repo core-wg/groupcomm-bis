@@ -172,21 +172,22 @@ Table of Contents
    Appendix E.  Issues and Limitations with Forward-Proxies
    Appendix F.  Issues and Limitations with Reverse-Proxies
    Appendix G.  Document Updates
-     G.1.  Version -14 to -15
-     G.2.  Version -13 to -14
-     G.3.  Version -12 to -13
-     G.4.  Version -11 to -12
-     G.5.  Version -10 to -11
-     G.6.  Version -09 to -10
-     G.7.  Version -08 to -09
-     G.8.  Version -07 to -08
-     G.9.  Version -06 to -07
-     G.10. Version -05 to -06
-     G.11. Version -04 to -05
-     G.12. Version -03 to -04
-     G.13. Version -02 to -03
-     G.14. Version -01 to -02
-     G.15. Version -00 to -01
+     G.1.  Version -15 to -16
+     G.2.  Version -14 to -15
+     G.3.  Version -13 to -14
+     G.4.  Version -12 to -13
+     G.5.  Version -11 to -12
+     G.6.  Version -10 to -11
+     G.7.  Version -09 to -10
+     G.8.  Version -08 to -09
+     G.9.  Version -07 to -08
+     G.10. Version -06 to -07
+     G.11. Version -05 to -06
+     G.12. Version -04 to -05
+     G.13. Version -03 to -04
+     G.14. Version -02 to -03
+     G.15. Version -01 to -02
+     G.16. Version -00 to -01
    Acknowledgements
    Authors' Addresses
 
@@ -4886,7 +4887,73 @@ Appendix G.  Document Updates
 
    This section is to be removed before publishing as an RFC.
 
-G.1.  Version -14 to -15
+G.1.  Version -15 to -16
+
+   *  Updated group relationship model: multiple CoAP groups can be
+      associated with the same application group.
+
+   *  Added pointers to updated sections of RFC 7252 and RFC 7641.
+
+   *  Recommended approach for re-sending group requests.
+
+   *  Recommended use of block-wise at the server's initiative for large
+      responses.
+
+   *  Mentioned possible port numbers designated for multicast
+      applications.
+
+   *  CoAP groups with same address and different port number are not
+      recommended.
+
+   *  Use of IP addresses:
+
+      -  Use IPv6 addresses intended for examples in documentation.
+
+      -  Reference to guidelines, but no suggestion/recommendation on
+         multicast addresses to use.
+
+   *  Clarifications:
+
+      -  Meaning of "One-to-many".
+
+      -  A CoAP endpoint is identified by (IP address, port number).
+
+      -  Use of port number for identifying CoAP groups.
+
+      -  Operational considerations on relationships with security
+         groups.
+
+      -  Generalization about configuring entities.
+
+      -  Possible impact of a NAT employing "Endpoint-Dependent
+         Filtering".
+
+      -  A hostname in a Group URI might identify multiple CoAP groups
+         (following the name resolution process).
+
+   *  Preserve IANA registrations specified in RFC 7390.
+
+   *  Updated references:
+
+      -  For "ASM", used normative references to RFC 1112 and RFC 8085,
+         instead of to RFC 5110.
+
+      -  Added references to UML, IEEE 802.15.4, and the IANA registry
+         "Service Name and Transport Protocol Port Number Registry".
+
+      -  Moved implementation references to the Datatracker page.
+
+      -  Changed the reference to the "Resource Type (rt=) Link Target
+         Attribute Values" IANA registry from normative to informative.
+
+   *  Improved use of normative/non-normative language about congestion
+      control.
+
+   *  Avoid normative language for inherited, already defined behavior.
+
+   *  Minor clarifications and editorial improvements.
+
+G.2.  Version -14 to -15
 
    *  DNS is only one possible name resolution service.
 
@@ -4922,7 +4989,7 @@ G.1.  Version -14 to -15
 
    *  Editorial improvements.
 
-G.2.  Version -13 to -14
+G.3.  Version -13 to -14
 
    *  More context information in the abstract and introduction.
 
@@ -4935,7 +5002,7 @@ G.2.  Version -13 to -14
 
    *  Minor fixes and editorial improvements.
 
-G.3.  Version -12 to -13
+G.4.  Version -12 to -13
 
    *  Updated author list.
 
@@ -4965,7 +5032,7 @@ G.3.  Version -12 to -13
 
    *  Clarifications and editorial improvements.
 
-G.4.  Version -11 to -12
+G.5.  Version -11 to -12
 
    *  Clarified how a group name can be included in a URI path for
       reverse proxies; removed reference to URI templates for reverse
@@ -5019,13 +5086,13 @@ G.4.  Version -11 to -12
 
    *  Editorial improvements.
 
-G.5.  Version -10 to -11
+G.6.  Version -10 to -11
 
    *  Updated references.
 
    *  Editorial improvements.
 
-G.6.  Version -09 to -10
+G.7.  Version -09 to -10
 
    *  Clarified use of NoSec for 'early discovery' and refer to cBRSKI.
 
@@ -5056,18 +5123,18 @@ G.6.  Version -09 to -10
 
    *  Editorial fixes and improvements.
 
-G.7.  Version -08 to -09
+G.8.  Version -08 to -09
 
    *  Multiple responses in long exchanges are non-traditional
       responses.
 
    *  Updated references.
 
-G.8.  Version -07 to -08
+G.9.  Version -07 to -08
 
    *  Updated references.
 
-G.9.  Version -06 to -07
+G.10.  Version -06 to -07
 
    *  Updated list of changes to other documents.
 
@@ -5102,7 +5169,7 @@ G.9.  Version -06 to -07
 
    *  Editorial improvements.
 
-G.10.  Version -05 to -06
+G.11.  Version -05 to -06
 
    *  Harmonized use of "group URI".
 
@@ -5126,7 +5193,7 @@ G.10.  Version -05 to -06
 
    *  Editorial improvements.
 
-G.11.  Version -04 to -05
+G.12.  Version -04 to -05
 
    *  Clarified changes to other documents.
 
@@ -5145,7 +5212,7 @@ G.11.  Version -04 to -05
 
    *  Editorial improvements.
 
-G.12.  Version -03 to -04
+G.13.  Version -03 to -04
 
    *  Multi-ETag Option for response revalidation moved to appendix.
 
@@ -5167,7 +5234,7 @@ G.12.  Version -03 to -04
 
    *  Editorial improvements.
 
-G.13.  Version -02 to -03
+G.14.  Version -02 to -03
 
    *  Multiple responses from same server handled at the application.
 
@@ -5181,7 +5248,7 @@ G.13.  Version -02 to -03
 
    *  Client-Proxy response revalidation, with the Group-ETag Option.
 
-G.14.  Version -01 to -02
+G.15.  Version -01 to -02
 
    *  Clarified relationship between security groups and application
       groups.
@@ -5198,7 +5265,7 @@ G.14.  Version -01 to -02
 
    *  Response suppression based on classes of error codes.
 
-G.15.  Version -00 to -01
+G.16.  Version -00 to -01
 
    *  Clarifications on group memberships for the different group types.
 
