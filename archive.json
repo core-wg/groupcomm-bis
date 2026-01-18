@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-01-15T01:53:30.785834+00:00",
+  "timestamp": "2026-01-18T02:02:01.522326+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -892,15 +892,15 @@
       "id": "I_kwDODvYK3c7dqMR3",
       "title": "Editorial: replace \"blockwise\" by \"block-wise\" for consistency",
       "url": "https://github.com/core-wg/groupcomm-bis/issues/55",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "EskoDijk",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-12-11T10:43:33Z",
-      "updatedAt": "2026-01-13T09:21:46Z",
-      "closedAt": null,
+      "updatedAt": "2026-01-15T14:24:26Z",
+      "closedAt": "2026-01-15T14:24:26Z",
       "comments": [
         {
           "author": "EskoDijk",
@@ -3590,24 +3590,26 @@
       "id": "PR_kwDODvYK3c64x65o",
       "title": "Gorry Fairhurst's review",
       "url": "https://github.com/core-wg/groupcomm-bis/pull/59",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "marco-tiloca-sics",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR addresses the review from Gorry Fairhurst archived at https://mailarchive.ietf.org/arch/msg/core/irEzlcDwuZtzgpTWgDE0n5nw3Wg/",
       "createdAt": "2025-12-14T16:38:37Z",
-      "updatedAt": "2025-12-22T15:44:09Z",
+      "updatedAt": "2026-01-15T10:46:55Z",
       "baseRepository": "core-wg/groupcomm-bis",
       "baseRefName": "master",
-      "baseRefOid": "da1eca5ffb04d53cc85296a5f9f230545fefe489",
+      "baseRefOid": "1ae7ad8d8477b67e680e89dc6bb87096f84d7359",
       "headRepository": "core-wg/groupcomm-bis",
       "headRefName": "gorry-review",
-      "headRefOid": "2f675b1a587b049be3e3c7b49e9f74e2a0cd97cd",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "b2036bf91e6624afd84f304c6023a0786374c5d4",
+      "closedAt": "2026-01-15T10:46:55Z",
+      "mergedAt": "2026-01-15T10:46:55Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "9baaa5fe251791e4f9453283a2d8ebbac8d175d8"
+      },
       "comments": [
         {
           "author": "EskoDijk",
