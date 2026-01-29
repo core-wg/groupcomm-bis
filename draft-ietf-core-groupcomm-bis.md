@@ -148,7 +148,7 @@ Unsecured group communication relies on the NoSec mode, whose use is strongly di
 
 Secured group communication is achieved by using Group Object Security for Constrained RESTful Environments (Group OSCORE) {{I-D.ietf-core-oscore-groupcomm}}, which in turn builds on Object Security for Constrained Restful Environments (OSCORE) {{RFC8613}}. This method provides end-to-end application-layer security protection of CoAP messages, by using CBOR Object Signing and Encryption (COSE) {{RFC9052}}{{RFC9053}}.
 
-This document replaces and obsoletes {{RFC7390}}, while it updates both {{RFC7252}} and {{RFC7641}}. A summary of the changes and additions to these documents is provided in {{changes}}.
+This document is a Standards Track specification that replaces and obsoletes the Experimental specification {{RFC7390}}, while it updates both {{RFC7252}} and {{RFC7641}}. A summary of the changes and additions to these documents is provided in {{changes}}.
 
 All sections in the body of this document are normative, while appendices are informative. For additional background about use cases for CoAP group communication in resource-constrained devices and networks, see {{appendix-usecases}}.
 
@@ -187,7 +187,11 @@ This document obsoletes and replaces {{RFC7390}} as follows.
 
 * It strongly discourages unsecured group communication for CoAP based on the CoAP NoSec (No Security) mode (see {{chap-unsecured-groupcomm}} and {{chap-security-considerations-nosec-mode}}), and highlights the risk of amplification attacks together with mitigations against those (see {{ssec-amplification}}).
 
+  This is a major advancement from {{RFC7390}}, which defined CoAP group communication based on IP multicast to operate in CoAP NoSec mode, until a future group security solution was developed.
+
 * It defines the use of Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} as the security protocol to protect group communication for CoAP, together with high-level guidelines on secure group maintenance (see {{chap-oscore}}).
+
+  This is a major advancement from {{RFC7390}}, which at that time could not rely on a group security solution to protect group communication for CoAP.
 
 This document updates {{RFC7252}} as follows.
 
