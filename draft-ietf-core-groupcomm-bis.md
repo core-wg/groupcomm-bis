@@ -2178,6 +2178,16 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
 
+## Version -16 to -17 ## {#sec-16-17}
+
+* Clarifications in Section 1.0 and 1.3:
+
+  - This is a Standards Track document that replaces and obsoletes the Experimental specification RFC 7390.
+
+  - Highlighted advancement from RFC 7390.
+
+* Explicit mentioning of the implications of the Any Source Multicast (ASM) mode of IP multicast operation.
+
 ## Version -15 to -16 ## {#sec-15-16}
 
 * Updated group relationship model: multiple CoAP groups can be associated with the same application group.
