@@ -148,7 +148,7 @@ Unsecured group communication relies on the NoSec mode, whose use is strongly di
 
 Secured group communication is achieved by using Group Object Security for Constrained RESTful Environments (Group OSCORE) {{I-D.ietf-core-oscore-groupcomm}}, which in turn builds on Object Security for Constrained Restful Environments (OSCORE) {{RFC8613}}. This method provides end-to-end application-layer security protection of CoAP messages, by using CBOR Object Signing and Encryption (COSE) {{RFC9052}}{{RFC9053}}.
 
-This document replaces and obsoletes {{RFC7390}}, while it updates both {{RFC7252}} and {{RFC7641}}. A summary of the changes and additions to these documents is provided in {{changes}}.
+This document is a Standards Track specification that replaces and obsoletes the Experimental specification {{RFC7390}}, while it updates both {{RFC7252}} and {{RFC7641}}. A summary of the changes and additions to these documents is provided in {{changes}}.
 
 All sections in the body of this document are normative, while appendices are informative. For additional background about use cases for CoAP group communication in resource-constrained devices and networks, see {{appendix-usecases}}.
 
@@ -157,7 +157,9 @@ For group communication, only those solutions that use CoAP messages over a "one
 
 For applications that do not have those requirements, there are alternative methods to achieve group communication using CoAP, using unicast only. One example is Publish-Subscribe {{I-D.ietf-core-coap-pubsub}} which uses a central broker server that CoAP clients access via unicast communication. These alternative methods may be usable for the same or similar use cases as the ones targeted in this document.
 
-This document defines UDP/IP multicast as the default transport protocol for CoAP group requests, as in {{RFC7252}}. Only the Any Source Multicast (ASM) mode of IP multicast operation is in scope, as defined in {{RFC1112}} and referred by that name in {{RFC8085}}. Other transport protocols (which may include broadcast, non-IP multicast, geocast, etc.) are not described in detail and are not considered. Although UDP/IP multicast transport is assumed in most of the text in this document, it is expected that many of the considerations for UDP/IP multicast can be re-used for alternative transport protocols.
+This document defines UDP/IP multicast as the default transport protocol for CoAP group requests, as in {{RFC7252}}. Only the Any Source Multicast (ASM) mode of IP multicast operation is in scope, as defined in {{RFC1112}} and referred by that name in {{RFC8085}}. This means that there is no restriction on the source node that sends (originates) CoAP group messages to an IP multicast group (corresponding to a "CoAP Group" in this document, see {{sec-groupdef-coapgroup}}). For example, the source node may or may not be part of the IP multicast group. Also, there is no restriction on the number of source nodes.
+
+Other transport protocols (which may include broadcast, non-IP multicast, geocast, etc.) are not described in detail and are not considered. Although UDP/IP multicast transport is assumed in most of the text in this document, it is expected that many of the considerations for UDP/IP multicast can be re-used for alternative transport protocols.
 
 Furthermore, this document defines Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} as the default group communication security solution for CoAP. Security solutions for group communication and configuration other than Group OSCORE are not considered. General principles for secure group configuration are in scope.
 
@@ -187,7 +189,11 @@ This document obsoletes and replaces {{RFC7390}} as follows.
 
 * It strongly discourages unsecured group communication for CoAP based on the CoAP NoSec (No Security) mode (see {{chap-unsecured-groupcomm}} and {{chap-security-considerations-nosec-mode}}), and highlights the risk of amplification attacks together with mitigations against those (see {{ssec-amplification}}).
 
+  This is a major advancement from {{RFC7390}}, which defined CoAP group communication based on IP multicast to operate in CoAP NoSec mode, until a future group security solution was developed.
+
 * It defines the use of Group OSCORE {{I-D.ietf-core-oscore-groupcomm}} as the security protocol to protect group communication for CoAP, together with high-level guidelines on secure group maintenance (see {{chap-oscore}}).
+
+  This is a major advancement from {{RFC7390}}, which at that time could not rely on a group security solution to protect group communication for CoAP.
 
 This document updates {{RFC7252}} as follows.
 
@@ -2171,6 +2177,16 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
+
+## Version -16 to -17 ## {#sec-16-17}
+
+* Clarifications in Section 1.0 and 1.3:
+
+  - This is a Standards Track document that replaces and obsoletes the Experimental specification RFC 7390.
+
+  - Highlighted advancement from RFC 7390.
+
+* Explicit mentioning of the implications of the Any Source Multicast (ASM) mode of IP multicast operation.
 
 ## Version -15 to -16 ## {#sec-15-16}
 
