@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                         15 January 2026
-Expires: 19 July 2026
+Intended status: Standards Track                         29 January 2026
+Expires: 2 August 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 July 2026.
+   This Internet-Draft will expire on 2 August 2026.
 
 Copyright Notice
 
@@ -172,22 +172,23 @@ Table of Contents
    Appendix E.  Issues and Limitations with Forward-Proxies
    Appendix F.  Issues and Limitations with Reverse-Proxies
    Appendix G.  Document Updates
-     G.1.  Version -15 to -16
-     G.2.  Version -14 to -15
-     G.3.  Version -13 to -14
-     G.4.  Version -12 to -13
-     G.5.  Version -11 to -12
-     G.6.  Version -10 to -11
-     G.7.  Version -09 to -10
-     G.8.  Version -08 to -09
-     G.9.  Version -07 to -08
-     G.10. Version -06 to -07
-     G.11. Version -05 to -06
-     G.12. Version -04 to -05
-     G.13. Version -03 to -04
-     G.14. Version -02 to -03
-     G.15. Version -01 to -02
-     G.16. Version -00 to -01
+     G.1.  Version -16 to -17
+     G.2.  Version -15 to -16
+     G.3.  Version -14 to -15
+     G.4.  Version -13 to -14
+     G.5.  Version -12 to -13
+     G.6.  Version -11 to -12
+     G.7.  Version -10 to -11
+     G.8.  Version -09 to -10
+     G.9.  Version -08 to -09
+     G.10. Version -07 to -08
+     G.11. Version -06 to -07
+     G.12. Version -05 to -06
+     G.13. Version -04 to -05
+     G.14. Version -03 to -04
+     G.15. Version -02 to -03
+     G.16. Version -01 to -02
+     G.17. Version -00 to -01
    Acknowledgements
    Authors' Addresses
 
@@ -240,9 +241,10 @@ Table of Contents
    of CoAP messages, by using CBOR Object Signing and Encryption (COSE)
    [RFC9052][RFC9053].
 
-   This document replaces and obsoletes [RFC7390], while it updates both
-   [RFC7252] and [RFC7641].  A summary of the changes and additions to
-   these documents is provided in Section 1.3.
+   This document is a Standards Track specification that replaces and
+   obsoletes the Experimental specification [RFC7390], while it updates
+   both [RFC7252] and [RFC7641].  A summary of the changes and additions
+   to these documents is provided in Section 1.3.
 
    All sections in the body of this document are normative, while
    appendices are informative.  For additional background about use
@@ -273,12 +275,20 @@ Table of Contents
    This document defines UDP/IP multicast as the default transport
    protocol for CoAP group requests, as in [RFC7252].  Only the Any
    Source Multicast (ASM) mode of IP multicast operation is in scope, as
-   defined in [RFC1112] and referred by that name in [RFC8085].  Other
-   transport protocols (which may include broadcast, non-IP multicast,
-   geocast, etc.) are not described in detail and are not considered.
-   Although UDP/IP multicast transport is assumed in most of the text in
-   this document, it is expected that many of the considerations for
-   UDP/IP multicast can be re-used for alternative transport protocols.
+   defined in [RFC1112] and referred by that name in [RFC8085].  This
+   means that there is no restriction on the source node that sends
+   (originates) CoAP group messages to an IP multicast group
+   (corresponding to a "CoAP Group" in this document, see
+   Section 2.1.1).  For example, the source node may or may not be part
+   of the IP multicast group.  Also, there is no restriction on the
+   number of source nodes.
+
+   Other transport protocols (which may include broadcast, non-IP
+   multicast, geocast, etc.) are not described in detail and are not
+   considered.  Although UDP/IP multicast transport is assumed in most
+   of the text in this document, it is expected that many of the
+   considerations for UDP/IP multicast can be re-used for alternative
+   transport protocols.
 
    Furthermore, this document defines Group OSCORE
    [I-D.ietf-core-oscore-groupcomm] as the default group communication
@@ -343,10 +353,18 @@ Table of Contents
       Section 6.1), and highlights the risk of amplification attacks
       together with mitigations against those (see Section 6.3).
 
+      This is a major advancement from [RFC7390], which defined CoAP
+      group communication based on IP multicast to operate in CoAP NoSec
+      mode, until a future group security solution was developed.
+
    *  It defines the use of Group OSCORE
       [I-D.ietf-core-oscore-groupcomm] as the security protocol to
       protect group communication for CoAP, together with high-level
       guidelines on secure group maintenance (see Section 5).
+
+      This is a major advancement from [RFC7390], which at that time
+      could not rely on a group security solution to protect group
+      communication for CoAP.
 
    This document updates [RFC7252] as follows.
 
@@ -3431,9 +3449,9 @@ Table of Contents
               Object Security for Constrained RESTful Environments
               (Group OSCORE) Using Authentication and Authorization for
               Constrained Environments (ACE)", Work in Progress,
-              Internet-Draft, draft-ietf-ace-key-groupcomm-oscore-18, 28
-              August 2025, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-ace-key-groupcomm-oscore-18>.
+              Internet-Draft, draft-ietf-ace-key-groupcomm-oscore-19, 24
+              January 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-ace-key-groupcomm-oscore-19>.
 
    [I-D.ietf-ace-oscore-gm-admin]
               Tiloca, M., Höglund, R., Van der Stok, P., and F.
@@ -4887,7 +4905,19 @@ Appendix G.  Document Updates
 
    This section is to be removed before publishing as an RFC.
 
-G.1.  Version -15 to -16
+G.1.  Version -16 to -17
+
+   *  Clarifications in Section 1.0 and 1.3:
+
+      -  This is a Standards Track document that replaces and obsoletes
+         the Experimental specification RFC 7390.
+
+      -  Highlighted advancement from RFC 7390.
+
+   *  Explicit mentioning of the implications of the Any Source
+      Multicast (ASM) mode of IP multicast operation.
+
+G.2.  Version -15 to -16
 
    *  Updated group relationship model: multiple CoAP groups can be
       associated with the same application group.
@@ -4953,7 +4983,7 @@ G.1.  Version -15 to -16
 
    *  Minor clarifications and editorial improvements.
 
-G.2.  Version -14 to -15
+G.3.  Version -14 to -15
 
    *  DNS is only one possible name resolution service.
 
@@ -4989,7 +5019,7 @@ G.2.  Version -14 to -15
 
    *  Editorial improvements.
 
-G.3.  Version -13 to -14
+G.4.  Version -13 to -14
 
    *  More context information in the abstract and introduction.
 
@@ -5002,7 +5032,7 @@ G.3.  Version -13 to -14
 
    *  Minor fixes and editorial improvements.
 
-G.4.  Version -12 to -13
+G.5.  Version -12 to -13
 
    *  Updated author list.
 
@@ -5032,7 +5062,7 @@ G.4.  Version -12 to -13
 
    *  Clarifications and editorial improvements.
 
-G.5.  Version -11 to -12
+G.6.  Version -11 to -12
 
    *  Clarified how a group name can be included in a URI path for
       reverse proxies; removed reference to URI templates for reverse
@@ -5086,13 +5116,13 @@ G.5.  Version -11 to -12
 
    *  Editorial improvements.
 
-G.6.  Version -10 to -11
+G.7.  Version -10 to -11
 
    *  Updated references.
 
    *  Editorial improvements.
 
-G.7.  Version -09 to -10
+G.8.  Version -09 to -10
 
    *  Clarified use of NoSec for 'early discovery' and refer to cBRSKI.
 
@@ -5123,18 +5153,18 @@ G.7.  Version -09 to -10
 
    *  Editorial fixes and improvements.
 
-G.8.  Version -08 to -09
+G.9.  Version -08 to -09
 
    *  Multiple responses in long exchanges are non-traditional
       responses.
 
    *  Updated references.
 
-G.9.  Version -07 to -08
+G.10.  Version -07 to -08
 
    *  Updated references.
 
-G.10.  Version -06 to -07
+G.11.  Version -06 to -07
 
    *  Updated list of changes to other documents.
 
@@ -5169,7 +5199,7 @@ G.10.  Version -06 to -07
 
    *  Editorial improvements.
 
-G.11.  Version -05 to -06
+G.12.  Version -05 to -06
 
    *  Harmonized use of "group URI".
 
@@ -5193,7 +5223,7 @@ G.11.  Version -05 to -06
 
    *  Editorial improvements.
 
-G.12.  Version -04 to -05
+G.13.  Version -04 to -05
 
    *  Clarified changes to other documents.
 
@@ -5212,7 +5242,7 @@ G.12.  Version -04 to -05
 
    *  Editorial improvements.
 
-G.13.  Version -03 to -04
+G.14.  Version -03 to -04
 
    *  Multi-ETag Option for response revalidation moved to appendix.
 
@@ -5234,7 +5264,7 @@ G.13.  Version -03 to -04
 
    *  Editorial improvements.
 
-G.14.  Version -02 to -03
+G.15.  Version -02 to -03
 
    *  Multiple responses from same server handled at the application.
 
@@ -5248,7 +5278,7 @@ G.14.  Version -02 to -03
 
    *  Client-Proxy response revalidation, with the Group-ETag Option.
 
-G.15.  Version -01 to -02
+G.16.  Version -01 to -02
 
    *  Clarified relationship between security groups and application
       groups.
@@ -5265,7 +5295,7 @@ G.15.  Version -01 to -02
 
    *  Response suppression based on classes of error codes.
 
-G.16.  Version -00 to -01
+G.17.  Version -00 to -01
 
    *  Clarifications on group memberships for the different group types.
 
