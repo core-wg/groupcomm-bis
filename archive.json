@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-01-18T02:02:01.522326+00:00",
+  "timestamp": "2026-02-01T02:37:06.726511+00:00",
   "repo": "core-wg/groupcomm-bis",
   "labels": [
     {
@@ -3974,6 +3974,42 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 60,
+      "id": "PR_kwDODvYK3c7AF88M",
+      "title": "Follow-up comments from Gorry Fairhurst",
+      "url": "https://github.com/core-wg/groupcomm-bis/pull/60",
+      "state": "MERGED",
+      "author": "marco-tiloca-sics",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR addresses the follow-up comments from Gorry Fairhurst during IESG evaluation, archived at https://mailarchive.ietf.org/arch/msg/core/JFw9-xqM6ifhaj8bhyGFmSflaLc/",
+      "createdAt": "2026-01-29T10:33:11Z",
+      "updatedAt": "2026-01-29T10:36:10Z",
+      "baseRepository": "core-wg/groupcomm-bis",
+      "baseRefName": "master",
+      "baseRefOid": "d6dae8c2dbe1c93e4bbd53a93bc8eaebb1d105d2",
+      "headRepository": "core-wg/groupcomm-bis",
+      "headRefName": "gorry-review-2",
+      "headRefOid": "fdb434b3898c0730189c9b21580b1696af385da1",
+      "closedAt": "2026-01-29T10:34:01Z",
+      "mergedAt": "2026-01-29T10:34:01Z",
+      "mergedBy": "marco-tiloca-sics",
+      "mergeCommit": {
+        "oid": "c4f9377531a6d0c168f0111d29ea66e8eeb02b38"
+      },
+      "comments": [
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@marco-tiloca-sics Thanks! Looks good.",
+          "createdAt": "2026-01-29T10:36:10Z",
+          "updatedAt": "2026-01-29T10:36:10Z"
+        }
+      ],
+      "reviews": []
     }
   ]
 }
