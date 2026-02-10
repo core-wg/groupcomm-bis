@@ -6,8 +6,8 @@ CoRE Working Group                                               E. Dijk
 Internet-Draft                                         IoTconsultancy.nl
 Obsoletes: 7390 (if approved)                                  M. Tiloca
 Updates: 7252, 7641 (if approved)                                RISE AB
-Intended status: Standards Track                         29 January 2026
-Expires: 2 August 2026
+Intended status: Standards Track                        10 February 2026
+Expires: 14 August 2026
 
 
   Group Communication for the Constrained Application Protocol (CoAP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 August 2026.
+   This Internet-Draft will expire on 14 August 2026.
 
 Copyright Notice
 
@@ -172,23 +172,24 @@ Table of Contents
    Appendix E.  Issues and Limitations with Forward-Proxies
    Appendix F.  Issues and Limitations with Reverse-Proxies
    Appendix G.  Document Updates
-     G.1.  Version -16 to -17
-     G.2.  Version -15 to -16
-     G.3.  Version -14 to -15
-     G.4.  Version -13 to -14
-     G.5.  Version -12 to -13
-     G.6.  Version -11 to -12
-     G.7.  Version -10 to -11
-     G.8.  Version -09 to -10
-     G.9.  Version -08 to -09
-     G.10. Version -07 to -08
-     G.11. Version -06 to -07
-     G.12. Version -05 to -06
-     G.13. Version -04 to -05
-     G.14. Version -03 to -04
-     G.15. Version -02 to -03
-     G.16. Version -01 to -02
-     G.17. Version -00 to -01
+     G.1.  Version -17 to -18
+     G.2.  Version -16 to -17
+     G.3.  Version -15 to -16
+     G.4.  Version -14 to -15
+     G.5.  Version -13 to -14
+     G.6.  Version -12 to -13
+     G.7.  Version -11 to -12
+     G.8.  Version -10 to -11
+     G.9.  Version -09 to -10
+     G.10. Version -08 to -09
+     G.11. Version -07 to -08
+     G.12. Version -06 to -07
+     G.13. Version -05 to -06
+     G.14. Version -04 to -05
+     G.15. Version -03 to -04
+     G.16. Version -02 to -03
+     G.17. Version -01 to -02
+     G.18. Version -00 to -01
    Acknowledgements
    Authors' Addresses
 
@@ -3296,6 +3297,8 @@ Table of Contents
 
 7.  IANA Considerations
 
+   This document has no actions for IANA.
+
    As per the IANA considerations of [RFC7390], the Resource Type (rt=)
    Link Target Attribute Value "core.gp" and the media type
    "application/coap-group+json" were registered.
@@ -3457,9 +3460,9 @@ Table of Contents
               Tiloca, M., Höglund, R., Van der Stok, P., and F.
               Palombini, "Admin Interface for the OSCORE Group Manager",
               Work in Progress, Internet-Draft, draft-ietf-ace-oscore-
-              gm-admin-13, 8 January 2025,
+              gm-admin-14, 1 February 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-ace-
-              oscore-gm-admin-13>.
+              oscore-gm-admin-14>.
 
    [I-D.ietf-anima-constrained-voucher]
               Richardson, M., Van der Stok, P., Kampanakis, P., and E.
@@ -4905,7 +4908,11 @@ Appendix G.  Document Updates
 
    This section is to be removed before publishing as an RFC.
 
-G.1.  Version -16 to -17
+G.1.  Version -17 to -18
+
+   *  Clearly stated that this document has no actions for IANA.
+
+G.2.  Version -16 to -17
 
    *  Clarifications in Section 1.0 and 1.3:
 
@@ -4917,7 +4924,7 @@ G.1.  Version -16 to -17
    *  Explicit mentioning of the implications of the Any Source
       Multicast (ASM) mode of IP multicast operation.
 
-G.2.  Version -15 to -16
+G.3.  Version -15 to -16
 
    *  Updated group relationship model: multiple CoAP groups can be
       associated with the same application group.
@@ -4983,7 +4990,7 @@ G.2.  Version -15 to -16
 
    *  Minor clarifications and editorial improvements.
 
-G.3.  Version -14 to -15
+G.4.  Version -14 to -15
 
    *  DNS is only one possible name resolution service.
 
@@ -5019,7 +5026,7 @@ G.3.  Version -14 to -15
 
    *  Editorial improvements.
 
-G.4.  Version -13 to -14
+G.5.  Version -13 to -14
 
    *  More context information in the abstract and introduction.
 
@@ -5032,7 +5039,7 @@ G.4.  Version -13 to -14
 
    *  Minor fixes and editorial improvements.
 
-G.5.  Version -12 to -13
+G.6.  Version -12 to -13
 
    *  Updated author list.
 
@@ -5062,7 +5069,7 @@ G.5.  Version -12 to -13
 
    *  Clarifications and editorial improvements.
 
-G.6.  Version -11 to -12
+G.7.  Version -11 to -12
 
    *  Clarified how a group name can be included in a URI path for
       reverse proxies; removed reference to URI templates for reverse
@@ -5116,13 +5123,13 @@ G.6.  Version -11 to -12
 
    *  Editorial improvements.
 
-G.7.  Version -10 to -11
+G.8.  Version -10 to -11
 
    *  Updated references.
 
    *  Editorial improvements.
 
-G.8.  Version -09 to -10
+G.9.  Version -09 to -10
 
    *  Clarified use of NoSec for 'early discovery' and refer to cBRSKI.
 
@@ -5153,18 +5160,18 @@ G.8.  Version -09 to -10
 
    *  Editorial fixes and improvements.
 
-G.9.  Version -08 to -09
+G.10.  Version -08 to -09
 
    *  Multiple responses in long exchanges are non-traditional
       responses.
 
    *  Updated references.
 
-G.10.  Version -07 to -08
+G.11.  Version -07 to -08
 
    *  Updated references.
 
-G.11.  Version -06 to -07
+G.12.  Version -06 to -07
 
    *  Updated list of changes to other documents.
 
@@ -5199,7 +5206,7 @@ G.11.  Version -06 to -07
 
    *  Editorial improvements.
 
-G.12.  Version -05 to -06
+G.13.  Version -05 to -06
 
    *  Harmonized use of "group URI".
 
@@ -5223,7 +5230,7 @@ G.12.  Version -05 to -06
 
    *  Editorial improvements.
 
-G.13.  Version -04 to -05
+G.14.  Version -04 to -05
 
    *  Clarified changes to other documents.
 
@@ -5242,7 +5249,7 @@ G.13.  Version -04 to -05
 
    *  Editorial improvements.
 
-G.14.  Version -03 to -04
+G.15.  Version -03 to -04
 
    *  Multi-ETag Option for response revalidation moved to appendix.
 
@@ -5264,7 +5271,7 @@ G.14.  Version -03 to -04
 
    *  Editorial improvements.
 
-G.15.  Version -02 to -03
+G.16.  Version -02 to -03
 
    *  Multiple responses from same server handled at the application.
 
@@ -5278,7 +5285,7 @@ G.15.  Version -02 to -03
 
    *  Client-Proxy response revalidation, with the Group-ETag Option.
 
-G.16.  Version -01 to -02
+G.17.  Version -01 to -02
 
    *  Clarified relationship between security groups and application
       groups.
@@ -5295,7 +5302,7 @@ G.16.  Version -01 to -02
 
    *  Response suppression based on classes of error codes.
 
-G.17.  Version -00 to -01
+G.18.  Version -00 to -01
 
    *  Clarifications on group memberships for the different group types.
 
