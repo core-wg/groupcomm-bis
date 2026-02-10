@@ -1242,6 +1242,8 @@ In a home automation scenario using Wi-Fi, Wi-Fi security
 
 # IANA Considerations # {#iana}
 
+This document has no actions for IANA.
+
 As per the IANA considerations of {{RFC7390}}, the Resource Type (rt=) Link Target Attribute Value "core.gp" and the media type "application/coap-group+json" were registered.
 
 Those registrations were made in the interest of the experimental protocol defined in {{RFC7390}} for configuring memberships of CoAP groups for unsecured group communication. As noted in {{sssec-group-creation}} of the present document, that protocol has not been considered for deployment and use.
@@ -2177,6 +2179,10 @@ Finally, {{sec-proxy-forward}} refers to {{RFC8075}} for the operation of HTTP-t
 
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
+
+## Version -17 to -18 ## {#sec-17-18}
+
+* Clearly stated that this document has no actions for IANA.
 
 ## Version -16 to -17 ## {#sec-16-17}
 
